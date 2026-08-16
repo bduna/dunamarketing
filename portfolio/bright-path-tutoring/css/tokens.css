@@ -1,0 +1,50 @@
+/* tokens.css — Bright Path Tutoring. Warm · Friendly · Modern. Cheerful teal + sunny yellow as accents on near-white. */
+:root {
+  /* Palette (60-30-10). AA verified: --ink on --bg 13:1 · white on --accent 5.0:1 · --ink on --sun 9:1 */
+  --bg: #ffffff;            /* 60: near-white */
+  --bg-alt: #eef8f6;        /* soft mint wash for tinted sections */
+  --surface: #ffffff;       /* cards */
+  --ink: #17282b;           /* body text (teal-tinted near-black) */
+  --ink-muted: #536268;     /* secondary text */
+  --line: #dfe9e7;          /* hairlines */
+  --brand: #0e8f88;         /* 30: cheerful teal — bands, panels, accents */
+  --on-brand: #ffffff;
+  --accent: #0c7d77;        /* 10: CTA teal — white text, 5.0:1 */
+  --accent-hover: #096b66;
+  --on-accent: #ffffff;
+  --sun: #f7bf1e;           /* sunny yellow — decorative blocks only, dark ink on top */
+  --sun-soft: #fdf3d0;      /* pale butter panel */
+
+  /* Type — Nunito (display) + Nunito Sans (body), loaded in <head> */
+  --font-display: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.95rem + 0.2vw, 1.1rem);
+  --fs-1: clamp(1.12rem, 1rem + 0.6vw, 1.4rem);
+  --fs-2: clamp(1.4rem, 1.2rem + 1vw, 1.95rem);
+  --fs-3: clamp(1.85rem, 1.4rem + 2.1vw, 2.7rem);
+  --fs-4: clamp(2.4rem, 1.7rem + 4vw, 4.1rem);
+  --lh-body: 1.65;
+  --lh-head: 1.08;
+  --track-label: 0.08em;
+
+  /* Shape & depth — rounded, warm */
+  --radius: 16px;
+  --radius-sm: 12px;
+  --shadow: 0 16px 40px rgba(14, 143, 136, 0.14);
+  --shadow-sm: 0 4px 14px rgba(23, 40, 43, 0.08);
+
+  /* Space */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.5rem, 6vw, 6.5rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 220ms;
+}

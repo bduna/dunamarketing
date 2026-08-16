@@ -1,0 +1,108 @@
+/* site.css — everything specific to Forge Strength & Conditioning. Tokens live in tokens.css. */
+
+/* ---- Eyebrow: steel on light, lime on dark (never lime text on white) ---- */
+.eyebrow { color: var(--ink-muted); display: inline-flex; align-items: center; gap: 0.55rem; }
+.eyebrow::before { content: ""; width: 22px; height: 3px; background: var(--accent); display: inline-block; }
+.section--dark .eyebrow, .hero .eyebrow { color: #d7f24a; }
+
+h1, h2 { letter-spacing: -0.02em; }
+
+/* ---- Header tweaks ---- */
+.site-header { background: color-mix(in srgb, var(--bg) 90%, transparent); }
+.brand { text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; }
+.brand .brand__mark { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: var(--ink); color: var(--accent); font-family: var(--font-display); font-weight: 700; border-radius: var(--radius-sm); }
+
+/* ---- Dark section (bands, hero overlay context) ---- */
+.section--dark { background: var(--brand); color: var(--on-brand); }
+.section--dark h2, .section--dark h3, .section--dark p { color: inherit; }
+.section--dark .lead, .section--dark .muted { color: #b6bcc6; }
+
+/* ---- HERO: full-bleed dark photo ---- */
+.hero { position: relative; color: #fff; overflow: hidden; background: var(--brand); }
+.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(105deg, rgba(10,11,14,0.92) 0%, rgba(10,11,14,0.78) 44%, rgba(10,11,14,0.42) 100%);
+}
+.hero .container { position: relative; z-index: 2; padding-block: clamp(4rem, 11vw, 8.5rem); }
+.hero__inner { max-width: 40rem; }
+.hero h1 { color: #fff; margin-bottom: var(--space-3); }
+.hero h1 .accent { color: var(--accent); }
+.hero .lead { color: #d3d7dd; max-width: 34rem; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+.hero__meta { margin-top: var(--space-4); display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; font-size: 0.9rem; color: #c3c8d0; }
+.hero__meta b { color: #fff; font-weight: 600; }
+
+/* ---- Buttons: sharp, confident ---- */
+.btn { text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.9rem; font-family: var(--font-display); }
+.btn--primary { color: var(--on-accent); }
+.btn--primary:hover, .btn--primary:focus-visible { background: var(--accent-hover); }
+.btn--outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.5); }
+.btn--outline:hover, .btn--outline:focus-visible { border-color: var(--accent); color: var(--accent); }
+.btn--dark { background: var(--ink); color: #fff; }
+.btn--dark:hover, .btn--dark:focus-visible { background: #000; transform: translateY(-1px); }
+
+/* ---- Trust strip ---- */
+.trust { background: var(--ink); color: var(--on-brand); border-bottom: 3px solid var(--accent); }
+.trust .container { display: flex; flex-wrap: wrap; gap: 0.75rem 2.5rem; align-items: center; padding-block: 1.15rem; }
+.trust__item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.92rem; font-weight: 500; }
+.trust__item svg { width: 18px; height: 18px; stroke: var(--accent); flex: none; }
+
+/* ---- Section heads ---- */
+.section__head { max-width: 44rem; margin-bottom: var(--space-4); }
+
+/* ---- Services list (designed, not cards-in-a-row) ---- */
+.svc { border-top: 1px solid var(--line); }
+.section--dark .svc { border-color: rgba(255,255,255,0.14); }
+.svc__row { display: grid; grid-template-columns: 1fr auto; gap: 0.4rem 1.5rem; align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--line); }
+.section--dark .svc__row { border-color: rgba(255,255,255,0.14); }
+.svc__row h3 { margin: 0; }
+.svc__desc { grid-column: 1 / -1; color: var(--ink-muted); margin: 0; max-width: 52ch; }
+.section--dark .svc__desc { color: #b6bcc6; }
+.svc__price { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-2); white-space: nowrap; }
+.svc__price .free { color: var(--ink); background: var(--accent); padding: 0.05em 0.5em; border-radius: var(--radius-sm); }
+.section--dark .svc__price { color: #fff; }
+.svc__price small { display: block; font-family: var(--font-body); font-weight: 500; font-size: 0.8rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.section--dark .svc__price small { color: #9aa1ab; }
+
+/* ---- Photo band with caption ---- */
+.band { border-block: 3px solid var(--accent); }
+.band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,11,14,0.85) 0%, rgba(10,11,14,0.15) 70%); }
+.band__caption { position: relative; z-index: 2; height: 100%; display: flex; align-items: flex-end; padding-block: var(--space-4); color: #fff; }
+.band__caption p { font-family: var(--font-display); font-size: var(--fs-2); font-weight: 600; margin: 0; max-width: 26ch; }
+.band__caption small { display: block; margin-top: 0.5rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.78rem; font-weight: 600; }
+
+/* ---- About / story ---- */
+.story p.big { font-family: var(--font-display); font-size: var(--fs-2); font-weight: 500; color: var(--ink); line-height: 1.3; }
+.story__media img { width: 100%; height: 100%; object-fit: cover; }
+.story__tag { display: inline-block; margin-top: var(--space-2); font-weight: 600; }
+
+/* ---- Testimonials ---- */
+.quotes { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.quote { margin: 0; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: var(--space-3) var(--space-4); border-radius: var(--radius); }
+.quote p { font-family: var(--font-display); font-size: var(--fs-2); font-weight: 500; line-height: 1.32; margin: 0 0 var(--space-2); }
+.quote footer { color: var(--ink-muted); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.82rem; }
+
+/* ---- Contact / close ---- */
+.contact__grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; }
+@media (min-width: 820px) { .contact__grid { grid-template-columns: 1.1fr 0.9fr; align-items: center; } }
+.contact__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.contact-list { font-style: normal; display: grid; gap: var(--space-3); }
+.contact-list > div { display: grid; gap: 0.15rem; padding-bottom: var(--space-3); border-bottom: 1px solid rgba(255,255,255,0.14); }
+.contact-list .k { text-transform: uppercase; letter-spacing: var(--track-label); font-size: 0.72rem; color: #d7f24a; font-weight: 600; }
+.contact-list a { text-decoration: none; font-weight: 500; }
+.contact-list a:hover { color: var(--accent); }
+
+/* ---- Sticky mobile CTA bar ---- */
+.cta-bar { background: var(--ink); border-top: 2px solid var(--accent); }
+.cta-bar .btn { background: var(--accent); color: var(--on-accent); }
+
+/* ---- Footer ---- */
+.site-footer { background: var(--ink); color: #b6bcc6; border-top: 0; }
+.site-footer .brand { color: #fff; }
+.site-footer a { color: #d3d7dd; text-decoration: none; }
+.site-footer a:hover { color: var(--accent); }
+.site-footer .demo { grid-column: 1 / -1; border-top: 1px solid rgba(255,255,255,0.12); padding-top: var(--space-2); font-size: 0.82rem; color: #8a909b; }
+
+/* ---- Nav on the light header ---- */
+.nav a[aria-current="page"] { color: var(--ink); text-decoration-color: var(--accent); text-decoration-thickness: 3px; }

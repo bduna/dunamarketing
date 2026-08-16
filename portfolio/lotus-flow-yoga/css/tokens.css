@@ -1,0 +1,40 @@
+/* tokens.css — Lotus Flow Yoga: muted sage + terracotta on warm white. Calm · Warm · Modern */
+:root {
+  --bg: #FBFAF6;            /* warm white */
+  --bg-alt: #EEF1E8;        /* pale sage panel */
+  --surface: #FFFFFF;
+  --ink: #2C2E28;           /* warm near-black (13:1 on bg) */
+  --ink-muted: #63665C;
+  --line: #E4E5DC;
+  --brand: #5E6E54;         /* muted sage — bands (white text 5.5:1) */
+  --brand-deep: #4E5C46;
+  --on-brand: #FBFAF6;
+  --sage-soft: #DBE1D0;
+  --accent: #A85238;        /* terracotta — CTAs (white text 5.3:1) */
+  --accent-hover: #8F4229;
+  --on-accent: #FFFFFF;
+
+  --font-display: "DM Serif Display", Georgia, serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1.02rem, 0.98rem + 0.2vw, 1.12rem);
+  --fs-1: clamp(1.15rem, 1.05rem + 0.55vw, 1.45rem);
+  --fs-2: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  --fs-3: clamp(2rem, 1.5rem + 2vw, 3.1rem);
+  --fs-4: clamp(2.5rem, 1.7rem + 4.3vw, 4.6rem);
+  --lh-body: 1.65;
+  --lh-head: 1.08;
+  --track-label: 0.14em;
+
+  --radius: 18px;
+  --radius-sm: 12px;
+  --shadow: 0 20px 50px rgba(60, 66, 48, 0.12);
+  --shadow-sm: 0 4px 14px rgba(60, 66, 48, 0.08);
+
+  --space-1: 0.5rem; --space-2: 1rem; --space-3: 1.5rem; --space-4: 2.5rem; --space-5: 4rem;
+  --section-y: clamp(4rem, 8vw, 7.5rem);   /* airy, minimal density */
+  --measure: 56ch;
+  --container: 1120px;
+  --gutter: clamp(1.1rem, 4vw, 2.2rem);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 240ms;
+}

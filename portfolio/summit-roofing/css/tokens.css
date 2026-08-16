@@ -1,0 +1,49 @@
+/* tokens.css — Summit Roofing. Rugged · Serious · Modern. Slate gray + summit red (red = accent only). */
+:root {
+  /* Palette (60-30-10). white/red 5.6:1, red/white 5.6:1, white/slate >10:1 */
+  --bg: #f8f9fb;            /* 60: cool near-white */
+  --bg-alt: #eef1f4;        /* light slate tint */
+  --surface: #ffffff;       /* cards */
+  --ink: #16191d;           /* near-black slate ink */
+  --ink-muted: #545c66;     /* secondary text */
+  --line: #d8dde3;          /* hairlines */
+  --brand: #37414c;         /* 30: slate gray — bands, overlay, footer */
+  --brand-deep: #262d35;    /* deeper slate for hero overlay */
+  --on-brand: #ffffff;
+  --accent: #c0322b;        /* 10: summit red — CTAs only */
+  --accent-hover: #9e2822;
+  --on-accent: #ffffff;
+
+  /* Type — Archivo (display) + Inter (body), loaded in <head> */
+  --font-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
+  --fs-1: clamp(1.12rem, 1rem + 0.55vw, 1.4rem);
+  --fs-2: clamp(1.45rem, 1.2rem + 1.1vw, 2rem);
+  --fs-3: clamp(1.9rem, 1.45rem + 2.1vw, 2.8rem);
+  --fs-4: clamp(2.5rem, 1.7rem + 4.6vw, 4.6rem);
+  --lh-body: 1.6;
+  --lh-head: 1.04;
+  --track-label: 0.14em;
+
+  /* Shape & depth — sharp, serious */
+  --radius: 6px;
+  --radius-sm: 4px;
+  --shadow: 0 14px 40px rgba(22, 25, 29, 0.12);
+  --shadow-sm: 0 2px 10px rgba(22, 25, 29, 0.08);
+
+  /* Space */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.5rem, 6vw, 6.5rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+
+  /* Motion — fades only (serious) */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

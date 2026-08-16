@@ -1,0 +1,52 @@
+/* tokens.css — Still Water Med Spa. Calm · Luxe · Modern. Soft sage / warm white / champagne. */
+:root {
+  /* Palette (60-30-10) — AA checked */
+  --bg: #faf8f3;            /* 60: warm white */
+  --bg-alt: #eef1ea;        /* pale sage tinted section */
+  --surface: #ffffff;       /* cards */
+  --ink: #232a24;           /* body text — deep sage-charcoal (>12:1 on bg) */
+  --ink-muted: #5a6459;     /* secondary text */
+  --line: #e4e1d6;          /* hairlines */
+  --brand: #4e6151;         /* 30: deep sage band (white text ~6:1) */
+  --on-brand: #ffffff;
+  --accent: #3f5344;        /* 10: deep sage CTA/eyebrow (white text ~8:1) */
+  --accent-hover: #33453a;
+  --on-accent: #ffffff;
+
+  /* Champagne — decoration only (panels/hairlines), never behind body text */
+  --champagne: #d9c39a;
+  --champagne-soft: #f0e7d2;
+
+  /* Type — Cormorant Garamond (display) + Manrope (body) */
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);     /* body */
+  --fs-1: clamp(1.15rem, 1.02rem + 0.6vw, 1.4rem);   /* lead */
+  --fs-2: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem);     /* h3 */
+  --fs-3: clamp(2rem, 1.5rem + 2.4vw, 3rem);         /* h2 */
+  --fs-4: clamp(2.8rem, 1.9rem + 5vw, 5rem);         /* h1 */
+  --lh-body: 1.65;
+  --lh-head: 1.08;
+  --track-label: 0.18em;   /* uppercase labels */
+
+  /* Shape & depth — hairline-first, soft */
+  --radius: 10px;
+  --radius-sm: 8px;
+  --shadow: 0 18px 50px rgba(40, 50, 40, 0.10);
+  --shadow-sm: 0 2px 10px rgba(40, 50, 40, 0.05);
+
+  /* Space (minimal density = generous) */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(4.5rem, 8vw, 8rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1.15rem, 4vw, 2.25rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 220ms;
+}

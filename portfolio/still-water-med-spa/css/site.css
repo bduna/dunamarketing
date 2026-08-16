@@ -1,0 +1,88 @@
+/* site.css — everything specific to Still Water Med Spa. Tokens live in tokens.css. */
+
+h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.005em; }
+.brand { font-weight: 600; font-size: 1.35rem; letter-spacing: 0.01em; }
+.eyebrow { color: var(--accent); }
+
+/* ---- Hero (split) ---- */
+.hero { padding-block: clamp(3rem, 6vw, 6rem) var(--section-y); }
+.hero .split { gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+.hero h1 { margin-bottom: var(--space-3); }
+.hero__lede { max-width: 46ch; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.hours-pill { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: var(--space-3);
+  font-size: 0.95rem; color: var(--ink-muted); }
+.hours-pill b { color: var(--ink); font-weight: 700; }
+
+.hero__figure { position: relative; margin: 0; }
+.hero__panel { position: absolute; inset: auto -6% -7% 10%; height: 78%; border-radius: var(--radius);
+  background: var(--champagne-soft); z-index: 0; }
+.hero__figure img { position: relative; z-index: 1; width: 100%; border-radius: var(--radius);
+  box-shadow: var(--shadow); object-fit: cover; }
+.hero__figure figcaption { position: relative; z-index: 1; margin-top: var(--space-2);
+  font-size: 0.85rem; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-muted); }
+
+/* ---- Trust strip ---- */
+.trust { border-block: 1px solid var(--line); background: var(--surface); }
+.trust .container { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  padding-block: var(--space-4); }
+.trust__item { display: flex; flex-direction: column; gap: 0.25rem; }
+.trust__item .k { font-size: 0.78rem; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); }
+.trust__item .v { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.15; }
+
+/* ---- Section headers ---- */
+.section__head { max-width: 62ch; margin-bottom: var(--space-4); }
+
+/* ---- Services price list ---- */
+.pricelist { margin: 0; display: grid; gap: 0; }
+.pricelist__row { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: var(--space-3);
+  padding: var(--space-3) 0; border-bottom: 1px solid var(--line); }
+.pricelist__row:first-child { border-top: 1px solid var(--line); }
+.pricelist dt { font-family: var(--font-display); font-size: var(--fs-2); font-weight: 600; }
+.pricelist dt small { display: block; font-family: var(--font-body); font-size: 0.95rem; font-weight: 400;
+  color: var(--ink-muted); margin-top: 0.35rem; max-width: 52ch; }
+.pricelist dd { margin: 0; font-weight: 700; white-space: nowrap; color: var(--ink); }
+.pricelist dd .mode { font-weight: 500; color: var(--ink-muted); font-size: 0.95rem; }
+
+/* ---- Full-bleed retreat band ---- */
+.band { min-height: clamp(320px, 52vw, 560px); display: flex; align-items: flex-end; }
+.band::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(35,42,36,0.62) 0%, rgba(35,42,36,0.22) 55%, rgba(35,42,36,0) 100%); z-index: 1; }
+.band__caption { position: relative; z-index: 2; padding-block: var(--space-5); color: #fff; }
+.band__caption .eyebrow { color: var(--champagne); }
+.band__caption h2 { color: #fff; max-width: 20ch; margin-bottom: var(--space-2); }
+.band__caption p { color: rgba(255,255,255,0.92); max-width: 42ch; }
+
+/* ---- About teaser / page ---- */
+.about__figure { margin: 0; }
+.about__figure img { border-radius: var(--radius); box-shadow: var(--shadow); }
+.signature { font-family: var(--font-display); font-size: var(--fs-2); color: var(--ink);
+  margin-top: var(--space-2); }
+.signature small { display: block; font-family: var(--font-body); font-size: 0.85rem;
+  letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-muted); margin-top: 0.25rem; }
+
+/* ---- Testimonials ---- */
+.quotes { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.quote { border-left: 2px solid var(--champagne); padding-left: var(--space-3); }
+.quote blockquote { margin: 0; font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.3; }
+.quote cite { display: block; margin-top: var(--space-2); font-style: normal; font-size: 0.85rem;
+  letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-muted); }
+
+/* ---- Contact close ---- */
+.contact__grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; }
+@media (min-width: 820px) { .contact__grid { grid-template-columns: 1.1fr 0.9fr; align-items: start; } }
+.contact__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.contact__facts { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+.contact__facts li { display: grid; gap: 0.15rem; }
+.contact__facts .k { font-size: 0.78rem; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); }
+.contact__facts a { text-decoration: none; }
+.contact__facts a:hover { text-decoration: underline; }
+
+/* ---- Footer ---- */
+.site-footer .demo { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: var(--space-3);
+  font-size: 0.85rem; }
+.footer-brand { font-family: var(--font-display); font-size: 1.4rem; color: var(--ink); }
+
+/* ---- Page intro (services/about) ---- */
+.pageintro { background: var(--bg-alt); }
+.pageintro .container { max-width: 66ch; }

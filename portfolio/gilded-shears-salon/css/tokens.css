@@ -1,0 +1,53 @@
+/* tokens.css — Gilded Shears Salon. Sleek · Luxe · Modern. Base = soft blush-white + near-black ink; brand colors (black, warm gold, soft blush) are accents/bands only. */
+:root {
+  /* Palette (60-30-10). AA checked: --ink on --bg ~15:1; button pale-gold on near-black ~14:1; gold labels on bg ~4.6:1 (labels/large only). */
+  --bg: #faf6f3;            /* 60: soft blush near-white */
+  --bg-alt: #f3e9e6;        /* pale blush panel */
+  --surface: #ffffff;       /* cards */
+  --ink: #17130e;           /* warm near-black body text */
+  --ink-muted: #6c625a;     /* secondary text (~5.0:1 on bg) */
+  --line: #e4d9d2;          /* hairlines */
+  --brand: #141210;         /* 30: near-black dramatic band */
+  --on-brand: #f6efe6;      /* off-white on black */
+  --accent: #a67c2e;        /* 10: warm gold — labels, hairlines, focus */
+  --accent-hover: #8c6624;
+  --on-accent: #17130e;
+
+  /* Custom luxe tokens */
+  --gold: #a67c2e;
+  --gold-soft: #c9a24a;     /* brighter gold for text on the near-black band */
+  --blush: #ecd7d1;
+
+  /* Type — Syne (display) + DM Sans (body), loaded in <head> */
+  --font-display: "Syne", "Trebuchet MS", sans-serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.95rem + 0.2vw, 1.08rem);
+  --fs-1: clamp(1.12rem, 1rem + 0.55vw, 1.4rem);
+  --fs-2: clamp(1.4rem, 1.2rem + 1vw, 1.95rem);
+  --fs-3: clamp(1.9rem, 1.4rem + 2.2vw, 2.9rem);
+  --fs-4: clamp(2.5rem, 1.7rem + 4.6vw, 5rem);
+  --lh-body: 1.65;
+  --lh-head: 1.05;
+  --track-label: 0.22em;   /* wide tracking on uppercase labels — luxe */
+
+  /* Shape & depth — sharp, hairline-first (sleek) */
+  --radius: 2px;
+  --radius-sm: 2px;
+  --shadow: 0 24px 60px rgba(20, 16, 12, 0.10);
+  --shadow-sm: 0 1px 0 rgba(20, 16, 12, 0.04);
+
+  /* Space (minimal density — generous) */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(4.5rem, 8vw, 8rem);
+  --measure: 60ch;
+  --container: 1160px;
+  --gutter: clamp(1.1rem, 4vw, 2.2rem);
+
+  /* Motion (restrained) */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}
