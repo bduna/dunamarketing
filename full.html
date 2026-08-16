@@ -597,7 +597,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     <button type="button" id="start-over">Start over</button>
   </div>
 
-  <form id="intake-form" name="website-questionnaire" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+  <form id="intake-form" name="website-questionnaire" method="POST" action="thanks.html" novalidate>
     <input type="hidden" name="form-name" value="website-questionnaire">
     <p class="hidden">
       <label>Don't fill this out if you're human: <input name="bot-field"></label>
@@ -1446,15 +1446,15 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending\u2026";
 
-    var body = new URLSearchParams(new FormData(form)).toString();
-    var SUBMIT_URL = "https://clever-biscuit-122882.netlify.app/"; // Netlify Forms endpoint (bridge until the Google Sheets backend)
-    fetch(SUBMIT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: body
+    var payload = { secret: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", form: "website-questionnaire", stage: "complete", source_url: location.href.split("?")[0] };
+    new FormData(form).forEach(function (v, k) { if (k === "form-name") return; payload[k] = payload[k] ? payload[k] + ", " + v : v; });
+    fetch("https://script.google.com/macros/s/AKfycbw8eTCgh4a5N4y5qofitbrZUaU7xmW6_nFfABUj7AgE2UKPuZfzq83hWVGa8IYX9gQv/exec", {
+      method: "POST", mode: "cors", redirect: "follow",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
     }).then(function (res) {
-      if (res.type !== "opaque" && !res.ok) throw new Error("HTTP " + res.status);
+      return res.text().then(function (t) { var j = {}; try { j = JSON.parse(t); } catch (e) {} if (!res.ok || j.ok === false) throw new Error(j.error || ("HTTP " + res.status)); });
+    }).then(function () {
       try {
         var d = loadDraft();
         if (d) { d.submittedAt = Date.now(); localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); }
