@@ -10,7 +10,7 @@ p { max-width: 62ch; }
 /* Header — restrained classic bar */
 .site-header { background: color-mix(in srgb, var(--bg) 94%, transparent); }
 .brand { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.01em; }
-.brand .brand__mark { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 4px; background: var(--brand); color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 1rem; }
+.brand .brand__mark { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 4px; background: var(--brand); color: var(--on-brand); font-family: var(--font-display); font-weight: 700; font-size: 1rem; }
 .nav a:not(.btn) { color: var(--ink); font-weight: 500; }
 .nav a:not(.btn):hover { color: var(--brand); }
 .nav a[aria-current="page"] { color: var(--brand); text-decoration: underline; text-decoration-color: var(--taupe); text-decoration-thickness: 2px; text-underline-offset: 6px; }
@@ -18,35 +18,35 @@ p { max-width: 62ch; }
 /* Buttons — navy CTA, ghost adapts on navy bands */
 .btn { letter-spacing: 0.01em; }
 .btn--primary { color: var(--on-accent); }
-.section--brand .btn--primary { background: #fff; color: var(--brand); }
+.section--brand .btn--primary { background: var(--surface); color: var(--brand); }
 .section--brand .btn--primary:hover, .section--brand .btn--primary:focus-visible { background: var(--taupe-soft); color: var(--brand-deep); }
-.section--brand .btn--ghost { color: #fff; border-color: rgba(255,255,255,0.55); }
+.section--brand .btn--ghost { color: var(--on-brand); border-color: rgba(233,238,244,0.6); }
 
 /* ---- Hero: full-bleed navy-duotone handshake, centered classic headline ---- */
-.hero { position: relative; color: #fff; text-align: center; overflow: hidden; }
+.hero { position: relative; color: #FFFFFF; text-align: center; overflow: hidden; }
 .hero__bg { position: absolute; inset: 0; z-index: 0; }
 .hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 32%; filter: grayscale(1) contrast(1.02); }
 .hero__bg::after {
   content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(180deg, rgba(20,27,46,0.72) 0%, rgba(20,27,46,0.62) 45%, rgba(16,22,38,0.86) 100%),
-    linear-gradient(0deg, rgba(30,42,68,0.55), rgba(30,42,68,0.55));
+    linear-gradient(180deg, rgba(23,49,75,0.74) 0%, rgba(23,49,75,0.66) 45%, rgba(15,35,55,0.88) 100%),
+    linear-gradient(0deg, rgba(23,49,75,0.58), rgba(23,49,75,0.58));
   mix-blend-mode: normal;
 }
 .hero .container { position: relative; z-index: 1; padding-block: clamp(4.5rem, 12vw, 9rem); }
 .hero .stack { max-width: 46rem; margin-inline: auto; }
-.hero .eyebrow { color: #d9cbb4; }
+.hero .eyebrow { color: var(--brass-on-brand); }
 .hero h1 { color: #fff; margin-bottom: var(--space-3); }
 .hero .hero__lede { color: rgba(255,255,255,0.9); font-size: var(--fs-1); max-width: 44ch; margin-inline: auto; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: center; margin-top: var(--space-4); }
 .hero__trust { margin-top: var(--space-3); color: rgba(255,255,255,0.82); font-size: 0.95rem; font-weight: 500; }
 
 /* ---- Trust strip ---- */
-.trust { background: var(--brand); color: #fff; }
+.trust { background: var(--brand); color: var(--on-brand); }
 .trust .container { display: grid; gap: 0.75rem 2rem; grid-template-columns: 1fr; padding-block: var(--space-3); }
 @media (min-width: 720px) { .trust .container { grid-template-columns: repeat(4, 1fr); } }
 .trust__item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.95rem; font-weight: 500; }
-.trust__item svg { flex: none; color: #cdbda3; }
+.trust__item svg { flex: none; color: var(--brass-on-brand); }
 .trust__item + .trust__item { border-top: 1px solid rgba(255,255,255,0.14); padding-top: 0.75rem; }
 @media (min-width: 720px) { .trust__item + .trust__item { border-top: 0; padding-top: 0; border-left: 1px solid rgba(255,255,255,0.16); padding-left: 1.5rem; } }
 
@@ -73,7 +73,7 @@ p { max-width: 62ch; }
 .approach__panel .pull { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.4; color: var(--brand); margin: 0 0 var(--space-2); }
 .approach__panel .pull-attr { color: var(--taupe); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.04em; }
 .approach .media { border: 1px solid var(--line); }
-.approach .media img { filter: saturate(0.72) brightness(1.02); }
+.approach .media img { filter: saturate(0.62) brightness(1.0); }
 
 /* ---- Testimonials ---- */
 .quotes { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
@@ -84,13 +84,13 @@ p { max-width: 62ch; }
 
 /* ---- Contact / close (navy band) ---- */
 .close .split { align-items: center; }
-.close .eyebrow { color: #d9cbb4; }
-.close h2 { color: #fff; }
-.close .lead { color: rgba(255,255,255,0.86); }
+.close .eyebrow { color: var(--brass-on-brand); }
+.close h2 { color: var(--on-brand); }
+.close .lead { color: rgba(233,238,244,0.9); }
 .contact-list { font-style: normal; display: grid; gap: var(--space-3); margin: 0; }
 .contact-list div { display: flex; flex-direction: column; gap: 0.2rem; }
-.contact-list .label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: var(--track-label); color: #cdbda3; font-weight: 600; }
-.contact-list a, .contact-list span.value { color: #fff; font-weight: 600; text-decoration: none; font-size: 1.05rem; }
+.contact-list .label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: var(--track-label); color: var(--brass-on-brand); font-weight: 600; }
+.contact-list a, .contact-list span.value { color: var(--on-brand); font-weight: 600; text-decoration: none; font-size: 1.05rem; }
 .contact-list a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---- About page bits ---- */
@@ -121,7 +121,7 @@ p { max-width: 62ch; }
 .site-footer .demo { grid-column: 1 / -1; font-size: 0.8rem; color: var(--ink-muted); border-top: 1px solid var(--line); padding-top: var(--space-2); margin-top: var(--space-1); }
 
 /* ---- Sticky mobile CTA (quote → free consultation, not a call bar) ---- */
-.cta-bar .btn { background: var(--brand); color: #fff; border: 0; }
+.cta-bar .btn { background: var(--brand); color: var(--on-brand); border: 0; }
 .cta-bar .btn:hover { background: var(--brand-deep); }
 
 /* Section rhythm helpers */

@@ -1,17 +1,17 @@
-/* tokens.css — North Light Photography. Sleek · Calm · Modern. Charcoal + warm cream. */
+/* tokens.css — North Light Photography. Sleek · Calm · Modern. Editorial black + warm ivory. */
 :root {
-  /* Palette (60-30-10). ink on bg ≈ 13:1, on-brand on brand ≈ 13:1, accent on bg ≈ 4.4:1 */
-  --bg: #F7F3EA;            /* 60: warm cream */
-  --bg-alt: #EFE9DC;        /* deeper cream band */
-  --surface: #FCFAF4;       /* cards / raised */
-  --ink: #23262B;           /* charcoal body text */
-  --ink-muted: #5B5F66;     /* secondary text */
-  --line: #DED6C6;          /* warm hairline */
-  --brand: #23262B;         /* 30: charcoal — dark bands, hero panel, close */
-  --on-brand: #F5F1E8;
-  --accent: #8A6A3F;        /* 10: muted bronze — eyebrows, details, focus */
-  --accent-hover: #6E5330;
-  --on-accent: #FCFAF4;
+  /* Palette (60-30-10). ink on bg ≈ 16:1, ink-muted on bg ≈ 7.2:1, on-brand on brand ≈ 16:1, on-accent on accent ≈ 7.4:1 */
+  --bg: #131417;            /* 60: editorial black */
+  --bg-alt: #1A1C20;        /* raised band */
+  --surface: #1A1C20;       /* cards / raised */
+  --ink: #F2F0EB;           /* warm ivory body text */
+  --ink-muted: #A5A29B;     /* secondary text */
+  --line: #2C2F34;          /* hairline */
+  --brand: #F2F0EB;         /* 30: ivory — a LIGHT band on the dark page */
+  --on-brand: #131417;
+  --accent: #C2A15C;        /* 10: muted brass — eyebrows, details, focus */
+  --accent-hover: #D8B978;
+  --on-accent: #131417;
 
   /* Type — Cormorant Garamond (display) + Inter (body/labels) */
   --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
@@ -28,8 +28,8 @@
   /* Shape & depth — sharp, hairline, minimal */
   --radius: 2px;
   --radius-sm: 2px;
-  --shadow: 0 24px 60px rgba(35, 38, 43, 0.14);
-  --shadow-sm: 0 1px 0 rgba(35, 38, 43, 0.06);
+  --shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 1px 0 rgba(0, 0, 0, 0.45);
 
   /* Space (minimal density = generous) */
   --space-1: 0.5rem;

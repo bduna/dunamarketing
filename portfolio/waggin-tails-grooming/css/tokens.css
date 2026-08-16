@@ -1,19 +1,19 @@
-/* tokens.css — Waggin' Tails Grooming. Playful · Friendly · Warm. Cream base, grass-green brand, sky-blue accent. */
+/* tokens.css — Waggin' Tails Grooming. Playful · Friendly · Warm. Sky-blue base, deep-blue brand, grass-green accent. */
 :root {
-  /* Palette (60-30-10). AA checked: ink/cream 14.5:1, white/green 6.1:1, white/blue 5.5:1, muted/cream 6.3:1 */
-  --bg: #FBFAF5;            /* 60: cream near-white */
-  --bg-alt: #EEF5F0;        /* pale grass-green tint panel */
-  --bg-sky: #EAF3FA;        /* pale sky tint panel */
-  --surface: #ffffff;
-  --ink: #1F2A24;           /* warm near-black */
-  --ink-muted: #55605A;
-  --line: #E4E7DF;
-  --brand: #2C6E49;         /* 30: grass green — band, labels, heading accents */
-  --brand-deep: #235739;
-  --on-brand: #ffffff;
-  --accent: #0E6EA8;        /* 10: sky blue — the Book CTA */
-  --accent-hover: #0B5B8B;
-  --on-accent: #ffffff;
+  /* Palette (60-30-10). AA checked: ink/sky 14.1:1, muted/sky 5.8:1, on-brand/brand 6.4:1, white/accent 5.4:1 */
+  --bg: #E7F2FB;            /* 60: soft sky blue */
+  --bg-alt: #D3E7F7;        /* deeper sky tint panel */
+  --bg-sky: #D3E7F7;        /* legacy alias — same sky tint */
+  --surface: #FFFFFF;
+  --ink: #12222E;
+  --ink-muted: #4A5F70;
+  --line: #BCD8EC;
+  --brand: #185B87;         /* 30: deep sky blue — band, labels, heading accents */
+  --brand-deep: #103F5F;
+  --on-brand: #E7F2FB;
+  --accent: #277A45;        /* 10: grass green — the Book CTA (nudged darker for 4.5:1 on white) */
+  --accent-hover: #1D5C33;
+  --on-accent: #FFFFFF;
 
   /* Type — Fredoka (display) + Nunito Sans (body), loaded in <head> */
   --font-display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
@@ -30,8 +30,8 @@
   /* Shape & depth — soft, warm */
   --radius: 16px;
   --radius-sm: 12px;
-  --shadow: 0 14px 38px rgba(31, 42, 36, 0.10);
-  --shadow-sm: 0 3px 12px rgba(31, 42, 36, 0.08);
+  --shadow: 0 14px 38px rgba(16, 40, 60, 0.14);
+  --shadow-sm: 0 3px 12px rgba(16, 40, 60, 0.11);
 
   /* Space */
   --space-1: 0.5rem;

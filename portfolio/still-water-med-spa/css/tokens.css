@@ -1,21 +1,21 @@
-/* tokens.css — Still Water Med Spa. Calm · Luxe · Modern. Soft sage / warm white / champagne. */
+/* tokens.css — Still Water Med Spa. Calm · Luxe · Modern. Soft sage base / white cards / champagne accent. */
 :root {
   /* Palette (60-30-10) — AA checked */
-  --bg: #faf8f3;            /* 60: warm white */
-  --bg-alt: #eef1ea;        /* pale sage tinted section */
+  --bg: #eaf1ec;            /* 60: soft sage */
+  --bg-alt: #dce8de;        /* deeper sage band */
   --surface: #ffffff;       /* cards */
-  --ink: #232a24;           /* body text — deep sage-charcoal (>12:1 on bg) */
-  --ink-muted: #5a6459;     /* secondary text */
-  --line: #e4e1d6;          /* hairlines */
-  --brand: #4e6151;         /* 30: deep sage band (white text ~6:1) */
-  --on-brand: #ffffff;
-  --accent: #3f5344;        /* 10: deep sage CTA/eyebrow (white text ~8:1) */
-  --accent-hover: #33453a;
+  --ink: #1d2b23;           /* body text — deep sage-charcoal (>12:1 on bg) */
+  --ink-muted: #566b5c;     /* secondary text */
+  --line: #c7d8cb;          /* hairlines */
+  --brand: #2e4a38;         /* 30: deep sage band */
+  --on-brand: #eaf1ec;
+  --accent: #7a6539;        /* 10: champagne CTA/eyebrow (white 5.6:1, on bg 4.8:1) */
+  --accent-hover: #63512e;
   --on-accent: #ffffff;
 
   /* Champagne — decoration only (panels/hairlines), never behind body text */
-  --champagne: #d9c39a;
-  --champagne-soft: #f0e7d2;
+  --champagne: #c2a568;
+  --champagne-soft: #d5e3d9;
 
   /* Type — Cormorant Garamond (display) + Manrope (body) */
   --font-display: "Cormorant Garamond", Georgia, serif;
@@ -32,8 +32,8 @@
   /* Shape & depth — hairline-first, soft */
   --radius: 10px;
   --radius-sm: 8px;
-  --shadow: 0 18px 50px rgba(40, 50, 40, 0.10);
-  --shadow-sm: 0 2px 10px rgba(40, 50, 40, 0.05);
+  --shadow: 0 18px 50px rgba(24, 42, 30, 0.14);
+  --shadow-sm: 0 2px 10px rgba(24, 42, 30, 0.08);
 
   /* Space (minimal density = generous) */
   --space-1: 0.5rem;

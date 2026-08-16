@@ -5,6 +5,9 @@ h1, h2, h3 { font-weight: 400; letter-spacing: 0; }
 /* Eyebrow: quiet terracotta with a small dot */
 .eyebrow { color: var(--accent); }
 .eyebrow::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 8px; vertical-align: middle; }
+/* on the deeper lavender panel the terracotta needs a darker step to clear 4.5:1 */
+.section--alt .eyebrow, .pagehead .eyebrow, .site-footer .eyebrow { color: var(--accent-hover); }
+.section--alt .eyebrow::before, .pagehead .eyebrow::before, .site-footer .eyebrow::before { background: var(--accent-hover); }
 
 /* Header / nav */
 .site-header { background: color-mix(in srgb, var(--bg) 90%, transparent); }
@@ -19,13 +22,13 @@ h1, h2, h3 { font-weight: 400; letter-spacing: 0; }
 .hero { position: relative; min-height: clamp(560px, 82vh, 780px); display: flex; align-items: center; overflow: hidden; isolation: isolate; }
 .hero__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 55% 45%; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(105deg, rgba(44,46,40,0.66) 0%, rgba(44,46,40,0.38) 46%, rgba(44,46,40,0.08) 100%); }
+  background: linear-gradient(105deg, rgba(30,22,42,0.70) 0%, rgba(30,22,42,0.42) 46%, rgba(30,22,42,0.10) 100%); }
 .hero .container { padding-block: var(--space-5); }
 .hero__inner { max-width: 40rem; color: #fff; }
 .hero__inner .eyebrow { color: #fff; }
 .hero__inner .eyebrow::before { background: #fff; }
-.hero h1 { color: #fff; margin-bottom: var(--space-3); text-shadow: 0 2px 18px rgba(30,32,26,0.35); }
-.hero__lede { color: rgba(255,255,255,0.94); font-size: var(--fs-1); max-width: 34ch; text-shadow: 0 1px 12px rgba(30,32,26,0.35); }
+.hero h1 { color: #fff; margin-bottom: var(--space-3); text-shadow: 0 2px 18px rgba(24,16,34,0.40); }
+.hero__lede { color: rgba(255,255,255,0.94); font-size: var(--fs-1); max-width: 34ch; text-shadow: 0 1px 12px rgba(24,16,34,0.40); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
 .hero__phone { margin-top: var(--space-3); color: rgba(255,255,255,0.92); font-weight: 500; }
 .hero__phone a { color: #fff; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(255,255,255,0.55); }
@@ -38,7 +41,7 @@ h1, h2, h3 { font-weight: 400; letter-spacing: 0; }
 .trust { background: var(--brand); color: var(--on-brand); }
 .trust .container { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); justify-content: center; align-items: center; padding-block: var(--space-3); text-align: center; }
 .trust span { display: inline-flex; align-items: center; gap: 0.55rem; font-weight: 500; font-size: 1.02rem; }
-.trust span + span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: rgba(251,250,246,0.5); margin-right: 0.55rem; }
+.trust span + span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: rgba(240,236,245,0.5); margin-right: 0.55rem; }
 
 /* Pricing list */
 .pricelist { margin: var(--space-3) 0 0; max-width: 760px; }
@@ -48,15 +51,15 @@ h1, h2, h3 { font-weight: 400; letter-spacing: 0; }
 .pricelist__row dd { margin: 0; font-weight: 700; white-space: nowrap; color: var(--accent); font-size: var(--fs-1); }
 .price-note { margin-top: var(--space-3); color: var(--ink-muted); }
 
-/* Sage "breathe" photo band */
+/* Lavender "breathe" photo band */
 .band { min-height: clamp(320px, 52vw, 560px); }
 .band img { object-position: center 40%; }
 .band__caption { position: relative; z-index: 1; min-height: inherit; display: flex; align-items: center; padding-block: var(--space-5); color: #fff; }
 .band .container { position: relative; }
 .band .container::before { content: ""; position: absolute; left: -100vw; right: -100vw; top: 0; bottom: 0;
-  background: linear-gradient(180deg, rgba(40,44,36,0.15) 0%, rgba(40,44,36,0.55) 100%); z-index: 0; }
+  background: linear-gradient(180deg, rgba(30,22,42,0.20) 0%, rgba(30,22,42,0.60) 100%); z-index: 0; }
 .band .container > * { position: relative; z-index: 1; }
-.band__caption p { font-family: var(--font-display); font-size: var(--fs-3); margin: 0; max-width: 22ch; line-height: 1.15; text-shadow: 0 2px 16px rgba(20,22,16,0.4); }
+.band__caption p { font-family: var(--font-display); font-size: var(--fs-3); margin: 0; max-width: 22ch; line-height: 1.15; text-shadow: 0 2px 16px rgba(20,13,30,0.45); }
 
 /* Welcome / about split */
 .welcome .media img, .about-hero .media img { object-position: center; }
@@ -68,9 +71,9 @@ h1, h2, h3 { font-weight: 400; letter-spacing: 0; }
 .quote p { font-family: var(--font-display); font-size: var(--fs-1); line-height: 1.35; margin-bottom: var(--space-2); }
 .quote footer { color: var(--accent); font-weight: 600; }
 
-/* Signup close (sage brand section) */
-.section--brand .eyebrow, .section--brand .lead { color: rgba(251,250,246,0.82); }
-.section--brand .eyebrow::before { background: rgba(251,250,246,0.82); }
+/* Signup close (plum brand section) */
+.section--brand .eyebrow, .section--brand .lead { color: rgba(240,236,245,0.85); }
+.section--brand .eyebrow::before { background: rgba(240,236,245,0.85); }
 .section--brand h2 { color: var(--on-brand); }
 .btn--warm { background: var(--bg); color: var(--ink); border: 0; box-shadow: var(--shadow-sm); }
 .btn--warm:hover, .btn--warm:focus-visible { background: #fff; transform: translateY(-1px); }
@@ -78,7 +81,7 @@ h1, h2, h3 { font-weight: 400; letter-spacing: 0; }
 .contact-list div { display: flex; flex-direction: column; gap: 0.15rem; }
 .contact-list a { color: inherit; font-weight: 700; text-decoration: none; }
 .contact-list a:hover { text-decoration: underline; }
-.contact-list .eyebrow { color: rgba(251,250,246,0.7); }
+.contact-list .eyebrow { color: rgba(240,236,245,0.78); }
 .contact-list .eyebrow::before { display: none; }
 .close-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
 

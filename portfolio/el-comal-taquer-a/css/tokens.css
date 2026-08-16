@@ -1,21 +1,21 @@
-/* tokens.css — El Comal Taquería. Warm/Bold/Playful, modern. Base = warm cream near-white; deep red + warm yellow are accents/bands only. */
+/* tokens.css — El Comal Taquería. Warm/Bold/Playful, modern. Base = SATURATED deep chile red; warm yellow is the band/CTA accent. */
 :root {
-  /* Palette (60-30-10). AA checked: --ink on --bg 12:1 · white on --brand 5.4:1 · --ink on --accent 10:1 */
-  --bg: #FCF6EA;            /* 60: warm cream near-white */
-  --bg-alt: #F6ECD8;        /* tinted section (still near-white, warmer) */
-  --surface: #FFFDF8;       /* cards / menu board */
-  --ink: #24140F;           /* warm near-black body text */
-  --ink-muted: #7A5A48;     /* secondary text */
-  --line: #ECDCC2;          /* hairlines */
-  --brand: #B4231D;         /* 30: deep red — bands, rules, buttons */
-  --brand-deep: #93160F;
-  --on-brand: #FFFFFF;
-  --accent: #B4231D;        /* CTA accent = deep red (buttons) */
-  --accent-hover: #93160F;
-  --on-accent: #FFFFFF;
+  /* Palette (60-30-10). AA checked: --ink on --bg 13.5:1 · --ink-muted on --bg 8.3:1 · --on-accent on --accent 9.9:1 · --on-brand on --brand 9.9:1 */
+  --bg: #4E120F;            /* 60: deep chile red */
+  --bg-alt: #5E1713;        /* tinted section */
+  --surface: #5E1713;       /* cards / menu board */
+  --ink: #FDF2E4;           /* warm off-white body text */
+  --ink-muted: #DCBBA6;     /* secondary text */
+  --line: #7A2A22;          /* hairlines */
+  --brand: #F4B429;         /* 30: warm yellow — bands, rules */
+  --brand-deep: #D9950A;
+  --on-brand: #2A0B08;
+  --accent: #F4B429;        /* CTA accent = warm yellow */
+  --accent-hover: #FFC94F;
+  --on-accent: #2A0B08;
   --yellow: #F4B429;        /* warm yellow — price chips, ticks, small accents */
-  --yellow-deep: #D9950A;
-  --on-yellow: #24140F;
+  --yellow-deep: #FFC94F;
+  --on-yellow: #2A0B08;
 
   /* Type — two Google Fonts */
   --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
@@ -32,8 +32,8 @@
   /* Shape & depth */
   --radius: 14px;
   --radius-sm: 10px;
-  --shadow: 0 16px 40px rgba(60, 20, 12, 0.12);
-  --shadow-sm: 0 3px 12px rgba(60, 20, 12, 0.08);
+  --shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 3px 12px rgba(0, 0, 0, 0.35);
 
   /* Space */
   --space-1: 0.5rem;

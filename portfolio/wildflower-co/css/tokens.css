@@ -1,22 +1,23 @@
-/* tokens.css — Wildflower & Co.: blush pink · sage · cream, warm · playful · classic */
+/* tokens.css — Wildflower & Co.: LIGHT blush pink base + sage accent (assigned palette, 2026-08-16) */
 :root {
-  --bg: #FCF9F5;
-  --bg-alt: #F4EFE7;
+  --bg: #FCEDF0;
+  --bg-alt: #F7DDE3;
   --surface: #FFFFFF;
-  --ink: #29251F;
-  --ink-muted: #6E655B;
-  --line: #E8E1D5;
+  --ink: #2B1A20;
+  --ink-muted: #6B5259;
+  --line: #EFCBD4;
 
-  --brand: #48573F;        /* deep sage — bands / brand sections */
-  --brand-deep: #38452F;
-  --on-brand: #FCF9F5;
-  --sage: #8A9B78;         /* sage accent — ticks, underlines */
-  --sage-soft: #E8EDE1;    /* pale sage panel */
-  --blush: #F5E1E7;        /* pale blush panel */
-  --blush-line: #E9C7D2;
+  --brand: #6E3A46;        /* deep plum — bands / brand sections */
+  --brand-deep: #5A2C37;
+  --on-brand: #FCEDF0;
+  --sage: #6E8060;         /* sage accent — ticks, eyebrow dots (client colour) */
+  --sage-light: #A8BC96;   /* sage that reads on the plum brand band */
+  --sage-soft: #DDE6D4;    /* pale sage panel — trust strip, secondary button */
+  --blush: #F4D2DC;        /* deeper blush panel — arch backdrop */
+  --blush-line: #E5AEBE;
 
-  --accent: #A63D5D;       /* garden rose — CTAs, links */
-  --accent-hover: #8C2F4A;
+  --accent: #A83A55;       /* garden rose — CTAs, links */
+  --accent-hover: #8C2E45;
   --on-accent: #FFFFFF;
 
   --font-display: "Playfair Display", Georgia, serif;
@@ -32,8 +33,8 @@
 
   --radius: 16px;
   --radius-sm: 10px;
-  --shadow: 0 20px 46px rgba(90, 40, 60, 0.14);
-  --shadow-sm: 0 3px 12px rgba(90, 40, 60, 0.08);
+  --shadow: 0 20px 46px rgba(94, 42, 58, 0.16);
+  --shadow-sm: 0 3px 12px rgba(94, 42, 58, 0.10);
 
   --space-1: 0.5rem; --space-2: 1rem; --space-3: 1.5rem; --space-4: 2.5rem; --space-5: 4rem;
   --section-y: clamp(3.5rem, 7vw, 6.5rem);

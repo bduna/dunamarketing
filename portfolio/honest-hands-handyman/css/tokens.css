@@ -1,19 +1,21 @@
-/* tokens.css — Honest Hands Handyman. Warm walnut + work-boot tan on a modern near-white base. */
+/* tokens.css — Honest Hands Handyman. Soft olive/khaki base with a deep olive brand + work-boot tan accent. */
 :root {
-  /* Palette (60-30-10). AA checked: --ink on --bg ~13:1; --on-accent on --brand ~7.6:1 */
-  --bg: #faf7f2;            /* 60: warm near-white */
-  --bg-alt: #f3ebdf;        /* tinted section (tan wash) */
+  /* Palette (60-30-10). AA checked: --ink on --bg 13.3:1; --ink-muted on --bg 5.7:1;
+     --on-accent on --accent 4.9:1; --on-brand on --brand 8.7:1 */
+  --bg: #eef0e2;            /* 60: soft olive / khaki page base */
+  --bg-alt: #e2e5d0;        /* tinted section (deeper khaki wash) */
   --surface: #ffffff;       /* cards */
-  --ink: #241c14;           /* warm near-black body text */
-  --ink-muted: #6e6152;     /* secondary text */
-  --line: #e7decf;          /* hairlines */
-  --brand: #6b4a2b;         /* 30: walnut brown — bands, headings accents, CTA */
-  --on-brand: #ffffff;
-  --accent: #6b4a2b;        /* 10: the one accent = the walnut CTA */
-  --accent-hover: #563a21;
+  --ink: #23261a;           /* olive near-black body text */
+  --ink-muted: #5a604a;     /* secondary text */
+  --line: #cfd4bc;          /* hairlines */
+  --brand: #3d4529;         /* 30: deep olive — bands, trust strip, headings accents */
+  --on-brand: #eef0e2;
+  --accent: #a85e2b;        /* 10: work-boot tan — the one CTA colour */
+  --accent-hover: #8c4c21;
   --on-accent: #ffffff;
-  --tan: #c99a63;           /* work-boot tan — small accents, borders */
-  --tan-tint: #ecdcc4;      /* light tan panel */
+  --tan: #a85e2b;           /* work-boot tan — small accents, rules, borders */
+  --tan-on-brand: #c3cda2;  /* light khaki for icons sitting on the deep-olive band */
+  --tan-tint: #dfe4c9;      /* soft khaki panel — also the tool-illustration backdrop */
 
   /* Type — two Google Fonts */
   --font-display: "Bricolage Grotesque", Georgia, serif;
@@ -30,8 +32,8 @@
   /* Shape & depth */
   --radius: 14px;
   --radius-sm: 10px;
-  --shadow: 0 14px 34px rgba(64, 44, 24, 0.12);
-  --shadow-sm: 0 3px 12px rgba(64, 44, 24, 0.09);
+  --shadow: 0 14px 34px rgba(40, 48, 24, 0.16);
+  --shadow-sm: 0 3px 12px rgba(40, 48, 24, 0.11);
 
   /* Space */
   --space-1: 0.5rem;

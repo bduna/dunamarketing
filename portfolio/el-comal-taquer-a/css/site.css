@@ -1,10 +1,10 @@
-/* El Comal Taquería — site-specific. Cream base; red = bands/rules/buttons; yellow = chips/ticks. */
+/* El Comal Taquería — site-specific. Deep chile-red base; yellow = bands/chips/CTA; off-white = text and the on-band button. */
 h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; }
 .eyebrow { color: var(--brand); }
 .eyebrow::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 2px; background: var(--yellow); margin-right: 9px; vertical-align: middle; transform: none; }
 
 /* Header */
-.site-header { background: rgba(252, 246, 234, 0.92); }
+.site-header { background: rgba(78, 18, 15, 0.93); }
 .brand { font-weight: 800; font-size: 1.28rem; color: var(--ink); }
 .brand__mark { width: 34px; height: 34px; flex: 0 0 auto; }
 .nav a:not(.btn) { color: var(--ink); font-weight: 600; }
@@ -15,7 +15,17 @@ h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; }
 .btn--primary { color: var(--on-accent); }
 .btn--yellow { background: var(--yellow); color: var(--on-yellow); box-shadow: var(--shadow-sm); border: 0; }
 .btn--yellow:hover, .btn--yellow:focus-visible { background: var(--yellow-deep); transform: translateY(-1px); }
-.cta-bar .btn { background: var(--brand); color: #fff; }
+.btn--ghost:hover { background: rgba(253, 242, 228, 0.12); }
+/* On the yellow band the ghost/darker treatment flips */
+.section--brand .btn--ghost:hover, .menu-aside .btn--ghost:hover { background: rgba(42, 11, 8, 0.14); }
+/* Yellow CTA sitting ON the yellow band becomes the deep-red button */
+.section--brand .btn--yellow, .menu-aside .btn--yellow { background: var(--bg); color: var(--ink); }
+.section--brand .btn--yellow:hover, .section--brand .btn--yellow:focus-visible,
+.menu-aside .btn--yellow:hover, .menu-aside .btn--yellow:focus-visible { background: #3A0D0A; }
+/* Yellow focus ring is invisible on the yellow band */
+.section--brand :focus-visible, .menu-aside :focus-visible, .menu-board__head :focus-visible { outline-color: var(--on-brand); }
+.cta-bar { background: var(--bg-alt); border-top: 1px solid var(--line); box-shadow: 0 -6px 22px rgba(0, 0, 0, 0.45); }
+.cta-bar .btn { background: var(--accent); color: var(--on-accent); }
 
 /* Hours pill */
 .hours-pill { display: inline-flex; align-items: center; gap: 0.55rem; background: var(--surface); border: 1px solid var(--yellow); border-radius: 999px; padding: 0.45rem 0.95rem; font-weight: 600; font-size: 0.95rem; }
@@ -25,7 +35,7 @@ h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; }
 /* Hero — compact photo hero, truck */
 .hero { position: relative; color: #fff; overflow: hidden; }
 .hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 42%; z-index: 0; }
-.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(30, 8, 6, 0.86) 0%, rgba(40, 12, 8, 0.62) 48%, rgba(40, 12, 8, 0.22) 100%); z-index: 1; }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, rgba(24, 6, 5, 0.92) 0%, rgba(34, 9, 7, 0.76) 48%, rgba(34, 9, 7, 0.44) 100%); z-index: 1; }
 .hero .container { position: relative; z-index: 2; padding-block: clamp(3rem, 8vw, 6rem); }
 .hero .stack { max-width: 40ch; }
 .hero h1 { color: #fff; }
@@ -36,36 +46,38 @@ h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
 .hero .hours-pill { background: rgba(255, 253, 248, 0.14); border-color: rgba(255, 253, 248, 0.4); color: #fff; margin-top: var(--space-3); }
 .hero .hours-pill b { color: #fff; }
+/* Narrow viewports: the 100deg wash leaves the right edge light under full-width text */
+@media (max-width: 820px) { .hero::after { background: linear-gradient(180deg, rgba(24,6,5,0.86) 0%, rgba(24,6,5,0.80) 55%, rgba(24,6,5,0.72) 100%); } }
 
 /* Menu board — the centerpiece */
 .menu-wrap { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; }
 @media (min-width: 900px) { .menu-wrap { grid-template-columns: 1.5fr 1fr; } }
 .menu-board { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-.menu-board__head { background: var(--brand); color: #fff; padding: var(--space-3) var(--space-4); display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; }
-.menu-board__head h2 { color: #fff; margin: 0; font-size: var(--fs-2); }
-.menu-board__head span { font-weight: 600; font-size: 0.9rem; color: rgba(255,255,255,0.85); letter-spacing: var(--track-label); text-transform: uppercase; }
+.menu-board__head { background: var(--brand); color: var(--on-brand); padding: var(--space-3) var(--space-4); display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; }
+.menu-board__head h2 { color: var(--on-brand); margin: 0; font-size: var(--fs-2); }
+.menu-board__head span { font-weight: 600; font-size: 0.9rem; color: rgba(42, 11, 8, 0.78); letter-spacing: var(--track-label); text-transform: uppercase; }
 .pricelist { margin: 0; padding: var(--space-2) var(--space-4) var(--space-4); }
-.pricelist__row { display: flex; align-items: baseline; gap: 0.9rem; padding: 1rem 0; border-bottom: 1px dashed var(--line); }
+.pricelist__row { display: flex; align-items: baseline; gap: 0.9rem; padding: 1rem 0; border-bottom: 1px dashed rgba(253, 242, 228, 0.22); }
 .pricelist__row:last-child { border-bottom: 0; }
 .pricelist__row dt { flex: 1; font-weight: 700; font-family: var(--font-display); font-size: var(--fs-1); }
 .pricelist__row dt small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 0.94rem; color: var(--ink-muted); margin-top: 2px; }
 .pricelist__row dd { margin: 0; }
 .price-chip { display: inline-block; background: var(--yellow); color: var(--on-yellow); font-weight: 800; font-family: var(--font-display); padding: 0.28rem 0.7rem; border-radius: 999px; white-space: nowrap; }
 .price-chip--quote { background: transparent; color: var(--brand); border: 2px solid var(--brand); text-decoration: none; padding: 0.24rem 0.7rem; }
-.price-chip--quote:hover { background: var(--brand); color: #fff; }
+.price-chip--quote:hover { background: var(--brand); color: var(--on-brand); }
 .menu-note { margin: var(--space-3) 0 0; display: flex; gap: 0.6rem; align-items: center; color: var(--ink-muted); font-size: 0.95rem; }
 .menu-note svg { flex: 0 0 auto; color: var(--brand); }
 
 /* Menu side card */
-.menu-aside { background: var(--brand); color: #fff; border-radius: var(--radius); padding: var(--space-4); box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
-.menu-aside h3 { color: #fff; }
-.menu-aside p { color: rgba(255,253,248,0.9); }
-.menu-aside .eyebrow { color: var(--yellow); }
-.menu-aside .eyebrow::before { background: var(--yellow); }
+.menu-aside { background: var(--brand); color: var(--on-brand); border-radius: var(--radius); padding: var(--space-4); box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+.menu-aside h3 { color: var(--on-brand); }
+.menu-aside p { color: rgba(42, 11, 8, 0.86); }
+.menu-aside .eyebrow { color: rgba(42, 11, 8, 0.78); }
+.menu-aside .eyebrow::before { background: var(--on-brand); }
 .menu-aside .btn { margin-top: var(--space-2); }
 .menu-aside .contact-line { margin-top: var(--space-3); font-weight: 700; font-size: var(--fs-1); }
-.menu-aside .contact-line a { color: #fff; text-decoration: none; }
-.menu-aside .contact-line a:hover { text-decoration: underline; text-decoration-color: var(--yellow); }
+.menu-aside .contact-line a { color: var(--on-brand); text-decoration: none; }
+.menu-aside .contact-line a:hover { text-decoration: underline; text-decoration-color: currentColor; }
 
 /* Feature (al pastor) */
 .feature .split { align-items: stretch; }
@@ -79,7 +91,7 @@ h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; }
 .band { min-height: clamp(300px, 50vw, 560px); }
 .band img { object-position: center 58%; }
 .band .container { position: relative; min-height: inherit; display: flex; align-items: flex-end; padding-block: var(--space-4); color: #fff; }
-.band .container::before { content: ""; position: absolute; left: -100vw; right: -100vw; top: 0; bottom: 0; background: linear-gradient(180deg, rgba(20,8,6,0) 35%, rgba(20,8,6,0.78) 100%); z-index: 0; }
+.band .container::before { content: ""; position: absolute; left: -100vw; right: -100vw; top: 0; bottom: 0; background: linear-gradient(180deg, rgba(16,5,4,0) 12%, rgba(16,5,4,0.62) 58%, rgba(16,5,4,0.94) 100%); z-index: 0; }
 .band .container > * { position: relative; z-index: 1; }
 .band__caption p { font-family: var(--font-display); font-size: var(--fs-2); font-weight: 800; margin: 0; max-width: 22ch; color: #fff; }
 .band__caption small { display: block; font-family: var(--font-body); font-weight: 600; font-size: 0.95rem; opacity: 0.9; margin-top: 0.4rem; }
@@ -95,20 +107,20 @@ h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; }
 /* Brand close */
 .section--brand { background: var(--brand); color: var(--on-brand); }
 .section--brand h2, .section--brand p { color: inherit; }
-.section--brand .eyebrow { color: var(--yellow); }
-.section--brand .eyebrow::before { background: var(--yellow); }
-.section--brand .lead { color: rgba(255,253,248,0.85); }
+.section--brand .eyebrow { color: rgba(42, 11, 8, 0.80); }
+.section--brand .eyebrow::before { background: var(--on-brand); }
+.section--brand .lead { color: rgba(42, 11, 8, 0.82); }
 .contact-list { font-style: normal; display: grid; gap: var(--space-2); }
 .contact-list div { display: flex; flex-direction: column; }
 .contact-list a { color: inherit; font-weight: 700; text-decoration: none; }
-.contact-list a:hover { text-decoration: underline; text-decoration-color: var(--yellow); }
-.contact-list .eyebrow { color: rgba(255,253,248,0.75); }
+.contact-list a:hover { text-decoration: underline; text-decoration-color: currentColor; }
+.contact-list .eyebrow { color: rgba(42, 11, 8, 0.72); }
 
 /* Footer */
-.site-footer { background: var(--bg-alt); border-top: 0; }
+.site-footer { background: var(--bg-alt); border-top: 1px solid var(--line); }
 .site-footer a { color: inherit; }
 .site-footer .brand { color: var(--ink); }
-.site-footer .demo { grid-column: 1 / -1; font-size: 0.8rem; color: var(--ink-muted); border-top: 1px dashed var(--line); padding-top: var(--space-2); }
+.site-footer .demo { grid-column: 1 / -1; font-size: 0.8rem; color: var(--ink-muted); border-top: 1px dashed rgba(253, 242, 228, 0.20); padding-top: var(--space-2); }
 
 /* Menu page hero (compact, no photo) */
 .page-hero { background: var(--bg-alt); border-bottom: 1px solid var(--line); }

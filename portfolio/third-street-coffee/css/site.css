@@ -1,5 +1,5 @@
 /* Third Street Coffee — site-specific. Warm, friendly, modern.
-   Signature: a designed cafe price list + warm full-bleed photo bands; cream base, terracotta accents. */
+   Signature: a designed cafe price list + warm full-bleed photo bands; dark espresso base, terracotta accents. */
 
 h1, h2, h3 { font-weight: 400; letter-spacing: -0.005em; }
 .eyebrow { color: var(--accent); }
@@ -8,7 +8,7 @@ h1, h2, h3 { font-weight: 400; letter-spacing: -0.005em; }
 /* Header / nav */
 .site-header { background: color-mix(in srgb, var(--bg) 90%, transparent); }
 .brand { font-weight: 400; font-size: 1.3rem; font-family: var(--font-display); }
-.brand .brand__mark { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 8px; background: var(--accent); color: #fff; font-size: 1rem; font-weight: 400; }
+.brand .brand__mark { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-size: 1rem; font-weight: 400; }
 .nav a:not(.btn) { color: var(--ink); font-weight: 500; }
 .nav a:not(.btn):hover { color: var(--accent); }
 .nav a[aria-current="page"] { color: var(--accent); text-decoration: underline; text-decoration-color: var(--cream-tick); text-decoration-thickness: 3px; text-underline-offset: 6px; }
@@ -25,8 +25,8 @@ h1, h2, h3 { font-weight: 400; letter-spacing: -0.005em; }
 .hero { position: relative; min-height: clamp(520px, 82vh, 760px); display: flex; align-items: flex-end; color: #fff; overflow: hidden; }
 .hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 42%; }
 .hero::after { content: ""; position: absolute; inset: 0; background:
-  linear-gradient(180deg, rgba(30,16,10,0.30) 0%, rgba(30,16,10,0.20) 42%, rgba(30,16,10,0.82) 100%),
-  linear-gradient(90deg, rgba(30,16,10,0.55) 0%, rgba(30,16,10,0.05) 65%); }
+  linear-gradient(180deg, rgba(12,7,4,0.52) 0%, rgba(12,7,4,0.42) 42%, rgba(12,7,4,0.94) 100%),
+  linear-gradient(90deg, rgba(12,7,4,0.72) 0%, rgba(12,7,4,0.18) 65%); }
 .hero .container { position: relative; z-index: 1; padding-block: clamp(2.5rem, 6vw, 5rem); }
 .hero__inner { max-width: 40rem; }
 .hero .eyebrow { color: #F3D9C6; }
@@ -34,7 +34,7 @@ h1, h2, h3 { font-weight: 400; letter-spacing: -0.005em; }
 .hero h1 { color: #fff; text-shadow: 0 2px 20px rgba(20,10,5,0.35); margin-bottom: var(--space-3); }
 .hero__lede { color: #F6EADE; font-size: var(--fs-1); max-width: 34ch; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-top: var(--space-3); }
-.hero .hours-pill { background: rgba(255,253,249,0.94); border-color: transparent; color: var(--ink); }
+.hero .hours-pill { background: rgba(27,21,18,0.82); border-color: var(--cream-tick); color: var(--ink); backdrop-filter: blur(4px); }
 
 /* ---- Welcome / known-for split ---- */
 .feature .split { gap: clamp(1.75rem, 4vw, 3.5rem); }
@@ -59,7 +59,7 @@ h1, h2, h3 { font-weight: 400; letter-spacing: -0.005em; }
 .band img { object-position: center 55%; }
 .band__caption { position: relative; z-index: 1; min-height: inherit; display: flex; align-items: flex-end; padding-block: var(--space-5); color: #fff; }
 .band .container { position: relative; }
-.band .container::before { content: ""; position: absolute; left: -100vw; right: -100vw; top: 0; bottom: 0; background: linear-gradient(180deg, rgba(20,12,8,0) 35%, rgba(20,12,8,0.78) 100%); z-index: 0; }
+.band .container::before { content: ""; position: absolute; left: -100vw; right: -100vw; top: 0; bottom: 0; background: linear-gradient(180deg, rgba(12,7,4,0.15) 25%, rgba(12,7,4,0.92) 100%); z-index: 0; }
 .band .container > * { position: relative; z-index: 1; }
 .band__caption p { font-family: var(--font-display); font-size: var(--fs-3); margin: 0; max-width: 20ch; text-shadow: 0 2px 18px rgba(0,0,0,0.3); }
 .band__caption small { display: block; font-family: var(--font-body); font-weight: 600; font-size: 0.95rem; opacity: 0.92; margin-top: 0.5rem; }
@@ -79,26 +79,26 @@ h1, h2, h3 { font-weight: 400; letter-spacing: -0.005em; }
 
 /* ---- Close (terracotta brand band) ---- */
 .section--brand { background: var(--brand); }
-.section--brand .eyebrow, .section--brand .lead { color: #F0CDB6; }
-.section--brand .eyebrow::before { background: var(--cream-tick); }
+.section--brand .eyebrow, .section--brand .lead { color: var(--on-brand-muted); }
+.section--brand .eyebrow::before { background: var(--on-brand); }
 .section--brand h2 { color: var(--on-brand); }
-.btn--cream { background: var(--bg); color: var(--brand); border: 0; box-shadow: var(--shadow-sm); }
-.btn--cream:hover, .btn--cream:focus-visible { background: #fff; transform: translateY(-1px); }
+.btn--cream { background: var(--bg); color: var(--ink); border: 0; box-shadow: var(--shadow-sm); }
+.btn--cream:hover, .btn--cream:focus-visible { background: #0F0B09; transform: translateY(-1px); }
 .contact-list { font-style: normal; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); }
 .contact-list div { display: flex; flex-direction: column; gap: 0.15rem; }
-.contact-list .eyebrow { color: #E7B99E; margin-bottom: 0.2rem; }
+.contact-list .eyebrow { color: var(--on-brand-muted); margin-bottom: 0.2rem; }
 .contact-list a, .contact-list span:not(.eyebrow) { color: var(--on-brand); }
 .contact-list a { font-weight: 700; text-decoration: none; }
 .contact-list a:hover { text-decoration: underline; }
 
 /* ---- Footer ---- */
-.site-footer { background: var(--bg-alt); border-top: 0; }
+.site-footer { background: var(--bg-alt); border-top: 1px solid var(--line); }
 .site-footer .brand { color: var(--ink); }
 .site-footer a:hover { color: var(--accent); }
 .site-footer .demo { grid-column: 1 / -1; font-size: 0.8rem; color: var(--ink-muted); border-top: 1px dashed var(--line); padding-top: var(--space-3); margin-top: var(--space-1); }
 
 /* ---- Sticky mobile call bar ---- */
-.cta-bar .btn { background: var(--accent); color: #fff; }
+.cta-bar .btn { background: var(--accent); color: var(--on-accent); }
 
 /* subhead / section intros */
 .section__head { max-width: 40rem; margin-bottom: var(--space-4); }
@@ -108,3 +108,13 @@ h1, h2, h3 { font-weight: 400; letter-spacing: -0.005em; }
   .hero { min-height: 78vh; }
   .hero__lede { max-width: none; }
 }
+
+/* ---- Dark-base overrides for shared base.css rules tuned for a light page ---- */
+/* --surface and --bg-alt are the same espresso tone, so cards sitting on an alt band
+   need a lift to stay readable as cards (menu price list, testimonials, fact tiles). */
+.section--alt .menu-card, .section--alt .quote, .section--alt .fact, .section--alt .card {
+  background: #2E241D; border-color: #45352C;
+}
+.btn--ghost:hover { background: rgba(255,255,255,0.10); }
+.section--brand .btn--ghost:hover { background: rgba(0,0,0,0.14); }
+.cta-bar { box-shadow: 0 -6px 22px rgba(0,0,0,0.55); }

@@ -47,7 +47,7 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.005em; }
 /* ---- Full-bleed retreat band ---- */
 .band { min-height: clamp(320px, 52vw, 560px); display: flex; align-items: flex-end; }
 .band::after { content: ""; position: absolute; inset: 0;
-  background: linear-gradient(90deg, rgba(35,42,36,0.62) 0%, rgba(35,42,36,0.22) 55%, rgba(35,42,36,0) 100%); z-index: 1; }
+  background: linear-gradient(90deg, rgba(20,34,26,0.72) 0%, rgba(20,34,26,0.34) 55%, rgba(20,34,26,0.06) 100%); z-index: 1; }
 .band__caption { position: relative; z-index: 2; padding-block: var(--space-5); color: #fff; }
 .band__caption .eyebrow { color: var(--champagne); }
 .band__caption h2 { color: #fff; max-width: 20ch; margin-bottom: var(--space-2); }

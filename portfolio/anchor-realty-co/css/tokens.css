@@ -1,17 +1,17 @@
-/* tokens.css — Anchor Realty Co. — navy + brass on warm ivory. Sleek · Serious · Classic. */
+/* tokens.css — Anchor Realty Co. — brass on deep navy. Sleek · Serious · Classic. */
 :root {
-  /* Palette (60-30-10). AA checked: --ink on --bg ~13:1; --on-accent on --accent ~5.1:1; white on --brand ~10:1 */
-  --bg: #faf8f3;            /* 60: warm near-white ivory */
-  --bg-alt: #f2efe7;        /* tinted section background */
-  --surface: #ffffff;       /* cards */
-  --ink: #151b24;           /* body text — near-black, navy-tinted */
-  --ink-muted: #55606c;     /* secondary text (~5.4:1 on ivory) */
-  --line: #ddd8cb;          /* hairlines */
-  --brand: #16324f;         /* 30: deep navy — bands, footer, nav accent */
-  --on-brand: #f7f4ec;
-  --accent: #b0894a;        /* 10: brass — CTAs, rules, labels */
-  --accent-hover: #977236;
-  --on-accent: #14202e;     /* dark navy text on brass buttons */
+  /* Palette (60-30-10). AA checked: --ink on --bg ~15:1; --ink-muted on --bg ~7.4:1; --on-accent on --accent ~6.9:1 */
+  --bg: #0e1c2c;            /* 60: deep navy base */
+  --bg-alt: #142536;        /* tinted section background */
+  --surface: #142536;       /* cards / raised panels */
+  --ink: #eff3f8;           /* body text — near-white, cool */
+  --ink-muted: #9fb0c1;     /* secondary text */
+  --line: #22394f;          /* hairlines */
+  --brand: #c0a062;         /* 30: brass — bands, page heroes */
+  --on-brand: #0e1c2c;
+  --accent: #c0a062;        /* 10: brass — CTAs, rules, labels */
+  --accent-hover: #d6b87c;
+  --on-accent: #0e1c2c;     /* deep navy text on brass buttons */
 
   /* Type — Cormorant Garamond (display) + Inter (body), loaded in <head> */
   --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
@@ -25,11 +25,11 @@
   --lh-head: 1.06;
   --track-label: 0.16em;   /* uppercase labels */
 
-  /* Shape & depth — sharp, classic, hairline over shadow */
+  /* Shape & depth — sharp, classic; deep soft shadows on the dark base */
   --radius: 3px;
   --radius-sm: 2px;
-  --shadow: 0 18px 44px rgba(20, 32, 48, 0.10);
-  --shadow-sm: 0 1px 0 rgba(20, 32, 48, 0.04);
+  --shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 1px 0 rgba(0, 0, 0, 0.35);
 
   /* Space (minimal density — generous) */
   --space-1: 0.5rem;

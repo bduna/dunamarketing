@@ -1,17 +1,18 @@
-/* tokens.css — juniper-home. Warm · Calm · Classic. Clay / sand / sage on a modern near-white base. */
+/* tokens.css — juniper-home. Warm · Calm · Classic. Assigned palette: LIGHT clay / peach base with clay + walnut. */
 :root {
-  /* Palette (60-30-10). AA checked: ink on bg ~13:1 · white on brand ~7:1 · white on accent ~5.5:1 */
-  --bg: #faf6f0;            /* 60: warm near-white */
-  --bg-alt: #f1e8db;        /* sand tinted panel */
-  --surface: #fffdfa;       /* cards */
-  --ink: #2a2521;           /* body text — warm near-black */
-  --ink-muted: #6b6156;     /* secondary text */
-  --line: #e4d9ca;          /* hairlines */
-  --brand: #4e5a41;         /* 30: deep sage — the one dark band */
-  --on-brand: #f7f4ec;
-  --accent: #a84e32;        /* 10: clay — CTAs, labels, small accents */
-  --accent-hover: #8f3f27;
-  --on-accent: #ffffff;
+  /* Palette (60-30-10). AA checked: ink on bg 13.3:1 · muted on bg 5.7:1 · on-brand on brand 6.1:1 · on-accent on accent 5.1:1 */
+  --bg: #F7E7DC;            /* 60: warm clay / peach page base */
+  --bg-alt: #EFD8C8;        /* deeper clay panel */
+  --surface: #FFFFFF;       /* cards sit bright on the clay page */
+  --ink: #2A1F18;           /* body text — warm near-black */
+  --ink-muted: #6B5749;     /* secondary text */
+  --line: #E2C9B6;          /* hairlines */
+  --brand: #7A4A2F;         /* 30: walnut — the one dark band */
+  --on-brand: #F7E7DC;
+  --accent: #A65A34;        /* 10: clay — CTA fills, small accents */
+  --accent-hover: #8A4726;
+  --on-accent: #FFFFFF;
+  --accent-ink: #944C2B;    /* accent used as TEXT on --bg / --bg-alt (5.2:1 / 4.6:1) */
 
   /* Type — Cormorant Garamond (display) + Work Sans (body) */
   --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
@@ -28,8 +29,8 @@
   /* Shape & depth — classic: small radius, hairline borders over heavy shadow */
   --radius: 6px;
   --radius-sm: 4px;
-  --shadow: 0 14px 40px rgba(60, 45, 30, 0.10);
-  --shadow-sm: 0 2px 10px rgba(60, 45, 30, 0.06);
+  --shadow: 0 14px 40px rgba(74, 44, 22, 0.14);
+  --shadow-sm: 0 2px 10px rgba(74, 44, 22, 0.10);
 
   /* Space (calm/minimal — generous) */
   --space-1: 0.5rem;

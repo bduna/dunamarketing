@@ -1,7 +1,7 @@
 /* site.css — everything specific to Honest Hands Handyman. Tokens live in tokens.css. */
 
 /* Header brand mark */
-.brand__mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: var(--brand); color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
+.brand__mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: var(--brand); color: var(--on-brand); font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
 .nav a[aria-current="page"] { color: var(--brand); text-decoration-color: var(--tan); }
 
 /* ---- Hero (split) ---- */
@@ -20,7 +20,7 @@
 .trust { background: var(--brand); color: var(--on-brand); }
 .trust .container { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2) var(--space-4); padding-block: var(--space-3); text-align: center; }
 .trust__item { display: inline-flex; align-items: center; gap: 0.55rem; font-weight: 600; }
-.trust__item svg { flex: none; color: var(--tan); }
+.trust__item svg { flex: none; color: var(--tan-on-brand); }
 
 /* ---- Services list ---- */
 .services__list { display: grid; gap: 0; margin: var(--space-3) 0 0; border-top: 2px solid var(--brand); }
@@ -35,13 +35,13 @@
 
 /* ---- Photo band ---- */
 .band { display: grid; align-items: end; }
-.band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(43,29,16,0.82) 0%, rgba(43,29,16,0.5) 55%, rgba(43,29,16,0.2) 100%); z-index: 1; }
+.band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(26,30,17,0.86) 0%, rgba(26,30,17,0.58) 55%, rgba(26,30,17,0.24) 100%); z-index: 1; }
 .band__caption { position: relative; z-index: 2; color: #fff; padding-block: var(--space-4); }
 .band__caption p { font-family: var(--font-display); font-size: var(--fs-3); font-weight: 700; margin: 0; max-width: 20ch; }
 .band__caption small { display: block; margin-top: var(--space-1); color: rgba(255,255,255,0.82); font-size: 1rem; }
 
 /* ---- About ---- */
-.about__fig { margin: 0; display: grid; place-items: center; padding: clamp(1.5rem, 4vw, 2.5rem); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.about__fig { margin: 0; display: grid; place-items: center; padding: clamp(1.5rem, 4vw, 2.5rem); background: var(--tan-tint); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
 .about__fig img { width: min(320px, 80%); }
 .whyus { list-style: none; padding: 0; margin: var(--space-3) 0 0; display: grid; gap: var(--space-2); }
 .whyus li { display: flex; align-items: flex-start; gap: 0.7rem; }
@@ -71,3 +71,10 @@
 .page-head { background: var(--bg-alt); border-bottom: 1px solid var(--line); }
 .page-head .container { padding-block: clamp(2.5rem, 5vw, 4rem); }
 .page-head .eyebrow { color: var(--brand); }
+
+/* Re-theme (olive/khaki): keep the tan accent readable as small uppercase text */
+.eyebrow { color: var(--accent-hover); }
+.section--brand .eyebrow, .trust .eyebrow { color: var(--tan-on-brand); }
+/* Sticky mobile CTA bar + footer sit on the olive base, not a white slab */
+.cta-bar { background: var(--bg-alt); border-top: 1px solid var(--line); box-shadow: 0 -4px 16px rgba(35, 38, 26, 0.16); }
+.site-footer { background: var(--bg-alt); border-top: 1px solid var(--line); }

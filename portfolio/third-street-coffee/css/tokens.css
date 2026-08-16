@@ -1,19 +1,20 @@
 /* tokens.css — Third Street Coffee. Warm + Friendly + Modern.
-   Base = modern warm near-white + warm near-black ink. Terracotta = accent/bands only. */
+   Base = DARK espresso brown + warm cream ink. Terracotta = accent/bands only. */
 :root {
-  /* Palette (60 cream / 30 warm ink & surfaces / 10 terracotta accent). AA checked. */
-  --bg: #FBF6EF;            /* 60: warm near-white (cream) */
-  --bg-alt: #F3E9DC;        /* deeper cream section band */
-  --surface: #FFFDF9;       /* cards */
-  --ink: #241A15;           /* warm near-black body text (14.8:1 on --bg) */
-  --ink-muted: #6E5D50;     /* secondary text (4.9:1 on --bg) */
-  --line: #E7DAC8;          /* hairlines */
-  --brand: #7A3B22;         /* deep roast terracotta — brand bands/nav current */
-  --on-brand: #FDF6EE;
-  --accent: #B4552D;        /* 10: terracotta — CTAs, highlights (4.9:1 w/ white) */
-  --accent-hover: #97431F;
-  --on-accent: #ffffff;
-  --cream-tick: #C97B4A;    /* lighter terracotta for small details */
+  /* Palette (60 espresso / 30 warm ink & surfaces / 10 terracotta accent). AA checked. */
+  --bg: #1B1512;            /* 60: dark espresso brown */
+  --bg-alt: #241C17;        /* lifted section band */
+  --surface: #241C17;       /* cards */
+  --ink: #F7EFE6;           /* warm cream body text (15.9:1 on --bg) */
+  --ink-muted: #BBAA9B;     /* secondary text (8.0:1 on --bg) */
+  --line: #3A2C24;          /* hairlines */
+  --brand: #E07A4B;         /* terracotta — brand bands/nav current */
+  --on-brand: #1B1512;      /* (6.1:1 on --brand) */
+  --accent: #E07A4B;        /* 10: terracotta — CTAs, highlights */
+  --accent-hover: #F08F60;
+  --on-accent: #1B1512;     /* (6.1:1 on --accent) */
+  --cream-tick: #E8A87C;    /* lighter terracotta for small details on dark */
+  --on-brand-muted: #3D1A0C;/* secondary text inside the terracotta band (5.2:1) */
 
   /* Type — DM Serif Display (headings) + DM Sans (body): warm, modern, menu-like */
   --font-display: "DM Serif Display", Georgia, serif;
@@ -30,8 +31,8 @@
   /* Shape & depth — soft, warm, modern */
   --radius: 16px;
   --radius-sm: 10px;
-  --shadow: 0 14px 40px rgba(60, 30, 15, 0.12);
-  --shadow-sm: 0 3px 12px rgba(60, 30, 15, 0.08);
+  --shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.45);
 
   /* Space */
   --space-1: 0.5rem;

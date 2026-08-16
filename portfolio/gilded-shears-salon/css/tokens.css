@@ -1,22 +1,26 @@
-/* tokens.css — Gilded Shears Salon. Sleek · Luxe · Modern. Base = soft blush-white + near-black ink; brand colors (black, warm gold, soft blush) are accents/bands only. */
+/* tokens.css — Gilded Shears Salon. Sleek · Luxe · Modern. Base = near-black + warm off-white ink; gold stays a thin accent (rules, labels, CTA) — never a large gold field. */
 :root {
-  /* Palette (60-30-10). AA checked: --ink on --bg ~15:1; button pale-gold on near-black ~14:1; gold labels on bg ~4.6:1 (labels/large only). */
-  --bg: #faf6f3;            /* 60: soft blush near-white */
-  --bg-alt: #f3e9e6;        /* pale blush panel */
-  --surface: #ffffff;       /* cards */
-  --ink: #17130e;           /* warm near-black body text */
-  --ink-muted: #6c625a;     /* secondary text (~5.0:1 on bg) */
-  --line: #e4d9d2;          /* hairlines */
-  --brand: #141210;         /* 30: near-black dramatic band */
-  --on-brand: #f6efe6;      /* off-white on black */
-  --accent: #a67c2e;        /* 10: warm gold — labels, hairlines, focus */
-  --accent-hover: #8c6624;
-  --on-accent: #17130e;
+  /* Palette (60-30-10) — assigned DARK black + gold.
+     AA checked on --bg: --ink 18.2:1 · --ink-muted 8.1:1 · --accent 8.3:1 · --on-accent on --accent 8.3:1. */
+  --bg: #0C0C0E;            /* 60: near-black page */
+  --bg-alt: #15151A;        /* raised panel / alt sections */
+  --surface: #15151A;       /* cards, framed figures */
+  --ink: #F6F2EC;           /* warm off-white body text */
+  --ink-muted: #ABA69E;     /* secondary text (~8.1:1 on bg) */
+  --line: #28282F;          /* hairlines */
+  --brand: #C8A45C;         /* 30: warm gold — used as a thin filament, not a field */
+  --on-brand: #0C0C0E;
+  --accent: #C8A45C;        /* 10: warm gold — labels, hairlines, focus, CTA */
+  --accent-hover: #DBBB78;
+  --on-accent: #0C0C0E;
 
   /* Custom luxe tokens */
-  --gold: #a67c2e;
-  --gold-soft: #c9a24a;     /* brighter gold for text on the near-black band */
-  --blush: #ecd7d1;
+  --gold: #C8A45C;
+  --gold-soft: #DBBB78;     /* brighter gold for hover / on-band labels */
+  --band: #1E1E25;          /* the "book" band + typographic tiles — a lifted black, NOT a gold field */
+  --band-blush: #261C20;    /* blush-tinted lifted black (the soft-blush note, darkened) */
+  --band-blush-line: #3A2B30;
+  --blush: #C9A6A0;         /* muted blush, legible on black */
 
   /* Type — Syne (display) + DM Sans (body), loaded in <head> */
   --font-display: "Syne", "Trebuchet MS", sans-serif;
@@ -30,11 +34,11 @@
   --lh-head: 1.05;
   --track-label: 0.22em;   /* wide tracking on uppercase labels — luxe */
 
-  /* Shape & depth — sharp, hairline-first (sleek) */
+  /* Shape & depth — sharp, hairline-first (sleek); deep soft shadows for a dark base */
   --radius: 2px;
   --radius-sm: 2px;
-  --shadow: 0 24px 60px rgba(20, 16, 12, 0.10);
-  --shadow-sm: 0 1px 0 rgba(20, 16, 12, 0.04);
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 1px 0 rgba(0, 0, 0, 0.35);
 
   /* Space (minimal density — generous) */
   --space-1: 0.5rem;
