@@ -1,0 +1,90 @@
+/* Lotus Flow Yoga — site-specific. Calm · Warm · Modern. */
+h1, h2, h3 { font-weight: 400; letter-spacing: 0; }
+.lead { line-height: 1.55; }
+
+/* Eyebrow: quiet terracotta with a small dot */
+.eyebrow { color: var(--accent); }
+.eyebrow::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 8px; vertical-align: middle; }
+
+/* Header / nav */
+.site-header { background: color-mix(in srgb, var(--bg) 90%, transparent); }
+.brand { font-family: var(--font-display); font-weight: 400; font-size: 1.3rem; letter-spacing: 0; }
+.brand .lotus { color: var(--brand); }
+.nav a:not(.btn) { color: var(--ink); font-weight: 500; }
+.nav a:not(.btn):hover { color: var(--accent); }
+.nav a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.btn--primary { color: var(--on-accent); }
+
+/* Full-bleed photo hero (archetype A) */
+.hero { position: relative; min-height: clamp(560px, 82vh, 780px); display: flex; align-items: center; overflow: hidden; isolation: isolate; }
+.hero__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 55% 45%; }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(105deg, rgba(44,46,40,0.66) 0%, rgba(44,46,40,0.38) 46%, rgba(44,46,40,0.08) 100%); }
+.hero .container { padding-block: var(--space-5); }
+.hero__inner { max-width: 40rem; color: #fff; }
+.hero__inner .eyebrow { color: #fff; }
+.hero__inner .eyebrow::before { background: #fff; }
+.hero h1 { color: #fff; margin-bottom: var(--space-3); text-shadow: 0 2px 18px rgba(30,32,26,0.35); }
+.hero__lede { color: rgba(255,255,255,0.94); font-size: var(--fs-1); max-width: 34ch; text-shadow: 0 1px 12px rgba(30,32,26,0.35); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
+.hero__phone { margin-top: var(--space-3); color: rgba(255,255,255,0.92); font-weight: 500; }
+.hero__phone a { color: #fff; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(255,255,255,0.55); }
+
+/* Compact page hero (services / about tops) */
+.pagehead { background: var(--bg-alt); padding-block: clamp(3rem, 6vw, 5rem); }
+.pagehead .lead { color: var(--ink-muted); }
+
+/* Trust strip */
+.trust { background: var(--brand); color: var(--on-brand); }
+.trust .container { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); justify-content: center; align-items: center; padding-block: var(--space-3); text-align: center; }
+.trust span { display: inline-flex; align-items: center; gap: 0.55rem; font-weight: 500; font-size: 1.02rem; }
+.trust span + span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: rgba(251,250,246,0.5); margin-right: 0.55rem; }
+
+/* Pricing list */
+.pricelist { margin: var(--space-3) 0 0; max-width: 760px; }
+.pricelist__row { display: flex; align-items: baseline; gap: 0.9rem; padding: 1.15rem 0; border-bottom: 1px solid var(--line); }
+.pricelist__row dt { flex: 1; font-family: var(--font-display); font-weight: 400; font-size: var(--fs-2); }
+.pricelist__row dt small { display: block; font-family: var(--font-body); font-size: 0.98rem; color: var(--ink-muted); margin-top: 0.2rem; }
+.pricelist__row dd { margin: 0; font-weight: 700; white-space: nowrap; color: var(--accent); font-size: var(--fs-1); }
+.price-note { margin-top: var(--space-3); color: var(--ink-muted); }
+
+/* Sage "breathe" photo band */
+.band { min-height: clamp(320px, 52vw, 560px); }
+.band img { object-position: center 40%; }
+.band__caption { position: relative; z-index: 1; min-height: inherit; display: flex; align-items: center; padding-block: var(--space-5); color: #fff; }
+.band .container { position: relative; }
+.band .container::before { content: ""; position: absolute; left: -100vw; right: -100vw; top: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(40,44,36,0.15) 0%, rgba(40,44,36,0.55) 100%); z-index: 0; }
+.band .container > * { position: relative; z-index: 1; }
+.band__caption p { font-family: var(--font-display); font-size: var(--fs-3); margin: 0; max-width: 22ch; line-height: 1.15; text-shadow: 0 2px 16px rgba(20,22,16,0.4); }
+
+/* Welcome / about split */
+.welcome .media img, .about-hero .media img { object-position: center; }
+.about-hero { padding-top: clamp(3rem, 6vw, 5rem); }
+
+/* Testimonials */
+.quotes { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); margin-top: var(--space-3); }
+.quote { margin: 0; padding: var(--space-4); background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+.quote p { font-family: var(--font-display); font-size: var(--fs-1); line-height: 1.35; margin-bottom: var(--space-2); }
+.quote footer { color: var(--accent); font-weight: 600; }
+
+/* Signup close (sage brand section) */
+.section--brand .eyebrow, .section--brand .lead { color: rgba(251,250,246,0.82); }
+.section--brand .eyebrow::before { background: rgba(251,250,246,0.82); }
+.section--brand h2 { color: var(--on-brand); }
+.btn--warm { background: var(--bg); color: var(--ink); border: 0; box-shadow: var(--shadow-sm); }
+.btn--warm:hover, .btn--warm:focus-visible { background: #fff; transform: translateY(-1px); }
+.contact-list { font-style: normal; display: grid; gap: var(--space-3); }
+.contact-list div { display: flex; flex-direction: column; gap: 0.15rem; }
+.contact-list a { color: inherit; font-weight: 700; text-decoration: none; }
+.contact-list a:hover { text-decoration: underline; }
+.contact-list .eyebrow { color: rgba(251,250,246,0.7); }
+.contact-list .eyebrow::before { display: none; }
+.close-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+
+/* Footer */
+.site-footer { background: var(--bg-alt); border-top: 0; }
+.site-footer .demo { grid-column: 1 / -1; font-size: 0.82rem; color: var(--ink-muted); border-top: 1px solid var(--line); padding-top: var(--space-2); margin-top: var(--space-2); }
+
+/* Sticky signup bar (mobile) */
+.cta-bar .btn { background: var(--accent); color: var(--on-accent); }

@@ -1,0 +1,48 @@
+/* tokens.css — North Light Photography. Sleek · Calm · Modern. Charcoal + warm cream. */
+:root {
+  /* Palette (60-30-10). ink on bg ≈ 13:1, on-brand on brand ≈ 13:1, accent on bg ≈ 4.4:1 */
+  --bg: #F7F3EA;            /* 60: warm cream */
+  --bg-alt: #EFE9DC;        /* deeper cream band */
+  --surface: #FCFAF4;       /* cards / raised */
+  --ink: #23262B;           /* charcoal body text */
+  --ink-muted: #5B5F66;     /* secondary text */
+  --line: #DED6C6;          /* warm hairline */
+  --brand: #23262B;         /* 30: charcoal — dark bands, hero panel, close */
+  --on-brand: #F5F1E8;
+  --accent: #8A6A3F;        /* 10: muted bronze — eyebrows, details, focus */
+  --accent-hover: #6E5330;
+  --on-accent: #FCFAF4;
+
+  /* Type — Cormorant Garamond (display) + Inter (body/labels) */
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);       /* body */
+  --fs-1: clamp(1.15rem, 1.02rem + 0.55vw, 1.4rem);    /* lead */
+  --fs-2: clamp(1.6rem, 1.2rem + 1.6vw, 2.3rem);       /* h3 */
+  --fs-3: clamp(2.1rem, 1.5rem + 2.6vw, 3.4rem);       /* h2 */
+  --fs-4: clamp(2.9rem, 1.8rem + 6vw, 6rem);           /* h1 */
+  --lh-body: 1.65;
+  --lh-head: 1.02;
+  --track-label: 0.18em;   /* wide tracking on uppercase labels */
+
+  /* Shape & depth — sharp, hairline, minimal */
+  --radius: 2px;
+  --radius-sm: 2px;
+  --shadow: 0 24px 60px rgba(35, 38, 43, 0.14);
+  --shadow-sm: 0 1px 0 rgba(35, 38, 43, 0.06);
+
+  /* Space (minimal density = generous) */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+  --section-y: clamp(4.5rem, 9vw, 9rem);
+  --measure: 60ch;
+  --container: 1200px;
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+
+  /* Motion (calm) */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 240ms;
+}

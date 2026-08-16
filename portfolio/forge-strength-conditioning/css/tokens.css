@@ -1,0 +1,49 @@
+/* tokens.css — Forge Strength & Conditioning. Bold · Serious · Modern. Black / steel gray / electric lime (lime = accent only). */
+:root {
+  /* Palette (60-30-10). AA checked: --ink on --bg 15:1; --on-accent on --accent ~16:1; --on-brand on --brand 15:1 */
+  --bg: #f7f8f8;            /* 60: clean near-white */
+  --bg-alt: #eef0f1;        /* light steel tint band */
+  --surface: #ffffff;       /* cards */
+  --ink: #141619;           /* near-black body text */
+  --ink-muted: #5b616b;     /* steel gray secondary text (on bg 5.6:1) */
+  --line: #e3e5e8;          /* hairlines */
+  --brand: #141619;         /* 30: near-black bands / dark surfaces */
+  --on-brand: #f5f6f7;
+  --brand-2: #23262b;       /* slightly lifted dark for panels on brand */
+  --accent: #c7f202;        /* 10: electric lime — CTAs, ticks, dark-band highlights only */
+  --accent-hover: #b2da00;
+  --on-accent: #101216;     /* near-black text on lime */
+
+  /* Type — Space Grotesk (display) + Inter (body); loaded in <head> */
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);      /* body */
+  --fs-1: clamp(1.12rem, 1rem + 0.55vw, 1.4rem);      /* lead */
+  --fs-2: clamp(1.35rem, 1.15rem + 1vw, 1.85rem);     /* h3 */
+  --fs-3: clamp(1.85rem, 1.4rem + 2.1vw, 2.7rem);     /* h2 */
+  --fs-4: clamp(2.5rem, 1.7rem + 4.6vw, 4.6rem);      /* h1 */
+  --lh-body: 1.6;
+  --lh-head: 1.04;
+  --track-label: 0.14em;   /* uppercase labels */
+
+  /* Shape & depth — sharp, sleek, hairline-first */
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow: 0 18px 40px rgba(10, 12, 16, 0.14);
+  --shadow-sm: 0 2px 10px rgba(10, 12, 16, 0.08);
+
+  /* Space (density: rich) */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.25rem, 5.5vw, 5.75rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+
+  /* Motion (serious: fades only, quick) */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 180ms;
+}

@@ -1,0 +1,87 @@
+/* site.css — everything specific to juniper-home. Tokens live in tokens.css. */
+
+/* Display headings: Cormorant is delicate — give it weight and let it breathe */
+h1, h2, h3, h4 { font-weight: 600; letter-spacing: 0; }
+h1 { letter-spacing: -0.005em; }
+.eyebrow { color: var(--accent); font-family: var(--font-body); font-size: 0.72rem; }
+.brand { letter-spacing: 0.02em; font-size: 1.35rem; }
+
+/* Buttons a touch more classic */
+.btn { font-family: var(--font-body); font-weight: 600; letter-spacing: 0.01em; }
+.btn--ghost { border-width: 1px; }
+
+/* --- Hero: editorial split, photo framed on a sand panel --- */
+.hero { padding-block: clamp(2.5rem, 5vw, 5rem) 0; }
+.hero .split { gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.hero__eyebrow { display: flex; align-items: center; gap: 0.75rem; }
+.hero__eyebrow::after { content: ""; height: 1px; width: 3rem; background: var(--accent); opacity: 0.7; }
+.hero h1 { margin-top: 0.4rem; }
+.hero__lede { margin-top: 0.5rem; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.hours-pill { margin-top: var(--space-3); font-size: 0.95rem; color: var(--ink-muted); letter-spacing: 0.01em; }
+.hours-pill b { color: var(--ink); }
+.hero__figure { position: relative; margin: 0; }
+.hero__figure .frame { position: relative; z-index: 1; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+.hero__figure .frame img { width: 100%; height: auto; display: block; }
+.hero__panel { position: absolute; z-index: 0; inset: auto -1.25rem -1.25rem 2.5rem; height: 70%; background: var(--bg-alt); border-radius: var(--radius); }
+.hero__figure figcaption { margin-top: 0.85rem; font-size: 0.85rem; color: var(--ink-muted); font-style: italic; }
+
+/* Section headers */
+.section__head { max-width: 52ch; margin-bottom: var(--space-4); }
+.section__head.center { margin-inline: auto; }
+.rule-label { display: inline-flex; align-items: center; gap: 0.7rem; font-size: 0.72rem; font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
+.rule-label::before { content: ""; width: 2rem; height: 1px; background: var(--accent); opacity: 0.7; }
+
+/* --- Collection: asymmetric gallery grid --- */
+.collection-grid { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 720px) {
+  .collection-grid { grid-template-columns: 1.15fr 0.85fr; grid-auto-rows: auto; }
+  .collection-grid .col-tall { grid-row: span 2; }
+}
+figure.tile { margin: 0; }
+figure.tile .media { border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+figure.tile figcaption { margin-top: 0.6rem; font-size: 0.9rem; color: var(--ink-muted); }
+figure.tile figcaption b { color: var(--ink); font-weight: 600; }
+
+/* --- Offerings: editorial price list --- */
+.shop-list { border-top: 1px solid var(--line); max-width: 760px; }
+.shop-row { display: flex; align-items: baseline; gap: 1rem; padding: 1.15rem 0; border-bottom: 1px solid var(--line); }
+.shop-row .name { font-family: var(--font-display); font-size: var(--fs-2); font-weight: 600; }
+.shop-row .dots { flex: 1 1 auto; border-bottom: 1px dotted var(--line); transform: translateY(-0.3rem); }
+.shop-row .price { font-family: var(--font-body); font-weight: 600; color: var(--accent); white-space: nowrap; }
+.shop-row .price.quiet { color: var(--ink-muted); font-weight: 500; font-style: italic; }
+.shop-note { margin-top: var(--space-3); }
+
+/* --- Sage band --- */
+.band-note { text-align: center; }
+.band-note h2 { font-size: var(--fs-3); max-width: 22ch; margin-inline: auto; }
+.band-note p { margin-inline: auto; color: var(--on-brand); opacity: 0.9; }
+
+/* --- Testimonials --- */
+.quotes { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+blockquote.quote { margin: 0; padding: var(--space-3) var(--space-3) var(--space-3) calc(var(--space-3) + 3px); border-left: 3px solid var(--accent); background: var(--surface); border-radius: 0 var(--radius) var(--radius) 0; box-shadow: var(--shadow-sm); }
+blockquote.quote p { font-family: var(--font-display); font-size: var(--fs-2); font-weight: 600; line-height: 1.3; margin-bottom: var(--space-2); }
+blockquote.quote cite { font-family: var(--font-body); font-style: normal; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.04em; color: var(--ink-muted); text-transform: uppercase; }
+
+/* --- About --- */
+.about-figure { margin: 0; }
+.about-figure .media { border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+.about-figure figcaption { margin-top: 0.6rem; font-size: 0.85rem; color: var(--ink-muted); font-style: italic; }
+.signature { font-family: var(--font-display); font-size: var(--fs-2); color: var(--ink); margin-top: var(--space-2); }
+
+/* --- Visit / contact close --- */
+.visit-grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; }
+@media (min-width: 820px) { .visit-grid { grid-template-columns: 1.1fr 0.9fr; align-items: start; } }
+.visit-facts { list-style: none; padding: 0; margin: var(--space-3) 0 0; }
+.visit-facts li { display: flex; gap: 0.9rem; padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
+.visit-facts .k { min-width: 6.5rem; font-size: 0.72rem; font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-muted); padding-top: 0.2rem; }
+.visit-facts .v { font-size: 1.05rem; }
+.visit-facts a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.visit-facts a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.visit-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.visit-card { background: var(--bg-alt); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-4); }
+.visit-card h3 { margin-top: 0; }
+
+/* Footer tidy */
+.site-footer .foot-name { font-family: var(--font-display); font-size: 1.25rem; color: var(--ink); }
+.demo-line { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: var(--space-2); font-size: 0.85rem; }
