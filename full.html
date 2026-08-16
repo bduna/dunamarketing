@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Website Questionnaire <title>Website Questionnaire &mdash; Duna Marketing</title>mdash; Duna Marketing</title>
+<meta name="description" content="Tell Duna Marketing about your business in about 10 minutes and we'll build your website from your real answers. Nothing goes live until you approve it.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Duna Marketing">
+<meta property="og:title" content="Your new website starts here — Duna Marketing">
+<meta property="og:description" content="About 10 minutes, nothing to prepare, no tech skills needed. Answer a few plain-English questions and we build the rest.">
+<meta name="theme-color" content="#003087">
+<link rel="icon" type="image/png" href="duna_marketing_logo.png">
+<link rel="apple-touch-icon" href="duna_marketing_logo.png">
+<link rel="preconnect" href="https://upload-widget.cloudinary.com">
+<link rel="preconnect" href="https://res.cloudinary.com">
+<link rel="preconnect" href="https://connect.facebook.net">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '949809188409734');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<style>
+  :root {
+    --ink: #1a1d24;
+    --muted: #5a6070;
+    --line: #e2e5ea;
+    --input-line: #9aa3b4;
+    --input-line-hover: #6b7488;
+    --accent: #003087;
+    --accent-soft: #eaf0fb;
+    --red: #C8102E;
+    --red-dark: #a50d25;
+    --bg: #f7f8fa;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(to right, rgba(60, 66, 80, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(60, 66, 80, 0.06) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: -1px -1px;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 48px 20px 110px; }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 22px;
+    background: #003087;
+    border-bottom: 3px solid #C8102E;
+    box-shadow: 0 2px 12px rgba(0, 29, 82, 0.35);
+  }
+  .topbar img {
+    height: 34px;
+    width: auto;
+    display: block;
+    background: #fff;
+    border-radius: 6px;
+    padding: 3px;
+  }
+  .topbar .topbar-name {
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: #fff;
+    letter-spacing: 0.01em;
+  }
+  .topbar .topbar-tag {
+    margin-left: auto;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .hero {
+    text-align: center;
+    padding: 36px 20px 56px;
+    border-bottom: 6px solid #C8102E;
+    background:
+      repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 0 16px, transparent 16px 32px),
+      linear-gradient(135deg, #001d52 0%, #003087 55%, #0a45ad 100%);
+  }
+  .hero .logo-tile {
+    display: inline-block;
+    background: #fff;
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+  .hero img { height: 84px; width: auto; display: block; }
+  .hero h1 {
+    font-size: 3.1rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+  }
+  .hero p {
+    margin: 4px 0 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.02em;
+  }
+  @media (max-width: 560px) {
+    .topbar .topbar-tag { display: none; }
+    .hero { padding: 28px 16px 44px; }
+    .hero h1 { font-size: 2.2rem; }
+    .hero img { height: 64px; }
+  }
+  header.intro { margin-bottom: 36px; }
+  header.intro .kicker {
+    margin: 0 0 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #C8102E;
+  }
+  header h2 { font-size: 2.2rem; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.02em; color: #003087; }
+  header p.lede { color: var(--muted); margin: 0 0 24px; font-size: 1.1rem; }
+  .steps-strip {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .steps-strip li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-top: 3px solid #003087;
+    border-radius: 10px;
+    padding: 14px 14px 12px;
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+  .steps-strip .step-num {
+    flex: 0 0 26px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #003087;
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .steps-strip strong { display: block; margin-bottom: 2px; color: var(--ink); }
+  .steps-strip span:not(.step-num) { color: var(--muted); }
+  .intro-cta { margin: 0; font-weight: 700; color: #003087; }
+  .resume-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #eaf0fb;
+    border: 1px solid #c9d6f0;
+    border-left: 4px solid #003087;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin: 0 0 22px;
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+  .resume-bar[hidden] { display: none; }
+  .resume-bar strong { color: #003087; }
+  .resume-bar button {
+    flex: 0 0 auto;
+    border: none;
+    background: none;
+    font: inherit;
+    font-weight: 700;
+    color: #C8102E;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    white-space: nowrap;
+  }
+  @media (max-width: 640px) {
+    header h2 { font-size: 1.75rem; }
+    .steps-strip { grid-template-columns: 1fr; gap: 8px; }
+  }
+  fieldset {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--card);
+    padding: 28px 28px 20px;
+    margin: 0 0 28px;
+  }
+  legend {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    padding: 0 10px;
+  }
+  .q { margin-bottom: 26px; }
+  .q:last-child { margin-bottom: 10px; }
+  .q > label.qlabel, .q > span.qlabel {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .hint { display: block; color: var(--muted); font-size: 0.9rem; margin-bottom: 10px; }
+  input[type="text"], input[type="tel"], input[type="email"], input[type="url"], textarea, select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid var(--input-line);
+    border-radius: 8px;
+    font: inherit;
+    background: #fff;
+    color: var(--ink);
+    transition: border-color 0.15s;
+  }
+  input[type="text"]:hover, input[type="tel"]:hover, input[type="email"]:hover, input[type="url"]:hover, textarea:hover, select:hover {
+    border-color: var(--input-line-hover);
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+  textarea { min-height: 90px; resize: vertical; }
+  .choices { display: flex; flex-direction: column; gap: 8px; }
+  .choices label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border: 1.5px solid var(--input-line);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .choices label:hover { border-color: var(--input-line-hover); }
+  .choices label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+  .choices input { accent-color: var(--accent); }
+  .inline-other { display: flex; align-items: center; gap: 10px; }
+  @media (min-width: 561px) {
+    .choices--grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .choices--grid .choices--span { grid-column: 1 / -1; }
+  }
+  .inline-other input[type="text"] { flex: 1; margin-left: 10px; }
+  table.vibe { width: 100%; border-collapse: collapse; }
+  table.vibe td, table.vibe th {
+    padding: 10px 6px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+  table.vibe td.side { text-align: left; font-weight: 600; width: 34%; }
+  table.vibe td.side.right { text-align: right; }
+  table.vibe input { accent-color: var(--accent); transform: scale(1.2); }
+  .ref-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .svc-row { display: grid; grid-template-columns: 1.8fr 1.2fr 1.1fr; gap: 10px; margin-bottom: 10px; }
+  .svc-row select { cursor: pointer; }
+  .svc-row input:disabled {
+    background: var(--bg);
+    color: var(--muted);
+    border-style: dashed;
+    border-color: var(--line);
+    cursor: not-allowed;
+  }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    font: inherit;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px dashed var(--accent);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .upload-btn:hover { background: #dbe5f7; }
+  .dictate-tip {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0 0 10px;
+    padding: 10px 12px;
+    background: #eaf0fb;
+    border-left: 3px solid #003087;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--ink);
+  }
+  .dictate-tip svg { width: 20px; height: 20px; flex: 0 0 auto; color: #003087; margin-top: 1px; }
+  .dictate-tip strong { color: #003087; }
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .photo-card {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .photo-card.is-hero { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+  .photo-card img { width: 100%; height: 110px; object-fit: cover; display: block; }
+  .photo-card .card-body { padding: 8px; }
+  .photo-card input[type="text"] {
+    font-size: 0.85rem;
+    padding: 7px 9px;
+    margin-bottom: 6px;
+  }
+  .photo-card .hero-pick {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background: none;
+  }
+  .photo-card .hero-pick input { accent-color: var(--accent); }
+  .photo-card .remove-photo {
+    border: none;
+    background: none;
+    color: #c0392b;
+    font-size: 0.78rem;
+    cursor: pointer;
+    padding: 4px 0 0;
+  }
+  #logo-preview img {
+    max-height: 70px;
+    margin-top: 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 6px;
+    background: #fff;
+    display: block;
+  }
+  .note {
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.9rem;
+    color: var(--ink);
+    margin-top: 8px;
+  }
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--red);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(200, 16, 46, 0.28);
+    transition: background 0.15s, transform 0.08s;
+  }
+  button[type="submit"]:hover, button[type="submit"]:focus-visible { background: var(--red-dark); }
+  button[type="submit"]:active { transform: translateY(1px); }
+  button[type="submit"]:disabled { background: #b8bec9; box-shadow: none; cursor: default; }
+  .field-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: #fdecef;
+    color: #8f0b21;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .q.has-error > .qlabel { color: var(--red); }
+  .q.has-error input:invalid, .q.has-error textarea:invalid, .q.has-error .choices label { border-color: var(--red); }
+  .submit-error {
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: #fdecef;
+    border: 1px solid #f3b7c1;
+    color: var(--ink);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .submit-error[hidden] { display: none; }
+  .submit-error strong { color: #8f0b21; }
+  .submit-error a { color: var(--accent); font-weight: 700; }
+  .upload-error {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #fdecef;
+    color: #8f0b21;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .upload-error[hidden] { display: none; }
+  #branding-details[hidden] { display: none; }
+  footer.confirm {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 20px;
+  }
+  .hidden { display: none; }
+  .bottombar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+    background: #fff;
+    border-top: 2px solid #003087;
+    box-shadow: 0 -2px 10px rgba(0, 29, 82, 0.12);
+  }
+  .bottombar { gap: 14px; padding: 10px 16px; justify-content: flex-start; }
+  .progress-label { margin-left: auto; }
+  .progress-label {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: #003087;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: baseline;
+  }
+  .progress-label .long { margin-left: 0.3em; }
+  .progress-label .short { display: none; }
+  .progress-track {
+    flex: 1 1 auto;
+    max-width: 380px;
+    height: 8px;
+    background: var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #003087, #0a45ad);
+    border-radius: 999px;
+    transition: width 0.35s ease;
+  }
+  .progress-fill.done { background: #C8102E; }
+  .progress-next {
+    border: none;
+    background: none;
+    font: inherit;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #C8102E;
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 6px 4px;
+    border-radius: 8px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .progress-next:hover, .progress-next:focus-visible { text-decoration: underline; }
+  .progress-next.ready {
+    background: #C8102E;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(200, 16, 46, 0.3);
+  }
+  .progress-next.ready:hover, .progress-next.ready:focus-visible { background: #a50d25; text-decoration: none; }
+  .progress-top {
+    margin-left: auto;
+    color: #003087;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 6px 4px;
+    opacity: 0.85;
+  }
+  .progress-top:hover, .progress-top:focus-visible { text-decoration: underline; opacity: 1; }
+  @media (max-width: 560px) {
+    .progress-label .long { display: none; }
+    .progress-label .short { display: inline; }
+    .bottombar { gap: 10px; }
+  }
+  html { scroll-behavior: smooth; }
+  @media (max-width: 560px) {
+    .ref-row, .svc-row, .contact-grid { grid-template-columns: 1fr; }
+    fieldset { padding: 20px 16px 14px; }
+    /* Vibe pairs: stack each row into label-row + radio-row so nothing gets squeezed */
+    table.vibe, table.vibe tbody { display: block; width: 100%; }
+    table.vibe tr {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      row-gap: 4px;
+      align-items: center;
+      padding: 12px 0 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    table.vibe tr:last-child { border-bottom: none; }
+    table.vibe td { display: block; border: none; padding: 0; width: auto; }
+    table.vibe td.side { grid-row: 1; grid-column: 1; width: auto; text-align: left; font-size: 0.92rem; line-height: 1.3; }
+    table.vibe td.side.right { grid-column: 3; text-align: right; }
+    table.vibe td:nth-child(2) { grid-row: 2; grid-column: 1; text-align: left; padding-left: 8px; }
+    table.vibe td:nth-child(3) { grid-row: 2; grid-column: 2; text-align: center; padding: 0 12px; }
+    table.vibe td:nth-child(3)::after { content: "middle"; display: block; font-size: 0.7rem; color: var(--muted); margin-top: -2px; }
+    table.vibe td:nth-child(4) { grid-row: 2; grid-column: 3; text-align: right; padding-right: 8px; }
+    table.vibe input { transform: scale(1.35); }
+    /* On small screens, group each multi-input row into a labeled card so rows don't blur together */
+    .ref-row, .svc-row {
+      gap: 8px;
+      padding: 12px;
+      margin-bottom: 12px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-left: 3px solid #003087;
+      border-radius: 10px;
+    }
+    .ref-row::before, .svc-row::before {
+      content: attr(data-label);
+      grid-column: 1 / -1;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #003087;
+    }
+  }
+</style>
+</head>
+<body>
+<nav class="topbar" id="top">
+  <img src="duna_marketing_logo.png" alt="">
+  <span class="topbar-name">Duna Marketing</span>
+  <span class="topbar-tag">Bespoke, High-Quality Web Solutions</span>
+</nav>
+
+<section class="hero">
+  <span class="logo-tile"><img src="duna_marketing_logo.png" alt="Duna Marketing logo"></span>
+  <h1>Duna Marketing</h1>
+  <p>Bespoke, High-Quality Web Solutions for Small Businesses</p>
+</section>
+
+<div class="wrap">
+  <header class="intro" id="questionnaire">
+    <p class="kicker">About 10 minutes &middot; Nothing to prepare &middot; No tech skills needed</p>
+    <h2>Your new website starts here.</h2>
+    <p class="lede">Tell us about your business in plain English &mdash; what you do, who you serve, and how you want it to feel. We take it from there: the design, the words, the photos, the setup. Nothing goes live until you&rsquo;ve seen it and said &ldquo;yes.&rdquo;</p>
+    <ol class="steps-strip" aria-label="How it works">
+      <li><span class="step-num">1</span><div><strong>You answer</strong><span>22 quick questions, right here. Short, honest answers beat polished ones.</span></div></li>
+      <li><span class="step-num">2</span><div><strong>We talk</strong><span>Right after you submit, you can text me with one tap &mdash; or I&rsquo;ll reach out. Quick, personal, no sales call.</span></div></li>
+      <li><span class="step-num">3</span><div><strong>We build</strong><span>A site made from your real answers &mdash; and you approve a preview before it goes live.</span></div></li>
+    </ol>
+    <p class="intro-cta">The sooner you start, the sooner it&rsquo;s live. Let&rsquo;s go &darr;</p>
+  </header>
+
+  <div class="resume-bar" id="resume-bar" role="status" hidden>
+    <span id="resume-msg">Welcome back &mdash; we saved your progress on this device.</span>
+    <button type="button" id="start-over">Start over</button>
+  </div>
+
+  <form id="intake-form" name="website-questionnaire" method="POST" action="/thanks.html" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+    <input type="hidden" name="form-name" value="website-questionnaire">
+    <p class="hidden">
+      <label>Don't fill this out if you're human: <input name="bot-field"></label>
+    </p>
+
+    <!-- PART 1 -->
+    <fieldset>
+      <legend>Part 1 &mdash; Your Business</legend>
+
+      <div class="q">
+        <label class="qlabel" for="business-name">1. Business name (exactly as it should appear on the site) *</label>
+        <input type="text" id="business-name" name="business_name" required>
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="tagline">2. Tagline or slogan, if you have one</label>
+        <span class="hint">Leave blank if none &mdash; we can write one for you.</span>
+        <input type="text" id="tagline" name="tagline">
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="what-you-do">3. What does your business do, and what area do you serve? *</label>
+        <span class="hint">Cover what you offer, who it&rsquo;s for, and where. Example: &ldquo;Plumbing repairs and water-heater installs for homeowners across Pasadena.&rdquo;</span>
+        <textarea id="what-you-do" name="what_you_do" required placeholder="We are a [type of business] that [what you do] for [who] in [city / area, or online]."></textarea>
+      </div>
+
+      <div class="q">
+        <span class="qlabel">4. Do you have a website right now?</span>
+        <div class="choices">
+          <label><input type="radio" name="has_website" value="Yes"> Yes &mdash; here&rsquo;s the link:</label>
+          <label><input type="radio" name="has_website" value="No"> No &mdash; this will be my first</label>
+        </div>
+        <div style="margin-top:10px;">
+          <input type="url" id="current-website" name="current_website_url" placeholder="https://yourcurrentsite.com" aria-label="Current website URL">
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="qlabel">5. Do you have a domain name (like <em>yourbusiness.com</em>)?</span>
+        <div class="choices">
+          <label><input type="radio" name="domain_status" value="I own one"> I own one</label>
+          <label><input type="radio" name="domain_status" value="I need one"> I need one &mdash; I have a name in mind</label>
+          <label><input type="radio" name="domain_status" value="Not sure - help me pick"> Not sure &mdash; help me pick</label>
+        </div>
+        <div style="margin-top:10px;">
+          <input type="text" id="domain-name" name="domain_name" placeholder="The domain you own or want, e.g. mariasbakery.com" aria-label="Domain name">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- PART 2 -->
+    <fieldset>
+      <legend>Part 2 &mdash; The Job of Your Website</legend>
+
+      <div class="q">
+        <span class="qlabel">6. When someone lands on your website, what is the ONE thing you most want them to do? *</span>
+        <span class="hint">Pick one. If everything matters, pick the one that pays the bills.</span>
+        <div class="choices">
+          <label><input type="radio" name="primary_goal" value="Call me" required> Call me</label>
+          <label><input type="radio" name="primary_goal" value="Book an appointment / reservation"> Book an appointment / reservation</label>
+          <label><input type="radio" name="primary_goal" value="Buy something"> Buy something</label>
+          <label><input type="radio" name="primary_goal" value="Fill out a contact/quote form"> Fill out a contact / quote form</label>
+          <label><input type="radio" name="primary_goal" value="Sign up"> Sign up (newsletter, membership, waitlist)</label>
+          <label class="inline-other"><input type="radio" name="primary_goal" value="Other"> Other: <input type="text" name="primary_goal_other" id="primary-goal-other" aria-label="Other goal"></label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="visitor">7. Describe your typical visitor in one sentence &mdash; who are they and what's going on in their head when they find you? *</label>
+        <span class="hint">Example: &ldquo;A homeowner with a leaking water heater who needs someone today.&rdquo; / &ldquo;A bride-to-be browsing photographers months before her wedding.&rdquo;</span>
+        <textarea id="visitor" name="typical_visitor" required></textarea>
+      </div>
+    </fieldset>
+
+    <!-- PART 3 -->
+    <fieldset>
+      <legend>Part 3 &mdash; Look &amp; Feel</legend>
+
+      <div class="q">
+        <span class="qlabel">8. For each pair, mark the side that fits your business better</span>
+        <span class="hint">Mark the middle if truly both.</span>
+        <table class="vibe">
+          <tr>
+            <td class="side">Warm &amp; friendly</td>
+            <td><input type="radio" name="vibe_warmth" value="Warm & friendly" aria-label="Warm and friendly"></td>
+            <td><input type="radio" name="vibe_warmth" value="Middle" aria-label="Middle"></td>
+            <td><input type="radio" name="vibe_warmth" value="Sleek & premium" aria-label="Sleek and premium"></td>
+            <td class="side right">Sleek &amp; premium</td>
+          </tr>
+          <tr>
+            <td class="side">Minimal &amp; simple</td>
+            <td><input type="radio" name="vibe_density" value="Minimal & simple" aria-label="Minimal and simple"></td>
+            <td><input type="radio" name="vibe_density" value="Middle" aria-label="Middle"></td>
+            <td><input type="radio" name="vibe_density" value="Rich & expressive" aria-label="Rich and expressive"></td>
+            <td class="side right">Rich &amp; expressive</td>
+          </tr>
+          <tr>
+            <td class="side">Playful</td>
+            <td><input type="radio" name="vibe_tone" value="Playful" aria-label="Playful"></td>
+            <td><input type="radio" name="vibe_tone" value="Middle" aria-label="Middle"></td>
+            <td><input type="radio" name="vibe_tone" value="Serious & professional" aria-label="Serious and professional"></td>
+            <td class="side right">Serious &amp; professional</td>
+          </tr>
+          <tr>
+            <td class="side">Bold, colorful</td>
+            <td><input type="radio" name="vibe_color" value="Bold, colorful" aria-label="Bold and colorful"></td>
+            <td><input type="radio" name="vibe_color" value="Middle" aria-label="Middle"></td>
+            <td><input type="radio" name="vibe_color" value="Neutral, muted" aria-label="Neutral and muted"></td>
+            <td class="side right">Neutral, muted</td>
+          </tr>
+          <tr>
+            <td class="side">Modern</td>
+            <td><input type="radio" name="vibe_era" value="Modern" aria-label="Modern"></td>
+            <td><input type="radio" name="vibe_era" value="Middle" aria-label="Middle"></td>
+            <td><input type="radio" name="vibe_era" value="Classic & timeless" aria-label="Classic and timeless"></td>
+            <td class="side right">Classic &amp; timeless</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="q">
+        <span class="qlabel">9. List 2&ndash;3 websites you like. For each, name the ONE thing you like about it.</span>
+        <span class="hint">Any website counts &mdash; a competitor, a big brand, anything.</span>
+        <div class="ref-row" data-label="Website 1">
+          <input type="url" name="ref_site_1_url" placeholder="https://example.com" aria-label="Reference site 1 URL">
+          <input type="text" name="ref_site_1_like" placeholder="The one thing I like about it" aria-label="Reference site 1 — what you like">
+        </div>
+        <div class="ref-row" data-label="Website 2">
+          <input type="url" name="ref_site_2_url" placeholder="https://example.com" aria-label="Reference site 2 URL">
+          <input type="text" name="ref_site_2_like" placeholder="The one thing I like about it" aria-label="Reference site 2 — what you like">
+        </div>
+        <div class="ref-row" data-label="Website 3">
+          <input type="url" name="ref_site_3_url" placeholder="https://example.com (optional)" aria-label="Reference site 3 URL">
+          <input type="text" name="ref_site_3_like" placeholder="The one thing I like about it" aria-label="Reference site 3 — what you like">
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="qlabel">10. Name one website you dislike, and why</span>
+        <div class="ref-row" data-label="Website you dislike">
+          <input type="url" name="disliked_site_url" placeholder="https://example.com" aria-label="Disliked site URL">
+          <input type="text" name="disliked_site_why" placeholder="Why you dislike it" aria-label="Why you dislike it">
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="jealous">11. Which competitor's website makes you jealous?</label>
+        <span class="hint">Optional, but very useful.</span>
+        <input type="text" id="jealous" name="competitor_jealous">
+      </div>
+
+      <div class="q">
+        <span class="qlabel">12. Do you have brand colors or a logo?</span>
+        <div class="choices">
+          <label><input type="radio" name="has_branding" value="Yes"> Yes &mdash; I'll upload my logo and/or list my colors below</label>
+          <label><input type="radio" name="has_branding" value="No - choose for me"> No &mdash; choose for me</label>
+        </div>
+        <div id="branding-details">
+          <div style="margin-top:10px;">
+            <label class="hint" for="brand-colors">Brand colors (names or hex codes):</label>
+            <input type="text" id="brand-colors" name="brand_colors" placeholder="e.g. navy blue and gold, or #14213d / #fca311">
+          </div>
+          <div style="margin-top:12px;">
+            <span class="hint">Your logo:</span>
+            <button type="button" class="upload-btn" id="upload-logo-btn">&#8682; Upload logo</button>
+            <div class="upload-error" id="logo-upload-error" hidden></div>
+            <div id="logo-preview"></div>
+          </div>
+        </div>
+        <input type="hidden" name="logo_url" id="logo-url">
+      </div>
+    </fieldset>
+
+    <!-- PART 4 -->
+    <fieldset>
+      <legend>Part 4 &mdash; Your Content</legend>
+
+      <div class="q">
+        <span class="qlabel">13. Which pages would you like?</span>
+        <span class="hint">Home is always included. Tick any others you want &mdash; or leave it to us and we&rsquo;ll pick based on your answers.</span>
+        <div class="choices choices--grid" id="pages-choices">
+          <label><input type="checkbox" name="pages" value="About"> About</label>
+          <label><input type="checkbox" name="pages" value="Services"> Services</label>
+          <label><input type="checkbox" name="pages" value="Gallery / Our work"> Gallery / Our work</label>
+          <label><input type="checkbox" name="pages" value="Menu / Price list"> Menu / Price list</label>
+          <label><input type="checkbox" name="pages" value="Reviews"> Reviews</label>
+          <label><input type="checkbox" name="pages" value="FAQ"> FAQ</label>
+          <label><input type="checkbox" name="pages" value="Contact"> Contact</label>
+          <label><input type="checkbox" name="pages" value="Booking"> Booking</label>
+          <label class="inline-other choices--span"><input type="checkbox" name="pages" value="Other"> Other: <input type="text" name="pages_other" id="pages-other" aria-label="Other page" placeholder="e.g. Careers, Events"></label>
+          <label class="choices--span"><input type="checkbox" name="pages" value="You decide" id="pages-decide"> Not sure &mdash; you decide</label>
+        </div>
+        <input type="hidden" name="pages_selected" id="pages-selected">
+      </div>
+
+      <div class="q">
+        <span class="qlabel">14. List your main products or services *</span>
+        <span class="hint">Name each one, then use the dropdown to choose whether visitors see a price, &ldquo;Get a quote,&rdquo; or no price at all.</span>
+        <div class="svc-row" data-label="Service or product 1">
+          <input type="text" name="service_1" placeholder="Service or product" aria-label="Service 1" required>
+          <select name="service_1_pricing" class="pricing-mode" aria-label="Service 1 pricing display">
+            <option value="Show a price">Show a price</option>
+            <option value="By quote / estimate">By quote / estimate</option>
+            <option value="Don't show pricing">Don&rsquo;t show pricing</option>
+          </select>
+          <input type="text" name="service_1_price" placeholder="e.g. $99 or $75/hr" aria-label="Service 1 price">
+        </div>
+        <div class="svc-row" data-label="Service or product 2">
+          <input type="text" name="service_2" placeholder="Service or product" aria-label="Service 2">
+          <select name="service_2_pricing" class="pricing-mode" aria-label="Service 2 pricing display">
+            <option value="Show a price">Show a price</option>
+            <option value="By quote / estimate">By quote / estimate</option>
+            <option value="Don't show pricing">Don&rsquo;t show pricing</option>
+          </select>
+          <input type="text" name="service_2_price" placeholder="e.g. $99 or $75/hr" aria-label="Service 2 price">
+        </div>
+        <div class="svc-row" data-label="Service or product 3">
+          <input type="text" name="service_3" placeholder="Service or product" aria-label="Service 3">
+          <select name="service_3_pricing" class="pricing-mode" aria-label="Service 3 pricing display">
+            <option value="Show a price">Show a price</option>
+            <option value="By quote / estimate">By quote / estimate</option>
+            <option value="Don't show pricing">Don&rsquo;t show pricing</option>
+          </select>
+          <input type="text" name="service_3_price" placeholder="e.g. $99 or $75/hr" aria-label="Service 3 price">
+        </div>
+        <div class="svc-row" data-label="Service or product 4">
+          <input type="text" name="service_4" placeholder="Service or product" aria-label="Service 4">
+          <select name="service_4_pricing" class="pricing-mode" aria-label="Service 4 pricing display">
+            <option value="Show a price">Show a price</option>
+            <option value="By quote / estimate">By quote / estimate</option>
+            <option value="Don't show pricing">Don&rsquo;t show pricing</option>
+          </select>
+          <input type="text" name="service_4_price" placeholder="e.g. $99 or $75/hr" aria-label="Service 4 price">
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="testimonials">15. Paste 1&ndash;3 real customer reviews or testimonials, word for word</label>
+        <span class="hint">From Google, Yelp, texts &mdash; anywhere. Include the customer's first name if you can.</span>
+        <textarea id="testimonials" name="testimonials" placeholder="&quot;They showed up in an hour and fixed it same day.&quot; — Maria"></textarea>
+      </div>
+
+      <div class="q q--story">
+        <label class="qlabel" for="story">16. Tell us about your business the way you&rsquo;d tell a neighbor</label>
+        <span class="hint">How you got started, what you&rsquo;re known for, what customers always ask you. This is the richest thing you can give us &mdash; a few sentences is plenty.</span>
+        <p class="dictate-tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span><strong>Easiest on a phone:</strong> tap in the box, then tap the microphone on your keyboard and just talk for a minute.</span></p>
+        <textarea id="story" name="story" style="min-height:130px;" placeholder="e.g. My dad opened the shop in 2009 and I took over in 2019. People come to us because we actually pick up the phone. The question I get most is whether we do same-day work — we do."></textarea>
+      </div>
+
+      <div class="q">
+        <span class="qlabel">17. Contact &amp; practical info</span>
+        <span class="hint">Your name is for us; the rest is what visitors will see on your site.</span>
+        <div class="contact-grid">
+          <div>
+            <label class="hint" for="first-name">First name *</label>
+            <input type="text" id="first-name" name="first_name" autocomplete="given-name" required>
+          </div>
+          <div>
+            <label class="hint" for="last-name">Last name *</label>
+            <input type="text" id="last-name" name="last_name" autocomplete="family-name" required>
+          </div>
+          <div>
+            <label class="hint" for="phone">Phone *</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+          </div>
+          <div>
+            <label class="hint" for="email">Email *</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+          <div>
+            <label class="hint" for="address">Address (or service area)</label>
+            <input type="text" id="address" name="address">
+          </div>
+          <div>
+            <label class="hint" for="hours">Hours</label>
+            <input type="text" id="hours" name="hours" placeholder="e.g. Mon–Fri 8–6, Sat 9–2">
+          </div>
+          <div>
+            <label class="hint" for="best-time">Best time to text you</label>
+            <input type="text" id="best-time" name="best_time_to_text" placeholder="e.g. weekdays after 3pm" autocomplete="off">
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          <label class="hint" for="socials">Social links (one per line or comma-separated)</label>
+          <textarea id="socials" name="social_links" style="min-height:60px;" placeholder="instagram.com/yourbusiness&#10;facebook.com/yourbusiness"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- PART 5 -->
+    <fieldset>
+      <legend>Part 5 &mdash; Your Photos</legend>
+
+      <div class="q">
+        <span class="qlabel">18. Add your photos</span>
+        <span class="hint">Storefront, team, products, your best work &mdash; whatever shows off your business. After each photo uploads, tell us in one line what it is, and star the ONE photo that best represents your business.</span>
+        <button type="button" class="upload-btn" id="upload-photos-btn">&#8682; Add photos</button>
+        <div class="upload-error" id="photo-upload-error" hidden></div>
+        <div class="photo-grid" id="photo-grid"></div>
+        <input type="hidden" name="photos_json" id="photos-json">
+        <div style="margin-top:14px;">
+          <label class="hint" for="photo-link">Trouble uploading? Paste a link to a shared photo folder instead (Google Drive, Dropbox, iCloud):</label>
+          <input type="url" id="photo-link" name="photo_folder_link" placeholder="https://drive.google.com/...">
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- PART 6 -->
+    <fieldset>
+      <legend>Part 6 &mdash; Rules &amp; Deal-Breakers</legend>
+
+      <div class="q">
+        <label class="qlabel" for="must-haves">19. Must-haves &mdash; is there anything the site absolutely needs?</label>
+        <span class="hint">A booking tool, a menu, a license/certification badge, a second language, etc.</span>
+        <textarea id="must-haves" name="must_haves"></textarea>
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="donts">20. Absolutely-nots &mdash; anything you do NOT want on your site?</label>
+        <span class="hint">Certain colors, stock photos, popups, specific words&hellip;</span>
+        <textarea id="donts" name="absolutely_nots"></textarea>
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="anything-else">21. Anything else we should know?</label>
+        <textarea id="anything-else" name="anything_else"></textarea>
+      </div>
+
+      <div class="q">
+        <span class="qlabel">22. How did you hear about us?</span>
+        <div class="choices">
+          <label><input type="radio" name="heard_about" value="Facebook / Instagram ad"> Facebook / Instagram ad</label>
+          <label><input type="radio" name="heard_about" value="Google search"> Google search</label>
+          <label><input type="radio" name="heard_about" value="Friend or referral"> Friend or referral</label>
+          <label class="inline-other"><input type="radio" name="heard_about" value="Other"> Other: <input type="text" name="heard_about_detail" id="heard-about-detail" aria-label="How you heard about us" placeholder="Who or where?"></label>
+        </div>
+      </div>
+
+
+    </fieldset>
+
+    <button type="submit" id="submit-btn">Submit questionnaire</button>
+    <div class="submit-error" id="submit-error" hidden role="alert">
+      <strong>Hmm &mdash; that didn&rsquo;t go through.</strong> Are you online? Your answers are saved on this device, so nothing is lost. Tap <em>Submit questionnaire</em> again, or text me at <a href="sms:+17073855673">(707) 385-5673</a> and I&rsquo;ll take it from there.
+    </div>
+    <footer class="confirm">✦ Right after you submit, you&rsquo;ll get a one-tap button to text me directly. I read every answer personally, and nothing goes live until you&rsquo;ve approved it.</footer>
+  </form>
+</div>
+
+<div class="bottombar" id="progress-bar">
+  <span class="progress-label"><span id="progress-count">0</span><span class="long">of 22 answered</span><span class="short">/22</span></span>
+  <div class="progress-track" role="progressbar" aria-label="Questionnaire progress" aria-valuemin="0" aria-valuemax="22" aria-valuenow="0" id="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  <button type="button" class="progress-next" id="progress-next">Next &darr;</button>
+  <a href="#questionnaire" class="progress-top" id="progress-top" title="Back to the top of the questionnaire">&uarr; Top</a>
+</div>
+
+<script src="https://upload-widget.cloudinary.com/latest/global/all.js"></script>
+<script>
+  // ==== CLOUDINARY SETUP — fill in these two values ====
+  // 1. Create a free account at cloudinary.com
+  // 2. Settings → Upload → Add upload preset → Signing mode: "Unsigned"
+  //    (recommended preset limits: images only, max 10 MB per file)
+  var CLOUDINARY_CLOUD_NAME = "qvsg8okz";
+  var CLOUDINARY_UPLOAD_PRESET = "duna_intake";
+  // =====================================================
+
+  var photos = []; // {url, caption, is_hero}
+
+  function showUploadError(id, msg) {
+    var el = document.getElementById(id);
+    el.textContent = msg;
+    el.hidden = false;
+  }
+  function clearUploadError(id) { document.getElementById(id).hidden = true; }
+
+  function cloudinaryReady(errId) {
+    if (typeof cloudinary === "undefined") {
+      showUploadError(errId, "The uploader couldn\u2019t load \u2014 check your connection and try again, or paste a shared folder link below instead.");
+      return false;
+    }
+    if (CLOUDINARY_CLOUD_NAME === "YOUR_CLOUD_NAME" || CLOUDINARY_UPLOAD_PRESET === "YOUR_UNSIGNED_PRESET") {
+      showUploadError(errId, "Uploader not configured yet.");
+      return false;
+    }
+    clearUploadError(errId);
+    return true;
+  }
+
+  function folderSlug() {
+    var name = document.getElementById("business-name").value.trim();
+    return "intake/" + (name ? name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") : "unnamed");
+  }
+
+  function renderPhotos() {
+    var grid = document.getElementById("photo-grid");
+    grid.innerHTML = "";
+    photos.forEach(function (p, i) {
+      var card = document.createElement("div");
+      card.className = "photo-card" + (p.is_hero ? " is-hero" : "");
+
+      var img = document.createElement("img");
+      img.src = p.url.replace("/upload/", "/upload/c_fill,w_320,h_220,q_auto,f_auto/");
+      img.alt = "Uploaded photo " + (i + 1);
+      card.appendChild(img);
+
+      var body = document.createElement("div");
+      body.className = "card-body";
+
+      var caption = document.createElement("input");
+      caption.type = "text";
+      caption.placeholder = "What is this photo?";
+      caption.value = p.caption;
+      caption.addEventListener("input", function () { p.caption = caption.value; saveDraftSoon(); });
+      body.appendChild(caption);
+
+      var heroLabel = document.createElement("label");
+      heroLabel.className = "hero-pick";
+      var heroRadio = document.createElement("input");
+      heroRadio.type = "radio";
+      heroRadio.name = "hero_pick_ui";
+      heroRadio.checked = p.is_hero;
+      heroRadio.addEventListener("change", function () {
+        photos.forEach(function (q) { q.is_hero = false; });
+        p.is_hero = true;
+        renderPhotos();
+      });
+      heroLabel.appendChild(heroRadio);
+      heroLabel.appendChild(document.createTextNode("★ Best represents my business"));
+      body.appendChild(heroLabel);
+
+      var remove = document.createElement("button");
+      remove.type = "button";
+      remove.className = "remove-photo";
+      remove.textContent = "Remove";
+      remove.addEventListener("click", function () {
+        var wasHero = p.is_hero;
+        photos.splice(i, 1);
+        if (wasHero && photos.length) photos[0].is_hero = true;
+        renderPhotos();
+      });
+      body.appendChild(remove);
+
+      card.appendChild(body);
+      grid.appendChild(card);
+    });
+    saveDraft();
+  }
+
+  document.getElementById("upload-photos-btn").addEventListener("click", function () {
+    if (!cloudinaryReady("photo-upload-error")) return;
+    cloudinary.createUploadWidget(
+      {
+        cloudName: CLOUDINARY_CLOUD_NAME,
+        uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+        folder: folderSlug(),
+        sources: ["local", "camera", "google_drive", "dropbox", "url"],
+        multiple: true,
+        maxFiles: 30,
+        clientAllowedFormats: ["image"],
+        maxFileSize: 10000000
+      },
+      function (error, result) {
+        if (error) {
+          showUploadError("photo-upload-error", "That upload didn\u2019t go through. Try again, or paste a shared folder link below.");
+          return;
+        }
+        if (result && result.event === "success") {
+          clearUploadError("photo-upload-error");
+          photos.push({ url: result.info.secure_url, caption: "", is_hero: photos.length === 0 });
+          renderPhotos();
+        }
+      }
+    ).open();
+  });
+
+  document.getElementById("upload-logo-btn").addEventListener("click", function () {
+    if (!cloudinaryReady("logo-upload-error")) return;
+    cloudinary.createUploadWidget(
+      {
+        cloudName: CLOUDINARY_CLOUD_NAME,
+        uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+        folder: folderSlug() + "/logo",
+        sources: ["local", "google_drive", "dropbox", "url"],
+        multiple: false,
+        clientAllowedFormats: ["image"],
+        maxFileSize: 10000000
+      },
+      function (error, result) {
+        if (error) {
+          showUploadError("logo-upload-error", "That upload didn\u2019t go through \u2014 try again, or just describe your logo in \u201cAnything else.\u201d");
+          return;
+        }
+        if (result && result.event === "success") {
+          clearUploadError("logo-upload-error");
+          renderLogoPreview(result.info.secure_url);
+          saveDraft();
+        }
+      }
+    ).open();
+  });
+
+  // Per-service pricing mode: only allow a price when "Show a price" is chosen
+  function syncPricingRow(sel) {
+    var priceInput = sel.parentNode.querySelector('input[name$="_price"]');
+    var show = sel.value === "Show a price";
+    priceInput.disabled = !show;
+    if (!show) {
+      priceInput.value = "";
+      priceInput.placeholder = sel.value === "By quote / estimate" ? "\u201cGet a quote\u201d" : "\u2014";
+    } else {
+      priceInput.placeholder = "e.g. $99 or $75/hr";
+    }
+    return priceInput;
+  }
+  function syncAllPricing() {
+    document.querySelectorAll(".pricing-mode").forEach(syncPricingRow);
+  }
+  document.querySelectorAll(".pricing-mode").forEach(function (sel) {
+    sel.addEventListener("change", function () {
+      var priceInput = syncPricingRow(sel);
+      if (!priceInput.disabled) priceInput.focus();
+    });
+  });
+  syncAllPricing();
+
+  function renderLogoPreview(url) {
+    document.getElementById("logo-url").value = url || "";
+    document.getElementById("logo-preview").innerHTML = url
+      ? '<img src="' + url.replace(/"/g, "&quot;") + '" alt="Your logo">'
+      : "";
+  }
+
+  // ==== AUTOSAVE (localStorage) — nothing leaves the device ====
+  var DRAFT_KEY = "duna_intake_draft";
+  var DRAFT_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+  var SKIP_FIELDS = { "form-name": 1, "bot-field": 1, "photos_json": 1, "hero_pick_ui": 1 };
+  var form = document.getElementById("intake-form");
+  var saveTimer = null;
+
+  function draftFields() {
+    return Array.prototype.filter.call(
+      form.querySelectorAll("input[name], textarea[name], select[name]"),
+      function (el) { return !SKIP_FIELDS[el.name] && el.type !== "file"; }
+    );
+  }
+
+  function saveDraft() {
+    if (typeof updateProgress === "function") updateProgress();
+    var fields = {};
+    var hasContent = false;
+    draftFields().forEach(function (el) {
+      if (el.type === "checkbox") {
+        if (!Array.isArray(fields[el.name])) fields[el.name] = [];
+        if (el.checked) { fields[el.name].push(el.value); hasContent = true; }
+        return;
+      }
+      if (el.type === "radio") {
+        if (el.checked) { fields[el.name] = el.value; hasContent = true; }
+        return;
+      }
+      if (el.tagName === "SELECT") {
+        fields[el.name] = el.value;
+        if (el.selectedIndex > 0) hasContent = true;
+        return;
+      }
+      fields[el.name] = el.value;
+      if (el.value.trim() !== "") hasContent = true;
+    });
+    if (photos.length) hasContent = true;
+    try {
+      if (!hasContent) { localStorage.removeItem(DRAFT_KEY); return; }
+      var existing = loadDraft() || {};
+      localStorage.setItem(DRAFT_KEY, JSON.stringify({
+        fields: fields,
+        photos: photos,
+        savedAt: Date.now(),
+        submittedAt: existing.submittedAt || null
+      }));
+    } catch (e) { /* storage full or blocked — silently skip */ }
+  }
+
+  function saveDraftSoon() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveDraft, 400);
+  }
+
+  function loadDraft() {
+    try {
+      var raw = localStorage.getItem(DRAFT_KEY);
+      if (!raw) return null;
+      var d = JSON.parse(raw);
+      if (!d || !d.savedAt || Date.now() - d.savedAt > DRAFT_MAX_AGE_MS) {
+        localStorage.removeItem(DRAFT_KEY);
+        return null;
+      }
+      return d;
+    } catch (e) { return null; }
+  }
+
+  function restoreDraft(d) {
+    var fields = d.fields || {};
+    draftFields().forEach(function (el) {
+      if (!(el.name in fields)) return;
+      var v = fields[el.name];
+      if (el.type === "checkbox") { el.checked = Array.isArray(v) ? v.indexOf(el.value) !== -1 : (el.value === v); return; }
+      if (el.type === "radio") { el.checked = (el.value === v); return; }
+      el.value = v == null ? "" : v;
+    });
+    syncAllPricing();
+    // pricing sync clears disabled price boxes; re-apply saved prices only for enabled ones
+    draftFields().forEach(function (el) {
+      if (/_price$/.test(el.name) && !el.disabled && el.name in fields) el.value = fields[el.name] || "";
+    });
+    renderLogoPreview(fields.logo_url || "");
+    photos = Array.isArray(d.photos) ? d.photos.filter(function (p) { return p && p.url; }) : [];
+    renderPhotos();
+    if (typeof syncBranding === "function") syncBranding();
+    if (typeof window.syncPages === "function") window.syncPages(null);
+  }
+
+  function showResumeBar(d) {
+    var bar = document.getElementById("resume-bar");
+    var msg = document.getElementById("resume-msg");
+    if (d.submittedAt) {
+      msg.innerHTML = "<strong>You\u2019ve already sent this to me</strong> \u2014 your answers are here if you want to add or change anything. Submitting again just sends me an update.";
+    } else {
+      msg.innerHTML = "<strong>Welcome back</strong> \u2014 we saved your progress on this device. Pick up where you left off.";
+    }
+    bar.hidden = false;
+  }
+
+  document.getElementById("start-over").addEventListener("click", function () {
+    if (!confirm("Clear all your saved answers and photos from this device and start fresh?")) return;
+    try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+    form.reset();
+    photos = [];
+    renderLogoPreview("");
+    renderPhotos();
+    syncAllPricing();
+    document.getElementById("resume-bar").hidden = true;
+    window.scrollTo({ top: document.getElementById("intake-form").offsetTop - 80, behavior: "smooth" });
+  });
+
+  form.addEventListener("input", saveDraftSoon);
+  form.addEventListener("change", saveDraft);
+
+  (function initDraft() {
+    var d = loadDraft();
+    if (!d) return;
+    restoreDraft(d);
+    showResumeBar(d);
+  })();
+
+  // ==== PROGRESS BAR ====
+  // A question counts as answered when: all its required fields are filled (if it has any),
+  // otherwise when any of its fields has a value. Photos count via the photos array.
+  var questionBlocks = Array.prototype.slice.call(form.querySelectorAll(".q"));
+  var TOTAL_QUESTIONS = questionBlocks.length;
+
+  function fieldHasValue(el) {
+    if (el.disabled || SKIP_FIELDS[el.name]) return false;
+    if (el.type === "radio" || el.type === "checkbox") return el.checked;
+    if (el.tagName === "SELECT") return false; // pricing dropdowns always have a value; don't count them
+    return el.value.trim() !== "";
+  }
+  function questionState(q) {
+    var fields = Array.prototype.slice.call(q.querySelectorAll("input[name], textarea[name], select[name]"));
+    var required = fields.filter(function (el) { return el.required; });
+    var isRequired = required.length > 0;
+    var answered;
+    if (q.contains(document.getElementById("photo-grid"))) {
+      answered = photos.length > 0 || fields.some(fieldHasValue);
+    } else if (isRequired) {
+      // radios: one checked in the group satisfies; text: each required must be filled
+      answered = required.every(function (el) {
+        if (el.type === "radio") return !!form.querySelector('input[name="' + el.name + '"]:checked');
+        return el.value.trim() !== "";
+      });
+    } else {
+      answered = fields.some(fieldHasValue);
+    }
+    return { answered: answered, required: isRequired };
+  }
+
+  var progressCount = document.getElementById("progress-count");
+  var progressFill = document.getElementById("progress-fill");
+  var progressTrack = document.getElementById("progress-track");
+  var progressNext = document.getElementById("progress-next");
+  var firstUnanswered = null;
+
+  function updateProgress() {
+    if (!questionBlocks || !progressFill) return; // called before the bar is initialized (during draft restore)
+    var answered = 0, requiredLeft = 0;
+    firstUnanswered = null;
+    questionBlocks.forEach(function (q) {
+      var st = questionState(q);
+      if (st.answered) answered++;
+      else {
+        if (st.required) requiredLeft++;
+        if (!firstUnanswered) firstUnanswered = q;
+      }
+    });
+    progressCount.textContent = answered;
+    progressTrack.setAttribute("aria-valuenow", answered);
+    progressFill.style.width = Math.round((answered / TOTAL_QUESTIONS) * 100) + "%";
+    progressFill.classList.toggle("done", answered === TOTAL_QUESTIONS);
+    if (requiredLeft === 0) {
+      progressNext.textContent = answered === TOTAL_QUESTIONS ? "All done \u2014 Submit \u2193" : "Submit \u2193";
+      progressNext.classList.add("ready");
+    } else {
+      progressNext.textContent = "Next \u2193";
+      progressNext.classList.remove("ready");
+    }
+  }
+
+  progressNext.addEventListener("click", function () {
+    var target = progressNext.classList.contains("ready") ? form.querySelector('button[type="submit"]') : firstUnanswered;
+    if (!target) target = form.querySelector('button[type="submit"]');
+    var top = target.getBoundingClientRect().top + window.pageYOffset - 84;
+    window.scrollTo({ top: top, behavior: "smooth" });
+    if (!progressNext.classList.contains("ready")) {
+      var focusable = target.querySelector("input:not([type=hidden]):not(:disabled), textarea, select");
+      if (focusable) setTimeout(function () { focusable.focus({ preventScroll: true }); }, 350);
+    }
+  });
+
+  document.getElementById("progress-top").addEventListener("click", function (e) {
+    e.preventDefault();
+    var target = document.getElementById("questionnaire");
+    var top = target.getBoundingClientRect().top + window.pageYOffset - 76;
+    window.scrollTo({ top: top, behavior: "smooth" });
+  });
+
+  form.addEventListener("input", updateProgress);
+  form.addEventListener("change", updateProgress);
+  updateProgress();
+
+  // ==== CONDITIONAL LOGIC ====
+  // "Other" text boxes auto-select their radio
+  [["primary-goal-other", "primary_goal"], ["heard-about-detail", "heard_about"]].forEach(function (pair) {
+    var input = document.getElementById(pair[0]);
+    input.addEventListener("input", function () {
+      if (input.value.trim() === "") return;
+      var other = form.querySelector('input[name="' + pair[1] + '"][value="Other"]');
+      if (other && !other.checked) { other.checked = true; saveDraft(); }
+    });
+  });
+  // Typing a current-site URL implies "Yes"
+  document.getElementById("current-website").addEventListener("input", function () {
+    var yes = form.querySelector('input[name="has_website"][value="Yes"]');
+    if (this.value.trim() !== "" && !yes.checked) { yes.checked = true; saveDraft(); }
+  });
+  // Pages multi-select: "You decide" clears the others; "Other" text auto-checks; mirror into pages_selected
+  (function () {
+    var wrap = document.getElementById("pages-choices");
+    var decide = document.getElementById("pages-decide");
+    var otherText = document.getElementById("pages-other");
+    var mirror = document.getElementById("pages-selected");
+    var boxes = Array.prototype.slice.call(wrap.querySelectorAll('input[type="checkbox"][name="pages"]'));
+    function syncPages(changed) {
+      if (changed === decide && decide.checked) boxes.forEach(function (b) { if (b !== decide) b.checked = false; });
+      else if (changed && changed !== decide && changed.checked) decide.checked = false;
+      var vals = boxes.filter(function (b) { return b.checked; }).map(function (b) { return b.value === "Other" && otherText.value.trim() ? "Other: " + otherText.value.trim() : b.value; });
+      mirror.value = vals.join(", ");
+    }
+    boxes.forEach(function (b) { b.addEventListener("change", function () { syncPages(b); }); });
+    otherText.addEventListener("input", function () {
+      var other = boxes.filter(function (b) { return b.value === "Other"; })[0];
+      if (otherText.value.trim() && !other.checked) { other.checked = true; decide.checked = false; }
+      syncPages(null); saveDraft();
+    });
+    window.syncPages = syncPages;
+    syncPages(null);
+  })();
+
+  // "No — choose for me" hides the colors/logo details
+  function syncBranding() {
+    var no = form.querySelector('input[name="has_branding"][value="No - choose for me"]');
+    document.getElementById("branding-details").hidden = !!(no && no.checked);
+  }
+  form.querySelectorAll('input[name="has_branding"]').forEach(function (r) { r.addEventListener("change", syncBranding); });
+  syncBranding();
+
+  // ==== META PIXEL: mark the start of the questionnaire once per session ====
+  var startFired = false;
+  try { startFired = sessionStorage.getItem("duna_started") === "1"; } catch (e) {}
+  function markStarted() {
+    if (startFired) return;
+    startFired = true;
+    try { sessionStorage.setItem("duna_started", "1"); } catch (e) {}
+    if (window.fbq) fbq("trackCustom", "StartQuestionnaire");
+  }
+  form.addEventListener("input", markStarted);
+  form.addEventListener("change", markStarted);
+
+  // ==== SUBMIT: validate kindly, send via fetch, handle failure without losing anything ====
+  var submitBtn = document.getElementById("submit-btn");
+  var submitError = document.getElementById("submit-error");
+  var SUBMIT_LABEL = submitBtn.textContent;
+
+  function clearFieldErrors() {
+    form.querySelectorAll(".q.has-error").forEach(function (q) { q.classList.remove("has-error"); });
+    form.querySelectorAll(".field-error").forEach(function (el) { el.parentNode.removeChild(el); });
+  }
+  function friendlyMessage(el) {
+    if (el.type === "email" && el.value.trim() !== "") return "That email doesn\u2019t look complete \u2014 mind checking it?";
+    if (el.type === "url" && el.value.trim() !== "") return "Links need to start with http:// or https://";
+    if (el.type === "radio") return "Just pick one to continue.";
+    return "Just need this one to continue.";
+  }
+  function showFieldError(el) {
+    var q = el.closest(".q") || el.parentNode;
+    q.classList.add("has-error");
+    var msg = document.createElement("div");
+    msg.className = "field-error";
+    msg.textContent = "\u26A0 " + friendlyMessage(el);
+    q.appendChild(msg);
+    var top = q.getBoundingClientRect().top + window.pageYOffset - 84;
+    window.scrollTo({ top: top, behavior: "smooth" });
+    setTimeout(function () { try { el.focus({ preventScroll: true }); } catch (e) {} }, 350);
+    function onFix() {
+      if (el.checkValidity()) {
+        q.classList.remove("has-error");
+        if (msg.parentNode) msg.parentNode.removeChild(msg);
+        q.removeEventListener("input", onFix);
+        q.removeEventListener("change", onFix);
+      }
+    }
+    q.addEventListener("input", onFix);
+    q.addEventListener("change", onFix);
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    clearFieldErrors();
+    submitError.hidden = true;
+
+    if (!form.checkValidity()) {
+      var invalid = form.querySelector("input:invalid, textarea:invalid, select:invalid");
+      if (invalid) showFieldError(invalid);
+      return;
+    }
+
+    document.getElementById("photos-json").value = JSON.stringify(photos);
+    saveDraft();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending\u2026";
+
+    var body = new URLSearchParams(new FormData(form)).toString();
+    var SUBMIT_URL = "https://clever-biscuit-122882.netlify.app/"; // Netlify Forms endpoint (bridge until the Google Sheets backend)
+    fetch(SUBMIT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body
+    }).then(function (res) {
+      if (res.type !== "opaque" && !res.ok) throw new Error("HTTP " + res.status);
+      try {
+        var d = loadDraft();
+        if (d) { d.submittedAt = Date.now(); localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); }
+        // Hand off to thanks.html: pre-written text + gate for the Lead pixel event
+        sessionStorage.setItem("duna_intake", JSON.stringify({
+          first_name: document.getElementById("first-name").value,
+          business_name: document.getElementById("business-name").value,
+          submitted: true
+        }));
+      } catch (err) {}
+      window.location.href = "thanks.html";
+    }).catch(function () {
+      submitBtn.disabled = false;
+      submitBtn.textContent = SUBMIT_LABEL;
+      submitError.hidden = false;
+      var top = submitError.getBoundingClientRect().top + window.pageYOffset - 120;
+      window.scrollTo({ top: top, behavior: "smooth" });
+    });
+  });
+</script>
+</body>
+</html>
