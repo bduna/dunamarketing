@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{--navy:#003087;--navy-deep:#001d52;--red:#C8102E;--ink:#161a22;--muted:#5a6070;--line:#e6e8ee;--bg:#f6f7f9;--card:#fff}
+  :root{--navy:#003087;--red:#C8102E;--ink:#161a22;--muted:#5a6070;--line:#e6e8ee;--bg:#f6f7f9;--card:#fff}
   *{box-sizing:border-box} html,body{margin:0}
   body{font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink);
     background-color:var(--bg);
@@ -28,13 +28,16 @@
   header h1{font-size:clamp(2rem,1.4rem+2.6vw,3.1rem);line-height:1.1;letter-spacing:-.02em;color:var(--navy);margin:0 0 10px}
   header p{color:var(--muted);max-width:60ch;margin:0 auto;font-size:1.08rem}
   .grid{max-width:1180px;margin:0 auto;padding:28px 24px 70px;display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
-  .card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,29,82,.05);transition:transform .15s,box-shadow .15s}
+  .card{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,29,82,.05);transition:transform .15s,box-shadow .15s,border-color .15s}
   .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,29,82,.16);border-color:#cdd5e6}
   .shot{aspect-ratio:640/400;overflow:hidden;background:#eef1f6;border-bottom:1px solid var(--line)}
   .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
-  .meta{padding:12px 14px}
-  .meta strong{display:block;font-weight:800;font-size:.98rem;letter-spacing:-.01em}
-  .meta span{display:block;color:var(--muted);font-size:.82rem;margin-top:2px}
+  .meta{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .meta strong{font-weight:800;font-size:.98rem;letter-spacing:-.01em;line-height:1.25}
+  .meta .where{color:var(--muted);font-size:.8rem}
+  .tags{list-style:none;display:flex;flex-wrap:wrap;gap:5px;margin:auto 0 0;padding:2px 0 0}
+  .tags li{font-size:.68rem;font-weight:700;letter-spacing:.02em;color:var(--navy);background:#eaf0fb;border:1px solid #d3e0f5;border-radius:999px;padding:3px 8px;white-space:nowrap}
+  .tags li:first-child{background:var(--navy);border-color:var(--navy);color:#fff}
   footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 24px 50px}
   footer a{color:var(--navy);font-weight:700}
   @media(max-width:1080px){.grid{grid-template-columns:repeat(4,1fr)}}
@@ -44,102 +47,190 @@
 </style>
 </head>
 <body>
-<nav class="topbar"><img src="/duna_marketing_logo.png" alt=""><b>Duna Marketing</b><a class="home" href="/">Get your site →</a></nav>
+<nav class="topbar"><img src="/duna_marketing_logo.png" alt=""><b>Duna Marketing</b><a class="home" href="/">Get your site &rarr;</a></nav>
 <header class="intro">
   <p class="kick">Portfolio</p>
   <h1>Websites we've built.</h1>
-  <p>Every site below was generated from a short interview — real design, real copy, real photos. Tap any one to explore it.</p>
+  <p>Every site below was generated from a short interview &mdash; real design, real copy, real photos. Tap any one to explore it.</p>
 </header>
 <main class="grid">
       <a class="card" href="/portfolio/golden-crumb-bakery/">
         <div class="shot"><img src="thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Golden Crumb Bakery</strong><span>Bakery · Petaluma, CA</span></div>
+        <div class="meta">
+          <strong>Golden Crumb Bakery</strong>
+          <span class="where">Petaluma, CA</span>
+          <ul class="tags"><li>Bakery</li><li>Food &amp; Drink</li><li>Retail</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/rapid-flow-plumbing/">
         <div class="shot"><img src="thumbs/rapid-flow-plumbing.jpg" alt="Rapid Flow Plumbing website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Rapid Flow Plumbing</strong><span>Plumber · Sacramento, CA</span></div>
+        <div class="meta">
+          <strong>Rapid Flow Plumbing</strong>
+          <span class="where">Sacramento, CA</span>
+          <ul class="tags"><li>Plumbing</li><li>Home Services</li><li>Emergency</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/blue-ridge-heating-air/">
         <div class="shot"><img src="thumbs/blue-ridge-heating-air.jpg" alt="Blue Ridge Heating &amp; Air website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Blue Ridge Heating &amp; Air</strong><span>HVAC · Asheville, NC</span></div>
+        <div class="meta">
+          <strong>Blue Ridge Heating &amp; Air</strong>
+          <span class="where">Asheville, NC</span>
+          <ul class="tags"><li>HVAC</li><li>Home Services</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/gilded-shears-salon/">
         <div class="shot"><img src="thumbs/gilded-shears-salon.jpg" alt="Gilded Shears Salon website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Gilded Shears Salon</strong><span>Hair Salon · Scottsdale, AZ</span></div>
+        <div class="meta">
+          <strong>Gilded Shears Salon</strong>
+          <span class="where">Scottsdale, AZ</span>
+          <ul class="tags"><li>Hair Salon</li><li>Beauty</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/terra-verde-landscaping/">
         <div class="shot"><img src="thumbs/terra-verde-landscaping.jpg" alt="Terra Verde Landscaping website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Terra Verde Landscaping</strong><span>Landscaper · Portland, OR</span></div>
+        <div class="meta">
+          <strong>Terra Verde Landscaping</strong>
+          <span class="where">Portland, OR</span>
+          <ul class="tags"><li>Landscaping</li><li>Outdoor</li><li>Home Services</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/north-light-photography/">
         <div class="shot"><img src="thumbs/north-light-photography.jpg" alt="North Light Photography website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>North Light Photography</strong><span>Photographer · Minneapolis, MN</span></div>
+        <div class="meta">
+          <strong>North Light Photography</strong>
+          <span class="where">Minneapolis, MN</span>
+          <ul class="tags"><li>Photography</li><li>Creative</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/el-comal-taquer-a/">
         <div class="shot"><img src="thumbs/el-comal-taquer-a.jpg" alt="El Comal Taquería website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>El Comal Taquería</strong><span>Taquería · San Antonio, TX</span></div>
+        <div class="meta">
+          <strong>El Comal Taquería</strong>
+          <span class="where">San Antonio, TX</span>
+          <ul class="tags"><li>Restaurant</li><li>Food &amp; Drink</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/anchor-realty-co/">
         <div class="shot"><img src="thumbs/anchor-realty-co.jpg" alt="Anchor Realty Co. website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Anchor Realty Co.</strong><span>Real Estate · Charleston, SC</span></div>
+        <div class="meta">
+          <strong>Anchor Realty Co.</strong>
+          <span class="where">Charleston, SC</span>
+          <ul class="tags"><li>Real Estate</li><li>Professional Services</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/forge-strength-conditioning/">
         <div class="shot"><img src="thumbs/forge-strength-conditioning.jpg" alt="Forge Strength &amp; Conditioning website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Forge Strength &amp; Conditioning</strong><span>Gym · Denver, CO</span></div>
+        <div class="meta">
+          <strong>Forge Strength &amp; Conditioning</strong>
+          <span class="where">Denver, CO</span>
+          <ul class="tags"><li>Gym</li><li>Fitness</li><li>Coaching</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/mirror-finish-auto-detailing/">
         <div class="shot"><img src="thumbs/mirror-finish-auto-detailing.jpg" alt="Mirror Finish Auto Detailing website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Mirror Finish Auto Detailing</strong><span>Auto Detailing · Tampa, FL</span></div>
+        <div class="meta">
+          <strong>Mirror Finish Auto Detailing</strong>
+          <span class="where">Tampa, FL</span>
+          <ul class="tags"><li>Auto Detailing</li><li>Automotive</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/still-water-med-spa/">
         <div class="shot"><img src="thumbs/still-water-med-spa.jpg" alt="Still Water Med Spa website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Still Water Med Spa</strong><span>Med Spa · Naples, FL</span></div>
+        <div class="meta">
+          <strong>Still Water Med Spa</strong>
+          <span class="where">Naples, FL</span>
+          <ul class="tags"><li>Med Spa</li><li>Wellness</li><li>Beauty</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/bright-path-tutoring/">
         <div class="shot"><img src="thumbs/bright-path-tutoring.jpg" alt="Bright Path Tutoring website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Bright Path Tutoring</strong><span>Tutoring · Ann Arbor, MI</span></div>
+        <div class="meta">
+          <strong>Bright Path Tutoring</strong>
+          <span class="where">Ann Arbor, MI</span>
+          <ul class="tags"><li>Tutoring</li><li>Education</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/clean-sweep-co/">
         <div class="shot"><img src="thumbs/clean-sweep-co.jpg" alt="Clean Sweep Co. website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Clean Sweep Co.</strong><span>Cleaning · Columbus, OH</span></div>
+        <div class="meta">
+          <strong>Clean Sweep Co.</strong>
+          <span class="where">Columbus, OH</span>
+          <ul class="tags"><li>Cleaning</li><li>Home Services</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/wildflower-co/">
         <div class="shot"><img src="thumbs/wildflower-co.jpg" alt="Wildflower &amp; Co. website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Wildflower &amp; Co.</strong><span>Florist · Nashville, TN</span></div>
+        <div class="meta">
+          <strong>Wildflower &amp; Co.</strong>
+          <span class="where">Nashville, TN</span>
+          <ul class="tags"><li>Florist</li><li>Retail</li><li>Events</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/honest-hands-handyman/">
         <div class="shot"><img src="thumbs/honest-hands-handyman.jpg" alt="Honest Hands Handyman website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Honest Hands Handyman</strong><span>Handyman · Boise, ID</span></div>
+        <div class="meta">
+          <strong>Honest Hands Handyman</strong>
+          <span class="where">Boise, ID</span>
+          <ul class="tags"><li>Handyman</li><li>Home Services</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/juniper-home/">
         <div class="shot"><img src="thumbs/juniper-home.jpg" alt="Juniper Home website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Juniper Home</strong><span>Home Goods · Santa Fe, NM</span></div>
+        <div class="meta">
+          <strong>Juniper Home</strong>
+          <span class="where">Santa Fe, NM</span>
+          <ul class="tags"><li>Home Goods</li><li>Retail</li><li>Handmade</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/third-street-coffee/">
         <div class="shot"><img src="thumbs/third-street-coffee.jpg" alt="Third Street Coffee website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Third Street Coffee</strong><span>Coffee Shop · Bend, OR</span></div>
+        <div class="meta">
+          <strong>Third Street Coffee</strong>
+          <span class="where">Bend, OR</span>
+          <ul class="tags"><li>Coffee Shop</li><li>Food &amp; Drink</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/cornerstone-family-law/">
         <div class="shot"><img src="thumbs/cornerstone-family-law.jpg" alt="Cornerstone Family Law website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Cornerstone Family Law</strong><span>Family Law · Raleigh, NC</span></div>
+        <div class="meta">
+          <strong>Cornerstone Family Law</strong>
+          <span class="where">Raleigh, NC</span>
+          <ul class="tags"><li>Family Law</li><li>Legal</li><li>Professional Services</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/waggin-tails-grooming/">
         <div class="shot"><img src="thumbs/waggin-tails-grooming.jpg" alt="Waggin' Tails Grooming website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Waggin' Tails Grooming</strong><span>Dog Grooming · Madison, WI</span></div>
+        <div class="meta">
+          <strong>Waggin' Tails Grooming</strong>
+          <span class="where">Madison, WI</span>
+          <ul class="tags"><li>Pet Grooming</li><li>Pets</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/summit-roofing/">
         <div class="shot"><img src="thumbs/summit-roofing.jpg" alt="Summit Roofing website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Summit Roofing</strong><span>Roofing · Colorado Springs, CO</span></div>
+        <div class="meta">
+          <strong>Summit Roofing</strong>
+          <span class="where">Colorado Springs, CO</span>
+          <ul class="tags"><li>Roofing</li><li>Contractor</li><li>Home Services</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/lotus-flow-yoga/">
         <div class="shot"><img src="thumbs/lotus-flow-yoga.jpg" alt="Lotus Flow Yoga website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>Lotus Flow Yoga</strong><span>Yoga Studio · Boulder, CO</span></div>
+        <div class="meta">
+          <strong>Lotus Flow Yoga</strong>
+          <span class="where">Boulder, CO</span>
+          <ul class="tags"><li>Yoga Studio</li><li>Fitness</li><li>Wellness</li></ul>
+        </div>
       </a>
       <a class="card" href="/portfolio/voltline-electric/">
         <div class="shot"><img src="thumbs/voltline-electric.jpg" alt="VoltLine Electric website" width="640" height="400" loading="lazy"></div>
-        <div class="meta"><strong>VoltLine Electric</strong><span>Electrician · Austin, TX</span></div>
+        <div class="meta">
+          <strong>VoltLine Electric</strong>
+          <span class="where">Austin, TX</span>
+          <ul class="tags"><li>Electrical</li><li>Contractor</li><li>Home Services</li></ul>
+        </div>
       </a>
 </main>
-<footer>Sample sites for demonstration. Want one for your business? <a href="/">Start the interview →</a></footer>
+<footer>Sample sites for demonstration. Want one for your business? <a href="/">Start the interview &rarr;</a></footer>
 </body>
 </html>
