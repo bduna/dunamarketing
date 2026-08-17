@@ -25,11 +25,20 @@
   .topbar a.home:hover{text-decoration:underline}
   header.intro{max-width:1180px;margin:0 auto;padding:44px 24px 8px;text-align:center}
   header .kick{font-size:.78rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--red);margin:0 0 8px}
-  header h1{font-size:clamp(2rem,1.4rem+2.6vw,3.1rem);line-height:1.1;letter-spacing:-.02em;color:var(--navy);margin:0 0 10px}
+  header h1{font-size:clamp(2rem,1.4rem + 2.6vw,3.1rem);line-height:1.1;letter-spacing:-.02em;color:var(--navy);margin:0 0 10px}
   header p{color:var(--muted);max-width:60ch;margin:0 auto;font-size:1.08rem}
+  .search{position:relative;max-width:520px;margin:22px auto 0;display:flex;align-items:center}
+  .search svg{position:absolute;left:14px;width:19px;height:19px;color:#8a93a5;pointer-events:none}
+  .search input{width:100%;padding:13px 44px 13px 44px;font:inherit;font-size:1rem;border:1.5px solid #c9d2e0;border-radius:999px;background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(0,29,82,.05)}
+  .search input:focus{outline:3px solid var(--navy);outline-offset:1px;border-color:var(--navy)}
+  .search input::-webkit-search-cancel-button{display:none}
+  .search button{position:absolute;right:8px;width:30px;height:30px;border:none;border-radius:50%;background:#eef1f6;color:var(--muted);font-size:1.15rem;line-height:1;cursor:pointer}
+  .search button:hover{background:#dfe5ee;color:var(--ink)}
+  .count{text-align:center;color:var(--muted);font-size:.85rem;margin:10px 0 0;min-height:1.2em}
   .grid{max-width:1180px;margin:0 auto;padding:28px 24px 70px;display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
   .card{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,29,82,.05);transition:transform .15s,box-shadow .15s,border-color .15s}
   .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,29,82,.16);border-color:#cdd5e6}
+  .card.hide{display:none}
   .shot{aspect-ratio:640/400;overflow:hidden;background:#eef1f6;border-bottom:1px solid var(--line)}
   .shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
   .meta{padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
@@ -38,6 +47,8 @@
   .tags{list-style:none;display:flex;flex-wrap:wrap;gap:5px;margin:auto 0 0;padding:2px 0 0}
   .tags li{font-size:.68rem;font-weight:700;letter-spacing:.02em;color:var(--navy);background:#eaf0fb;border:1px solid #d3e0f5;border-radius:999px;padding:3px 8px;white-space:nowrap}
   .tags li:first-child{background:var(--navy);border-color:var(--navy);color:#fff}
+  .noresults{max-width:1180px;margin:0 auto;text-align:center;color:var(--muted);padding:30px 24px 10px;font-size:1rem}
+  .noresults button{border:none;background:none;font:inherit;font-weight:700;color:var(--navy);text-decoration:underline;cursor:pointer;padding:0}
   footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 24px 50px}
   footer a{color:var(--navy);font-weight:700}
   @media(max-width:1080px){.grid{grid-template-columns:repeat(4,1fr)}}
@@ -52,9 +63,15 @@
   <p class="kick">Portfolio</p>
   <h1>Websites we've built.</h1>
   <p>Every site below was generated from a short interview &mdash; real design, real copy, real photos. Tap any one to explore it.</p>
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+    <input type="search" id="q" placeholder="Search a profession &mdash; plumber, bakery, lawyer, yoga&hellip;" aria-label="Search the portfolio by profession" autocomplete="off">
+    <button type="button" id="clear" hidden aria-label="Clear search">&times;</button>
+  </div>
+  <p class="count" id="count" aria-live="polite"></p>
 </header>
-<main class="grid">
-      <a class="card" href="/portfolio/golden-crumb-bakery/">
+<main class="grid" id="grid">
+      <a class="card" data-search="golden crumb bakery petaluma, ca bakery food &amp; drink retail baker bread cakes pastries sourdough dessert" href="/portfolio/golden-crumb-bakery/">
         <div class="shot"><img src="thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Golden Crumb Bakery</strong>
@@ -62,7 +79,7 @@
           <ul class="tags"><li>Bakery</li><li>Food &amp; Drink</li><li>Retail</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/rapid-flow-plumbing/">
+      <a class="card" data-search="rapid flow plumbing sacramento, ca plumbing home services emergency plumber pipes drain water heater leak" href="/portfolio/rapid-flow-plumbing/">
         <div class="shot"><img src="thumbs/rapid-flow-plumbing.jpg" alt="Rapid Flow Plumbing website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Rapid Flow Plumbing</strong>
@@ -70,7 +87,7 @@
           <ul class="tags"><li>Plumbing</li><li>Home Services</li><li>Emergency</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/blue-ridge-heating-air/">
+      <a class="card" data-search="blue ridge heating &amp; air asheville, nc hvac home services heating air conditioning ac furnace hvac tech" href="/portfolio/blue-ridge-heating-air/">
         <div class="shot"><img src="thumbs/blue-ridge-heating-air.jpg" alt="Blue Ridge Heating &amp; Air website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Blue Ridge Heating &amp; Air</strong>
@@ -78,7 +95,7 @@
           <ul class="tags"><li>HVAC</li><li>Home Services</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/gilded-shears-salon/">
+      <a class="card" data-search="gilded shears salon scottsdale, az hair salon beauty hair stylist haircut color balayage barber" href="/portfolio/gilded-shears-salon/">
         <div class="shot"><img src="thumbs/gilded-shears-salon.jpg" alt="Gilded Shears Salon website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Gilded Shears Salon</strong>
@@ -86,7 +103,7 @@
           <ul class="tags"><li>Hair Salon</li><li>Beauty</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/terra-verde-landscaping/">
+      <a class="card" data-search="terra verde landscaping portland, or landscaping outdoor home services landscaper lawn garden yard irrigation" href="/portfolio/terra-verde-landscaping/">
         <div class="shot"><img src="thumbs/terra-verde-landscaping.jpg" alt="Terra Verde Landscaping website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Terra Verde Landscaping</strong>
@@ -94,7 +111,7 @@
           <ul class="tags"><li>Landscaping</li><li>Outdoor</li><li>Home Services</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/north-light-photography/">
+      <a class="card" data-search="north light photography minneapolis, mn photography creative photographer photos wedding portraits headshots" href="/portfolio/north-light-photography/">
         <div class="shot"><img src="thumbs/north-light-photography.jpg" alt="North Light Photography website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>North Light Photography</strong>
@@ -102,7 +119,7 @@
           <ul class="tags"><li>Photography</li><li>Creative</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/el-comal-taquer-a/">
+      <a class="card" data-search="el comal taquería san antonio, tx restaurant food &amp; drink tacos mexican taqueria food truck catering" href="/portfolio/el-comal-taquer-a/">
         <div class="shot"><img src="thumbs/el-comal-taquer-a.jpg" alt="El Comal Taquería website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>El Comal Taquería</strong>
@@ -110,7 +127,7 @@
           <ul class="tags"><li>Restaurant</li><li>Food &amp; Drink</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/anchor-realty-co/">
+      <a class="card" data-search="anchor realty co. charleston, sc real estate professional services realtor real estate agent homes houses buy sell" href="/portfolio/anchor-realty-co/">
         <div class="shot"><img src="thumbs/anchor-realty-co.jpg" alt="Anchor Realty Co. website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Anchor Realty Co.</strong>
@@ -118,7 +135,7 @@
           <ul class="tags"><li>Real Estate</li><li>Professional Services</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/forge-strength-conditioning/">
+      <a class="card" data-search="forge strength &amp; conditioning denver, co gym fitness coaching personal trainer workout strength training crossfit" href="/portfolio/forge-strength-conditioning/">
         <div class="shot"><img src="thumbs/forge-strength-conditioning.jpg" alt="Forge Strength &amp; Conditioning website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Forge Strength &amp; Conditioning</strong>
@@ -126,7 +143,7 @@
           <ul class="tags"><li>Gym</li><li>Fitness</li><li>Coaching</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/mirror-finish-auto-detailing/">
+      <a class="card" data-search="mirror finish auto detailing tampa, fl auto detailing automotive car detailing ceramic coating wash auto" href="/portfolio/mirror-finish-auto-detailing/">
         <div class="shot"><img src="thumbs/mirror-finish-auto-detailing.jpg" alt="Mirror Finish Auto Detailing website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Mirror Finish Auto Detailing</strong>
@@ -134,7 +151,7 @@
           <ul class="tags"><li>Auto Detailing</li><li>Automotive</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/still-water-med-spa/">
+      <a class="card" data-search="still water med spa naples, fl med spa wellness beauty medspa botox facials skincare aesthetics spa" href="/portfolio/still-water-med-spa/">
         <div class="shot"><img src="thumbs/still-water-med-spa.jpg" alt="Still Water Med Spa website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Still Water Med Spa</strong>
@@ -142,7 +159,7 @@
           <ul class="tags"><li>Med Spa</li><li>Wellness</li><li>Beauty</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/bright-path-tutoring/">
+      <a class="card" data-search="bright path tutoring ann arbor, mi tutoring education tutor math sat act test prep teacher" href="/portfolio/bright-path-tutoring/">
         <div class="shot"><img src="thumbs/bright-path-tutoring.jpg" alt="Bright Path Tutoring website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Bright Path Tutoring</strong>
@@ -150,7 +167,7 @@
           <ul class="tags"><li>Tutoring</li><li>Education</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/clean-sweep-co/">
+      <a class="card" data-search="clean sweep co. columbus, oh cleaning home services house cleaning maid deep clean move out" href="/portfolio/clean-sweep-co/">
         <div class="shot"><img src="thumbs/clean-sweep-co.jpg" alt="Clean Sweep Co. website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Clean Sweep Co.</strong>
@@ -158,7 +175,7 @@
           <ul class="tags"><li>Cleaning</li><li>Home Services</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/wildflower-co/">
+      <a class="card" data-search="wildflower &amp; co. nashville, tn florist retail events flowers bouquets florals wedding arrangements" href="/portfolio/wildflower-co/">
         <div class="shot"><img src="thumbs/wildflower-co.jpg" alt="Wildflower &amp; Co. website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Wildflower &amp; Co.</strong>
@@ -166,7 +183,7 @@
           <ul class="tags"><li>Florist</li><li>Retail</li><li>Events</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/honest-hands-handyman/">
+      <a class="card" data-search="honest hands handyman boise, id handyman home services repairs fix mounting assembly drywall odd jobs" href="/portfolio/honest-hands-handyman/">
         <div class="shot"><img src="thumbs/honest-hands-handyman.jpg" alt="Honest Hands Handyman website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Honest Hands Handyman</strong>
@@ -174,7 +191,7 @@
           <ul class="tags"><li>Handyman</li><li>Home Services</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/juniper-home/">
+      <a class="card" data-search="juniper home santa fe, nm home goods retail handmade boutique shop ceramics pottery gifts decor" href="/portfolio/juniper-home/">
         <div class="shot"><img src="thumbs/juniper-home.jpg" alt="Juniper Home website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Juniper Home</strong>
@@ -182,7 +199,7 @@
           <ul class="tags"><li>Home Goods</li><li>Retail</li><li>Handmade</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/third-street-coffee/">
+      <a class="card" data-search="third street coffee bend, or coffee shop food &amp; drink cafe espresso latte roaster barista" href="/portfolio/third-street-coffee/">
         <div class="shot"><img src="thumbs/third-street-coffee.jpg" alt="Third Street Coffee website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Third Street Coffee</strong>
@@ -190,7 +207,7 @@
           <ul class="tags"><li>Coffee Shop</li><li>Food &amp; Drink</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/cornerstone-family-law/">
+      <a class="card" data-search="cornerstone family law raleigh, nc family law legal professional services lawyer attorney divorce custody estate legal" href="/portfolio/cornerstone-family-law/">
         <div class="shot"><img src="thumbs/cornerstone-family-law.jpg" alt="Cornerstone Family Law website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Cornerstone Family Law</strong>
@@ -198,7 +215,7 @@
           <ul class="tags"><li>Family Law</li><li>Legal</li><li>Professional Services</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/waggin-tails-grooming/">
+      <a class="card" data-search="waggin' tails grooming madison, wi pet grooming pets dog groomer pet bath nails puppy" href="/portfolio/waggin-tails-grooming/">
         <div class="shot"><img src="thumbs/waggin-tails-grooming.jpg" alt="Waggin' Tails Grooming website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Waggin' Tails Grooming</strong>
@@ -206,7 +223,7 @@
           <ul class="tags"><li>Pet Grooming</li><li>Pets</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/summit-roofing/">
+      <a class="card" data-search="summit roofing colorado springs, co roofing contractor home services roofer roof repair shingles hail storm insurance" href="/portfolio/summit-roofing/">
         <div class="shot"><img src="thumbs/summit-roofing.jpg" alt="Summit Roofing website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Summit Roofing</strong>
@@ -214,7 +231,7 @@
           <ul class="tags"><li>Roofing</li><li>Contractor</li><li>Home Services</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/lotus-flow-yoga/">
+      <a class="card" data-search="lotus flow yoga boulder, co yoga studio fitness wellness yoga classes meditation pilates studio wellness" href="/portfolio/lotus-flow-yoga/">
         <div class="shot"><img src="thumbs/lotus-flow-yoga.jpg" alt="Lotus Flow Yoga website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>Lotus Flow Yoga</strong>
@@ -222,7 +239,7 @@
           <ul class="tags"><li>Yoga Studio</li><li>Fitness</li><li>Wellness</li></ul>
         </div>
       </a>
-      <a class="card" href="/portfolio/voltline-electric/">
+      <a class="card" data-search="voltline electric austin, tx electrical contractor home services electrician wiring panel ev charger outlets lighting" href="/portfolio/voltline-electric/">
         <div class="shot"><img src="thumbs/voltline-electric.jpg" alt="VoltLine Electric website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
           <strong>VoltLine Electric</strong>
@@ -231,6 +248,32 @@
         </div>
       </a>
 </main>
+<p class="noresults" id="noresults" hidden>Nothing matches that yet &mdash; try &ldquo;plumber&rdquo;, &ldquo;salon&rdquo;, &ldquo;restaurant&rdquo;&hellip; or <button type="button" id="showall">show all 22 sites</button>.</p>
 <footer>Sample sites for demonstration. Want one for your business? <a href="/">Start the interview &rarr;</a></footer>
+<script>
+(function () {
+  var q = document.getElementById("q"), clearBtn = document.getElementById("clear"),
+      count = document.getElementById("count"), noresults = document.getElementById("noresults"),
+      cards = Array.prototype.slice.call(document.querySelectorAll(".card"));
+  var total = cards.length;
+  function norm(s) { return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); }
+  function filter() {
+    var terms = norm(q.value).split(/\s+/).filter(Boolean);
+    var shown = 0;
+    cards.forEach(function (c) {
+      var hay = norm(c.getAttribute("data-search") || "");
+      var hit = terms.every(function (t) { return hay.indexOf(t) !== -1; });
+      c.classList.toggle("hide", !hit);
+      if (hit) shown++;
+    });
+    clearBtn.hidden = q.value === "";
+    noresults.hidden = shown !== 0;
+    count.textContent = terms.length === 0 ? "" : (shown === 0 ? "" : shown + " of " + total + " sites");
+  }
+  q.addEventListener("input", filter);
+  clearBtn.addEventListener("click", function () { q.value = ""; filter(); q.focus(); });
+  document.getElementById("showall").addEventListener("click", function () { q.value = ""; filter(); q.focus(); });
+})();
+</script>
 </body>
 </html>
