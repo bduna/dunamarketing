@@ -1,0 +1,225 @@
+/* site.css — Copper Kettle Brewing. Espresso base, amber as ink + exactly one band, copper for rules
+   and the tap-rail marks. Separation on dark surfaces comes from hairlines, not shadows.
+   Treatments used: T1 (base/panel) · T2 (one amber band) · T3 (split, no overlay) · T4 (hero only)
+   · T5 (bright photo + light card) · T6 (photo band, no text). See direction.md §2. */
+
+/* ── type stance ─────────────────────────────────────────────────── */
+h1, h2, h3 { font-weight: 800; letter-spacing: -0.03em; }
+h2 { margin-bottom: var(--space-2); }
+h3 { font-weight: 700; letter-spacing: -0.02em; }
+.eyebrow { color: var(--accent); font-size: 0.75rem; font-weight: 700; }
+.eyebrow--copper { color: var(--ink-muted); }
+.lead { max-width: 46ch; }
+.amber { color: var(--accent); }
+.section__head { max-width: 54ch; margin-bottom: var(--space-4); }
+.section__head p { color: var(--ink-muted); font-size: var(--fs-1); }
+.rule { border: 0; border-top: 1px solid var(--line); margin: 0; }
+
+/* ── header ──────────────────────────────────────────────────────── */
+.site-header { background: rgba(23, 20, 12, 0.92); border-bottom: 1px solid var(--line); }
+.brand { color: var(--ink); font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; }
+.brand__mark { width: 34px; height: 34px; flex: 0 0 auto; }
+.nav a:not(.btn) { color: var(--ink); font-weight: 500; font-size: 0.97rem; }
+.nav a:not(.btn):hover { color: var(--accent); }
+.nav a[aria-current="page"] { color: var(--accent); text-decoration: underline; text-decoration-color: var(--copper); text-decoration-thickness: 2px; text-underline-offset: 7px; }
+.nav-toggle { color: var(--ink); }
+.brand { white-space: nowrap; }
+/* base.css collapses the nav at 720px, but this business name plus a 14-character phone CTA needs more
+   room than that — between 720 and 900 the brand, four links and the button all wrapped onto two lines.
+   Collapse to the hamburger (and show the sticky call bar) from 900px down instead. */
+@media (max-width: 900px) {
+  .nav-toggle { display: inline-flex; }
+  .nav { position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; align-items: stretch; gap: 0;
+         background: #171410; border-bottom: 1px solid var(--line); padding: var(--space-2) var(--gutter); display: none; }
+  .nav.is-open { display: flex; }
+  .nav a { padding: 0.8rem 0; border-bottom: 1px solid var(--line); }
+  .nav a[aria-current="page"] { text-underline-offset: 4px; }
+  .nav .btn { margin-top: var(--space-2); border-bottom: 0; }
+  .cta-bar { display: block; }
+  body.has-cta-bar { padding-bottom: 88px; }
+}
+
+/* ── buttons ─────────────────────────────────────────────────────── */
+.btn { border-radius: var(--radius-sm); letter-spacing: 0.01em; }
+.btn--primary { background-color: var(--accent); color: var(--on-accent); box-shadow: none; }
+.btn--primary:hover, .btn--primary:focus-visible { background: var(--accent-hover); }
+.btn--ghost { color: var(--ink); border-color: var(--line-strong); }
+.btn--ghost:hover, .btn--ghost:focus-visible { background: rgba(241, 240, 238, 0.08); border-color: var(--ink-muted); }
+/* On the amber band and inside the light card, amber-on-amber/amber-on-cream fails — the CTA flips dark. */
+.btn--dark { background: var(--bg); color: var(--ink); border: 0; }
+.btn--dark:hover, .btn--dark:focus-visible { background: #100E08; transform: translateY(-1px); }
+.section--brand .btn--ghost { color: var(--on-brand); border-color: rgba(30, 26, 16, 0.4); }
+.section--brand .btn--ghost:hover, .section--brand .btn--ghost:focus-visible { background: rgba(30, 26, 16, 0.12); border-color: var(--on-brand); }
+.section--brand :focus-visible, .pcard--light :focus-visible { outline-color: var(--on-brand); }
+.cta-bar { background: #171410; border-top: 1px solid var(--line-strong); box-shadow: 0 -6px 22px rgba(0, 0, 0, 0.6); }
+.cta-bar .btn { background: var(--accent); color: var(--on-accent); }
+.textlink { color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; text-decoration-color: var(--copper-soft); }
+.textlink:hover { text-decoration-color: var(--accent); }
+
+/* ── hours pill (sits beside the phone number wherever the CTA appears) ── */
+.hours-pill { display: inline-flex; align-items: center; gap: 0.55rem; border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.4rem 0.9rem; font-size: 0.92rem; color: var(--ink-muted); margin: 0; }
+.hours-pill b { color: var(--ink); font-weight: 600; }
+.hours-pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: 0 0 auto; }
+
+/* ══ 1. HERO — T4, the ONE scrimmed photo on this site ═════════════
+   Photo 01 is already a dark, low-key photograph, so one directional gradient carries the type
+   and the copper fittings still read. Bottom fade merges the frame into the espresso page. */
+.hero { position: relative; display: grid; align-items: end; min-height: clamp(540px, 82vh, 780px); overflow: hidden; background: #100E08; }
+.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 58% 38%; }
+.hero::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(100deg, rgba(12, 10, 6, 0.88) 0%, rgba(12, 10, 6, 0.7) 38%, rgba(12, 10, 6, 0.18) 72%, rgba(12, 10, 6, 0.02) 100%);
+}
+.hero__fade { position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(to top, var(--bg) 2%, transparent); }
+.hero__inner { position: relative; z-index: 2; padding-block: clamp(2.75rem, 7vw, 5.25rem) clamp(2.25rem, 5vw, 3.75rem); }
+.hero h1 { max-width: 17ch; margin-bottom: var(--space-2); text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5); }
+.hero h1 .hero__break { display: block; color: var(--accent); }
+.hero .lead { color: #E4E1D8; max-width: 40ch; font-size: var(--fs-1); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.hero__meta { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); align-items: center; margin-top: var(--space-3); }
+/* Narrow: a full-height crop of a portrait photo behind full-width text would show only bar top,
+   so the photo becomes a real band and the words drop below it on the solid base — no scrim at all,
+   which keeps T4 to exactly ONE surface on this site. */
+@media (max-width: 700px) {
+  .hero { min-height: 0; align-items: stretch; display: block; }
+  .hero__img { position: static; inset: auto; height: clamp(300px, 76vw, 400px); object-position: 62% 32%; }
+  .hero::after { display: none; }
+  .hero__fade { height: clamp(300px, 76vw, 400px); top: 0; bottom: auto; background: linear-gradient(to top, var(--bg) 1%, transparent 42%); }
+  .hero__inner { padding-block: var(--space-3) var(--space-4); }
+  .hero h1 { max-width: none; text-shadow: none; }
+}
+
+/* ══ 2. TAP RAIL — the signature element. "Ten taps now, six of them ours." ══ */
+.taprail { padding-block: clamp(1.75rem, 3.5vw, 2.75rem); background: var(--bg-alt); border-block: 1px solid var(--line); }
+.taprail__grid { display: grid; gap: var(--space-3) var(--space-4); align-items: center; }
+@media (min-width: 900px) { .taprail__grid { grid-template-columns: auto auto 1fr; } .taprail__facts { justify-content: flex-end; } }
+.taprail__marks { display: flex; align-items: flex-end; gap: 9px; padding-top: 10px; border-top: 2px solid var(--copper); }
+.tap { width: 13px; height: 30px; border: 1.5px solid var(--copper); border-radius: 1px 1px 5px 5px; flex: 0 0 auto; }
+.tap--ours { background: var(--accent); border-color: var(--accent); }
+.taprail__facts { display: flex; flex-wrap: wrap; gap: 0.4rem var(--space-3); font-size: 0.95rem; color: var(--ink-muted); margin: 0; max-width: none; }
+.taprail__facts b { color: var(--ink); font-weight: 600; }
+.taprail__legend { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: 0.82rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: var(--track-label); margin: 0; }
+.taprail__legend span { display: inline-flex; align-items: center; gap: 0.45rem; }
+.taprail__legend i { width: 10px; height: 10px; border: 1.5px solid var(--copper); border-radius: 1px; }
+.taprail__legend i.is-ours { background: var(--accent); border-color: var(--accent); }
+
+/* ══ 3. PRICE LIST — T1, prices on a solid surface ═════════════════ */
+.pricelist { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--line-strong); }
+.pricelist__row { display: grid; grid-template-columns: 1fr auto; gap: var(--space-2) var(--space-3); align-items: baseline; padding: var(--space-3) var(--space-2); border-bottom: 1px solid var(--line); transition: background var(--dur) var(--ease); }
+.pricelist__row:hover { background: var(--tint); }
+.pricelist dt { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-2); letter-spacing: -0.02em; }
+.pricelist dt small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 0.98rem; letter-spacing: 0; color: var(--ink-muted); margin-top: 0.3rem; max-width: 48ch; line-height: 1.55; }
+.pricelist dd { margin: 0; text-align: right; white-space: nowrap; }
+.price { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-2); color: var(--accent); letter-spacing: -0.02em; }
+.price small { font-family: var(--font-body); font-weight: 500; font-size: 0.8rem; color: var(--ink-muted); display: block; letter-spacing: 0.04em; text-transform: uppercase; }
+.price--quote { font-size: var(--fs-1); }
+.pricelist__note { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--line); }
+.pricelist__note p { margin: 0; color: var(--ink-muted); max-width: 44ch; }
+@media (max-width: 560px) {
+  .pricelist__row { grid-template-columns: 1fr; padding-inline: 0; }
+  .pricelist dd { text-align: left; }
+  .price small { display: inline; text-transform: none; letter-spacing: 0; margin-left: 0.4rem; }
+}
+
+/* ══ 4 & photo bands — T6, a photo with nothing on it ═════════════ */
+.photoband { position: relative; }
+.photoband img { width: 100%; height: clamp(240px, 40vw, 460px); object-fit: cover; }
+.photoband figcaption { padding: var(--space-2) 0 0; font-size: 0.9rem; color: var(--ink-muted); display: flex; flex-wrap: wrap; gap: 0.35rem var(--space-2); justify-content: space-between; }
+figure.photoband { margin: 0; }
+
+/* ══ 5 & 7. SPLITS — T3, photo beside text, no overlay at all ══════ */
+.feature { display: grid; gap: var(--space-4); align-items: center; }
+@media (min-width: 880px) { .feature { grid-template-columns: 0.85fr 1fr; } .feature--flip > :first-child { order: 2; } }
+figure.feature__media { margin: 0; }   /* UA default is margin: 1em 40px — it insets the photo from its column */
+.feature__media { position: relative; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line-strong); }
+/* Portrait crop, biased up so the carved tap handles are whole and the rust wall carries the rest */
+.feature__media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3 / 4; object-position: 50% 34%; }
+.feature--flip .feature__media img { aspect-ratio: 4 / 3; object-position: 50% 46%; }
+.feature__body h2 { max-width: 22ch; }
+.feature__body p { color: var(--ink-muted); }
+.feature__body p strong, .feature__body p b { color: var(--ink); font-weight: 600; }
+.checks { list-style: none; padding: 0; margin: var(--space-3) 0 0; display: grid; gap: 0.7rem; }
+.checks li { display: grid; grid-template-columns: auto 1fr; gap: 0.7rem; align-items: start; color: var(--ink); }
+.checks li::before { content: ""; width: 9px; height: 9px; margin-top: 0.55em; border-radius: 1px; background: var(--accent); }
+
+/* ══ 6. TESTIMONIALS — T5, hops photo stays BRIGHT, words in a light card ══
+   Dark page base → a cream card is the bigger jump. Copper offset rule so it can't float. */
+.photostage--band { min-height: clamp(400px, 52vw, 560px); }
+.photostage__img { object-position: 50% 42%; }
+.photostage::after { background: linear-gradient(90deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0) 62%); }
+.photostage__inner { z-index: 1; }
+.pcard { max-width: 33rem; }
+.pcard--light { background: var(--card); color: var(--card-ink); border: 0; border-left: 5px solid var(--copper); box-shadow: var(--shadow); }
+.pcard--light .eyebrow { color: #7A6413; }
+.pcard--light .muted, .pcard--light .lead { color: var(--card-ink-muted); }
+.pcard--light h2 { color: var(--card-ink); }
+.quotes { display: grid; gap: var(--space-3); margin-top: var(--space-3); }
+.quotes blockquote { margin: 0; padding-top: var(--space-3); border-top: 1px solid rgba(27, 24, 16, 0.16); }
+.quotes blockquote:first-child { padding-top: 0; border-top: 0; }
+.quotes p { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-2); line-height: 1.24; letter-spacing: -0.02em; margin: 0 0 0.5rem; max-width: none; }
+.quotes footer { font-size: 0.9rem; font-weight: 600; letter-spacing: 0.04em; color: var(--card-ink-muted); text-transform: uppercase; }
+/* Narrow: a full-width card would leave only a sliver of the hops photo, which defeats T5 —
+   so the band gets taller and the card drops to the bottom, keeping a real band of photograph above it. */
+@media (max-width: 700px) {
+  .photostage--band { min-height: clamp(560px, 150vw, 700px); align-items: end; }
+  .photostage--band .photostage__inner { padding-block: 0 var(--space-4); }
+  .photostage--band .photostage__img { object-position: 60% 40%; }
+  .photostage--band::after { background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0) 55%); }
+}
+
+/* ══ 8. THE ONE AMBER BAND — T2, the closing CTA ═══════════════════ */
+.section--brand { background: var(--brand); color: var(--on-brand); }
+.section--brand .eyebrow { color: rgba(30, 26, 16, 0.72); }
+.section--brand h2 { color: var(--on-brand); max-width: 24ch; }
+.section--brand a:not(.btn) { color: var(--on-brand); }
+.closer { display: grid; gap: var(--space-4); align-items: start; }
+@media (min-width: 880px) { .closer { grid-template-columns: 1.1fr 0.9fr; } }
+.closer__lead { color: rgba(30, 26, 16, 0.82); font-size: var(--fs-1); max-width: 34ch; }
+.closer__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.factlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid rgba(30, 26, 16, 0.28); }
+.factlist li { display: grid; grid-template-columns: 8.5rem 1fr; gap: var(--space-2); padding: 0.85rem 0; border-bottom: 1px solid rgba(30, 26, 16, 0.28); font-size: 1rem; }
+.factlist dfn, .factlist .k { font-style: normal; font-weight: 700; font-size: 0.76rem; letter-spacing: var(--track-label); text-transform: uppercase; color: rgba(30, 26, 16, 0.68); padding-top: 0.22em; }
+.factlist .v { font-weight: 600; }
+.factlist a { text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+@media (max-width: 520px) { .factlist li { grid-template-columns: 1fr; gap: 0.15rem; } }
+
+/* ── footer ──────────────────────────────────────────────────────── */
+.site-footer { background: #171410; border-top: 1px solid var(--line); padding-block: var(--space-4) var(--space-3); }
+.site-footer h2, .site-footer .footer__name { font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; color: var(--ink); margin: 0 0 0.5rem; letter-spacing: -0.02em; }
+.site-footer p { margin: 0 0 0.4rem; }
+.site-footer a:hover { color: var(--accent); }
+.site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.4rem; }
+.footer__bottom { border-top: 1px solid var(--line); margin-top: var(--space-3); padding-top: var(--space-3); display: flex; flex-wrap: wrap; gap: 0.4rem var(--space-3); justify-content: space-between; font-size: 0.82rem; }
+.footer__sample { color: var(--ink-muted); }
+.footer__credit { color: #7C7666; }
+
+/* ══ inner pages ═══════════════════════════════════════════════════ */
+/* Compact tinted page head (menu.html) — T1. No photo: the list is the point. */
+.pagehead { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding-block: clamp(2.5rem, 5.5vw, 4.25rem); }
+.pagehead h1 { font-size: clamp(2.1rem, 1.6rem + 2.6vw, 3.5rem); max-width: 20ch; }
+.pagehead .lead { max-width: 52ch; }
+.pagehead__rail { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-4); margin-top: var(--space-4); }
+.section__head--mid { margin-top: var(--space-5); }
+/* Full-bleed letterbox of a portrait photo: tall enough, and biased to the handles, so it reads as
+   the taps rather than as an accidental slice of wall. */
+.photoband--bleed img { height: clamp(300px, 44vw, 560px); object-position: 50% 30%; }
+.photoband--bleed figcaption { padding-top: var(--space-2); }
+.feature--lead .feature__body { order: -1; }
+/* An inner page h1 sits beside a photo, so it takes a step down from the hero scale — at full --fs-4
+   it ran to four lines and swamped the brewhouse photo next to it. */
+.feature--lead h1 { font-size: clamp(2.1rem, 1.5rem + 2.7vw, 3.4rem); max-width: 21ch; }
+@media (min-width: 880px) { .feature--lead { grid-template-columns: 1fr 0.95fr; } }
+.feature__media--wide img { aspect-ratio: 16 / 10; }
+
+/* about.html story — copy column plus a facts rail */
+.story { display: grid; gap: var(--space-4); align-items: start; }
+@media (min-width: 900px) { .story { grid-template-columns: 1fr 20rem; gap: var(--space-5); } }
+.story__body h2 { max-width: 26ch; }
+.story__body p { color: var(--ink-muted); font-size: var(--fs-1); }
+.story__aside { border: 1px solid var(--line-strong); border-top: 3px solid var(--copper); border-radius: var(--radius); padding: var(--space-3); background: rgba(0, 0, 0, 0.18); }
+.story__aside .taprail__marks { margin-bottom: var(--space-2); }
+.story__aside .checks { margin-top: var(--space-3); font-size: 0.96rem; }
+.story__aside .hours-pill { margin-top: var(--space-3); }
+
+/* ── the sticky mobile bar must not hide the last row of the footer ── */
+@media (max-width: 720px) { body.has-cta-bar { padding-bottom: 88px; } }

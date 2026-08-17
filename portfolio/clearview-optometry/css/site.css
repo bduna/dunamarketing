@@ -1,0 +1,205 @@
+/* site.css — Clearview Optometry. Everything specific to this site; palette lives in tokens.css.
+   Archetype C (typographic). Signature: THE ACUITY SCALE — the hero headline steps down in size the way the
+   rows of an eye chart do, echoed once as the hairline-ruled price list with 01–05 row numbers and tabular prices.
+   Flat and quiet by design (density axis = left, "Sleek · Calm · Modern"): hairlines, not borders; shadows only
+   where a card sits on a photograph. No dark-scrim treatment (T4) is used anywhere on this site. */
+
+/* ── Type ─────────────────────────────────────────────────────────── */
+h1 { font-weight: 500; letter-spacing: -0.035em; }
+h2 { font-weight: 600; letter-spacing: -0.025em; }
+h3 { font-weight: 600; letter-spacing: -0.015em; }
+p { max-width: var(--measure); }
+strong, b { font-weight: 600; }
+
+.eyebrow { color: var(--accent-ink); font-size: 0.78rem; font-weight: 600; letter-spacing: var(--track-label); }
+.eyebrow::before { content: ""; display: inline-block; width: 26px; height: 1px; background: currentColor; margin-right: 0.7rem; vertical-align: middle; opacity: 0.8; }
+.lead { line-height: 1.5; }
+.num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+
+/* ── Header ───────────────────────────────────────────────────────── */
+.site-header { background: rgba(248, 248, 250, 0.88); border-bottom: 1px solid var(--hairline); }
+.site-header .container { min-height: 72px; }
+.brand { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+.brand__mark { width: 26px; height: 26px; flex: 0 0 auto; color: var(--accent); }
+.nav { gap: var(--space-3); }
+.nav a:not(.btn) { color: var(--ink); font-size: 0.98rem; letter-spacing: -0.005em; }
+.nav a:not(.btn):hover { color: var(--accent-ink); }
+.nav a[aria-current="page"] { color: var(--brand); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 7px; }
+
+/* ── Buttons ──────────────────────────────────────────────────────── */
+.btn { letter-spacing: -0.005em; }
+.btn--primary { box-shadow: none; }
+.btn--ghost { border-width: 1px; border-color: var(--line); color: var(--ink); font-weight: 600; }
+.btn--ghost:hover, .btn--ghost:focus-visible { background: var(--brand-tint); border-color: var(--brand); }
+/* Teal on navy is 2.7:1 — on the navy band and inside the navy card the CTA flips to the near-white button. */
+.section--brand .btn--primary, .pcard--dark .btn--primary { background-color: var(--bg); color: var(--brand); }
+.section--brand .btn--primary:hover, .section--brand .btn--primary:focus-visible,
+.pcard--dark .btn--primary:hover, .pcard--dark .btn--primary:focus-visible { background-color: #FFFFFF; }
+.section--brand .btn--ghost, .pcard--dark .btn--ghost { color: var(--on-brand); border-color: rgba(248, 248, 250, 0.45); }
+.section--brand .btn--ghost:hover, .pcard--dark .btn--ghost:hover { background: rgba(248, 248, 250, 0.12); border-color: var(--on-brand); }
+.section--brand :focus-visible, .pcard--dark :focus-visible { outline-color: var(--accent-lift); }
+.cta-bar { background: var(--surface); border-top: 1px solid var(--line); }
+.cta-bar .btn { background-color: var(--accent); color: var(--on-accent); }
+.cta-bar .btn:hover { background-color: var(--accent-hover); }
+
+/* ── Hero: the acuity scale beside the starred photo (T3 — no overlay) ───────────
+   The star is a studio product shot and the client asked for nothing stock-looking, so it is a CONTAINED
+   editorial panel: never full-bleed, never scrimmed, never carrying words. The type leads. */
+.hero { padding-block: clamp(3rem, 6vw, 6rem) clamp(3.5rem, 6vw, 6.5rem); }
+.hero__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .hero__grid { grid-template-columns: 1.08fr 0.92fr; } }
+
+.acuity { margin-bottom: var(--space-3); }
+.acuity span { display: block; }
+.acuity__1 { font-size: var(--fs-4); }
+.acuity__2 { font-size: 0.74em; letter-spacing: -0.03em; }
+.acuity__3 { font-size: 0.53em; letter-spacing: -0.02em; color: var(--accent-ink); }
+/* the one rule under the lockup — the chart's baseline. Pseudo-element, so the h1 stays clean text. */
+.acuity::after { content: ""; display: block; width: clamp(88px, 22%, 150px); height: 2px; background: var(--accent); margin-top: 1.2rem; }
+
+.hero__lede { font-size: var(--fs-1); color: var(--ink-muted); max-width: 34ch; }
+@media (min-width: 900px) { .hero__lede { max-width: 40ch; } }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.callline { margin-top: var(--space-3); font-size: 0.98rem; color: var(--ink-muted); }
+.callline a { color: var(--ink); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--line); }
+.callline a:hover { color: var(--accent-ink); border-color: var(--accent); }
+.callline .dot { color: var(--line); margin-inline: 0.5rem; }
+
+.hero__figure { margin: 0; position: relative; }
+.hero__figure img { width: 100%; border-radius: var(--radius); aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 62%; }
+.hero__figure figcaption { margin-top: 0.85rem; font-size: 0.86rem; color: var(--ink-muted); display: flex; gap: 0.6rem; align-items: baseline; }
+.hero__figure figcaption::before { content: ""; display: block; width: 18px; height: 1px; background: var(--line); flex: 0 0 auto; transform: translateY(-0.35em); }
+
+/* ── Fact strip (T1, tinted): three numbers, vertical hairlines ─────── */
+.factstrip { padding-block: clamp(2.25rem, 4vw, 3.25rem); }
+.factstrip__grid { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 760px) { .factstrip__grid { grid-template-columns: repeat(3, 1fr); gap: 0; } }
+.fact { padding-block: 0.25rem; }
+@media (min-width: 760px) {
+  .fact { padding-inline: clamp(1rem, 3vw, 2.25rem); }
+  .fact + .fact { border-left: 1px solid var(--line); }
+  .fact:first-child { padding-left: 0; }
+  .fact:last-child { padding-right: 0; }
+}
+.fact__head { font-family: var(--font-display); font-weight: 600; font-size: 1.22rem; letter-spacing: -0.02em; color: var(--brand); margin: 0 0 0.3rem; }
+.fact p { margin: 0; font-size: 0.98rem; color: var(--ink-muted); max-width: 34ch; }
+
+/* ── Price list (T1): the acuity scale as rows ─────────────────────── */
+.listhead { display: grid; gap: var(--space-2); margin-bottom: var(--space-4); }
+@media (min-width: 900px) { .listhead { grid-template-columns: 1.1fr 0.9fr; align-items: end; column-gap: var(--space-4); } }
+.listhead h2 { margin: 0; }
+.listhead p { margin: 0; color: var(--ink-muted); }
+
+.pricelist { margin: 0; border-top: 1px solid var(--ink); }
+.prow { display: grid; grid-template-columns: 2.5rem 1fr; column-gap: var(--space-2); row-gap: 0.35rem; padding-block: clamp(1.25rem, 2.4vw, 1.75rem); border-bottom: 1px solid var(--hairline); align-items: baseline; transition: background var(--dur) var(--ease); }
+@media (min-width: 720px) { .prow { grid-template-columns: 3.25rem minmax(0, 1fr) auto; column-gap: var(--space-3); } }
+.prow:hover { background: var(--brand-tint); }
+.prow__n { font-family: var(--font-display); font-variant-numeric: tabular-nums; font-size: 0.9rem; font-weight: 500; color: var(--accent-ink); letter-spacing: 0.02em; }
+.prow__body { grid-column: 2; }
+.prow__name { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-2); letter-spacing: -0.02em; margin: 0 0 0.2rem; color: var(--ink); }
+.prow__body p { margin: 0; color: var(--ink-muted); max-width: 46ch; }
+.prow__price { grid-column: 2; font-family: var(--font-display); font-variant-numeric: tabular-nums; font-size: 1.35rem; font-weight: 600; letter-spacing: -0.02em; color: var(--brand); white-space: nowrap; }
+.prow__price small { display: block; font-family: var(--font-body); font-size: 0.8rem; font-weight: 400; letter-spacing: 0; color: var(--ink-muted); }
+.prow__price--words { font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--accent-ink); }
+@media (min-width: 720px) {
+  .prow__price { grid-column: 3; text-align: right; }
+  .prow__price small { text-align: right; }
+}
+.listnote { display: flex; gap: 0.7rem; align-items: flex-start; margin-top: var(--space-3); font-size: 0.95rem; color: var(--ink-muted); }
+.listnote svg { flex: 0 0 auto; color: var(--accent-ink); margin-top: 0.15rem; }
+.listnote p { margin: 0; }
+
+/* ── T5 photo bands: the photograph stays BRIGHT, a contained card carries the words ──
+   Primitives copied from components/base.css + components/sections/photo-card.html and tuned.
+   No dark scrim: the light card sits on the dark shop-window photo, the navy card on the bright lens sheet. */
+.photostage { position: relative; display: grid; align-items: center; min-height: clamp(420px, 58vh, 620px); overflow: hidden; }
+.photostage--band { min-height: clamp(340px, 44vw, 520px); }
+.photostage__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.photostage::after { display: none; }   /* deliberately no scrim anywhere on this site */
+.photostage__inner { position: relative; z-index: 1; display: flex; padding-block: clamp(2.5rem, 5vw, 4rem); }
+.photostage__inner--end { justify-content: flex-end; }
+
+.pcard { max-width: 33rem; padding: clamp(1.6rem, 3.2vw, 2.5rem); border-radius: var(--radius); box-shadow: var(--shadow); }
+.pcard h2 { margin-bottom: 0.6rem; }
+.pcard p { margin-bottom: 0; }
+.pcard--light { background: var(--surface); color: var(--ink); border-top: 3px solid var(--accent); }
+.pcard--light .lead, .pcard--light .muted, .pcard--light footer { color: var(--ink-muted); }
+.pcard--dark { background: rgba(33, 45, 89, 0.95); color: var(--on-brand); border-top: 3px solid var(--accent-lift); }
+.pcard--dark .eyebrow { color: var(--accent-lift); }
+.pcard--dark .lead, .pcard--dark .muted, .pcard--dark footer { color: var(--on-brand-muted); }
+.pcard__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.pcard__link { display: inline-block; margin-top: var(--space-3); font-weight: 600; text-decoration: none; color: var(--accent-ink); border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+.pcard__link:hover { color: var(--ink); border-color: var(--ink); }
+.pcard--dark .pcard__link { color: var(--accent-lift); border-color: var(--accent-lift); }
+.pcard--dark .pcard__link:hover { color: var(--on-brand); border-color: var(--on-brand); }
+
+/* Narrow: a full-height photo behind a full-width card would show only one corner of it, so the photo becomes a
+   real band and the card rides up over its bottom edge. Still T5, and the photograph is actually legible. */
+@media (max-width: 780px) {
+  .photostage, .photostage--band { display: block; min-height: 0; }
+  .photostage__img { position: static; inset: auto; height: clamp(220px, 56vw, 320px); }
+  .photostage__inner, .photostage__inner--end { justify-content: flex-start; padding-block: 0 var(--space-4); margin-top: calc(-1 * var(--space-4)); }
+  .pcard { max-width: none; }
+}
+
+/* ── Split sections (T3) ──────────────────────────────────────────── */
+.split { gap: clamp(2rem, 5vw, 4.5rem); }
+@media (min-width: 820px) { .split--wide { grid-template-columns: 0.95fr 1.05fr; } }
+.figframe { margin: 0; }
+.figframe img { width: 100%; border-radius: var(--radius); object-fit: cover; }
+.figframe--43 img { aspect-ratio: 4 / 3; }
+.figframe--45 img { aspect-ratio: 4 / 5; }
+.figframe figcaption { margin-top: 0.8rem; font-size: 0.86rem; color: var(--ink-muted); }
+.textlink { display: inline-block; margin-top: var(--space-2); font-weight: 600; text-decoration: none; color: var(--accent-ink); border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+.textlink:hover { color: var(--ink); border-color: var(--ink); }
+
+/* ── Pull quote (her own words, typographic — T1) ──────────────────── */
+.pull { margin: 0; max-width: 26ch; }
+.pull p { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 1.1rem + 1.7vw, 2.25rem); line-height: 1.16; letter-spacing: -0.03em; color: var(--brand); margin: 0; max-width: none; }
+.pull footer { margin-top: var(--space-2); font-size: 0.86rem; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-muted); font-weight: 600; }
+.pullgrid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 860px) { .pullgrid { grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 5rem); } }
+
+/* ── T6: full-bleed photograph as a breath, caption below, no words on the image ── */
+.breath { display: block; }
+.breath img { width: 100%; height: clamp(260px, 38vw, 460px); object-fit: cover; object-position: 50% 48%; }
+.breath figcaption { padding-block: var(--space-2) 0; font-size: 0.9rem; color: var(--ink-muted); }
+.breath figcaption span { display: inline-block; border-left: 2px solid var(--accent); padding-left: 0.85rem; }
+
+/* ── Testimonials (T1) ────────────────────────────────────────────── */
+.quotes { display: grid; gap: var(--space-3); grid-template-columns: 1fr; margin-top: var(--space-4); }
+@media (min-width: 780px) { .quotes { grid-template-columns: 1fr 1fr; gap: var(--space-4); } }
+.quote { margin: 0; background: var(--surface); border: 1px solid var(--hairline); border-top: 3px solid var(--brand); border-radius: var(--radius); padding: clamp(1.5rem, 3vw, 2.25rem); }
+.quote p { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-2); line-height: 1.3; letter-spacing: -0.02em; margin: 0 0 var(--space-2); color: var(--ink); max-width: none; }
+.quote footer { font-size: 0.86rem; font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-muted); }
+
+/* ── Closing CTA band (T2) ────────────────────────────────────────── */
+.section--brand { background: var(--brand); color: var(--on-brand); }
+.section--brand .eyebrow { color: var(--accent-lift); }
+.section--brand h2 { color: var(--on-brand); }
+.section--brand .lead { color: var(--on-brand-muted); }
+.contact-grid { display: grid; gap: clamp(2rem, 5vw, 4rem); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 880px) { .contact-grid { grid-template-columns: 1.05fr 0.95fr; } }
+.contact-list { font-style: normal; display: grid; gap: 0; }
+.contact-list > div { display: grid; gap: 0.15rem; padding-block: var(--space-2); border-top: 1px solid rgba(248, 248, 250, 0.22); }
+.contact-list > div:last-child { border-bottom: 1px solid rgba(248, 248, 250, 0.22); }
+.contact-list .eyebrow { margin-bottom: 0.15rem; }
+.contact-list span:not(.eyebrow), .contact-list a { font-size: 1.05rem; color: var(--on-brand); }
+.contact-list a { text-decoration: none; border-bottom: 1px solid rgba(248, 248, 250, 0.4); justify-self: start; }
+.contact-list a:hover { border-color: var(--accent-lift); color: var(--accent-lift); }
+
+/* ── Footer ───────────────────────────────────────────────────────── */
+.site-footer { border-top: 1px solid var(--hairline); padding-block: var(--space-4) var(--space-3); }
+.site-footer .brand { font-size: 1rem; margin-bottom: 0.4rem; }
+.site-footer p { max-width: 36ch; }
+.site-footer a:hover { color: var(--accent-ink); }
+.site-footer .footlinks a { text-decoration: none; border-bottom: 1px solid var(--line); }
+.site-footer .demo { grid-column: 1 / -1; border-top: 1px solid var(--hairline); padding-top: var(--space-2); margin: 0; max-width: none; font-size: 0.82rem; color: var(--ink-muted); }
+
+/* ── Compact typographic page heads (services / about — T1) ───────── */
+.pagehead { padding-block: clamp(3rem, 5.5vw, 5rem) clamp(2.5rem, 4.5vw, 4rem); border-bottom: 1px solid var(--hairline); }
+.pagehead h1 { font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.4rem); margin-bottom: var(--space-2); max-width: 22ch; }
+.pagehead .lead { color: var(--ink-muted); max-width: 52ch; }
+.pagehead__grid { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 900px) { .pagehead__grid { grid-template-columns: 1.15fr 0.85fr; align-items: end; column-gap: var(--space-5); } }
+.pagehead .hero__actions { margin-top: var(--space-2); }

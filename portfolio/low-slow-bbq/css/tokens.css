@@ -1,0 +1,59 @@
+/* tokens.css — Low & Slow BBQ. Palette assigned centrally (dark warm / espresso) and copied VERBATIM.
+   Contrast measured: ink/bg 15.7:1 · ink-muted/bg 5.8:1 · ink-muted/surface 5.6:1 · ember/bg 6.5:1
+   · on-accent ink on ember 6.5:1 · dark ink on accent-hover 5.0:1 · cream-ink on cream 6.9:1. Nothing altered. */
+:root {
+  /* ── Assigned palette (verbatim) ───────────────────────────────── */
+  --bg: #1E1610;            /* 60: smoke black */
+  --bg-alt: #2C2219;        /* tinted section */
+  --surface: #2C2219;       /* cards, board panels */
+  --ink: #F1F0EE;           /* body text */
+  --ink-muted: #A5988D;     /* secondary text */
+  --line: #413830;          /* hairlines */
+  --brand: #CB902A;         /* 30/10: ember */
+  --on-brand: #1E1610;
+  --accent: #CB902A;        /* 10: the one accent */
+  --accent-hover: #B07C21;
+  --on-accent: #1E1610;
+
+  /* ── Derived, site-specific (not substitutes for the above) ─────── */
+  --cream: #F4EEE2;             /* the T5 hero card — the "cream" they named */
+  --cream-ink: #1E1610;
+  --cream-ink-muted: #5B4F44;
+  --ember-light: #E8C77A;       /* ember lifted for small text over the T4 scrim (7.4:1 there) */
+  --ember-wash: rgba(203, 144, 42, 0.10);
+  --ember-line: rgba(203, 144, 42, 0.38);
+  --line-strong: #55483C;
+  --shadow-hard: 0 18px 44px rgba(0, 0, 0, 0.55);
+
+  /* ── Type: Bricolage Grotesque (display) + Work Sans (body) ─────── */
+  --font-display: "Bricolage Grotesque", "Arial Black", Impact, sans-serif;
+  --font-body: "Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.18vw, 1.08rem);
+  --fs-1: clamp(1.1rem, 1rem + 0.55vw, 1.34rem);
+  --fs-2: clamp(1.35rem, 1.16rem + 0.9vw, 1.8rem);
+  --fs-3: clamp(1.8rem, 1.35rem + 2.1vw, 2.7rem);
+  --fs-4: clamp(2.5rem, 1.6rem + 4.6vw, 4.5rem);
+  --lh-body: 1.55;
+  --lh-head: 1.03;
+  --track-label: 0.14em;
+
+  /* ── Shape: sheet steel, not pillows ───────────────────────────── */
+  --radius: 8px;
+  --radius-sm: 6px;
+  --shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+
+  /* ── Space (density axis: right = dense) ───────────────────────── */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.25rem, 5.5vw, 5.75rem);
+  --measure: 58ch;
+  --container: 1120px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

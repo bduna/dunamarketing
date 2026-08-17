@@ -1,0 +1,59 @@
+/* tokens.css — Stone Crane Martial Arts.
+   Palette copied VERBATIM from brief.assigned.palette (family: dark cool / navy). Do not swap.
+   Contrast: --ink on --bg 16.0:1 · --ink-muted on --bg 5.8:1, on --surface 5.4:1 · --on-accent on --accent 5.2:1. */
+:root {
+  /* ── assigned palette (verbatim) ───────────────────────────────── */
+  --bg: #101126;            /* 60: near-black indigo page base */
+  --bg-alt: #171935;        /* tinted section */
+  --surface: #171935;       /* cards */
+  --ink: #EEEEF1;           /* body text */
+  --ink-muted: #8D8EA5;     /* secondary text */
+  --line: #2C2E44;          /* hairlines */
+  --brand: #CB2F2A;         /* 30/10: crimson — the band */
+  --on-brand: #FFFFFF;
+  --accent: #CB2F2A;        /* 10: the one accent — CTAs, the belt bar */
+  --accent-hover: #DA443E;
+  --on-accent: #FFFFFF;
+
+  /* ── derived, site-specific (added, nothing replaced) ──────────── */
+  --accent-soft: #F2685E;              /* crimson tint for small text — 6.1:1 on --bg (crimson itself is 3.6:1) */
+  --surface-2: #1E2141;                /* raised card / table row */
+  --line-soft: rgba(238, 238, 241, 0.10);
+  --line-strong: #3A3D58;
+  --card-ink: #14152B;                 /* ink for the light card on a photo (T5) */
+  --card-ink-muted: #4C4F6B;
+  --belt-tip: #EEEEF1;                 /* the pale tip on the belt bar — a dark tip vanishes on a near-black base */
+
+  /* Type — Oswald + Manrope (assigned) */
+  --font-display: "Oswald", "Arial Narrow", Impact, sans-serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.06rem);      /* body */
+  --fs-1: clamp(1.09rem, 1rem + 0.5vw, 1.28rem);      /* lead */
+  --fs-2: clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem);     /* h3 */
+  --fs-3: clamp(1.75rem, 1.35rem + 1.9vw, 2.7rem);    /* h2 */
+  --fs-4: clamp(2.6rem, 1.7rem + 4vw, 4.1rem);        /* h1 — capped so the hero CTA stays inside an 800px fold */
+  --lh-body: 1.65;
+  --lh-head: 1.05;
+  --track-label: 0.14em;   /* uppercase labels — wide, like stencilled dojo lettering */
+
+  /* Shape & depth — square-ish; hairlines instead of shadows on a near-black base */
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow: 0 26px 60px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 2px 0 rgba(0, 0, 0, 0.25);
+
+  /* Space */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.5rem, 6.5vw, 7rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1.15rem, 4vw, 2rem);
+
+  /* Motion — restrained (tone: serious) */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

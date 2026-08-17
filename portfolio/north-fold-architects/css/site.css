@@ -1,0 +1,172 @@
+/* site.css — everything specific to North Fold Architects. Tokens live in tokens.css.
+   Archetype C (typographic). Signature: contour lines behind the headline + drawing-sheet numbering on the offer list.
+   Depth comes from hairlines and offsets; the only shadows are on cards that sit over photographs. */
+
+/* ---------- global tuning ---------- */
+h1, h2, h3 { letter-spacing: -0.03em; font-weight: 700; }
+h2 { max-width: 26ch; }
+.lead { color: var(--ink-soft); }
+.eyebrow { color: var(--accent-ink); font-size: 0.78rem; font-weight: 600; }
+a:not(.btn):not(.brand) { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.inline-link { color: var(--accent-ink); font-weight: 600; text-decoration: underline; }
+.inline-link:hover { color: var(--ink); }
+.rule { border: 0; border-top: 1px solid var(--hairline); margin: 0; }
+
+/* buttons: square-ish, no bounce */
+.btn { border-radius: var(--radius-sm); letter-spacing: 0.01em; font-weight: 600; }
+.btn--primary:hover, .btn--primary:focus-visible { transform: none; }
+.btn--invert, a.btn--invert { background-color: var(--on-brand); color: var(--brand); border: 0; box-shadow: none; }
+.btn--invert:hover, .btn--invert:focus-visible { background-color: #FFFFFF; color: var(--brand); }
+.section--brand .btn--ghost { color: var(--on-brand); border-color: rgba(245, 237, 232, 0.55); }
+.section--brand .btn--ghost:hover { background: rgba(245, 237, 232, 0.14); border-color: var(--on-brand); }
+
+/* ---------- header ---------- */
+.site-header { border-bottom: 1px solid var(--hairline); }
+.site-header .container { min-height: 72px; }
+.brand { gap: 0.55rem; font-size: 1.02rem; letter-spacing: 0.01em; }
+.brand__mark { color: var(--accent); flex: none; }
+.nav { gap: var(--space-3); font-size: 0.95rem; }
+.nav a:not(.btn) { color: var(--ink); }
+.nav a:not(.btn):hover { color: var(--accent-ink); }
+.nav a[aria-current="page"] { color: var(--brand); text-decoration-color: var(--accent); }
+@media (max-width: 720px) { .nav { border-bottom: 1px solid var(--hairline); } }
+
+/* ---------- 1. hero (T3 — photo beside type, no overlay) ---------- */
+.hero { position: relative; overflow: hidden; padding-block: clamp(3rem, 6vw, 6rem) clamp(2.5rem, 5vw, 5rem); }
+.hero__contour { position: absolute; top: -8%; right: -14%; width: min(760px, 82vw); color: var(--accent); opacity: 0.17; pointer-events: none; }
+.hero .container { position: relative; }
+.hero__grid { display: grid; gap: clamp(2rem, 4vw, 3.4rem); align-items: end; }
+@media (min-width: 900px) { .hero__grid { grid-template-columns: minmax(0, 1.12fr) minmax(250px, 0.88fr); } }
+.hero__big { font-size: var(--fs-4); max-width: 15ch; margin-bottom: var(--space-3); letter-spacing: -0.04em; }
+.hero__big em { font-style: normal; color: var(--brand); }
+.hero__lede { font-size: var(--fs-1); max-width: 34ch; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.hero__meta { display: flex; flex-wrap: wrap; gap: 0.55rem 1.1rem; margin: var(--space-3) 0 0; padding-top: var(--space-2);
+  border-top: 1px solid var(--hairline); font-size: 0.92rem; color: var(--ink-muted); max-width: 34rem; }
+.hero__meta b { color: var(--ink); font-weight: 600; }
+.hero__figure { margin: 0; }
+.hero__figure img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 38%; border-radius: var(--radius); }
+.hero__figure figcaption { margin-top: 0.7rem; font-size: 0.85rem; color: var(--ink-muted); border-left: 2px solid var(--accent); padding-left: 0.7rem; }
+@media (max-width: 899px) { .hero__figure img { aspect-ratio: 4 / 3; object-position: 50% 45%; } }
+
+/* ---------- 2. facts strip (T1 tinted) ---------- */
+.facts { background: var(--bg-alt); border-block: 1px solid var(--hairline); }
+.facts .container { display: flex; flex-wrap: wrap; gap: 0.4rem 2.4rem; padding-block: 1.05rem; }
+.facts p { margin: 0; max-width: none; font-size: 0.95rem; color: var(--ink-muted); }
+.facts b, .facts strong { color: var(--ink); font-weight: 600; }
+.facts span.facts__k { display: block; font-size: 0.7rem; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent-ink); font-weight: 600; }
+
+/* ---------- 3. offer list (T1) — reads like a drawing-sheet index ---------- */
+.sheet { border-top: 1px solid var(--hairline); margin-top: var(--space-4); }
+.sheet__row { display: grid; gap: 0.35rem 1.6rem; padding-block: clamp(1.3rem, 2.4vw, 1.9rem); border-bottom: 1px solid var(--hairline); }
+@media (min-width: 780px) {
+  .sheet__row { grid-template-columns: 3.2rem minmax(0, 1fr) 14rem; align-items: baseline; }
+  .sheet__price { text-align: right; }
+}
+.sheet__no { font-family: var(--font-display); font-size: 0.85rem; font-weight: 600; color: var(--accent-ink); letter-spacing: 0.06em; }
+.sheet__row h3 { margin: 0 0 0.35rem; font-size: var(--fs-2); }
+.sheet__row p { margin: 0; color: var(--ink-muted); max-width: 52ch; }
+.sheet__price { font-family: var(--font-display); font-weight: 600; color: var(--ink); font-size: 1.02rem; }
+.sheet__price small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 0.85rem; color: var(--ink-muted); margin-top: 0.15rem; }
+.sheet__price .inline-link { font-family: var(--font-body); font-weight: 600; font-size: 0.95rem; }
+.sheet__note { margin-top: var(--space-3); font-size: 0.95rem; color: var(--ink-muted); }
+
+/* ---------- 4. photo + contained card (T5 primitives, tuned for this site) ---------- */
+.photostage { position: relative; display: grid; align-items: center; min-height: clamp(430px, 58vw, 620px); overflow: hidden; }
+.photostage--band { min-height: clamp(360px, 48vw, 560px); }
+.photostage__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+/* the photograph stays BRIGHT — this is a whisper for edge legibility only, not a scrim (T5, not T4) */
+.photostage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(42, 32, 24, 0.16), rgba(42, 32, 24, 0) 62%); }
+.photostage__inner { position: relative; display: flex; padding-block: clamp(2rem, 5vw, 4rem); }
+.photostage__inner--end { justify-content: flex-end; }
+.pcard { max-width: 33rem; padding: clamp(1.5rem, 3.2vw, 2.6rem); border-radius: var(--radius); box-shadow: var(--shadow); }
+.pcard--light { background: var(--surface); color: var(--ink); border-left: 3px solid var(--accent); }
+.pcard--dark { background: rgba(35, 26, 19, 0.95); color: #F7F1EC; border-left: 3px solid var(--accent); }
+.pcard--dark .lead, .pcard--dark .muted, .pcard--dark footer, .pcard--dark small { color: rgba(247, 241, 236, 0.82); }
+.pcard h2, .pcard h3 { margin-bottom: 0.7rem; }
+.pcard p { margin-bottom: 0.6rem; }
+.pcard p:last-child { margin-bottom: 0; }
+.pcard__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.pcard blockquote, blockquote.pcard { margin: 0; }
+blockquote.pcard p { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.32; letter-spacing: -0.02em; }
+blockquote.pcard footer { font-family: var(--font-body); font-size: 0.92rem; }
+@media (max-width: 700px) { .pcard { max-width: none; } .photostage__inner--end { justify-content: flex-start; } }
+
+/* ---------- 5. story panel (T1 tinted) + photo strip ---------- */
+.story { background: var(--bg-alt); }
+.story__grid { display: grid; gap: clamp(1.8rem, 4vw, 3.4rem); }
+@media (min-width: 900px) { .story__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; } }
+.story blockquote { margin: 0; }
+.story__quote { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.34; letter-spacing: -0.02em; color: var(--brand); max-width: 30ch; }
+.story__body { margin-top: var(--space-3); }
+.strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
+.strip img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--radius); }
+.strip__link { margin-top: 0.9rem; font-size: 0.9rem; }
+
+/* ---------- 6. full-bleed breath band (T6) ---------- */
+.breath { margin: 0; }
+.breath img { width: 100%; height: clamp(240px, 42vw, 520px); object-fit: cover; object-position: 50% 62%; }
+.breath figcaption { padding-block: 0.9rem; font-size: 0.9rem; color: var(--ink-muted); border-bottom: 1px solid var(--hairline); }
+.breath figcaption b { color: var(--ink); font-weight: 600; }
+
+/* ---------- 7. testimonials (T1) ---------- */
+.quotes { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
+@media (min-width: 820px) { .quotes { grid-template-columns: 1fr 1fr; gap: var(--space-4); } }
+.quote { margin: 0; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--brand); border-radius: var(--radius); padding: clamp(1.4rem, 3vw, 2.1rem); }
+.quote p { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.42; letter-spacing: -0.015em; margin-bottom: 0.9rem; max-width: none; }
+.quote footer { font-size: 0.9rem; color: var(--ink-muted); }
+
+/* ---------- 8. contact close (T2 brand band) ---------- */
+.close { background: var(--brand); color: var(--on-brand); }
+.close__grid { display: grid; gap: clamp(1.8rem, 4vw, 3.4rem); }
+@media (min-width: 900px) { .close__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); } }
+.close h2 { color: var(--on-brand); }
+.close p { color: rgba(245, 237, 232, 0.86); }
+.close .eyebrow { color: rgba(245, 237, 232, 0.72); }
+.close__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.close__details { display: grid; gap: 0; margin: 0; border-top: 1px solid rgba(245, 237, 232, 0.28); }
+.close__details > div { display: grid; gap: 0.15rem; padding-block: 0.95rem; border-bottom: 1px solid rgba(245, 237, 232, 0.28); }
+.close__details dt { font-size: 0.72rem; letter-spacing: var(--track-label); text-transform: uppercase; color: rgba(245, 237, 232, 0.68); }
+.close__details dd { margin: 0; font-size: 1.05rem; }
+.close__details a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(245, 237, 232, 0.5); }
+.close__details a:hover { text-decoration-color: var(--on-brand); }
+
+/* ---------- gallery page ---------- */
+.gallery { display: grid; gap: 0.9rem; grid-template-columns: 1fr; margin-top: var(--space-4); }
+.gallery figure { margin: 0; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+.gallery figcaption { margin-top: 0.55rem; font-size: 0.85rem; color: var(--ink-muted); }
+.gallery .g-tall img { aspect-ratio: 3 / 4; }
+.gallery .g-wide img { aspect-ratio: 3 / 2; }
+@media (min-width: 700px) {
+  .gallery { grid-template-columns: repeat(6, 1fr); gap: 1.1rem; }
+  .gallery .g-wide { grid-column: span 4; }
+  .gallery .g-tall { grid-column: span 2; }
+  .gallery .g-half { grid-column: span 3; }
+  .gallery .g-half img { aspect-ratio: 4 / 3; }
+}
+
+/* ---------- about page ---------- */
+.pagehead { padding-block: clamp(2.6rem, 5vw, 4.6rem) clamp(1.6rem, 3vw, 2.6rem); }
+.pagehead h1 { font-size: clamp(2.2rem, 1.5rem + 3.4vw, 3.6rem); max-width: 22ch; }
+.pagehead .lead { max-width: 46ch; }
+.principles { border-top: 1px solid var(--hairline); margin-top: var(--space-4); }
+.principles > div { padding-block: clamp(1.3rem, 2.4vw, 1.8rem); border-bottom: 1px solid var(--hairline); display: grid; gap: 0.3rem 1.6rem; }
+@media (min-width: 780px) { .principles > div { grid-template-columns: 3.2rem minmax(0, 1fr); } }
+.principles h3 { font-size: 1.18rem; margin: 0 0 0.3rem; }
+.principles p { margin: 0; color: var(--ink-muted); }
+.about__split { display: grid; gap: clamp(1.8rem, 4vw, 3.2rem); align-items: center; }
+@media (min-width: 900px) { .about__split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.about__split img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 32%; border-radius: var(--radius); }
+
+/* ---------- sticky mobile CTA (quote intent — jump to the contact section) ---------- */
+.cta-bar { background: var(--surface); border-top: 1px solid var(--hairline); box-shadow: 0 -2px 14px rgba(42, 32, 24, 0.1); }
+
+/* ---------- footer ---------- */
+.site-footer { border-top: 1px solid var(--hairline); padding-block: var(--space-4) var(--space-3); }
+.site-footer .brand { font-size: 1rem; margin-bottom: 0.5rem; }
+.site-footer p { margin-bottom: 0.5rem; max-width: 34ch; }
+.site-footer a:not(.brand) { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--hairline); }
+.site-footer a:not(.brand):hover { text-decoration-color: var(--accent); color: var(--ink); }
+.footer__legal { display: block; border-top: 1px solid var(--hairline); margin-top: var(--space-3); padding-top: var(--space-2); font-size: 0.82rem; }
+.footer__legal p { max-width: none; margin-bottom: 0.25rem; }

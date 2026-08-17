@@ -1,0 +1,221 @@
+/* site.css — everything specific to keyway-locksmith. Tokens live in tokens.css.
+   Base = midnight navy (dark). Brass = numerals, chips, rules, the closing band and every CTA.
+   Treatments used: T1 solid/tinted · T2 brass band · T3 split photo+text · T5 bright photo + light card ·
+   T6 full-bleed photo, no text.  T4 (photo + dark scrim + inverted text) is used ZERO times by design —
+   the page base is already dark, so darkening a photograph buys nothing and costs the picture. */
+
+/* ── Type ─────────────────────────────────────────────────────────────────────────────── */
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.022em; }
+h1 { text-wrap: balance; }
+.eyebrow { color: var(--accent); font-weight: 700; }
+.lead { max-width: 46ch; }
+b, strong { font-weight: 700; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* ── Header ───────────────────────────────────────────────────────────────────────────── */
+.site-header { background: rgba(16, 22, 38, 0.92); border-bottom: 1px solid var(--line); }
+.brand { color: var(--ink); font-weight: 700; font-size: 1.18rem; letter-spacing: -0.02em; }
+.brand__mark { width: 32px; height: 32px; flex: 0 0 auto; border-radius: var(--radius-sm); }
+.nav a:not(.btn) { color: var(--ink); font-weight: 600; font-size: 0.97rem; }
+.nav a:not(.btn):hover { color: var(--accent); }
+.nav a[aria-current="page"] { color: var(--accent); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 7px; }
+.nav .btn--primary { font-size: 0.95rem; padding: 0.6rem 1.05rem; min-height: 42px; }
+@media (max-width: 720px) { .nav { background: var(--bg); } .nav .btn--primary { min-height: 48px; } }
+
+/* ── Buttons ──────────────────────────────────────────────────────────────────────────── */
+.btn { border-radius: var(--radius-sm); letter-spacing: 0.005em; }
+.btn--primary { color: var(--on-accent); }
+.btn--ghost { color: var(--ink); border-color: var(--hairline-strong); }
+.btn--ghost:hover, .btn--ghost:focus-visible { background: rgba(238, 239, 241, 0.08); border-color: var(--accent); color: var(--ink); }
+.btn__sub { display: block; font-weight: 600; font-size: 0.78rem; letter-spacing: var(--track-label); text-transform: uppercase; opacity: 0.72; margin-top: 1px; }
+.btn--primary .btn__sub { color: var(--on-accent); }
+.btn--call { flex-direction: column; align-items: flex-start; gap: 0; text-align: left; }
+
+/* Sticky mobile call bar */
+.cta-bar { background: var(--bg-alt); border-top: 1px solid var(--hairline-strong); box-shadow: 0 -8px 26px rgba(0, 0, 0, 0.5); }
+.cta-bar .btn { background: var(--accent); color: var(--on-accent); border: 0; font-size: 1.05rem; }
+.cta-bar .btn:hover, .cta-bar .btn:focus-visible { background: var(--accent-hover); }
+
+/* ── Shared: the brass hours/status pill (one short line only) ────────────────────────── */
+.pill { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--brand-tint-strong); background: var(--brand-tint); border-radius: 999px; padding: 0.4rem 0.9rem; font-size: 0.92rem; font-weight: 600; color: var(--ink); margin-bottom: 0; max-width: none; }
+.pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: 0 0 auto; }
+
+/* Hairline price strip — three headline prices under the hero copy, on the solid surface. Wraps at 390. */
+.pricebar { list-style: none; margin: 0; padding: var(--space-2) 0 0; display: flex; flex-wrap: wrap; gap: 0.45rem 1.2rem; border-top: 1px solid var(--line); }
+.pricebar li { font-size: 0.93rem; color: var(--ink-muted); }
+.pricebar b { color: var(--accent); font-weight: 700; }
+
+/* ── 1. HERO — T3: photo beside text, no overlay ─────────────────────────────────────── */
+.hero { padding-block: clamp(2.25rem, 4.5vw, 4.25rem) clamp(2.75rem, 5vw, 4.75rem); background: var(--bg); border-bottom: 1px solid var(--line); }
+.hero .container { display: grid; gap: clamp(2rem, 4vw, 3.5rem); grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 900px) { .hero .container { grid-template-columns: 1.08fr 0.92fr; } }
+.hero h1 { margin-bottom: var(--space-2); }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero__lede { font-size: var(--fs-1); color: var(--ink-muted); max-width: 44ch; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-3) 0 var(--space-3); }
+
+/* The key-board photo: tall panel, brass hairline, navy caption plate. Warm tan against the navy is
+   the intended counterpoint — it is framed, not blended. */
+.hero__photo { position: relative; }
+.hero__photo .media { aspect-ratio: 4 / 5; border: 1px solid var(--hairline-strong); border-top: 3px solid var(--accent); box-shadow: var(--shadow); }
+.hero__photo .media img { object-position: 50% 34%; }
+.hero__plate { position: absolute; left: 0; bottom: 0; right: 18%; background: rgba(16, 22, 38, 0.93); border-top: 1px solid var(--brand-tint-strong); border-right: 1px solid var(--brand-tint-strong); padding: 0.8rem 1rem; }
+.hero__plate p { margin: 0; font-size: 0.88rem; color: var(--ink-muted); max-width: none; }
+.hero__plate b { color: var(--ink); display: block; font-family: var(--font-display); font-size: 1rem; }
+@media (max-width: 899px) { .hero__photo .media { aspect-ratio: 5 / 4; } .hero__photo .media img { object-position: 50% 26%; } .hero__plate { right: 0; } }
+
+/* ── 2. TRUST STRIP — T1 tinted ──────────────────────────────────────────────────────── */
+.trust { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding-block: clamp(1.5rem, 3vw, 2.25rem); }
+.trust__grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+.trust__item { display: flex; gap: 0.9rem; align-items: flex-start; }
+.trust__item + .trust__item { border-top: 1px solid var(--line); padding-top: var(--space-3); }
+@media (min-width: 760px) { .trust__item + .trust__item { border-top: 0; padding-top: 0; border-left: 1px solid var(--line); padding-left: var(--space-3); } }
+.trust__item svg { flex: 0 0 auto; color: var(--accent); margin-top: 2px; }
+.trust__item b { display: block; font-family: var(--font-display); font-size: 1.16rem; letter-spacing: -0.015em; }
+.trust__item span { color: var(--ink-muted); font-size: 0.94rem; }
+
+/* ── 3. SERVICES LEDGER — T1 solid. The signature: the numbered key board, as a price list ──
+   Derived from the starred photo, where every hook has a number pencilled beside it. */
+.ledger-wrap { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 960px) { .ledger-wrap { grid-template-columns: 1.62fr 1fr; } }
+.ledger { border: 1px solid var(--hairline-strong); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+.ledger__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; padding: 1rem var(--space-3); background: var(--bg); border-bottom: 1px solid var(--hairline-strong); }
+.ledger__head h2, .ledger__head h3 { margin: 0; font-size: 1.1rem; }
+.ledger__head span { font-size: 0.78rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); }
+.ledger dl { margin: 0; padding: 0; }
+.ledger__row { display: grid; grid-template-columns: 2.4rem 1fr auto; gap: 0 0.9rem; align-items: baseline; padding: 1.05rem var(--space-3); border-bottom: 1px solid var(--line); }
+.ledger__row:last-child { border-bottom: 0; }
+.ledger__n { font-family: var(--font-body); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 0.86rem; color: var(--accent); background: var(--brand-tint); border-radius: var(--radius-sm); padding: 0.2rem 0; text-align: center; align-self: start; }
+.ledger__row dt { grid-column: 2; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; letter-spacing: -0.015em; }
+.ledger__row dt small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 0.93rem; line-height: 1.5; color: var(--ink-muted); margin-top: 3px; max-width: 46ch; }
+.ledger__row dd { grid-column: 3; margin: 0; }
+.chip { display: inline-block; font-family: var(--font-body); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1rem; white-space: nowrap; background: var(--accent); color: var(--on-accent); border-radius: var(--radius-sm); padding: 0.3rem 0.65rem; }
+.chip--quote { background: transparent; color: var(--accent); border: 1px solid var(--accent); font-weight: 700; font-size: 0.92rem; }
+@media (max-width: 560px) {
+  .ledger__row { grid-template-columns: 2.4rem 1fr; }
+  .ledger__row dd { grid-column: 2; margin-top: 0.6rem; }
+}
+.ledger__foot { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.95rem var(--space-3); background: var(--bg); border-top: 1px solid var(--hairline-strong); color: var(--ink-muted); font-size: 0.92rem; }
+.ledger__foot svg { flex: 0 0 auto; color: var(--accent); margin-top: 2px; }
+.ledger__foot p { margin: 0; max-width: none; }
+
+/* Call aside beside the ledger */
+.callbox { border: 1px solid var(--hairline-strong); border-top: 3px solid var(--accent); border-radius: var(--radius); background: var(--bg-alt); padding: var(--space-3); position: relative; }
+.callbox h3 { font-size: var(--fs-2); }
+.callbox p { color: var(--ink-muted); }
+.callbox .btn { width: 100%; margin-top: var(--space-1); }
+.callbox__meta { display: grid; gap: 0.55rem; margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--line); }
+.callbox__meta div { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); font-size: 0.93rem; flex-wrap: wrap; }
+.callbox__meta dt { color: var(--ink-muted); }
+.callbox__meta dd { margin: 0; text-align: right; }
+.callbox__meta b { font-weight: 700; }
+.callbox__meta a { color: var(--accent); text-decoration: none; font-weight: 700; }
+.callbox__meta a:hover { text-decoration: underline; }
+
+/* ── 4. PROMISE BAND — T5: bright photo + contained LIGHT card ───────────────────────── */
+.photostage { min-height: clamp(400px, 52vw, 560px); }
+.photostage__img { object-position: 50% 50%; }
+/* NOT a scrim (T4): a whisper of shade on the card side only so the card edge reads. The photo stays bright. */
+.photostage::after { background: linear-gradient(270deg, rgba(16, 22, 38, 0.30) 0%, rgba(16, 22, 38, 0) 62%); }
+.photostage--left::after { background: linear-gradient(90deg, rgba(16, 22, 38, 0.30) 0%, rgba(16, 22, 38, 0) 62%); }
+/* Per-photo focal points, checked against the actual crop at 1440 and at 390 */
+.photostage--left .photostage__img { object-position: 50% 42%; }   /* keeps the lever handle clear of the card */
+.photostage--car .photostage__img { object-position: 50% 60%; }    /* the car's door crease + handle, not just sky-blue paint */
+.photostage__inner { z-index: 1; padding-block: clamp(2rem, 5vw, 3.5rem); }
+.pcard { max-width: 35rem; border-radius: var(--radius); }
+/* Real separation from the photo: brass top rule + hairline + deep shadow. It never floats. */
+.pcard--light { background: var(--card); color: var(--on-card); border: 1px solid rgba(16, 22, 38, 0.16); border-top: 4px solid var(--accent); box-shadow: var(--shadow); }
+.pcard--light h2, .pcard--light h1 { color: var(--on-card); }
+.pcard--light .lead, .pcard--light .muted, .pcard--light footer { color: var(--card-muted); }
+.pcard--light .eyebrow { color: #7E620E; }  /* brass is 1.7:1 on the light card — darkened to 5.3:1 for the label only */
+.pcard--light .pill { border-color: rgba(16, 22, 38, 0.18); background: rgba(203, 163, 42, 0.22); color: var(--on-card); }
+.pcard--light .btn--ghost { color: var(--on-card); border-color: rgba(16, 22, 38, 0.34); }
+.pcard--light .btn--ghost:hover, .pcard--light .btn--ghost:focus-visible { background: rgba(16, 22, 38, 0.07); border-color: var(--on-card); color: var(--on-card); }
+.pcard--light :focus-visible { outline-color: var(--on-card); }
+.pcard--light .quotemark { color: var(--accent); }
+@media (max-width: 760px) {
+  /* A full-width card over a full-height photo would leave only wood grain visible, so the photo
+     becomes a real band and the card rides up over its bottom edge. Still T5 — and no scrim at all. */
+  .photostage { display: block; min-height: 0; }
+  .photostage__img { position: static; inset: auto; height: clamp(200px, 52vw, 280px); }
+  .photostage::after, .photostage--left::after { display: none; }
+  .photostage__inner, .photostage__inner--end { justify-content: flex-start; padding-block: 0 var(--space-4); margin-top: calc(-1 * var(--space-4)); }
+  .pcard { max-width: none; }
+}
+
+/* ── 5. ABOUT — T3 split, flipped. Square crop keeps third-party shop signage out of frame. ── */
+.about { background: var(--bg); }
+.about .media { aspect-ratio: 1 / 1; border: 1px solid var(--hairline-strong); box-shadow: var(--shadow); }
+.about .media img { object-position: 63% 58%; }
+.about blockquote { margin: 0; }
+/* gap + per-tile borders (not the 1px-gap trick) so a leftover empty grid cell at 390 stays invisible */
+.facts { display: grid; gap: var(--space-2); margin-top: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 148px), 1fr)); }
+.fact { background: var(--bg-alt); border: 1px solid var(--line); border-top: 2px solid var(--accent); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-2); }
+.fact b { display: block; font-family: var(--font-display); font-size: 1.42rem; color: var(--accent); letter-spacing: -0.02em; }
+.fact span { display: block; color: var(--ink-muted); font-size: 0.9rem; margin-top: 2px; }
+
+/* ── 6. T6 — full-bleed photo, no text on it. A breath. ─────────────────────────────── */
+.breath { background: var(--bg); }
+.breath__img { width: 100%; height: clamp(220px, 32vw, 400px); object-fit: cover; object-position: 50% 56%; }
+.breath figcaption { border-top: 1px solid var(--line); }
+.breath figcaption .container { padding-block: 0.85rem; display: flex; gap: 0.6rem; align-items: baseline; justify-content: center; flex-wrap: wrap; text-align: center; }
+.breath figcaption p { margin: 0; font-size: 0.92rem; color: var(--ink-muted); max-width: none; }
+.breath figcaption b { color: var(--accent); font-family: var(--font-display); }
+.breath figure { margin: 0; }
+
+/* ── 7. REVIEWS — T1 tinted ─────────────────────────────────────────────────────────── */
+.reviews { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.quote { margin: 0; background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius-sm); padding: var(--space-3); }
+.quote p { font-family: var(--font-display); font-size: var(--fs-1); font-weight: 600; line-height: 1.35; margin-bottom: 0.75rem; color: var(--ink); }
+.quote footer { color: var(--ink-muted); font-weight: 700; font-size: 0.93rem; letter-spacing: 0.02em; }
+.quotemark { display: block; font-family: var(--font-display); font-size: 2rem; line-height: 0.6; color: var(--accent); margin-bottom: 0.4rem; }
+
+/* ── 8. CLOSE — T2 brass band, inverted ─────────────────────────────────────────────── */
+.section--brand { background: var(--brand); color: var(--on-brand); }
+.section--brand h2, .section--brand h3 { color: var(--on-brand); }
+.section--brand p { color: var(--on-brand-muted); }
+.section--brand .eyebrow { color: var(--on-brand-muted); }
+.section--brand .lead { color: var(--on-brand-muted); }
+.section--brand :focus-visible { outline-color: var(--on-brand); }
+/* The brass CTA cannot sit on the brass band — it becomes the navy button (7.5:1). */
+.section--brand .btn--primary { background: var(--on-brand); color: var(--brand); box-shadow: none; }
+.section--brand .btn--primary:hover, .section--brand .btn--primary:focus-visible { background: #05080F; color: var(--brand); }
+.section--brand .btn--primary .btn__sub { color: var(--brand); }
+.contact-list { font-style: normal; display: grid; gap: 1px; background: rgba(16, 22, 38, 0.22); border: 1px solid rgba(16, 22, 38, 0.22); border-radius: var(--radius); overflow: hidden; }
+.contact-list > div { background: var(--brand); padding: 0.85rem var(--space-3); display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); flex-wrap: wrap; }
+.contact-list dt, .contact-list .k { font-size: 0.78rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--on-brand-muted); }
+.contact-list .v, .contact-list dd { margin: 0; font-weight: 700; color: var(--on-brand); text-align: right; }
+.contact-list a { color: var(--on-brand); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; font-weight: 700; }
+.contact-list a:hover { text-decoration-thickness: 3px; }
+
+/* ── Services page ──────────────────────────────────────────────────────────────────── */
+.page-hero { background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+.page-hero .container { padding-block: clamp(2.25rem, 5vw, 3.75rem); }
+.page-hero .lead { max-width: 52ch; }
+.page-hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.crumb { font-size: 0.88rem; color: var(--ink-muted); margin-bottom: var(--space-2); }
+.crumb a { color: var(--ink-muted); text-decoration: none; }
+.crumb a:hover { color: var(--accent); text-decoration: underline; }
+
+.feature { border-top: 1px solid var(--line); }
+.feature .media { aspect-ratio: 4 / 3; border: 1px solid var(--hairline-strong); box-shadow: var(--shadow); }
+.feature .media img { object-position: 52% 50%; }
+.ticks { list-style: none; padding: 0; margin: var(--space-2) 0 0; display: grid; gap: 0.6rem; }
+.ticks li { display: flex; gap: 0.65rem; align-items: flex-start; color: var(--ink); }
+.ticks svg { flex: 0 0 auto; color: var(--accent); margin-top: 4px; }
+.ticks b { font-weight: 700; }
+.ticks span { color: var(--ink-muted); }
+
+.steps { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); counter-reset: step; }
+.step { border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: var(--radius); background: var(--bg-alt); padding: var(--space-3); }
+.step__n { display: inline-block; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 0.86rem; color: var(--accent); background: var(--brand-tint); border-radius: var(--radius-sm); padding: 0.2rem 0.55rem; margin-bottom: 0.7rem; }
+.step h3 { font-size: 1.14rem; margin-bottom: 0.45rem; }
+.step p { color: var(--ink-muted); margin: 0; font-size: 0.96rem; }
+
+/* ── Footer ─────────────────────────────────────────────────────────────────────────── */
+.site-footer { background: var(--bg-alt); border-top: 1px solid var(--hairline-strong); }
+.site-footer .brand { color: var(--ink); font-size: 1.05rem; }
+.site-footer p { max-width: 34ch; }
+.site-footer a { color: var(--ink); text-decoration: none; }
+.site-footer a:hover { color: var(--accent); text-decoration: underline; }
+.site-footer .demo { grid-column: 1 / -1; max-width: none; font-size: 0.82rem; color: var(--ink-muted); border-top: 1px solid var(--line); padding-top: var(--space-2); margin: 0; }

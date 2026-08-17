@@ -1,0 +1,60 @@
+/* tokens.css — North Fold Architects.
+   Palette: assigned by the orchestrator (family "tinted clay/peach") and copied VERBATIM — all 11 tokens.
+   Their own words: "our colors are warm clay and slate blue".
+   Measured contrast: ink/bg 13.8 · ink-muted/bg 5.03 · ink-muted/bg-alt 4.50 · on-brand/brand 8.94 ·
+   on-accent/accent 4.84 — all AA. Derived tokens below the palette. */
+:root {
+  /* ---- assigned palette (verbatim) ---- */
+  --bg: #F5EDE8;
+  --bg-alt: #EDE0D7;
+  --surface: #FFFFFF;
+  --ink: #2A2018;
+  --ink-muted: #736257;
+  --line: #DED6D1;
+  --brand: #593921;
+  --on-brand: #F5EDE8;
+  --accent: #2679A2;
+  --accent-hover: #1C6488;
+  --on-accent: #FFFFFF;
+
+  /* ---- derived (site-specific) ----
+     --accent-ink: slate blue darkened for SMALL TEXT only. The palette --accent is 4.19:1 on --bg,
+     which fails AA for 0.8rem labels; this is 5.63:1. Buttons still use --accent itself. */
+  --accent-ink: #1C6488;
+  --hairline: #D3C7BE;              /* clay hairline, a shade firmer than --line */
+  --brand-tint: #EFE2D6;            /* clay wash for quiet panels */
+  --ink-soft: #574839;              /* between --ink and --ink-muted, for lead paragraphs */
+
+  /* Type — assigned pairing: Sora (display) + Inter (body) */
+  --font-display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);      /* body */
+  --fs-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);     /* lead */
+  --fs-2: clamp(1.3rem, 1.15rem + 0.8vw, 1.7rem);      /* h3 */
+  --fs-3: clamp(1.75rem, 1.35rem + 2vw, 2.75rem);      /* h2 */
+  --fs-4: clamp(2.6rem, 1.6rem + 5.4vw, 5.2rem);       /* h1 */
+  --lh-body: 1.62;
+  --lh-head: 1.06;
+  --track-label: 0.14em;
+
+  /* Shape & depth — crisp and architectural; depth from hairlines, not shadow */
+  --radius: 3px;
+  --radius-sm: 2px;
+  --shadow: 0 18px 44px rgba(42, 32, 24, 0.22);
+  --shadow-sm: 0 1px 2px rgba(42, 32, 24, 0.06);
+
+  /* Space — density axis reads "minimal", so give it air */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.6rem;
+  --space-4: 2.6rem;
+  --space-5: 4.2rem;
+  --section-y: clamp(4rem, 7vw, 7.5rem);
+  --measure: 60ch;
+  --container: 1180px;
+  --gutter: clamp(1.15rem, 4vw, 2.5rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

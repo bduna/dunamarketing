@@ -1,0 +1,202 @@
+/* site.css — everything specific to straight-razor-barbers.
+   Charcoal page · brass rules and prices · warm-white type. Squared corners, hairlines instead of soft shadows.
+   Motif: a 2px brass rule that leads every label, echoed as the board's leaders and each panel's top edge. */
+
+/* ── Type ───────────────────────────────────────────────────────────────── */
+h1, h2, h3, h4 { font-weight: 500; letter-spacing: 0.005em; } /* Oswald is condensed — negative tracking closes it up */
+h2 + .lead, h1 + .lead { margin-top: calc(-1 * var(--space-1)); }
+.lead { max-width: 46ch; }
+strong, b { font-weight: 600; }
+
+/* Brass rule motif — leads every eyebrow */
+.eyebrow { display: flex; align-items: center; gap: 0.7rem; font-family: var(--font-body); font-size: 0.78rem; font-weight: 600; letter-spacing: var(--track-label); color: var(--brand); margin: 0 0 var(--space-2); }
+.eyebrow::before { content: ""; width: 30px; height: 2px; flex: 0 0 auto; background: var(--brand); }
+
+/* Hours pill — the one rounded thing on the site */
+.hours { display: inline-flex; align-items: center; gap: 0.55rem; border: 1px solid var(--line); border-radius: 999px; padding: 0.42rem 0.95rem; font-size: 0.95rem; color: var(--ink-muted); }
+.hours b { color: var(--ink); font-weight: 600; }
+.hours::before { content: ""; width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; background: var(--brand); }
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.site-header { background: rgba(23, 22, 20, 0.93); border-bottom: 1px solid var(--line); }
+.brand { color: var(--ink); font-weight: 600; font-size: 1.06rem; letter-spacing: 0.06em; text-transform: uppercase; gap: 0.55rem; }
+.brand__mark { width: 32px; height: 32px; flex: 0 0 auto; }
+.nav { gap: var(--space-3); }
+.nav a:not(.btn) { color: var(--ink); font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+.nav a:not(.btn):hover { color: var(--brand); }
+.nav a[aria-current="page"] { color: var(--brand); text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--brand); text-underline-offset: 7px; }
+.nav-toggle { color: var(--ink); }
+@media (max-width: 720px) { .nav { background: var(--bg); border-bottom: 1px solid var(--line); } .nav a:not(.btn) { border-bottom: 1px solid var(--line); } }
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+.btn { font-family: var(--font-display); font-weight: 500; font-size: 1rem; letter-spacing: 0.07em; text-transform: uppercase; }
+.btn--primary { background-color: var(--accent); color: var(--on-accent); box-shadow: none; }
+.btn--primary:hover, .btn--primary:focus-visible { background: var(--accent-hover); }
+.btn--ghost { color: var(--ink); border-color: rgba(241, 240, 238, 0.38); }
+.btn--ghost:hover, .btn--ghost:focus-visible { background: rgba(241, 240, 238, 0.09); border-color: var(--ink); }
+.btn--lg { font-size: 1.06rem; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+.cta-bar { background: var(--surface); border-top: 1px solid var(--line); }
+.cta-bar .btn { background-color: var(--accent); color: var(--on-accent); }
+
+/* Anything sitting on brass flips: the button becomes charcoal, the focus ring becomes charcoal */
+.on-brass .btn--primary, .section--brand .btn--primary { background-color: var(--on-brand); color: var(--ink); }
+.on-brass .btn--primary:hover, .section--brand .btn--primary:hover,
+.on-brass .btn--primary:focus-visible, .section--brand .btn--primary:focus-visible { background: #000; }
+.on-brass .btn--ghost, .section--brand .btn--ghost { color: var(--on-brand); border-color: rgba(23, 22, 20, 0.45); }
+.on-brass .btn--ghost:hover, .section--brand .btn--ghost:hover { background: rgba(23, 22, 20, 0.1); border-color: var(--on-brand); }
+.on-brass :focus-visible, .section--brand :focus-visible { outline-color: var(--on-brand); }
+.on-brass .eyebrow, .section--brand .eyebrow { color: rgba(23, 22, 20, 0.8); }
+.on-brass .eyebrow::before, .section--brand .eyebrow::before { background: var(--on-brand); }
+
+/* ── Hero (T3 — photo beside text, no overlay: the chair is shown whole) ─── */
+.hero { padding-block: clamp(2.5rem, 5.5vw, 5rem) clamp(3rem, 6vw, 5.5rem); border-bottom: 1px solid var(--line); }
+.hero .container { display: grid; gap: clamp(2rem, 4vw, 3.5rem); grid-template-columns: 1fr; align-items: center; }
+.hero h1 { margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: 0.01em; }
+.hero h1 em { font-style: normal; color: var(--brand); }
+.hero .lead { color: var(--ink-muted); max-width: 42ch; }
+.hero__actions { margin: var(--space-3) 0 var(--space-3); }
+.hero__media { position: relative; aspect-ratio: 3 / 4; border: 1px solid var(--line); }
+.hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 52% 46%; }
+.hero__tag { position: absolute; left: 0; bottom: 0; background: var(--brand); color: var(--on-brand); font-family: var(--font-display); font-size: 0.84rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.5rem 0.9rem; }
+@media (min-width: 900px) {
+  .hero .container { grid-template-columns: 1.06fr 0.94fr; }
+  .hero__media { box-shadow: 15px 15px 0 0 var(--brand); max-width: 460px; margin-left: auto; }
+}
+
+/* ── Trust strip (T1 tinted) ─────────────────────────────────────────────── */
+.trust { background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+.trust .container { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); padding-block: var(--space-3); }
+.trust__item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.96rem; color: var(--ink-muted); }
+.trust__item b { color: var(--ink); font-weight: 600; }
+.trust__item svg { flex: 0 0 auto; color: var(--brand); }
+
+/* ── The board (T1 solid — prices on a solid surface) ────────────────────── */
+.board-wrap { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; margin-top: var(--space-4); }
+@media (min-width: 940px) { .board-wrap { grid-template-columns: 1.55fr 1fr; gap: clamp(2rem, 4vw, 3.5rem); } }
+.board { margin: 0; border-top: 2px solid var(--brand); }
+.board__row { display: flex; align-items: baseline; gap: 0.85rem; padding: 1.05rem 0; border-bottom: 1px solid var(--line); }
+.board__row:last-child { border-bottom: 0; }
+.board__row dt { flex: 0 1 auto; }
+.board__name { display: block; font-family: var(--font-display); font-weight: 500; font-size: 1.14rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.board__note { display: block; font-size: 0.92rem; color: var(--ink-muted); margin-top: 0.15rem; }
+.board__leader { flex: 1 1 auto; align-self: center; min-width: 1.5rem; height: 0; border-bottom: 1px dotted var(--hair); transform: translateY(-2px); }
+.board__row dd { margin: 0; flex: 0 0 auto; font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; color: var(--brand); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.board__row--off dd { font-size: 1.05rem; letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* Book panel (brass, inside the board section) */
+.book-card { background: var(--brand); color: var(--on-brand); padding: clamp(1.4rem, 3vw, 2rem); }
+.book-card h3 { color: var(--on-brand); text-transform: uppercase; letter-spacing: 0.03em; }
+.book-card p { color: rgba(23, 22, 20, 0.82); }
+.book-card .btn { width: 100%; }
+.book-card .contact-line { margin: var(--space-3) 0 0; font-size: 0.96rem; color: rgba(23, 22, 20, 0.82); }
+.book-card .contact-line a { color: var(--on-brand); font-weight: 600; }
+.book-card .contact-line strong { display: block; font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; letter-spacing: 0.02em; }
+.book-card .contact-line strong a { text-decoration: none; }
+.book-card .contact-line strong a:hover { text-decoration: underline; }
+
+/* ── T6 breath: full-bleed photo, no words ──────────────────────────────── */
+.breath { position: relative; height: clamp(210px, 26vw, 330px); overflow: hidden; border-top: 2px solid var(--brand); border-bottom: 1px solid var(--line); }
+.breath img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 62%; }
+
+/* ── T5 photo stage + contained card (primitives from components/, tuned) ── */
+.photostage { position: relative; display: grid; align-items: center; min-height: clamp(430px, 58vw, 580px); overflow: hidden; }
+.photostage__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 46% 52%; }
+/* NOT a scrim — a whisper on the card side only, so the photograph stays bright */
+.photostage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, 0.24) 0%, rgba(0, 0, 0, 0) 62%); }
+.photostage__inner { position: relative; z-index: 1; display: flex; padding-block: clamp(2rem, 5vw, 3.5rem); }
+.photostage__inner--end { justify-content: flex-end; }
+.pcard { max-width: 33rem; padding: clamp(1.4rem, 3.2vw, 2.3rem); border-radius: var(--radius); }
+.pcard h2 { text-transform: uppercase; letter-spacing: 0.01em; }
+.pcard--light { background: var(--card); color: var(--on-card); border-top: 4px solid var(--brand); box-shadow: var(--shadow); }
+.pcard--light h2, .pcard--light h3 { color: var(--on-card); }
+.pcard--light .lead, .pcard--light .muted, .pcard--light footer { color: var(--on-card-muted); }
+.pcard--light .eyebrow { color: var(--brass-ink); }
+.pcard--light .eyebrow::before { background: var(--brass-ink); }
+.pcard--light .btn--primary { background-color: var(--on-card); color: var(--card); }
+.pcard--light .btn--primary:hover, .pcard--light .btn--primary:focus-visible { background: #000; }
+.pcard--light .btn--ghost { color: var(--brass-ink); border-color: rgba(138, 103, 20, 0.5); }
+.pcard--light .btn--ghost:hover { background: rgba(138, 103, 20, 0.08); border-color: var(--brass-ink); }
+.pcard--light :focus-visible { outline-color: var(--brass-ink); }
+.pcard--dark { background: rgba(23, 22, 20, 0.95); color: var(--ink); border-top: 4px solid var(--brand); box-shadow: var(--shadow); }
+.pcard--dark .lead, .pcard--dark .muted, .pcard--dark footer { color: var(--ink-muted); }
+.pcard__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.pcard .price-line { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 var(--space-2); }
+.pcard--light .price-line { color: var(--brass-ink); }
+.pcard--dark .price-line { color: var(--brand); }
+/* Narrow: a full-height photo behind a full-width card shows nothing useful — the photo becomes a real
+   band and the card rides up over its bottom edge. Still T5, and no scrim at all. */
+@media (max-width: 760px) {
+  .photostage { display: block; min-height: 0; }
+  .photostage__img { position: static; inset: auto; height: clamp(220px, 58vw, 300px); }
+  .photostage::after { display: none; }
+  .photostage__inner, .photostage__inner--end { justify-content: flex-start; padding-block: 0 var(--space-4); margin-top: calc(-1 * var(--space-3)); }
+  .pcard { max-width: none; }
+}
+
+/* ── Split feature (T3) ─────────────────────────────────────────────────── */
+.feature .media { width: 100%; border: 1px solid var(--line); }
+.feature .media img { object-position: center 42%; }
+.feature__quote { margin: var(--space-3) 0 0; padding-left: var(--space-3); border-left: 2px solid var(--brand); }
+.feature__quote p { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-1); margin-bottom: 0.35rem; }
+.feature__quote footer { color: var(--ink-muted); font-size: 0.92rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ── Testimonials (T1 tinted) ───────────────────────────────────────────── */
+.quotes { display: grid; gap: var(--space-3); grid-template-columns: 1fr; margin-top: var(--space-4); }
+@media (min-width: 760px) { .quotes { grid-template-columns: 1fr 1fr; gap: var(--space-4); } }
+.quote { margin: 0; background: var(--bg); border: 1px solid var(--line); border-top: 2px solid var(--brand); padding: clamp(1.3rem, 3vw, 1.9rem); }
+.quote p { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-2); line-height: 1.3; margin-bottom: var(--space-2); }
+.quote footer { color: var(--brand); font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ── Facts (about page) ─────────────────────────────────────────────────── */
+.facts { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); margin-top: var(--space-4); }
+.fact { background: var(--bg); border: 1px solid var(--line); border-top: 2px solid var(--brand); padding: var(--space-3); }
+.fact b { display: block; font-family: var(--font-display); font-weight: 500; font-size: var(--fs-2); text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink); margin-bottom: 0.3rem; }
+.fact span { color: var(--ink-muted); font-size: 0.96rem; }
+
+/* ── Close band (T2 brass) ──────────────────────────────────────────────── */
+.section--brand { background: var(--brand); color: var(--on-brand); }
+.section--brand h2 { color: var(--on-brand); text-transform: uppercase; }
+.section--brand .lead { color: rgba(23, 22, 20, 0.82); }
+.close-wrap { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 860px) { .close-wrap { grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 5vw, 4rem); } }
+.contact-list { font-style: normal; display: grid; gap: var(--space-3); border-top: 2px solid rgba(23, 22, 20, 0.35); padding-top: var(--space-3); }
+.contact-list > div { display: flex; flex-direction: column; gap: 0.2rem; }
+.contact-list dt, .contact-list .label { font-size: 0.74rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: rgba(23, 22, 20, 0.66); }
+.contact-list .value { font-family: var(--font-display); font-size: 1.24rem; font-weight: 500; letter-spacing: 0.02em; }
+.contact-list a { color: var(--on-brand); text-decoration: none; }
+.contact-list a:hover { text-decoration: underline; }
+
+/* ── Page hero (menu / about) ───────────────────────────────────────────── */
+.page-hero { background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+.page-hero .container { padding-block: clamp(2.4rem, 5.5vw, 4rem); }
+.page-hero h1 { text-transform: uppercase; font-size: clamp(2.1rem, 1.5rem + 3vw, 3.4rem); margin-bottom: var(--space-2); }
+.page-hero .lead { color: var(--ink-muted); max-width: 52ch; }
+.page-hero .actions { margin-top: var(--space-3); }
+
+/* ── Menu page groups ───────────────────────────────────────────────────── */
+.board-groups { display: grid; gap: clamp(2rem, 4.5vw, 3.2rem); }
+.board-group h2 { font-size: var(--fs-2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--space-2); }
+.board-group .board { border-top-width: 2px; }
+.note-row { display: flex; gap: 0.7rem; align-items: flex-start; margin: var(--space-4) 0 0; padding-top: var(--space-3); border-top: 1px solid var(--line); color: var(--ink-muted); font-size: 0.96rem; }
+.note-row svg { flex: 0 0 auto; color: var(--brand); margin-top: 2px; }
+.note-row p { margin: 0; }
+
+/* ── Story (about page) ─────────────────────────────────────────────────── */
+.story .media { width: 100%; border: 1px solid var(--line); }
+.story .media img { object-position: 52% 55%; }
+.story blockquote { margin: var(--space-3) 0 0; padding-left: var(--space-3); border-left: 2px solid var(--brand); }
+.story blockquote p { font-family: var(--font-display); font-size: var(--fs-1); margin-bottom: 0.35rem; }
+.story blockquote footer { color: var(--ink-muted); font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; }
+@media (min-width: 900px) { .story .media { box-shadow: 14px 14px 0 0 var(--brand); max-width: 430px; } }
+
+/* ── Footer ─────────────────────────────────────────────────────────────── */
+.site-footer { background: var(--bg-alt); border-top: 1px solid var(--line); }
+.site-footer h2 { font-size: 0.78rem; font-family: var(--font-body); font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--brand); margin-bottom: var(--space-2); }
+.site-footer .brand { color: var(--ink); margin-bottom: var(--space-2); }
+.site-footer p { margin-bottom: var(--space-1); }
+.site-footer a { color: inherit; }
+.site-footer a:hover { color: var(--brand); }
+.site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.35rem; }
+.site-footer .legal { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: var(--space-2); font-size: 0.82rem; display: flex; flex-wrap: wrap; gap: 0.4rem var(--space-3); }
+.site-footer .legal span { color: var(--ink-muted); }

@@ -1,0 +1,59 @@
+/* tokens.css — Fret & Key Music School
+   Palette: the ASSIGNED "tinted lavender" family, copied verbatim from brief.assigned.palette,
+   which is also exactly what the client asked for ("our colors are deep violet and hot coral").
+   One adjustment, for contrast only: --ink-muted #695C7A -> #635370 (see direction.md §2).
+   Type: the assigned pairing Syne (display) + DM Sans (body). */
+:root {
+  /* --- assigned palette (60-30-10) --- */
+  --bg: #EDE8F5;            /* 60: tinted lavender base */
+  --bg-alt: #E0D7ED;        /* deeper lavender panel */
+  --surface: #FFFFFF;       /* cards */
+  --ink: #20182A;           /* body text — 14.3:1 on --bg */
+  --ink-muted: #635370;     /* adjusted from #695C7A for AA on --bg-alt (4.43 -> 5.03) */
+  --line: #D6D1DE;          /* hairlines */
+  --brand: #392159;         /* 30: deep violet — bands, nav active, prices */
+  --on-brand: #EDE8F5;      /* 11.4:1 on --brand */
+  --accent: #B62B59;        /* 10: hot coral — CTAs only */
+  --accent-hover: #9D204A;
+  --on-accent: #FFFFFF;     /* 6.0:1 on --accent */
+
+  /* --- derived (site-specific, not swaps) --- */
+  --accent-ink: #9D204A;        /* coral as TEXT on tinted surfaces — 5.5:1 on --bg-alt */
+  --brand-deep: #251639;        /* the single photo scrim + footer */
+  --on-brand-muted: #C9B8DE;    /* secondary copy inside violet bands — 7.4:1 on --brand */
+  --hairline: #C6BDD6;          /* stronger hairline on tinted panels */
+  --fret: rgba(182, 43, 89, 0.85); /* the fret-line motif */
+
+  /* --- type: Syne + DM Sans --- */
+  --font-display: "Syne", "Trebuchet MS", sans-serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.18vw, 1.075rem);    /* body */
+  --fs-1: clamp(1.12rem, 1.02rem + 0.5vw, 1.32rem);   /* lead */
+  --fs-2: clamp(1.3rem, 1.14rem + 0.8vw, 1.7rem);     /* h3 */
+  --fs-3: clamp(1.75rem, 1.35rem + 1.9vw, 2.6rem);    /* h2 */
+  --fs-4: clamp(2.3rem, 1.55rem + 4.2vw, 4.1rem);     /* h1 */
+  --lh-body: 1.62;
+  --lh-head: 1.06;
+  --track-label: 0.14em;
+
+  /* --- shape & depth: one stance --- */
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 18px 44px rgba(32, 24, 42, 0.13);
+  --shadow-sm: 0 2px 10px rgba(32, 24, 42, 0.07);
+
+  /* --- space --- */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.5rem, 6.5vw, 6.5rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1.1rem, 4vw, 2rem);
+
+  /* --- motion --- */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 220ms;
+}

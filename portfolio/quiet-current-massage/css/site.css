@@ -1,0 +1,140 @@
+/* site.css — everything specific to Quiet Current Massage. Tokens live in tokens.css.
+   Archetype C (typographic): the headline is the visual, hairline rules open the sections,
+   clay small-caps labels, and the rate list is set as a typographic menu. */
+
+/* ---------- type ---------- */
+h1, h2, h3, h4 { font-weight: 400; letter-spacing: -0.015em; }  /* DM Serif Display ships 400 only — never let it be faux-bolded */
+h2 { max-width: 26ch; }
+p { max-width: var(--measure); }
+strong, b { font-weight: 700; }
+.eyebrow { color: var(--accent-ink); font-size: 0.72rem; font-weight: 700; }
+.lead { line-height: 1.55; }
+a:not(.btn) { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+/* hairline rule that opens a section (the repeated motif) */
+.ruled { border-top: 1px solid var(--line); }
+.ruled--strong { border-top: 1px solid var(--line-strong); }
+.tick { display: block; width: 44px; height: 2px; background: var(--accent); margin-bottom: var(--space-3); }
+
+/* ---------- header ---------- */
+.site-header { background: color-mix(in srgb, var(--bg) 88%, transparent); }
+.brand { font-size: 1.2rem; letter-spacing: -0.01em; }
+.brand span { color: var(--accent-ink); }
+.nav a:not(.btn) { font-size: 0.95rem; font-weight: 500; }
+.nav a[aria-current="page"] { color: var(--brand); text-decoration-color: var(--accent); }
+.nav .btn { padding: 0.55rem 1.1rem; min-height: 44px; }
+
+/* ---------- hero (T1, typographic) ---------- */
+.hero { padding-top: clamp(2.75rem, 6vw, 5rem); padding-bottom: clamp(2rem, 4vw, 3.5rem); }
+.hero__big { max-width: 15ch; margin-bottom: var(--space-3); }
+.hero__row { display: grid; gap: var(--space-3); align-items: start; margin-top: var(--space-3); }
+.hero__row .lead { margin: 0; max-width: 44ch; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+.hero__meta { margin: var(--space-2) 0 0; font-size: 0.95rem; color: var(--ink-muted); }
+.hero__meta b { color: var(--ink); font-weight: 500; }
+@media (min-width: 900px) {
+  .hero__row { grid-template-columns: 1fr auto; gap: var(--space-5); align-items: end; }
+  .hero__row .hero__cta { text-align: right; }
+}
+
+/* photo strip under the headline */
+.strip { display: grid; gap: clamp(0.6rem, 1.4vw, 1rem); margin-top: clamp(2.25rem, 5vw, 3.5rem); grid-template-columns: 1fr 1fr; }
+.strip figure { margin: 0; }
+.strip img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+.strip__cell { position: relative; overflow: hidden; border-radius: var(--radius); background: var(--bg-alt); aspect-ratio: 1 / 1; }
+.strip__cell--tall { grid-column: 1 / -1; aspect-ratio: 4 / 5; }
+.strip__cell--tall img { object-position: center 62%; }
+.strip__cell--hands img { object-position: center 55%; }
+.strip__cell--candle img { object-position: 62% center; }
+@media (min-width: 760px) {
+  .strip { grid-template-columns: repeat(3, 1fr); }
+  .strip__cell { aspect-ratio: 3 / 4; }
+  .strip__cell--tall { grid-column: auto; aspect-ratio: 3 / 4; }
+}
+
+/* ---------- splits (T3) ---------- */
+.split--wide { align-items: center; }
+@media (min-width: 820px) {
+  .split--wide { grid-template-columns: 1.05fr 0.95fr; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .split--narrow { grid-template-columns: 0.95fr 1.05fr; gap: clamp(2.5rem, 5vw, 4.5rem); }
+}
+.frame { border-radius: var(--radius); overflow: hidden; background: var(--bg-alt); }
+.frame img { width: 100%; height: 100%; object-fit: cover; }
+.frame--candle img { object-position: 60% 55%; }
+.frame--towels img { object-position: center 45%; }
+
+/* pull quote — quiet, ruled, never a sticker */
+.pull { margin: var(--space-3) 0 0; padding-left: var(--space-3); border-left: 2px solid var(--accent); }
+.pull p { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.3; margin: 0 0 var(--space-1); max-width: 34ch; }
+.pull footer { font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-muted); }
+
+/* ---------- rates (T1 tinted) — typographic price list ---------- */
+.rates { list-style: none; margin: var(--space-4) 0 0; padding: 0; max-width: 46rem; }
+.rates > li { border-top: 1px solid var(--line-strong); padding: var(--space-3) 0; }
+.rates > li:last-child { border-bottom: 1px solid var(--line-strong); }
+.rate__head { display: flex; align-items: baseline; gap: 0.75rem; }
+.rate__name { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.15; }
+.rate__leader { flex: 1 1 auto; border-bottom: 1px dotted var(--line-strong); transform: translateY(-0.25rem); min-width: 1.5rem; }
+.rate__price { font-family: var(--font-display); font-size: var(--fs-2); color: var(--accent-ink); white-space: nowrap; }
+.rate__note { margin: 0.4rem 0 0; color: var(--ink-muted); max-width: 48ch; }
+.rates--plain > li { padding: var(--space-3) 0; }
+.after-rates { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin-top: var(--space-4); }
+.after-rates p { margin: 0; color: var(--ink-muted); }
+
+/* ---------- photo band with contained card (T5) ---------- */
+.photostage--band { min-height: clamp(360px, 52vw, 560px); }
+.photostage__img { object-position: center 58%; }
+.photostage::after { background: linear-gradient(90deg, rgba(38, 20, 46, 0.20), rgba(38, 20, 46, 0) 62%); }
+.pcard { border-radius: var(--radius); }
+.pcard--dark { background: var(--brand-card); color: var(--on-brand); box-shadow: var(--shadow); }
+.pcard--dark p { color: inherit; }
+.pcard--dark .pcard__quote { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.3; margin: 0 0 var(--space-2); max-width: 30ch; }
+.pcard--dark footer { color: var(--brand-soft); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.pcard__label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: #E8A87C; margin-bottom: var(--space-2); }
+
+/* ---------- about (T1 editorial two-column) ---------- */
+.editorial { display: grid; gap: var(--space-3); }
+.editorial__label { font-size: 0.72rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent-ink); }
+.editorial p { font-size: var(--fs-1); line-height: 1.6; }
+.editorial p + p { margin-top: var(--space-2); }
+@media (min-width: 860px) {
+  .editorial { grid-template-columns: 15rem 1fr; gap: clamp(2rem, 5vw, 4rem); }
+  .editorial__body { max-width: 58ch; }
+}
+
+/* ---------- silent full-bleed band (T6) ---------- */
+.breath { position: relative; height: clamp(220px, 34vw, 400px); overflow: hidden; background: var(--bg-alt); }
+.breath img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 60%; }
+
+/* ---------- closing band (T2 brand) ---------- */
+.closing { background: var(--brand); color: var(--on-brand); }
+.closing h2 { color: inherit; max-width: 22ch; }
+.closing .lead, .closing p { color: var(--brand-soft); }
+.closing .eyebrow { color: #E8A87C; }
+.closing .tick { background: #E8A87C; }
+.closing .btn--ghost { border-color: var(--brand-soft); color: var(--on-brand); }
+.closing .btn--ghost:hover, .closing .btn--ghost:focus-visible { background: rgba(242, 232, 245, 0.14); }
+.closing :focus-visible { outline-color: #E8A87C; }
+.contact-list { display: grid; gap: var(--space-3); font-style: normal; align-content: start; }
+.contact-list > div { display: grid; gap: 0.15rem; border-top: 1px solid var(--brand-line); padding-top: var(--space-2); }
+.contact-list .label { font-size: 0.72rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: #E8A87C; }
+.contact-list a, .contact-list span:not(.label) { color: var(--on-brand); font-size: 1.05rem; }
+.contact-list a { text-decoration: underline; text-decoration-color: var(--brand-line); text-underline-offset: 4px; }
+.contact-list a:hover { text-decoration-color: currentColor; }
+
+/* ---------- page heads on the inside pages ---------- */
+.pagehead { padding-top: clamp(2.5rem, 5vw, 4rem); padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+.pagehead h1 { max-width: 20ch; font-size: clamp(2.3rem, 1.5rem + 3.6vw, 3.9rem); }
+.pagehead .lead { max-width: 52ch; }
+
+/* ---------- footer ---------- */
+.site-footer { padding-block: var(--space-5) var(--space-4); border-top: 1px solid var(--line); }
+.site-footer .brand { font-size: 1.05rem; margin-bottom: var(--space-1); }
+.site-footer p { margin: 0 0 0.35rem; max-width: 34ch; }
+.site-footer a { text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+.site-footer .demo { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: var(--space-2); margin-top: var(--space-2); font-size: 0.85rem; max-width: none; }
+
+/* ---------- sticky mobile CTA ---------- */
+.cta-bar { background: var(--surface); border-top: 1px solid var(--line); }
+.cta-bar .btn { min-height: 52px; }

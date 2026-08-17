@@ -1,0 +1,62 @@
+/* tokens.css — Ink & Iron Tattoo (Richmond, VA)
+   Palette: ASSIGNED by the orchestrator (brief.assigned.palette) — copied verbatim, every token, exact hex.
+   Family: dark neutral · charcoal + bone white + rust red (the client's stated colours).
+   Contrast (checked): ink on bg 16.1:1 · ink-muted on bg 6.0:1 · on-accent on accent 4.7:1 ·
+   accent-hover as TEXT on bg 5.0:1 (see --accent-press below for the button hover surface). */
+:root {
+  /* --- assigned palette, verbatim --- */
+  --bg: #171414;
+  --bg-alt: #231F1F;
+  --surface: #231F1F;
+  --ink: #F1EEEE;
+  --ink-muted: #A58D8D;
+  --line: #3F3131;
+  --brand: #C34F28;
+  --on-brand: #FFFFFF;
+  --accent: #C34F28;
+  --accent-hover: #D95F36;
+  --on-accent: #FFFFFF;
+
+  /* --- derived (site-specific, built from the assigned values) --- */
+  --accent-press: #A63F1E;          /* darker rust for button hover: #FFFFFF on it = 6.2:1 (the assigned
+                                       --accent-hover is 3.7:1 with white, so it is used for accent TEXT
+                                       and hairlines only, where it reads 5.0:1 on --bg) */
+  --tint: rgba(195, 79, 40, 0.10);  /* rust wash for plate numbers / chips */
+  --hairline: rgba(241, 238, 238, 0.12);
+  --bone: #F1EEEE;                  /* = --ink, used as a surface on the T5 card + brand band button */
+  --char: #171414;                  /* = --bg, used as ink ON bone surfaces */
+  --char-muted: #4A4141;            /* muted ink on bone: 8.6:1 */
+
+  /* Type — Archivo Black (display) + Inter (body), per brief.assigned.fonts */
+  --font-display: "Archivo Black", "Arial Black", Impact, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);      /* body */
+  --fs-1: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);         /* lead */
+  --fs-2: clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem);      /* h3 */
+  --fs-3: clamp(1.6rem, 1.25rem + 1.8vw, 2.4rem);      /* h2 */
+  --fs-4: clamp(2.1rem, 1.35rem + 4vw, 3.9rem);        /* h1 */
+  --lh-body: 1.65;
+  --lh-head: 1.03;
+  --track-label: 0.16em;
+
+  /* Shape & depth — hard edges: a tattoo shop, not a spa */
+  --radius: 2px;
+  --radius-sm: 2px;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 2px 0 rgba(0, 0, 0, 0.35);
+
+  /* Space */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.25rem, 6vw, 6rem);
+  --measure: 60ch;
+  --container: 1180px;
+  --gutter: clamp(1.1rem, 4vw, 2.25rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

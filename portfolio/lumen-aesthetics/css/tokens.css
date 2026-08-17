@@ -1,0 +1,56 @@
+/* tokens.css — Lumen Aesthetics. Palette copied VERBATIM from brief.assigned.palette (tinted blush/pink family).
+   Type pairing assigned: Cormorant Garamond (display) + Manrope (body). Archetype C, typographic. */
+:root {
+  /* ---- Assigned palette (11 tokens, exact hex, do not swap) ---- */
+  --bg: #F5E8EA;            /* 60: soft blush base — the client said "soft blush and warm ivory" */
+  --bg-alt: #EDD7DA;        /* tinted panel */
+  --surface: #FFFFFF;       /* cards */
+  --ink: #2A181B;           /* body text — 14.1:1 on --bg */
+  --ink-muted: #795B60;     /* secondary text — 5.1:1 on --bg */
+  --line: #DED1D3;          /* hairlines */
+  --brand: #59212A;         /* 30: deep wine — bands, eyebrows, headings accents */
+  --on-brand: #F5E8EA;      /* 10.5:1 on --brand */
+  --accent: #B62B4D;        /* 10: the one accent — CTAs only */
+  --accent-hover: #9D203F;
+  --on-accent: #FFFFFF;     /* 6.1:1 on --accent */
+
+  /* ---- Derived, site-specific ---- */
+  --ink-muted-alt: #6B4E52;            /* --ink-muted is 4.41:1 on --bg-alt (just under AA); this is 5.4:1 */
+  --hairline: #C9A9AE;                 /* the signature fine line */
+  --hairline-strong: #59212A;
+  --brand-tint: #F0DDE0;               /* between --bg and --bg-alt, for the hero trust row */
+  --on-brand-muted: rgba(245, 232, 234, 0.76);
+
+  /* ---- Type ---- */
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);      /* body */
+  --fs-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);     /* lead */
+  --fs-2: clamp(1.5rem, 1.25rem + 1vw, 2.05rem);       /* h3 */
+  --fs-3: clamp(2rem, 1.5rem + 2.2vw, 3.1rem);         /* h2 */
+  --fs-4: clamp(2.7rem, 1.7rem + 5vw, 5.2rem);         /* h1 — the typographic archetype leans on this */
+  --lh-body: 1.65;
+  --lh-head: 1.06;
+  --track-label: 0.14em;
+
+  /* ---- Shape & depth: square, quiet ---- */
+  --radius: 2px;
+  --radius-sm: 2px;
+  --shadow: 0 18px 50px rgba(42, 24, 27, 0.22);
+  --shadow-sm: 0 1px 2px rgba(42, 24, 27, 0.10);
+
+  /* ---- Space (density axis = sparse) ---- */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 2.75rem;
+  --space-5: 4.5rem;
+  --section-y: clamp(4rem, 7vw, 8rem);
+  --measure: 60ch;
+  --container: 1120px;
+  --gutter: clamp(1.25rem, 5vw, 2.5rem);
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 240ms;
+}

@@ -1,0 +1,63 @@
+/* tokens.css — Cellar Door Wine Bar. Warm · Luxe · Classic.
+   The 11 palette tokens below are the ASSIGNED palette (brief.assigned.palette) copied VERBATIM — dark saturated
+   wine base. Nothing swapped, nothing nudged. Derived tokens (tints/hairlines) are grouped separately below and
+   exist only because the accent at 3.09:1 cannot carry small text on the base. */
+:root {
+  /* ── Assigned palette — verbatim (60-30-10). AA measured:
+        --ink on --bg 14.1:1 · --ink on --bg-alt 12.46:1 · --ink-muted on --bg 5.3:1 · --ink-muted on --bg-alt 4.68:1
+        --on-accent on --accent 5.26:1 · --on-brand on --brand 5.26:1 */
+  --bg: #3E0F1E;            /* 60: deep wine red — the page base */
+  --bg-alt: #4E1528;        /* tinted section */
+  --surface: #4E1528;       /* cards */
+  --ink: #F1EEEF;           /* body text */
+  --ink-muted: #A58D95;     /* secondary text */
+  --line: #492732;          /* hairlines */
+  --brand: #CB2A52;         /* 30: bands, rules */
+  --on-brand: #FFFFFF;
+  --accent: #CB2A52;        /* 10: the one accent — CTAs, highlights */
+  --accent-hover: #DA3E65;
+  --on-accent: #FFFFFF;
+
+  /* ── Derived (site-specific additions, not substitutions) */
+  --rose: #E896A8;          /* --accent lightened for TEXT on dark: 7.24:1 on --bg, 6.4:1 on --bg-alt, 7.76:1 on --well */
+  --well: #330C18;          /* recessed list panel — a shade deeper than the base (ink 15.1:1, muted 5.67:1) */
+  --card: #F1EEEF;          /* the pale card that sits on a bright photograph (T5) */
+  --card-ink: #3E0F1E;      /* 14.1:1 on --card */
+  --card-muted: #7A3345;    /* 7.63:1 on --card */
+  --on-accent-soft: #FDEFF2;/* secondary text on the accent band: 4.71:1 */
+  --hair: rgba(241, 238, 239, 0.16);   /* hairlines + leader dots on dark */
+  --hair-strong: rgba(241, 238, 239, 0.30);
+
+  /* ── Type — two Google Fonts: Playfair Display (display/prices/quotes) + Lato (body/UI) */
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.18vw, 1.06rem);      /* body */
+  --fs-1: clamp(1.1rem, 1rem + 0.5vw, 1.32rem);        /* lead */
+  --fs-2: clamp(1.4rem, 1.2rem + 1vw, 1.95rem);        /* h3 */
+  --fs-3: clamp(1.85rem, 1.45rem + 2.1vw, 2.85rem);    /* h2 */
+  --fs-4: clamp(2.4rem, 1.7rem + 4.2vw, 4.3rem);       /* h1 */
+  --lh-body: 1.65;
+  --lh-head: 1.06;
+  --track-label: 0.14em;   /* uppercase labels — wide tracking reads as a wine list, not a badge */
+
+  /* ── Shape & depth — near-square corners (labels, shelves, brick), hairline before shadow */
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow: 0 22px 60px rgba(10, 2, 6, 0.62);
+  --shadow-sm: 0 2px 10px rgba(10, 2, 6, 0.34);
+
+  /* ── Space (density middle) */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.75rem, 6.5vw, 7rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1.15rem, 4vw, 2rem);
+
+  /* ── Motion (tone middle — quiet) */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 220ms;
+}

@@ -1,0 +1,61 @@
+/* tokens.css — Ironwood Tree Care.
+   Palette copied VERBATIM from brief.assigned.palette (family: tinted sage/green). No assigned value was changed.
+   Contrast measured: ink/bg 13.5:1 · ink-muted/bg 5.0:1 · on-accent/accent 4.84:1 · on-brand/brand 8.2:1.
+   The one AA miss is --accent used as small TEXT on --bg (4.30:1), so eyebrows are recoloured to --brand and
+   text-weight bronze uses the derived --accent-ink (= --accent-hover, 5.65:1). See direction.md §2. */
+:root {
+  /* ── Assigned palette (verbatim) ───────────────────────────── */
+  --bg: #E8F5E8;
+  --bg-alt: #D7EDD7;
+  --surface: #FFFFFF;
+  --ink: #182A18;
+  --ink-muted: #536E53;
+  --line: #D1DED1;
+  --brand: #1E521E;
+  --on-brand: #E8F5E8;
+  --accent: #986824;
+  --accent-hover: #7E551A;
+  --on-accent: #FFFFFF;
+
+  /* ── Derived (site-specific, all mixed from the assigned values) ── */
+  --accent-ink: #7E551A;                    /* bronze at text weight on light surfaces — 5.65:1 */
+  --brand-deep: #142F14;                    /* header/footer ground, darker than --brand */
+  --brand-tint: rgba(30, 82, 30, 0.08);     /* faint forest wash behind quiet blocks */
+  --hairline: rgba(24, 42, 24, 0.12);       /* thinner than --line, for inside cards */
+  --ring: rgba(152, 104, 36, 0.14);         /* the growth-ring motif */
+  --on-brand-muted: rgba(232, 245, 232, 0.78);
+  --scrim: rgba(12, 22, 12, 0.72);          /* the single T4 band */
+
+  /* ── Type: assigned pairing Archivo + Inter ───────────────── */
+  --font-display: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.18vw, 1.06rem);
+  --fs-1: clamp(1.1rem, 1.02rem + 0.42vw, 1.3rem);
+  --fs-2: clamp(1.35rem, 1.18rem + 0.85vw, 1.8rem);
+  --fs-3: clamp(1.75rem, 1.4rem + 1.8vw, 2.55rem);
+  --fs-4: clamp(2.15rem, 1.5rem + 3.4vw, 3.7rem);
+  --lh-body: 1.62;
+  --lh-head: 1.08;
+  --track-label: 0.1em;
+
+  /* ── Shape & depth: one stance — nearly square (rope, timber, steel) ── */
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow: 0 14px 34px rgba(24, 42, 24, 0.12);
+  --shadow-sm: 0 2px 6px rgba(24, 42, 24, 0.08);
+
+  /* ── Space ─────────────────────────────────────────────────── */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.5rem, 6vw, 6rem);
+  --measure: 62ch;
+  --container: 1140px;
+  --gutter: clamp(1.15rem, 4vw, 2rem);
+
+  /* ── Motion ────────────────────────────────────────────────── */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

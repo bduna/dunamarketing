@@ -1,0 +1,258 @@
+/* site.css — Redline Auto Works. Gunmetal navy base, signal orange as the only accent.
+   Shape stance: hard edges (4px), hairlines and 3px orange rules instead of soft shadows.
+   Shadows appear ONLY on the two cards that sit on photographs, where separation is required. */
+
+/* ── Type ───────────────────────────────────────────────────────────────────── */
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.022em; }
+h1 { font-weight: 800; }
+.eyebrow { color: var(--accent-text); }
+.eyebrow::before {
+  content: ""; display: inline-block; width: 22px; height: 3px;
+  background: var(--accent); margin-right: 0.6rem; vertical-align: 0.28em;
+}
+.lead { max-width: 46ch; }
+/* the heading gets its own, wider measure so it doesn't wrap a single word onto line 2 */
+.section__head { margin-bottom: var(--space-4); }
+.section__head h2 { max-width: 26ch; }
+.section__head p { max-width: 54ch; }
+.section__head p:last-child { margin-bottom: 0; }
+strong, b { font-weight: 700; color: var(--ink); }
+
+/* ── Header ─────────────────────────────────────────────────────────────────── */
+.site-header { background: rgba(16, 29, 38, 0.94); border-bottom: 1px solid var(--line); }
+.brand { font-weight: 800; font-size: 1.16rem; letter-spacing: -0.02em; color: var(--ink); }
+.brand__mark { width: 32px; height: 32px; flex: 0 0 auto; }
+.nav a:not(.btn) { color: var(--ink); font-weight: 500; font-size: 0.98rem; }
+.nav a:not(.btn):hover { color: var(--accent-text); }
+.nav a[aria-current="page"] {
+  color: var(--accent-text); text-decoration: underline; text-decoration-color: var(--accent);
+  text-decoration-thickness: 3px; text-underline-offset: 7px;
+}
+@media (max-width: 720px) { .nav { background: #101D26; } }
+
+/* ── Buttons ────────────────────────────────────────────────────────────────── */
+.btn { border-radius: var(--radius-sm); letter-spacing: 0.005em; }
+.btn--primary { color: var(--on-accent); box-shadow: none; }
+.btn--ghost { color: var(--ink); border-color: var(--hairline-strong); }
+.btn--ghost:hover, .btn--ghost:focus-visible { background: rgba(238, 240, 241, 0.09); border-color: var(--ink); }
+
+/* Sticky mobile call bar */
+.cta-bar { background: #16242e; border-top: 1px solid var(--hairline-strong); box-shadow: 0 -6px 22px rgba(0, 0, 0, 0.5); }
+.cta-bar .btn { background: var(--accent); color: var(--on-accent); }
+.cta-bar .btn:hover { background: var(--accent-hover); }
+
+/* ── HERO = T5. The engine-bay photo stays BRIGHT; the words live in a near-white
+   card. Dark base ⇒ a light card is the bigger jump (section-treatments rule 6).
+   Primitives copied from components/base.css + components/sections/photo-card.html. */
+.photostage { position: relative; display: grid; align-items: center; min-height: clamp(480px, 64vh, 660px); overflow: hidden; }
+.photostage--band { min-height: clamp(340px, 46vw, 520px); }
+.photostage__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+/* NOT a scrim — a whisper of shading on the card side only, so the photograph reads at
+   full brightness. The site's single T4 scrim lives on .band, further down. */
+.photostage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4, 10, 14, 0.34) 0%, rgba(4, 10, 14, 0) 64%); }
+.photostage__inner { position: relative; z-index: 1; display: flex; padding-block: clamp(2.25rem, 5vw, 4rem); }
+.photostage__inner--end { justify-content: flex-end; }
+
+.pcard { max-width: 33rem; padding: clamp(1.5rem, 3.2vw, 2.4rem); border-radius: var(--radius); }
+/* Near-white card, hard 5px orange top rule so it never floats on the photo */
+.pcard--light {
+  background: #F4F6F7; color: var(--card-ink);
+  border-top: 5px solid var(--accent); border-right: 1px solid rgba(16, 29, 38, 0.12);
+  border-bottom: 1px solid rgba(16, 29, 38, 0.12); border-left: 1px solid rgba(16, 29, 38, 0.12);
+  box-shadow: var(--shadow);
+}
+.pcard--light h1 { color: var(--card-ink); font-size: clamp(1.9rem, 1.4rem + 2.1vw, 3rem); margin-bottom: var(--space-2); }
+.pcard--light .lead { color: var(--card-ink-muted); max-width: 42ch; }
+.pcard--light .eyebrow { color: #8A4C12; }
+.pcard--light .muted { color: var(--card-ink-muted); }
+.pcard--light .btn--ghost { color: var(--card-ink); border-color: rgba(16, 29, 38, 0.32); }
+.pcard--light .btn--ghost:hover, .pcard--light .btn--ghost:focus-visible { background: rgba(16, 29, 38, 0.07); border-color: var(--card-ink); }
+.pcard--light :focus-visible { outline-color: #8A4C12; }
+.pcard__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+
+/* Dark card variant — used on the two bright photo bands (services, reviews) */
+.pcard--dark {
+  background: rgba(11, 20, 27, 0.94); color: var(--ink);
+  border-top: 5px solid var(--accent); box-shadow: var(--shadow);
+}
+.pcard--dark h2, .pcard--dark p { color: inherit; }
+.pcard--dark .lead, .pcard--dark .muted, .pcard--dark footer { color: #B4C0C8; }
+.pcard--dark .eyebrow { color: var(--accent-text); }
+
+/* Hours line beside the CTA */
+.hours {
+  display: inline-flex; align-items: center; gap: 0.6rem; font-weight: 500; font-size: 0.95rem;
+  margin-top: var(--space-3); margin-bottom: 0;
+}
+.hours::before { content: ""; width: 8px; height: 8px; background: var(--accent); flex: 0 0 auto; }
+.pcard--light .hours { color: var(--card-ink-muted); }
+
+/* Narrow: a full-bleed portrait photo behind a full-width card shows only shadow, so the
+   photo becomes a real band at the top and the card rides up over its lower edge.
+   Still T5, no scrim at all, and the hands are actually legible. */
+@media (max-width: 780px) {
+  .photostage { display: block; min-height: 0; align-items: stretch; }
+  .photostage__img { position: static; inset: auto; height: clamp(230px, 58vw, 330px); object-position: 50% 26%; }
+  .photostage::after { display: none; }
+  .photostage__inner, .photostage__inner--end { justify-content: flex-start; padding-block: 0 var(--space-4); margin-top: calc(-1 * var(--space-3)); }
+  .pcard { max-width: none; }
+  .photostage--band .photostage__img { object-position: 50% 50%; }
+}
+
+/* ── T1 · Trust strip ───────────────────────────────────────────────────────── */
+.trust { background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+.trust .container { padding-block: var(--space-3); }
+.trust ul {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: var(--space-2) var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+}
+.trust li { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.97rem; line-height: 1.45; }
+.trust li svg { flex: 0 0 auto; color: var(--accent-text); margin-top: 2px; }
+.trust b { display: block; font-family: var(--font-display); font-weight: 700; font-size: 0.98rem; }
+.trust span { color: var(--ink-muted); font-size: 0.9rem; }
+
+/* ── T1 · Services price list (editorial, not a card grid) ──────────────────── */
+.pricelist { margin: 0; padding: 0; border-top: 3px solid var(--accent); }
+/* align-items:flex-start, NOT baseline — an inline-block price with a <small> under it
+   takes its baseline from the small, which floats the figure above the service name. */
+.pricelist__row {
+  display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.6rem 1.2rem;
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+/* zebra: background only — padding stays identical so the type never shifts */
+.pricelist__row:nth-child(odd) { background: var(--tint); }
+.pricelist__row dt { flex: 1 1 min(100%, 22rem); }
+.pricelist__row dt b { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-2); letter-spacing: -0.02em; line-height: 1.12; }
+.pricelist__row dt span { display: block; color: var(--ink-muted); margin-top: 0.35rem; max-width: 48ch; }
+.pricelist__row dd { margin: 0; flex: 0 0 auto; }
+.price {
+  display: inline-flex; flex-direction: column; align-items: flex-start;
+  font-family: var(--font-display); font-weight: 800; line-height: 1.12;
+  font-size: var(--fs-2); letter-spacing: -0.03em; color: var(--accent-text); white-space: nowrap;
+}
+.price small { font-family: var(--font-body); font-weight: 500; font-size: 0.85rem; letter-spacing: 0; color: var(--ink-muted); margin-top: 0.2rem; }
+@media (min-width: 660px) { .price { align-items: flex-end; } }
+.price--quote {
+  font-size: 1rem; font-family: var(--font-body); font-weight: 700; letter-spacing: var(--track-label);
+  text-transform: uppercase; color: var(--ink); border: 2px solid var(--accent);
+  padding: 0.4rem 0.85rem; text-decoration: none;
+}
+.price--quote:hover, .price--quote:focus-visible { background: var(--accent); color: var(--on-accent); }
+.pricelist__note { margin: var(--space-3) 0 0; color: var(--ink-muted); font-size: 0.95rem; }
+
+/* ── T3 · "When the light comes on" — the signature. Photo BESIDE text, no overlay. ── */
+.steps__media { border: 1px solid var(--line); border-top: 3px solid var(--accent); }
+.steps__media img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 42%; }
+.steps { list-style: none; margin: var(--space-3) 0 0; padding: 0; counter-reset: step; }
+.steps li { counter-increment: step; padding: var(--space-3) 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 3.1rem 1fr; gap: var(--space-2); }
+.steps li:last-child { border-bottom: 1px solid var(--line); }
+.steps li::before {
+  content: counter(step, decimal-leading-zero);
+  font-family: var(--font-display); font-weight: 800; font-size: 1.7rem; line-height: 1;
+  color: var(--accent-text); letter-spacing: -0.04em;
+}
+.steps h3 { font-size: var(--fs-2); margin-bottom: 0.35rem; }
+.steps p { margin: 0; color: var(--ink-muted); }
+
+/* ── T4 · The site's ONE scrimmed photo band (sockets on black) ─────────────── */
+/* overflow:hidden clips the -100vw bleed, which would otherwise push scrollWidth past the viewport */
+.band { min-height: clamp(300px, 42vw, 460px); overflow: hidden; }
+.band img { object-position: 50% 52%; }
+.band .container { position: relative; min-height: inherit; display: flex; align-items: flex-end; padding-block: var(--space-4); }
+.band .container::before {
+  content: ""; position: absolute; left: -100vw; right: -100vw; top: 0; bottom: 0; z-index: 0;
+  background: linear-gradient(180deg, rgba(6, 12, 17, 0) 6%, rgba(6, 12, 17, 0.58) 52%, rgba(6, 12, 17, 0.92) 100%);
+}
+.band .container > * { position: relative; z-index: 1; }
+.band__caption p {
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-3);
+  letter-spacing: -0.025em; line-height: 1.1; max-width: 26ch; margin: 0; color: #fff;
+}
+.band__caption small { display: block; margin-top: 0.6rem; font-family: var(--font-body); font-weight: 500; font-size: 0.95rem; color: rgba(255, 255, 255, 0.82); letter-spacing: var(--track-label); text-transform: uppercase; }
+
+/* ── T3 · About ─────────────────────────────────────────────────────────────── */
+.about .media { border: 1px solid var(--line); border-top: 3px solid var(--accent); width: 100%; }
+.about .media img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 56% 50%; }
+/* Three facts as a hairline-divided row under one orange rule — echoes the price list
+   and reads lighter than three cramped cards in a half-width column. */
+.facts { display: flex; flex-wrap: wrap; border-top: 3px solid var(--accent); margin-top: var(--space-4); }
+.fact { flex: 1 1 auto; min-width: 7.5rem; padding: var(--space-3) var(--space-3) var(--space-3) 0; }
+.fact + .fact { padding-left: var(--space-3); border-left: 1px solid var(--line); }
+.fact b { display: block; font-family: var(--font-display); font-weight: 800; font-size: var(--fs-2); letter-spacing: -0.03em; color: var(--ink); line-height: 1.1; }
+.fact span { display: block; color: var(--ink-muted); font-size: 0.92rem; margin-top: 0.25rem; }
+/* Narrow: three side-by-side facts wrap to 2 + 1 and the orphan keeps a stray left
+   hairline. Stack them as three tidy label/value rows instead. */
+@media (max-width: 620px) {
+  .facts { display: block; }
+  .fact { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); padding: var(--space-2) 0; }
+  .fact + .fact { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+  .fact span { margin-top: 0; text-align: right; }
+}
+
+/* ── T1 · Reviews ───────────────────────────────────────────────────────────── */
+.quotes { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.quote { margin: 0; background: var(--bg); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: var(--space-3) var(--space-4); }
+.section--alt .quote { background: var(--bg); }
+.quote p { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-1); line-height: 1.42; margin-bottom: var(--space-2); color: var(--ink); }
+.quote footer { color: var(--ink-muted); font-weight: 700; font-size: 0.94rem; letter-spacing: var(--track-label); text-transform: uppercase; }
+.quotes--large .quote p { font-size: var(--fs-2); }
+
+/* ── T2 · Closing brand band — the one place the orange means "act here" ────── */
+/* Mid-saturation orange leaves no room for opacity-muted type (rgba(16,29,38,.78) on
+   #CB752A measures 3.7:1), so on this band EVERY word is full-strength --on-brand at
+   4.95:1 and hierarchy comes from size, weight and tracking instead of colour. */
+.section--brand { background: var(--brand); color: var(--on-brand); }
+.section--brand h2, .section--brand p, .section--brand a, .section--brand strong { color: var(--on-brand); }
+.section--brand .lead { color: var(--on-brand); }
+.section--brand .eyebrow { color: var(--on-brand); }
+.section--brand .eyebrow::before { background: var(--on-brand); }
+.section--brand .contact-list .label { color: var(--on-brand); }
+.section--brand :focus-visible { outline-color: var(--on-brand); }
+/* Orange-on-orange is invisible: on this band the primary button turns gunmetal navy (15:1) */
+.section--brand .btn--primary { background-color: var(--on-brand); color: var(--ink); }
+.section--brand .btn--primary:hover, .section--brand .btn--primary:focus-visible { background-color: #08131a; }
+/* …and off-white on orange is only 3.0:1, so the ghost button goes navy too */
+.section--brand .btn--ghost { color: var(--on-brand); border-color: rgba(16, 29, 38, 0.45); }
+.section--brand .btn--ghost:hover, .section--brand .btn--ghost:focus-visible { background: rgba(16, 29, 38, 0.13); border-color: var(--on-brand); }
+.close__grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 860px) { .close__grid { grid-template-columns: 1.15fr 1fr; } }
+.contact-list { font-style: normal; display: grid; gap: var(--space-3); margin: 0; }
+.contact-list div { display: flex; flex-direction: column; gap: 0.15rem; }
+.contact-list .label {
+  font-family: var(--font-body); font-weight: 700; font-size: 0.78rem;
+  letter-spacing: var(--track-label); text-transform: uppercase;
+}
+.contact-list a, .contact-list strong { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-1); text-decoration: none; letter-spacing: -0.01em; line-height: 1.3; }
+.contact-list a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.close__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+
+/* ── Page hero (services / reviews) — T1 tinted ─────────────────────────────── */
+.page-hero { background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+.page-hero .container { padding-block: clamp(2.5rem, 5.5vw, 4.25rem); }
+.page-hero h1 { font-size: clamp(1.95rem, 1.5rem + 2.4vw, 3.15rem); }
+.page-hero .lead { max-width: 52ch; margin-bottom: 0; }
+.page-hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+
+/* ── Footer ─────────────────────────────────────────────────────────────────── */
+.site-footer { background: #0B141A; border-top: 1px solid var(--line); }
+.site-footer .brand { color: var(--ink); font-size: 1.05rem; }
+.site-footer p { margin-bottom: 0.5rem; }
+.site-footer a:hover { color: var(--accent-text); }
+.site-footer .label { display: block; font-weight: 700; font-size: 0.76rem; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.4rem; }
+.site-footer .fine { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: var(--space-2); font-size: 0.82rem; color: var(--ink-muted); display: grid; gap: 0.35rem; }
+.site-footer .fine p { margin: 0; max-width: none; }
+
+/* Media wrapper used in splits */
+.media { border-radius: var(--radius); overflow: hidden; }
+
+/* page-hero hours sit quieter than the CTA beside them */
+.page-hero .hours { color: var(--ink-muted); }
+
+/* Footer link phrases shouldn't split across lines ("Our / shop") */
+.site-footer p a { white-space: nowrap; }
+
+/* A 4px page-base rule under the two photo bands so a saturated photo never butts
+   straight into the signal-orange closing band */
+.photostage--band { border-bottom: 4px solid var(--bg); }

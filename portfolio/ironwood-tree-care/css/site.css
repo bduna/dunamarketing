@@ -1,0 +1,231 @@
+/* site.css — Ironwood Tree Care.
+   Sage page base, deep-forest header/bands, bronze CTAs. Signature element: the growth ring / fresh cut
+   (header mark, favicon, the ring wash behind the story, the bronze cap on every card = a cut limb end).
+   Treatments used: T5 hero, T1 tinted+solid, T4 once (storm band), T3 split, T6 breath, T2 brand close. */
+
+/* ── Type ─────────────────────────────────────────────────────── */
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.025em; }
+h1 { font-weight: 800; }
+h2 + .lead, h1 + .lead { margin-top: calc(-1 * var(--space-1)); }
+.eyebrow { color: var(--brand); font-family: var(--font-body); font-weight: 600; font-size: 0.78rem; }
+.eyebrow::before { content: ""; display: inline-block; width: 3px; height: 0.85em; background: var(--accent); margin-right: 0.6rem; vertical-align: -0.08em; }
+.lead { max-width: 46ch; }
+.small { font-size: 0.9rem; }
+strong, b { font-weight: 700; }
+
+/* ── Header ───────────────────────────────────────────────────── */
+.site-header { background: rgba(20, 47, 20, 0.95); border-bottom: 1px solid rgba(232, 245, 232, 0.14); }
+.site-header .container { min-height: 68px; }
+.brand { color: var(--on-brand); font-weight: 800; letter-spacing: -0.02em; font-size: 1.1rem; gap: 0.55rem; }
+.brand__mark { width: 30px; height: 30px; flex: 0 0 auto; }
+.nav a:not(.btn) { color: var(--on-brand-muted); font-size: 0.95rem; }
+.nav a:not(.btn):hover { color: var(--on-brand); }
+.nav a[aria-current="page"] { color: var(--on-brand); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 7px; }
+.nav-toggle { color: var(--on-brand); }
+.site-header :focus-visible { outline-color: var(--on-brand); }
+@media (max-width: 720px) {
+  .nav { background: var(--brand-deep); border-bottom: 1px solid rgba(232, 245, 232, 0.14); padding-bottom: var(--space-3); }
+  .nav a:not(.btn) { border-bottom: 1px solid rgba(232, 245, 232, 0.12); }
+}
+
+/* ── Buttons ──────────────────────────────────────────────────── */
+.btn { letter-spacing: 0.01em; }
+.btn--primary { background-color: var(--accent); color: var(--on-accent); }
+.btn--primary:hover, .btn--primary:focus-visible { background: var(--accent-hover); }
+.btn--ghost { border-width: 2px; }
+.btn--ghost:hover { background: rgba(24, 42, 24, 0.06); }
+/* Bronze on deep green is only 1.9:1 against the band, so on inverted ground the CTA flips to the light button
+   (8.2:1). Same shape, same weight, same job. */
+.section--brand .btn--primary, .stormband .btn--primary {
+  background-color: var(--on-brand); color: var(--brand-deep); box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+}
+.section--brand .btn--primary:hover, .section--brand .btn--primary:focus-visible,
+.stormband .btn--primary:hover, .stormband .btn--primary:focus-visible { background: #FFFFFF; color: var(--brand-deep); }
+.section--brand .btn--ghost, .stormband .btn--ghost { color: var(--on-brand); border-color: rgba(232, 245, 232, 0.55); }
+.section--brand .btn--ghost:hover, .stormband .btn--ghost:hover { background: rgba(232, 245, 232, 0.12); border-color: var(--on-brand); }
+.section--brand :focus-visible, .stormband :focus-visible { outline-color: var(--on-brand); }
+
+/* ── Sticky mobile bar: the estimate jump + a call tap (storm work is 24/7) ── */
+.cta-bar { display: none; background: var(--surface); border-top: 2px solid var(--accent); }
+.cta-bar .container { display: flex; gap: 0.6rem; width: 100%; }
+.cta-bar .btn { width: auto; flex: 1 1 auto; min-height: 50px; }
+.cta-bar .btn--call { flex: 0 0 auto; padding-inline: 1rem; background: var(--brand); color: var(--on-brand); border: 0; }
+.cta-bar .btn--call:hover, .cta-bar .btn--call:focus-visible { background: var(--brand-deep); }
+@media (max-width: 720px) { .cta-bar { display: block; } }
+
+/* ── HERO — T5: the climber photo stays BRIGHT, the words sit in a white card ──
+   (T4 — photo + heavy scrim — is used exactly once on this site: the storm band.) */
+.photostage { min-height: clamp(500px, 66vh, 700px); }
+.photostage__img { object-position: 46% 26%; }
+/* Not a scrim: a whisper of shading on the card side only. The climber stays at full brightness. */
+.photostage::after { background: linear-gradient(90deg, rgba(12, 22, 12, 0.30), rgba(12, 22, 12, 0) 62%); }
+.photostage__inner { position: relative; z-index: 1; padding-block: clamp(2rem, 5vw, 4rem); }
+.pcard { max-width: 33rem; border-top: 4px solid var(--accent); }
+.pcard--light { background: var(--surface); color: var(--ink); box-shadow: var(--shadow), 0 0 0 1px rgba(24, 42, 24, 0.06); }
+.pcard--light .lead, .pcard--light .muted, .pcard--light footer { color: var(--ink-muted); }
+.pcard--light .eyebrow { color: var(--brand); }
+.pcard h1 { font-size: clamp(1.95rem, 1.35rem + 2.1vw, 2.95rem); margin-bottom: var(--space-2); }
+.pcard .lead { margin-bottom: 0; }
+.hero-note { display: flex; align-items: center; gap: 0.55rem; margin: var(--space-3) 0 0; font-size: 0.92rem; font-weight: 500; color: var(--ink-muted); border-top: 1px solid var(--line); padding-top: var(--space-2); }
+.hero-note svg { flex: 0 0 auto; color: var(--accent-ink); }
+/* Narrow: a portrait photo behind a full-width card would only show bark, so the photo becomes a real band and
+   the card rides up over its bottom edge. Still T5 — no scrim at all here. */
+@media (max-width: 760px) {
+  .photostage { display: block; min-height: 0; }
+  .photostage__img { position: static; height: clamp(240px, 64vw, 330px); object-position: 46% 22%; }
+  .photostage::after { display: none; }
+  .photostage__inner { padding-block: 0 var(--space-4); margin-top: calc(-1 * var(--space-4)); }
+  .pcard { max-width: none; }
+}
+
+/* ── T1: trust strip ─────────────────────────────────────────── */
+.strip { background: var(--bg-alt); border-block: 1px solid var(--line); padding-block: var(--space-4); }
+.strip__grid { display: grid; gap: var(--space-3) var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); }
+.strip__item { padding-top: 0.9rem; border-top: 3px solid var(--accent); }
+.strip__item b { display: block; font-family: var(--font-display); font-size: 1.02rem; font-weight: 700; letter-spacing: -0.015em; }
+.strip__item span { display: block; color: var(--ink-muted); font-size: 0.92rem; margin-top: 0.15rem; }
+
+/* ── T1: services — the reading surface. Cards get a bronze cap: a cut limb end. ── */
+.section__head { max-width: 60ch; margin-bottom: var(--space-4); }
+.svc { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+.svc__card { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: var(--radius); padding: var(--space-3); display: flex; flex-direction: column; gap: 0.7rem; box-shadow: var(--shadow-sm); }
+.svc__card h3 { font-size: 1.22rem; margin: 0; }
+.svc__card p { margin: 0; color: var(--ink-muted); max-width: none; }
+.svc__card--storm { border-top-color: var(--brand); background: var(--brand-tint); }
+.price { display: inline-flex; align-items: baseline; gap: 0.3rem; align-self: flex-start; font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: var(--accent-ink); background: rgba(152, 104, 36, 0.1); border: 1px solid rgba(152, 104, 36, 0.28); border-radius: 999px; padding: 0.2rem 0.7rem; letter-spacing: -0.01em; }
+.price small { font-family: var(--font-body); font-weight: 600; font-size: 0.74rem; text-transform: uppercase; letter-spacing: var(--track-label); }
+.price--quote { color: var(--brand); background: rgba(30, 82, 30, 0.09); border-color: rgba(30, 82, 30, 0.3); }
+.price--clock { color: var(--brand); background: rgba(30, 82, 30, 0.09); border-color: rgba(30, 82, 30, 0.3); }
+.svc__note { display: flex; gap: 0.75rem; align-items: flex-start; margin: var(--space-4) 0 0; padding: var(--space-3); background: var(--bg-alt); border-left: 4px solid var(--brand); border-radius: var(--radius-sm); }
+.svc__note svg { flex: 0 0 auto; color: var(--brand); margin-top: 2px; }
+.svc__note p { margin: 0; max-width: 66ch; }
+
+/* ── T4 (used ONCE): storm band — photo + dark scrim + inverted text ── */
+.stormband { position: relative; overflow: hidden; color: var(--on-brand); isolation: isolate; }
+.stormband img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; z-index: -2; }
+.stormband::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(85deg, rgba(10, 20, 10, 0.86) 0%, rgba(10, 20, 10, 0.66) 55%, rgba(10, 20, 10, 0.44) 100%); }
+.stormband .container { padding-block: clamp(3.2rem, 7vw, 5.5rem); }
+.stormband h2 { color: var(--on-brand); max-width: 24ch; }
+.stormband p { color: var(--on-brand-muted); max-width: 44ch; }
+.stormband .eyebrow { color: var(--on-brand); }
+.stormband .eyebrow::before { background: var(--on-brand); }
+.stormband__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+
+/* ── T3: split, photo beside text, no overlay ─────────────────── */
+.feature .split { align-items: center; }
+/* width:100% is load-bearing: a stretched item + aspect-ratio otherwise computes wider than its grid column
+   and pushes the page's scrollWidth past the viewport. */
+.feature .media { width: 100%; box-shadow: var(--shadow); border: 1px solid var(--line); }
+.feature .media img { object-position: 52% 42%; }
+.quote { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius-sm); }
+.quote p { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-1); line-height: 1.35; margin: 0 0 0.5rem; max-width: 34ch; }
+.quote footer { color: var(--ink-muted); font-weight: 600; font-size: 0.92rem; }
+.checks { list-style: none; padding: 0; margin: var(--space-3) 0 0; display: grid; gap: 0.7rem; }
+.checks li { display: flex; gap: 0.7rem; align-items: flex-start; }
+.checks svg { flex: 0 0 auto; color: var(--accent-ink); margin-top: 3px; }
+
+/* ── T6: the breath band — a slice of canopy, nothing written on it ── */
+.breath { position: relative; }
+.breath img { width: 100%; height: clamp(180px, 26vw, 300px); object-fit: cover; object-position: 50% 55%; }
+.breath figcaption { background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+.breath figcaption .container { display: flex; flex-wrap: wrap; gap: 0.4rem var(--space-3); align-items: baseline; padding-block: var(--space-2); }
+.breath figcaption b { font-family: var(--font-display); font-weight: 700; }
+.breath figcaption span { color: var(--ink-muted); font-size: 0.9rem; }
+
+/* ── T1: story — the quiet one. The growth-ring wash is the signature element. ── */
+.story { position: relative; overflow: hidden; }
+.story::before {
+  content: ""; position: absolute; top: 50%; right: -10%; width: min(760px, 78vw); aspect-ratio: 1;
+  transform: translateY(-50%); pointer-events: none;
+  background: repeating-radial-gradient(circle at 50% 50%, var(--ring) 0 2px, transparent 2px 26px);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 55%, transparent 78%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 55%, transparent 78%);
+}
+.story .container { position: relative; }
+.story__body { max-width: 34rem; }
+.story__body p { font-size: var(--fs-1); }
+.story__body p:last-of-type { color: var(--ink-muted); }
+.facts { display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); margin-top: var(--space-4); }
+.fact { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--brand); border-radius: var(--radius); padding: var(--space-3); }
+.fact b { display: block; font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; color: var(--brand); }
+.fact span { display: block; color: var(--ink-muted); font-size: 0.9rem; margin-top: 0.25rem; }
+
+/* ── T5: testimonial over the stump photo — bright photo, dark card ── */
+.photostage--band { min-height: clamp(360px, 44vw, 500px); }
+.photostage--band .photostage__img { object-position: 40% 52%; }
+.photostage--band::after { background: linear-gradient(270deg, rgba(12, 22, 12, 0.28), rgba(12, 22, 12, 0) 58%); }
+.pcard--dark { background: rgba(16, 34, 16, 0.93); color: var(--on-brand); border-top: 4px solid var(--accent); box-shadow: var(--shadow), 0 0 0 1px rgba(0, 0, 0, 0.2); }
+.pcard--dark p { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-2); line-height: 1.3; margin-bottom: 0.6rem; max-width: 26ch; }
+.pcard--dark footer { color: var(--on-brand-muted); font-weight: 600; font-size: 0.95rem; }
+
+/* ── T2: the estimate / contact close ─────────────────────────── */
+.section--brand { background: var(--brand); color: var(--on-brand); }
+.section--brand h2, .section--brand h3 { color: var(--on-brand); }
+.section--brand .lead, .section--brand p { color: var(--on-brand-muted); }
+.section--brand .eyebrow { color: var(--on-brand); }
+.section--brand .eyebrow::before { background: var(--on-brand); }
+.close__grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; }
+@media (min-width: 880px) { .close__grid { grid-template-columns: 1.05fr 0.95fr; } }
+.close__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.contact-list { font-style: normal; display: grid; gap: var(--space-3); background: rgba(0, 0, 0, 0.16); border: 1px solid rgba(232, 245, 232, 0.16); border-radius: var(--radius); padding: var(--space-3) var(--space-4); }
+.contact-list > div { display: flex; flex-direction: column; gap: 0.15rem; }
+.contact-list .eyebrow { color: var(--on-brand-muted); margin-bottom: 0.2rem; }
+.contact-list .eyebrow::before { background: var(--accent); }
+.contact-list a, .contact-list strong { color: var(--on-brand); font-weight: 700; text-decoration: none; font-size: 1.06rem; }
+.contact-list a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.contact-list em { font-style: normal; color: var(--on-brand-muted); font-size: 0.92rem; }
+
+/* ── Footer ───────────────────────────────────────────────────── */
+.site-footer { background: var(--brand-deep); color: var(--on-brand-muted); border-top: 0; padding-block: var(--space-4) var(--space-3); }
+.site-footer .brand { color: var(--on-brand); font-size: 1.05rem; }
+.site-footer p { max-width: 40ch; }
+.site-footer a { color: var(--on-brand); text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.site-footer :focus-visible { outline-color: var(--on-brand); }
+.site-footer .demo { grid-column: 1 / -1; margin: 0; padding-top: var(--space-3); border-top: 1px solid rgba(232, 245, 232, 0.16); font-size: 0.82rem; color: rgba(232, 245, 232, 0.6); max-width: none; }
+
+/* ── Sub-page hero (T1) ───────────────────────────────────────── */
+.page-hero { background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+.page-hero .container { padding-block: clamp(2.6rem, 6vw, 4.2rem); }
+.page-hero h1 { font-size: clamp(2rem, 1.4rem + 2.6vw, 3.1rem); max-width: 26ch; }
+.page-hero .lead { max-width: 52ch; margin-bottom: 0; }
+
+/* ── Services page: detail rows ────────────────────────────────── */
+.rows { display: grid; gap: var(--space-3); }
+.row { display: grid; gap: var(--space-2) var(--space-4); grid-template-columns: 1fr; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: var(--space-3) var(--space-4); }
+@media (min-width: 820px) { .row { grid-template-columns: 15rem 1fr; align-items: start; } }
+.row__label h2 { font-size: 1.35rem; margin-bottom: 0.6rem; }
+.row__body p { margin-bottom: 0.6rem; }
+.row__body p:last-child { margin-bottom: 0; }
+.row--storm { border-left-color: var(--brand); background: var(--brand-tint); }
+.steps { counter-reset: step; list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+.steps li { counter-increment: step; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3); }
+.steps li::before { content: counter(step); display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: var(--brand); color: var(--on-brand); font-family: var(--font-display); font-weight: 800; font-size: 0.95rem; margin-bottom: 0.7rem; }
+.steps h3 { font-size: 1.1rem; margin-bottom: 0.35rem; }
+.steps p { margin: 0; color: var(--ink-muted); font-size: 0.95rem; max-width: none; }
+
+/* ── Gallery page: asymmetric grid ────────────────────────────── */
+.gal { display: grid; gap: 0.85rem; }
+.gal figure { margin: 0; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: var(--brand-deep); aspect-ratio: 4 / 3; }
+.gal figure.t-portrait { aspect-ratio: 3 / 4; }
+.gal img { width: 100%; height: 100%; object-fit: cover; }
+@media (min-width: 760px) {
+  .gal { grid-template-columns: repeat(12, 1fr); grid-auto-rows: clamp(80px, 11.5vw, 150px); }
+  .gal figure { aspect-ratio: auto; }
+  .gal figure.t-portrait { aspect-ratio: auto; }
+  .t-a { grid-column: span 4; grid-row: span 3; }
+  .t-b { grid-column: span 8; grid-row: span 3; }
+  .t-c { grid-column: span 5; grid-row: span 2; }
+  .t-d { grid-column: span 7; grid-row: span 2; }
+  .t-e { grid-column: span 4; grid-row: span 2; }
+  .t-f { grid-column: span 8; grid-row: span 2; }
+}
+.gal .t-a img { object-position: 46% 26%; }
+.gal .t-b img { object-position: 52% 42%; }
+.gal .t-c img { object-position: 40% 52%; }
+.gal .t-d img { object-position: 50% 40%; }
+.gal .t-e img { object-position: 50% 45%; }
+.gal .t-f img { object-position: 50% 42%; }
+.caps { display: grid; gap: 0.6rem var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); margin-top: var(--space-3); color: var(--ink-muted); font-size: 0.9rem; }
+.caps p { margin: 0; max-width: none; }
+.caps b { color: var(--ink); font-family: var(--font-display); }

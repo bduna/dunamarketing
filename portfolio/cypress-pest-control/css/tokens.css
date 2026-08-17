@@ -1,0 +1,62 @@
+/* tokens.css — Cypress Pest Control (Savannah, GA)
+   Palette: brief.assigned.palette, family "tinted olive/khaki" — all eleven tokens copied VERBATIM.
+   The client's own answer was "khaki and warning orange", which is what this is. */
+:root {
+  /* ── assigned palette (verbatim, do not substitute) ───────────────────── */
+  --bg: #F1F5E8;            /* 60: tinted near-white khaki base */
+  --bg-alt: #E6EDD7;        /* tinted section background */
+  --surface: #FFFFFF;       /* cards */
+  --ink: #252A18;           /* body text — 13.3:1 on --bg */
+  --ink-muted: #626A50;     /* secondary text — 5.1:1 on --bg */
+  --line: #DADED1;          /* hairlines */
+  --brand: #3F4E1D;         /* 30: olive bands, rules, active nav */
+  --on-brand: #F1F5E8;      /* 8.2:1 on --brand */
+  --accent: #A95E28;        /* 10: warning orange — buttons, fills */
+  --accent-hover: #904D1D;
+  --on-accent: #FFFFFF;     /* 4.86:1 on --accent */
+
+  /* ── derived (site-specific, allowed) ─────────────────────────────────── */
+  /* --accent as *type* is 4.39:1 on --bg, just under AA for small text, so accent
+     text uses this deeper tone (the palette's own accent-hover value): 5.8:1 on
+     --bg, 5.4:1 on --bg-alt. Fills and buttons still use --accent itself. */
+  --accent-ink: #904D1D;
+  --brand-line: #C9D2B4;             /* hairline with more bite than --line */
+  --on-brand-muted: #C6D0AE;         /* secondary type on olive — 5.9:1 on --brand */
+  --rule: 2px;                        /* the accent rule under section eyebrows */
+
+  /* ── Type: brief.assigned.fonts = IBM Plex Sans + Inter ───────────────── */
+  /* Two grotesques, not a display/serif pair: equipment labelling, not a brochure.
+     Plex carries headings, the 01–05 row numbers and the prices; Inter reads. */
+  --font-display: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.18vw, 1.075rem);   /* body — 16px floor */
+  --fs-1: clamp(1.09rem, 1.02rem + 0.45vw, 1.3rem);  /* lead */
+  --fs-2: clamp(1.25rem, 1.14rem + 0.6vw, 1.55rem);  /* h3 */
+  --fs-3: clamp(1.6rem, 1.32rem + 1.5vw, 2.35rem);   /* h2 */
+  --fs-4: clamp(2.15rem, 1.55rem + 3.4vw, 3.7rem);   /* h1 */
+  --fs-label: 0.775rem;                              /* uppercase spec labels */
+  --lh-body: 1.62;
+  --lh-head: 1.08;
+  --track-label: 0.11em;
+
+  /* ── Shape & depth: squared, hairline-led, near-flat ──────────────────── */
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow: 0 14px 34px rgba(37, 42, 24, 0.16);   /* only for cards over photos */
+  --shadow-sm: 0 1px 2px rgba(37, 42, 24, 0.07);
+
+  /* ── Space ────────────────────────────────────────────────────────────── */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.25rem, 5.5vw, 5.75rem);
+  --measure: 62ch;
+  --container: 1120px;
+  --gutter: clamp(1.1rem, 4vw, 2rem);
+
+  /* ── Motion ───────────────────────────────────────────────────────────── */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 190ms;
+}

@@ -1,0 +1,59 @@
+/* tokens.css — Straight Razor Barbers. Classic · Rugged · Serious.
+   Palette copied VERBATIM from brief.assigned.palette (dark neutral base, brass accent) — and it happens to be
+   the client's own words: "our colors are charcoal, brass, and warm white". */
+:root {
+  /* Palette (60-30-10) — assigned, exact hex. AA checked: --ink on --bg 15.7:1 · --ink-muted on --bg 6.5:1 ·
+     --ink-muted on --bg-alt 5.8:1 · --accent on --bg 7.1:1 · --on-accent on --accent 7.1:1 · --on-brand on --brand 7.1:1 */
+  --bg: #171614;            /* 60: charcoal */
+  --bg-alt: #23211F;        /* tinted section */
+  --surface: #23211F;       /* cards */
+  --ink: #F1F0EE;           /* warm white body text */
+  --ink-muted: #A59A8D;     /* secondary text */
+  --line: #3F3931;          /* hairlines */
+  --brand: #CB9B2A;         /* 30/10: brass — bands, rules, prices */
+  --on-brand: #171614;
+  --accent: #CB9B2A;        /* the one accent */
+  --accent-hover: #B08521;
+  --on-accent: #171614;
+
+  /* Derived (site-specific, not replacements) */
+  --brass-ink: #8A6714;     /* brass is only 2.2:1 on the warm-white card; this is 4.5:1 there */
+  --card: #F1F0EE;          /* T5 light card */
+  --on-card: #171614;
+  --on-card-muted: #5A5145; /* 6.8:1 on --card */
+  --hair: rgba(203, 155, 42, 0.34);  /* brass hairline */
+  --hair-soft: rgba(241, 240, 238, 0.12);
+
+  /* Type — assigned pairing: Oswald (display) + Inter (body) */
+  --font-display: "Oswald", "Arial Narrow", Impact, system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.18vw, 1.06rem);      /* body */
+  --fs-1: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);         /* lead */
+  --fs-2: clamp(1.35rem, 1.15rem + 0.95vw, 1.85rem);   /* h3 */
+  --fs-3: clamp(1.85rem, 1.45rem + 2vw, 2.7rem);       /* h2 */
+  --fs-4: clamp(2.5rem, 1.7rem + 4.4vw, 4.2rem);       /* h1 */
+  --lh-body: 1.62;
+  --lh-head: 1.06;
+  --track-label: 0.14em;   /* uppercase labels — Oswald likes air */
+
+  /* Shape & depth — squared, precise, hairline-led */
+  --radius: 3px;
+  --radius-sm: 3px;
+  --shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 3px 12px rgba(0, 0, 0, 0.4);
+
+  /* Space */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.5rem, 6vw, 6.5rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

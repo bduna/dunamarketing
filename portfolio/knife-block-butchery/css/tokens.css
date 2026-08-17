@@ -1,0 +1,58 @@
+/* tokens.css — Knife & Block Butchery.
+   Palette = brief.assigned.palette, copied verbatim (butcher-paper cream + deep oxblood + butcher-block brown).
+   Contrast measured: ink/bg 14:1 · ink-muted/bg 5.07:1 · ink-muted/bg-alt 4.70:1 · accent/bg 5.76:1 ·
+   on-accent/accent 6.19:1 · on-brand/brand 9.24:1 · on-brand-muted/brand 6.15:1. Nothing adjusted. */
+:root {
+  /* --- assigned palette (verbatim) --- */
+  --bg: #FAF6F2;
+  --bg-alt: #F4EDE6;
+  --surface: #FFFFFF;
+  --ink: #2A2118;
+  --ink-muted: #766759;
+  --line: #DFD7D0;
+  --brand: #593D21;
+  --on-brand: #FAF6F2;
+  --accent: #B62B36;
+  --accent-hover: #9D202B;
+  --on-accent: #FFFFFF;
+
+  /* --- derived for this site only --- */
+  --on-brand-muted: #D9C9B9;   /* 6.15:1 on --brand */
+  --accent-tint: #F7E9E7;      /* oxblood at 8% for price chips */
+  --hairline-strong: #C9BEB3;  /* the board's rules */
+  --ink-soft: #4A3E31;         /* between ink and ink-muted, for the story paragraph */
+  --brand-deep: #3D2915;       /* footer of the brand band, board head */
+
+  /* Type — Fraunces (display) + Source Sans 3 (body), assigned */
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.95rem + 0.2vw, 1.08rem);
+  --fs-1: clamp(1.12rem, 1rem + 0.5vw, 1.3rem);
+  --fs-2: clamp(1.35rem, 1.15rem + 0.9vw, 1.8rem);
+  --fs-3: clamp(1.75rem, 1.35rem + 1.9vw, 2.5rem);
+  --fs-4: clamp(2.3rem, 1.5rem + 4.2vw, 4rem);
+  --lh-body: 1.62;
+  --lh-head: 1.06;
+  --track-label: 0.13em;
+
+  /* Shape & depth — paper edges, hairlines, one shadow (only for the card that sits on a photo) */
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow: 0 18px 44px rgba(42, 33, 24, 0.28);
+  --shadow-sm: 0 1px 0 rgba(42, 33, 24, 0.10);
+
+  /* Space */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.25rem, 5.5vw, 6rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1.1rem, 4vw, 2rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

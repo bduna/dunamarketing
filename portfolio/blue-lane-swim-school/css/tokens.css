@@ -1,0 +1,58 @@
+/* tokens.css — Blue Lane Swim School.
+   Palette copied VERBATIM from brief.assigned.palette (family: tinted sky/slate blue).
+   Derived tokens below the assigned block are site-specific tints; no assigned hex was changed. */
+:root {
+  /* ── Assigned palette (verbatim) ───────────────────────────────────────── */
+  --bg: #E8F1F5;
+  --bg-alt: #D7E5ED;
+  --surface: #FFFFFF;
+  --ink: #18242A;
+  --ink-muted: #566871;
+  --line: #D1DADE;
+  --brand: #214759;
+  --on-brand: #E8F1F5;
+  --accent: #9F6225;
+  --accent-hover: #85501B;
+  --on-accent: #FFFFFF;
+
+  /* ── Derived (contrast fixes + motif tints) ────────────────────────────── */
+  --ink-soft: #4A5C66;        /* secondary text on --bg-alt: 5.39:1 (--ink-muted there is 4.50:1, on the line) */
+  --accent-ink: #7E4C17;      /* accent-COLOURED TEXT: 6.25:1 on --bg (raw --accent is 4.29:1, fails AA small) */
+  --brand-tint: rgba(33, 71, 89, 0.09);   /* lane stripes, hairlines over tint */
+  --brand-deep: #17323E;      /* footer ground, one step under --brand */
+  --surface-edge: #C3D4DD;    /* card hairline with a little more presence than --line on tint */
+
+  /* ── Type — assigned pairing: Nunito Sans + Nunito Sans (one family, two weights) ── */
+  --font-display: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.95rem + 0.2vw, 1.075rem);
+  --fs-1: clamp(1.1rem, 1.02rem + 0.42vw, 1.3rem);
+  --fs-2: clamp(1.35rem, 1.18rem + 0.85vw, 1.75rem);
+  --fs-3: clamp(1.75rem, 1.4rem + 1.75vw, 2.5rem);
+  --fs-4: clamp(2.25rem, 1.6rem + 3.2vw, 3.7rem);
+  --lh-body: 1.62;
+  --lh-head: 1.12;
+  --track-label: 0.09em;
+
+  /* ── Shape & depth — calm water light, not drop shadows ─────────────────── */
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-lg: 20px;
+  --shadow: 0 14px 40px rgba(24, 36, 42, 0.14);
+  --shadow-sm: 0 2px 10px rgba(24, 36, 42, 0.07);
+
+  /* ── Space (density axis: left / generous) ─────────────────────────────── */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(4rem, 7vw, 7rem);
+  --measure: 62ch;
+  --container: 1140px;
+  --gutter: clamp(1.1rem, 4vw, 2rem);
+
+  /* ── Motion (tone axis: left / friendly, but calm) ─────────────────────── */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 240ms;
+}

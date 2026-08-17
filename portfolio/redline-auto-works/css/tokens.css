@@ -1,0 +1,62 @@
+/* tokens.css — Redline Auto Works. Rugged · Serious · Modern.
+   Palette = brief.assigned.palette, copied VERBATIM (every token, exact hex). Family: dark cool (navy).
+   It is also what the client asked for in their own words: "gunmetal navy and signal orange". */
+:root {
+  /* ── Assigned palette — verbatim, do not swap ───────────────────────────────
+     AA measured: --ink on --bg 15.0:1 · --ink-muted on --bg 6.0:1 · --ink-muted on --bg-alt 5.3:1
+                  --ink on --bg-alt 13.1:1 · --on-accent on --accent 4.95:1 · --on-brand on --brand 4.95:1 */
+  --bg: #101D26;            /* 60: gunmetal navy page base */
+  --bg-alt: #172935;        /* tinted section */
+  --surface: #172935;       /* cards */
+  --ink: #EEF0F1;           /* body text */
+  --ink-muted: #8D9BA5;     /* secondary text */
+  --line: #2C3A44;          /* hairlines */
+  --brand: #CB752A;         /* 30→10: signal orange — the one band */
+  --on-brand: #101D26;
+  --accent: #CB752A;        /* 10: the one accent — CTAs, rules, numerals */
+  --accent-hover: #B06421;
+  --on-accent: #101D26;
+
+  /* ── Derived (site-specific, additive — the assigned values above are untouched) ──
+     --accent as TEXT on --bg-alt measures 4.3:1, just under AA, so accent-coloured
+     TYPE uses --accent-text (6.4:1 on --bg, 5.6:1 on --bg-alt). --accent still fills
+     every button and the closing brand band. */
+  --accent-text: #E08A3C;
+  --tint: rgba(203, 117, 42, 0.06);      /* 6% orange wash — price-list zebra rows */
+  --hairline-strong: #3A4A56;
+  --card-ink: #101D26;                    /* ink inside the near-white photo card */
+  --card-ink-muted: #4C5B66;
+
+  /* ── Type — Archivo + Inter (brief.assigned.fonts) ────────────────────────── */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.18vw, 1.06rem);      /* body */
+  --fs-1: clamp(1.1rem, 1rem + 0.5vw, 1.32rem);        /* lead */
+  --fs-2: clamp(1.35rem, 1.15rem + 0.95vw, 1.85rem);   /* h3 */
+  --fs-3: clamp(1.75rem, 1.4rem + 1.9vw, 2.6rem);      /* h2 */
+  --fs-4: clamp(2.15rem, 1.55rem + 3.2vw, 3.7rem);     /* h1 */
+  --lh-body: 1.62;
+  --lh-head: 1.06;
+  --track-label: 0.12em;
+
+  /* ── Shape & depth — hard edges, hairlines instead of soft shadows ────────── */
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow: 0 22px 54px rgba(0, 0, 0, 0.52);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.34);
+
+  /* ── Space (density middle) ───────────────────────────────────────────────── */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.25rem, 5.5vw, 5.5rem);
+  --measure: 60ch;
+  --container: 1120px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+
+  /* ── Motion — Serious: fades only, ≤200ms ─────────────────────────────────── */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 180ms;
+}

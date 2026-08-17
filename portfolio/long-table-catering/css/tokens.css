@@ -1,0 +1,55 @@
+/* tokens.css — Long Table Catering. Palette assigned by the orchestrator, copied verbatim (warm off-white / cream base). */
+:root {
+  /* Palette (60-30-10) — ASSIGNED, do not substitute.
+     Measured contrast: ink/bg 14.24 · ink-muted/bg 5.07 · brand/bg 8.06 · on-brand/brand 8.06 · on-accent/accent 4.86 */
+  --bg: #FAF8F2;            /* 60: linen cream */
+  --bg-alt: #F4F1E6;        /* tinted section background */
+  --surface: #FFFFFF;       /* cards */
+  --ink: #2A2618;           /* body text */
+  --ink-muted: #716A56;     /* secondary text */
+  --line: #DFDBD0;          /* hairlines */
+  --brand: #594B21;         /* 30: olive — closing band, rules, headings accents */
+  --on-brand: #FAF8F2;
+  --accent: #A95E28;        /* 10: the one accent — CTA fills, dashes */
+  --accent-hover: #904D1D;
+  --on-accent: #FFFFFF;
+
+  /* Derived (site-specific, built from the assigned palette only) */
+  --accent-ink: #904D1D;    /* small accent TEXT: accent on --bg-alt is 4.30:1, this is 5.69:1 */
+  --brand-tint: #EDE9DA;    /* olive-leaning tint for the trust strip */
+  --hair: #CFC9B8;          /* the "long rule" hairline, one step darker than --line */
+  --card-dark: #1E1B12;     /* the T5 card over the golden-hour photo (cream on it = 16.2:1) */
+
+  /* Type — EB Garamond (display) + Manrope (body), assigned */
+  --font-display: "EB Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.95rem + 0.2vw, 1.08rem);      /* body */
+  --fs-1: clamp(1.12rem, 1.02rem + 0.5vw, 1.35rem);   /* lead */
+  --fs-2: clamp(1.45rem, 1.25rem + 1vw, 1.95rem);     /* h3 */
+  --fs-3: clamp(1.9rem, 1.45rem + 2vw, 2.85rem);      /* h2 */
+  --fs-4: clamp(2.5rem, 1.7rem + 4.2vw, 4.4rem);      /* h1 */
+  --lh-body: 1.62;
+  --lh-head: 1.08;
+  --track-label: 0.14em;
+
+  /* Shape & depth — hairlines over shadows (linen + letterpress, not cards-on-cards) */
+  --radius: 4px;
+  --radius-sm: 2px;
+  --shadow: 0 18px 44px rgba(42, 38, 24, 0.22);
+  --shadow-sm: 0 1px 0 rgba(42, 38, 24, 0.06);
+
+  /* Space */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.5rem, 6.5vw, 7rem);
+  --measure: 60ch;
+  --container: 1120px;
+  --gutter: clamp(1.15rem, 4vw, 2.25rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 220ms;
+}

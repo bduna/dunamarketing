@@ -1,0 +1,209 @@
+/* site.css — Stone Oven Pizzeria. Deep-tomato base, coal-glow gold accent, flour-white type.
+   Signature: THE OVEN MOUTH — the 1946 dome arch, at three scales (hero frame · menu-board cap · eyebrow mark),
+   plus "1946" set oversized in Archivo Black behind the About heading.
+   Treatments: T3 hero · T1 trust · T1 menu board · T5 char band · T6 breath · T3 about · T2 close. No T4 anywhere. */
+
+/* ── Type stance: Archivo Black is one weight, so hierarchy comes from size + case ── */
+h1, h2, h3 { font-weight: 400; letter-spacing: -0.03em; }
+h1 { text-wrap: balance; }
+strong, b { font-weight: 700; }
+
+/* The arch mark — the oven mouth at its smallest scale, in front of every eyebrow label */
+.eyebrow { color: var(--accent); font-family: var(--font-body); font-weight: 700; }
+.eyebrow::before {
+  content: ""; display: inline-block; width: 12px; height: 9px; margin-right: 0.6rem;
+  border-radius: 7px 7px 1px 1px / 9px 9px 1px 1px; background: currentColor; vertical-align: 1px;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.site-header { background: rgba(62, 18, 15, 0.94); border-bottom: 1px solid var(--line); }
+.brand { color: var(--ink); font-size: 1.1rem; letter-spacing: -0.02em; gap: 0.55rem; }
+.brand__mark { width: 32px; height: 32px; flex: 0 0 auto; }
+.nav { gap: var(--space-3); }
+.nav a:not(.btn) { color: var(--ink); font-weight: 500; font-size: 0.98rem; }
+.nav a:not(.btn):hover { color: var(--accent); }
+.nav a[aria-current="page"] { color: var(--accent); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+@media (max-width: 720px) { .nav { background: var(--bg); } .nav a:not(.btn) { font-size: 1.05rem; } }
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.btn { letter-spacing: 0.01em; }
+.btn--primary { background-color: var(--accent); color: var(--on-accent); }
+.btn--primary:hover, .btn--primary:focus-visible { background: var(--accent-hover); color: var(--on-accent); }
+.btn--ghost { color: var(--ink); border-color: rgba(241, 238, 238, 0.42); }
+.btn--ghost:hover, .btn--ghost:focus-visible { background: rgba(241, 238, 238, 0.1); border-color: var(--ink); }
+.cta-bar { background: rgba(23, 16, 14, 0.97); border-top: 1px solid var(--line); box-shadow: 0 -6px 22px rgba(9, 4, 3, 0.55); }
+.cta-bar .btn { background: var(--accent); color: var(--on-accent); }
+.cta-bar .btn:hover { background: var(--accent-hover); }
+
+/* Hours sit beside every CTA — people check before they dial */
+.hours-line { display: inline-flex; align-items: center; gap: 0.55rem; margin: 0; font-weight: 600; font-size: 0.95rem; color: var(--ink); }
+.hours-line::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: 0 0 auto; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+
+/* ── T3 · Hero: split, oven photo beside text, NO overlay ───── */
+.hero { padding-block: clamp(2.25rem, 4.5vw, 4rem) clamp(2.75rem, 5.5vw, 4.75rem); }
+.hero .container { display: grid; gap: clamp(2.25rem, 5vw, 4rem); align-items: center; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .hero .container { grid-template-columns: 1.04fr 0.96fr; } }
+.hero h1 { font-size: var(--fs-4); margin-bottom: var(--space-2); }
+.hero .lead { max-width: 40ch; color: var(--ink); opacity: 0.9; }
+.hero .hours-line { margin-top: var(--space-2); }
+
+/* The oven mouth, full size: the hero photo cut to the silhouette of their 1946 dome,
+   with a gold arch struck just outside it. */
+.ovenwrap { position: relative; }
+.ovenwrap::before {
+  content: ""; position: absolute; inset: -10px; pointer-events: none;
+  border: 2px solid var(--accent); opacity: 0.5;
+  border-radius: 50% 50% var(--radius) var(--radius) / 26% 26% var(--radius) var(--radius);
+}
+.ovenframe { position: relative; overflow: hidden; background: var(--char); box-shadow: var(--shadow); border-radius: var(--arch); }
+.ovenframe img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 42%; }
+@media (max-width: 899px) {
+  .ovenwrap { max-width: 26rem; margin-inline: auto; }
+  .ovenframe img { aspect-ratio: 1 / 1; object-position: 50% 44%; }
+}
+
+/* ── T1 · Trust strip (tinted panel) ────────────────────────── */
+.trust { background: var(--bg-alt); border-block: 1px solid var(--line); }
+.trust .container { display: grid; gap: var(--space-3) var(--space-4); padding-block: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); }
+.trust__item { border-top: 3px solid var(--accent); padding-top: var(--space-2); }
+.trust__item b { display: block; font-family: var(--font-display); font-weight: 400; font-size: var(--fs-2); letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+.trust__item span { display: block; color: var(--ink-muted); font-size: 0.95rem; line-height: 1.5; }
+
+/* ── T1 · The menu board (archetype D centrepiece) ──────────── */
+.menu-wrap { display: grid; gap: var(--space-4); align-items: start; grid-template-columns: 1fr; }
+@media (min-width: 960px) {
+  .menu-wrap { grid-template-columns: 1.62fr 1fr; gap: clamp(2rem, 4vw, 3.25rem); }
+  .board-aside { position: sticky; top: 88px; }
+}
+
+.board {
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); overflow: hidden;
+  /* the oven dome again, wide and shallow, as the board's cap */
+  border-radius: 130px 130px var(--radius) var(--radius) / 46px 46px var(--radius) var(--radius);
+}
+.board__head { background: var(--accent); color: var(--on-accent); text-align: center; padding: clamp(1.7rem, 3.4vw, 2.4rem) clamp(1.25rem, 3vw, 2.25rem) clamp(1.15rem, 2.4vw, 1.6rem); }
+.board__head h2 { color: inherit; font-size: var(--fs-2); margin-bottom: 0.35rem; }
+.board__head p { margin: 0 auto; max-width: none; font-size: 0.85rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--on-brand-muted); }
+
+.pricelist { margin: 0; padding: var(--space-2) clamp(1.25rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.25rem); }
+.prow { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.prow:last-of-type { border-bottom: 0; padding-bottom: 0; }
+.prow dt { display: flex; align-items: baseline; gap: 0.7rem; font-family: var(--font-display); font-weight: 400; font-size: 1.02rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.prow__dots { flex: 1 1 auto; min-width: 1.25rem; border-bottom: 2px dotted var(--hair); transform: translateY(-0.3em); }
+.prow__price { flex: 0 0 auto; font-family: var(--font-display); font-weight: 400; font-size: var(--fs-2); letter-spacing: -0.02em; color: var(--accent); white-space: nowrap; }
+.prow__quote { flex: 0 0 auto; font-family: var(--font-body); font-weight: 700; font-size: 0.9rem; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); text-decoration: none; border-bottom: 2px solid var(--accent); white-space: nowrap; }
+.prow__quote:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.prow dd { margin: 0.35rem 0 0; color: var(--ink-muted); font-size: 0.96rem; max-width: 52ch; }
+@media (max-width: 460px) {
+  .prow dt { flex-wrap: wrap; row-gap: 0.2rem; }
+  .prow__dots { display: none; }
+  .prow__price, .prow__quote { margin-left: auto; }
+}
+
+/* Outlined gold aside — the call-ahead card */
+.board-aside { border: 2px solid var(--accent); border-radius: var(--radius); padding: clamp(1.4rem, 3vw, 2.1rem); background: var(--ember); }
+.board-aside h3 { font-size: var(--fs-2); }
+.board-aside p { color: var(--ink); opacity: 0.92; }
+.board-aside .btn { margin-top: var(--space-1); }
+.board-aside .hours-line { margin-top: var(--space-3); }
+.board-aside__more { margin: var(--space-3) 0 0; font-weight: 700; }
+.board-aside__more a { color: var(--accent); text-decoration: none; border-bottom: 2px solid var(--accent); }
+.board-aside__more a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── T5 · The char band: photo stays BRIGHT, words in a char-black card ──
+   Primitives copied from components/base.css + components/sections/photo-card.html and tuned.
+   This site uses ZERO T4 — no photo is darkened to carry text. */
+.photostage { position: relative; display: grid; align-items: center; min-height: clamp(430px, 58vw, 620px); overflow: hidden; }
+.photostage__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 48% 56%; }
+/* NOT a scrim: a whisper on the card side only, so the fire and the crust stay at full brightness */
+.photostage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0) 62%); }
+.photostage__inner { position: relative; z-index: 1; display: flex; padding-block: clamp(2.25rem, 5vw, 4rem); }
+.pcard { max-width: 33rem; padding: clamp(1.5rem, 3.2vw, 2.4rem); border-radius: var(--radius); }
+.pcard--dark { background: rgba(23, 16, 14, 0.93); color: var(--flour); border: 1px solid rgba(203, 149, 42, 0.42); border-left: 5px solid var(--accent); box-shadow: var(--shadow); }
+.pcard--dark h2 { color: var(--flour); }
+.pcard--dark p { color: rgba(241, 238, 238, 0.86); }
+.pcard--dark .quote { background: rgba(241, 238, 238, 0.07); border-color: rgba(241, 238, 238, 0.16); border-left-color: var(--accent); }
+@media (max-width: 700px) { .pcard { max-width: none; } .photostage__img { object-position: 52% 58%; } }
+
+/* Testimonial blocks (verbatim quotes) */
+.quote { margin: var(--space-3) 0 0; padding: var(--space-3); background: var(--bg-alt); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); }
+.quote p { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-1); line-height: 1.32; letter-spacing: -0.02em; margin-bottom: 0.6rem; }
+.quote footer { color: var(--accent); font-weight: 700; font-size: 0.85rem; letter-spacing: var(--track-label); text-transform: uppercase; }
+
+/* ── T6 · Breath band: full-bleed photo, NO text on it, caption in the strip below ── */
+/* a gold rule keeps this from reading as one continuous photo when it follows the T5 band */
+.breath { overflow: hidden; border-top: 3px solid var(--accent); }
+.breath > img { width: 100%; height: clamp(230px, 33vw, 400px); object-fit: cover; object-position: 44% 52%; }
+/* photo 3 was shot in a very dark room — a modest lift; no filter on the ones already lit by the fire */
+.lift { filter: brightness(1.12) saturate(1.04); }
+.breath__cap { background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+.breath__cap .container { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2); padding-block: var(--space-3); }
+.breath__cap p { font-family: var(--font-display); font-size: var(--fs-2); letter-spacing: -0.02em; margin: 0; max-width: none; }
+.breath__cap small { color: var(--ink-muted); font-weight: 700; font-size: 0.82rem; letter-spacing: var(--track-label); text-transform: uppercase; }
+
+/* ── T3 · About: dough-hands photo beside text, with the 1946 ghost numeral ── */
+.about { overflow: hidden; }
+.since { position: relative; }
+/* The section's label IS the year — Archivo Black, outlined in gold, oversized. No watermark
+   behind the copy: an outline under body text is noise, and this reads as a decision instead. */
+.since__year { font-family: var(--font-display); font-weight: 400; font-size: clamp(3.4rem, 9vw, 6.25rem); line-height: 0.95; letter-spacing: -0.045em; margin: 0 0 0.4rem; max-width: none; color: transparent; -webkit-text-stroke: 2px var(--accent); }
+@supports not (-webkit-text-stroke: 2px currentColor) { .since__year { color: var(--accent); } }
+.since__inner { position: relative; z-index: 1; }
+.since__inner > .since__year + h2 { margin-top: 0; }
+.about .media { border-radius: var(--radius); border: 1px solid var(--line); border-top: 3px solid var(--accent); box-shadow: var(--shadow); width: 100%; }
+.about .media img { object-position: 46% 58%; }
+/* width:100% above is load-bearing: a stretched height plus aspect-ratio computes a width
+   wider than the grid column and pushes the page's scrollWidth past the viewport. */
+@media (min-width: 820px) { .about .media { min-height: 420px; } }
+.facts { display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); margin-top: var(--space-3); }
+.fact { background: var(--bg-alt); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3); }
+.fact b { display: block; font-family: var(--font-display); font-weight: 400; font-size: var(--fs-2); letter-spacing: -0.02em; color: var(--accent); margin-bottom: 0.2rem; }
+.fact span { color: var(--ink-muted); font-size: 0.92rem; line-height: 1.45; }
+
+/* ── T2 · Gold close band ───────────────────────────────────── */
+.section--brand { background: var(--brand); color: var(--on-brand); }
+.section--brand h2, .section--brand p, .section--brand address { color: inherit; }
+.section--brand .lead { color: var(--on-brand-muted); }
+.section--brand .eyebrow { color: var(--on-brand); }
+.section--brand .hours-line { color: var(--on-brand); }
+.section--brand .hours-line::before { background: var(--on-brand); }
+.section--brand .btn--primary { background-color: var(--char); color: var(--flour); }
+.section--brand .btn--primary:hover, .section--brand .btn--primary:focus-visible { background: #2C1D18; color: var(--flour); }
+.section--brand :focus-visible { outline-color: var(--char); }
+.contact-list { font-style: normal; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); align-content: start; }
+.contact-list > div { display: flex; flex-direction: column; gap: 0.15rem; }
+.contact-list .eyebrow { font-size: 0.76rem; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--on-brand-muted); margin-bottom: 0.2rem; }
+.contact-list .eyebrow::before { background: var(--on-brand); width: 10px; height: 8px; margin-right: 0.45rem; }
+.contact-list a, .contact-list strong { color: inherit; font-weight: 700; text-decoration: none; }
+.contact-list a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ── Footer (char black) ────────────────────────────────────── */
+.site-footer { background: var(--char); border-top: 3px solid var(--accent); color: var(--ink-muted); }
+.site-footer .brand { color: var(--flour); font-size: 1.05rem; }
+.site-footer a { color: inherit; }
+.site-footer a:hover { color: var(--accent); }
+.site-footer p { max-width: 34ch; }
+.site-footer .demo { grid-column: 1 / -1; max-width: none; margin: 0; padding-top: var(--space-2); border-top: 1px solid rgba(241, 238, 238, 0.12); font-size: 0.8rem; }
+
+/* ── menu.html ──────────────────────────────────────────────── */
+.page-hero { background: var(--bg-alt); border-bottom: 1px solid var(--line); }
+.page-hero .container { padding-block: clamp(2.5rem, 6vw, 4.25rem); }
+.page-hero h1 { font-size: var(--fs-3); }
+.page-hero .lead { max-width: 48ch; }
+.menu-cats { display: grid; gap: var(--space-4); align-items: start; grid-template-columns: 1fr; }
+/* Pies is a three-row card and the other three are one-liners, so place them explicitly:
+   the tall card holds the left column while the short ones stack down the right. No dead space. */
+@media (min-width: 900px) {
+  .menu-cats { grid-template-columns: 1fr 1fr; gap: var(--space-4) clamp(2rem, 4vw, 3rem); }
+  .menu-cats > .cat:nth-child(1) { grid-column: 1; grid-row: 1 / span 3; align-self: start; }
+  .menu-cats > .cat:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .menu-cats > .cat:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .menu-cats > .cat:nth-child(4) { grid-column: 2; grid-row: 3; }
+}
+.cat { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: clamp(1.25rem, 3vw, 2rem); }
+.cat > h2 { font-family: var(--font-display); font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent); margin-bottom: var(--space-1); }
+.cat .pricelist { padding: 0; }
+.cat .prow:first-of-type { padding-top: 0.6rem; }
+.menu-note { display: flex; gap: 0.65rem; align-items: flex-start; margin: var(--space-4) 0 0; padding: var(--space-3); background: var(--ember); border-left: 3px solid var(--accent); border-radius: var(--radius); color: var(--ink); font-size: 0.96rem; max-width: 68ch; }
+.menu-note svg { flex: 0 0 auto; color: var(--accent); margin-top: 2px; }

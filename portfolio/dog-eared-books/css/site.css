@@ -1,0 +1,204 @@
+/* site.css — everything specific to dog-eared-books. Tokens live in tokens.css.
+   Archetype C (typographic). Signature: the dog-ear — a real folded top-right corner on every card,
+   plus shelf-talker typography for the offerings. No rotated text, no stickers, no faux handwriting. */
+
+/* ---------------------------------------------------------------- type */
+h1, h2, h3 { letter-spacing: -0.005em; }
+h1 { font-weight: 700; }
+h2 { font-weight: 700; color: var(--brand); }
+h3 { font-weight: 700; font-size: var(--fs-2); }
+p { max-width: var(--measure); }
+.lead { line-height: 1.55; }
+strong, b { font-weight: 600; }
+
+.eyebrow { font-family: var(--font-body); font-size: var(--fs--1); font-weight: 600; }
+.eyebrow--brand { color: var(--brand); }
+
+/* A short walnut rule that opens a section — the shelf edge. */
+.rule { display: block; width: 3.25rem; height: 2px; background: var(--accent); border: 0; margin: 0 0 var(--space-3); }
+.section--brand .rule { background: var(--on-brand); }
+
+/* ---------------------------------------------------------- the dog-ear */
+/* The top-right corner is folded down: the outer half shows whatever is behind the card
+   (--fold-void), the inner half is the reverse of the paper (--fold), with a hairline crease. */
+.dogear { position: relative; }
+.dogear::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: var(--fold-size, 1.6rem);
+  height: var(--fold-size, 1.6rem);
+  background: linear-gradient(
+    225deg,
+    var(--fold-void, var(--bg)) 0 calc(50% - 0.5px),
+    var(--line-strong) calc(50% - 0.5px) calc(50% + 0.5px),
+    var(--fold) calc(50% + 0.5px) 100%
+  );
+  pointer-events: none;
+}
+.section--alt .dogear { --fold-void: var(--bg-alt); }
+.section--brand .dogear { --fold-void: var(--brand); }
+
+/* ------------------------------------------------------------- header */
+.site-header { background: color-mix(in srgb, var(--bg) 94%, transparent); }
+.brand { font-size: 1.08rem; letter-spacing: -0.01em; gap: 0.55rem; }
+.brand__mark { flex: none; }
+.nav { gap: clamp(1rem, 2vw, 1.75rem); }
+.nav a:not(.btn) { font-size: 0.95rem; font-weight: 500; color: var(--ink); }
+.nav a:not(.btn):hover { color: var(--accent); }
+@media (max-width: 720px) {
+  .nav a:not(.btn) { font-size: 1.05rem; }
+}
+
+/* --------------------------------------------------------- hero (T3) */
+.hero { padding-block: clamp(2.25rem, 5vw, 4.5rem) clamp(2.75rem, 6vw, 5.5rem); }
+.hero__grid { display: grid; gap: clamp(1.75rem, 4vw, 3.5rem); grid-template-columns: 1fr; align-items: end; }
+@media (min-width: 900px) { .hero__grid { grid-template-columns: 1.22fr 0.78fr; } }
+.hero h1 { margin-bottom: var(--space-3); max-width: 22ch; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero .lead { max-width: 46ch; margin-bottom: var(--space-3); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2); }
+.hero__reach { font-size: 0.95rem; color: var(--ink-muted); margin: 0; }
+.hero__reach a { color: var(--ink); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--accent); }
+.hero__reach a:hover { color: var(--accent); }
+.hero__figure { margin: 0; }
+.hero__figure .media { aspect-ratio: 4 / 5; border: 1px solid var(--line); }
+.hero__figure img { object-position: 50% 42%; }
+.hero__figure figcaption { margin-top: 0.7rem; font-size: var(--fs--1); color: var(--ink-muted); }
+@media (min-width: 900px) { .hero__figure .media { aspect-ratio: 3 / 4; } }
+
+/* ------------------------------------------- where & when strip (T1) */
+.strip { padding-block: clamp(1.5rem, 3vw, 2.25rem); background: var(--bg-alt); border-block: 1px solid var(--line); }
+.strip__grid { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 700px) { .strip__grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); } }
+.strip__item { display: grid; gap: 0.15rem; }
+@media (min-width: 700px) {
+  .strip__item + .strip__item { padding-left: var(--space-4); border-left: 1px solid var(--line-strong); }
+}
+.strip__label { font-size: var(--fs--1); font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); }
+.strip__value { font-family: var(--font-display); font-size: 1.05rem; color: var(--ink); margin: 0; max-width: none; }
+
+/* ------------------------------------------------- shelf cards (T1) */
+.shelves { display: grid; gap: var(--space-3); grid-template-columns: 1fr; margin-top: var(--space-4); }
+@media (min-width: 620px) { .shelves { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .shelves { grid-template-columns: repeat(3, 1fr); gap: var(--space-3) var(--space-4); } }
+.shelf {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: var(--space-3) var(--space-3) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.shelf h3 { margin: 0; padding-right: 1.4rem; font-size: 1.22rem; }
+.shelf p { margin: 0; color: var(--ink-muted); font-size: 0.98rem; max-width: none; }
+.shelf .shelf__tag { display: flex; align-items: center; gap: 0.6rem; margin: auto 0 0; padding-top: 0.55rem; }
+.shelf__leader { flex: 1 1 auto; align-self: center; height: 0; border-bottom: 1px dotted var(--line-strong); }
+.shelf__price,
+.shelf__meta { flex: none; font-family: var(--font-body); font-size: var(--fs--1); font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; white-space: nowrap; }
+/* A real price gets the accent chip (white on --accent = 5.14:1); a non-price fact stays plain muted text,
+   so nothing that has no price can ever look like it has one. */
+.shelf__price { background: var(--accent); color: var(--on-accent); padding: 0.2rem 0.5rem; border-radius: var(--radius-sm); }
+.shelf__meta { color: var(--ink-muted); }
+.shelf--feature { background: var(--accent-tint); border-color: #E4CDC0; }
+.shelf--feature p { color: var(--ink); }          /* muted ink on the tint measures 4.48:1 — use full ink */
+.shelf--feature .eyebrow { color: var(--brand); } /* accent on the tint measures 4.26:1 — use walnut */
+.shelf--feature { --fold: #EBD7CC; }
+
+/* ------------------------------------------ staff-picks band (T5) */
+.photostage--band { min-height: clamp(360px, 48vw, 540px); }
+.photostage::after { background: linear-gradient(100deg, var(--scrim-soft), rgba(255, 255, 255, 0) 68%); }
+.photostage__img { object-position: 62% 55%; }
+.pcard--light { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+.pcard--light .lead, .pcard--light .muted, .pcard--light footer { color: var(--ink-muted); }
+.pcard--dark { background: rgba(31, 25, 14, 0.93); color: var(--on-brand); }
+.pcard--dark .lead, .pcard--dark .muted, .pcard--dark footer { color: var(--on-brand-muted); }
+.pcard h2 { color: inherit; }
+.pcard--light h2 { color: var(--brand); }
+.pcard p:last-child { margin-bottom: 0; }
+.pcard--quote { max-width: 30rem; }
+.pcard--quote p { font-family: var(--font-display); font-style: italic; font-size: var(--fs-1); line-height: 1.5; }
+.pcard--quote footer { font-family: var(--font-body); font-style: normal; font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* ------------------------------------------------ testimonials (T1) */
+.quotes { display: grid; gap: var(--space-3); grid-template-columns: 1fr; margin-top: var(--space-4); }
+@media (min-width: 760px) { .quotes { grid-template-columns: repeat(2, 1fr); gap: var(--space-4); } }
+.quote { background: var(--surface); border: 1px solid var(--line); padding: var(--space-3) var(--space-3) var(--space-2); margin: 0; }
+.quote p { font-family: var(--font-display); font-style: italic; font-size: var(--fs-1); line-height: 1.5; color: var(--ink); margin: 0 0 var(--space-2); padding-right: 1.2rem; max-width: none; }
+.quote footer { font-size: var(--fs--1); font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); }
+
+/* -------------------------------------------------- photo strip (T6) */
+.stripe { display: grid; gap: 2px; grid-template-columns: 1fr; background: var(--line); }
+@media (min-width: 680px) { .stripe { grid-template-columns: repeat(3, 1fr); } }
+.stripe figure { margin: 0; position: relative; }
+.stripe img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+.stripe figcaption { padding: 0.7rem var(--gutter) 0; background: var(--bg); font-size: var(--fs--1); color: var(--ink-muted); }
+@media (min-width: 680px) { .stripe figcaption { padding-inline: 0.9rem; } }
+.stripe__foot { padding-top: var(--space-3); }
+.stripe__foot a { font-weight: 600; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--accent); }
+.stripe__foot a:hover { color: var(--accent); }
+
+/* ------------------------------------------------------- about (T3) */
+.about .media { aspect-ratio: 4 / 5; border: 1px solid var(--line); }
+.about .media img { object-position: 50% 55%; }
+.about figure { margin: 0; }
+.about figcaption { margin-top: 0.7rem; font-size: var(--fs--1); color: var(--ink-muted); }
+.about__body p { font-size: 1.05rem; }
+.pull { font-family: var(--font-display); font-style: italic; font-size: var(--fs-2); line-height: 1.4; color: var(--brand); border-left: 2px solid var(--accent); padding-left: var(--space-3); margin: 0 0 var(--space-3); max-width: 34ch; }
+
+/* -------------------------------------------------- closing band (T2) */
+.section--brand { background: var(--brand); color: var(--on-brand); }
+.section--brand h2, .section--brand h3 { color: var(--on-brand); }
+.section--brand .muted, .section--brand .close__note { color: var(--on-brand-muted); }
+.section--brand .eyebrow { color: var(--on-brand); }
+.close__grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 860px) { .close__grid { grid-template-columns: 1.05fr 0.95fr; gap: var(--space-5); } }
+.close__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.contact-list { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+.contact-list dt, .contact-list__label { font-size: var(--fs--1); font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--on-brand-muted); }
+.contact-list li { padding-top: var(--space-2); border-top: 1px solid rgba(250, 247, 242, 0.22); }
+.contact-list li:first-child { padding-top: 0; border-top: 0; }
+.contact-list a { font-family: var(--font-display); font-size: 1.1rem; text-decoration: none; border-bottom: 1px solid rgba(250, 247, 242, 0.45); }
+.contact-list a:hover { border-bottom-color: var(--on-brand); }
+.contact-list span { font-family: var(--font-display); font-size: 1.1rem; display: block; }
+.btn--invert { background-color: var(--on-brand); color: var(--brand); border: 0; }
+.btn--invert:hover, .btn--invert:focus-visible { background-color: #FFFFFF; color: var(--accent-hover); transform: translateY(-1px); }
+.section--brand :focus-visible { outline-color: var(--on-brand); }
+
+/* ------------------------------------------------- page head (T1) */
+.pagehead { padding-block: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 3vw, 2.5rem); }
+.pagehead h1 { max-width: 24ch; margin-bottom: var(--space-2); }
+.pagehead .lead { max-width: 52ch; margin-bottom: 0; }
+
+/* ------------------------------------------------ gallery grid (T1) */
+.gal { display: grid; gap: var(--space-3); grid-template-columns: 1fr; margin-top: var(--space-4); }
+@media (min-width: 700px) { .gal { grid-template-columns: repeat(6, 1fr); gap: var(--space-3) var(--space-3); } }
+.gal figure { margin: 0; background: var(--surface); border: 1px solid var(--line); padding: 0.55rem 0.55rem 0.35rem; }
+.gal img { width: 100%; height: 100%; object-fit: cover; }
+.gal .frame { display: block; overflow: hidden; aspect-ratio: 4 / 3; }
+.gal figcaption { padding: 0.6rem 0.35rem 0.3rem; font-size: var(--fs--1); color: var(--ink-muted); }
+@media (min-width: 700px) {
+  .gal__a { grid-column: span 4; } .gal__a .frame { aspect-ratio: 16 / 10; }
+  .gal__b { grid-column: span 2; } .gal__b .frame { aspect-ratio: 3 / 4; }
+  .gal__c { grid-column: span 2; } .gal__c .frame { aspect-ratio: 3 / 4; }
+  .gal__d { grid-column: span 4; } .gal__d .frame { aspect-ratio: 16 / 10; }
+  .gal__e { grid-column: span 3; } .gal__e .frame { aspect-ratio: 4 / 3; }
+  .gal__f { grid-column: span 3; } .gal__f .frame { aspect-ratio: 4 / 3; }
+}
+
+/* ------------------------------------------------------------ footer */
+.site-footer { background: var(--bg-alt); border-top: 1px solid var(--line); padding-block: var(--space-4); }
+.site-footer h2 { font-size: 1.05rem; color: var(--ink); margin-bottom: var(--space-1); }
+.site-footer p { max-width: 34ch; margin-bottom: var(--space-1); }
+.site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.35rem; }
+.site-footer a { text-decoration: none; border-bottom: 1px solid transparent; }
+.site-footer a:hover { border-bottom-color: var(--accent); color: var(--accent); }
+.footer__legal { border-top: 1px solid var(--line); margin-top: var(--space-3); padding-top: var(--space-3); font-size: var(--fs--1); }
+.footer__legal p { max-width: none; }
+.footer__demo { font-weight: 600; color: var(--ink); }
+
+/* ------------------------------------------------------- cta bar */
+.cta-bar { background: var(--bg); border-top: 1px solid var(--line-strong); }
+.cta-bar .btn { width: 100%; }
+.cta-bar__hours { display: block; text-align: center; font-size: 0.78rem; color: var(--ink-muted); margin: 0 0 0.35rem; max-width: none; }

@@ -1,0 +1,59 @@
+/* tokens.css — Hokkai Sushi.
+   Palette = brief.assigned.palette, copied VERBATIM (dark warm espresso + one red seal).
+   Contrast on --bg #1E1910: --ink 15.4:1 · --ink-muted 6.5:1 · #FFF on --accent 5.3:1.
+   --accent as small text is only 3.3:1, so red is never used for type on this site (see site.css .eyebrow). */
+:root {
+  /* ---- assigned palette (do not change) ---- */
+  --bg: #1E1910;
+  --bg-alt: #2C2619;
+  --surface: #2C2619;
+  --ink: #F1F0EE;
+  --ink-muted: #A59D8D;
+  --line: #413B30;
+  --brand: #CB2A2A;
+  --on-brand: #FFFFFF;
+  --accent: #CB2A2A;
+  --accent-hover: #DA3E3E;
+  --on-accent: #FFFFFF;
+
+  /* ---- derived, site-specific ---- */
+  --surface-2: #37301F;                       /* raised card on a tinted section */
+  --line-soft: rgba(241, 240, 238, 0.10);     /* hairline over photography / inside cards */
+  --seal-tint: rgba(203, 42, 42, 0.10);       /* the faintest wash of the seal */
+  --card-light: #F4F2ED;                      /* T5 contained card */
+  --card-light-ink: #1E1910;
+  --card-light-muted: #5F5849;
+
+  /* Type — Cormorant Garamond (display) + Inter (body), per brief.assigned.fonts */
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);      /* body */
+  --fs-1: clamp(1.15rem, 1.05rem + 0.55vw, 1.45rem);   /* lead */
+  --fs-2: clamp(1.5rem, 1.25rem + 1.1vw, 2.1rem);      /* h3 */
+  --fs-3: clamp(2rem, 1.5rem + 2.4vw, 3.1rem);         /* h2 */
+  --fs-4: clamp(2.7rem, 1.6rem + 5vw, 4.8rem);         /* h1 — Cormorant needs the size */
+  --lh-body: 1.65;
+  --lh-head: 1.08;
+  --track-label: 0.16em;   /* wide-tracked uppercase labels — sleek, calm */
+
+  /* Shape & depth — a counter is straight lines; the only curves are in the photographs */
+  --radius: 2px;
+  --radius-sm: 2px;
+  --shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 1px 0 rgba(0, 0, 0, 0.25);
+
+  /* Space — density axis is LEFT: air, one idea per screen */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+  --section-y: clamp(4rem, 7vw, 8rem);
+  --measure: 58ch;
+  --container: 1120px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 240ms;
+}

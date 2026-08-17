@@ -1,0 +1,63 @@
+/* tokens.css — Keyway Locksmith. Serious · Bold · Modern.
+   Palette is brief.assigned.palette copied VERBATIM (family: dark cool / navy) — midnight navy base, brass accent,
+   which is exactly what the owner asked for ("our colors are midnight navy and brass yellow"). Nothing swapped.
+   Fonts are brief.assigned.fonts: Space Grotesk (display) + Inter (body). */
+:root {
+  /* ── Assigned palette — verbatim, do not substitute ──────────────────────────────────
+     AA checked (WCAG relative luminance): ink on bg 15.5:1 · ink on bg-alt 14.1:1 ·
+     ink-muted on bg 5.9:1 · ink-muted on bg-alt 5.3:1 · accent on bg 7.5:1 ·
+     on-accent on accent 7.5:1 · on-accent on accent-hover 5.6:1. No value needed adjusting. */
+  --bg: #101626;
+  --bg-alt: #172035;
+  --surface: #172035;
+  --ink: #EEEFF1;
+  --ink-muted: #8D94A5;
+  --line: #2C3344;
+  --brand: #CBA32A;
+  --on-brand: #101626;
+  --accent: #CBA32A;
+  --accent-hover: #B08C21;
+  --on-accent: #101626;
+
+  /* ── Derived, site-specific (tints + on-brand-muted; no new hues) ──────────────────── */
+  --card: #F4F5F7;                        /* T5 contained card — the big jump from a navy base */
+  --on-card: #101626;                     /* 16.3:1 on --card */
+  --card-muted: #565E70;                  /* 6.0:1 on --card */
+  --hairline-strong: #3A4459;             /* a heavier rule than --line, for ledger heads */
+  --brand-tint: rgba(203, 163, 42, 0.12); /* numeral + chip fills */
+  --brand-tint-strong: rgba(203, 163, 42, 0.24);
+  --on-brand-muted: rgba(16, 22, 38, 0.78); /* secondary text on the brass band — 5.1:1 */
+
+  /* ── Type — Space Grotesk + Inter ──────────────────────────────────────────────────── */
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.18vw, 1.06rem);
+  --fs-1: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+  --fs-2: clamp(1.4rem, 1.2rem + 0.95vw, 1.85rem);
+  --fs-3: clamp(1.85rem, 1.45rem + 1.9vw, 2.7rem);
+  --fs-4: clamp(2.35rem, 1.7rem + 3.6vw, 4rem);
+  --lh-body: 1.6;
+  --lh-head: 1.06;
+  --track-label: 0.12em;
+
+  /* ── Shape & depth — a panel stance, not a card stance: hairlines do the work ──────── */
+  --radius: 6px;
+  --radius-sm: 4px;
+  --shadow: 0 22px 60px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+
+  /* ── Space (density axis = right / rich) ──────────────────────────────────────────── */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.25rem, 5.5vw, 5.75rem);
+  --measure: 60ch;
+  --container: 1160px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+
+  /* ── Motion (tone = serious: short, no bounce) ────────────────────────────────────── */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 180ms;
+}

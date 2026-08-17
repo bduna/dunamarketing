@@ -1,0 +1,60 @@
+/* tokens.css — Copper Kettle Brewing.
+   Palette: brief.assigned.palette, copied VERBATIM (family "dark warm (espresso)"). No value altered —
+   every pair already clears AA (--ink 16.4:1, --ink-muted 6.7:1, --accent 8.4:1, --on-accent 8.4:1).
+   Fonts: brief.assigned.fonts — Bricolage Grotesque + Inter. Archetype: A, photo-led hero. */
+:root {
+  /* ── assigned palette (verbatim) ───────────────────────────────── */
+  --bg: #1E1A10;
+  --bg-alt: #2C2719;
+  --surface: #2C2719;
+  --ink: #F1F0EE;
+  --ink-muted: #A59F8D;
+  --line: #413C30;
+  --brand: #CBAB2A;
+  --on-brand: #1E1A10;
+  --accent: #CBAB2A;
+  --accent-hover: #B09321;
+  --on-accent: #1E1A10;
+
+  /* ── derived, site-specific (see direction.md §2) ──────────────── */
+  --copper: #A9722F;                    /* the tap rail, rules, guest-tap marks. 3.4:1 — marks only, never text */
+  --copper-soft: rgba(169, 114, 47, 0.42);
+  --tint: rgba(203, 171, 42, 0.09);     /* amber wash behind price rows */
+  --line-strong: #5A5341;
+  --card: #F4F2ED;                      /* the one light card that sits on a photo (T5) */
+  --card-ink: #1B1810;
+  --card-ink-muted: #55503F;
+
+  /* ── type ──────────────────────────────────────────────────────── */
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.18vw, 1.075rem);
+  --fs-1: clamp(1.12rem, 1.03rem + 0.42vw, 1.32rem);
+  --fs-2: clamp(1.35rem, 1.18rem + 0.85vw, 1.8rem);
+  --fs-3: clamp(1.8rem, 1.42rem + 1.85vw, 2.75rem);
+  --fs-4: clamp(2.5rem, 1.7rem + 4.2vw, 4.5rem);
+  --lh-body: 1.62;
+  --lh-head: 1.04;
+  --track-label: 0.14em;
+
+  /* ── shape & depth: near-square, hairlines instead of shadows ──── */
+  --radius: 6px;
+  --radius-sm: 4px;
+  --shadow: 0 26px 60px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+
+  /* ── space ─────────────────────────────────────────────────────── */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.25rem, 5.5vw, 6rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1.1rem, 4vw, 2rem);
+
+  /* ── motion ────────────────────────────────────────────────────── */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

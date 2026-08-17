@@ -1,0 +1,194 @@
+/* site.css — everything specific to hokkai-sushi. Tokens live in tokens.css.
+   Signature: the red seal. A red 3:4 block stamps every label, every price bullet, the logo and the closing band.
+   Nothing else on this site is red, and red is never used as type colour (only 3.3:1 on the espresso base). */
+
+/* ---------------------------------------------------------------- typography */
+body { -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-weight: 400; letter-spacing: -0.005em; }
+h1 { font-weight: 300; }
+h2 em, h1 em { font-style: italic; }
+.display-xl { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-4); line-height: var(--lh-head); margin: 0 0 var(--space-2); }
+
+/* Eyebrow: base.css colours this with --accent, which is only 3.3:1 on the espresso base.
+   Here the label is muted ink and the RED lives in the seal block beside it. */
+.eyebrow {
+  display: flex; align-items: center; gap: 0.6rem;
+  color: var(--ink-muted); font-family: var(--font-body); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: var(--track-label); text-transform: uppercase; margin: 0 0 var(--space-2);
+}
+.eyebrow::before { content: ""; flex: none; width: 9px; height: 12px; background: var(--accent); }
+.eyebrow--center { justify-content: center; }
+.pcard--light .eyebrow { color: var(--card-light-muted); }
+.section--brand .eyebrow { color: rgba(255, 255, 255, 0.82); }
+.section--brand .eyebrow::before { background: #ffffff; }
+
+.lead { font-size: var(--fs-1); color: var(--ink); font-weight: 300; letter-spacing: 0.002em; }
+.rule { width: 100%; height: 1px; background: var(--line); border: 0; margin: 0; }
+
+/* ---------------------------------------------------------------- header / nav */
+.site-header { background: rgba(30, 25, 16, 0.9); border-bottom: 1px solid var(--line); }
+.site-header .container { min-height: 72px; }
+.brand { font-weight: 500; font-size: 1.3rem; letter-spacing: 0.01em; gap: 0.7rem; }
+.brand__mark { width: 24px; height: 32px; flex: none; }
+.nav { gap: var(--space-3); }
+.nav a:not(.btn) { font-family: var(--font-body); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+.nav a:not(.btn):hover, .nav a:not(.btn):focus-visible { color: var(--ink); }
+.nav a[aria-current="page"] { color: var(--ink); text-decoration: none; position: relative; }
+.nav a[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--accent); }
+.nav .btn { font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; min-height: 44px; padding: 0.6rem 1.1rem; }
+.nav-toggle { color: var(--ink); }
+@media (max-width: 720px) {
+  .nav { background: var(--bg-alt); }
+  .nav a[aria-current="page"]::after { display: none; }
+  .nav a[aria-current="page"] { color: var(--accent-hover); }
+}
+
+/* ---------------------------------------------------------------- buttons */
+.btn { font-family: var(--font-body); font-weight: 600; letter-spacing: 0.02em; }
+.btn--primary, a.btn--primary, .nav a.btn--primary { box-shadow: none; }
+.btn--ghost { border-color: var(--line); color: var(--ink); }
+.btn--ghost:hover, .btn--ghost:focus-visible { background: var(--surface-2); border-color: var(--ink-muted); }
+.pcard--light .btn--ghost { border-color: #cfcabc; color: var(--card-light-ink); }
+.pcard--light .btn--ghost:hover { background: #e6e2d8; border-color: #8d8676; }
+.section--brand .btn--light { background: #ffffff; color: var(--accent); border: 0; }
+.section--brand .btn--light:hover, .section--brand .btn--light:focus-visible { background: var(--card-light); transform: translateY(-1px); }
+.section--brand :focus-visible { outline-color: #ffffff; }
+
+/* ---------------------------------------------------------------- hero (T3: photo beside text, no overlay) */
+.hero { padding-block: clamp(3rem, 6vw, 6.5rem) clamp(3rem, 6vw, 7rem); border-bottom: 1px solid var(--line); }
+.hero__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .hero__grid { grid-template-columns: 1.08fr 0.92fr; } }
+.hero h1 { margin-bottom: var(--space-3); max-width: 20ch; }
+.hero h1 .seal-word { color: var(--ink); position: relative; white-space: nowrap; }
+.hero .lead { max-width: 34ch; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.hero__note { margin: var(--space-3) 0 0; color: var(--ink-muted); font-size: 0.95rem; max-width: 40ch; }
+.hero__note b { color: var(--ink); font-weight: 500; }
+.hero__figure { position: relative; }
+.hero__figure img { width: 100%; height: auto; border: 1px solid var(--line); }
+.hero__figure figcaption { margin-top: 0.75rem; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); }
+@media (min-width: 900px) {
+  .hero__figure { padding-left: var(--space-3); }
+  .hero__figure::before { content: ""; position: absolute; left: 0; top: 8%; bottom: 8%; width: 2px; background: var(--accent); }
+}
+
+/* ---------------------------------------------------------------- counter strip (T1 tinted) */
+.trust { border-block: 1px solid var(--line); background: var(--bg-alt); padding-block: var(--space-4); }
+.trust__grid { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 760px) { .trust__grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); } }
+.trust__item { display: grid; gap: 0.35rem; }
+.trust__item b { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.25rem); line-height: 1.1; color: var(--ink); }
+.trust__item span { color: var(--ink-muted); font-size: 0.95rem; }
+.trust__item a { white-space: nowrap; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.trust__item a:hover { color: var(--ink); }
+@media (min-width: 760px) { .trust__item + .trust__item { border-left: 1px solid var(--line); padding-left: var(--space-4); } }
+
+/* ---------------------------------------------------------------- the counter: editorial price list (T1) */
+.counter__head { display: grid; gap: var(--space-2); margin-bottom: clamp(2rem, 4vw, 3.25rem); }
+.counter__head h2 { max-width: 26ch; margin: 0; }
+.counter__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 900px) { .counter__grid { grid-template-columns: 1.35fr 0.65fr; } }
+
+.pricelist { margin: 0; display: grid; }
+.pricelist__row { display: grid; grid-template-columns: 1fr auto; gap: 0.4rem var(--space-3); align-items: baseline; padding-block: clamp(1.1rem, 2.2vw, 1.6rem); border-top: 1px solid var(--line); }
+.pricelist__row:last-child { border-bottom: 1px solid var(--line); }
+.pricelist dt { font-family: var(--font-display); font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.85rem); font-weight: 400; line-height: 1.15; }
+.pricelist dt small { display: block; font-family: var(--font-body); font-size: 0.95rem; font-weight: 400; color: var(--ink-muted); margin-top: 0.4rem; max-width: 44ch; line-height: 1.55; }
+.pricelist dd { margin: 0; justify-self: end; text-align: right; }
+.price { font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; letter-spacing: 0.02em; color: var(--ink); white-space: nowrap; }
+.price::before { content: ""; display: inline-block; width: 7px; height: 10px; background: var(--accent); margin-right: 0.55rem; vertical-align: 1px; }
+
+.reserve-aside { border: 1px solid var(--line); background: var(--surface); padding: clamp(1.5rem, 3vw, 2.25rem); display: grid; gap: var(--space-2); }
+.reserve-aside h3 { margin: 0; max-width: 18ch; }
+.reserve-aside p { margin: 0; color: var(--ink-muted); }
+.reserve-aside .btn { width: 100%; }
+.reserve-aside__meta { display: grid; gap: 0.35rem; margin: 0; padding-top: var(--space-2); border-top: 1px solid var(--line); font-size: 0.92rem; }
+.reserve-aside__meta span { color: var(--ink-muted); }
+.reserve-aside__meta b { color: var(--ink); font-weight: 500; }
+
+/* ---------------------------------------------------------------- T5: bright photo + contained light card */
+.photostage { min-height: clamp(460px, 66vh, 680px); }
+.photostage--band { min-height: clamp(420px, 56vw, 620px); }
+.photostage__img { object-position: center 42%; }
+/* Deliberately NOT a scrim: a whisper on one edge only, so the photograph stays bright (T5, not T4). */
+.photostage::after { background: linear-gradient(96deg, rgba(30, 25, 16, 0.34), rgba(30, 25, 16, 0.04) 62%); }
+.pcard { max-width: 33rem; border: 0; }
+.pcard--light { background: var(--card-light); color: var(--card-light-ink); box-shadow: var(--shadow); border-left: 4px solid var(--accent); }
+.pcard--light .lead, .pcard--light .muted, .pcard--light footer { color: var(--card-light-muted); }
+.pcard--light blockquote { margin: 0; }
+.quote-xl { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.5rem, 1.15rem + 1.6vw, 2.3rem); line-height: 1.25; margin: 0 0 var(--space-2); max-width: none; }
+.pcard--light .quote-xl { color: var(--card-light-ink); }
+.quote-by { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--card-light-muted); }
+
+/* ---------------------------------------------------------------- T3: the craft split */
+.craft { border-top: 1px solid var(--line); }
+.craft .media img { border: 1px solid var(--line); }
+.craft h2 { max-width: 22ch; }
+.craft p { color: var(--ink); }
+.craft .signature { font-family: var(--font-display); font-style: italic; font-size: var(--fs-1); color: var(--ink-muted); margin: 0; }
+
+/* ---------------------------------------------------------------- T6: full-bleed photo, no text on it */
+.breath { position: relative; }
+.breath img { width: 100%; height: clamp(240px, 34vw, 440px); object-fit: cover; object-position: center 55%; display: block; }
+.breath figcaption { padding-block: var(--space-2) 0; }
+.breath figcaption .container { display: flex; flex-wrap: wrap; gap: 0.5rem var(--space-3); align-items: baseline; justify-content: space-between; }
+.breath figcaption p { margin: 0; font-family: var(--font-display); font-size: var(--fs-1); color: var(--ink); max-width: 46ch; }
+.breath figcaption small { color: var(--ink-muted); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ---------------------------------------------------------------- quotes on a solid surface (T1) */
+.quotes { display: grid; gap: var(--space-3); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 800px) { .quotes { grid-template-columns: 0.8fr 1.2fr; gap: var(--space-4); } }
+.quotes__head { display: grid; gap: 0; align-content: start; }
+.quotes__head h2 { margin: 0; max-width: 14ch; }
+.quote-card { border-top: 2px solid var(--accent); padding-top: var(--space-3); }
+.quote-card p { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.3rem, 1.05rem + 0.9vw, 1.75rem); line-height: 1.3; margin: 0 0 var(--space-2); color: var(--ink); max-width: none; }
+.quote-card footer { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); }
+
+/* ---------------------------------------------------------------- T2: the red seal band (closing CTA) */
+.section--brand { border-block: 1px solid var(--line); }
+.section--brand h2 { color: #ffffff; max-width: 24ch; }
+.section--brand .lead, .section--brand p { color: rgba(255, 255, 255, 0.9); }
+.reserve__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 860px) { .reserve__grid { grid-template-columns: 1.1fr 0.9fr; } }
+.contact-list { display: grid; gap: var(--space-3); font-style: normal; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); }
+.contact-list > div { display: grid; gap: 0.2rem; align-content: start; }
+.contact-list .eyebrow { margin-bottom: 0.35rem; }
+.contact-list a, .contact-list span:not(.eyebrow) { color: #ffffff; font-size: 1.02rem; }
+.contact-list a { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; text-decoration-color: rgba(255, 255, 255, 0.5); }
+.contact-list a:hover { text-decoration-color: #ffffff; }
+
+/* ---------------------------------------------------------------- page headers (menu.html / about.html) */
+.pagehead { padding-block: clamp(2.75rem, 6vw, 5rem) clamp(2rem, 4vw, 3.5rem); border-bottom: 1px solid var(--line); }
+.pagehead h1 { max-width: 24ch; margin-bottom: var(--space-2); }
+.pagehead .lead { max-width: 52ch; }
+.pagehead__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.menu-note { display: flex; gap: 0.7rem; align-items: flex-start; margin: var(--space-4) 0 0; padding: var(--space-3); background: var(--seal-tint); border-left: 2px solid var(--accent); color: var(--ink); font-size: 0.98rem; max-width: 60ch; }
+.menu-note p { margin: 0; }
+.facts { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); margin-top: var(--space-4); }
+.fact { border-top: 1px solid var(--line-soft); padding-top: var(--space-2); display: grid; gap: 0.25rem; }
+.fact b { font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; color: var(--ink); }
+.fact span { color: var(--ink-muted); font-size: 0.94rem; }
+
+/* ---------------------------------------------------------------- sticky mobile CTA + footer */
+.cta-bar { background: var(--bg-alt); border-top: 1px solid var(--line); box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.4); }
+.cta-bar .btn { text-transform: uppercase; letter-spacing: 0.06em; }
+.site-footer { padding-block: var(--space-4) var(--space-4); background: var(--bg-alt); border-top: 1px solid var(--line); }
+.site-footer .brand { font-size: 1.15rem; margin-bottom: 0.6rem; }
+.site-footer p { margin: 0 0 0.5rem; }
+.site-footer a:hover { color: var(--ink); }
+.site-footer .demo { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: var(--space-2); margin: var(--space-2) 0 0; font-size: 0.82rem; color: var(--ink-muted); }
+.site-footer .credits { font-size: 0.8rem; }
+@media (max-width: 720px) { body.has-cta-bar { padding-bottom: 88px; } }
+
+/* photo-01 is a tall overhead frame on a black ground — pull the crop to the plate for the band */
+.photostage--plate .photostage__img { object-position: 32% 46%; }
+.photostage--plate::after { background: linear-gradient(264deg, rgba(30, 25, 16, 0.34), rgba(30, 25, 16, 0.02) 58%); }
+/* the about-page split leads with the photograph, so let it fill the column */
+.craft .media img { width: 100%; }
+/* three facts, three columns, inside a half-width split column */
+.craft .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); }
+.craft .fact b { font-size: 1.2rem; }
+@media (max-width: 620px) { .craft .facts { grid-template-columns: 1fr 1fr; } }
+/* photo-04 is a tall macro; drop the crop to the lemon, scallop and radish so the frame reads as a platter */
+.photostage--sashimi .photostage__img { object-position: center 74%; }
+@media (max-width: 700px) { .quote-xl { font-size: clamp(1.35rem, 1.1rem + 1.6vw, 1.9rem); } }

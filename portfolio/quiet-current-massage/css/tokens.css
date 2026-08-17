@@ -1,0 +1,59 @@
+/* tokens.css — Quiet Current Massage.
+   Palette = the centrally assigned "tinted lavender" family, copied verbatim, with ONE contrast fix:
+   --ink-muted #715B79 → #6B5573 (as assigned it was 4.42:1 on --bg-alt, under AA for body text; now 4.84:1).
+   Derived tokens (added, not swapped) are grouped at the end. */
+:root {
+  /* Assigned palette (60-30-10) */
+  --bg: #F2E8F5;            /* 60: dusty lavender page base */
+  --bg-alt: #E7D7ED;        /* tinted section panel */
+  --surface: #FFFFFF;       /* cards */
+  --ink: #26182A;           /* body text — 14.15:1 on --bg */
+  --ink-muted: #6B5573;     /* secondary text — adjusted for AA on --bg-alt (4.84:1) */
+  --line: #DBD1DE;          /* hairlines */
+  --brand: #4B2159;         /* 30: deep plum — closing band, headings on tint */
+  --on-brand: #F2E8F5;
+  --accent: #B3582A;        /* 10: warm clay — CTA fills, rules */
+  --accent-hover: #9A4820;
+  --on-accent: #FFFFFF;     /* 4.83:1 on --accent */
+
+  /* Derived (site-specific, on-brand) */
+  --accent-ink: #9A4820;        /* clay as TEXT: 5.31:1 on --bg, 4.62:1 on --bg-alt */
+  --brand-card: rgba(38, 20, 46, 0.93);  /* the dark card that sits over the bright photo */
+  --brand-soft: rgba(242, 232, 245, 0.72);
+  --brand-line: rgba(242, 232, 245, 0.22);
+  --line-strong: #C8BACD;       /* price-list leaders, stronger hairline */
+  --tint-veil: rgba(75, 33, 89, 0.05);
+
+  /* Type — DM Serif Display (400 only) + DM Sans */
+  --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.18vw, 1.09rem);      /* body */
+  --fs-1: clamp(1.14rem, 1.02rem + 0.5vw, 1.4rem);     /* lead */
+  --fs-2: clamp(1.35rem, 1.2rem + 0.8vw, 1.75rem);     /* h3 */
+  --fs-3: clamp(1.85rem, 1.35rem + 2.1vw, 2.9rem);     /* h2 */
+  --fs-4: clamp(2.7rem, 1.6rem + 5.4vw, 5.1rem);       /* h1 */
+  --lh-body: 1.65;
+  --lh-head: 1.08;
+  --track-label: 0.14em;   /* uppercase clay labels */
+
+  /* Shape & depth — sharp corners, hairlines over shadows (Calm · Luxe) */
+  --radius: 3px;
+  --radius-sm: 2px;
+  --shadow: 0 18px 44px rgba(38, 20, 46, 0.22);
+  --shadow-sm: 0 1px 2px rgba(38, 20, 46, 0.06);
+
+  /* Space — density axis left: give it air */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 2.75rem;
+  --space-5: 4.5rem;
+  --section-y: clamp(4.5rem, 8vw, 8rem);
+  --measure: 60ch;
+  --container: 1120px;
+  --gutter: clamp(1.25rem, 5vw, 2.5rem);
+
+  /* Motion — fades only, quiet */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

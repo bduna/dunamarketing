@@ -1,0 +1,61 @@
+/* tokens.css — Stone Oven Pizzeria.
+   Palette = brief.assigned.palette, copied VERBATIM (all 11 tokens, exact hex). Base family: dark saturated.
+   Fonts = brief.assigned.fonts verbatim: Archivo Black + Work Sans. Archetype = D, menu-first.
+   AA measured: ink/bg 14.0:1 · ink/surface 12.3:1 · ink-muted/bg 5.3:1 · ink-muted/surface 4.66:1
+                gold/bg 6.1:1 · on-accent/accent 6.1:1 · on-accent/accent-hover 4.6:1 — nothing needed adjusting. */
+:root {
+  /* ── assigned palette (verbatim) ───────────────────────────── */
+  --bg: #3E120F;            /* 60: deep tomato red — the client's own first colour word */
+  --bg-alt: #4E1A15;        /* tinted section panels */
+  --surface: #4E1A15;       /* cards, the menu board */
+  --ink: #F1EEEE;           /* flour white — all reading */
+  --ink-muted: #A58F8D;     /* secondary text */
+  --line: #492A27;          /* hairlines */
+  --brand: #CB952A;         /* 30: coal-glow gold — bands, rules */
+  --on-brand: #3E120F;
+  --accent: #CB952A;        /* 10: the one accent — CTAs, prices */
+  --accent-hover: #B08021;
+  --on-accent: #3E120F;
+
+  /* ── derived, site-specific (tints/hairlines only — no palette swaps) ── */
+  --char: #17100E;          /* their "char black": the T5 card, the footer, hard offsets */
+  --flour: #F1EEEE;         /* their "flour white" as a surface, not just as ink */
+  --on-flour: #2A0C0A;      /* 15.7:1 on --flour */
+  --hair: rgba(241, 238, 238, 0.24);   /* the menu board's dotted leaders — decorative, needs to be visible */
+  --ember: rgba(203, 149, 42, 0.16);
+  --on-brand-muted: rgba(62, 18, 15, 0.88);   /* 5.0:1 on --brand (0.78 measured 4.19 — raised to clear AA) */
+
+  /* ── type: Archivo Black (single 400 weight — hierarchy from size + case) + Work Sans ── */
+  --font-display: "Archivo Black", "Arial Black", Impact, system-ui, sans-serif;
+  --font-body: "Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
+  --fs-1: clamp(1.1rem, 1rem + 0.5vw, 1.32rem);
+  --fs-2: clamp(1.3rem, 1.12rem + 0.85vw, 1.8rem);
+  --fs-3: clamp(1.7rem, 1.35rem + 1.8vw, 2.55rem);
+  --fs-4: clamp(2.2rem, 1.6rem + 3.6vw, 4rem);
+  --lh-body: 1.62;
+  --lh-head: 1.04;
+  --track-label: 0.12em;
+
+  /* ── shape & depth: one stance — nearly square, rugged. The arches are the deliberate exception. ── */
+  --radius: 6px;
+  --radius-sm: 4px;
+  --arch: 50% 50% var(--radius) var(--radius) / 26% 26% var(--radius) var(--radius);
+  --shadow: 0 22px 54px rgba(9, 4, 3, 0.62);
+  --shadow-sm: 0 3px 14px rgba(9, 4, 3, 0.42);
+
+  /* ── space (density right/rich) ── */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.25rem, 5.5vw, 5.75rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+
+  /* ── motion (tone right: quick, no bounce) ── */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 190ms;
+}

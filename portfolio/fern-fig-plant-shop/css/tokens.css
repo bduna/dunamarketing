@@ -1,0 +1,57 @@
+/* tokens.css — Fern & Fig Plant Shop.
+   Palette is brief.assigned.palette, copied verbatim (11 tokens, exact hex). Family: tinted sage/green.
+   Contrast: ink/bg 13.4:1 · ink-muted/bg 5.05:1 · ink-muted/bg-alt 4.61:1 · white/accent 6.13:1 ·
+   on-brand/brand 8.04:1 · accent-as-eyebrow/bg 5.46:1. */
+:root {
+  /* --- assigned palette: do not substitute --- */
+  --bg: #E8F5EB;
+  --bg-alt: #D7EDDC;
+  --surface: #FFFFFF;
+  --ink: #182A1D;
+  --ink-muted: #526D59;
+  --line: #D1DED4;
+  --brand: #1E522B;
+  --on-brand: #E8F5EB;
+  --accent: #B62B42;
+  --accent-hover: #9D2035;
+  --on-accent: #FFFFFF;
+
+  /* --- derived from the above, site-specific --- */
+  --tint: rgba(255, 255, 255, 0.55);        /* cream plate over the sage base */
+  --hairline: rgba(30, 82, 43, 0.14);       /* --brand at 14% */
+  --on-brand-muted: rgba(232, 245, 235, 0.78);
+  --shelf: var(--accent);                    /* the 28px eyebrow rule — the shelf motif */
+
+  /* Type — Fraunces + Work Sans (brief.assigned.fonts) */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);      /* body — never below 16px */
+  --fs-1: clamp(1.12rem, 1.02rem + 0.5vw, 1.35rem);    /* lead */
+  --fs-2: clamp(1.35rem, 1.18rem + 0.8vw, 1.75rem);    /* h3 */
+  --fs-3: clamp(1.75rem, 1.35rem + 1.9vw, 2.6rem);     /* h2 */
+  --fs-4: clamp(2.3rem, 1.55rem + 4vw, 4rem);          /* h1 */
+  --lh-body: 1.65;
+  --lh-head: 1.08;
+  --track-label: 0.1em;
+
+  /* Shape & depth — soft, low, one stance */
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 12px 30px rgba(24, 42, 29, 0.10);
+  --shadow-sm: 0 2px 10px rgba(24, 42, 29, 0.07);
+
+  /* Space — density axis is left/airy */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.6rem;
+  --space-4: 2.6rem;
+  --space-5: 4.25rem;
+  --section-y: clamp(3.75rem, 6.5vw, 7rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1.15rem, 4vw, 2.25rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 220ms;
+}

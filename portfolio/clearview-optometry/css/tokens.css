@@ -1,0 +1,60 @@
+/* tokens.css — Clearview Optometry.
+   Palette = brief.assigned.palette, copied VERBATIM (family: cool gray-white).
+   The client said their colours are "cool slate and soft teal" — which is exactly this, so nothing was substituted.
+   Contrast measured: ink/bg 15.9:1 · ink-muted/bg 5.6:1 · on-accent/accent 4.9:1 · on-brand/brand 12.5:1 · accent/bg 4.6:1
+   Derived tokens (below the assigned block) fix the two places where the assigned accent is too light — without
+   changing any assigned value: accent on --bg-alt is 4.3:1 and accent on --brand is 2.7:1. */
+:root {
+  /* ── assigned palette (verbatim) ─────────────────────────────── */
+  --bg: #F8F8FA;
+  --bg-alt: #EFF0F3;
+  --surface: #FFFFFF;
+  --ink: #181C2A;
+  --ink-muted: #5C637A;
+  --line: #D4D5DB;
+  --brand: #212D59;
+  --on-brand: #F8F8FA;
+  --accent: #1F7C84;
+  --accent-hover: #16636A;
+  --on-accent: #FFFFFF;
+
+  /* ── derived from the above, site-specific ───────────────────── */
+  --accent-ink: #16636A;      /* accent-COLOURED TEXT on --bg / --bg-alt → 6.6:1 / 6.1:1 (accent itself is 4.3:1 on bg-alt) */
+  --accent-lift: #7FD4DB;     /* eyebrows + focus rings on the navy band → 7.8:1 (accent on navy is only 2.7:1) */
+  --on-brand-muted: #B9BFD4;  /* secondary text on the navy band → 7.2:1 */
+  --brand-tint: #E7EAF2;      /* navy at ~8% over the page — chart-row fills, chips */
+  --hairline: #E4E5EA;        /* lighter than --line, for the internal rule system */
+
+  /* Type — assigned pairing: Space Grotesk (display) + Inter (body) */
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1.0625rem, 1.02rem + 0.18vw, 1.125rem);  /* body — 17px floor */
+  --fs-1: clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);    /* lead */
+  --fs-2: clamp(1.3125rem, 1.22rem + 0.5vw, 1.5rem);     /* h3 */
+  --fs-3: clamp(1.75rem, 1.45rem + 1.5vw, 2.5rem);       /* h2 */
+  --fs-4: clamp(2.5rem, 1.7rem + 4vw, 4.25rem);          /* h1 — the top step of the acuity scale */
+  --lh-body: 1.62;
+  --lh-head: 1.06;
+  --track-label: 0.14em;   /* wide-tracked uppercase labels — the calm/sleek register */
+
+  /* Shape & depth — flat and quiet; shadows only where a card sits on a photograph */
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 26px 60px rgba(24, 28, 42, 0.30);
+  --shadow-sm: 0 1px 2px rgba(24, 28, 42, 0.06);
+
+  /* Space — density axis is LEFT (Sleek · Calm · Simple): airy */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.625rem;
+  --space-4: 2.75rem;
+  --space-5: 4.5rem;
+  --section-y: clamp(4rem, 7vw, 7.5rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1.25rem, 5vw, 2.5rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 220ms;
+}

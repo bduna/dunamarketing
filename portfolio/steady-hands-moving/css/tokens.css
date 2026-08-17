@@ -1,0 +1,57 @@
+/* tokens.css — Steady Hands Moving.
+   Palette: assigned by the orchestrator (family "tinted sky/slate blue"), copied verbatim — do not swap.
+   Derived tokens are marked; they exist to pass AA where a palette value is used at small sizes. */
+:root {
+  /* ===== Assigned palette (verbatim) ===== */
+  --bg: #E8ECF5;            /* 60: tinted sky base */
+  --bg-alt: #D7DEED;        /* tinted section background */
+  --surface: #FFFFFF;       /* cards, the rate panel */
+  --ink: #181E2A;           /* body text — 14.6:1 on --bg */
+  --ink-muted: #5A6477;     /* secondary text — 5.0:1 on --bg */
+  --line: #D1D5DE;          /* hairlines */
+  --brand: #213459;         /* 30: slate navy bands, nav active */
+  --on-brand: #E8ECF5;
+  --accent: #A95E28;        /* 10: hazard orange — CTAs, prices */
+  --accent-hover: #904D1D;
+  --on-accent: #FFFFFF;     /* 4.9:1 on --accent */
+
+  /* ===== Derived (site-specific, contrast-driven) ===== */
+  --accent-ink: #904D1D;    /* accent as SMALL text: 5.4:1 on --bg (raw --accent is 4.1:1 → AA fail) */
+  --brand-eyebrow: #E9B98A; /* warm eyebrow on --brand bands: 6.9:1 (orange on navy would be 2.5:1) */
+  --brand-line: #3C5686;    /* hairline inside navy bands */
+  --brand-deep: #16233C;    /* footer / band foot, one step under --brand */
+  --tint: #F3F6FB;          /* a lift off --bg for the rate panel head */
+
+  /* ===== Type — Work Sans (display) + Inter (body), assigned ===== */
+  --font-display: "Work Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.18vw, 1.08rem);    /* body */
+  --fs-1: clamp(1.1rem, 1.02rem + 0.42vw, 1.3rem);   /* lead */
+  --fs-2: clamp(1.3rem, 1.16rem + 0.7vw, 1.65rem);   /* h3 */
+  --fs-3: clamp(1.7rem, 1.35rem + 1.7vw, 2.45rem);   /* h2 */
+  --fs-4: clamp(2.2rem, 1.5rem + 3.6vw, 3.7rem);     /* h1 */
+  --lh-body: 1.6;
+  --lh-head: 1.08;
+  --track-label: 0.1em;
+
+  /* ===== Shape & depth — near-square, flat: trade utility, not rounded SaaS ===== */
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow: 0 18px 40px rgba(24, 30, 42, 0.22);   /* only for cards that sit on a photo */
+  --shadow-sm: 0 1px 2px rgba(24, 30, 42, 0.10);
+
+  /* ===== Space ===== */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.25rem, 6vw, 6rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1.1rem, 4vw, 2rem);
+
+  /* ===== Motion ===== */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

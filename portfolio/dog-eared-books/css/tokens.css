@@ -1,0 +1,60 @@
+/* tokens.css — Dog-Eared Books.
+   Palette = brief.assigned.palette, copied VERBATIM (all 11 tokens, exact hex). Family: warm off-white (cream).
+   Archetype: C typographic. Fonts: Libre Baskerville + Work Sans (brief.assigned.fonts).
+   Measured contrast: ink/bg 14.9 · ink-muted/bg 5.06 · accent/bg 4.81 · on-accent/accent 5.14 · on-brand/brand 8.37 */
+:root {
+  /* ---- assigned palette (verbatim) ---- */
+  --bg: #FAF7F2;
+  --bg-alt: #F4F0E6;
+  --surface: #FFFFFF;
+  --ink: #2A2418;
+  --ink-muted: #736957;
+  --line: #DFDAD0;
+  --brand: #594721;
+  --on-brand: #FAF7F2;
+  --accent: #B64D2B;
+  --accent-hover: #9D3F20;
+  --on-accent: #FFFFFF;
+
+  /* ---- derived from the above (site-specific, not substitutions) ---- */
+  --accent-tint: #F6E7DF;          /* accent at ~12% over --bg */
+  --brand-tint: #EFE9DC;           /* brand at ~10% over --bg */
+  --fold: #E8E1D2;                 /* the dog-ear fold face */
+  --line-strong: #C9C1B2;          /* rules that must read at a glance */
+  --on-brand-muted: #D8CDB8;       /* 5.68:1 on --brand — secondary text inside the walnut band */
+  --scrim-soft: rgba(42, 36, 24, 0.16);  /* whisper only; never a T4 scrim */
+
+  /* ---- Type: Libre Baskerville (display, book face) + Work Sans (body/UI) ---- */
+  --font-display: "Libre Baskerville", Georgia, "Times New Roman", serif;
+  --font-body: "Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs--1: clamp(0.8rem, 0.78rem + 0.1vw, 0.86rem);  /* labels, price tags */
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);     /* body */
+  --fs-1: clamp(1.12rem, 1.04rem + 0.4vw, 1.3rem);   /* lead */
+  --fs-2: clamp(1.24rem, 1.14rem + 0.6vw, 1.55rem);  /* h3 */
+  --fs-3: clamp(1.6rem, 1.3rem + 1.5vw, 2.35rem);    /* h2 */
+  --fs-4: clamp(2.05rem, 1.35rem + 3.4vw, 3.65rem);  /* h1 — Baskerville runs large, so a gentler top end */
+  --lh-body: 1.65;
+  --lh-head: 1.14;
+  --track-label: 0.14em;
+
+  /* ---- Shape & depth: paper, not plastic. 2px corners; hairlines do the work. ---- */
+  --radius: 2px;
+  --radius-sm: 2px;
+  --shadow: 0 14px 34px rgba(42, 36, 24, 0.16);      /* only for cards sitting on a photograph */
+  --shadow-sm: 0 1px 2px rgba(42, 36, 24, 0.06);
+
+  /* ---- Space: density axis is left (calm, roomy) ---- */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(4rem, 7vw, 7rem);
+  --measure: 58ch;
+  --container: 1160px;
+  --gutter: clamp(1.15rem, 4vw, 2.25rem);
+
+  /* ---- Motion: calm ---- */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}
