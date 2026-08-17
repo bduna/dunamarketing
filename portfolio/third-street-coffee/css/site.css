@@ -54,15 +54,40 @@ h1, h2, h3 { font-weight: 400; letter-spacing: -0.005em; }
 .menu-note { margin: var(--space-3) 0 0; display: flex; gap: 0.6rem; align-items: center; color: var(--ink-muted); font-size: 0.95rem; }
 .menu-note svg { color: var(--accent); flex: none; }
 
-/* ---- Full-bleed photo band ---- */
-.band { min-height: clamp(300px, 50vw, 520px); }
-.band img { object-position: center 55%; }
-.band__caption { position: relative; z-index: 1; min-height: inherit; display: flex; align-items: flex-end; padding-block: var(--space-5); color: #fff; }
-.band .container { position: relative; }
-.band .container::before { content: ""; position: absolute; left: -100vw; right: -100vw; top: 0; bottom: 0; background: linear-gradient(180deg, rgba(12,7,4,0.15) 25%, rgba(12,7,4,0.92) 100%); z-index: 0; }
-.band .container > * { position: relative; z-index: 1; }
-.band__caption p { font-family: var(--font-display); font-size: var(--fs-3); margin: 0; max-width: 20ch; text-shadow: 0 2px 18px rgba(0,0,0,0.3); }
-.band__caption small { display: block; font-family: var(--font-body); font-weight: 600; font-size: 0.95rem; opacity: 0.92; margin-top: 0.5rem; }
+/* ---- T5: full-bleed photo kept BRIGHT, words in a contained cream card ----
+   Replaces the old scrimmed .band (T4). The hero is the site's only T4 surface;
+   photo bands keep the photograph legible and put the type on a card instead. */
+.photostage { position: relative; display: grid; align-items: center; overflow: hidden; min-height: clamp(440px, 62vh, 660px); }
+.photostage--band { min-height: clamp(340px, 46vw, 520px); }
+.photostage__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
+/* Only a whisper of scrim, to seat the frame in the espresso page — NOT a T4 scrim. */
+.photostage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,7,4,0.20) 0%, rgba(12,7,4,0.10) 45%, rgba(12,7,4,0.32) 100%); }
+/* Bands keep the photograph bright — barely any veil, and a small lift so the moody frames read. */
+.photostage--band::after { background: linear-gradient(180deg, rgba(12,7,4,0.10) 0%, rgba(12,7,4,0) 40%, rgba(12,7,4,0.18) 100%); }
+.photostage--band .photostage__img { filter: brightness(1.12) saturate(1.03); }
+.photostage__inner { position: relative; z-index: 1; display: flex; padding-block: clamp(2rem, 5vw, 4rem); }
+.photostage__inner--end { justify-content: flex-end; }
+
+.pcard { position: relative; max-width: 31rem; padding: clamp(1.35rem, 3.2vw, 2.25rem); border-radius: var(--radius); }
+/* Cream card on a dark-espresso site = the biggest jump from the page base.
+   Separation comes from three things at once: shadow, hairline, and an offset terracotta bracket. */
+.pcard--light { background: #F7EFE6; color: #1B1512; border: 1px solid rgba(27,21,18,0.16); box-shadow: 0 22px 55px rgba(8,4,2,0.62), 0 3px 12px rgba(8,4,2,0.35); }
+.pcard--light::before { content: ""; position: absolute; left: -9px; bottom: -9px; width: 74px; height: 74px; border-left: 3px solid var(--accent); border-bottom: 3px solid var(--accent); border-bottom-left-radius: var(--radius); pointer-events: none; }
+.pcard--dark { background: rgba(20,15,12,0.94); color: var(--ink); border: 1px solid rgba(247,239,230,0.16); box-shadow: var(--shadow); }
+.pcard--dark .lead, .pcard--dark .muted, .pcard--dark small, .pcard--dark footer { color: var(--ink-muted); }
+
+.pcard--band p { font-family: var(--font-display); font-size: var(--fs-3); line-height: 1.14; margin: 0; max-width: 21ch; }
+.pcard--band small { display: block; font-family: var(--font-body); font-weight: 600; font-size: 0.95rem; color: #6A5346; margin-top: 0.6rem; }
+/* Ink and accents that hold up on cream (terracotta is a fill/heading colour here, not small text). */
+.pcard--light .lead, .pcard--light .muted, .pcard--light footer { color: #6A5346; }
+.pcard--light .eyebrow { color: #A2431E; }
+.pcard--light .eyebrow::before { background: var(--accent); }
+/* Buttons inside a light card must not go light-on-light. */
+.pcard--light .btn--primary { background-color: var(--accent); color: var(--on-accent); box-shadow: 0 4px 14px rgba(27,21,18,0.25); }
+.pcard--light .btn--primary:hover, .pcard--light .btn--primary:focus-visible { background: #C9622F; color: #FFF6EE; }
+.pcard--light .btn--ghost { color: #1B1512; border-color: rgba(27,21,18,0.45); background: transparent; }
+.pcard--light .btn--ghost:hover, .pcard--light .btn--ghost:focus-visible { background: rgba(27,21,18,0.08); }
+.pcard__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
 
 /* ---- Testimonials ---- */
 .quotes { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
@@ -107,6 +132,17 @@ h1, h2, h3 { font-weight: 400; letter-spacing: -0.005em; }
 @media (max-width: 819px) {
   .hero { min-height: 78vh; }
   .hero__lede { max-width: none; }
+}
+
+/* pre-existing narrow-screen overflow: the email in the close band's 2-up grid was
+   wider than its column and pushed the page to 403px. One column below 520px. */
+@media (max-width: 520px) { .contact-list { grid-template-columns: 1fr; } }
+
+@media (max-width: 700px) {
+  .pcard { max-width: none; }
+  .photostage__inner--end { justify-content: flex-start; }
+  .photostage--band { min-height: clamp(360px, 96vw, 460px); }
+  .pcard--band p { max-width: none; font-size: var(--fs-2); }
 }
 
 /* ---- Dark-base overrides for shared base.css rules tuned for a light page ---- */
