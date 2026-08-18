@@ -1,0 +1,57 @@
+/* tokens.css — Crosstown Driving School
+   Palette: brief.assigned.palette, copied verbatim (all 12 tokens, exact hex).
+   Family: cool gray-white. Accent is BRIGHT with DARK --on-accent — that is deliberate.
+   --accent-ink is the darkened accent step, for small type only (eyebrows, prices, labels). */
+:root {
+  /* --- assigned palette (verbatim) --- */
+  --bg: #F3F5F6;            /* 60: cool gray-white page */
+  --bg-alt: #EAEDEF;        /* tinted panel */
+  --surface: #FFFFFF;       /* cards */
+  --ink: #18232A;           /* body text — 16.4:1 on --bg */
+  --ink-muted: #566671;     /* secondary text — 5.43:1 on --bg */
+  --line: #D4D8DB;          /* hairlines */
+  --brand: #214359;         /* 30: road blue-grey — bands only */
+  --on-brand: #F3F5F6;      /* 9.54:1 on --brand */
+  --accent: #E3B11C;        /* 10: signal yellow — FILLS ONLY, never small type */
+  --accent-hover: #E9BC35;
+  --on-accent: #18232A;     /* dark ink on the bright accent — 8.05:1 */
+  --accent-ink: #7F6515;    /* small accent type — 5.09:1 on --bg, 4.73:1 on --bg-alt */
+
+  /* --- derived (site-specific, not identity) --- */
+  --brand-deep: #17303F;          /* one step down from --brand, for the footer of a brand band */
+  --on-brand-muted: rgba(243, 245, 246, 0.78);
+  --line-on-brand: rgba(243, 245, 246, 0.22);
+
+  /* Type — brief.assigned.fonts: Archivo + Inter */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);      /* body */
+  --fs-1: clamp(1.12rem, 1.02rem + 0.5vw, 1.35rem);    /* lead */
+  --fs-2: clamp(1.35rem, 1.15rem + 0.9vw, 1.8rem);     /* h3 */
+  --fs-3: clamp(1.75rem, 1.35rem + 2vw, 2.6rem);       /* h2 */
+  --fs-4: clamp(2.35rem, 1.55rem + 4.4vw, 4.3rem);     /* h1 */
+  --lh-body: 1.62;
+  --lh-head: 1.05;
+  --track-label: 0.1em;
+
+  /* Shape & depth — warmth axis is left: softened, but not bubbly */
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 18px 44px rgba(24, 35, 42, 0.14);
+  --shadow-sm: 0 2px 10px rgba(24, 35, 42, 0.07);
+
+  /* Space — density axis is middle */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.5rem, 6vw, 6rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1.15rem, 4vw, 2rem);
+
+  /* Motion — tone axis is middle: fade/rise only */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 220ms;
+}

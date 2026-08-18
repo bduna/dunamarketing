@@ -1,0 +1,57 @@
+/* Tallgrass Ramen — tokens.
+   Palette = brief.assigned.palette, copied VERBATIM (dark warm / espresso + chili red).
+   Measured on this base: ink 15.1:1 · ink-muted 6.2:1 · white-on-accent 5.0:1.
+   --accent (#CB3A2A) on --bg is 3.4:1, so it is NEVER used for small type — --accent-ink is. */
+:root {
+  /* ---- assigned palette (do not edit) ---- */
+  --bg: #1C130F;
+  --bg-alt: #2A1E18;
+  --surface: #2A1E18;
+  --ink: #F1EFEE;
+  --ink-muted: #A5958D;
+  --line: #4A3E37;
+  --brand: #CB3A2A;
+  --on-brand: #FFFFFF;
+  --accent: #CB3A2A;
+  --accent-hover: #DA4E3E;
+  --on-accent: #FFFFFF;
+
+  /* ---- derived (site-specific, legibility only) ---- */
+  --accent-ink: #E36152;      /* 6.2:1 on --bg, 5.4:1 on --surface — eyebrows, prices, small labels */
+  --surface-2: #3B2E22;       /* raised card on a tinted section */
+  --line-soft: rgba(241, 240, 238, 0.12);
+  --on-brand-soft: rgba(255, 255, 255, 0.86);
+
+  /* Type — brief.assigned.fonts: Archivo Black + Work Sans */
+  --font-display: "Archivo Black", "Arial Black", Impact, sans-serif;
+  --font-body: "Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1.0625rem, 1.02rem + 0.2vw, 1.125rem);   /* body — 17px floor */
+  --fs-1: clamp(1.15rem, 1.04rem + 0.5vw, 1.4rem);       /* lead */
+  --fs-2: clamp(1.3rem, 1.15rem + 0.8vw, 1.7rem);        /* h3 */
+  --fs-3: clamp(1.7rem, 1.35rem + 1.7vw, 2.5rem);        /* h2 */
+  --fs-4: clamp(2.2rem, 1.5rem + 3.6vw, 3.9rem);         /* h1 */
+  --lh-body: 1.62;
+  --lh-head: 1.06;
+  --track-label: 0.14em;
+
+  /* Shape & depth — near-sharp, hairlines over shadows */
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow: 0 22px 54px rgba(0, 0, 0, 0.55);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+
+  /* Space — density axis is "rich" */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.25rem, 5.5vw, 5.75rem);
+  --measure: 60ch;
+  --container: 1160px;
+  --gutter: clamp(1.1rem, 4vw, 2rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

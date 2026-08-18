@@ -1,0 +1,58 @@
+/* tokens.css — Harbor Point Veterinary
+   Palette: brief.assigned.palette, copied VERBATIM (family: tinted sky/slate blue).
+   Verified: --ink on --bg 13.7:1 · --ink-muted on --bg 5.71:1 · --on-brand on --brand 8.90:1
+             --on-accent on --accent 5.38:1 (dark ink on orange — deliberate, not inverted)
+             --accent-ink on --bg 5.25:1 (small text token) · --accent on --bg 2.55:1 → FILLS ONLY */
+:root {
+  /* Palette (60-30-10) */
+  --bg: #E6EEF4;            /* 60: tinted harbor-blue page */
+  --bg-alt: #D4E2EC;        /* tinted band */
+  --surface: #FFFFFF;       /* cards, price rows */
+  --ink: #18232A;           /* body text */
+  --ink-muted: #4F5E69;     /* secondary text */
+  --line: #D1D9DE;          /* hairlines */
+  --brand: #214359;         /* 30: harbor blue — hero panel, closing band, footer */
+  --on-brand: #E6EEF4;
+  --accent: #E3791C;        /* 10: warm coral — FILLS ONLY (2.55:1 on --bg) */
+  --accent-hover: #E98935;
+  --on-accent: #18232A;     /* dark ink on the accent — assigned, do not invert */
+  --accent-ink: #925118;    /* darkened accent for SMALL TEXT: eyebrows, prices, labels */
+
+  /* Derived (site-specific, built on the assigned palette) */
+  --brand-deep: #17303F;    /* footer under the closing band */
+  --on-brand-muted: #B9CEDC;/* secondary text on --brand — 5.9:1 */
+  --line-on-brand: rgba(230, 238, 244, 0.22);
+
+  /* Type — Nunito Sans + Nunito Sans (brief.assigned.fonts); hierarchy from weight, not a 2nd face */
+  --font-display: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);      /* body — never below 16px */
+  --fs-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);   /* lead */
+  --fs-2: clamp(1.35rem, 1.2rem + 0.8vw, 1.7rem);    /* h3 */
+  --fs-3: clamp(1.75rem, 1.35rem + 1.9vw, 2.6rem);   /* h2 */
+  --fs-4: clamp(2.3rem, 1.6rem + 3.4vw, 3.9rem);     /* h1 */
+  --lh-body: 1.65;
+  --lh-head: 1.12;
+  --track-label: 0.1em;
+
+  /* Shape & depth — warmth axis = left: soft, rounded, blue-tinted shadows (never neutral grey) */
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 12px 32px rgba(33, 67, 89, 0.10);
+  --shadow-sm: 0 2px 10px rgba(33, 67, 89, 0.08);
+
+  /* Space — density axis = left: generous, one idea per band */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(4rem, 7vw, 7rem);
+  --measure: 60ch;
+  --container: 1120px;
+  --gutter: clamp(1.15rem, 4vw, 2rem);
+
+  /* Motion — tone axis = left but the audience is anxious: calm fades only */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

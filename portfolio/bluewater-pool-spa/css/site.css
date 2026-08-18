@@ -1,0 +1,151 @@
+/* site.css — everything specific to Bluewater Pool & Spa. Tokens live in tokens.css.
+   Signature element: "the photo when we leave" — a photograph presented as a receipt, in a white
+   frame with a caption strip. Used in the hero (T2) and echoed once in the proof band (T5). */
+
+/* ---------- type ---------- */
+h1, h2, h3, h4 { font-weight: 800; letter-spacing: -0.03em; }
+h2 { font-size: var(--fs-3); }
+h3 { font-size: var(--fs-2); letter-spacing: -0.02em; }
+p { max-width: var(--measure); }
+.lead { line-height: 1.55; }
+.eyebrow { font-size: 0.775rem; font-weight: 800; letter-spacing: var(--track-label); }
+.rule { width: 44px; height: 3px; background: var(--accent); border-radius: 2px; margin: 0 0 var(--space-2); }
+.sec-head { max-width: 46rem; margin-bottom: var(--space-4); }
+.sec-head p { margin-bottom: 0; }
+
+/* ---------- header ---------- */
+.site-header { border-bottom: 1px solid var(--line); }
+.brand { font-weight: 800; letter-spacing: -0.02em; gap: 0.55rem; }
+.brand svg { width: 30px; height: 30px; flex: none; }
+.brand span { white-space: nowrap; }
+.nav a:not(.btn) { font-weight: 700; font-size: 0.95rem; }
+.nav .btn { padding: 0.6rem 1.1rem; min-height: 44px; }
+/* the nav needs to collapse earlier than base.css does — five links + a CTA crowd at 768 */
+@media (max-width: 899px) {
+  .nav-toggle { display: inline-flex; }
+  .nav { position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; align-items: stretch; gap: 0; background: var(--bg); border-bottom: 1px solid var(--line); padding: var(--space-2) var(--gutter); display: none; box-shadow: var(--shadow); }
+  .nav.is-open { display: flex; }
+  .nav a:not(.btn) { padding: 0.8rem 0; border-bottom: 1px solid var(--line); }
+  .nav .btn { margin-top: var(--space-2); min-height: 48px; }
+  .cta-bar { display: block; }
+  body.has-cta-bar { padding-bottom: 84px; }
+}
+
+/* ---------- hero — T2: saturated brand band, inverted text, photo kept bright in a frame ---------- */
+.hero { background: var(--brand); color: var(--on-brand); padding-block: clamp(2.75rem, 5.5vw, 5rem); }
+.hero__grid { display: grid; gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
+@media (min-width: 900px) { .hero__grid { grid-template-columns: 1.05fr 0.95fr; } }
+.hero .eyebrow { color: var(--on-brand-muted); }
+.hero h1 { margin-bottom: var(--space-3); text-wrap: balance; }
+.nw { white-space: nowrap; }
+.hero__lead { font-size: var(--fs-1); color: var(--on-brand-muted); max-width: 34rem; margin-bottom: var(--space-3); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: var(--space-3); }
+.hero__hours { font-size: 0.95rem; color: var(--on-brand-muted); margin: 0; display: flex; align-items: center; gap: 0.5rem; }
+.hero__hours svg { width: 17px; height: 17px; flex: none; }
+
+/* the receipt frame */
+.frame { background: var(--surface); border-radius: var(--radius); padding: 0.7rem 0.7rem 0; box-shadow: var(--shadow); overflow: hidden; }
+.frame img { width: 100%; border-radius: 8px; display: block; }
+.frame__cap { display: flex; align-items: center; gap: 0.55rem; padding: 0.85rem 0.25rem; margin: 0; font-size: 0.9rem; font-weight: 600; color: #3E5257; max-width: none; }
+.frame__cap svg { width: 18px; height: 18px; flex: none; color: var(--accent-ink); }
+.hero .frame { max-width: 23.5rem; margin-inline: auto; }
+.hero .frame img { aspect-ratio: 4 / 5; object-fit: cover; }
+
+/* buttons on the teal bands need a visible edge against the band */
+.section--brand .btn--primary, .hero .btn--primary { border: 2px solid var(--on-brand); }
+.section--brand .btn--ghost, .hero .btn--ghost { border-color: var(--on-brand); color: var(--on-brand); }
+.section--brand .btn--ghost:hover, .hero .btn--ghost:hover { background: rgba(236, 245, 247, 0.14); }
+
+/* ---------- trust strip — T1 tinted ---------- */
+.trust { background: var(--bg-alt); border-block: 1px solid var(--line); padding-block: var(--space-3); }
+.trust ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+.trust li { display: flex; align-items: center; gap: 0.65rem; font-weight: 700; font-size: 0.98rem; }
+.trust svg { width: 21px; height: 21px; flex: none; color: var(--accent-ink); }
+
+/* ---------- services — T1, white cards on the page base ---------- */
+.svc { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 285px), 1fr)); }
+.svc__card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
+.svc__card h3 { margin-bottom: 0.5rem; }
+.svc__card p { color: var(--ink-muted); margin-bottom: var(--space-3); flex: 1; }
+.svc__price { font-weight: 800; font-size: 1.05rem; color: var(--accent-ink); border-top: 1px solid var(--line); padding-top: 0.85rem; }
+.svc__price--quote { color: var(--brand); }
+
+/* ---------- proof band — T5: bright photo + contained white card ---------- */
+.photostage--proof { min-height: clamp(460px, 60vw, 620px); }
+.photostage--proof::after { background: linear-gradient(90deg, rgba(24, 39, 42, 0.30), rgba(24, 39, 42, 0) 62%); }
+.pcard--light { color: var(--ink); border-radius: var(--radius); }
+.pcard--light .lead { color: var(--ink-muted); }
+.pcard h2 { margin-bottom: var(--space-2); }
+
+/* ---------- about — T3: photo beside text, no overlay ---------- */
+.about .media { box-shadow: var(--shadow); }
+.about blockquote { margin: 0 0 var(--space-3); padding-left: var(--space-3); border-left: 3px solid var(--accent); font-size: var(--fs-1); font-weight: 600; line-height: 1.5; }
+.about blockquote p { margin-bottom: 0; }
+.routes { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; margin: var(--space-3) 0 0; }
+.routes li { background: var(--bg-alt); border: 1px solid var(--line); border-radius: 999px; padding: 0.4rem 0.9rem; font-size: 0.9rem; font-weight: 700; }
+
+/* ---------- water band — T6: full-bleed photo, no text ---------- */
+.waterband { height: clamp(190px, 24vw, 320px); overflow: hidden; }
+.waterband img { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+
+/* ---------- testimonials — T1 tinted ---------- */
+.quotes { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+.quotes blockquote { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3); box-shadow: var(--shadow-sm); }
+.quotes p { font-size: var(--fs-1); font-weight: 600; line-height: 1.5; margin-bottom: var(--space-2); }
+.quotes cite { font-style: normal; font-weight: 800; font-size: 0.92rem; color: var(--ink-muted); }
+.quotes svg { width: 26px; height: 26px; color: var(--accent-ink); margin-bottom: 0.6rem; }
+
+/* ---------- quote form — T1 ---------- */
+.quote__grid { display: grid; gap: var(--space-4); align-items: start; }
+@media (min-width: 900px) { .quote__grid { grid-template-columns: 1.25fr 0.75fr; } }
+.quote__card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.3rem, 3vw, 2.2rem); box-shadow: var(--shadow); }
+.quote-form label { display: flex; flex-direction: column; gap: 0.35rem; font-weight: 700; font-size: 0.92rem; }
+.quote-form input, .quote-form textarea { padding: 0.8rem 0.9rem; border: 1.5px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); font-weight: 500; font-size: 1rem; }
+.quote-form input:focus, .quote-form textarea:focus { outline: 3px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.quote-form__grid { display: grid; gap: var(--space-2); grid-template-columns: 1fr; margin-bottom: var(--space-3); }
+@media (min-width: 640px) { .quote-form__grid { grid-template-columns: 1fr 1fr; } .quote-form__wide { grid-column: 1 / -1; } }
+.quote-form__note { font-size: 0.9rem; margin: var(--space-2) 0 0; }
+.quote-form .btn { width: 100%; }
+@media (min-width: 640px) { .quote-form .btn { width: auto; } }
+.contactlist { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-3); }
+.contactlist li { display: flex; gap: 0.8rem; align-items: flex-start; }
+.contactlist svg { width: 20px; height: 20px; flex: none; margin-top: 0.2rem; color: var(--accent-ink); }
+.contactlist b { display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: var(--track-label); color: var(--brand); font-weight: 800; }
+.contactlist a { font-weight: 700; text-decoration: none; }
+.contactlist a:hover { text-decoration: underline; }
+
+/* ---------- footer — brand band ---------- */
+.site-footer { background: var(--brand); color: var(--on-brand-muted); border-top: 0; padding-block: var(--space-4) var(--space-3); }
+.site-footer .container { grid-template-columns: 1fr; }
+@media (min-width: 700px) { .site-footer .container { grid-template-columns: 1.6fr 1fr 1fr; gap: var(--space-4); } }
+.site-footer h2 { font-size: 1.1rem; color: var(--on-brand); margin-bottom: 0.6rem; }
+.site-footer p { max-width: 34ch; }
+.site-footer a { color: var(--on-brand); font-weight: 700; text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+.site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.4rem; }
+.footer__legal { grid-column: 1 / -1; border-top: 1px solid var(--line-on-brand); margin-top: var(--space-3); padding-top: var(--space-3); display: flex; flex-wrap: wrap; gap: 0.5rem var(--space-3); font-size: 0.85rem; }
+.footer__legal p { max-width: none; margin: 0; }
+
+/* ---------- sticky mobile CTA ---------- */
+.cta-bar { background: var(--surface); border-top: 1px solid var(--line); }
+
+/* ---------- services page ---------- */
+.pagehero { padding-block: clamp(2.5rem, 5vw, 4.5rem) 0; }
+.pagehero h1 { font-size: clamp(1.95rem, 1.45rem + 2.2vw, 2.95rem); }
+.pagehero .media { box-shadow: var(--shadow); }
+.pricelist { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+.pricelist li { display: grid; gap: 0.35rem 1.5rem; padding: var(--space-3) 0; border-bottom: 1px solid var(--line); }
+@media (min-width: 760px) { .pricelist li { grid-template-columns: 1fr auto; align-items: baseline; } }
+.pricelist h3 { margin: 0; }
+.pricelist p { color: var(--ink-muted); margin: 0; grid-column: 1; }
+.pricelist .svc__price { border: 0; padding: 0; white-space: nowrap; font-size: 1.1rem; }
+@media (min-width: 760px) { .pricelist .svc__price { grid-row: 1 / span 2; grid-column: 2; text-align: right; } }
+.steps { list-style: none; counter-reset: s; padding: 0; margin: 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3); box-shadow: var(--shadow-sm); }
+.steps li::before { content: counter(s); display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 999px; background: var(--brand); color: var(--on-brand); font-weight: 800; font-size: 0.95rem; margin-bottom: 0.9rem; }
+.steps h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+.steps p { color: var(--ink-muted); margin: 0; }
+.bandcta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); }
+.bandcta h2 { margin: 0 0 0.4rem; }
+.bandcta p { color: var(--on-brand-muted); margin: 0; }
+.closecta { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-4); align-items: center; }

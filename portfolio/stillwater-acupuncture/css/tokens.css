@@ -1,0 +1,61 @@
+/* tokens.css — Stillwater Acupuncture.
+   Palette = brief.assigned.palette, copied VERBATIM (all 12 tokens, exact hex). Family: tinted lavender.
+   Measured on this ground: ink 14.18:1 / ink-muted 5.82 / accent-ink 5.50 on --bg;
+   accent-ink 4.78 on --bg-alt and 6.57 on --surface; on-accent on accent 8.41; on-brand on brand 10.88. */
+:root {
+  /* --- assigned palette (do not edit) --- */
+  --bg: #F0E8F5;
+  --bg-alt: #E5D7ED;
+  --surface: #FFFFFF;
+  --ink: #24182A;
+  --ink-muted: #65536E;
+  --line: #D9D1DE;
+  --brand: #452159;
+  --on-brand: #F0E8F5;
+  --accent: #1AD175;
+  --accent-hover: #23E785;
+  --on-accent: #24182A;
+  --accent-ink: #116B3E;
+
+  /* --- derived (identity tokens above are untouched) --- */
+  /* --line measures 1.24:1 on --bg, so it is a tint, not a drawable rule. --hair is the rule. */
+  --hair: rgba(36, 24, 42, 0.16);
+  --hair-strong: rgba(36, 24, 42, 0.28);
+  --hair-invert: rgba(240, 232, 245, 0.28);
+  /* --accent is 1.69:1 on --bg: a filled control still needs a 3:1 boundary, so it gets a rim. */
+  --accent-rim: var(--accent-ink);
+
+  /* Type — Cormorant Garamond (display only) + Inter (everything read) */
+  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
+  --fs-1: clamp(1.12rem, 1.02rem + 0.5vw, 1.3rem);
+  --fs-2: clamp(1.45rem, 1.2rem + 1.1vw, 2rem);
+  --fs-3: clamp(1.9rem, 1.45rem + 2.2vw, 3rem);
+  --fs-4: clamp(2.6rem, 1.5rem + 5.2vw, 5.2rem);
+  --fs-num: clamp(2.4rem, 1.6rem + 3.2vw, 4rem);
+  --lh-body: 1.65;
+  --lh-head: 1.05;
+  --track-label: 0.14em;
+
+  /* Shape & depth — one stance: hairlines, not shadows */
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 18px 44px rgba(36, 24, 42, 0.22);
+  --shadow-sm: none;
+
+  /* Space — minimal density axis: fewer things, more air */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.6rem;
+  --space-4: 2.6rem;
+  --space-5: 4.5rem;
+  --section-y: clamp(4rem, 8vw, 7.5rem);
+  --measure: 34rem;
+  --container: 1160px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* Motion — tone middle: fade/rise only */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

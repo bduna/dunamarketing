@@ -1,0 +1,168 @@
+/* site.css — everything specific to crosstown-driving-school. Tokens live in tokens.css.
+   Signature element: the yellow lane rule (6px signal-yellow bar), spent on exactly four things —
+   under the hero headline, the featured price card's top edge, one section divider, and button fills.
+   The accent is NEVER used as small type; --accent-ink is. */
+
+/* ---------- accent discipline ----------------------------------------------------------------
+   base.css sets .eyebrow { color: var(--accent) }. #E3B11C on #F3F5F6 is 1.82:1 — it would ship a
+   failing eyebrow on every section. --accent-ink is the darkened step: 5.09:1 on --bg. */
+.eyebrow { color: var(--accent-ink); font-family: var(--font-display); }
+.section--brand .eyebrow,
+.trust .eyebrow { color: var(--on-brand-muted); }
+.pcard--dark .eyebrow { color: #E9D08A; }
+
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
+h2 { text-wrap: balance; }
+h3 { line-height: 1.28; }
+.lead { max-width: 46ch; }
+
+/* the lane rule */
+.lane { display: block; width: 76px; height: 6px; background: var(--accent); border-radius: 3px; }
+.lane--wide { width: 118px; }
+
+/* ---------- header ---------------------------------------------------------------------------- */
+.site-header { background: color-mix(in srgb, var(--bg) 94%, transparent); }
+.brand { letter-spacing: -0.02em; gap: 0.55rem; }
+.brand__mark { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 8px;
+  background: var(--brand); color: var(--accent); font-size: 0.95rem; font-weight: 700; line-height: 1; }
+.nav a:not(.btn) { font-size: 0.95rem; }
+.nav .btn--primary { padding-inline: 1.05rem; min-height: 44px; }
+
+/* ---------- hero (T1 — tinted panel, no photo) ------------------------------------------------- */
+.hero { background: var(--bg-alt); border-bottom: 1px solid var(--line);
+  padding-block: clamp(2.6rem, 6vw, 5rem); }
+.hero__grid { display: grid; gap: var(--space-4); align-items: start; }
+@media (min-width: 900px) { .hero__grid { grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr); gap: clamp(2.5rem, 5vw, 4.5rem); } }
+.hero h1 { margin: 0.55rem 0 0; text-wrap: balance; }
+.hero__lane { margin: var(--space-3) 0 var(--space-2); }
+.hero .lead { margin-bottom: var(--space-3); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: var(--space-3); }
+.hero__meta { font-size: 0.95rem; color: var(--ink-muted); margin: 0; }
+.hero__meta strong { color: var(--ink); font-weight: 600; }
+
+/* the offer card — the decision, above the fold */
+.offercard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); overflow: hidden; }
+.offercard__top { height: 6px; background: var(--accent); }
+.offercard__body { padding: clamp(1.25rem, 3vw, 1.75rem); }
+.offercard__label { font-family: var(--font-display); font-size: 0.78rem; font-weight: 700;
+  letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent-ink); margin: 0 0 0.35rem; }
+.offercard__price { font-family: var(--font-display); font-size: clamp(2.6rem, 6vw, 3.4rem);
+  font-weight: 700; line-height: 1; letter-spacing: -0.03em; color: var(--ink); margin: 0 0 0.15rem; }
+.offercard__name { font-size: 1.05rem; font-weight: 600; color: var(--ink); margin: 0 0 var(--space-2); }
+.includes { list-style: none; padding: 0; margin: 0 0 var(--space-3); display: grid; gap: 0.55rem; }
+.includes li { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.98rem; color: var(--ink); }
+.includes li::before { content: ""; flex: 0 0 auto; width: 14px; height: 4px; border-radius: 2px;
+  background: var(--accent); margin-top: 0.62em; }
+.offercard .btn { width: 100%; }
+.offercard__more { display: inline-block; margin-top: 0.9rem; font-size: 0.95rem; font-weight: 600;
+  color: var(--brand); text-underline-offset: 4px; }
+
+/* ---------- T6 — full-bleed photograph, no words ------------------------------------------------ */
+.photoband { margin: 0; }
+.photoband__img { width: 100%; height: clamp(300px, 42vw, 520px); object-fit: cover; object-position: 50% 30%; display: block; }
+.photoband__cap { background: var(--bg); color: var(--ink-muted); font-size: 0.95rem;
+  padding-block: var(--space-2); }
+.photoband__cap .container { display: flex; gap: 0.75rem; align-items: baseline; }
+.photoband__cap b { color: var(--ink); font-weight: 600; }
+
+/* ---------- T2 — brand bands -------------------------------------------------------------------- */
+.trust { background: var(--brand); color: var(--on-brand); }
+.trust__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: var(--space-3); padding-block: clamp(1.75rem, 3.5vw, 2.4rem); }
+.trust__row div { display: flex; flex-direction: column; gap: 0.15rem; }
+.trust__fig { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700;
+  line-height: 1.05; letter-spacing: -0.02em; }
+.trust__cap { font-size: 0.95rem; color: var(--on-brand-muted); }
+
+/* ---------- T1 — prices (asymmetric: heading column beside the list) ------------------------------ */
+.prices__grid { display: grid; gap: var(--space-4); align-items: start; }
+@media (min-width: 900px) { .prices__grid { grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: clamp(2.5rem, 5vw, 4.5rem); } }
+.prices__head { display: grid; gap: var(--space-2); align-content: start; }
+.prices__head .lead { max-width: 32ch; }
+.pricelist { margin: 0; max-width: none; }
+.pricelist__row { display: flex; align-items: baseline; gap: var(--space-2); padding: 1.05rem 0;
+  border-bottom: 1px solid var(--line); }
+.pricelist__row:first-child { border-top: 1px solid var(--line); }
+.pricelist__row dt { flex: 1 1 auto; font-weight: 600; font-size: 1.08rem; }
+.pricelist__row dt small { display: block; font-weight: 400; font-size: 0.96rem; color: var(--ink-muted);
+  margin-top: 0.15rem; max-width: 46ch; }
+.pricelist__row dd { margin: 0; flex: 0 0 auto; font-family: var(--font-display); font-weight: 700;
+  font-size: 1.5rem; letter-spacing: -0.02em; color: var(--accent-ink); white-space: nowrap; }
+.pricelist__row--feature dt { font-size: 1.2rem; }
+.prices__note { margin-top: var(--space-3); font-size: 0.95rem; color: var(--ink-muted); }
+.divider-lane { margin: var(--space-4) 0 0; }
+
+/* ---------- T3 — who calls us -------------------------------------------------------------------- */
+.who__split { display: grid; gap: var(--space-4); align-items: center; }
+@media (min-width: 900px) { .who__split { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(2.5rem, 5vw, 4rem); } }
+.who__cards { display: grid; gap: var(--space-3); }
+.who__card { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--brand);
+  border-radius: var(--radius-sm); padding: var(--space-3); }
+.who__card h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+.who__card p { margin: 0; font-size: 1rem; max-width: none; }
+.who__media { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+.who__media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+
+/* ---------- T5 — photo stage tuning -------------------------------------------------------------- */
+.photostage__img { object-position: 50% 62%; }
+.photostage--band { min-height: clamp(360px, 48vw, 520px); }
+.pcard { border: 1px solid rgba(24, 35, 42, 0.10); }
+.pcard--light p { max-width: 42ch; }
+.pcard__quote { font-family: var(--font-display); font-size: var(--fs-1); line-height: 1.35; }
+.pcard cite { display: block; font-style: normal; font-size: 0.92rem; font-weight: 600;
+  letter-spacing: var(--track-label); text-transform: uppercase; color: #5a6070; margin-top: var(--space-2); }
+
+/* ---------- T1 — reviews -------------------------------------------------------------------------- */
+.quote { margin: 0; background: var(--surface); border: 1px solid var(--line);
+  border-left: 4px solid var(--accent); border-radius: var(--radius-sm); padding: var(--space-3); }
+.quote p { font-family: var(--font-display); font-size: var(--fs-1); line-height: 1.4; margin-bottom: var(--space-2); }
+.quote footer { color: var(--ink-muted); font-weight: 600; font-size: 0.95rem; }
+
+/* ---------- T2 — the close --------------------------------------------------------------------- */
+.close__grid { display: grid; gap: var(--space-4); align-items: start; }
+@media (min-width: 860px) { .close__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(2.5rem, 5vw, 4rem); } }
+.close__grid .lead { color: var(--on-brand-muted); }
+.contact-list { font-style: normal; display: grid; gap: var(--space-3);
+  border-top: 1px solid var(--line-on-brand); padding-top: var(--space-3); }
+@media (min-width: 520px) { .contact-list { grid-template-columns: 1fr 1fr; } }
+.contact-list div { display: flex; flex-direction: column; gap: 0.15rem; }
+.contact-list span.eyebrow { margin-bottom: 0.1rem; }
+.contact-list a, .contact-list > div > span:not(.eyebrow) { color: var(--on-brand); font-weight: 600;
+  text-decoration: none; font-size: 1.02rem; }
+.contact-list a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- footer -------------------------------------------------------------------------------- */
+.site-footer { background: var(--bg-alt); }
+.site-footer .brand { font-size: 1.05rem; margin-bottom: 0.5rem; }
+.site-footer a:hover { color: var(--ink); }
+.site-footer p { max-width: 40ch; }
+.footer-fine { border-top: 1px solid var(--line); margin-top: var(--space-3); padding-top: var(--space-3); }
+.footer-fine p { font-size: 0.85rem; max-width: none; margin: 0 0 0.35rem; }
+
+/* ---------- sticky mobile CTA --------------------------------------------------------------------- */
+.cta-bar { transition: transform 250ms var(--ease); }
+.cta-bar .btn { font-size: 1.02rem; }
+
+/* ---------- responsive tightening ------------------------------------------------------------------ */
+@media (max-width: 560px) {
+  .hero__actions .btn { width: 100%; }
+  .pricelist__row { flex-wrap: wrap; gap: 0.35rem var(--space-2); }
+  .pricelist__row dt { flex-basis: 100%; }
+  .pricelist__row dd { font-size: 1.35rem; }
+  .photoband__cap .container { flex-direction: column; gap: 0.25rem; }
+}
+
+/* ---------- per-photo focal points ----------------------------------------------------------- */
+.photoband__img--center { object-position: 50% 50%; }
+.photostage__img--keys { object-position: 50% 35%; }
+
+/* ---------- services page: the teen package detail -------------------------------------------- */
+.package { display: grid; gap: var(--space-4); align-items: center; }
+@media (min-width: 900px) { .package { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2.5rem, 5vw, 4rem); } }
+.package__media { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+.package__media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3 / 2; }
+.package__price { display: flex; align-items: baseline; gap: 0.6rem; margin: 0 0 var(--space-2); }
+.package__price b { font-family: var(--font-display); font-size: clamp(2.4rem, 5.5vw, 3.2rem);
+  font-weight: 700; line-height: 1; letter-spacing: -0.03em; color: var(--ink); }
+.package__price span { font-size: 1rem; color: var(--ink-muted); }

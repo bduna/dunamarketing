@@ -1,0 +1,217 @@
+/* site.css — everything specific to verona-interiors. Tokens live in tokens.css.
+   Stance: sharp corners, hairline rules, lavender air, one brass accent, photographs never darkened. */
+
+/* focus ring: the raw brass accent is invisible on lavender */
+:focus-visible { outline-color: var(--accent-ink); }
+
+/* ---------- type ---------- */
+h1, h2, h3 { font-weight: 500; letter-spacing: -0.015em; }
+h1 { font-size: var(--fs-4); }
+.display-sm { font-size: var(--fs-2); }
+strong, b { font-weight: 700; }
+
+/* raw --accent (brass) is 1.88:1 on the lavender base — all small text uses the darker brass step */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: var(--track-label);
+  color: var(--accent-ink);
+}
+/* on the tinted panel the assigned --accent-ink drops to 4.08:1, so small brass text steps darker */
+.section--alt .eyebrow,
+.section--alt .plate__no,
+.section--alt .steps__no { color: var(--accent-ink-alt); }
+.section--brand .eyebrow { color: var(--on-brand); }
+.section--alt .lead, .section--alt .muted { color: var(--muted-strong); }
+
+/* ---------- header ---------- */
+.site-header { background: color-mix(in srgb, var(--bg) 94%, transparent); }
+.brand { font-weight: 500; font-size: 1.2rem; letter-spacing: 0.01em; gap: 0.55rem; }
+.brand .brand__mark {
+  display: inline-grid; place-items: center; width: 30px; height: 30px;
+  background: var(--brand); color: var(--on-brand);
+  font-family: var(--font-display); font-size: 0.95rem; line-height: 1;
+}
+.nav { gap: var(--space-3); }
+.nav a:not(.btn) { font-family: var(--font-body); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; }
+.nav a[aria-current="page"] { color: var(--brand); text-decoration: underline; text-underline-offset: 7px; }
+.brand span:not(.brand__mark) { white-space: nowrap; }
+/* between the nav breakpoint (720) and a comfortable desktop the bar is tight: tighten the
+   links rather than let the wordmark and the CTA wrap onto two lines */
+@media (min-width: 721px) and (max-width: 940px) {
+  .nav { gap: var(--space-2); }
+  .nav a:not(.btn) { font-size: 0.72rem; letter-spacing: 0.07em; }
+  .site-header .btn { padding: 0.65rem 0.9rem; font-size: 0.85rem; min-height: 44px; white-space: nowrap; }
+  .brand { font-size: 1.05rem; }
+}
+@media (max-width: 720px) {
+  .nav a:not(.btn) { font-size: 0.95rem; letter-spacing: 0.08em; }
+}
+
+/* ---------- buttons ---------- */
+.btn { border-radius: var(--radius-sm); font-family: var(--font-body); font-weight: 700; letter-spacing: 0.04em; }
+.btn--primary, a.btn--primary, .nav a.btn--primary, .site-footer a.btn--primary {
+  /* brass on lavender is only 1.88:1 as an edge, so the control gets a dark-brass hairline
+     to keep a visible boundary on every surface it lands on */
+  background-color: var(--accent); color: var(--on-accent);
+  border: 1px solid var(--accent-ink);
+}
+.btn--primary:hover, .btn--primary:focus-visible { background-color: var(--accent-hover); }
+.btn--ghost { border-width: 1px; border-color: currentColor; background: transparent; }
+.pcard--light .btn--ghost { color: var(--ink); }
+.section--brand .btn--ghost { color: var(--on-brand); }
+
+/* ---------- hero (T5 — photograph kept bright, words in a card) ---------- */
+.photostage { min-height: clamp(460px, 66vh, 680px); }
+.photostage__img { object-position: center 56%; }
+/* barely-there edge wash so the photo's left edge doesn't fight the card — this is NOT a scrim */
+.photostage::after { background: linear-gradient(90deg, rgba(28,16,30,0.14), rgba(28,16,30,0) 62%); }
+.photostage__inner { align-items: center; }
+.pcard {
+  max-width: 33rem; border-radius: var(--radius);
+  box-shadow: var(--shadow); border: 1px solid var(--line);
+}
+.pcard--light { background: var(--surface); color: var(--ink); }
+.pcard--light .lead, .pcard--light .muted, .pcard--light footer { color: var(--ink-muted); }
+.pcard--dark { background: var(--card-dark); color: var(--card-dark-ink); border-color: rgba(255,255,255,0.14); }
+.pcard--dark .lead, .pcard--dark .muted, .pcard--dark footer { color: var(--card-dark-muted); }
+.pcard h1 { margin-bottom: var(--space-2); }
+.pcard .lead { margin-bottom: var(--space-2); }
+.pcard__actions { gap: var(--space-2); margin-top: var(--space-3); }
+.pcard__note { font-size: 0.95rem; margin: var(--space-2) 0 0; }
+.pcard__rule { border: 0; border-top: 2px solid var(--accent-ink); width: 44px; margin: 0 0 var(--space-2); }
+
+@media (max-width: 700px) {
+  /* on a phone the card would sit on top of the whole photograph, so the room becomes a
+     band above it and the card overlaps its bottom edge — the photo still leads */
+  .photostage { min-height: 0; display: block; }
+  .photostage__img { position: static; width: 100%; height: clamp(230px, 64vw, 360px); object-position: center 62%; }
+  .photostage::after { display: none; }
+  .photostage__inner { padding-block: 0; }
+  .pcard { margin-top: calc(var(--space-3) * -1); margin-bottom: 0; position: relative; z-index: 2; }
+}
+
+/* ---------- trust strip (T2 — the one plum band) ---------- */
+.trust { background: var(--brand); color: var(--on-brand); padding-block: var(--space-4); }
+.trust__grid { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 760px) { .trust__grid { grid-template-columns: repeat(3, 1fr); gap: 0; } }
+.trust__item { padding: 0.25rem 0; }
+@media (min-width: 760px) {
+  .trust__item { padding: 0 var(--space-3); border-left: 1px solid rgba(244,231,245,0.28); }
+  .trust__item:first-child { padding-left: 0; border-left: 0; }
+}
+.trust__label { display: block; font-size: 0.72rem; font-weight: 900; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--on-brand-muted); margin-bottom: 0.35rem; }
+.trust__value { font-family: var(--font-display); font-size: 1.2rem; line-height: 1.25; margin: 0; color: var(--on-brand); }
+
+/* ---------- section heads ---------- */
+.sectionhead { display: grid; gap: var(--space-2); margin-bottom: var(--space-4); }
+.sectionhead h2 { margin: 0; max-width: 20ch; }
+.sectionhead p { margin: 0; }
+@media (min-width: 860px) {
+  .sectionhead { grid-template-columns: 1.05fr 1fr; align-items: end; column-gap: var(--space-4); }
+  .sectionhead .eyebrow { grid-column: 1; }
+  .sectionhead h2 { grid-column: 1; }
+  .sectionhead p { grid-column: 2; grid-row: 1 / span 2; align-self: end; }
+}
+
+/* ---------- the plate index (signature) ---------- */
+.plates { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 720px) {
+  .plates { grid-template-columns: repeat(6, 1fr); }
+  .plate--tall { grid-column: span 2; grid-row: span 2; }
+  .plate--wide { grid-column: span 4; }
+  .plate--half { grid-column: span 3; }
+  .plate--third { grid-column: span 2; }
+}
+.plate { margin: 0; }
+.plate__frame { overflow: hidden; background: var(--bg-alt); border: 1px solid var(--line); }
+.plate__frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.plate--tall .plate__frame { aspect-ratio: 2 / 3; }
+.plate--wide .plate__frame { aspect-ratio: 16 / 9; }
+.plate--half .plate__frame, .plate--third .plate__frame { aspect-ratio: 4 / 3; }
+@media (max-width: 719px) { .plate__frame { aspect-ratio: 4 / 3; } .plate--tall .plate__frame { aspect-ratio: 3 / 4; } }
+/* A plate spanning two grid rows must FILL them, or a dead ~300px hole opens under the photo.
+   These must come AFTER the aspect-ratio rules above: an aspect-ratio left in place alongside
+   height:100% makes the frame compute its WIDTH from its height and bleed out of its column. */
+@media (min-width: 720px) {
+  .plate--tall { display: grid; grid-template-rows: 1fr auto; }
+  .plate--tall .plate__frame { aspect-ratio: auto; height: 100%; width: 100%; min-height: 0; }
+}
+.plate figcaption {
+  display: flex; align-items: baseline; gap: 0.75rem;
+  padding-top: 0.85rem; margin-top: 0.85rem; border-top: 1px solid var(--line);
+}
+.plate__no { font-family: var(--font-display); font-size: 0.95rem; color: var(--accent-ink); font-weight: 700; }
+.plate__label { font-size: 0.95rem; color: var(--muted-strong); margin: 0; }
+.section:not(.section--alt) .plate__label { color: var(--ink-muted); }
+.plates-more { margin-top: var(--space-4); }
+
+/* ---------- price list ---------- */
+.pricepanel { background: var(--surface); border: 1px solid var(--line); padding: clamp(1.5rem, 4vw, 3rem); }
+.pricelist { margin: 0; }
+.pricelist__row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1rem; padding: var(--space-3) 0; border-bottom: 1px solid var(--line); }
+.pricelist__row:first-child { padding-top: 0; }
+.pricelist__row:last-child { border-bottom: 0; padding-bottom: 0; }
+.pricelist__row dt { flex: 1 1 16rem; margin: 0; }
+.pricelist__name { font-family: var(--font-display); font-size: var(--fs-2); display: flex; align-items: baseline; gap: 0.8rem; }
+.pricelist__no { font-size: 0.85rem; color: var(--accent-ink); font-weight: 700; }
+.pricelist__row dt small { display: block; font-size: 1rem; font-weight: 400; color: var(--ink-muted); margin-top: 0.35rem; max-width: 44ch; }
+.pricelist__row dd { margin: 0; flex: 0 0 auto; font-family: var(--font-display); font-size: var(--fs-2); color: var(--brand); white-space: nowrap; }
+.pricelist__row dd.is-quote { font-family: var(--font-body); font-size: 0.8rem; font-weight: 900; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent-ink); }
+.pricenote { margin-top: var(--space-3); font-size: 0.95rem; }
+
+/* ---------- full-bleed breath band (T6) ---------- */
+.breath { position: relative; margin: 0; }
+.breath img { width: 100%; height: clamp(240px, 42vw, 520px); object-fit: cover; display: block; }
+.breath figcaption { padding-top: var(--space-2); font-size: 0.95rem; color: var(--ink-muted); }
+.breath figcaption .plate__no { margin-right: 0.6rem; }
+
+/* ---------- testimonials ---------- */
+.testimonials { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 820px) { .testimonials { grid-template-columns: 1fr 1fr; } }
+.quote { margin: 0; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent-ink); padding: clamp(1.4rem, 3vw, 2.25rem); }
+.quote p { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.35; margin: 0 0 var(--space-2); max-width: none; }
+.quote footer { font-size: 0.8rem; font-weight: 900; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--muted-strong); }
+
+/* ---------- about split (T3) ---------- */
+.about__media { border: 1px solid var(--line); overflow: hidden; }
+.about__media img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.about blockquote { margin: var(--space-3) 0 0; padding-left: var(--space-3); border-left: 2px solid var(--accent-ink); }
+.about blockquote p { font-family: var(--font-display); font-size: var(--fs-2); margin: 0; }
+
+/* ---------- steps ---------- */
+.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; }
+.steps li { display: grid; gap: 0.35rem 1.25rem; padding: var(--space-3) 0; border-top: 1px solid var(--line); }
+.steps li:last-child { border-bottom: 1px solid var(--line); }
+@media (min-width: 720px) { .steps li { grid-template-columns: 4rem 1fr; } }
+.steps__no { font-family: var(--font-display); color: var(--accent-ink); font-weight: 700; }
+.steps h3 { margin: 0 0 0.3rem; font-size: var(--fs-2); }
+.steps p { margin: 0; }
+
+/* ---------- contact close ---------- */
+.close__grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; }
+@media (min-width: 860px) { .close__grid { grid-template-columns: 1.1fr 1fr; column-gap: var(--space-5); } }
+.contact-list { font-style: normal; display: grid; gap: var(--space-3); margin: 0; }
+.contact-list > div { display: grid; gap: 0.3rem; padding-bottom: var(--space-2); border-bottom: 1px solid var(--line); }
+.contact-list > div:last-child { border-bottom: 0; padding-bottom: 0; }
+.contact-list .eyebrow { margin: 0; }
+.contact-list a, .contact-list span:not(.eyebrow) { font-family: var(--font-display); font-size: var(--fs-2); color: var(--ink); text-decoration: none; }
+.contact-list a:hover { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- page head (gallery / about) ---------- */
+.pagehead { padding-block: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3.5rem); }
+.pagehead h1 { max-width: 16ch; margin-bottom: var(--space-2); }
+.pagehead .lead { max-width: 52ch; }
+
+/* ---------- footer ---------- */
+.site-footer { border-top: 1px solid var(--line); padding-block: var(--space-4); }
+.site-footer .brand { font-size: 1.05rem; }
+.site-footer a:hover { color: var(--accent-ink); }
+.site-footer .demo-note { font-size: 0.85rem; }
+
+/* ---------- sticky CTA bar ---------- */
+.cta-bar { background: var(--surface); border-top: 1px solid var(--line); }
+.cta-bar__row { display: flex; align-items: center; gap: 0.75rem; }
+.cta-bar__row .btn { flex: 1; }
+.cta-bar__hours { font-size: 0.8rem; color: var(--ink-muted); flex: 0 0 auto; max-width: 8.5rem; line-height: 1.25; }

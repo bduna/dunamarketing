@@ -1,0 +1,188 @@
+/* site.css — Grand Avenue Jewelers. Charcoal ground, ivory type, gold spent on almost nothing:
+   eyebrows, prices, the primary button, the hairline rules, and one closing band.
+   Every colour resolves through a token in tokens.css — no hex is written outside it except the
+   pre-composited ivory-card ink, which is itself a token. */
+
+/* ── Type stance ─────────────────────────────────────────────────────────────── */
+h1, h2, h3 { font-weight: 500; letter-spacing: -0.005em; }
+h1 { font-size: var(--fs-4); }
+.eyebrow { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: var(--track-label); color: var(--accent-ink); }
+.lead { font-family: var(--font-body); }
+.rule { border: 0; border-top: 1px solid var(--line); margin: 0; }
+.gold-rule { border: 0; border-top: 1px solid var(--gold-tint); margin: 0; }
+.section__head { max-width: 46rem; margin-bottom: var(--space-4); }
+.section__head h2 { margin-bottom: var(--space-1); }
+
+/* ── Header ──────────────────────────────────────────────────────────────────── */
+.site-header { background: rgba(21, 21, 19, 0.94); border-bottom: 1px solid var(--line); }
+.brand { font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; letter-spacing: 0.01em; color: var(--ink); gap: 0.55rem; }
+.brand__mark { width: 26px; height: 26px; flex: 0 0 auto; }
+.nav a:not(.btn) { color: var(--ink); font-family: var(--font-body); font-weight: 500; font-size: 0.95rem; }
+.nav a:not(.btn):hover { color: var(--accent-ink); }
+.nav a[aria-current="page"] { color: var(--accent-ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 7px; }
+@media (max-width: 720px) { .nav { background: var(--bg); } }
+
+/* ── Buttons ─────────────────────────────────────────────────────────────────── */
+.btn { font-family: var(--font-body); font-weight: 600; letter-spacing: 0.01em; }
+.btn--primary { border: 1px solid var(--accent-hover); }
+/* --line (1.87:1 on the ground) is a hairline, not a control boundary: WCAG 1.4.11 wants 3:1,
+   so the ghost button's rim is drawn in --ink-muted (6.9:1) instead. */
+.btn--ghost { border-width: 1px; border-color: var(--ink-muted); color: var(--ink); }
+.btn--ghost:hover, .btn--ghost:focus-visible { border-color: var(--ink); background: rgba(241, 240, 238, 0.08); }
+.cta-bar { background: var(--bg-alt); border-top: 1px solid var(--line); box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.5); }
+
+/* ── 1. Hero photo band — T6: full-bleed photograph, no text on it at all ─────── */
+.hero-photo { position: relative; height: clamp(250px, 40vh, 500px); overflow: hidden; border-bottom: 1px solid var(--gold-tint); }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 44%; }
+
+/* ── 2. Hero copy — T1: solid charcoal, asymmetric ───────────────────────────── */
+.hero-copy { padding-block: clamp(2.4rem, 5vw, 4.5rem) clamp(2.6rem, 5vw, 4.5rem); }
+.hero-copy__grid { display: grid; gap: var(--space-4); }
+.hero-copy h1 { margin: 0.4rem 0 0; max-width: 14ch; }
+.hero-copy .lead { max-width: 38ch; margin-bottom: var(--space-3); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.hero-meta { margin: var(--space-3) 0 0; font-size: 0.95rem; color: var(--ink-muted); }
+.hero-meta b { color: var(--ink); font-weight: 600; }
+@media (min-width: 900px) {
+  .hero-copy__grid { grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 5vw, 5rem); align-items: end; }
+}
+
+/* ── 3. Trust strip — T1 tinted ──────────────────────────────────────────────── */
+.facts-strip { padding-block: clamp(2.4rem, 4vw, 3.6rem); }
+.facts { display: grid; gap: var(--space-3); }
+.facts > div { border-top: 1px solid var(--gold-tint); padding-top: var(--space-2); }
+.facts dt { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent-ink); margin-bottom: 0.35rem; }
+.facts dd { margin: 0; font-family: var(--font-display); font-size: var(--fs-1); line-height: 1.35; color: var(--ink); max-width: 26ch; }
+@media (min-width: 780px) { .facts { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); } }
+
+/* ── 4. Our work — T6: photographs, no words on them; alt carries the description */
+.work-grid { display: grid; gap: var(--space-2); grid-template-columns: repeat(2, 1fr); grid-auto-rows: clamp(120px, 26vw, 190px); }
+.work-grid figure { margin: 0; overflow: hidden; border: 1px solid var(--line); }
+.work-grid img { width: 100%; height: 100%; object-fit: cover; }
+.work-grid .t1 { grid-column: 1; grid-row: span 2; }
+.work-grid .t2 { grid-column: 2; }
+.work-grid .t3 { grid-column: 2; }
+.work-grid .t4 { grid-column: span 2; }
+@media (min-width: 860px) {
+  .work-grid { grid-template-columns: repeat(12, 1fr); grid-auto-rows: clamp(150px, 14.5vw, 210px); gap: var(--space-3); }
+  .work-grid .t1 { grid-column: 1 / span 4; grid-row: 1 / span 2; }
+  .work-grid .t2 { grid-column: 5 / span 5; grid-row: 1 / span 2; }
+  .work-grid .t3 { grid-column: 10 / span 3; grid-row: 1; }
+  .work-grid .t4 { grid-column: 10 / span 3; grid-row: 2; }
+}
+.work-grid .t2 img { object-position: 50% 42%; }
+.work-grid .t4 img { object-position: 50% 40%; }
+.work-more { margin-top: var(--space-3); }
+
+/* ── 5. The bench card — T1: the signature. An engraved price plate ──────────── */
+.bench { border-top: 2px solid var(--accent); border-bottom: 2px solid var(--accent); }
+.bench__row { display: grid; gap: 0.25rem var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--gold-tint); }
+.bench__row:last-child { border-bottom: 0; }
+.bench__name { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.15; color: var(--ink); }
+.bench__desc { margin: 0; color: var(--ink-muted); font-size: 0.98rem; max-width: 46ch; }
+.bench__price { font-family: var(--font-display); font-size: 1.5rem; color: var(--accent-ink); white-space: nowrap; }
+.bench__price small { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; display: block; color: var(--ink-muted); }
+@media (min-width: 700px) {
+  .bench__row { grid-template-columns: 1fr auto; align-items: baseline; }
+  .bench__name { grid-column: 1; }
+  .bench__desc { grid-column: 1; }
+  .bench__price { grid-column: 2; grid-row: 1 / span 2; text-align: right; align-self: center; }
+}
+.bench-note { margin-top: var(--space-3); color: var(--ink-muted); }
+
+/* ── 6. Custom rings band — T5: the photo stays BRIGHT, the words sit in an ivory card
+      (primitives from components/base.css + components/sections/photo-card.html, tuned).
+      There is no dark scrim anywhere on this site; T4 is used zero times. ─────── */
+.photostage--band { min-height: clamp(400px, 52vw, 580px); }
+.photostage__img { object-position: 32% 50%; }
+.photostage::after { background: linear-gradient(270deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0) 58%); }
+.pcard { max-width: 30rem; }
+.pcard--light { background: var(--ink); color: var(--ink-on-ivory); border-top: 4px solid var(--accent); box-shadow: var(--shadow); }
+.pcard--light h2 { color: var(--ink-on-ivory); margin-bottom: var(--space-2); }
+.pcard--light p { color: var(--ink-on-ivory); }
+.pcard--light .eyebrow, .pcard--light .lead, .pcard--light .muted { color: var(--ink-muted-on-ivory); }
+/* Gold fill on ivory is 2.2:1 — no visible control boundary — so inside the card the primary
+   button flips to charcoal (16.4:1). The token is untouched; only this instance changes. */
+.pcard--light .btn--primary { background-color: var(--bg); color: var(--ink); border-color: var(--bg); }
+.pcard--light .btn--primary:hover, .pcard--light .btn--primary:focus-visible { background-color: var(--bg-alt); }
+.pcard--light .btn--ghost { color: var(--ink-on-ivory); border-color: var(--ink-muted-on-ivory); }
+.pcard--light .btn--ghost:hover { background: rgba(33, 32, 30, 0.08); border-color: var(--ink-on-ivory); }
+.pcard--light :focus-visible { outline-color: var(--bg); }
+@media (max-width: 760px) {
+  .photostage--band { display: block; min-height: 0; }
+  .photostage__img { position: static; height: clamp(210px, 56vw, 300px); }
+  .photostage::after { display: none; }
+  .photostage__inner, .photostage__inner--end { justify-content: flex-start; padding-block: 0 var(--space-4); margin-top: calc(-1 * var(--space-3)); }
+}
+
+/* ── 7. Testimonials — T1 tinted, words on a solid surface ───────────────────── */
+.quotes { display: grid; gap: var(--space-4); }
+.quotes blockquote { border-left: 2px solid var(--accent); padding-left: var(--space-3); }
+.quotes p { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.3; color: var(--ink); margin-bottom: var(--space-2); max-width: 32ch; }
+.quotes footer { font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent-ink); }
+@media (min-width: 820px) { .quotes { grid-template-columns: 1fr 1fr; gap: var(--space-5); } }
+
+/* ── 8. About — T3: photo beside text, no overlay ────────────────────────────── */
+.split .media { border: 1px solid var(--line); }
+.about-text h2 { max-width: 16ch; margin-bottom: var(--space-3); }
+.about-text p { color: var(--ink-muted); }
+.about-text p a { color: var(--ink); }
+
+/* ── 9. Closing band — T2: the one saturated gold field on the site ──────────── */
+.section--brand { background: var(--brand); color: var(--on-brand); }
+.section--brand h2, .section--brand p, .section--brand .eyebrow, .section--brand .lead { color: var(--on-brand); }
+.section--brand .eyebrow { opacity: 1; }
+.section--brand a:not(.btn) { color: var(--on-brand); text-underline-offset: 4px; }
+.section--brand .btn--primary { background-color: var(--on-brand); color: var(--ink); border-color: var(--on-brand); }
+.section--brand .btn--primary:hover, .section--brand .btn--primary:focus-visible { background-color: var(--bg-alt); }
+.section--brand :focus-visible { outline-color: var(--on-brand); }
+.close-grid { display: grid; gap: var(--space-3); align-items: center; }
+.close-grid .btn { justify-self: start; }
+.close-contact { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.4; }
+@media (min-width: 820px) { .close-grid { grid-template-columns: 1.2fr 0.8fr; gap: var(--space-5); } }
+
+/* ── 10. Visit — T1 tinted ───────────────────────────────────────────────────── */
+.visit { display: grid; gap: var(--space-3); }
+.visit > div { border-top: 1px solid var(--gold-tint); padding-top: var(--space-2); }
+.visit dt { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent-ink); margin-bottom: 0.35rem; }
+.visit dd { margin: 0; color: var(--ink); }
+.visit a { color: var(--ink); }
+.visit a:hover { color: var(--accent-ink); }
+@media (min-width: 700px) { .visit { grid-template-columns: repeat(2, 1fr); gap: var(--space-3) var(--space-4); } }
+@media (min-width: 1000px) { .visit { grid-template-columns: repeat(4, 1fr); } }
+
+/* ── Gallery page grid — captions BELOW the photographs, never on them ────────── */
+.gal { display: grid; gap: var(--space-3); grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 900px) { .gal { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); } }
+.gal figure { margin: 0; }
+.gal .media { aspect-ratio: 4 / 5; border: 1px solid var(--line); }
+.gal img { width: 100%; height: 100%; object-fit: cover; }
+.gal figcaption { margin-top: 0.7rem; font-size: 0.92rem; color: var(--ink-muted); }
+.gal .pos-quartz img { object-position: 38% 50%; }
+/* Photo 05 is framed tight on the case itself: the wider shot carries another shop's
+   promotional tags ("SALE", "Disc. 70%"), which are neither ours to claim nor the "clean,
+   modern" the client asked for. Anchoring left and scaling up keeps them out of frame. */
+.gal .pos-case img { object-position: 0% 50%; transform: scale(1.4); transform-origin: 18% 78%; }
+
+/* ── Footer ──────────────────────────────────────────────────────────────────── */
+.site-footer { border-top: 1px solid var(--line); color: var(--ink-muted); }
+.site-footer .brand { font-size: 1.1rem; color: var(--ink); }
+.site-footer a:hover { color: var(--accent-ink); }
+.site-footer .credits { font-size: 0.8rem; opacity: 0.85; }
+.site-footer .container + .container { display: block; }
+.footer-note { border-top: 1px solid var(--line); margin-top: var(--space-3); padding-top: var(--space-2); font-size: 0.8rem; max-width: none; }
+
+/* ── Nav collapses at 880, not 720 ────────────────────────────────────────────
+   Five nav items plus a two-word wordmark plus the CTA do not fit a 768px bar:
+   the links wrapped onto two lines at the tablet width. Same rules as base.css,
+   one breakpoint wider — and the sticky call bar comes along so the CTA is still
+   one tap away at every width where the header nav is hidden. */
+@media (max-width: 880px) {
+  .nav-toggle { display: inline-flex; }
+  .nav { position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; align-items: stretch; gap: 0; background: var(--bg); border-bottom: 1px solid var(--line); padding: var(--space-2) var(--gutter); display: none; }
+  .nav.is-open { display: flex; }
+  .nav a:not(.btn) { padding: 0.85rem 0; border-bottom: 1px solid var(--line); }
+  .nav .btn { margin-top: var(--space-2); }
+  .cta-bar { display: block; }
+  body.has-cta-bar { padding-bottom: 84px; }
+}

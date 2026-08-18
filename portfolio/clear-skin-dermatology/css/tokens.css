@@ -1,0 +1,60 @@
+/* tokens.css — Clear Skin Dermatology
+   Palette is brief.assigned.palette, copied VERBATIM (all 12 tokens, exact hex).
+   Family: pure white (#1). Measured: ink 15.0:1 · ink-muted 5.43:1 · accent-ink 4.98:1 ·
+   accent 4.67:1 · white-on-accent 4.67:1 · white-on-brand 10.62:1 — nothing needed changing. */
+:root {
+  /* ---- assigned palette (do not edit) ---- */
+  --bg: #FFFFFF;
+  --bg-alt: #F5F6F7;
+  --surface: #FFFFFF;
+  --ink: #18232A;
+  --ink-muted: #5B6C79;
+  --line: #D4D8DB;
+  --brand: #214259;
+  --on-brand: #FFFFFF;
+  --accent: #E31C4E;
+  --accent-hover: #C51642;
+  --on-accent: #FFFFFF;
+  --accent-ink: #D62350;
+
+  /* ---- derived (site-specific, identity tokens untouched) ---- */
+  /* --accent on the navy band is only 2.28:1. This is the on-navy sibling of --accent-ink,
+     used ONLY on --brand surfaces (hero eyebrow + second headline line): 5.42:1 on #214259. */
+  --accent-lift: #FF9DB4;
+  --on-brand-muted: rgba(255, 255, 255, 0.82);
+  --line-on-brand: rgba(255, 255, 255, 0.22);
+  --brand-deep: #16303F;   /* hairline/divider inside navy bands */
+
+  /* Type — Sora + Inter (brief.assigned.fonts) */
+  --font-display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
+  --fs-1: clamp(1.12rem, 1rem + 0.55vw, 1.35rem);
+  --fs-2: clamp(1.3rem, 1.15rem + 0.8vw, 1.7rem);
+  --fs-3: clamp(1.75rem, 1.35rem + 1.9vw, 2.6rem);
+  --fs-4: clamp(2.6rem, 1.4rem + 5.2vw, 5rem);
+  --lh-body: 1.62;
+  --lh-head: 1.06;
+  --track-label: 0.14em;
+
+  /* Shape & depth — warmth right: sharp corners, hairlines instead of shadows */
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow: 0 18px 44px rgba(24, 35, 42, 0.13);
+  --shadow-sm: 0 1px 2px rgba(24, 35, 42, 0.07);
+
+  /* Space — density left: generous */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(4rem, 7vw, 7.5rem);
+  --measure: 58ch;
+  --container: 1140px;
+  --gutter: clamp(1.15rem, 4vw, 2.25rem);
+
+  /* Motion — tone right: fades only */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 180ms;
+}

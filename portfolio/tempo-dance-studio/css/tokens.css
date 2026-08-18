@@ -1,0 +1,55 @@
+/* tokens.css — Tempo Dance Studio.
+   Palette is brief.assigned.palette, copied verbatim (all 12 tokens, exact hex).
+   Family: tinted blush/pink. Contrast measured in direction.md §2. */
+:root {
+  /* Palette (60-30-10): 60 blush base · 30 deep-wine brand bands · 10 electric violet accent */
+  --bg: #F5E8EC;
+  --bg-alt: #EDD7DE;
+  --surface: #FFFFFF;
+  --ink: #2A181E;
+  --ink-muted: #6E535C;
+  --line: #DED1D5;
+  --brand: #592134;
+  --on-brand: #F5E8EC;
+  --accent: #791CE3;
+  --accent-hover: #6816C5;
+  --on-accent: #FFFFFF;
+  --accent-ink: #791CE3;   /* small text: eyebrows, prices, labels — 5.71:1 on --bg, 4.98:1 on --bg-alt */
+
+  /* Derived, no new hues */
+  --brand-line: rgba(245, 232, 236, 0.28);   /* hairline inside the wine bands */
+  --scrim: 12, 6, 18;                         /* the one dark band (T4) */
+
+  /* Type — Syne + DM Sans (assigned) */
+  --font-display: "Syne", "Trebuchet MS", sans-serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1.0625rem, 1rem + 0.25vw, 1.125rem);
+  --fs-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+  --fs-2: clamp(1.35rem, 1.15rem + 0.9vw, 1.75rem);
+  --fs-3: clamp(1.9rem, 1.4rem + 2.2vw, 3rem);
+  --fs-4: clamp(2.05rem, 1.3rem + 4.3vw, 4.4rem);
+  --lh-body: 1.62;
+  --lh-head: 1.04;
+  --track-label: 0.12em;
+
+  /* Shape & depth — warm/left: soft radius, one diffuse warm shadow */
+  --radius: 16px;
+  --radius-sm: 12px;
+  --shadow: 0 18px 44px rgba(89, 33, 52, 0.18);
+  --shadow-sm: 0 3px 12px rgba(89, 33, 52, 0.12);
+
+  /* Space — density right: more per screen */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.5rem, 6vw, 6rem);
+  --measure: 62ch;
+  --container: 1180px;
+  --gutter: clamp(1.1rem, 4vw, 2rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 220ms;
+}

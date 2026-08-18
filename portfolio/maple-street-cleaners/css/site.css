@@ -1,0 +1,223 @@
+/* site.css — everything specific to maple-street-cleaners. Tokens live in tokens.css.
+   Signature element: the shop ticket — ruled header, dotted leaders, price right-aligned in slate blue. */
+
+/* ---------------------------------------------------------------- foundations */
+
+body { font-feature-settings: "cv05" 1; }
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
+.h-sm { font-size: var(--fs-2); }
+
+/* --accent is 3.12:1 on the cream base — it is a FILL colour, never a text colour.
+   base.css sets .eyebrow to --accent; this is the override that keeps every small
+   label at 4.67:1 or better. Do not remove. */
+.eyebrow { color: var(--accent-ink); font-family: var(--font-body); font-size: 0.78rem; }
+.section--brand .eyebrow { color: var(--on-brand); opacity: 0.9; }
+.pcard .eyebrow { color: var(--accent-ink); }
+
+.lead { line-height: 1.55; }
+.rule-top { border-top: 2px solid var(--ink); padding-top: var(--space-2); }
+
+/* Prices line up on the decimal or they are not a price list. */
+.num { font-variant-numeric: tabular-nums lining-nums; font-feature-settings: "tnum" 1; }
+
+/* ---------------------------------------------------------------- header */
+
+/* 44px tap targets in the header: the wordmark, the burger and the nav links all
+   measured 25-42px before this. */
+.site-header .brand { letter-spacing: -0.02em; padding-block: 0.45rem; }
+.nav-toggle { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+@media (min-width: 721px) { .nav a:not(.btn) { padding-block: 0.65rem; } }
+.brand__mark {
+  display: inline-grid; place-items: center; width: 30px; height: 30px;
+  border-radius: 7px; background: var(--brand); color: var(--on-brand);
+  font-size: 0.95rem; font-weight: 700; letter-spacing: 0;
+}
+.nav a:not(.btn) { font-size: 0.96rem; }
+.nav a[aria-current="page"] { color: var(--accent-ink); }
+.header-phone { display: none; }
+@media (min-width: 1000px) { .header-phone { display: inline; } }
+
+/* A filled accent chip at 2.95:1 against cream is a coloured block, not a control.
+   base.css gives it a 1px --accent-ink edge (4.67:1 on the tinted base) — keep it,
+   and swap that edge to cream inside the olive band where --accent-ink disappears. */
+.section--brand .btn--primary { border-color: var(--on-brand); }
+
+/* ---------------------------------------------------------------- 1. hero (T1) */
+
+.hero {
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--line);
+  padding-block: clamp(2.5rem, 5.5vw, 4.75rem);
+}
+.hero__inner { max-width: 46rem; }
+/* Wide screens: the ticket teaser moves to the right of the headline so the hero
+   is a two-column T1 block instead of a left-aligned column with dead space. */
+@media (min-width: 1060px) {
+  .hero__grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(310px, 0.9fr); gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
+  .hero__grid .teaser { margin-top: 0.35rem; grid-template-columns: 1fr; }
+  .hero__grid .teaser .teaser__item:nth-last-child(2) { border-bottom: 1px dotted var(--line-strong); }
+}
+.hero h1 { margin-bottom: var(--space-2); text-wrap: balance; }
+.hero h1 .said { display: block; color: var(--ink); }
+.hero__lede { max-width: 40rem; margin-bottom: var(--space-3); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+.hero__hours {
+  margin: var(--space-3) 0 0; font-size: 0.95rem; color: var(--ink-muted);
+  display: flex; flex-wrap: wrap; gap: 0.35rem 1rem;
+}
+.hero__hours b { color: var(--ink); font-weight: 600; }
+
+/* the ticket teaser — the price list, compressed to one strip */
+.teaser {
+  margin-top: clamp(1.75rem, 4vw, 2.75rem);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); box-shadow: var(--shadow-sm);
+  padding: 0.35rem clamp(0.9rem, 2.5vw, 1.4rem);
+  display: grid; grid-template-columns: 1fr; max-width: 46rem;
+}
+.teaser__item {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  padding: 0.7rem 0; border-bottom: 1px dotted var(--line-strong);
+  font-size: 0.98rem;
+}
+.teaser__item:last-child { border-bottom: 0; }
+.teaser__item b { color: var(--accent-ink); font-weight: 700; white-space: nowrap; }
+@media (min-width: 760px) {
+  .teaser { grid-template-columns: 1fr 1fr; column-gap: clamp(1.5rem, 4vw, 3rem); }
+  .teaser__item:nth-last-child(2) { border-bottom: 0; }
+}
+
+/* ---------------------------------------------------------------- 2. photo band (T6) */
+
+.photoband { position: relative; }
+.photoband__img {
+  width: 100%; height: clamp(280px, 36vw, 520px); object-fit: cover;
+  object-position: 50% 60%; display: block;
+}
+.photoband--menu .photoband__img { height: clamp(260px, 32vw, 460px); object-position: 50% 62%; }
+.photoband figcaption {
+  padding: 0.85rem var(--gutter); font-size: 0.9rem; color: var(--ink-muted);
+  border-bottom: 1px solid var(--line); background: var(--bg);
+}
+.photoband figcaption span { color: var(--ink); font-weight: 600; }
+
+/* ---------------------------------------------------------------- 3. the ticket (T1) */
+
+.ticket {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  padding: clamp(1.15rem, 3.2vw, 2.4rem);
+  max-width: 46rem;
+}
+.ticket__head {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: 0.35rem 1rem; padding-bottom: 0.75rem; margin-bottom: 0.25rem;
+  border-bottom: 2px solid var(--ink);
+}
+.ticket__head .eyebrow { margin: 0; }
+.ticket__head span:last-child { font-size: 0.85rem; color: var(--ink-muted); }
+.ticket__list { list-style: none; margin: 0; padding: 0; }
+.ticket__list > li { padding: clamp(0.95rem, 2.4vw, 1.35rem) 0; border-bottom: 1px dotted var(--line-strong); }
+.ticket__list > li:last-child { border-bottom: 0; padding-bottom: 0.25rem; }
+.row { display: flex; align-items: baseline; gap: 0.55rem; }
+.row h2, .row h3 { margin: 0; font-size: clamp(1.05rem, 0.98rem + 0.45vw, 1.25rem); }
+.row .leader {
+  flex: 1 1 1.5rem; min-width: 1.25rem; align-self: center;
+  border-bottom: 2px dotted var(--line-strong); transform: translateY(0.15em);
+}
+.row .price {
+  font-family: var(--font-display); font-weight: 700; white-space: nowrap;
+  color: var(--accent-ink); font-size: clamp(1.05rem, 0.98rem + 0.45vw, 1.25rem);
+}
+.row .price small { font-size: 0.72em; font-weight: 600; color: var(--ink-muted); }
+.ticket__note { margin: 0.45rem 0 0; color: var(--ink-muted); font-size: 0.96rem; max-width: 44ch; }
+.ticket__list li.is-free { background: var(--bg-alt); border-radius: var(--radius-sm); padding-inline: clamp(0.75rem, 2vw, 1.1rem); }
+.ticket__list li.is-free .price { color: var(--accent-ink); }
+.ticket__foot { margin: var(--space-3) 0 0; font-size: 0.92rem; color: var(--ink-muted); }
+
+.prices-aside { align-self: start; }
+.prices-aside .callout {
+  border-left: 3px solid var(--accent); padding-left: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+.prices-aside .callout p { margin-bottom: 0; }
+@media (min-width: 940px) {
+  .prices-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .prices-aside { position: sticky; top: 88px; }
+}
+/* The price-list page is a document, not a landing page: one narrower measure for every
+   content section on it, so the masthead, the ticket and the closing band share a left edge. */
+.container.narrow { --container: 980px; }
+
+/* ---------------------------------------------------------------- 4. pickup band (T5) */
+
+.photostage--offer { min-height: clamp(400px, 52vw, 560px); }
+/* On a phone the card is full width, so the photo only survives if it is given room
+   above it — otherwise the whole band reads as a plain white box. */
+@media (max-width: 700px) {
+  .photostage--offer .photostage__inner { padding-block: 11rem 1.75rem; }
+}
+.photostage--offer .pcard { border: 1px solid var(--line); }
+.pcard h2 { margin-bottom: var(--space-2); }
+.pcard p:last-of-type { margin-bottom: 0; }
+
+/* ---------------------------------------------------------------- 5. about (T3) */
+
+.about blockquote { margin: 0; }
+.about .media { box-shadow: var(--shadow-sm); }
+.sign { font-size: 0.92rem; color: var(--ink-muted); margin-top: var(--space-2); }
+
+/* ---------------------------------------------------------------- 6. quotes (T1 tinted) */
+
+.quotes { display: grid; gap: var(--space-3); }
+@media (min-width: 780px) { .quotes { grid-template-columns: 1fr 1fr; gap: var(--space-4); } }
+.quote {
+  margin: 0; background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: clamp(1.2rem, 3vw, 1.8rem);
+  box-shadow: var(--shadow-sm);
+}
+.quote p {
+  margin: 0 0 var(--space-2); font-family: var(--font-display); font-weight: 600;
+  font-size: var(--fs-2); line-height: 1.35; letter-spacing: -0.015em;
+}
+.quote footer { color: var(--ink-muted); font-size: 0.92rem; }
+
+/* ---------------------------------------------------------------- 7. closing band (T2) */
+
+.closing { border-top: 1px solid var(--line); }
+.closing h2 { margin-bottom: var(--space-2); }
+.closing .lead { color: var(--on-brand); opacity: 0.92; }
+.contact-list { font-style: normal; display: grid; gap: var(--space-2); align-self: start; }
+.contact-list > div {
+  display: grid; gap: 0.15rem; padding-block: 0.7rem;
+  border-top: 1px solid var(--brand-line);
+}
+.contact-list > div:first-child { border-top: 0; padding-top: 0; }
+.contact-list a { text-decoration: underline; text-underline-offset: 3px; }
+.contact-list .eyebrow { margin-bottom: 0; }
+
+/* ---------------------------------------------------------------- footer + sticky bar */
+
+.site-footer .brand { font-size: 1.05rem; margin-bottom: 0.4rem; }
+.site-footer p { max-width: 42ch; }
+.site-footer .demo { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: var(--space-2); font-size: 0.85rem; margin: 0; max-width: none; }
+.cta-bar .btn { font-size: 1.02rem; }
+@media (max-width: 720px) { body.has-cta-bar { padding-bottom: 108px; } }
+.cta-bar__hours { display: block; text-align: center; font-size: 0.78rem; color: var(--ink-muted); margin-top: 0.3rem; }
+
+/* ---------------------------------------------------------------- menu page */
+
+.masthead { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding-block: clamp(2.25rem, 4.5vw, 3.5rem); }
+.masthead h1 { max-width: 22ch; text-wrap: balance; }
+.masthead p { max-width: 46ch; }
+.pagenote { max-width: 46ch; }
+
+/* ---------------------------------------------------------------- skip link */
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--surface); color: var(--ink);
+  padding: 0.75rem 1.1rem; border: 2px solid var(--accent-ink);
+  border-radius: 0 0 var(--radius-sm) 0; font-weight: 600; text-decoration: none;
+}
+.skip:focus { left: 0; }

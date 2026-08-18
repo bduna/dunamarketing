@@ -1,0 +1,57 @@
+/* tokens.css — Wellspring Home Health.
+   Palette copied VERBATIM from brief.assigned.palette (tinted sage/green family, assigned centrally).
+   Contrast, measured: ink 13.8:1 on bg · ink-muted 5.1:1 · brand 8.1:1 · on-brand 8.1:1 ·
+   on-accent (DARK ink) on accent 4.66:1 — white on this accent would be 3.24:1, so it stays dark. */
+:root {
+  /* --- assigned palette, exact hex, do not re-derive --- */
+  --bg: #E5F4EA; /* 60: page ground */
+  --bg-alt: #D3EDDC; /* tinted section */
+  --surface: #FFFFFF; /* cards */
+  --ink: #182A1E; /* body text */
+  --ink-muted: #4D6655; /* secondary text */
+  --line: #D0DFD5; /* hairlines */
+  --brand: #1E522F; /* 30: bands, headings */
+  --on-brand: #E5F4EA; /* text on the green bands */
+  --accent: #E56B2E; /* 10: warm apricot — CTAs and almost nothing else */
+  --accent-hover: #EB7E47; /* hover, and the CTA fill on green bands (3.2:1 edge) */
+  --on-accent: #182A1E; /* DARK on the accent, as assigned */
+  --accent-ink: #A84A1B; /* accent hue for small text: 4.6:1 on bg, 5.1:1 on white */
+
+  /* --- derived (site-specific), not substitutes for the above --- */
+  --accent-ink-alt: #A34A12;/* one step darker: --accent-ink is 4.24:1 on --bg-alt, which is under AA,
+                               so small accent text on tinted sections uses this instead (4.9:1) */
+  --on-brand-muted: #B8D8C2;/* secondary text inside brand bands — 6.0:1 on --brand */
+
+  /* Type — Lora + Source Sans 3 (brief.assigned.fonts) */
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1.0625rem, 1rem + 0.25vw, 1.15rem);   /* body — never below 17px */
+  --fs-1: clamp(1.2rem, 1.08rem + 0.55vw, 1.45rem);   /* lead */
+  --fs-2: clamp(1.35rem, 1.15rem + 0.9vw, 1.8rem);    /* h3 */
+  --fs-3: clamp(1.75rem, 1.35rem + 1.9vw, 2.5rem);    /* h2 */
+  --fs-4: clamp(2.3rem, 1.55rem + 3.6vw, 3.9rem);     /* h1 */
+  --lh-body: 1.65;
+  --lh-head: 1.14;
+  --track-label: 0.1em;
+
+  /* Shape & depth — soft, one stance (warmth axis: warm) */
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 18px 44px rgba(20, 42, 28, 0.14);
+  --shadow-sm: 0 3px 12px rgba(20, 42, 28, 0.10);
+
+  /* Space (density axis: minimal → generous) */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(4rem, 7vw, 7rem);
+  --measure: 60ch;
+  --container: 1140px;
+  --gutter: clamp(1.15rem, 4vw, 2rem);
+
+  /* Motion — calm, fades only */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

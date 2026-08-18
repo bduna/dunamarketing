@@ -1,0 +1,58 @@
+/* tokens.css — Verona Interiors.
+   Palette: brief.assigned.palette, copied verbatim (family: tinted lavender). Do not re-derive. */
+:root {
+  /* --- assigned palette, copied verbatim, exact hex --- */
+  --bg: #F4E7F5;               /* 60: tinted lavender base */
+  --bg-alt: #EBD5EE;           /* tinted panel */
+  --surface: #FFFFFF;          /* cards, price panel */
+  --ink: #28182A;              /* body text */
+  --ink-muted: #69526D;        /* secondary text */
+  --line: #DDD0DF;             /* hairlines */
+  --brand: #522159;            /* 30: plum band, wordmark mark */
+  --on-brand: #F4E7F5;         /* on the plum band */
+  --accent: #E3A11C;           /* 10: the one accent — antique brass. Buttons only. */
+  --accent-hover: #E9AD35;     /* lighter brass on hover; on-accent ink still 8.37:1 */
+  --on-accent: #28182A;        /* dark ink on brass — 7.48:1. The accent is BRIGHT; never invert this. */
+  --accent-ink: #7A5814;       /* darker brass for small text (raw --accent is 1.82:1 on --bg) */
+
+  /* --- derived (site-specific; no assigned token altered) --- */
+  --accent-ink-alt: #6B4A07;    /* the brass step for small text on --bg-alt, where
+                                   the assigned --accent-ink measures 4.08:1 (this one is 5.67:1) */
+  --muted-strong: #5A4560;      /* secondary text on --bg-alt: 6.03:1 (--ink-muted is 4.34:1 there) */
+  --on-brand-muted: #D9C3DD;    /* labels on --brand: 7.44:1 */
+  --card-dark: #1C101E;
+  --card-dark-ink: #FFFFFF;
+  --card-dark-muted: #D8CFDA;   /* 12.13:1 on --card-dark */
+  /* Type — Playfair Display + Lato (brief.assigned.fonts) */
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);   /* body — never below 17px */
+  --fs-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);    /* lead */
+  --fs-2: clamp(1.35rem, 1.15rem + 0.9vw, 1.75rem);   /* h3 */
+  --fs-3: clamp(1.75rem, 1.35rem + 1.9vw, 2.6rem);    /* h2 */
+  --fs-4: clamp(2.35rem, 1.6rem + 3.6vw, 4rem);       /* h1 */
+  --lh-body: 1.65;
+  --lh-head: 1.12;
+  --track-label: 0.16em;
+
+  /* Shape & depth — sleek: sharp corners, hairlines, one shadow (cards on photos only) */
+  --radius: 2px;
+  --radius-sm: 2px;
+  --shadow: 0 18px 44px rgba(28, 16, 30, 0.22);
+  --shadow-sm: none;
+
+  /* Space — minimal density: air is the decoration */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+  --section-y: clamp(4.5rem, 8vw, 8rem);
+  --measure: 62ch;
+  --container: 1180px;
+  --gutter: clamp(1.25rem, 5vw, 2.5rem);
+
+  /* Motion — tone middle: fades only */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

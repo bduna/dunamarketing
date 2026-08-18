@@ -1,0 +1,65 @@
+/* tokens.css — Velvet Fig.
+   Palette is brief.assigned.palette, copied VERBATIM (11 tokens, exact hex). Family: dark saturated.
+   Derived additions are grouped at the bottom and marked; no assigned value is altered. */
+:root {
+  /* ---- ASSIGNED PALETTE (verbatim) ---- */
+  --bg: #3C0F3E;            /* 60: deep plum page base */
+  --bg-alt: #4C154E;        /* tinted band */
+  --surface: #4C154E;       /* cards */
+  --ink: #F1EEF1;           /* body — 14.21:1 on --bg */
+  --ink-muted: #AB95AC;     /* secondary — 5.33:1 on --bg, 4.70:1 on --bg-alt */
+  --line: #69386B;          /* assigned hairline */
+  --brand: #CB902A;         /* 30: brass */
+  --on-brand: #3C0F3E;      /* plum ink on brass — 4.66:1 */
+  --accent: #CB902A;        /* 10: the one accent */
+  --accent-hover: #B07C21;
+  --on-accent: #3C0F3E;     /* 4.66:1 on --accent */
+
+  /* ---- DERIVED (site-specific additions, see direction.md §2) ---- */
+  /* --accent is 4.11:1 on --bg-alt, which fails for 12-14px text. Lighter brass step for small type. */
+  --accent-ink: #CB902A;    /* 6.99:1 on --bg · 6.16:1 on --bg-alt */
+  --accent-lift: #E68B3F;   /* button hover on a dark page brightens; keeps plum ink at 6.33:1 */
+  /* --line is 1.27:1 against the base (invisible), so visible hairlines are derived instead. */
+  --hair: rgba(241, 238, 241, 0.14);
+  --hair-soft: rgba(241, 238, 241, 0.08);
+  --hair-brass: rgba(212, 108, 43, 0.50);
+  --hair-btn: rgba(241, 238, 241, 0.38);   /* ghost-button edge — 3.12:1 against the base */
+  --candle: #F6EFE6;        /* the "candlelight" surface — light card on photos */
+  --candle-ink: #2A0F31;
+  --candle-muted: #5C4A62;
+  --candle-brass: #8A3E10;
+
+  /* Type — brief.assigned.fonts: Playfair Display + Inter */
+  --font-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
+  --fs-1: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
+  --fs-2: clamp(1.35rem, 1.15rem + 0.9vw, 1.8rem);
+  --fs-3: clamp(1.75rem, 1.35rem + 1.9vw, 2.55rem);
+  --fs-4: clamp(2.3rem, 1.5rem + 4.2vw, 4.2rem);
+  --lh-body: 1.65;
+  --lh-head: 1.08;
+  --track-label: 0.18em;
+
+  /* Shape & depth — warmth axis is "sleek": near-sharp corners, hairlines instead of shadows.
+     Shadows are reserved for the two cards that sit on a photograph. */
+  --radius: 2px;
+  --radius-sm: 2px;
+  --shadow: 0 30px 70px rgba(0, 0, 0, 0.60);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+
+  /* Space — density axis is "rich" */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.25rem, 5.5vw, 5.75rem);
+  --measure: 62ch;
+  --container: 1140px;
+  --gutter: clamp(1.15rem, 4vw, 2rem);
+
+  /* Motion — tone axis is middle: fade/rise only */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

@@ -1,0 +1,58 @@
+/* tokens.css — Iron Canyon Climbing.
+   Palette = brief.assigned.palette, copied VERBATIM (all eleven tokens, exact hex).
+   Family: cool gray-white (#2) — the client's own "chalk-white page with near-black bands and rust accent". */
+:root {
+  /* --- assigned palette (do not edit) --- */
+  --bg: #F4F3F6;            /* 60: chalk page */
+  --bg-alt: #EBEAEF;        /* tinted band */
+  --surface: #FFFFFF;       /* cards */
+  --ink: #1D182A;           /* near-black text AND the dark bands (16.17:1 on --bg) */
+  --ink-muted: #645C7A;     /* secondary text (5.93:1 on --bg) */
+  --line: #D6D4DB;          /* hairlines */
+  --brand: #302159;         /* 30: deep navy band (on-brand 11.32:1) */
+  --on-brand: #F4F3F6;
+  --accent: #E3791C;        /* 10: rust orange — button fills, tag rules, prices only */
+  --accent-hover: #E98935;
+  --on-accent: #1D182A;     /* dark ink on a bright accent — 5.82:1, kept exactly as assigned */
+
+  /* --- derived (site-specific, identity tokens untouched) --- */
+  --accent-ink: #9C5619;    /* --accent is 2.78:1 on --bg: illegal for a 13px tag or a price. This is 5.34:1. */
+  --ink-2: #14101D;         /* one step below --ink for the hero card and the closing band */
+  --on-ink-muted: #BBB9C0;  /* secondary text on the dark bands (10.2:1 on --ink-2, 7.9:1 on --brand) */
+  --line-dark: rgba(249, 248, 250, 0.18);
+  /* On the dark bands the assigned --accent already clears 4.5:1 (6.26 on --ink-2, 4.87 on --brand),
+     so small accent text there uses --accent itself — no lifted step needed. */
+
+  /* Type — Oswald + Inter (brief.assigned.fonts) */
+  --font-display: "Oswald", "Haettenschweiler", Impact, system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1.02rem, 0.98rem + 0.2vw, 1.09rem);   /* body */
+  --fs-1: clamp(1.14rem, 1.02rem + 0.55vw, 1.38rem);  /* lead */
+  --fs-2: clamp(1.3rem, 1.12rem + 0.9vw, 1.75rem);    /* h3 */
+  --fs-3: clamp(1.9rem, 1.45rem + 2.1vw, 2.9rem);     /* h2 */
+  --fs-4: clamp(2.5rem, 1.75rem + 4.2vw, 4.3rem);     /* h1 */
+  --lh-body: 1.62;
+  --lh-head: 1.03;
+  --track-label: 0.16em;   /* uppercase route-tag labels */
+
+  /* Shape & depth — hard edges: rugged, modern, no soft corners */
+  --radius: 3px;
+  --radius-sm: 2px;
+  --shadow: 0 22px 50px rgba(12, 11, 26, 0.30);
+  --shadow-sm: 0 2px 10px rgba(12, 11, 26, 0.10);
+
+  /* Space — density axis is "rich": more content per screen */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.5rem, 5.2vw, 5.75rem);
+  --measure: 60ch;
+  --container: 1120px;
+  --gutter: clamp(1.15rem, 4vw, 2rem);
+
+  /* Motion — serious tone: fades only */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 180ms;
+}

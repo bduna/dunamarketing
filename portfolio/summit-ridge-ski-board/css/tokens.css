@@ -1,0 +1,57 @@
+/* tokens.css — Summit Ridge Ski & Board.
+   Palette copied VERBATIM from brief.assigned.palette (all 12 tokens, exact hex).
+   Light glacier-blue base; deep alpine used only as bands. */
+:root {
+  /* --- assigned palette (do not edit) --- */
+  --bg: #E7F3F5;            /* 60: glacier blue page */
+  --bg-alt: #D5E9EE;        /* tinted section */
+  --surface: #FFFFFF;       /* cards, rate panel */
+  --ink: #18272A;           /* body text — 13.61:1 on --bg */
+  --ink-muted: #4E6267;     /* secondary — 5.67:1 on --bg, 5.12:1 on --bg-alt */
+  --line: #D0DCDF;          /* hairlines */
+  --brand: #214E59;         /* 30: deep alpine bands — 8.06:1 vs --bg */
+  --on-brand: #E7F3F5;      /* 8.06:1 on --brand */
+  --accent: #E3931C;        /* 10: amber — FILLS ONLY (2.19:1 on --bg) */
+  --accent-hover: #E9A135;
+  --on-accent: #18272A;     /* deliberately DARK ink on the bright amber — 6.21:1 */
+  --accent-ink: #8A5C16;    /* small type: prices, eyebrows, labels — 5.12:1 on --bg */
+
+  /* --- derived (site-specific; identity tokens above untouched) --- */
+  --accent-on-brand: #F2B860;   /* accent step legible on the deep-alpine band — 5.13:1 */
+  --on-brand-muted: #BFD6DB;    /* secondary text on the brand band — 6.03:1 */
+  --line-on-brand: rgba(231, 243, 245, 0.26);
+  --tint-accent: rgba(227, 147, 28, 0.12);
+
+  /* Type — Space Grotesk + Inter (brief.assigned.fonts) */
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.18vw, 1.08rem);
+  --fs-1: clamp(1.12rem, 1.02rem + 0.45vw, 1.34rem);
+  --fs-2: clamp(1.32rem, 1.16rem + 0.8vw, 1.75rem);
+  --fs-3: clamp(1.75rem, 1.4rem + 1.7vw, 2.6rem);
+  --fs-4: clamp(2.3rem, 1.6rem + 3.6vw, 4rem);
+  --lh-body: 1.62;
+  --lh-head: 1.06;
+  --track-label: 0.14em;
+
+  /* Shape & depth — near-square, equipment-like; hairlines before shadows */
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow: 0 18px 44px rgba(24, 39, 42, 0.24);
+  --shadow-sm: 0 1px 2px rgba(24, 39, 42, 0.10);
+
+  /* Space — density axis right: tighter rhythm, more per screen */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.25rem;
+  --space-5: 3.5rem;
+  --section-y: clamp(3rem, 5vw, 5.25rem);
+  --measure: 60ch;
+  --container: 1160px;
+  --gutter: clamp(1.15rem, 4vw, 2.25rem);
+
+  /* Motion — serious tone: fades only */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 180ms;
+}

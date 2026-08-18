@@ -1,0 +1,156 @@
+/* Harbor Point Veterinary — site-specific.
+   Accent budget (owner rule: spend it on almost nothing):
+   the call button fill · price figures · eyebrows · one 4px rule. Nothing else is orange. */
+
+h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; }
+h3 { font-weight: 700; letter-spacing: -0.01em; }
+.eyebrow { color: var(--accent-ink); font-weight: 800; }
+.lead { max-width: 46ch; }
+
+/* --- Header ------------------------------------------------------------- */
+.site-header { background: rgba(230, 238, 244, 0.94); }
+.brand { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; gap: 0.55rem; }
+.brand__mark { display: inline-grid; place-items: center; width: 32px; height: 32px; border-radius: 9px;
+  background: var(--brand); color: var(--on-brand); font-size: 0.95rem; font-weight: 800; letter-spacing: 0; }
+.nav a:not(.btn) { color: var(--ink); font-weight: 600; }
+.nav a:not(.btn):hover { color: var(--brand); }
+.nav a[aria-current="page"] { color: var(--brand); text-decoration: underline;
+  text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 7px; }
+.nav a.btn--primary { color: var(--on-accent); }
+@media (max-width: 720px) { .nav { background: var(--bg); } }
+
+/* --- Buttons ------------------------------------------------------------ */
+.btn--primary, .nav a.btn--primary, .site-footer a.btn--primary { color: var(--on-accent); }
+.btn--ghost { border-color: var(--brand); color: var(--brand); background: var(--surface); }
+.btn--ghost:hover, .btn--ghost:focus-visible { background: var(--bg-alt); }
+.on-brand .btn--ghost { border-color: var(--on-brand); color: var(--on-brand); background: transparent; }
+.on-brand .btn--ghost:hover { background: rgba(230, 238, 244, 0.14); }
+
+/* --- Hero (T3 — split, photo on a harbor-blue offset panel, NO overlay) --- */
+.hero { padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(3.5rem, 7vw, 6rem); overflow: hidden; }
+.hero .split { gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+.hero h1 { margin-bottom: var(--space-3); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.hero__hours { display: inline-flex; flex-wrap: wrap; gap: 0.15rem 0.6rem; margin-top: var(--space-3);
+  font-weight: 600; color: var(--ink-muted); }
+.hero__hours b { color: var(--ink); }
+.hero__figure { position: relative; margin: 0; justify-self: center; width: min(100%, 430px); }
+.hero__panel { position: absolute; inset: 14% -7% -7% 16%; background: var(--brand);
+  border-radius: var(--radius); }
+.hero__figure img { position: relative; width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+  object-position: 50% 28%; border-radius: var(--radius); box-shadow: var(--shadow); }
+@media (max-width: 819px) {
+  .hero__figure { width: min(100%, 380px); margin-top: var(--space-2); }
+  .hero__panel { inset: 16% -5% -5% 12%; }
+}
+
+/* --- Known-for strip (T1 tinted) ---------------------------------------- */
+.facts { display: grid; gap: var(--space-3); margin-top: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+.fact { border-top: 3px solid var(--brand); padding-top: var(--space-2); }
+.fact:first-child { border-top-color: var(--accent); }
+.fact h3 { font-size: var(--fs-2); margin-bottom: 0.35rem; color: var(--brand); }
+.fact p { margin: 0; color: var(--ink-muted); }
+.section-lede { max-width: 52ch; font-size: var(--fs-1); color: var(--ink-muted); }
+
+/* --- Services price list (T1 solid) ------------------------------------- */
+.pricelist { margin: var(--space-4) 0 0; display: grid; gap: 0.75rem; }
+.pricerow { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); padding: clamp(1.1rem, 2.4vw, 1.5rem);
+  display: grid; gap: 0.35rem 1.5rem; grid-template-columns: 1fr auto; align-items: start; }
+.pricerow dt { grid-column: 1; grid-row: 1; font-family: var(--font-display); font-weight: 800;
+  font-size: var(--fs-2); letter-spacing: -0.01em; }
+.pricerow__price { grid-column: 2; grid-row: 1; text-align: right; white-space: nowrap;
+  font-weight: 800; font-size: var(--fs-1); color: var(--accent-ink); }
+.pricerow__price a { color: var(--brand); text-decoration: underline; text-underline-offset: 4px;
+  text-decoration-thickness: 2px; text-decoration-color: var(--accent); }
+.pricerow__quote { font-size: var(--fs-0); color: var(--brand); }
+.pricerow__desc { grid-column: 1 / -1; grid-row: 2; }
+.pricerow__desc p { margin: 0; color: var(--ink-muted); max-width: 58ch; }
+@media (max-width: 560px) {
+  .pricerow { grid-template-columns: 1fr; }
+  .pricerow__price { grid-column: 1; grid-row: 2; text-align: left; }
+  .pricerow__desc { grid-row: 3; }
+}
+.pricenote { margin-top: var(--space-3); display: flex; gap: 0.85rem; align-items: flex-start;
+  border-left: 4px solid var(--accent); padding-left: var(--space-2); color: var(--ink-muted); }
+.pricenote p { margin: 0; }
+
+/* --- T5: photo kept BRIGHT, words in a contained card -------------------- */
+/* the german shepherd sits low-left in frame; the card sits left over the empty shelf wall so it
+   never covers the vet or the dog's face */
+.photostage__img { object-position: 62% 52%; }
+.photostage--band { min-height: clamp(360px, 48vw, 540px); }
+/* whisper of edge shading only — this is not T4 */
+.photostage::after { background: linear-gradient(90deg, rgba(12, 24, 32, 0.22), rgba(12, 24, 32, 0) 62%); }
+.pcard--dark { background: rgba(15, 26, 33, 0.93); color: #F2F7FA; }
+.pcard--dark h2 { color: #FFFFFF; }
+.pcard--dark .lead, .pcard--dark .muted, .pcard--dark footer { color: #C9D8E2; }
+.pcard--light { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+.pcard--light .lead, .pcard--light .muted, .pcard--light footer { color: var(--ink-muted); }
+.pcard--light blockquote, .pcard blockquote { margin: 0; }
+.pcard .btn { margin-top: 0; }
+.pcard__hours { margin-top: var(--space-3); margin-bottom: 0; font-weight: 600; }
+
+/* --- About split (T3) ---------------------------------------------------- */
+.about__media img { width: 100%; aspect-ratio: 5 / 4; object-fit: cover; object-position: 50% 42%;
+  border-radius: var(--radius); box-shadow: var(--shadow); }
+.about p { font-size: var(--fs-1); }
+.about .signoff { font-size: var(--fs-0); font-weight: 700; color: var(--brand); }
+
+/* --- T6: full-bleed breath band, no text --------------------------------- */
+.breath { display: block; }
+/* crop from the top so her face and the dogs' heads survive the band height */
+.breath img { width: 100%; height: clamp(240px, 30vw, 430px); object-fit: cover; object-position: 50% 3%; }
+
+/* --- Reviews (T1 tinted) -------------------------------------------------- */
+.quotes { display: grid; gap: var(--space-3); margin-top: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.quote { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); padding: clamp(1.3rem, 3vw, 2rem); margin: 0; }
+.quote p { font-size: var(--fs-1); font-weight: 600; margin-bottom: var(--space-2); max-width: none; }
+.quote footer { color: var(--ink-muted); font-weight: 700; }
+
+/* --- Closing CTA band (T2 brand) ----------------------------------------- */
+.close { background: var(--brand); color: var(--on-brand); }
+.close h2 { color: #FFFFFF; }
+.close p { color: var(--on-brand-muted); }
+.close .close__grid { display: grid; gap: var(--space-4); align-items: center; grid-template-columns: 1fr; }
+@media (min-width: 860px) { .close .close__grid { grid-template-columns: 1.05fr 0.95fr; } }
+.close__details { display: grid; gap: 0.9rem; }
+.close__row { display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.5rem 1rem;
+  border-top: 1px solid var(--line-on-brand); padding-top: 0.85rem; }
+.close__row dt { font-size: 0.82rem; font-weight: 800; letter-spacing: var(--track-label);
+  text-transform: uppercase; color: var(--on-brand-muted); }
+.close__row dd { margin: 0; font-weight: 700; color: var(--on-brand); }
+.close__row a { color: var(--on-brand); text-decoration: underline; text-underline-offset: 4px;
+  text-decoration-color: rgba(230, 238, 244, 0.5); }
+.close__row a:hover { text-decoration-color: var(--on-brand); }
+@media (max-width: 460px) { .close__row { grid-template-columns: 1fr; } }
+
+/* --- Sub-page compact hero (T1) ------------------------------------------ */
+.pagehead { background: var(--bg-alt); padding-block: clamp(2.5rem, 5vw, 4rem); }
+.pagehead h1 { max-width: 18ch; }
+.pagehead .lead { margin-bottom: 0; }
+
+/* --- Footer -------------------------------------------------------------- */
+.site-footer { background: var(--brand-deep); color: var(--on-brand-muted); border-top: 0;
+  padding-block: var(--space-5) var(--space-4); }
+.site-footer .brand { color: var(--on-brand); }
+.site-footer .brand__mark { background: var(--on-brand); color: var(--brand); }
+.site-footer a { color: var(--on-brand); }
+.site-footer p { max-width: 40ch; }
+.site-footer__legal { grid-column: 1 / -1; border-top: 1px solid var(--line-on-brand);
+  padding-top: var(--space-3); display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem;
+  font-size: 0.85rem; color: var(--on-brand-muted); }
+.site-footer__legal p { margin: 0; max-width: none; }
+
+/* --- Sticky mobile call bar ---------------------------------------------- */
+.cta-bar { background: var(--brand); border-top: 1px solid var(--line-on-brand); }
+
+/* On a phone the card fills the stage — give the photograph a little more room to register */
+@media (max-width: 700px) { .photostage--band { min-height: 460px; } }
+
+/* services.html — photo 04 is a portrait frame; a 5:4 crop beheads the vet, so keep it upright */
+#visit .about__media img { aspect-ratio: 4 / 5; object-position: 50% 24%; max-width: 430px; }
+@media (min-width: 820px) { #visit .about__media { justify-self: start; } }
