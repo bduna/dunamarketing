@@ -1,19 +1,25 @@
-/* tokens.css — Terra Verde Landscaping. Warm · Rugged · Classic. DARK forest green base + terracotta. */
+/* tokens.css — Terra Verde Landscaping. Warm · Rugged · Classic. BRIGHT sage base + terracotta. */
 :root {
-  /* Palette (60-30-10) — assigned DARK forest green.
-     AA checked: ink on bg 14.4:1 · ink-muted on bg 8.1:1 · white on brand 4.7:1 · ink on accent 5.5:1 */
-  --bg: #10241A;            /* 60: deep forest page */
-  --bg-alt: #163020;        /* tinted panel / band */
-  --surface: #163020;       /* cards (no white panels on a dark page) */
-  --ink: #EDF3EA;           /* body text */
-  --ink-muted: #A7BCA6;     /* secondary text */
-  --line: #234A31;          /* hairlines */
-  --brand: #BE5228;         /* 30: terracotta band (nudged from #D2643A so white on brand clears 4.5:1) */
-  --brand-deep: #CFE0C8;    /* pale sage — heading/link tint on the dark base (was the dark green) */
-  --on-brand: #FFFFFF;
-  --accent: #E07A4E;        /* 10: terracotta — CTAs, eyebrows, highlights */
-  --accent-hover: #F08F63;
-  --on-accent: #10241A;
+  /* Palette (60-30-10) — BRIGHT sage green page, deep-green brand, terracotta accent.
+     Owner review 2026-08-17: the previous deep-forest base (#10241A) plus an 0.86-opacity hero
+     scrim read as "dark and dreary ... like doomsday" on a landscaping site. A trade that sells
+     daylight and growth cannot sit on a near-black page. See mappings/palette-families.md rule 6.
+     AA checked: ink on bg 13.3:1 · ink-muted on bg 5.0:1 · white on accent 4.9:1 · on-brand 8.1:1 */
+  --bg: #E5F4E7;            /* 60: bright sage page */
+  --bg-alt: #D3EDD7;        /* tinted panel / band */
+  --surface: #FFFFFF;       /* white cards on the sage page */
+  --ink: #182A1A;           /* body text */
+  --ink-muted: #526D56;     /* secondary text */
+  --line: #D0DFD2;          /* hairlines */
+  --brand: #1E5225;         /* 30: deep garden green band, pale sage text on it */
+  --brand-deep: #123617;    /* deepest green — heading/link tint */
+  --on-brand: #E5F4E7;
+  --accent: #B6542B;        /* 10: terracotta — CTAs, eyebrows, highlights */
+  --accent-hover: #9D4620;
+  --accent-ink: #9D4620;    /* terracotta for SMALL TEXT — #B6542B is only 4.29:1 on the sage page.
+                               A fill colour and a text colour are not the same job: white-on-accent
+                               clears 4.9:1 as a button, but the same hex fails as an eyebrow. */
+  --on-accent: #FFFFFF;
 
   /* Type — Lora (display) + Lato (body); loaded in <head> */
   --font-display: "Lora", Georgia, "Times New Roman", serif;
@@ -30,8 +36,8 @@
   /* Shape & depth — classic, restrained */
   --radius: 10px;
   --radius-sm: 8px;
-  --shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
-  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow: 0 18px 44px rgba(24, 42, 26, 0.14);
+  --shadow-sm: 0 4px 16px rgba(24, 42, 26, 0.10);
 
   /* Space (density: medium) */
   --space-1: 0.5rem;

@@ -7,28 +7,33 @@ h1, h2 { color: var(--brand-deep); }
 /* ---- Buttons: secondary/ghost tuned for this palette ---- */
 .btn--line { background: transparent; color: var(--brand-deep); border: 2px solid var(--accent); }
 .btn--line:hover, .btn--line:focus-visible { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
-.hero .btn--line { color: #fff; border-color: rgba(255,255,255,0.85); }
-.hero .btn--line:hover, .hero .btn--line:focus-visible { background: #fff; color: var(--bg); border-color: #fff; }
-.section--brand .btn--primary { background-color: var(--bg); color: var(--ink); box-shadow: none; }
-.section--brand .btn--primary:hover, .section--brand .btn--primary:focus-visible { background-color: var(--bg-alt); color: var(--ink); }
+.hero .btn--line { color: var(--ink); border-color: var(--ink); }
+.hero .btn--line:hover, .hero .btn--line:focus-visible { background: var(--ink); color: #fff; border-color: var(--ink); }
+.section--brand .btn--primary { background-color: #fff; color: var(--brand); box-shadow: none; }
+.section--brand .btn--primary:hover, .section--brand .btn--primary:focus-visible { background-color: var(--bg-alt); color: var(--brand); }
 
 /* ---- Header brand mark ---- */
 .brand__mark { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 7px;
   background: var(--brand); color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 1rem; }
 
-/* ---- Hero: full-bleed photo, deep-green overlay for contrast ---- */
-.hero { position: relative; color: #fff; isolation: isolate; }
+/* ---- Hero: bright photo, words in a contained light card (T5) ----
+   Was a full-bleed photo under an 0.86-opacity near-black scrim with white text. The owner's review:
+   "I hate the above the fold. It's dark and dreary ... This is like doomsday." A landscaper sells green
+   grass and daylight; darkening the one photograph that shows it works against the whole pitch. The card
+   gives the type a solid surface to sit on, so the photograph stays as bright as it was shot. */
+.hero { position: relative; color: var(--ink); isolation: isolate; }
 .hero__media { position: absolute; inset: 0; z-index: -2; }
 .hero__media img { width: 100%; height: 100%; object-fit: cover; }
-.hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(180deg, rgba(8,20,13,0.86) 0%, rgba(8,20,13,0.66) 45%, rgba(8,20,13,0.88) 100%); }
-.hero .container { padding-block: clamp(4.5rem, 12vw, 8.5rem); }
-.hero__inner { max-width: 42rem; }
-.hero h1 { color: #fff; margin-bottom: var(--space-3); }
-.hero .lead { color: rgba(255,255,255,0.92); }
-.hero .eyebrow { color: #F0C9AE; }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0) 62%); }
+.hero .container { padding-block: clamp(3rem, 7vw, 5.5rem); }
+.hero__inner { max-width: 39rem; background: rgba(255,255,255,0.95); border-radius: var(--radius);
+  padding: clamp(1.6rem, 3.5vw, 2.6rem); box-shadow: var(--shadow); }
+.hero h1 { color: var(--ink); margin-bottom: var(--space-3); }
+.hero .lead { color: var(--ink-muted); }
+.hero .eyebrow { color: var(--accent-ink); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
-.hero__trust { margin-top: var(--space-3); font-size: 0.95rem; color: rgba(255,255,255,0.85); letter-spacing: 0.01em; }
+.hero__trust { margin-top: var(--space-3); font-size: 0.95rem; color: var(--ink-muted); letter-spacing: 0.01em; }
 
 /* ---- Section intro ---- */
 .section__head { max-width: 46rem; margin-bottom: var(--space-4); }
@@ -40,9 +45,12 @@ h1, h2 { color: var(--brand-deep); }
 .gallery figure { margin: 0; position: relative; border-radius: var(--radius); overflow: hidden;
   box-shadow: var(--shadow-sm); background: var(--bg-alt); border: 1px solid var(--line); }
 .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.gallery figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.6rem 1rem 0.85rem;
-  color: #fff; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.01em;
-  background: linear-gradient(0deg, rgba(0,0,0,0.88), rgba(0,0,0,0) 100%); }
+/* The caption sat on a bottom-up black gradient with 1.6rem of top padding, which lifted the words
+   into the part of the gradient that had already faded out — white text on a sunlit lawn, 1.27:1.
+   A solid light bar is honest about where the readable area is, and keeps the photo bright. */
+.gallery figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 0.7rem 1rem;
+  color: var(--ink); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.01em;
+  background: rgba(255,255,255,0.94); }
 .gallery .tall { grid-row: span 2; }
 @media (min-width: 820px) {
   .gallery .span2 { grid-column: span 2; }
@@ -56,7 +64,7 @@ h1, h2 { color: var(--brand-deep); }
 .service h3 { margin: 0; color: var(--brand-deep); }
 .service p { margin: 0; color: var(--ink-muted); }
 .service .price { margin-top: auto; padding-top: var(--space-2); font-family: var(--font-display);
-  font-weight: 700; font-size: 1.15rem; color: var(--accent); }
+  font-weight: 700; font-size: 1.15rem; color: var(--accent-ink); }
 .service .price small { display: block; font-family: var(--font-body); font-weight: 700; font-size: 0.72rem;
   text-transform: uppercase; letter-spacing: var(--track-label); color: var(--ink-muted); margin-bottom: 0.1rem; }
 
@@ -66,7 +74,7 @@ h1, h2 { color: var(--brand-deep); }
 @media (min-width: 720px) { .service-row { grid-template-columns: 1fr auto; align-items: start; column-gap: var(--space-4); } }
 .service-row h3 { margin: 0 0 0.4rem; }
 .service-row p { margin: 0; }
-.service-row .price { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; color: var(--accent); white-space: nowrap; }
+.service-row .price { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; color: var(--accent-ink); white-space: nowrap; }
 .service-row .price small { display: block; font-family: var(--font-body); font-weight: 700; font-size: 0.72rem;
   text-transform: uppercase; letter-spacing: var(--track-label); color: var(--ink-muted); }
 
