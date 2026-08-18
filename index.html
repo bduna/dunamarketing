@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
 <title>Website Interview &mdash; Duna Marketing</title>
-<meta name="description" content="Tell Duna Marketing about your business in about 11 minutes — just talk — and we'll build your website from your real answers.">
+<meta name="description" content="Tell Duna Marketing about your business in about 4 minutes — just talk — and we'll build your website from your real answers.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Duna Marketing">
 <meta property="og:title" content="Your new website starts here — Duna Marketing">
-<meta property="og:description" content="About 11 minutes, nothing to prepare, no tech skills needed. Answer a few questions out loud and we build the rest.">
+<meta property="og:description" content="About 4 minutes, nothing to prepare, no tech skills needed. Answer a few questions out loud and we build the rest.">
 <meta name="theme-color" content="#003087">
 <link rel="icon" type="image/png" href="duna_marketing_logo.png">
 <link rel="apple-touch-icon" href="duna_marketing_logo.png">
@@ -233,15 +233,15 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
 <nav class="topbar">
   <img src="duna_marketing_logo.png" alt="">
   <span class="name">Duna Marketing</span>
-  <span class="meta">≈ 11 min · saves as you go</span>
+  <span class="meta">≈ 4 min · saves as you go</span>
 </nav>
 
 <main>
   <div class="wrap">
     <div class="intro" id="intro">
-      <p class="kicker">About 11 minutes · Just talk</p>
+      <p class="kicker">About 4 minutes · Three questions · Just talk</p>
       <h1>Your new website starts here.</h1>
-      <p>I'll ask a few questions, one at a time. Answer out loud with your phone's keyboard mic, or type. Short answers are fine &mdash; honest beats polished.</p>
+      <p>I'll find your business on Google, then ask you three questions. Answer out loud with your phone's keyboard mic, or type. Short answers are fine &mdash; honest beats polished.</p>
     </div>
 
     <div class="resume" id="resume" hidden><span id="resume-msg"></span><button type="button" id="start-over">Start over</button></div>
@@ -317,21 +317,33 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     design_refs: "e.g. I like how clean redwoodcu.org looks. Can't stand sites that are all popups. Our colors are navy and gold.",
     rules_talk: "e.g. Must show our license number and that we're bilingual. No stock photos. Please, no chat popups."
   };
+  // Three open-ended questions, deliberately. Google Places already supplies the name, address,
+  // phone, hours and category — asking for those again wastes the client's goodwill. These three
+  // capture only what Google cannot know, and each one fills a specific page of the site:
+  //   what_you_do    -> the homepage headline and the whole positioning
+  //   services_talk  -> the Services / Menu page, with prices exactly as spoken
+  //   story_origin   -> the About page, and the voice the copy is written in
   var SCREENS = [
     { id: "places",   type: "places",  q: "Find your business.", sub: "Type the name and city — I’ll pull the details from Google so you don’t have to type them." },
     { id: "contact",  type: "contact", q: "First — who am I talking to, and what’s the best number to text you at?", required: true },
-    { id: "what",     type: "talk",    field: "what_you_do",   q: "Tell me what you do and where — the way you’d tell a neighbor.", required: true, minWords: 12 },
-    { id: "origin",   type: "talk",    field: "story_origin",  q: "How did this start? Take me back to the moment you decided to do it.", reassure: true },
-    { id: "known",    type: "talk",    field: "known_for",     q: "What are you known for — the thing people mention when they refer you?", reviewPrompt: true },
-    { id: "services", type: "talk",    field: "services_talk", q: "Walk me through what you offer and roughly what it costs. If it’s by quote, just say so.", required: true, minWords: 8, priceNudge: true },
-    { id: "visitor",  type: "talk",    field: "typical_visitor", q: "Think of your favorite kind of customer. Who are they, and what’s going on in their life when they come looking for you?" },
-    { id: "goal",     type: "goal",    field: "primary_goal",  q: "When someone lands on your site, what’s the ONE thing you want them to do?", sub: "If everything matters, pick the one that pays the bills.", required: true },
-    { id: "goaldetail", type: "talk",  field: "goal_detail",   q: "", conditional: true },
-    { id: "aspire",   type: "talk",    field: "aspirations",   q: "Where do you want the business to be in two years — and what would the website have to do to help you get there?", reassure: true },
-    { id: "feel",     type: "talk",    field: "design_feel",   q: "What should someone feel in the first three seconds on your site? And if your business were a place — a shop, a café, an office, a truck — what does it look like inside?", reassure: true },
-    { id: "vibe",     type: "vibe",    q: "Pick three words that fit you.", required: true },
-    { id: "rules",    type: "rules",   q: "Anything the site must have, must never have, or that I should just know?" },
-    { id: "photos",   type: "photos",  q: "Last thing — photos.", sub: "Storefront, team, products, your best work. Then tap the one that’s most you." },
+
+    { id: "what",     type: "talk",    field: "what_you_do",
+      q: "What do you do, and why do people pick you instead of someone else?",
+      sub: "This becomes the headline. Say it the way you’d say it to a neighbour — the thing you’re actually known for.",
+      required: true, minWords: 15, reviewPrompt: true },
+
+    { id: "services", type: "talk",    field: "services_talk",
+      q: "Walk me through everything you offer and what it costs.",
+      sub: "This builds your Services page. Say the prices out loud — “from $89”, “$150 flat”, “by quote” all work. Anything you leave out won’t be on the site.",
+      required: true, minWords: 12, priceNudge: true },
+
+    { id: "origin",   type: "talk",    field: "story_origin",
+      q: "How did this start — and who do you most love working with?",
+      sub: "This becomes your About page. How long you’ve done it, what you did before, and the customer you wish you had more of.",
+      required: true, minWords: 12, reassure: true },
+
+    { id: "goal",     type: "goal",    field: "primary_goal",  q: "When someone lands on your site, what’s the ONE thing you want them to do?", sub: "One tap. This decides every button on the site.", required: true },
+    { id: "photos",   type: "photos",  q: "Photos.", sub: "Storefront, team, your best work. Then tap the one that’s most you. Skip if you’d rather send them by text." },
     { id: "review",   type: "review",  q: "Here’s what I heard." }
   ];
   var VIBE_WORDS = ["Warm", "Sleek", "Playful", "Bold", "Calm", "Rugged", "Luxe", "Simple", "Friendly", "Serious", "Modern", "Classic"];
@@ -532,10 +544,10 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     var rows = [
       ["Business", S.a.business_name || "—", "contact"],
       ["You", [S.a.first_name, S.a.last_name].filter(Boolean).join(" ") + (S.a.phone ? " · " + S.a.phone : "") + (S.a.email ? " · " + S.a.email : ""), "contact"],
-      ["What & where", trunc(S.a.what_you_do, 140), "what"],
+      ["What you do", trunc(S.a.what_you_do, 140), "what"],
+      ["Services & prices", trunc(S.a.services_talk, 140), "services"],
+      ["Your story", trunc(S.a.story_origin, 140), "origin"],
       ["Goal", S.a.primary_goal || "—", "goal"],
-      ["Feel", (S.a.vibe_words || []).join(" · ") || "—", "vibe"],
-      ["Pages", (S.a.pages || []).join(", ") || "You decide", "rules"],
       ["Photos", S.photos.length ? S.photos.length + " photo" + (S.photos.length === 1 ? "" : "s") + (S.photos.some(function (p) { return p.is_hero; }) ? " (one starred)" : "") : (S.a.photo_folder_link ? "Folder link" : "None yet"), "photos"]
     ];
     var skippedList = visibleScreens().filter(function (s) { return s.type !== "review" && s.type !== "places" && !answered(s); }).map(shortLabel);
@@ -651,7 +663,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     var chips = [
       ["Name", !!S.a.first_name], ["Phone", /\d{3}[^\d]?\d{3}[^\d]?\d{4}/.test(S.a.phone || "")], ["Email", /\S+@\S+\.\S+/.test(S.a.email || "")],
       ["What you do", words(S.a.what_you_do) >= 6], ["Services", words(S.a.services_talk) >= 4], ["Prices", /\$\s?\d|\b\d+\s?(dollars|bucks)\b|\bquote\b|\bestimate\b/i.test(S.a.services_talk || "")],
-      ["Hours", /\b(am|pm|mon|tue|wed|thu|fri|sat|sun|weekday|weekend|hours?)\b/i.test(all)], ["Goal", !!S.a.primary_goal], ["Feel", (S.a.vibe_words || []).length > 0], ["Photos", S.photos.length > 0]
+      ["Story", words(S.a.story_origin) >= 8], ["Goal", !!S.a.primary_goal], ["Photos", S.photos.length > 0]
     ];
     heard.innerHTML = chips.map(function (c) { return '<span class="' + (c[1] ? "on" : "") + '">' + (c[1] ? "✓ " : "") + c[0] + '</span>'; }).join("");
   }
