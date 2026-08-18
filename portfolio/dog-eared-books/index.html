@@ -30,18 +30,17 @@
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav class="nav" id="nav" aria-label="Primary">
-      <a href="index.html#shelves" aria-current="page">On the shelves</a>
-      <a href="#glimpse">Gallery</a>
-      <a href="#story">About</a>
-      <a href="index.html#visit">Visit</a>
-      <a class="btn btn--primary" href="tel:+12075550532">Order by phone</a>
-    </nav>
+      <a href="index.html">Home</a>
+      <a href="services.html">What we do</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Visit</a>
+<a class="btn btn--primary" href="tel:+12075550532">Order by phone</a>
+</nav>
   </div>
 </header>
 
-<main>
-  <!-- 1 · Hero — T3: big type beside the starred photo, no overlay -->
-  <section class="hero" id="top">
+<main><section class="hero" id="top">
     <div class="container hero__grid">
       <div>
         <p class="eyebrow">Portland, Maine &middot; Open daily 10am&ndash;8pm</p>
@@ -61,9 +60,7 @@
       </figure>
     </div>
   </section>
-
-  <!-- 2 · Where &amp; when — T1 tinted strip -->
-  <section class="strip" id="hours" aria-label="Where and when to find us">
+<section class="strip" id="hours" aria-label="Where and when to find us">
     <div class="container strip__grid">
       <div class="strip__item">
         <span class="strip__label">Where</span>
@@ -79,66 +76,34 @@
       </div>
     </div>
   </section>
-
-  <!-- 3 · Offerings as an editorial list — T1 on the page base -->
-  <section class="section" id="shelves">
+  <section class="section">
     <div class="container">
-      <hr class="rule">
-      <h2>On the shelves</h2>
-      <p class="lead">Six things worth knowing before you come in.</p>
-      <div class="shelves">
-        <article class="shelf shelf--feature dogear">
-          <p class="eyebrow">What we&rsquo;re known for</p>
-          <h3>Staff picks shelf</h3>
-          <p>Handwritten recommendation cards, one per book, signed by whoever read it.</p>
-        </article>
-        <article class="shelf dogear">
-          <h3>New releases</h3>
-          <p>The new hardcovers and paperbacks, at cover price. No membership, no upsell.</p>
-          <p class="shelf__tag"><span class="shelf__leader" aria-hidden="true"></span><span class="shelf__price">At cover price</span></p>
-        </article>
-        <article class="shelf dogear">
-          <h3>Used books</h3>
-          <p>A wall of secondhand paperbacks and cloth-bound hardcovers, priced to be read rather than shelved.</p>
-          <p class="shelf__tag"><span class="shelf__leader" aria-hidden="true"></span><span class="shelf__price">From $4</span></p>
-        </article>
-        <article class="shelf dogear">
-          <h3>Special orders</h3>
-          <p>If it&rsquo;s in print and we don&rsquo;t have it, we&rsquo;ll get it in for you. Call and we&rsquo;ll start it today.</p>
-          <p class="shelf__tag"><span class="shelf__leader" aria-hidden="true"></span><span class="shelf__meta">3&ndash;5 days</span></p>
-        </article>
-        <article class="shelf dogear">
-          <h3>Gift wrapping</h3>
-          <p>Brown paper and string at the counter, on anything you&rsquo;re taking home.</p>
-          <p class="shelf__tag"><span class="shelf__leader" aria-hidden="true"></span><span class="shelf__price">Free</span></p>
-        </article>
-        <article class="shelf dogear">
-          <h3>Book club</h3>
-          <p>The first Thursday of the month, in the shop, once the doors are shut.</p>
-          <p class="shelf__tag"><span class="shelf__leader" aria-hidden="true"></span><span class="shelf__meta">First Thursday</span></p>
-        </article>
+      <div class="section__head"><h2>Have a look around</h2></div>
+      <div class="teasers">
+    <article class="teaser">
+      <h3>On the shelves</h3>
+      <p>Six things worth knowing before you come in.</p>
+      <p><a class="teaser__link" href="services.html">What we do &rarr;</a></p>
+    </article>
+    <article class="teaser">
+      <h3>Somebody here read it first.</h3>
+      <p>The card in the front of the book</p>
+      <p><a class="teaser__link" href="gallery.html">Gallery &rarr;</a></p>
+    </article>
+    <article class="teaser">
+      <h3>A third of the space, better taste</h3>
+      <p>&ldquo;I worked at a chain bookstore for eight years and watched it close.&rdquo;</p>
+      <p><a class="teaser__link" href="about.html">About &rarr;</a></p>
+    </article>
+    <article class="teaser">
+      <h3>Come in, or order by phone.</h3>
+      <p>Tell us what you last liked and we&rsquo;ll find you the next one. Special orders start the same day you call and land in three to five days.</p>
+      <p><a class="teaser__link" href="contact.html">Visit &rarr;</a></p>
+    </article>
       </div>
     </div>
   </section>
-
-  <!-- 4 · Staff picks — T5: the window photo stays bright, the words sit in a card -->
-  <section class="photostage photostage--band" id="picks" aria-label="Stacks of new titles in the shop window">
-    <img class="photostage__img" src="assets/web/photo-06-a-charming-bookshop-window-display-featuring-stack.jpg" alt="The shop window seen from inside: stacks of new titles on the sill, paper stars taped to the glass, the street beyond" width="1600" height="900" loading="lazy">
-    <div class="container photostage__inner">
-      <div class="pcard pcard--light">
-        <p class="eyebrow">The card in the front of the book</p>
-        <h2>Somebody here read it first.</h2>
-        <p>Every book on the picks shelf carries a handwritten recommendation card &mdash; one per book, signed by whoever read it. Those cards are the thing people actually trust, and the reason most of our regulars leave with something they weren&rsquo;t looking for.</p>
-        <div class="pcard__actions">
-          <a class="btn btn--primary" href="tel:+12075550532">Order by phone</a>
-          <a class="btn btn--ghost" href="#glimpse">Look around the shop</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5 · Proof — T1 tinted -->
-  <section class="section section--alt" id="readers">
+<section class="section section--alt" id="readers">
     <div class="container">
       <hr class="rule">
       <h2>What readers tell us</h2>
@@ -154,9 +119,7 @@
       </div>
     </div>
   </section>
-
-  <!-- 6 · Photo strip — T6: full-bleed images, captions underneath, nothing written on them -->
-  <section aria-label="Inside the shop" id="glimpse">
+<section aria-label="Inside the shop" id="glimpse">
     <div class="stripe">
       <figure>
         <img src="assets/thumb/photo-05-a-collection-of-vintage-books-on-a-shelf-showcasin.jpg" alt="A row of matching cloth-bound catalogue volumes on a shelf, spines worn pale from handling" width="600" height="400" loading="lazy">
@@ -175,57 +138,10 @@
       <p><a href="#glimpse">See more of the shop &rarr;</a></p>
     </div>
   </section>
-
-  <!-- 7 · About — T3: story beside a photo, photo on the other side from the hero -->
-  <section class="section about" id="story">
-    <div class="container split split--flip">
-      <div class="about__body">
-        <hr class="rule">
-        <h2>A third of the space, better taste</h2>
-        <p class="pull">&ldquo;I worked at a chain bookstore for eight years and watched it close.&rdquo;</p>
-        <p>In 2017 I opened Dog-Eared in the same neighborhood, with a third of the space and better taste. New releases sit at cover price. Used books start at $4. If we don&rsquo;t have the thing you want, we&rsquo;ll special-order it in three to five days.</p>
-        <p>Book club is the first Thursday of the month, and gift wrapping is free, whatever you&rsquo;re buying.</p>
-        <p><a class="btn btn--ghost" href="#story">Read the whole story</a></p>
-      </div>
-      <figure>
-        <div class="media">
-          <img src="assets/web/photo-04-a-cozy-interior-corner-with-an-armchair-under-warm.jpg" alt="A rust-red armchair beside a floor lamp and a framed geometric print in a quiet corner" width="867" height="1300" loading="lazy">
-        </div>
-        <figcaption>The corner people sit in to decide.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- 8 · Closing CTA — T2 walnut brand band -->
-  <section class="section section--brand" id="visit">
-    <div class="container close__grid">
-      <div>
-        <hr class="rule">
-        <h2>Come in, or order by phone.</h2>
-        <p class="muted">Tell us what you last liked and we&rsquo;ll find you the next one. Special orders start the same day you call and land in three to five days.</p>
-        <div class="close__actions">
-          <a class="btn btn--invert btn--lg" href="tel:+12075550532">Order by phone</a>
-          <a class="btn btn--ghost" href="mailto:hello@dogearedbooks.com">Email the shop</a>
-        </div>
-      </div>
-      <ul class="contact-list">
-        <li>
-          <span class="contact-list__label">Phone</span>
-          <a href="tel:+12075550532">(207) 555-0532</a>
-        </li>
-        <li>
-          <span class="contact-list__label">Email</span>
-          <a href="mailto:hello@dogearedbooks.com">hello@dogearedbooks.com</a>
-        </li>
-        <li>
-          <span class="contact-list__label">Hours</span>
-          <span>Mon&ndash;Sun, 10am&ndash;8pm</span>
-        </li>
-        <li>
-          <span class="contact-list__label">Where</span>
-          <span>Portland, Maine</span>
-        </li>
-      </ul>
+  <section class="cta-band">
+    <div class="container">
+      <h2>Come in, or call us.</h2>
+      <p><a class="btn btn--primary btn--lg" href="tel:+12075550532">Call us</a> <a class="btn btn--ghost" href="contact.html">Hours &amp; how to find us</a></p>
     </div>
   </section>
 </main>

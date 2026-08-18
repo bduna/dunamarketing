@@ -109,3 +109,7 @@ button, input, textarea, select { font: inherit; }
 .site-footer { padding-block: var(--space-4); border-top: 1px solid var(--line); color: var(--ink-muted); font-size: 0.95rem; }
 .site-footer .container { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
 .site-footer a { color: inherit; }
+/* A filled button still needs a measurable EDGE. A vivid accent can sit under 2:1 against the
+   surface behind it: the label passes, the control does not (WCAG 1.4.11 wants 3:1). A hairline in
+   a darker step of the same hue guarantees the boundary on any surface. */
+.btn--primary { border: 1px solid var(--accent-ink, var(--accent-hover)); }

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visit &mdash; Tempo Dance Studio</title>
+<meta name="description" content="Dance classes for kids and adults in Providence, Rhode Island. First class free, kids classes $75/month, adult drop-in $22. Technique that holds up.">
+<meta name="theme-color" content="#592134">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tempo Dance Studio — dance classes in Providence, RI">
+<meta property="og:description" content="Dance classes for kids and adults in Providence, Rhode Island. First class free. Technique that holds up, in a studio where nobody body-shames a kid.">
+<meta property="og:image" content="https://dunamarketing.com/portfolio/tempo-dance-studio/assets/web/photo-01-a-young-ballerina-posing-gracefully-in-a-ballet-st.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23592134'/%3E%3Cpath d='M8 10h16M16 10v14' stroke='%23F5E8EC' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html" aria-label="Tempo Dance Studio — home">
+      <span class="brand__mark" aria-hidden="true">T</span>
+      <span>Tempo Dance Studio</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="services.html">What we do</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Visit</a>
+<a class="btn btn--primary" href="tel:+14015550778">Sign up for a free class</a>
+</nav>
+  </div>
+</header>
+
+<main id="top">  <section class="page-hero">
+    <div class="container">
+      <h1>Visit</h1>
+    </div>
+  </section>
+<section class="section section--brand" id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="close__grid">
+        <div>
+          <span class="barre" aria-hidden="true"></span>
+          <p class="eyebrow">First class is free</p>
+          <h2 id="contact-title">Come try one</h2>
+          <p class="lead">Call or email and we'll tell you which class to come to. We're in Providence, Rhode Island.</p>
+          <p><a class="btn btn--primary btn--lg" href="tel:+14015550778">Sign up for a free class</a></p>
+        </div>
+        <dl class="close__details">
+          <div>
+            <dt>Phone</dt>
+            <dd><a href="tel:+14015550778">(401) 555-0778</a></dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd><a href="mailto:dance@tempostudio.com">dance@tempostudio.com</a></dd>
+          </div>
+          <div>
+            <dt>Hours</dt>
+            <dd>Mon–Fri 3pm–9pm<br>Sat 9am–3pm</dd>
+          </div>
+          <div>
+            <dt>Where</dt>
+            <dd>Providence, Rhode Island</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section></main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true">T</span><span>Tempo Dance Studio</span></a>
+      <p>Dance classes for kids and adults in Providence, Rhode Island. Open since 2018.</p>
+    </div>
+    <div>
+      <p><a href="tel:+14015550778">(401) 555-0778</a><br><a href="mailto:dance@tempostudio.com">dance@tempostudio.com</a></p>
+      <p>Providence, Rhode Island<br>Mon–Fri 3pm–9pm, Sat 9am–3pm</p>
+    </div>
+    <div>
+      <p><a href="services.html">Classes &amp; pricing</a> · <a href="gallery.html">Gallery</a> · <a href="#about">About</a> · <a href="#contact">Contact</a></p>
+      <p>© <span data-year>2026</span> Tempo Dance Studio</p>
+    </div>
+  </div>
+  <div class="container site-footer__legal">
+    <p>Sample site — demo business.</p>
+    <p>Photographs: Gustavo Fring, Budgeron Bach, Đậu Photograph, cottonbro studio and Brett Sayles, via Pexels.</p>
+  </div>
+</footer>
+
+<div class="cta-bar" id="cta-bar">
+  <a class="btn btn--primary" href="tel:+14015550778">Sign up for a free class</a>
+</div>
+
+<script src="js/main.js" defer></script>
+<script>
+  (function () {
+    var bar = document.getElementById("cta-bar"), target = document.getElementById("contact");
+    if (!bar || !target || !("IntersectionObserver" in window)) return;
+    new IntersectionObserver(function (e) { bar.style.transform = e[0].isIntersecting ? "translateY(120%)" : ""; }, { threshold: 0.05 }).observe(target);
+  })();
+</script>
+</body>
+</html>

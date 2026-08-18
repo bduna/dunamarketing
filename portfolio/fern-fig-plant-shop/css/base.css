@@ -104,3 +104,7 @@ button, input, textarea, select { font: inherit; }
 .photostage__img { z-index: 0; }
 .photostage::after { z-index: 1; pointer-events: none; }
 .photostage__inner { z-index: 2; }
+/* A filled button still needs a measurable EDGE. A vivid accent can sit under 2:1 against the
+   surface behind it: the label passes, the control does not (WCAG 1.4.11 wants 3:1). A hairline in
+   a darker step of the same hue guarantees the boundary on any surface. */
+.btn--primary { border: 1px solid var(--accent-ink, var(--accent-hover)); }

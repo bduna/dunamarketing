@@ -27,17 +27,16 @@
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav class="nav" id="nav" aria-label="Primary">
-      <a href="index.html#costs" aria-current="page">What it costs</a>
-      <a href="#costs">Services</a>
-      <a href="#about">About</a>
-      <a class="btn btn--primary" href="tel:+19705550465">Call to book</a>
-    </nav>
+      <a href="index.html">Home</a>
+      <a href="services.html">What we do</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Visit</a>
+<a class="btn btn--primary" href="tel:+19705550465">Call to book</a>
+</nav>
   </div>
 </header>
 
-<main>
-  <!-- 1. Hero — T3: split, photo beside text, no overlay on the photograph -->
-  <section class="hero" id="top">
+<main><section class="hero" id="top">
     <div class="container split">
       <div class="stack">
         <p class="eyebrow">Chiropractic &middot; Fort Collins, CO</p>
@@ -54,115 +53,33 @@
       </figure>
     </div>
   </section>
-
-  <!-- 2. Trust strip — T2: thin brand band -->
-  <section class="trust" aria-label="Hours, location and insurance">
-    <div class="container trust__grid">
-      <p class="trust__item"><span>Hours</span><span>Mon&ndash;Fri 8am&ndash;6pm &middot; Sat 9am&ndash;1pm</span></p>
-      <p class="trust__item"><span>Where</span><span>Fort Collins, Colorado</span></p>
-      <p class="trust__item"><span>Payment</span><span>Most insurance accepted</span></p>
-    </div>
-  </section>
-
-  <!-- 3. What it costs — T1: prices on a solid surface -->
-  <section class="section" id="costs">
+  <section class="section">
     <div class="container">
-      <div class="section__head">
-        <p class="eyebrow">What it costs</p>
-        <h2>Prices, before you call.</h2>
-        <p class="lead">Every visit is priced on its own. Nothing here is a bundle.</p>
-      </div>
-      <dl class="pricelist">
-        <div class="pricelist__row">
-          <dt>New patient exam<small>An exam, and an explanation of what&rsquo;s going on in your back.</small></dt>
-          <dd><span class="price">$75</span></dd>
-        </div>
-        <div class="pricelist__row">
-          <dt>Adjustment<small>Per visit.</small></dt>
-          <dd><span class="price">$55</span></dd>
-        </div>
-        <div class="pricelist__row">
-          <dt>Massage add-on<small>Added on to a visit.</small></dt>
-          <dd><span class="price">$45</span></dd>
-        </div>
-        <div class="pricelist__row">
-          <dt>Sports rehab packages<small>Ask what&rsquo;s involved when you call.</small></dt>
-          <dd><span class="price">from $300</span></dd>
-        </div>
-      </dl>
-      <div class="note">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7"/><path d="M2 7h20v5H2z"/><path d="M12 7v13"/></svg>
-        <p>Most insurance accepted &mdash; tell us what you have when you call and we&rsquo;ll check it with you.</p>
+      <div class="section__head"><h2>Have a look around</h2></div>
+      <div class="teasers">
+    <article class="teaser">
+      <h3>What we do</h3>
+      <p>HoursMon&ndash;Fri 8am&ndash;6pm &middot; Sat 9am&ndash;1pm</p>
+      <p><a class="teaser__link" href="services.html">What we do &rarr;</a></p>
+    </article>
+    <article class="teaser">
+      <h3>No forty-visit packages.</h3>
+      <p>How this works</p>
+      <p><a class="teaser__link" href="contact.html">Visit &rarr;</a></p>
+    </article>
+    <article class="teaser">
+      <h3>A wrestler&rsquo;s back is why this practice exists.</h3>
+      <p>About</p>
+      <p><a class="teaser__link" href="about.html">About &rarr;</a></p>
+    </article>
       </div>
     </div>
   </section>
 
-  <hr class="northrule" aria-hidden="true">
-
-  <!-- 4. Pledge band — T5: bright photo of the room, words in a contained forest card -->
-  <section class="photostage photostage--band" aria-label="The treatment room in Fort Collins">
-    <img class="photostage__img" src="assets/web/photo-05-a-minimalist-medical-examination-room-featuring-a-.jpg" alt="A bright, uncluttered treatment room: a white treatment table, a pale desk and a terracotta-orange chair" width="1600" height="1066" loading="lazy">
-    <div class="container photostage__inner">
-      <div class="pcard pcard--brand">
-        <p class="eyebrow">How this works</p>
-        <h2>No forty-visit packages.</h2>
-        <p>You come until you&rsquo;re better and then you stop. That&rsquo;s the whole arrangement.</p>
-        <p class="muted">Most insurance accepted.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. Explain — T3: split, spine model photo beside the copy -->
-  <section class="section explain" id="visit">
-    <div class="container split split--flip">
-      <div class="stack">
-        <p class="eyebrow">Before anyone touches your spine</p>
-        <h2>You&rsquo;ll see what&rsquo;s going on.</h2>
-        <p>Nervous about being cracked? Fair. The first visit is an exam and a plain explanation of what&rsquo;s happening in your lower back &mdash; then you decide what happens next.</p>
-        <ul class="explain__points">
-          <li><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>An exam first, at $75 &mdash; nothing is booked past it.</span></li>
-          <li><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>You hear what&rsquo;s going on in your back, in plain words.</span></li>
-          <li><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Adjustments are $55 each, for as long as you need them and no longer.</span></li>
-        </ul>
-        <div class="hero__actions"><a class="btn btn--primary" href="tel:+19705550465">Call to book</a></div>
-      </div>
-      <div class="media reveal"><img src="assets/web/photo-02-chiropractor-demonstrating-spine-anatomy-to-a-pati.jpg" alt="A chiropractor holding a coloured model of the lower spine and pelvis, explaining it to a seated patient" width="1600" height="1066" loading="lazy"></div>
-    </div>
-  </section>
-
-  <!-- 6. Testimonials — T1 tinted, verbatim -->
-  <section class="section section--alt" id="patients">
+  <section class="cta-band">
     <div class="container">
-      <div class="section__head">
-        <p class="eyebrow">Patients</p>
-        <h2>In their words.</h2>
-      </div>
-      <div class="quotes">
-        <blockquote class="quote reveal">
-          <p>&ldquo;Three visits and I could pick up my daughter again. No package, no pressure.&rdquo;</p>
-          <footer>&mdash; Trent M.</footer>
-        </blockquote>
-        <blockquote class="quote reveal">
-          <p>&ldquo;He showed me the x-ray and explained exactly what was happening.&rdquo;</p>
-          <footer>&mdash; Sofia D.</footer>
-        </blockquote>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. Breath — T6: full-bleed photo, caption below, nothing over it -->
-  <figure class="breath">
-    <img class="breath__img" src="assets/web/photo-03-a-therapist-providing-a-serene-foot-massage-for-re.jpg" alt="A massage therapist in white linen working on a client&rsquo;s calf on a dark stone treatment table" width="1600" height="1066" loading="lazy">
-    <figcaption><b>Massage add-on, $45</b> &mdash; ask for it when you book.</figcaption>
-  </figure>
-
-  <!-- 8. About teaser — T1, quiet and typographic -->
-  <section class="section teaser" id="about">
-    <div class="container">
-      <p class="eyebrow">About</p>
-      <h2 class="teaser__quote">A wrestler&rsquo;s back is why this practice exists.</h2>
-      <p class="teaser__body">I was a college wrestler with a wrecked lower back. The chiropractor who fixed me is why I do this. I opened True North in 2019.</p>
-      <a class="btn btn--ghost" href="#about">More about the practice &rarr;</a>
+      <h2>Come in, or call us.</h2>
+      <p><a class="btn btn--primary btn--lg" href="tel:+19705550465">Call us</a> <a class="btn btn--ghost" href="contact.html">Hours &amp; how to find us</a></p>
     </div>
   </section>
 </main>
