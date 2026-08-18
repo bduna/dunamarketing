@@ -98,3 +98,9 @@ button, input, textarea, select { font: inherit; }
 .site-footer { padding-block: var(--space-4); border-top: 1px solid var(--line); color: var(--ink-muted); font-size: 0.95rem; }
 .site-footer .container { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
 .site-footer a { color: inherit; }
+
+/* --- Fix (2026-08-17): the decorative scrim must sit BELOW the content and never capture clicks.
+   Without this the ::after paints over .photostage__inner and swallows CTA clicks inside .pcard. --- */
+.photostage__img { z-index: 0; }
+.photostage::after { z-index: 1; pointer-events: none; }
+.photostage__inner { z-index: 2; }
