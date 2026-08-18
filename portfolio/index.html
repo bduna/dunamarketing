@@ -10,6 +10,19 @@
 <meta property="og:description" content="66 small-business websites, each generated from a short interview.">
 <meta property="og:image" content="https://dunamarketing.com/portfolio/thumbs/golden-crumb-bakery.jpg">
 <link rel="icon" type="image/png" href="/duna_marketing_logo.png">
+<!-- Meta pixel. Same id as the rest of dunamarketing.com, so portfolio browsers land in the same
+     audience as questionnaire visitors — this is the highest-intent page on the site. -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '949809188409734');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -626,6 +639,13 @@
   clearBtn.addEventListener("click", function () { q.value = ""; filter(); q.focus(); });
   document.getElementById("showall").addEventListener("click", function () { q.value = ""; filter(); q.focus(); });
 })();
+</script>
+<script>
+// Opening a demo is the intent signal on this page — it separates a browser from a skimmer.
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a[href^="/portfolio/"], a[href^="./"]');
+  if (a && window.fbq) fbq('trackCustom', 'PortfolioSiteOpen', { site: a.getAttribute('href') });
+});
 </script>
 </body>
 </html>
