@@ -62,7 +62,28 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
   .tags li:first-child{background:var(--navy);border-color:var(--navy);color:#fff}
   .noresults{max-width:1180px;margin:0 auto;text-align:center;color:var(--muted);padding:30px 24px 10px;font-size:1rem}
   .noresults button{border:none;background:none;font:inherit;font-weight:700;color:var(--navy);text-decoration:underline;cursor:pointer;padding:0}
-  footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 24px 50px}
+  .hero-cta{margin-top:18px}
+  .cta-btn{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:1.06rem;
+    padding:14px 26px;border-radius:10px;text-decoration:none;box-shadow:0 6px 18px rgba(200,16,46,.35)}
+  .cta-btn:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(200,16,46,.45)}
+  .cta-btn--sm{font-size:.95rem;padding:10px 18px}
+  .cta-sub{margin-top:8px;color:var(--muted);font-size:.9rem}
+  .card--cta{display:flex;background:var(--navy);border:none}
+  .ctacard{display:flex;flex-direction:column;gap:10px;justify-content:center;padding:22px;color:#fff}
+  .ctacard b{font-size:1.25rem;line-height:1.2}
+  .ctacard span{font-size:.92rem;color:#cdd8ef}
+  .ctacard__btn{display:inline-block;margin-top:4px;background:var(--red);color:#fff!important;font-weight:800;
+    padding:10px 16px;border-radius:8px;align-self:flex-start}
+  .closer{max-width:640px;margin:0 auto;text-align:center;padding:10px 24px 56px}
+  .closer h2{font-size:1.6rem;margin-bottom:8px}
+  .closer p{color:var(--muted);margin-bottom:16px}
+  .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:center;
+    justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+    background:var(--navy);color:#fff;box-shadow:0 -4px 16px rgba(0,29,82,.35)}
+  .stickybar span{font-size:.92rem}
+  .stickybar[hidden]{display:none}  /* the hidden attribute must beat display:flex, or the bar covers the page on load */
+  @media(min-width:861px){.stickybar{display:none}}
+  footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 24px 90px}
   footer a{color:var(--navy);font-weight:700}
   @media(max-width:1080px){.grid{grid-template-columns:repeat(4,1fr)}}
   @media(max-width:860px){.grid{grid-template-columns:repeat(3,1fr)}}
@@ -74,8 +95,12 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
 <nav class="topbar"><img src="/duna_marketing_logo.png" alt=""><b>Duna Marketing</b><a class="home" href="/">Get your site &rarr;</a></nav>
 <header class="intro">
   <p class="kick">Portfolio</p>
-  <h1>Websites we've built.</h1>
-  <p>Every site below was generated from a short interview &mdash; real design, real copy, real photos. Tap any one to explore it.</p>
+  <h1>66 websites. Each one from a 4&#8209;minute interview.</h1>
+  <p>Real pages, real prices, real stories &mdash; written from what each owner said out loud. Tap any site to explore it, then get yours.</p>
+  <div class="hero-cta">
+    <a class="cta-btn" data-cta="hero" href="/">Start yours &mdash; $250 flat &rarr;</a>
+    <p class="cta-sub">4 minutes of talking. You approve it before it goes live.</p>
+  </div>
   <div class="search">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
     <input type="search" id="q" placeholder="Search a profession &mdash; plumber, bakery, lawyer, yoga&hellip;" aria-label="Search the portfolio by profession" autocomplete="off">
@@ -132,6 +157,13 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
           <ul class="tags"><li>Photography</li><li>Creative</li></ul>
         </div>
       </a>
+  <a class="card card--cta" data-cta="grid" href="/">
+    <div class="ctacard">
+      <b>Yours could be here.</b>
+      <span>Talk for 4 minutes. We build the whole site. $250, approved by you before it goes live.</span>
+      <span class="ctacard__btn">Start the interview &rarr;</span>
+    </div>
+  </a>
       <a class="card" data-search="el comal taquería san antonio, tx restaurant food &amp; drink tacos mexican taqueria food truck catering" href="/portfolio/el-comal-taquer-a/">
         <div class="shot"><img src="thumbs/el-comal-taquer-a.jpg" alt="El Comal Taquería website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
@@ -614,7 +646,17 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
       </a>
 </main>
 <p class="noresults" id="noresults" hidden>Nothing matches that yet &mdash; try &ldquo;plumber&rdquo;, &ldquo;salon&rdquo;, &ldquo;restaurant&rdquo;&hellip; or <button type="button" id="showall">show all 66 sites</button>.</p>
+<section class="closer">
+  <h2>Found your trade up there?</h2>
+  <p>Yours takes 4 minutes of talking &mdash; what you do, what you charge, how you started. We build the rest.</p>
+  <a class="cta-btn" data-cta="closer" href="/">Start yours &mdash; $250 flat &rarr;</a>
+  <p class="cta-sub">No forms to fill. Nothing goes live until you approve it.</p>
+</section>
 <footer>Sample sites for demonstration. Want one for your business? <a href="/">Start the interview &rarr;</a></footer>
+<div class="stickybar" id="stickybar" hidden>
+  <span><b>$250 flat</b> &middot; 4-min interview</span>
+  <a class="cta-btn cta-btn--sm" data-cta="sticky" href="/">Start yours &rarr;</a>
+</div>
 <script>
 (function () {
   var q = document.getElementById("q"), clearBtn = document.getElementById("clear"),
@@ -645,7 +687,16 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
 document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('a[href^="/portfolio/"], a[href^="./"]');
   if (a && window.fbq) fbq('trackCustom', 'PortfolioSiteOpen', { site: a.getAttribute('href') });
+  var c = e.target.closest && e.target.closest('a[data-cta]');
+  if (c && window.fbq) fbq('trackCustom', 'StartSurveyClick', { placement: c.getAttribute('data-cta') });
 });
+// Sticky bar appears once the visitor has scrolled into the grid — a committed browser, not a bouncer.
+(function(){
+  var bar = document.getElementById('stickybar'), shown = false;
+  window.addEventListener('scroll', function(){
+    if (!shown && window.scrollY > 600) { shown = true; bar.hidden = false; }
+  }, {passive:true});
+})();
 </script>
 </body>
 </html>
