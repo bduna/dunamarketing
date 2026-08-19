@@ -48,7 +48,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
   .search button{position:absolute;right:8px;width:30px;height:30px;border:none;border-radius:50%;background:#eef1f6;color:var(--muted);font-size:1.15rem;line-height:1;cursor:pointer}
   .search button:hover{background:#dfe5ee;color:var(--ink)}
   .count{text-align:center;color:var(--muted);font-size:.85rem;margin:10px 0 0;min-height:1.2em}
-  .grid{max-width:1180px;margin:0 auto;padding:28px 24px 70px;display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
+  .grid{max-width:1180px;margin:0 auto;padding:28px 24px 34px;display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
   .card{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,29,82,.05);transition:transform .15s,box-shadow .15s,border-color .15s}
   .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,29,82,.16);border-color:#cdd5e6}
   .card.hide{display:none}
@@ -68,12 +68,15 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
   .cta-btn:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(200,16,46,.45)}
   .cta-btn--sm{font-size:.95rem;padding:10px 18px}
   .cta-sub{margin-top:8px;color:var(--muted);font-size:.9rem}
-  .card--cta{display:flex;background:var(--navy);border:none}
-  .ctacard{display:flex;flex-direction:column;gap:10px;justify-content:center;padding:22px;color:#fff}
-  .ctacard b{font-size:1.25rem;line-height:1.2}
-  .ctacard span{font-size:.92rem;color:#cdd8ef}
-  .ctacard__btn{display:inline-block;margin-top:4px;background:var(--red);color:#fff!important;font-weight:800;
-    padding:10px 16px;border-radius:8px;align-self:flex-start}
+  .ctaband{display:block;background:var(--navy);color:#fff;text-decoration:none;margin:6px 0 34px;
+    border-top:3px solid var(--red);border-bottom:3px solid var(--red)}
+  .ctaband__in{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:10px;
+    padding:26px 24px 28px;text-align:center;align-items:center}
+  .ctaband b{font-size:1.45rem;line-height:1.15;letter-spacing:-.01em}
+  .ctaband span{font-size:.98rem;color:#cdd8ef;max-width:34ch}
+  .ctaband__btn{display:inline-block;margin-top:6px;background:var(--red);color:#fff;font-weight:800;
+    font-size:1.05rem;padding:14px 26px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+  .ctaband:active .ctaband__btn{transform:scale(.98)}
   .closer{max-width:640px;margin:0 auto;text-align:center;padding:10px 24px 56px}
   .closer h2{font-size:1.6rem;margin-bottom:8px}
   .closer p{color:var(--muted);margin-bottom:16px}
@@ -108,7 +111,8 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
   </div>
   <p class="count" id="count" aria-live="polite"></p>
 </header>
-<main class="grid" id="grid">
+<main id="grid">
+<div class="grid">
       <a class="card" data-search="golden crumb bakery petaluma, ca bakery food &amp; drink retail baker bread cakes pastries sourdough dessert" href="/portfolio/golden-crumb-bakery/">
         <div class="shot"><img src="thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
@@ -157,13 +161,15 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
           <ul class="tags"><li>Photography</li><li>Creative</li></ul>
         </div>
       </a>
-  <a class="card card--cta" data-cta="grid1" href="/">
-    <div class="ctacard">
-      <b>Yours could be here.</b>
-      <span>You talk. We build. $250 flat &mdash; and nothing goes live until you approve it.</span>
-      <span class="ctacard__btn">Start yours &rarr;</span>
-    </div>
-  </a>
+</div>
+<a class="ctaband" data-cta="grid1" href="/">
+  <div class="ctaband__in">
+    <b>Yours could be here.</b>
+    <span>You talk. We build. $250 flat &mdash; nothing goes live until you approve it.</span>
+    <span class="ctaband__btn">Start yours &rarr;</span>
+  </div>
+</a>
+<div class="grid">
       <a class="card" data-search="el comal taquería san antonio, tx restaurant food &amp; drink tacos mexican taqueria food truck catering" href="/portfolio/el-comal-taquer-a/">
         <div class="shot"><img src="thumbs/el-comal-taquer-a.jpg" alt="El Comal Taquería website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
@@ -324,13 +330,15 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
           <ul class="tags"><li>Optometrist</li><li>Eye Care</li><li>Healthcare</li></ul>
         </div>
       </a>
-  <a class="card card--cta" data-cta="grid2" href="/">
-    <div class="ctacard">
-      <b>Don&rsquo;t see your trade?</b>
-      <span>Every site here started as somebody just talking about their business. Yours will too.</span>
-      <span class="ctacard__btn">Say it. We build it &rarr;</span>
-    </div>
-  </a>
+</div>
+<a class="ctaband" data-cta="grid2" href="/">
+  <div class="ctaband__in">
+    <b>Don&rsquo;t see your trade?</b>
+    <span>Every site here started as somebody just talking about their business. Yours will too.</span>
+    <span class="ctaband__btn">Say it. We build it &rarr;</span>
+  </div>
+</a>
+<div class="grid">
       <a class="card" data-search="copper kettle brewing bend, or brewery taproom food &amp; drink brewery beer taproom ipa craft brewing pints growler ale" href="/portfolio/copper-kettle-brewing/">
         <div class="shot"><img src="thumbs/copper-kettle-brewing.jpg" alt="Copper Kettle Brewing website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
@@ -491,13 +499,15 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
           <ul class="tags"><li>Movers</li><li>Moving</li><li>Home Services</li></ul>
         </div>
       </a>
-  <a class="card card--cta" data-cta="grid3" href="/">
-    <div class="ctacard">
-      <b>Still scrolling?</b>
-      <span>That&rsquo;s usually the sign. $250, done in days, approved by you before it&rsquo;s live.</span>
-      <span class="ctacard__btn">Get yours started &rarr;</span>
-    </div>
-  </a>
+</div>
+<a class="ctaband" data-cta="grid3" href="/">
+  <div class="ctaband__in">
+    <b>Still scrolling?</b>
+    <span>That&rsquo;s usually the sign. $250, approved by you before it&rsquo;s live.</span>
+    <span class="ctaband__btn">Get yours started &rarr;</span>
+  </div>
+</a>
+<div class="grid">
       <a class="card" data-search="stone crane martial arts sacramento, ca martial arts fitness kids karate martial arts dojo self defense belt kids classes jiu jitsu" href="/portfolio/stone-crane-martial-arts/">
         <div class="shot"><img src="thumbs/stone-crane-martial-arts.jpg" alt="Stone Crane Martial Arts website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
@@ -658,6 +668,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
           <ul class="tags"><li>Creative</li><li>Home Services</li></ul>
         </div>
       </a>
+</div>
 </main>
 <p class="noresults" id="noresults" hidden>Nothing matches that yet &mdash; try &ldquo;plumber&rdquo;, &ldquo;salon&rdquo;, &ldquo;restaurant&rdquo;&hellip; or <button type="button" id="showall">show all 66 sites</button>.</p>
 <section class="closer">
