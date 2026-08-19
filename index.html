@@ -81,11 +81,11 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   .intro { text-align: center; margin: 4px 0 18px; }
   /* Each phrase is an unbreakable unit; lines only break BETWEEN phrases, and the separator dot is
      drawn by CSS so it can never dangle at the start or end of a wrapped line. */
-  .intro .kicker { margin: 0 0 8px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: var(--red);
+  .intro .kicker { margin: 0 0 10px; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: var(--red);
     display: flex; flex-wrap: wrap; justify-content: center; row-gap: 2px; }
   .intro .kicker span { white-space: nowrap; }
-  .intro .kicker span + span::before { content: "·"; margin: 0 0.6em; color: var(--red); opacity: 0.55; }
-  .intro h1 { font-size: clamp(1.6rem, 5vw, 2.1rem); line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.02em; color: var(--navy); }
+  .intro .kicker span:not(:last-child)::after { content: " ·"; margin-right: 0.5em; color: var(--red); opacity: 0.55; }
+  .intro h1 { font-size: clamp(2.5rem, 9vw, 3.6rem); line-height: 1.05; margin: 0 0 10px; letter-spacing: -0.03em; color: var(--red); text-wrap: balance; }
   .intro p { margin: 0 auto; color: var(--muted); max-width: 46ch; font-size: 1rem; }
 
   /* Progress dots */
@@ -244,10 +244,9 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
 <main>
   <div class="wrap">
     <div class="intro" id="intro">
-      <p class="kicker"><span>3 questions</span><span>Just talk</span><span>4 minutes</span></p>
+      <p class="kicker"><span>3 questions</span><span>Easy Answer Mic Input</span><span>4 minutes</span></p>
       <h1>$250 Beautiful Websites</h1>
       <p>For long form questions, say your answers out loud with your phone&rsquo;s keyboard mic &mdash; short and honest beats polished.</p>
-      <p class="price-line"><strong>Easy Mic Entry.</strong> You approve everything before it goes live.</p>
     </div>
 
     <div class="resume" id="resume" hidden><span id="resume-msg"></span><button type="button" id="start-over">Start over</button></div>
