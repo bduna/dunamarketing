@@ -239,9 +239,9 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
 <main>
   <div class="wrap">
     <div class="intro" id="intro">
-      <p class="kicker">About 4 minutes · Three questions · Just talk</p>
-      <h1>Your new website starts here.</h1>
-      <p>I'll find your business on Google, then ask you three questions. Answer out loud with your phone's keyboard mic, or type. Short answers are fine &mdash; honest beats polished.</p>
+      <p class="kicker">Three questions · Just talk · About 4 minutes</p>
+      <h1>Let&rsquo;s build your site.</h1>
+      <p>Say your answers out loud with your phone&rsquo;s keyboard mic &mdash; short and honest beats polished.</p>
       <p class="price-line"><strong>$250 flat.</strong> You approve everything before it goes live.</p>
     </div>
 
@@ -326,7 +326,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   //   story_origin   -> the About page, and the voice the copy is written in
   var SCREENS = [
     { id: "places",   type: "places",  q: "Find your business.", sub: "Type the name and city — I’ll pull the details from Google so you don’t have to type them." },
-    { id: "contact",  type: "contact", q: "First — who am I talking to, and what’s the best number to text you at?", required: true },
+    { id: "contact",  type: "contact", q: "Where should I send your draft?", sub: "Your name and the best number to text — that’s where the preview link goes. No spam, no sales calls.", required: true },
 
     { id: "what",     type: "talk",    field: "what_you_do",
       q: "What do you do, and why do people pick you instead of someone else?",
@@ -388,7 +388,17 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     // question text
     qwrap.classList.add("fade");
     setTimeout(function () {
-      qnum.textContent = sc.type === "review" ? "Almost done" : (S.screen + 1) + " of " + list.length;
+      // The ad and the intro promise THREE questions. "1 of 8" contradicts that on the very first
+      // card, because screens != questions (Google lookup, contact, goal tap, photos are not
+      // questions). Label the talk screens as the three questions and everything else by its job.
+      var talks = list.filter(function (x) { return x.type === "talk"; });
+      var ti = talks.indexOf(sc);
+      qnum.textContent =
+        ti >= 0 ? "Question " + (ti + 1) + " of " + talks.length :
+        sc.type === "places" ? "First, the easy part" :
+        sc.type === "contact" ? "Where to send your draft" :
+        sc.type === "goal" ? "One tap" :
+        sc.type === "photos" ? "Last step" : "Almost done";
       qEl.textContent = sc.type === "goaldetail" || sc.id === "goaldetail" ? goalDetailQ() : sc.q;
       subEl.textContent = sc.sub || "";
       if (sc.reviewPrompt && S.google && S.google.reviews && S.google.reviews.length) {
