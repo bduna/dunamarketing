@@ -10,6 +10,17 @@
 <link rel="apple-touch-icon" href="duna_marketing_logo.png">
 <!-- Meta Pixel Code -->
 <script>
+// Kill switch for our own visits. Visiting any page once with ?metrics=off sets a per-browser flag
+// and this entire block returns before the pixel stub even exists, so no event on this or any other
+// page of the site can fire (every caller guards on window.fbq). ?metrics=on clears the flag.
+// Owner testing was polluting the ad data; real visitors never hit these URLs.
+(function () {
+  try {
+    var m = location.search.match(/[?&]metrics=(on|off)\b/);
+    if (m) { if (m[1] === "off") localStorage.setItem("duna_notrack", "1"); else localStorage.removeItem("duna_notrack"); }
+    if (localStorage.getItem("duna_notrack") === "1") { console.log("[duna] metrics OFF on this browser"); return; }
+  } catch (e) {}
+
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -30,6 +41,7 @@ fbq('track', 'PageView');
       sessionStorage.setItem("duna_lead_fired", "1");
     }
   } catch (e) {}
+})();
 })();
 </script>
 <noscript><img height="1" width="1" style="display:none"
