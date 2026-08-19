@@ -84,7 +84,6 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
     justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
     background:var(--navy);color:#fff;box-shadow:0 -4px 16px rgba(0,29,82,.35)}
   .stickybar span{font-size:.92rem}
-  .stickybar[hidden]{display:none}  /* the hidden attribute must beat display:flex, or the bar covers the page on load */
   @media(min-width:861px){.stickybar{display:none}}
   footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 24px 90px}
   footer a{color:var(--navy);font-weight:700}
@@ -678,7 +677,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
   <p class="cta-sub">No forms. No meetings. Nothing goes live until you approve it.</p>
 </section>
 <footer>Sample sites for demonstration. Want one for your business? <a href="/">Get yours started &rarr;</a></footer>
-<div class="stickybar" id="stickybar" hidden>
+<div class="stickybar" id="stickybar">
   <span><b>$250 flat</b> &middot; You talk, we build</span>
   <a class="cta-btn cta-btn--sm" data-cta="sticky" href="/">Start yours &rarr;</a>
 </div>
@@ -715,13 +714,7 @@ document.addEventListener('click', function (e) {
   var c = e.target.closest && e.target.closest('a[data-cta]');
   if (c && window.fbq) fbq('trackCustom', 'StartSurveyClick', { placement: c.getAttribute('data-cta') });
 });
-// Sticky bar appears once the visitor has scrolled into the grid — a committed browser, not a bouncer.
-(function(){
-  var bar = document.getElementById('stickybar'), shown = false;
-  window.addEventListener('scroll', function(){
-    if (!shown && window.scrollY > 600) { shown = true; bar.hidden = false; }
-  }, {passive:true});
-})();
+
 </script>
 </body>
 </html>
