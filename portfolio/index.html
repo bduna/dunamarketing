@@ -74,34 +74,8 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
   .tags li:first-child{background:var(--navy);border-color:var(--navy);color:#fff}
   .noresults{max-width:1180px;margin:0 auto;text-align:center;color:var(--muted);padding:30px 24px 10px;font-size:1rem}
   .noresults button{border:none;background:none;font:inherit;font-weight:700;color:var(--navy);text-decoration:underline;cursor:pointer;padding:0}
-  .hero-cta{margin-top:18px}
-  .cta-btn{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:1.06rem;
-    padding:14px 26px;border-radius:10px;text-decoration:none;box-shadow:0 6px 18px rgba(200,16,46,.35)}
-  .cta-btn:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(200,16,46,.45)}
-  .cta-btn--sm{font-size:.95rem;padding:10px 18px}
-  .cta-sub{margin-top:8px;color:var(--muted);font-size:.9rem}
-  .ctaband{display:block;background:var(--navy);color:#fff;text-decoration:none;margin:6px 0 34px;
-    border-top:3px solid var(--red);border-bottom:3px solid var(--red)}
-  .ctaband__in{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:10px;
-    padding:26px 24px 28px;text-align:center;align-items:center}
-  .ctaband b{font-size:1.45rem;line-height:1.15;letter-spacing:-.01em}
-  .ctaband span{font-size:.98rem;color:#cdd8ef;max-width:34ch}
-  .ctaband__btn{display:inline-block;margin-top:6px;background:var(--red);color:#fff;font-weight:800;
-    font-size:1.05rem;padding:14px 26px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
-  .ctaband:active .ctaband__btn{transform:scale(.98)}
-  .ctaband--search{display:none}
-  body.searching .ctaband{display:none}
-  body.searching .ctaband--search{display:block}
   .grid.hide{display:none}
-  .closer{max-width:640px;margin:0 auto;text-align:center;padding:10px 24px 56px}
-  .closer h2{font-size:1.6rem;margin-bottom:8px}
-  .closer p{color:var(--muted);margin-bottom:16px}
-  .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:center;
-    justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
-    background:var(--navy);color:#fff;box-shadow:0 -4px 16px rgba(0,29,82,.35)}
-  .stickybar span{font-size:.92rem}
-  @media(min-width:861px){.stickybar{display:none}}
-  footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 24px 90px}
+  footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 24px 56px}
   footer a{color:var(--navy);font-weight:700}
   @media(max-width:1080px){.grid{grid-template-columns:repeat(4,1fr)}}
   @media(max-width:860px){.grid{grid-template-columns:repeat(3,1fr)}}
@@ -115,10 +89,6 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
   <p class="kick">Portfolio</p>
   <h1>This is what yours could look like.</h1>
   <p>66 demo sites for made-up businesses &mdash; built to show the range of trades and styles. Tap any one and click around it.</p>
-  <div class="hero-cta">
-    <a class="cta-btn" data-cta="hero" href="/">Start yours &mdash; $250 flat &rarr;</a>
-    <p class="cta-sub">Answer 3 questions &mdash; we build the whole site. Nothing goes live until you approve it.</p>
-  </div>
   <div class="search">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
     <input type="search" id="q" placeholder="Search a profession &mdash; plumber, bakery, lawyer, yoga&hellip;" aria-label="Search the portfolio by profession" autocomplete="off">
@@ -176,15 +146,6 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
           <ul class="tags"><li>Photography</li><li>Creative</li></ul>
         </div>
       </a>
-</div>
-<a class="ctaband" data-cta="grid1" href="/">
-  <div class="ctaband__in">
-    <b>Yours could look this good.</b>
-    <span>Fill out a 3-question form and we build the whole site. $250 flat &mdash; nothing goes live until you approve it.</span>
-    <span class="ctaband__btn">Start yours &rarr;</span>
-  </div>
-</a>
-<div class="grid">
       <a class="card" data-search="el comal taquería san antonio, tx restaurant food &amp; drink tacos mexican taqueria food truck catering" href="/portfolio/el-comal-taquer-a/">
         <div class="shot"><img src="thumbs/el-comal-taquer-a.jpg" alt="El Comal Taquería website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
@@ -345,15 +306,6 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
           <ul class="tags"><li>Optometrist</li><li>Eye Care</li><li>Healthcare</li></ul>
         </div>
       </a>
-</div>
-<a class="ctaband" data-cta="grid2" href="/">
-  <div class="ctaband__in">
-    <b>Don&rsquo;t see your trade?</b>
-    <span>These businesses are invented &mdash; we built them to show the range. Yours gets the same treatment, for real.</span>
-    <span class="ctaband__btn">Fill out the form &rarr;</span>
-  </div>
-</a>
-<div class="grid">
       <a class="card" data-search="copper kettle brewing bend, or brewery taproom food &amp; drink brewery beer taproom ipa craft brewing pints growler ale" href="/portfolio/copper-kettle-brewing/">
         <div class="shot"><img src="thumbs/copper-kettle-brewing.jpg" alt="Copper Kettle Brewing website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
@@ -514,15 +466,6 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
           <ul class="tags"><li>Movers</li><li>Moving</li><li>Home Services</li></ul>
         </div>
       </a>
-</div>
-<a class="ctaband" data-cta="grid3" href="/">
-  <div class="ctaband__in">
-    <b>Still scrolling?</b>
-    <span>If you&rsquo;ve made it this far, you&rsquo;re serious about getting a website. We&rsquo;ll build yours for a flat $250 &mdash; and you approve every page before it goes live.</span>
-    <span class="ctaband__btn">Get yours started &rarr;</span>
-  </div>
-</a>
-<div class="grid">
       <a class="card" data-search="stone crane martial arts sacramento, ca martial arts fitness kids karate martial arts dojo self defense belt kids classes jiu jitsu" href="/portfolio/stone-crane-martial-arts/">
         <div class="shot"><img src="thumbs/stone-crane-martial-arts.jpg" alt="Stone Crane Martial Arts website" width="640" height="400" loading="lazy"></div>
         <div class="meta">
@@ -684,26 +627,9 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
         </div>
       </a>
 </div>
-<a class="ctaband ctaband--search" data-cta="search" href="/">
-  <div class="ctaband__in">
-    <b>Yours could look this good.</b>
-    <span>Fill out a 3-question form and we build the whole site. $250 flat &mdash; nothing goes live until you approve it.</span>
-    <span class="ctaband__btn">Start yours &rarr;</span>
-  </div>
-</a>
 </main>
 <p class="noresults" id="noresults" hidden>Nothing matches that yet &mdash; try &ldquo;plumber&rdquo;, &ldquo;salon&rdquo;, &ldquo;restaurant&rdquo;&hellip; or <button type="button" id="showall">show all 66 sites</button>.</p>
-<section class="closer">
-  <h2>Found your trade up there?</h2>
-  <p>Three questions: what you do, what you charge, and how you started. We turn your answers into all of this.</p>
-  <a class="cta-btn" data-cta="closer" href="/">Start yours &mdash; $250 flat &rarr;</a>
-  <p class="cta-sub">No forms. No meetings. Nothing goes live until you approve it.</p>
-</section>
 <footer>Sample sites for demonstration. Want one for your business? <a href="/">Get yours started &rarr;</a></footer>
-<div class="stickybar" id="stickybar">
-  <span><b>$250 flat</b> &middot; 3-question form</span>
-  <a class="cta-btn cta-btn--sm" data-cta="sticky" href="/">Start yours &rarr;</a>
-</div>
 <script>
 (function () {
   var q = document.getElementById("q"), clearBtn = document.getElementById("clear"),
@@ -738,8 +664,6 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"></no
 document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('a[href^="/portfolio/"], a[href^="./"]');
   if (a && window.fbq) fbq('trackCustom', 'PortfolioSiteOpen', { site: a.getAttribute('href') });
-  var c = e.target.closest && e.target.closest('a[data-cta]');
-  if (c && window.fbq) fbq('trackCustom', 'StartSurveyClick', { placement: c.getAttribute('data-cta') });
 });
 
 </script>
