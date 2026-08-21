@@ -31,13 +31,16 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '949809188409734');
 fbq('track', 'PageView');
-// Fire "Lead" only once, and only when this page was reached by actually submitting the questionnaire
-// (not on refreshes, back-navigation, or someone typing the URL) — keeps ad optimization data clean.
+// "Lead" fires only on the server's say-so. Reaching this page is NOT enough: the Apps Script returns
+// lead_ok:true only for a submission that cleared the honeypots, the 15-second floor and the answer
+// check, and the form stores that. Bots that type this URL have no flag; bots that fill the form are
+// filtered server-side and get no flag either. event_id = lead_id lets Meta collapse this with the
+// Conversions API event if a CAPI token is ever added, so it can never double-count.
 (function () {
   try {
     var info = JSON.parse(sessionStorage.getItem("duna_intake") || "{}");
-    if (info.submitted && !sessionStorage.getItem("duna_lead_fired")) {
-      fbq('track', 'Lead');
+    if (info.lead_ok === true && !sessionStorage.getItem("duna_lead_fired")) {
+      fbq('track', 'Lead', {}, info.lead_id ? { eventID: String(info.lead_id) } : undefined);
       sessionStorage.setItem("duna_lead_fired", "1");
     }
   } catch (e) {}

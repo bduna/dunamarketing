@@ -299,8 +299,12 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
 <!-- Real form Netlify parses at deploy time. All values are copied in from state before submit. -->
 <form id="interview-form" name="website-interview" hidden>
   <input type="hidden" name="form-name" value="website-interview">
-  <input name="bot-field">
+  <!-- Honeypots. A person never sees or tabs to these; automated fillers take the bait because the
+       names look like fields worth filling. Any value in either one makes the server drop the row. -->
+  <input name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <input name="company_url" type="url" tabindex="-1" autocomplete="off" aria-hidden="true">
   <input type="hidden" name="stage">
+  <input type="hidden" name="elapsed_ms"><input type="hidden" name="fbp"><input type="hidden" name="fbc"><input type="hidden" name="metrics_off"><input type="hidden" name="ua">
   <input type="hidden" name="first_name"><input type="hidden" name="last_name"><input type="hidden" name="phone"><input type="hidden" name="email">
   <input type="hidden" name="business_name"><input type="hidden" name="what_you_do"><input type="hidden" name="story_origin"><input type="hidden" name="known_for">
   <input type="hidden" name="services_talk"><input type="hidden" name="typical_visitor"><input type="hidden" name="primary_goal"><input type="hidden" name="goal_detail">
@@ -319,6 +323,8 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   var CLOUDINARY_UPLOAD_PRESET = "duna_intake";
   var GOOGLE_PLACES_KEY = "AIzaSyA_2Mzsy3s9aZo8OS4DBFY-OYhayl-F_tI";   // Places API (New) browser key — restrict to HTTP referrers + Places API (New) in Google Cloud
   var STORE_KEY = "duna_interview";
+  var LOADED_AT = Date.now();          // used for the server-side "too fast to be a person" check
+  var HARD_MIN_WORDS = 8;              // a required answer under this can't advance — one-word answers make a generic site
   // Leads backend: Google Apps Script → your "Duna Leads" sheet (+ email & push alerts). Same URL for the full form.
   var LEADS_URL = "https://script.google.com/macros/s/AKfycbw8eTCgh4a5N4y5qofitbrZUaU7xmW6_nFfABUj7AgE2UKPuZfzq83hWVGa8IYX9gQv/exec";
   var LEADS_SECRET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -699,7 +705,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   }
   function canProceed(sc) {
     if (sc.type === "contact") return !!(S.a.first_name && /\d{7,}/.test((S.a.phone || "").replace(/\D/g, "")) && /\S+@\S+\.\S+/.test(S.a.email || "") && S.a.business_name);
-    if (sc.type === "talk" && sc.required) return words(S.a[sc.field]) > 0;
+    if (sc.type === "talk" && sc.required) return words(S.a[sc.field]) >= HARD_MIN_WORDS;
     if (sc.type === "goal") return !!S.a.primary_goal;
     if (sc.type === "vibe") return (S.a.vibe_words || []).length >= 2;
     return true;
@@ -712,7 +718,12 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   talk.addEventListener("input", function () { commitTalk(); updateHeard(); updateNext(); if (!S.started) { S.started = true; save(); fb("InterviewStart"); } });
   next.addEventListener("click", function () {
     var sc = cur(); commitTalk();
-    if (!canProceed(sc)) { err.textContent = sc.type === "contact" ? "Just need your first name, a phone number, an email, and the business name." : "Just need this one to continue."; err.hidden = false; return; }
+    if (!canProceed(sc)) {
+      err.textContent = sc.type === "contact" ? "Just need your first name, a phone number, an email, and the business name."
+        : sc.type === "talk" ? "Give me a full sentence or two here — a few words isn’t enough to build a site that sounds like you."
+        : "Just need this one to continue.";
+      err.hidden = false; return;
+    }
     // one-time nudges on talk screens
     if (sc.type === "talk" && !S.probed[sc.id]) {
       var w = words(S.a[sc.field]);
@@ -734,6 +745,11 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   });
 
   // ==== SUBMIT ====
+  function cookie(name) {
+    var m = document.cookie.match("(?:^|; )" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "=([^;]*)");
+    return m ? decodeURIComponent(m[1]) : "";
+  }
+  function metricsOff() { try { return localStorage.getItem("duna_notrack") === "1"; } catch (e) { return false; } }
   function fillForm(stage) {
     var f = $("interview-form"); var ge = googleExports();
     var vals = Object.assign({}, S.a, {
@@ -743,7 +759,13 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
       photos_json: JSON.stringify(S.photos.concat(ge.gphotos)),
       testimonials: ge.testimonials,
       place_json: S.google && S.a.place_id === S.google.place_id ? JSON.stringify(Object.assign({}, S.google, { photos: S.google.photos.map(function (p) { return { url: p.url, by: p.by, use: p.use }; }) })) : "",
-      skipped: S.skipped.join(", "), utm: utm
+      skipped: S.skipped.join(", "), utm: utm,
+      // For the server-side Lead event: elapsed_ms proves a person was here long enough to type,
+      // _fbp/_fbc carry Meta's own attribution cookies so match quality doesn't drop, and
+      // metrics_off honours the ?metrics=off kill switch so owner testing never reaches the pixel.
+      elapsed_ms: String(Date.now() - LOADED_AT),
+      fbp: cookie("_fbp"), fbc: cookie("_fbc"), ua: navigator.userAgent,
+      metrics_off: metricsOff() ? "1" : ""
     });
     Array.prototype.forEach.call(f.querySelectorAll("input[name]"), function (inp) { if (inp.name in vals && inp.name !== "form-name") inp.value = vals[inp.name] == null ? "" : vals[inp.name]; });
     return f;
@@ -756,10 +778,12 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     // text/plain keeps the request "simple" (no CORS preflight), which is what Apps Script web apps accept.
     return fetch(LEADS_URL, { method: "POST", mode: "cors", redirect: "follow", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
       .then(function (r) { return r.text().then(function (t) { var j = {}; try { j = JSON.parse(t); } catch (e) {} if (!r.ok || j.ok === false) throw new Error(j.error || ("HTTP " + r.status)); return j; }); })
-      .then(function () {
+      .then(function (j) {
         if (stage === "start") { S.startSubmitted = true; save(); fb("LeadStart"); return; }
         S.submittedAt = Date.now(); save(); fb("InterviewComplete");
-        try { sessionStorage.setItem("duna_intake", JSON.stringify({ first_name: S.a.first_name, business_name: S.a.business_name, submitted: true, skipped: S.skipped })); } catch (e) {}
+        // lead_ok comes from the server and is the only thing that lets thanks.html fire Lead.
+        // lead_id rides along as the pixel's event_id so a server-side event can dedupe against it later.
+        try { sessionStorage.setItem("duna_intake", JSON.stringify({ first_name: S.a.first_name, business_name: S.a.business_name, submitted: true, skipped: S.skipped, lead_ok: j && j.lead_ok === true, lead_id: S.lead_id })); } catch (e) {}
         window.location.href = "thanks.html";
       })
       .catch(function () {
