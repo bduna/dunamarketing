@@ -1,0 +1,55 @@
+/* tokens.css — Duna Construction Inc.
+   Palette is brief.assigned.palette, verbatim, all 12 tokens. Family: tinted olive/khaki.
+   Fonts are brief.assigned.fonts: DM Serif Display + DM Sans. */
+:root {
+  /* --- assigned palette (do not alter) --- */
+  --bg: #F4F5E8;            /* 60: the drawing sheet */
+  --bg-alt: #ECEDD7;        /* tinted panel */
+  --surface: #FFFFFF;       /* cards, the logo tile */
+  --ink: #2A2A18;           /* body — 13.2:1 on --bg */
+  --ink-muted: #63644C;     /* secondary — 5.52:1 on --bg, 5.11:1 on --bg-alt */
+  --line: #DEDED1;          /* hairlines */
+  --brand: #4A4C1C;         /* 30: the two dark bands */
+  --on-brand: #F4F5E8;      /* 8.15:1 on --brand */
+  --accent: #1C58E3;        /* 10: a FILL — the call button, one rule, the stamp */
+  --accent-hover: #164BC5;
+  --on-accent: #FFFFFF;     /* given as white; not inverted */
+  --accent-ink: #1C58E3;    /* small text — 5.37:1 on --bg, 4.97:1 on --bg-alt */
+
+  /* --- derived (site-specific, identity tokens untouched) --- */
+  --on-brand-muted: #C9CBA8; /* secondary text inside the olive bands — 5.38:1 on --brand */
+  --rule: #C9C9AE;           /* drawn sheet borders, one step darker than --line */
+
+  /* Type — DM Serif Display + DM Sans */
+  --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
+  --fs-1: clamp(1.1rem, 1.02rem + 0.42vw, 1.3rem);
+  --fs-2: clamp(1.35rem, 1.18rem + 0.85vw, 1.8rem);
+  --fs-3: clamp(1.7rem, 1.35rem + 1.75vw, 2.5rem);
+  --fs-4: clamp(2.2rem, 1.5rem + 3.6vw, 4rem);
+  --lh-body: 1.62;
+  --lh-head: 1.06;
+  --track-label: 0.14em;
+
+  /* Shape — square. Drawings do not have rounded corners. */
+  --radius: 2px;
+  --radius-sm: 2px;
+  --shadow: 6px 6px 0 rgba(74, 76, 28, 0.12);
+  --shadow-sm: 3px 3px 0 rgba(74, 76, 28, 0.10);
+
+  /* Space */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.5rem, 6vw, 6rem);
+  --measure: 62ch;
+  --container: 1140px;
+  --gutter: clamp(1.15rem, 4vw, 2rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}

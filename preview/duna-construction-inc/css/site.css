@@ -1,0 +1,206 @@
+/* site.css — everything specific to Duna Construction Inc.
+   Motif: a set of construction drawings. Khaki sheet, olive line work, blueprint-blue callouts,
+   title blocks in the corners of panels, and the owner's nested-chevron mark as the stamp. */
+
+/* ---------------------------------------------------------------- type */
+h1, h2, h3 { font-weight: 400; letter-spacing: -0.015em; }
+h1 { text-wrap: balance; }
+.lead { max-width: 46ch; }
+
+/* Title-block labels — the small uppercase runs in the corner of every drawn panel. */
+.tblock {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.15rem;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: var(--track-label);
+  text-transform: uppercase; color: var(--ink-muted);
+}
+.tblock b { color: var(--ink); font-weight: 700; }
+.eyebrow { color: var(--accent-ink); }
+
+/* The one 3px accent rule. Used four times on the whole site, never more. */
+.rule-accent { width: 68px; height: 3px; background: var(--accent); margin: 0 0 var(--space-3); }
+.section--brand .rule-accent { background: var(--on-brand); }
+
+/* ---------------------------------------------------------------- header */
+.site-header { background: var(--bg); border-bottom: 1px solid var(--rule); backdrop-filter: none; }
+.brand { gap: 0.65rem; font-size: 1.02rem; letter-spacing: -0.01em; line-height: 1.15; }
+/* The mark's interior gaps are opaque white, so it always sits on a white tile — a lockup, not an accident. */
+.mark-tile {
+  display: grid; place-items: center; background: var(--surface);
+  border: 1px solid var(--rule); flex: 0 0 auto;
+}
+.brand .mark-tile { width: 40px; height: 40px; padding: 4px; }
+.brand .mark-tile img { height: auto; width: 100%; }
+.brand__name { display: block; }
+.brand__sub {
+  display: block; font-family: var(--font-body); font-size: 0.66rem; font-weight: 700;
+  letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-muted);
+}
+.nav a:not(.btn) { font-size: 0.95rem; }
+.nav a[aria-current="page"] { color: var(--brand); }
+.nav .btn { white-space: nowrap; }
+@media (max-width: 900px) { .nav .btn { font-size: 0.9rem; padding: 0.7rem 0.9rem; } }
+
+/* ---------------------------------------------------------------- buttons */
+.btn { border-radius: 0; letter-spacing: 0.005em; }
+.btn--primary { box-shadow: var(--shadow-sm); }
+.btn--primary:hover, .btn--primary:focus-visible { background: var(--accent-hover); }
+/* Inside the olive bands the accent has a 1.52:1 edge against --brand, so a filled accent button
+   would have no visible boundary (WCAG 1.4.11). Flip it: light fill, olive text, 8.15:1 edge. */
+.btn--onbrand {
+  background: var(--on-brand); color: var(--brand);
+  border: 1px solid var(--on-brand); box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.22);
+}
+.btn--onbrand:hover, .btn--onbrand:focus-visible { background: #FFFFFF; color: var(--brand); }
+.section--brand :focus-visible { outline-color: var(--on-brand); }
+/* Quiet secondary link, drawn as a rule rather than a second button. */
+.linkout {
+  display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.98rem;
+  color: var(--accent-ink); text-decoration: none;
+  border-bottom: 2px solid var(--accent); padding-bottom: 2px;
+}
+.linkout:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+.section--brand .linkout { color: var(--on-brand); border-bottom-color: var(--on-brand); }
+
+/* ---------------------------------------------------------------- the chevron motif (zero-image plan)
+   Drawn from the geometry of the owner's own mark. Two forms:
+   .hero__field — a tiled chevron ground that sits BEHIND the opaque plate only, never under text,
+                  so no run of copy is ever measured against a moving background;
+   .detail      — a standalone line drawing used as a block element, like a detail on a drawing sheet. */
+.hero__field {
+  position: absolute; top: 0; bottom: 0; right: 0; width: 46%; z-index: 0;
+  color: var(--brand); pointer-events: none; display: none;
+}
+.hero__field svg { width: 100%; height: 100%; display: block; }
+@media (min-width: 900px) { .hero__field { display: block; } }
+
+.detail { display: block; width: min(100%, 260px); color: var(--brand); opacity: 0.85; }
+.detail--wide { width: min(100%, 340px); }
+.section--brand .detail { color: var(--on-brand); opacity: 0.9; }
+.detailwrap { display: flex; align-items: flex-end; gap: var(--space-3); }
+
+/* ---------------------------------------------------------------- hero (T3 — split, no overlay) */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--rule); }
+.hero .container { position: relative; z-index: 1; }
+.hero__grid {
+  display: grid; gap: var(--space-4); align-items: center;
+  grid-template-columns: 1fr; padding-block: clamp(2.5rem, 6vw, 5rem);
+}
+@media (min-width: 900px) { .hero__grid { grid-template-columns: 1.15fr 0.85fr; gap: var(--space-5); } }
+.hero h1 { margin-bottom: var(--space-3); }
+.hero__cta { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-top: var(--space-3); }
+.hero__note { font-size: 0.95rem; color: var(--ink-muted); margin: var(--space-3) 0 0; }
+
+/* The stamp plate — the mark on a white tile inside a drawn frame. This is the hero's "image". */
+.plate { position: relative; z-index: 1; background: var(--bg-alt); border: 1px solid var(--rule); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: var(--shadow); }
+.plate__inner { position: relative; z-index: 1; display: grid; gap: var(--space-3); justify-items: center; text-align: center; }
+.plate .mark-tile { width: clamp(132px, 30vw, 176px); height: clamp(132px, 30vw, 176px); padding: 18px; box-shadow: var(--shadow); }
+.plate .mark-tile img { width: 100%; }
+.plate__caption { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.15; margin: 0; }
+.plate__meta { font-size: 0.78rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-muted); margin: 0; }
+.plate__foot {
+  position: relative; z-index: 1; margin-top: var(--space-3); padding-top: var(--space-2);
+  border-top: 1px solid var(--rule);
+}
+
+/* ---------------------------------------------------------------- sections */
+.section__head { max-width: 62ch; margin-bottom: var(--space-4); }
+.section__head h2 { margin-bottom: var(--space-2); }
+.section--brand { border-block: 1px solid var(--brand); }
+.section--brand .muted, .section--brand .plate__meta { color: var(--on-brand-muted); }
+.section--brand .tblock { color: var(--on-brand-muted); }
+.section--brand .tblock b { color: var(--on-brand); }
+.section--tight { padding-block: clamp(2.25rem, 4vw, 3.25rem); }
+
+/* Trust strip (T2) */
+.trust { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 760px) { .trust { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); } }
+.trust__item { border-left: 3px solid var(--on-brand-muted); padding-left: var(--space-2); }
+.trust__k { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--on-brand-muted); margin-bottom: 0.3rem; }
+.trust__v { display: block; font-size: var(--fs-1); color: var(--on-brand); line-height: 1.35; }
+
+/* Offering cards / teasers */
+.offers { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 780px) { .offers { grid-template-columns: 1fr 1fr; gap: var(--space-4); } }
+.offer {
+  position: relative; background: var(--surface); border: 1px solid var(--rule);
+  padding: clamp(1.4rem, 3vw, 2rem); display: flex; flex-direction: column; gap: var(--space-2);
+}
+.offer__num { font-size: 0.72rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent-ink); }
+.offer h3 { margin: 0; }
+.offer p { margin: 0; }
+.offer__mode {
+  margin-top: auto; padding-top: var(--space-2); border-top: 1px solid var(--line);
+  font-size: 0.8rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-muted);
+}
+.offer__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+
+/* The full-width drawn rule between blocks */
+.sheetline { height: 1px; background: var(--rule); border: 0; margin: 0; }
+
+/* Story / pull quote */
+.pull {
+  font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.3; color: var(--brand);
+  border-left: 3px solid var(--accent); padding-left: var(--space-3); margin: 0; max-width: 34ch;
+}
+.storygrid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 900px) { .storygrid { grid-template-columns: 1.1fr 0.9fr; gap: var(--space-5); } }
+.prose p { max-width: 60ch; font-size: var(--fs-1); line-height: 1.65; }
+
+/* Timeline (about) — three drawn stops */
+.steps { display: grid; gap: var(--space-3); grid-template-columns: 1fr; counter-reset: step; }
+@media (min-width: 820px) { .steps { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); } }
+.step { border-top: 3px solid var(--brand); padding-top: var(--space-2); }
+.step__k { font-size: 0.72rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent-ink); display: block; margin-bottom: 0.35rem; }
+.step h3 { font-size: var(--fs-2); margin-bottom: 0.5rem; }
+.step p { margin: 0; color: var(--ink-muted); }
+
+/* Contact panel */
+.contactgrid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 900px) { .contactgrid { grid-template-columns: 1fr 1fr; gap: var(--space-5); } }
+.dl { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--rule); }
+.dl > div { display: flex; justify-content: space-between; gap: var(--space-2); padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
+.dl dt { font-size: 0.78rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-muted); }
+.dl dd { margin: 0; text-align: right; }
+.dl dd.is-closed { color: var(--ink-muted); }
+.bigcall {
+  display: inline-block; font-family: var(--font-display); font-size: clamp(1.9rem, 1.1rem + 3.2vw, 3rem);
+  line-height: 1.05; color: var(--ink); text-decoration: none; border-bottom: 3px solid var(--accent);
+}
+.bigcall:hover { color: var(--accent-ink); }
+.section--brand .bigcall { color: var(--on-brand); border-bottom-color: var(--on-brand); }
+.section--brand .bigcall:hover { color: var(--on-brand-muted); }
+
+/* Closing call band (T2) */
+.close__grid { display: grid; gap: var(--space-3); grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 860px) { .close__grid { grid-template-columns: 1.25fr 0.75fr; gap: var(--space-5); } }
+.close__lines { display: grid; gap: 0.35rem; font-size: var(--fs-1); color: var(--on-brand); }
+.close__lines a { color: var(--on-brand); text-decoration: underline; text-underline-offset: 4px; }
+
+/* Sticky mobile call bar */
+.cta-bar { background: var(--surface); border-top: 1px solid var(--rule); }
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--rule); color: var(--ink-muted); }
+.site-footer .container { align-items: start; }
+.site-footer h2 { font-size: 1rem; font-family: var(--font-body); font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink); margin-bottom: var(--space-2); }
+.site-footer a { color: var(--ink-muted); }
+.site-footer a:hover { color: var(--accent-ink); }
+.site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.4rem; }
+.footer__mark { display: flex; align-items: center; gap: 0.7rem; margin-bottom: var(--space-2); }
+.footer__mark .mark-tile { width: 44px; height: 44px; padding: 5px; }
+.footer__legal { border-top: 1px solid var(--line); margin-top: var(--space-3); padding-top: var(--space-3); font-size: 0.86rem; }
+
+/* Skip link — hidden until focused, then a real, visible control. */
+.skip {
+  position: absolute; left: var(--gutter); top: -60px; z-index: 100;
+  background: var(--accent); color: var(--on-accent); padding: 0.7rem 1rem;
+  font-weight: 700; text-decoration: none; transition: top var(--dur) var(--ease);
+}
+.skip:focus { top: 10px; }
+
+/* Owner pull-quote (his own words, attributed to him — not a customer testimonial) */
+.quotefig { display: grid; gap: var(--space-2); }
+.quotefig .tblock { padding-left: calc(var(--space-3) + 3px); }
+
+/* The copyright line spans the whole footer grid rather than sitting in the last column. */
+.footer__legal { grid-column: 1 / -1; }
