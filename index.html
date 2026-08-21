@@ -757,7 +757,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     return fetch(LEADS_URL, { method: "POST", mode: "cors", redirect: "follow", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
       .then(function (r) { return r.text().then(function (t) { var j = {}; try { j = JSON.parse(t); } catch (e) {} if (!r.ok || j.ok === false) throw new Error(j.error || ("HTTP " + r.status)); return j; }); })
       .then(function () {
-        if (stage === "start") { S.startSubmitted = true; save(); fb("LeadStart"); try { if (window.fbq) fbq("track", "Lead"); } catch (e) {} return; }
+        if (stage === "start") { S.startSubmitted = true; save(); fb("LeadStart"); return; }
         S.submittedAt = Date.now(); save(); fb("InterviewComplete");
         try { sessionStorage.setItem("duna_intake", JSON.stringify({ first_name: S.a.first_name, business_name: S.a.business_name, submitted: true, skipped: S.skipped })); } catch (e) {}
         window.location.href = "thanks.html";
