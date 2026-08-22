@@ -6,7 +6,7 @@
   --bg-alt: #EDD7DA;        /* tinted panel */
   --surface: #FFFFFF;       /* cards */
   --ink: #2A181B;           /* body text — 14.1:1 on --bg */
-  --ink-muted: #795B60;     /* secondary text — 5.1:1 on --bg */
+  --ink-muted: #6E5257;     /* secondary text — 5.86:1 on --bg, 5.10:1 on --bg-alt (was 4.41 there) */
   --line: #DED1D3;          /* hairlines */
   --brand: #59212A;         /* 30: deep wine — bands, eyebrows, headings accents */
   --on-brand: #F5E8EA;      /* 10.5:1 on --brand */
