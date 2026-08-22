@@ -29,7 +29,10 @@ a:not(.btn):not(.brand) { text-decoration-thickness: 1px; text-underline-offset:
 /* ---------- buttons ---------- */
 .btn { font-family: var(--font-body); letter-spacing: 0.01em; border-radius: var(--radius-sm); }
 .btn--primary, a.btn--primary, .nav a.btn--primary { box-shadow: none; }
-.btn--ghost { border-color: var(--hair); color: var(--ink); }
+/* --hair is a decorative rule colour: at 1.56:1 on the page it gives a button no visible edge
+   (WCAG 1.4.11 wants 3:1 for a control boundary). Ink at 55% reads as a real border — 3.30:1 on
+   the tinted section, 3.73:1 on white — without becoming as heavy as a filled button. */
+.btn--ghost { border-color: rgba(42, 38, 24, 0.55); color: var(--ink); }
 .btn--ghost:hover, .btn--ghost:focus-visible { background: var(--bg-alt); border-color: var(--brand); }
 /* on the olive band the accent fill is invisible (1.76:1) — cream button instead */
 .btn--cream, a.btn--cream { background-color: var(--bg); color: var(--brand); border: 0; }
@@ -122,6 +125,18 @@ a:not(.btn):not(.brand) { text-decoration-thickness: 1px; text-underline-offset:
 .close .split { align-items: start; gap: var(--space-4); }
 @media (min-width: 880px) { .close .split { grid-template-columns: 1.05fr 0.95fr; gap: clamp(2.5rem, 6vw, 5rem); } }
 .close__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+/* The generic .btn--ghost paints --ink on whatever is behind it, and this band is --brand olive:
+   that was 1.77:1, effectively invisible. A translucent cream fill reads as a real, tappable
+   button on the dark band — cream text measures 5.28:1 on the blended fill, border 3.70:1. */
+.close .btn--ghost {
+  background: rgba(250, 248, 242, 0.16);
+  color: var(--on-brand);
+  border: 1px solid rgba(250, 248, 242, 0.55);
+}
+.close .btn--ghost:hover, .close .btn--ghost:focus-visible {
+  background: rgba(250, 248, 242, 0.26);
+  border-color: var(--on-brand);
+}
 .contact-list { display: grid; gap: var(--space-3); font-style: normal; }
 .contact-list > div { display: grid; gap: 0.2rem; padding-top: var(--space-2); border-top: 1px solid rgba(250, 248, 242, 0.28); }
 .contact-list span:first-child { font-size: 0.72rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: rgba(250, 248, 242, 0.78); }
