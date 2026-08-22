@@ -237,6 +237,20 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   .actions .btn-primary { min-width: 128px; }
   .actions .btn-text { padding-left: 8px; padding-right: 8px; }
   .savenote { text-align: center; font-size: 0.78rem; color: var(--muted); margin: 10px 0 0; }
+  /* Proof strip. Sits below the form and only on the first screen — it answers "will $500 get me
+     something cheap?" for someone who hesitates, then gets out of the way once they start. */
+  .proof { margin: 34px 0 0; }
+  .proof h2 { font-size: 1rem; font-weight: 700; color: var(--ink); text-align: center; margin: 0 0 4px; }
+  .proof p.sub { text-align: center; font-size: 0.82rem; color: var(--muted); margin: 0 0 16px; }
+  .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .proof-grid a { display: block; text-decoration: none; color: inherit; border: 1px solid var(--line);
+    border-radius: 10px; overflow: hidden; background: var(--card); }
+  .proof-grid img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--line); }
+  .proof-grid b { display: block; font-size: 0.78rem; font-weight: 700; padding: 8px 10px 2px; line-height: 1.25; }
+  .proof-grid span { display: block; font-size: 0.72rem; color: var(--muted); padding: 0 10px 9px; }
+  .proof-all { text-align: center; margin: 16px 0 0; font-size: 0.8rem; }
+  .proof-all a { color: var(--muted); text-decoration: underline; }
+  @media (max-width: 560px) { .proof-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
   .resume { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--navy-soft); border: 1px solid #c9d6f0; border-left: 4px solid var(--navy); border-radius: 10px; padding: 10px 12px; margin: 0 0 14px; font-size: 0.92rem; }
   .resume[hidden] { display: none; }
   .resume button { border: none; background: none; color: var(--red); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; white-space: nowrap; }
@@ -293,6 +307,32 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
       </div>
     </section>
     <p class="savenote">Everything saves on this device as you go. Stop anytime &mdash; I'll get the rest by text.</p>
+
+    <section class="proof" id="proof">
+      <h2>This is the standard.</h2>
+      <p class="sub">Sample sites, built the same way yours will be. Tap one and click around it.</p>
+      <div class="proof-grid">
+        <a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy">
+          <b>Golden Crumb Bakery</b><span>Bakery</span></a>
+        <a href="/portfolio/summit-roofing/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/summit-roofing.jpg" alt="Summit Roofing website" width="640" height="400" loading="lazy">
+          <b>Summit Roofing</b><span>Roofing</span></a>
+        <a href="/portfolio/gilded-shears-salon/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/gilded-shears-salon.jpg" alt="Gilded Shears Salon website" width="640" height="400" loading="lazy">
+          <b>Gilded Shears Salon</b><span>Hair salon</span></a>
+        <a href="/portfolio/cornerstone-family-law/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/cornerstone-family-law.jpg" alt="Cornerstone Family Law website" width="640" height="400" loading="lazy">
+          <b>Cornerstone Family Law</b><span>Family law</span></a>
+        <a href="/portfolio/forge-strength-conditioning/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/forge-strength-conditioning.jpg" alt="Forge Strength &amp; Conditioning website" width="640" height="400" loading="lazy">
+          <b>Forge Strength</b><span>Gym</span></a>
+        <a href="/portfolio/mirror-finish-auto-detailing/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/mirror-finish-auto-detailing.jpg" alt="Mirror Finish Auto Detailing website" width="640" height="400" loading="lazy">
+          <b>Mirror Finish</b><span>Auto detailing</span></a>
+      </div>
+      <p class="proof-all"><a href="/portfolio/" target="_blank" rel="noopener">See all 66</a></p>
+    </section>
   </div>
 </main>
 
@@ -387,11 +427,17 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   if (!S.lead_id) { S.lead_id = "L-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8); }
   function save() { S.savedAt = Date.now(); try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
   function fb(ev, params) { try { if (window.fbq) fbq("trackCustom", ev, params || {}); } catch (e) {} }
+  // Opening a sample is a strong intent signal — and lets us see whether the proof strip
+  // helps people start or just gives them somewhere else to go.
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('.proof a[href^="/portfolio/"]');
+    if (a) fb("PortfolioSiteOpen", { site: a.getAttribute("href") });
+  });
 
   // ==== DOM ====
   var $ = function (id) { return document.getElementById(id); };
   var qwrap = $("qwrap"), qnum = $("qnum"), qEl = $("q"), subEl = $("sub"), extra = $("extra"), talkwrap = $("talkwrap"), talk = $("talk"), reassure = $("reassure"), nudge = $("nudge"), heard = $("heard"), err = $("err");
-  var back = $("back"), skip = $("skip"), next = $("next"), dots = $("dots"), trail = $("trail"), intro = $("intro");
+  var back = $("back"), skip = $("skip"), next = $("next"), dots = $("dots"), trail = $("trail"), intro = $("intro"), proof = $("proof");
 
   function visibleScreens() { return SCREENS.filter(function (s) { return !s.conditional || (S.a.primary_goal === "Book an appointment" || S.a.primary_goal === "Buy something"); }); }
   function cur() { return visibleScreens()[S.screen]; }
@@ -401,6 +447,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     var list = visibleScreens(); if (S.screen >= list.length) S.screen = list.length - 1;
     var sc = list[S.screen];
     intro.classList.toggle("hidden", S.screen > 0);
+    proof.classList.toggle("hidden", S.screen > 0);   // proof answers a doubt before they start; after that it's an exit
     err.hidden = true; nudge.className = "nudge"; nudge.textContent = "";
     // dots + trail
     dots.innerHTML = list.map(function (s, i) { return '<span class="' + (i < S.screen ? "done" : i === S.screen ? "cur" : "") + '"></span>'; }).join("");
