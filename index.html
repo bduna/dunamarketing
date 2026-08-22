@@ -451,13 +451,6 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     var a = e.target.closest && e.target.closest('.proof a[href^="/portfolio/"]');
     if (a) fb("PortfolioSiteOpen", { site: a.getAttribute("href") });
   });
-  $("totop").addEventListener("click", function () {
-    var slow = !window.matchMedia || !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    try { window.scrollTo({ top: 0, behavior: slow ? "smooth" : "auto" }); }
-    catch (e) { window.scrollTo(0, 0); }          // older Safari has no options object
-    var f = document.querySelector(".card input, .card button");
-    if (f) f.focus({ preventScroll: true });      // put the keyboard back where the form is
-  });
 
   // ==== DOM ====
   var $ = function (id) { return document.getElementById(id); };
@@ -810,6 +803,11 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   skip.addEventListener("click", function () { var sc = cur(); commitTalk(); if (S.skipped.indexOf(sc.id) === -1) S.skipped.push(sc.id); save(); fb("ScreenSkip", { screen: sc.id }); go(S.screen + 1); });
   back.addEventListener("click", function () { commitTalk(); go(S.screen - 1); });
   document.addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !next.disabled) next.click(); });
+  $("totop").addEventListener("click", function () {
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    try { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }
+    catch (e) { window.scrollTo(0, 0); }          // older Safari has no options object
+  });
   $("start-over").addEventListener("click", function () {
     if (!confirm("Clear your saved answers on this device and start fresh?")) return;
     try { localStorage.removeItem(STORE_KEY); } catch (e) {}
