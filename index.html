@@ -250,6 +250,17 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   .proof-grid b { display: block; font-size: 0.78rem; font-weight: 700; padding: 8px 10px 2px; line-height: 1.25; }
   .proof-grid span { display: block; font-size: 0.72rem; color: var(--muted); padding: 0 10px 9px; }
   @media (max-width: 560px) { .proof-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+  /* Back to the top. Sits in the flow at the very end, so you only meet it by having scrolled —
+     no floating badge covering the Next button on a phone. */
+  .totop { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 30px auto 8px;
+    background: none; border: 0; padding: 8px 12px; cursor: pointer; color: var(--navy);
+    font: inherit; border-radius: 10px; }
+  .totop svg { width: 44px; height: 44px; display: block; transition: transform 0.15s ease; }
+  .totop span { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.01em; }
+  .totop:hover { color: var(--red); }
+  .totop:hover svg { transform: translateY(-3px); }
+  .totop:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { .totop svg { transition: none; } }
   .resume { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--navy-soft); border: 1px solid #c9d6f0; border-left: 4px solid var(--navy); border-radius: 10px; padding: 10px 12px; margin: 0 0 14px; font-size: 0.92rem; }
   .resume[hidden] { display: none; }
   .resume button { border: none; background: none; color: var(--red); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; white-space: nowrap; }
@@ -331,6 +342,15 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
           <b>Mirror Finish</b><span>Auto detailing</span></a>
       </div>
     </section>
+
+    <button type="button" class="totop" id="totop" aria-label="Back to the top">
+      <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
+        <circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M22 30V15M22 15l-6.5 6.5M22 15l6.5 6.5" fill="none" stroke="currentColor"
+              stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Back to the top</span>
+    </button>
   </div>
 </main>
 
@@ -430,6 +450,13 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   document.addEventListener("click", function (e) {
     var a = e.target.closest && e.target.closest('.proof a[href^="/portfolio/"]');
     if (a) fb("PortfolioSiteOpen", { site: a.getAttribute("href") });
+  });
+  $("totop").addEventListener("click", function () {
+    var slow = !window.matchMedia || !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    try { window.scrollTo({ top: 0, behavior: slow ? "smooth" : "auto" }); }
+    catch (e) { window.scrollTo(0, 0); }          // older Safari has no options object
+    var f = document.querySelector(".card input, .card button");
+    if (f) f.focus({ preventScroll: true });      // put the keyboard back where the form is
   });
 
   // ==== DOM ====
