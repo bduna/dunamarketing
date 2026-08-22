@@ -192,7 +192,11 @@ a:not(.btn):not(.brand) { text-decoration-thickness: 1px; text-underline-offset:
 /* Self-contained closing CTA. The first version reused .section--brand and assumed it paints a
    --brand background; on sites where that class means something else, --on-brand text landed on the
    page colour at 1.18:1. Setting both sides here guarantees the pair always matches. */
-.cta-band { background: var(--brand); color: var(--on-brand); padding-block: var(--section-y); }
+/* This band and .close below it paint the SAME olive, so their two lots of --section-y padding
+   (65px + 65px) read as one dead 130px expanse under the button rather than as two sections.
+   20px under the button, and the band below drops its top padding to keep that exact. */
+.cta-band { background: var(--brand); color: var(--on-brand); padding-block: var(--section-y) 20px; }
+.close--tight { padding-top: 0; }
 .cta-band h2 { color: var(--on-brand); margin-top: 0; }
 .cta-band p { margin-bottom: 0; }
 .cta-band .btn--primary { background: var(--on-brand); color: var(--brand); border: 1px solid var(--on-brand); }
