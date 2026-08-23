@@ -281,8 +281,8 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   <div class="wrap">
     <div class="intro" id="intro">
       <p class="kicker">
-        <svg viewBox="0 0 600 30" role="img" aria-label="3 questions. Easy Mic Input Answers. 7 minutes." focusable="false">
-          <text x="300" y="21" text-anchor="middle" textLength="592" lengthAdjust="spacingAndGlyphs">3 QUESTIONS &#183; EASY MIC INPUT ANSWERS &#183; 7 MINUTES</text>
+        <svg viewBox="0 0 600 30" role="img" aria-label="8 questions. Easy Mic Input Answers. 7 minutes." focusable="false">
+          <text x="300" y="21" text-anchor="middle" textLength="592" lengthAdjust="spacingAndGlyphs">8 QUESTIONS &#183; EASY MIC INPUT ANSWERS &#183; 7 MINUTES</text>
         </svg>
       </p>
       <h1>Big&#8209;Agency Websites. Small&#8209;Business Prices.</h1>
@@ -478,13 +478,12 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     // question text
     qwrap.classList.add("fade");
     setTimeout(function () {
-      // The ad and the intro promise THREE questions. "1 of 8" contradicts that on the very first
-      // card, because screens != questions (Google lookup, contact, goal tap, photos are not
-      // questions). Label the talk screens as the three questions and everything else by its job.
-      var talks = list.filter(function (x) { return x.type === "talk"; });
-      var ti = talks.indexOf(sc);
+      // The kicker promises EIGHT questions, matching the dots. Number the talk screens by their
+      // position in the full flow so "Question 4 of 8" always agrees with the dot row; the other
+      // screens keep their role labels.
+      var idx = list.indexOf(sc);
       qnum.textContent =
-        ti >= 0 ? "Question " + (ti + 1) + " of " + talks.length :
+        sc.type === "talk" ? "Question " + (idx + 1) + " of " + list.length :
         sc.type === "places" ? "First, the easy part" :
         sc.type === "contact" ? "Where to send your draft" :
         sc.type === "goal" ? "One tap" :
