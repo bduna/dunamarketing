@@ -1,0 +1,50 @@
+/* tokens.css — SET EVERY VALUE FROM direction.md. These defaults are deliberately neutral so an unset token is visible as "generic". */
+:root {
+  --accent-ink: #7A5217;  /* brass — eyebrows and rules; 6.33:1 on --bg */
+  --hair: #CBC3B0;
+  /* Palette (60-30-10). Verify AA contrast: --ink on --bg ≥ 4.5:1, --on-accent on --accent ≥ 4.5:1 */
+  --bg: #F7F5F0;            /* 60: dominant neutral */
+  --bg-alt: #EDE9DF;        /* tinted section background */
+  --surface: #FFFFFF;       /* cards */
+  --ink: #22302C;           /* body text */
+  --ink-muted: #59695F;     /* secondary text */
+  --line: #DFD9CB;          /* hairlines */
+  --brand: #14453F;         /* 30: supporting brand tone (bands, headings, nav) */
+  --on-brand: #EFF5F2;
+  --accent: #14453F;        /* 10: the one accent — CTAs, highlights */
+  --accent-hover: #0E332F;
+  --on-accent: #EFF5F2;
+
+  /* Type — two Google Fonts max; load them in <head> */
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);   /* body */
+  --fs-1: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);      /* lead */
+  --fs-2: clamp(1.4rem, 1.2rem + 1vw, 1.9rem);       /* h3 */
+  --fs-3: clamp(1.8rem, 1.4rem + 2vw, 2.6rem);       /* h2 */
+  --fs-4: clamp(2.4rem, 1.6rem + 4.5vw, 4.4rem);     /* h1 */
+  --lh-body: 1.6;
+  --lh-head: 1.1;
+  --track-label: 0.08em;   /* uppercase labels */
+
+  /* Shape & depth — one stance */
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 10px 30px rgba(20, 20, 30, 0.08);
+  --shadow-sm: 0 2px 8px rgba(20, 20, 30, 0.06);
+
+  /* Space (density axis) */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --section-y: clamp(3.5rem, 6vw, 6.5rem);   /* vertical padding per section */
+  --measure: 62ch;
+  --container: 1140px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+
+  /* Motion (tone axis) */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 220ms;
+}
