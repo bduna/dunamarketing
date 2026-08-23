@@ -142,9 +142,13 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   textarea { min-height: 150px; resize: none; line-height: 1.5; }
   .talk-hint { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; font-size: 0.86rem; color: var(--muted); }
   /* Live word counter for required answers: explains WHY Next is disabled before anyone taps it.
-     Grey while counting up, green once the 8-word floor is cleared. */
-  .wordcount { margin: 6px 2px 0; font-size: 0.8rem; font-weight: 700; color: var(--muted); text-align: right; }
-  .wordcount.ok { color: #1a7f37; }
+     A pill, not a whisper — amber while counting up, green once the 8-word floor is cleared.
+     Text contrast: 6.3:1 on amber, 5.9:1 on green. */
+  .wordcount { display: inline-flex; align-items: center; gap: 6px; margin: 10px 0 0;
+    font-size: 0.88rem; font-weight: 800; letter-spacing: 0.01em;
+    padding: 7px 14px; border-radius: 999px;
+    background: #FFF3DE; color: #7A5200; border: 1.5px solid #E8B24A; }
+  .wordcount.ok { background: #E4F5E9; color: #136A2E; border-color: #7FC48F; }
   .talk-hint svg { width: 18px; height: 18px; color: var(--navy); flex: 0 0 auto; }
   .talk-hint strong { color: var(--navy); }
 
