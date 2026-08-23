@@ -546,7 +546,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
       field("First name *", "first_name", "text", 'autocomplete="given-name" required') +
       field("Last name", "last_name", "text", 'autocomplete="family-name"') +
       field("Phone (for texts) *", "phone", "tel", 'autocomplete="tel" required') +
-      field("Email *", "email", "email", 'autocomplete="email" required') +
+      field("Email — optional", "email", "email", 'autocomplete="email"') +
       '<div class="field" style="grid-column:1/-1">' + field("Business name *", "business_name", "text", 'autocomplete="organization" required') + '</div></div>';
     ["first_name", "last_name", "phone", "email", "business_name"].forEach(function (n) {
       $("f-" + n).addEventListener("input", function () { S.a[n] = this.value; save(); updateHeard(); updateNext(); });
@@ -769,7 +769,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     heard.innerHTML = chips.map(function (c) { return '<span class="' + (c[1] ? "on" : "") + '">' + (c[1] ? "✓ " : "") + c[0] + '</span>'; }).join("");
   }
   function canProceed(sc) {
-    if (sc.type === "contact") return !!(S.a.first_name && /\d{7,}/.test((S.a.phone || "").replace(/\D/g, "")) && /\S+@\S+\.\S+/.test(S.a.email || "") && S.a.business_name);
+    if (sc.type === "contact") return !!(S.a.first_name && /\d{7,}/.test((S.a.phone || "").replace(/\D/g, "")) && S.a.business_name && (!(S.a.email || "").trim() || /\S+@\S+\.\S+/.test(S.a.email)));
     if (sc.type === "talk" && sc.required) return words(S.a[sc.field]) >= HARD_MIN_WORDS;
     if (sc.type === "goal") return !!S.a.primary_goal;
     if (sc.type === "vibe") return (S.a.vibe_words || []).length >= 2;
@@ -784,7 +784,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   next.addEventListener("click", function () {
     var sc = cur(); commitTalk();
     if (!canProceed(sc)) {
-      err.textContent = sc.type === "contact" ? "Just need your first name, a phone number, an email, and the business name."
+      err.textContent = sc.type === "contact" ? "Just need your first name, a phone number, and the business name."
         : sc.type === "talk" ? "Give me a full sentence or two here — a few words isn’t enough to build a site that sounds like you."
         : "Just need this one to continue.";
       err.hidden = false; return;
