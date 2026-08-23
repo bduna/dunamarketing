@@ -261,30 +261,33 @@ h1 { font-weight: 700; }
 
 
 /* ---------- Duna Marketing sample-site bar ---------- */
-/* The ENTIRE bar is one link back to dunamarketing.com — taller, louder, and hover-responsive so
-   it reads as a control, not a footnote. Duna navy on every sample site. White on navy 11.85:1;
-   the red pill carries a white hairline for a visible edge (WCAG 1.4.11). On phones the site's
-   own .cta-bar lifts above it. */
-:root { --duna-h: 58px; }
+/* Frosted glass: the page shows through a dark-grey translucent bar, so it belongs to every
+   palette while still reading as a control. The whole bar is one link back to dunamarketing.com.
+   rgba(25,28,35,.72) composited over even a pure-white page keeps white text at 6.7:1; the
+   backdrop blur is decoration on top of that, never load-bearing. On phones the site's own
+   .cta-bar lifts above it. */
+:root { --duna-h: 54px; }
 a.duna-bar, a.duna-bar:visited {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
   box-sizing: border-box; min-height: var(--duna-h);
   display: flex; align-items: center; justify-content: center; gap: 0.9rem; flex-wrap: wrap;
-  padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom));
-  background: #003087; color: #FFFFFF; text-decoration: none;
-  border-top: 3px solid #C8102E;
-  font-family: var(--font-body); font-size: 0.95rem; line-height: 1.3; text-align: center;
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.22); cursor: pointer;
-  transition: background 0.15s ease;
+  padding: 0.55rem 1rem calc(0.55rem + env(safe-area-inset-bottom));
+  background: rgba(25, 28, 35, 0.72);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  color: #FFFFFF; text-decoration: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.7);
+  font-family: var(--font-body); font-size: 0.92rem; line-height: 1.3; text-align: center;
+  cursor: pointer; transition: background 0.15s ease;
 }
-a.duna-bar:hover, a.duna-bar:focus-visible { background: #00266B; }
+a.duna-bar:hover, a.duna-bar:focus-visible { background: rgba(25, 28, 35, 0.84); }
 .duna-bar__txt b { text-decoration: underline; text-underline-offset: 3px; }
 .duna-bar__btn {
-  display: inline-block; background: #C8102E; color: #FFFFFF; border: 1.5px solid #FFFFFF;
-  border-radius: 999px; padding: 0.5rem 1.2rem; font-weight: 800; font-size: 0.92rem;
-  white-space: nowrap;
+  display: inline-block; background: transparent; color: #FFFFFF;
+  border: 1.5px solid #FFFFFF; border-radius: 4px;
+  padding: 0.45rem 1.1rem; font-weight: 700; font-size: 0.9rem; white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
 }
-a.duna-bar:hover .duna-bar__btn { background: #A50D25; }
+a.duna-bar:hover .duna-bar__btn { background: #FFFFFF; color: #14171E; }
 body { padding-bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
 @media (max-width: 720px) {
   .cta-bar { bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
