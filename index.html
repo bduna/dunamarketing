@@ -247,22 +247,17 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   .savenote { text-align: center; font-size: 0.78rem; color: var(--muted); margin: 10px 0 0; }
   /* Proof strip. Sits below the form and only on the first screen — it answers "will $500 get me
      something cheap?" for someone who hesitates, then gets out of the way once they start. */
-  .proof { margin: 26px 0 22px; }
+  .proof { margin: 48px 0 0; }
   .proof h2 { font-size: clamp(1.5rem, 5.5vw, 2.15rem); line-height: 1.1; font-weight: 800;
     letter-spacing: -0.02em; color: var(--navy); text-align: center; margin: 0 0 8px; text-wrap: balance; }
-  .proof p.sub { text-align: center; font-size: 0.95rem; color: var(--muted); margin: 0 auto 16px; max-width: 44ch; }
-  /* One row that scrolls sideways instead of a 2x3 block: the proof still comes before the form,
-     but it costs ~400px less height on a phone so the form stays near the top. */
-  .proof-grid { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr);
-    gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
-    padding-bottom: 6px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
-  .proof-grid > a { scroll-snap-align: start; }
+  .proof p.sub { text-align: center; font-size: 0.95rem; color: var(--muted); margin: 0 auto 20px; max-width: 44ch; }
+  .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .proof-grid a { display: block; text-decoration: none; color: inherit; border: 1px solid var(--line);
     border-radius: 10px; overflow: hidden; background: var(--card); }
   .proof-grid img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--line); }
   .proof-grid b { display: block; font-size: 0.78rem; font-weight: 700; padding: 8px 10px 2px; line-height: 1.25; }
   .proof-grid span { display: block; font-size: 0.72rem; color: var(--muted); padding: 0 10px 9px; }
-  @media (max-width: 560px) { .proof-grid { grid-auto-columns: minmax(132px, 1fr); gap: 10px; } }
+  @media (max-width: 560px) { .proof-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
   /* Back to the top. Sits in the flow at the very end, so you only meet it by having scrolled —
      no floating badge covering the Next button on a phone. */
   .totop { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 30px auto 8px;
@@ -310,31 +305,6 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
 
     <div class="resume" id="resume" hidden><span id="resume-msg"></span><button type="button" id="start-over">Start over</button></div>
 
-    <section class="proof" id="proof">
-      <h2>The Duna Marketing Standard.</h2>
-      <p class="sub">Sample sites, built the same way yours will be. Tap one and click around it.</p>
-      <div class="proof-grid">
-        <a href="/portfolio/long-table-catering/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering website" width="640" height="400" loading="lazy">
-          <b>Long Table Catering</b><span>Catering</span></a>
-        <a href="/portfolio/velvet-fig/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/velvet-fig.jpg" alt="Velvet Fig website" width="640" height="400" loading="lazy">
-          <b>Velvet Fig</b><span>Cocktail bar</span></a>
-        <a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy">
-          <b>Golden Crumb Bakery</b><span>Bakery</span></a>
-        <a href="/portfolio/cedar-hill-family-dental/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/cedar-hill-family-dental.jpg" alt="Cedar Hill Family Dental website" width="640" height="400" loading="lazy">
-          <b>Cedar Hill Family Dental</b><span>Dentist</span></a>
-        <a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/marden-estate-law.jpg" alt="Marden Estate Law website" width="640" height="400" loading="lazy">
-          <b>Marden Estate Law</b><span>Estate planning</span></a>
-        <a href="/portfolio/bright-beginnings-preschool/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/bright-beginnings-preschool.jpg" alt="Bright Beginnings Preschool website" width="640" height="400" loading="lazy">
-          <b>Bright Beginnings</b><span>Preschool</span></a>
-      </div>
-    </section>
-
     <div class="dots" id="dots" aria-hidden="true"></div>
     <div class="trail" id="trail" aria-label="Answered so far"></div>
 
@@ -362,6 +332,32 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
       </div>
     </section>
     <p class="savenote">Everything saves on this device as you go. Stop anytime &mdash; I'll get the rest by text.</p>
+
+    <section class="proof" id="proof">
+      <h2>The Duna Marketing Standard.</h2>
+      <p class="sub">Sample sites, built the same way yours will be. Tap one and click around it.</p>
+      <div class="proof-grid">
+        <a href="/portfolio/long-table-catering/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering website" width="640" height="400" loading="lazy">
+          <b>Long Table Catering</b><span>Catering</span></a>
+        <a href="/portfolio/velvet-fig/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/velvet-fig.jpg" alt="Velvet Fig website" width="640" height="400" loading="lazy">
+          <b>Velvet Fig</b><span>Cocktail bar</span></a>
+        <a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy">
+          <b>Golden Crumb Bakery</b><span>Bakery</span></a>
+        <a href="/portfolio/cedar-hill-family-dental/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/cedar-hill-family-dental.jpg" alt="Cedar Hill Family Dental website" width="640" height="400" loading="lazy">
+          <b>Cedar Hill Family Dental</b><span>Dentist</span></a>
+        <a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/marden-estate-law.jpg" alt="Marden Estate Law website" width="640" height="400" loading="lazy">
+          <b>Marden Estate Law</b><span>Estate planning</span></a>
+        <a href="/portfolio/bright-beginnings-preschool/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/bright-beginnings-preschool.jpg" alt="Bright Beginnings Preschool website" width="640" height="400" loading="lazy">
+          <b>Bright Beginnings</b><span>Preschool</span></a>
+      </div>
+    </section>
+
 
     <button type="button" class="totop" id="totop" aria-label="Back to the top">
       <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
