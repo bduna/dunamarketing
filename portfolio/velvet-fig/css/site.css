@@ -219,7 +219,8 @@ h1, h2, h3 { letter-spacing: -0.015em; }
 a.duna-bar, a.duna-bar:visited {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
   box-sizing: border-box; min-height: var(--duna-h);
-  display: flex; align-items: center; justify-content: center; gap: 0.9rem; flex-wrap: wrap;
+  /* Three columns so the button stays optically centred no matter how wide the copyright is. */
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.75rem;
   padding: 0.55rem 1rem calc(0.55rem + env(safe-area-inset-bottom));
   background: rgba(25, 28, 35, 0.72);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
@@ -230,7 +231,13 @@ a.duna-bar, a.duna-bar:visited {
 }
 a.duna-bar:hover, a.duna-bar:focus-visible { background: rgba(25, 28, 35, 0.84); }
 .duna-bar__txt b { text-decoration: underline; text-underline-offset: 3px; }
+.duna-bar__copy {
+  justify-self: start; font-size: 0.76rem; letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.85);   /* 5.42:1 on the bar over even a white page */
+  white-space: nowrap;
+}
 .duna-bar__btn {
+  grid-column: 2;
   /* Own dark fill over the bar's glass: transparent let each site's palette bleed through and
      muddied the white text. Black at 45% takes it from 6.7:1 to 12.7:1 in the worst case
      (a pure-white page behind the bar) while staying translucent. */
@@ -241,6 +248,7 @@ a.duna-bar:hover, a.duna-bar:focus-visible { background: rgba(25, 28, 35, 0.84);
 }
 a.duna-bar:hover .duna-bar__btn { background: #FFFFFF; color: #14171E; }
 body { padding-bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
+@media (max-width: 520px) { .duna-bar__copy .long { display: none; } }
 @media (max-width: 720px) {
   .cta-bar { bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
   body.has-cta-bar { padding-bottom: calc(84px + var(--duna-h)); }
