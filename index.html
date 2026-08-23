@@ -265,8 +265,14 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     font: inherit; border-radius: 10px; }
   .totop svg { width: 44px; height: 44px; display: block; transition: transform 0.15s ease; }
   .totop span { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.01em; }
-  .totop:hover { color: var(--red); }
-  .totop:hover svg { transform: translateY(-3px); }
+  /* Hover only where a real pointer exists. On a touchscreen, :hover sticks after a tap and the
+     button stayed red until you tapped elsewhere; :active gives the same red as a press flash
+     that releases on lift. */
+  @media (hover: hover) and (pointer: fine) {
+    .totop:hover { color: var(--red); }
+    .totop:hover svg { transform: translateY(-3px); }
+  }
+  .totop:active { color: var(--red); }
   .totop:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
   @media (prefers-reduced-motion: reduce) { .totop svg { transition: none; } }
   .resume { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--navy-soft); border: 1px solid #c9d6f0; border-left: 4px solid var(--navy); border-radius: 10px; padding: 10px 12px; margin: 0 0 14px; font-size: 0.92rem; }
