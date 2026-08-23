@@ -141,6 +141,10 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   input:focus, textarea:focus { outline: 3px solid var(--navy); outline-offset: 1px; border-color: var(--navy); }
   textarea { min-height: 150px; resize: none; line-height: 1.5; }
   .talk-hint { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; font-size: 0.86rem; color: var(--muted); }
+  /* Live word counter for required answers: explains WHY Next is disabled before anyone taps it.
+     Grey while counting up, green once the 8-word floor is cleared. */
+  .wordcount { margin: 6px 2px 0; font-size: 0.8rem; font-weight: 700; color: var(--muted); text-align: right; }
+  .wordcount.ok { color: #1a7f37; }
   .talk-hint svg { width: 18px; height: 18px; color: var(--navy); flex: 0 0 auto; }
   .talk-hint strong { color: var(--navy); }
 
@@ -303,6 +307,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
       <div id="extra"></div>
       <div id="talkwrap">
         <textarea id="talk" rows="5" aria-label="Your answer"></textarea>
+        <p class="wordcount" id="wc" hidden aria-live="polite"></p>
         <p class="talk-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span><strong>Easiest on a phone:</strong> tap in the box, then tap the microphone on your keyboard and just talk.</span></p>
         <p class="reassure" id="reassure" hidden>A few sentences is plenty.</p>
       </div>
@@ -516,7 +521,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     back.style.visibility = S.screen === 0 ? "hidden" : "visible";
     skip.classList.toggle("hidden", !!sc.required || sc.type === "review");
     next.textContent = sc.type === "review" ? "Send it →" : (S.screen === list.length - 2 ? "Review →" : "Next →");
-    updateHeard(); updateNext();
+    updateHeard(); updateNext(); updateWC();
     fb("ScreenView", { screen: sc.id, n: S.screen + 1 });
     window.scrollTo({ top: 0, behavior: S.screen === 0 ? "auto" : "smooth" });
   }
@@ -779,7 +784,17 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   // ==== NAV ====
   function go(i) { S.screen = Math.max(0, Math.min(i, visibleScreens().length - 1)); save(); render(); }
   function commitTalk() { var sc = cur(); if (sc && sc.type === "talk") { S.a[sc.field] = talk.value; save(); } }
-  talk.addEventListener("input", function () { commitTalk(); updateHeard(); updateNext(); if (!S.started) { S.started = true; save(); fb("InterviewStart"); } });
+  function updateWC() {
+    var sc = cur(), el = $("wc");
+    if (!el) return;
+    if (!sc || sc.type !== "talk" || !sc.required) { el.hidden = true; return; }
+    var w = words(S.a[sc.field]);
+    el.hidden = false;
+    el.classList.toggle("ok", w >= HARD_MIN_WORDS);
+    el.textContent = w >= HARD_MIN_WORDS ? "\u2713 " + w + " words \u2014 good to go"
+                   : w + " of " + HARD_MIN_WORDS + " words \u2014 keep talking";
+  }
+  talk.addEventListener("input", function () { commitTalk(); updateHeard(); updateNext(); updateWC(); if (!S.started) { S.started = true; save(); fb("InterviewStart"); } });
   next.addEventListener("click", function () {
     var sc = cur(); commitTalk();
     if (!canProceed(sc)) {
