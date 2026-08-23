@@ -261,25 +261,30 @@ h1 { font-weight: 700; }
 
 
 /* ---------- Duna Marketing sample-site bar ---------- */
-/* Fixed strip identifying this as a demo and linking back. Duna Marketing navy on every site so it is unmistakably
-   ours. White text on navy is 11.85:1. The red CTA sits at 2.01:1 against the navy, so it carries a
-   white hairline to give the control a visible edge (WCAG 1.4.11). On phones the site's own .cta-bar is lifted to sit above it. */
-:root { --duna-h: 48px; }
-.duna-bar {
+/* The ENTIRE bar is one link back to dunamarketing.com — taller, louder, and hover-responsive so
+   it reads as a control, not a footnote. Duna navy on every sample site. White on navy 11.85:1;
+   the red pill carries a white hairline for a visible edge (WCAG 1.4.11). On phones the site's
+   own .cta-bar lifts above it. */
+:root { --duna-h: 58px; }
+a.duna-bar, a.duna-bar:visited {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
   box-sizing: border-box; min-height: var(--duna-h);
-  display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;
-  padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom));
-  background: #003087; color: #FFFFFF;
-  font-family: var(--font-body); font-size: 0.85rem; line-height: 1.3; text-align: center;
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.18);
+  display: flex; align-items: center; justify-content: center; gap: 0.9rem; flex-wrap: wrap;
+  padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom));
+  background: #003087; color: #FFFFFF; text-decoration: none;
+  border-top: 3px solid #C8102E;
+  font-family: var(--font-body); font-size: 0.95rem; line-height: 1.3; text-align: center;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.22); cursor: pointer;
+  transition: background 0.15s ease;
 }
+a.duna-bar:hover, a.duna-bar:focus-visible { background: #00266B; }
+.duna-bar__txt b { text-decoration: underline; text-underline-offset: 3px; }
 .duna-bar__btn {
-  background: #C8102E; color: #FFFFFF; border: 1px solid #FFFFFF;
-  border-radius: 6px; padding: 0.4rem 0.95rem; font-weight: 700; font-size: 0.85rem;
-  text-decoration: none; white-space: nowrap;
+  display: inline-block; background: #C8102E; color: #FFFFFF; border: 1.5px solid #FFFFFF;
+  border-radius: 999px; padding: 0.5rem 1.2rem; font-weight: 800; font-size: 0.92rem;
+  white-space: nowrap;
 }
-.duna-bar__btn:hover, .duna-bar__btn:focus-visible { background: #A50D25; }
+a.duna-bar:hover .duna-bar__btn { background: #A50D25; }
 body { padding-bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
 @media (max-width: 720px) {
   .cta-bar { bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
