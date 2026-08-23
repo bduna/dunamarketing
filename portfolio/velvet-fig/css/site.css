@@ -231,7 +231,10 @@ a.duna-bar, a.duna-bar:visited {
 a.duna-bar:hover, a.duna-bar:focus-visible { background: rgba(25, 28, 35, 0.84); }
 .duna-bar__txt b { text-decoration: underline; text-underline-offset: 3px; }
 .duna-bar__btn {
-  display: inline-block; background: transparent; color: #FFFFFF;
+  /* Own dark fill over the bar's glass: transparent let each site's palette bleed through and
+     muddied the white text. Black at 45% takes it from 6.7:1 to 12.7:1 in the worst case
+     (a pure-white page behind the bar) while staying translucent. */
+  display: inline-block; background: rgba(0, 0, 0, 0.45); color: #FFFFFF;
   border: 1.5px solid #FFFFFF; border-radius: 4px;
   padding: 0.45rem 1.1rem; font-weight: 700; font-size: 0.9rem; white-space: nowrap;
   transition: background 0.15s ease, color 0.15s ease;
