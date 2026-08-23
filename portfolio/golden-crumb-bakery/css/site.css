@@ -120,6 +120,11 @@ h1 { font-weight: 800; }
 /* 20px under the button instead of a full --section-y. The #visit band directly below paints the
    same --brand, so the two lots of padding read as one dead slab rather than as two sections;
    --joined drops the lower band's top padding so the gap is exactly 20px. Index only. */
+/* #bake and #cakes are one continuous story — two full --section-y paddings between them read
+   as a hole in the page. --lead trims the upper section's bottom, --snug the lower one's top. */
+.section--lead { padding-bottom: clamp(1.5rem, 3vw, 2.25rem); }
+.section--snug { padding-top: clamp(1.25rem, 2.5vw, 2rem); }
+
 .cta-band { background: var(--brand); color: var(--on-brand); padding-block: var(--section-y) 20px; }
 .section--joined { padding-top: 0; }
 .cta-band h2 { color: var(--on-brand); margin-top: 0; }
