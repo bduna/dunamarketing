@@ -246,6 +246,12 @@ a.duna-bar:hover, a.duna-bar:focus-visible { background: rgba(25, 28, 35, 0.84);
   color: rgba(255, 255, 255, 0.85);   /* 5.42:1 on the bar over even a white page */
   white-space: nowrap;
 }
+.duna-bar__note {
+  grid-column: 3; justify-self: end; font-size: 0.76rem; letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.85);   /* same 5.42:1 as the copyright */
+  white-space: nowrap;
+}
+@media (max-width: 660px) { .duna-bar__note { display: none; } }
 .duna-bar__btn {
   grid-column: 2;
   /* Own dark fill over the bar's glass: transparent let each site's palette bleed through and
