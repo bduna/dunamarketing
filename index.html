@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
 <title>Website Interview &mdash; Duna Marketing</title>
-<meta name="description" content="Tell Duna Marketing about your business in about 7 minutes — just talk — and we'll build your website from your real answers.">
+<meta name="description" content="Tell Duna Marketing about your business — just talk — and we'll build your website from your real answers.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Duna Marketing">
 <meta property="og:title" content="Your new website starts here — Duna Marketing">
-<meta property="og:description" content="About 7 minutes, nothing to prepare, no tech skills needed. Answer a few questions out loud and we build the rest.">
+<meta property="og:description" content="Nothing to prepare, no tech skills needed. Answer a few questions out loud and we build the rest.">
 <meta name="theme-color" content="#003087">
 <link rel="icon" type="image/png" href="duna_marketing_logo.png">
 <link rel="apple-touch-icon" href="duna_marketing_logo.png">
@@ -247,17 +247,22 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   .savenote { text-align: center; font-size: 0.78rem; color: var(--muted); margin: 10px 0 0; }
   /* Proof strip. Sits below the form and only on the first screen — it answers "will $500 get me
      something cheap?" for someone who hesitates, then gets out of the way once they start. */
-  .proof { margin: 48px 0 0; }
+  .proof { margin: 26px 0 22px; }
   .proof h2 { font-size: clamp(1.5rem, 5.5vw, 2.15rem); line-height: 1.1; font-weight: 800;
     letter-spacing: -0.02em; color: var(--navy); text-align: center; margin: 0 0 8px; text-wrap: balance; }
-  .proof p.sub { text-align: center; font-size: 0.95rem; color: var(--muted); margin: 0 auto 20px; max-width: 44ch; }
-  .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .proof p.sub { text-align: center; font-size: 0.95rem; color: var(--muted); margin: 0 auto 16px; max-width: 44ch; }
+  /* One row that scrolls sideways instead of a 2x3 block: the proof still comes before the form,
+     but it costs ~400px less height on a phone so the form stays near the top. */
+  .proof-grid { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr);
+    gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding-bottom: 6px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+  .proof-grid > a { scroll-snap-align: start; }
   .proof-grid a { display: block; text-decoration: none; color: inherit; border: 1px solid var(--line);
     border-radius: 10px; overflow: hidden; background: var(--card); }
   .proof-grid img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--line); }
   .proof-grid b { display: block; font-size: 0.78rem; font-weight: 700; padding: 8px 10px 2px; line-height: 1.25; }
   .proof-grid span { display: block; font-size: 0.72rem; color: var(--muted); padding: 0 10px 9px; }
-  @media (max-width: 560px) { .proof-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+  @media (max-width: 560px) { .proof-grid { grid-auto-columns: minmax(132px, 1fr); gap: 10px; } }
   /* Back to the top. Sits in the flow at the very end, so you only meet it by having scrolled —
      no floating badge covering the Next button on a phone. */
   .totop { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 30px auto 8px;
@@ -288,15 +293,15 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
 <nav class="topbar">
   <img src="duna_marketing_logo.png" alt="">
   <span class="name">Duna Marketing</span>
-  <span class="meta">≈ 7 min · saves as you go</span>
+  <span class="meta">saves as you go</span>
 </nav>
 
 <main>
   <div class="wrap">
     <div class="intro" id="intro">
       <p class="kicker">
-        <svg viewBox="0 0 600 30" role="img" aria-label="8 questions. Easy Mic Input Answers. 7 minutes." focusable="false">
-          <text x="300" y="21" text-anchor="middle" textLength="592" lengthAdjust="spacingAndGlyphs">8 QUESTIONS &#183; EASY MIC INPUT ANSWERS &#183; 7 MINUTES</text>
+        <svg viewBox="0 0 600 30" role="img" aria-label="8 questions. Easy Mic Input Answers." focusable="false">
+          <text x="300" y="21" text-anchor="middle" textLength="430" lengthAdjust="spacingAndGlyphs">8 QUESTIONS &#183; EASY MIC INPUT ANSWERS</text>
         </svg>
       </p>
       <h1>Big&#8209;Agency Websites. Small&#8209;Business Prices.</h1>
@@ -304,6 +309,31 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     </div>
 
     <div class="resume" id="resume" hidden><span id="resume-msg"></span><button type="button" id="start-over">Start over</button></div>
+
+    <section class="proof" id="proof">
+      <h2>The Duna Marketing Standard.</h2>
+      <p class="sub">Sample sites, built the same way yours will be. Tap one and click around it.</p>
+      <div class="proof-grid">
+        <a href="/portfolio/long-table-catering/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering website" width="640" height="400" loading="lazy">
+          <b>Long Table Catering</b><span>Catering</span></a>
+        <a href="/portfolio/velvet-fig/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/velvet-fig.jpg" alt="Velvet Fig website" width="640" height="400" loading="lazy">
+          <b>Velvet Fig</b><span>Cocktail bar</span></a>
+        <a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy">
+          <b>Golden Crumb Bakery</b><span>Bakery</span></a>
+        <a href="/portfolio/cedar-hill-family-dental/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/cedar-hill-family-dental.jpg" alt="Cedar Hill Family Dental website" width="640" height="400" loading="lazy">
+          <b>Cedar Hill Family Dental</b><span>Dentist</span></a>
+        <a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/marden-estate-law.jpg" alt="Marden Estate Law website" width="640" height="400" loading="lazy">
+          <b>Marden Estate Law</b><span>Estate planning</span></a>
+        <a href="/portfolio/bright-beginnings-preschool/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/bright-beginnings-preschool.jpg" alt="Bright Beginnings Preschool website" width="640" height="400" loading="lazy">
+          <b>Bright Beginnings</b><span>Preschool</span></a>
+      </div>
+    </section>
 
     <div class="dots" id="dots" aria-hidden="true"></div>
     <div class="trail" id="trail" aria-label="Answered so far"></div>
@@ -332,31 +362,6 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
       </div>
     </section>
     <p class="savenote">Everything saves on this device as you go. Stop anytime &mdash; I'll get the rest by text.</p>
-
-    <section class="proof" id="proof">
-      <h2>The Duna Marketing Standard.</h2>
-      <p class="sub">Sample sites, built the same way yours will be. Tap one and click around it.</p>
-      <div class="proof-grid">
-        <a href="/portfolio/long-table-catering/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering website" width="640" height="400" loading="lazy">
-          <b>Long Table Catering</b><span>Catering</span></a>
-        <a href="/portfolio/velvet-fig/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/velvet-fig.jpg" alt="Velvet Fig website" width="640" height="400" loading="lazy">
-          <b>Velvet Fig</b><span>Cocktail bar</span></a>
-        <a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy">
-          <b>Golden Crumb Bakery</b><span>Bakery</span></a>
-        <a href="/portfolio/cedar-hill-family-dental/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/cedar-hill-family-dental.jpg" alt="Cedar Hill Family Dental website" width="640" height="400" loading="lazy">
-          <b>Cedar Hill Family Dental</b><span>Dentist</span></a>
-        <a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/marden-estate-law.jpg" alt="Marden Estate Law website" width="640" height="400" loading="lazy">
-          <b>Marden Estate Law</b><span>Estate planning</span></a>
-        <a href="/portfolio/bright-beginnings-preschool/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/bright-beginnings-preschool.jpg" alt="Bright Beginnings Preschool website" width="640" height="400" loading="lazy">
-          <b>Bright Beginnings</b><span>Preschool</span></a>
-      </div>
-    </section>
 
     <button type="button" class="totop" id="totop" aria-label="Back to the top">
       <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
