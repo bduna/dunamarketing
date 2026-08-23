@@ -63,7 +63,10 @@ button, input, textarea, select { font: inherit; }
 .nav a:not(.btn):hover { color: var(--accent); }
 .nav a[aria-current="page"] { color: var(--brand); text-decoration: underline; text-underline-offset: 6px; }
 /* Rule: never style `.nav a` color without :not(.btn) — it silently recolors the header CTA (lesson 2026-08-15) */
-.nav-toggle { display: none; background: none; border: 0; padding: 0.5rem; cursor: pointer; }
+/* The icon inside uses stroke=currentColor. Without an explicit colour a <button> falls back to
+   the UA default (near-black) instead of the header's text colour — invisible on any dark
+   header (measured 1.33:1 in the field). color: inherit ties it to the page's --ink. */
+.nav-toggle { display: none; background: none; border: 0; padding: 0.5rem; cursor: pointer; color: inherit; }
 @media (max-width: 720px) {
   .nav-toggle { display: inline-flex; }
   .nav { position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; align-items: stretch; gap: 0; background: var(--bg); border-bottom: 1px solid var(--line); padding: var(--space-2) var(--gutter); display: none; }
