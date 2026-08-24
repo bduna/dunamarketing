@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+<title>Website Interview &mdash; Duna Marketing</title>
+<meta name="description" content="Tell Duna Marketing about your business — just talk — and we'll build your website from your real answers.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Duna Marketing">
+<meta property="og:title" content="Your new website starts here — Duna Marketing">
+<meta property="og:description" content="Nothing to prepare, no tech skills needed. Answer a few questions out loud and we build the rest.">
+<meta name="theme-color" content="#003087">
+<link rel="icon" type="image/png" href="duna_marketing_logo.png">
+<link rel="apple-touch-icon" href="duna_marketing_logo.png">
+<link rel="preconnect" href="https://places.googleapis.com">
+<link rel="preconnect" href="https://connect.facebook.net">
+<script>
+// Same kill switch as the rest of the site: ?metrics=off keeps owner testing out of the ad data.
+(function () {
+  try {
+    var m = location.search.match(/[?&]metrics=(on|off)\b/);
+    if (m) { if (m[1] === "off") localStorage.setItem("duna_notrack", "1"); else localStorage.removeItem("duna_notrack"); }
+    if (localStorage.getItem("duna_notrack") === "1") { console.log("[duna] metrics OFF on this browser"); return; }
+  } catch (e) {}
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '949809188409734');
+fbq('track', 'PageView');
+})();
+</script>
+<style>
+  :root {
+    --ink:#1a1d24; --muted:#5a6070; --line:#e2e5ea; --input-line:#9aa3b4;
+    --navy:#003087; --navy-deep:#001d52; --navy-soft:#eaf0fb;
+    --red:#C8102E; --red-dark:#a50d25; --bg:#f7f8fa; --card:#ffffff;
+  }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background-color:var(--bg);
+    background-image:linear-gradient(to right,rgba(60,66,80,.06) 1px,transparent 1px),
+                     linear-gradient(to bottom,rgba(60,66,80,.06) 1px,transparent 1px);
+    background-size:20px 20px; background-position:-1px -1px;
+    color:var(--ink); line-height:1.5; display:flex; flex-direction:column; min-height:100dvh;
+  }
+  .topbar { position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:12px;
+    padding:10px 18px; background:var(--navy); border-bottom:3px solid var(--red);
+    box-shadow:0 2px 12px rgba(0,29,82,.35); }
+  .topbar img { height:32px; width:auto; display:block; background:#fff; border-radius:6px; padding:3px; }
+  .topbar .name { font-weight:800; font-size:1.05rem; color:#fff; }
+  .topbar .meta { margin-left:auto; color:rgba(255,255,255,.85); font-size:.82rem; font-weight:600; }
+
+  main { flex:1; display:flex; flex-direction:column; align-items:center; width:100%;
+    padding:16px 14px calc(12px + env(safe-area-inset-bottom)); }
+  .wrap { width:100%; max-width:680px; display:flex; flex-direction:column; flex:1; }
+
+  .intro { text-align:center; margin-bottom:14px; }
+  .intro h1 { font-size:clamp(1.5rem,5.5vw,2.1rem); line-height:1.1; margin:0 0 6px;
+    letter-spacing:-.02em; color:var(--navy); }
+  .intro p { margin:0; color:var(--muted); font-size:.95rem; }
+
+  /* ---- the thread ---- */
+  .thread { flex:1; display:flex; flex-direction:column; gap:12px; padding:4px 2px 12px; }
+  .msg { max-width:88%; padding:11px 14px; border-radius:14px; font-size:1rem; }
+  .msg.bot { align-self:flex-start; background:var(--card); border:1px solid var(--line);
+    border-bottom-left-radius:4px; box-shadow:0 1px 3px rgba(0,29,82,.05); }
+  .msg.me { align-self:flex-end; background:var(--navy); color:#fff; border-bottom-right-radius:4px; }
+  .msg.wide { max-width:100%; align-self:stretch; }
+  .typing { align-self:flex-start; display:flex; gap:4px; padding:14px; }
+  .typing span { width:7px; height:7px; border-radius:50%; background:#b8c0cf; animation:bl 1.2s infinite; }
+  .typing span:nth-child(2){animation-delay:.2s} .typing span:nth-child(3){animation-delay:.4s}
+  @keyframes bl { 0%,60%,100%{opacity:.35} 30%{opacity:1} }
+  @media (prefers-reduced-motion:reduce){ .typing span{animation:none} }
+
+  /* ---- composer ---- */
+  /* An explicit display value beats the UA's [hidden] rule, so say it again for both. */
+  .composer[hidden], .hint[hidden] { display:none; }
+  .composer { position:sticky; bottom:0; background:linear-gradient(to top,var(--bg) 72%,transparent);
+    padding:10px 0 4px; display:flex; gap:8px; align-items:flex-end; }
+  .composer textarea { flex:1; font:inherit; font-size:1rem; padding:12px 14px; border-radius:12px;
+    border:2px solid var(--input-line); background:#fff; resize:none; min-height:48px; max-height:140px; }
+  .composer textarea:focus { outline:3px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
+  .send { min-height:48px; padding:0 18px; border:0; border-radius:12px; background:var(--red);
+    color:#fff; font:inherit; font-weight:800; cursor:pointer; }
+  .send:disabled { background:#c3c8d2; cursor:default; }
+  .hint { text-align:center; font-size:.78rem; color:var(--muted); margin:2px 0 0; }
+
+  /* ---- inline widgets (steps 1 and 2 live inside the thread) ---- */
+  .w label { display:block; font-size:.8rem; font-weight:700; color:var(--navy); margin:8px 0 4px; }
+  .w input { width:100%; font:inherit; font-size:1rem; padding:11px 12px; border-radius:10px;
+    border:2px solid var(--input-line); background:#fff; }
+  .w input:focus { outline:3px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
+  .grid2 { display:grid; gap:8px; grid-template-columns:1fr 1fr; }
+  @media (max-width:520px){ .grid2 { grid-template-columns:1fr; } }
+  .glist { margin-top:6px; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff; }
+  .glist button { display:block; width:100%; text-align:left; padding:10px 12px; border:0;
+    background:#fff; font:inherit; cursor:pointer; border-bottom:1px solid var(--line); }
+  .glist button:last-child { border-bottom:0; }
+  .glist button:hover { background:var(--navy-soft); }
+  .glist strong { display:block; font-size:.95rem; } .glist small { color:var(--muted); }
+  .gcard { border:1px solid var(--line); border-radius:10px; padding:10px 12px; background:#fff; margin-top:8px; }
+  .gcard h3 { margin:0 0 2px; font-size:1rem; } .gcard p { margin:0; font-size:.88rem; color:var(--muted); }
+  .thumbs { display:flex; gap:5px; margin-top:8px; overflow-x:auto; }
+  .thumbs img { width:60px; height:44px; object-fit:cover; border-radius:5px; flex:0 0 auto; }
+  .acts { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+  .btn { min-height:44px; padding:0 16px; border-radius:10px; font:inherit; font-weight:800;
+    cursor:pointer; border:2px solid transparent; }
+  .btn-primary { background:var(--red); color:#fff; }
+  .btn-ghost { background:#fff; color:var(--navy); border-color:var(--input-line); }
+  .err { color:var(--red); font-size:.85rem; margin:6px 0 0; font-weight:600; }
+  .done { text-align:center; padding:20px 10px; }
+  .done h2 { color:var(--navy); margin:0 0 6px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <img src="duna_marketing_logo.png" alt="">
+  <span class="name">Duna Marketing</span>
+  <span class="meta">saves as you go</span>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="intro" id="intro">
+      <h1>Let&rsquo;s build your website.</h1>
+      <p>A few questions, answered however you like &mdash; typing or the mic on your keyboard.</p>
+    </div>
+
+    <div class="thread" id="thread" aria-live="polite"></div>
+
+    <div class="composer" id="composer" hidden>
+      <textarea id="input" rows="1" placeholder="Type or tap the mic…" aria-label="Your answer"></textarea>
+      <button class="send" id="send" type="button">Send</button>
+    </div>
+    <p class="hint" id="hint" hidden><strong>On a phone:</strong> tap the box, then the microphone on your keyboard, and just talk.</p>
+  </div>
+</main>
+
+<!-- Honeypots: a person never sees or tabs to these. Same pair the form uses. -->
+<form id="hp" hidden aria-hidden="true">
+  <input name="bot-field" tabindex="-1" autocomplete="off">
+  <input name="company_url" type="url" tabindex="-1" autocomplete="off">
+</form>
+
+<script>
+(function () {
+  // ==== CONFIG ====
+  var GOOGLE_PLACES_KEY = "AIzaSyA_2Mzsy3s9aZo8OS4DBFY-OYhayl-F_tI";
+  var LEADS_URL = "https://script.google.com/macros/s/AKfycbw8eTCgh4a5N4y5qofitbrZUaU7xmW6_nFfABUj7AgE2UKPuZfzq83hWVGa8IYX9gQv/exec";
+  var LEADS_SECRET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  var STORE_KEY = "duna_chat";
+  var LOADED_AT = Date.now();
+  var MIN_SECONDS_BEFORE_CHAT = 15;   // matches the server-side floor
+
+  var $ = function (id) { return document.getElementById(id); };
+  var thread = $("thread"), composer = $("composer"), input = $("input"), send = $("send"), hint = $("hint");
+
+  var S;
+  try { S = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); } catch (e) { S = null; }
+  if (!S || !S.lead_id) {
+    S = { lead_id: "L-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8),
+          a: {}, google: null, msgs: [], phase: "places", started: false, done: false };
+  }
+  function save() { try { S.savedAt = Date.now(); localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
+  function esc(s) { return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+  function fb(ev, p) { try { if (window.fbq) fbq("trackCustom", ev, p || {}); } catch (e) {} }
+  function metricsOff() { try { return localStorage.getItem("duna_notrack") === "1"; } catch (e) { return false; } }
+  function cookie(n) { var m = document.cookie.match("(?:^|; )" + n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + "=([^;]*)"); return m ? decodeURIComponent(m[1]) : ""; }
+
+  // ---------- thread helpers ----------
+  function bubble(who, html, wide) {
+    var d = document.createElement("div");
+    d.className = "msg " + who + (wide ? " wide" : "");
+    d.innerHTML = html;
+    thread.appendChild(d);
+    d.scrollIntoView({ block: "end", behavior: "smooth" });
+    return d;
+  }
+  function say(text) { return bubble("bot", esc(text).replace(/\n/g, "<br>")); }
+  function me(text) { return bubble("me", esc(text).replace(/\n/g, "<br>")); }
+  function typing(on) {
+    var t = $("typing");
+    if (on && !t) { var d = document.createElement("div"); d.className = "typing"; d.id = "typing";
+      d.innerHTML = "<span></span><span></span><span></span>"; thread.appendChild(d);
+      d.scrollIntoView({ block: "end", behavior: "smooth" }); }
+    if (!on && t) t.remove();
+  }
+
+  // ================= PHASE 1 — Google Places (no model, no cost) =================
+  function askPlaces() {
+    say("Hi — what's your business called? Type the name and city and I'll pull the details from Google, so you don't have to.");
+    var w = bubble("bot", '<div class="w"><label for="gq">Business name and city</label>' +
+      '<input id="gq" type="text" placeholder="e.g. Maria’s Bakery, Pasadena" autocomplete="off">' +
+      '<div class="glist" id="glist" hidden></div><div id="gcard"></div>' +
+      '<div class="acts"><button type="button" class="btn btn-ghost" id="g-skip">Not on Google &mdash; I’ll type it</button></div></div>', true);
+    var gq = w.querySelector("#gq"), glist = w.querySelector("#glist"), timer = null;
+    gq.addEventListener("input", function () {
+      clearTimeout(timer); var v = gq.value.trim();
+      if (v.length < 3) { glist.hidden = true; return; }
+      timer = setTimeout(function () {
+        gAuto(v).then(function (items) {
+          glist.innerHTML = items.map(function (it) {
+            return '<button type="button" data-id="' + esc(it.id) + '"><strong>' + esc(it.main) + '</strong><small>' + esc(it.sec) + '</small></button>';
+          }).join("");
+          glist.hidden = !items.length;
+          glist.querySelectorAll("button").forEach(function (b) {
+            b.addEventListener("click", function () {
+              glist.hidden = true; gq.value = b.querySelector("strong").textContent;
+              gDetails(b.getAttribute("data-id"), w);
+            });
+          });
+        }).catch(function () { glist.hidden = true; });
+      }, 280);
+    });
+    w.querySelector("#g-skip").addEventListener("click", function () {
+      S.a.business_name = gq.value.trim() || ""; save();
+      w.querySelector(".acts").remove(); askContact();
+    });
+    setTimeout(function () { try { gq.focus({ preventScroll: true }); } catch (e) {} }, 80);
+  }
+  function gAuto(v) {
+    return fetch("https://places.googleapis.com/v1/places:autocomplete", {
+      method: "POST", headers: { "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_PLACES_KEY },
+      body: JSON.stringify({ input: v, includedRegionCodes: ["us"] })
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      return (j.suggestions || []).filter(function (s) { return s.placePrediction; }).slice(0, 5).map(function (s) {
+        var p = s.placePrediction;
+        return { id: p.placeId,
+                 main: (p.structuredFormat && p.structuredFormat.mainText && p.structuredFormat.mainText.text) || p.text.text,
+                 sec: (p.structuredFormat && p.structuredFormat.secondaryText && p.structuredFormat.secondaryText.text) || "" };
+      });
+    });
+  }
+  function gDetails(placeId, w) {
+    var mask = "id,displayName,formattedAddress,nationalPhoneNumber,websiteUri,regularOpeningHours.weekdayDescriptions,rating,userRatingCount,reviews,photos,primaryTypeDisplayName,editorialSummary";
+    w.querySelector("#gcard").innerHTML = '<p class="gcard">Looking that up…</p>';
+    fetch("https://places.googleapis.com/v1/places/" + encodeURIComponent(placeId),
+      { headers: { "X-Goog-Api-Key": GOOGLE_PLACES_KEY, "X-Goog-FieldMask": mask } })
+      .then(function (r) { return r.json(); })
+      .then(function (p) {
+        var name = (p.displayName && p.displayName.text) || "";
+        var g = { place_id: p.id, name: name, address: p.formattedAddress || "",
+          phone: p.nationalPhoneNumber || "", website: p.websiteUri || "",
+          hours: ((p.regularOpeningHours && p.regularOpeningHours.weekdayDescriptions) || []).join("; "),
+          rating: p.rating || null, ratings: p.userRatingCount || null,
+          type: (p.primaryTypeDisplayName && p.primaryTypeDisplayName.text) || "",
+          summary: (p.editorialSummary && p.editorialSummary.text) || "",
+          reviews: (p.reviews || []).filter(function (r) { return r.text && r.text.text; }).map(function (r) {
+            return { text: r.text.text, author: (r.authorAttribution && r.authorAttribution.displayName) || "", use: true }; }),
+          photos: (p.photos || []).slice(0, 8).map(function (ph) {
+            var by = (ph.authorAttributions && ph.authorAttributions[0] && ph.authorAttributions[0].displayName) || "";
+            return { name: ph.name, by: by, owner: !!by && !!name && by.toLowerCase().indexOf(name.toLowerCase().split(" ")[0]) !== -1, url: null, use: false }; })
+        };
+        return Promise.all(g.photos.map(function (ph) {
+          return fetch("https://places.googleapis.com/v1/" + ph.name + "/media?maxWidthPx=1600&skipHttpRedirect=true&key=" + GOOGLE_PLACES_KEY)
+            .then(function (r) { return r.json(); }).then(function (m) { ph.url = m.photoUri || null; ph.use = ph.owner; }).catch(function () {});
+        })).then(function () {
+          g.photos = g.photos.filter(function (ph) { return ph.url; });
+          S.google = g; save(); drawCard(g, w);
+        });
+      })
+      .catch(function () { w.querySelector("#gcard").innerHTML = '<p class="err">Couldn’t reach Google — tap the button below and I’ll take it from your answers.</p>'; });
+  }
+  function drawCard(g, w) {
+    w.querySelector("#gcard").innerHTML = '<div class="gcard"><h3>' + esc(g.name) + '</h3>' +
+      (g.type ? '<p>' + esc(g.type) + '</p>' : "") + (g.address ? '<p>' + esc(g.address) + '</p>' : "") +
+      (g.hours ? '<p>' + esc(g.hours.split("; ")[0]) + (g.hours.indexOf(";") !== -1 ? " …" : "") + '</p>' : "") +
+      (g.rating ? '<p>★ ' + g.rating + ' · ' + g.ratings + ' reviews</p>' : "") +
+      (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(ph.url) + '" alt="">'; }).join("") + '</div>' : "") +
+      '<div class="acts"><button type="button" class="btn btn-primary" id="g-yes">Yes, that’s me</button>' +
+      '<button type="button" class="btn btn-ghost" id="g-no">Not me</button></div></div>';
+    w.querySelector("#g-yes").addEventListener("click", function () {
+      S.a.place_id = g.place_id;
+      if (!S.a.business_name) S.a.business_name = g.name;
+      if (!S.a.phone && g.phone) S.a.phone = g.phone;
+      if (g.address) S.a.address = g.address;
+      if (g.hours) S.a.hours = g.hours;
+      if (g.website) S.a.current_website_url = g.website;
+      save(); fb("GoogleConfirmed");
+      w.querySelectorAll(".acts").forEach(function (a) { a.remove(); });
+      askContact();
+    });
+    w.querySelector("#g-no").addEventListener("click", function () {
+      S.google = null; S.a.place_id = ""; save();
+      w.querySelector("#gcard").innerHTML = ""; w.querySelector("#gq").focus();
+    });
+  }
+
+  // ================= PHASE 2 — contact (still no model, no cost) =================
+  function askContact() {
+    S.phase = "contact"; save();
+    var g = S.google;
+    say(g ? ("Got it — " + g.name + (g.address ? ", " + g.address.split(",")[0] : "") + ". Where should I send your draft?")
+          : "Where should I send your draft?");
+    var w = bubble("bot", '<div class="w">' +
+      '<div class="grid2">' +
+        '<div><label for="f-first">First name</label><input id="f-first" type="text" autocomplete="given-name" value="' + esc(S.a.first_name) + '"></div>' +
+        '<div><label for="f-phone">Phone (for texts)</label><input id="f-phone" type="tel" autocomplete="tel" value="' + esc(S.a.phone) + '"></div>' +
+      '</div>' +
+      '<label for="f-biz">Business name</label><input id="f-biz" type="text" autocomplete="organization" value="' + esc(S.a.business_name) + '">' +
+      '<p class="err" id="c-err" hidden></p>' +
+      '<div class="acts"><button type="button" class="btn btn-primary" id="c-go">Start</button></div>' +
+      '</div>', true);
+    w.querySelector("#c-go").addEventListener("click", function () {
+      var f = w.querySelector("#f-first").value.trim(),
+          p = w.querySelector("#f-phone").value.trim(),
+          b = w.querySelector("#f-biz").value.trim();
+      if (!f || !b || (p.replace(/\D/g, "").length < 7)) {
+        var e = w.querySelector("#c-err");
+        e.textContent = "Just need your first name, a phone number, and the business name.";
+        e.hidden = false; return;
+      }
+      S.a.first_name = f; S.a.phone = p; S.a.business_name = b; save();
+      w.querySelector(".acts").remove();
+      submitStage("start");
+      fb("LeadStart");
+      beginInterview();
+    });
+  }
+
+  // ================= PHASE 3 — the interviewer (model starts HERE) =================
+  function knownFacts() {
+    var g = S.google, out = [];
+    out.push("Business: " + (S.a.business_name || "(unknown)"));
+    out.push("Owner's first name: " + (S.a.first_name || "(unknown)"));
+    if (g) {
+      if (g.type) out.push("Google category: " + g.type);
+      if (g.address) out.push("Address: " + g.address);
+      if (g.hours) out.push("Hours: " + g.hours);
+      if (g.website) out.push("Existing website: " + g.website);
+      if (g.rating) out.push("Google rating: " + g.rating + " from " + g.ratings + " reviews");
+      if (g.summary) out.push("Google summary: " + g.summary);
+      var rv = g.reviews.slice(0, 3).map(function (r) { return '"' + r.text.slice(0, 200) + '" — ' + r.author; });
+      if (rv.length) out.push("Recent Google reviews:\n" + rv.join("\n"));
+    }
+    return out.join("\n");
+  }
+  function beginInterview() {
+    S.phase = "chat"; S.started = true; save();
+    composer.hidden = false; hint.hidden = false;
+    turn("");   // empty user turn: the model opens
+  }
+  function turn(userText) {
+    if (S.done) return;
+    if (userText) { S.msgs.push({ role: "user", content: userText }); save(); }
+    send.disabled = true; typing(true);
+    fetch(LEADS_URL, {
+      method: "POST", mode: "cors", redirect: "follow",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        secret: LEADS_SECRET, action: "chat", lead_id: S.lead_id,
+        known: knownFacts(),
+        messages: S.msgs.length ? S.msgs : [{ role: "user", content: "Let's begin." }]
+      })
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      typing(false); send.disabled = false;
+      if (!j || j.ok === false) { say("Sorry — something went wrong on my end. Tap Send to try again, or text Barrett on (707) 385-5673."); return; }
+      S.msgs.push({ role: "assistant", content: j.reply }); save();
+      say(j.reply);
+      if (j.done) finish(j.fields);
+      else setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 60);
+    }).catch(function () {
+      typing(false); send.disabled = false;
+      say("I lost the connection there. Tap Send to try again.");
+    });
+  }
+
+  // ================= finish: write the brief to the sheet =================
+  function finish(fields) {
+    S.done = true; save();
+    composer.hidden = true; hint.hidden = true;
+    var extra = {};
+    if (fields) {
+      extra.what_you_do = fields.what_you_do || "";
+      extra.services_talk = fields.services_talk || "";
+      extra.story_origin = fields.story_origin || "";
+      extra.known_for = fields.known_for || "";
+      extra.typical_visitor = fields.typical_visitor || "";
+      extra.rules_talk = [fields.must_haves && ("Must have: " + fields.must_haves),
+                          fields.absolutely_nots && ("Absolutely not: " + fields.absolutely_nots)]
+                          .filter(Boolean).join("\n");
+      extra.aspirations = fields.aspirations || "";
+      extra.vibe_words = fields.vibe_words || "";
+      extra.pages = fields.pages_suggested || "";
+    }
+    extra.transcript = S.msgs.map(function (m) { return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content; }).join("\n\n");
+    submitStage("complete", extra).then(function (j) {
+      try {
+        sessionStorage.setItem("duna_intake", JSON.stringify({
+          first_name: S.a.first_name, business_name: S.a.business_name, submitted: true,
+          lead_ok: !!(j && j.lead_ok), lead_id: S.lead_id
+        }));
+      } catch (e) {}
+      window.location.href = "thanks.html";
+    }).catch(function () {
+      bubble("bot", '<div class="done"><h2>Thank you.</h2><p>Barrett will text you shortly. If you don’t hear back, message (707) 385-5673.</p></div>', true);
+    });
+  }
+
+  // ================= sheet submit (same endpoint, same guards) =================
+  function submitStage(stage, extra) {
+    var g = S.google;
+    var payload = {
+      secret: LEADS_SECRET, lead_id: S.lead_id, form: "website-chat", stage: stage,
+      source_url: location.href.split("?")[0],
+      elapsed_ms: String(Date.now() - LOADED_AT),
+      fbp: cookie("_fbp"), fbc: cookie("_fbc"), ua: navigator.userAgent,
+      metrics_off: metricsOff() ? "1" : "",
+      "bot-field": (document.querySelector('#hp [name="bot-field"]') || {}).value || "",
+      company_url: (document.querySelector('#hp [name="company_url"]') || {}).value || "",
+      first_name: S.a.first_name || "", phone: S.a.phone || "", email: S.a.email || "",
+      business_name: S.a.business_name || "", place_id: S.a.place_id || "",
+      address: S.a.address || "", hours: S.a.hours || "",
+      current_website_url: S.a.current_website_url || "",
+      primary_goal: "", utm: location.search.replace(/^\?/, "")
+    };
+    if (g) {
+      payload.place_json = JSON.stringify({ name: g.name, type: g.type, rating: g.rating, ratings: g.ratings, summary: g.summary });
+      payload.testimonials = g.reviews.filter(function (r) { return r.use; })
+        .map(function (r) { return "“" + r.text + "” — " + r.author + " (via Google)"; }).join("\n");
+      payload.photos_json = JSON.stringify(g.photos.filter(function (p) { return p.use; })
+        .map(function (p) { return { url: p.url, caption: "From Google listing" + (p.by ? " (by " + p.by + ")" : ""), is_hero: false, source: "google" }; }));
+    }
+    Object.keys(extra || {}).forEach(function (k) { payload[k] = extra[k]; });
+    return fetch(LEADS_URL, { method: "POST", mode: "cors", redirect: "follow",
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
+      .then(function (r) { return r.text(); }).then(function (t) { try { return JSON.parse(t); } catch (e) { return {}; } });
+  }
+
+  // ================= composer =================
+  function sendNow() {
+    var v = input.value.trim();
+    if (!v || send.disabled) return;
+    if ((Date.now() - LOADED_AT) < MIN_SECONDS_BEFORE_CHAT * 1000 && S.msgs.length === 0) {
+      // matches the server-side floor; a human cannot have got here this fast
+      return;
+    }
+    me(v); input.value = ""; input.style.height = "auto";
+    turn(v);
+  }
+  send.addEventListener("click", sendNow);
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendNow(); }
+  });
+  input.addEventListener("input", function () {
+    this.style.height = "auto"; this.style.height = Math.min(this.scrollHeight, 140) + "px";
+  });
+
+  // ================= boot =================
+  if (S.done) {
+    bubble("bot", '<div class="done"><h2>You’ve already sent this.</h2><p>Barrett will text you shortly.</p></div>', true);
+  } else if (S.started && S.msgs.length) {
+    S.msgs.forEach(function (m) { (m.role === "user" ? me : say)(m.content); });
+    composer.hidden = false; hint.hidden = false;
+  } else {
+    askPlaces();
+  }
+  fb("ChatOpen");
+})();
+</script>
+</body>
+</html>
