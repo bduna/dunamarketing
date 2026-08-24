@@ -99,6 +99,13 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     text-transform: uppercase; }
   .intro h1 { font-size: clamp(2.5rem, 9vw, 3.6rem); line-height: 1.05; margin: 0 0 10px; letter-spacing: -0.03em; color: var(--navy); text-wrap: balance; }
   .intro p { margin: 0 auto; color: var(--muted); max-width: 46ch; font-size: 1rem; }
+  /* The chat is a second way in, not a competing offer — it sits under the intro, quiet, and is
+     always underlined so it reads as a link without relying on colour alone. */
+  .altroute { margin: 12px auto 0; color: var(--muted); font-size: 0.95rem; }
+  .altroute a { color: var(--navy); font-weight: 700; text-decoration: underline;
+    text-underline-offset: 3px; text-decoration-thickness: 2px; border-radius: 3px; }
+  @media (hover: hover) and (pointer: fine) { .altroute a:hover { color: var(--red); } }
+  .altroute a:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
 
   /* Progress dots */
   .dots { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin: 0 0 14px; }
@@ -301,6 +308,7 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
       </p>
       <h1>Big&#8209;Agency Websites. Small&#8209;Business Prices.</h1>
       <p>Custom-built for your business, at a price that will surprise you. Get your quote by filling out the questionnaire.</p>
+      <p class="altroute">Rather just talk? <a href="chat.html">Answer by chat&nbsp;&#8594;</a></p>
     </div>
 
     <div class="resume" id="resume" hidden><span id="resume-msg"></span><button type="button" id="start-over">Start over</button></div>
