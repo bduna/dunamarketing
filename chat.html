@@ -123,6 +123,12 @@ fbq('track', 'PageView');
   .err { color:var(--red); font-size:.85rem; margin:6px 0 0; font-weight:600; }
   .done { text-align:center; padding:20px 10px; }
   .done h2 { color:var(--navy); margin:0 0 6px; }
+  /* The way out, where someone actually looks for it: in the message telling them they are finished.
+     The top-bar button is easy to miss, and the completed state survives a refresh. */
+  .restart-link { display:inline-flex; align-items:center; min-height:44px; padding:0 4px;
+    color:var(--navy); font-weight:800; text-decoration:underline; text-underline-offset:3px;
+    text-decoration-thickness:2px; }
+  .restart-link:hover { color:var(--red); }
 </style>
 </head>
 <body>
@@ -484,7 +490,8 @@ fbq('track', 'PageView');
 
   // ================= boot =================
   if (S.done) {
-    bubble("bot", '<div class="done"><h2>You’ve already sent this.</h2><p>Barrett will text you shortly.</p></div>', true);
+    bubble("bot", '<div class="done"><h2>You’ve already sent this.</h2><p>Barrett will text you shortly.</p>' +
+      '<p><a class="restart-link" href="?restart">Start a new interview</a></p></div>', true);
   } else if (S.started && S.msgs.length) {
     S.msgs.forEach(function (m) { (m.role === "user" ? me : say)(m.content); });
     composer.hidden = false; hint.hidden = false;
