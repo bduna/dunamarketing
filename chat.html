@@ -34,7 +34,7 @@ fbq('track', 'PageView');
 </script>
 <style>
   :root {
-    --ink:#1a1d24; --muted:#5a6070; --line:#e2e5ea; --input-line:#9aa3b4;
+    --ink:#1a1d24; --muted:#5a6070; --line:#e2e5ea; --input-line:#7c8494;   /* 3.54:1 on --bg — a control edge has to be visible (WCAG 1.4.11) */
     --navy:#003087; --navy-deep:#001d52; --navy-soft:#eaf0fb;
     --red:#C8102E; --red-dark:#a50d25; --bg:#f7f8fa; --card:#ffffff;
   }
@@ -92,20 +92,29 @@ fbq('track', 'PageView');
      stuck to the viewport leaves a dead gap under a short conversation and reads like a form footer;
      this way the input is simply the next thing after what was just said. */
   .composer { margin-top:12px; padding:0 0 4px; display:flex; gap:8px; align-items:flex-end; }
-  .composer textarea { flex:1; font:inherit; font-size:1rem; padding:12px 14px; border-radius:12px;
-    border:2px solid var(--input-line); background:#fff; resize:none; min-height:48px; max-height:140px; }
+  /* A pill that grows with what they type, and a round send — the shape people already know from
+     Messages. The border is thin on purpose; it only has to say "you can type here". */
+  .composer textarea { flex:1; font:inherit; font-size:1rem; line-height:1.4; padding:12px 18px;
+    border-radius:24px; border:1.5px solid var(--input-line); background:#fff; resize:none;
+    min-height:48px; max-height:140px; }
+  .composer textarea::placeholder { color:var(--muted); }
   .composer textarea:focus { outline:3px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
-  .send { min-height:48px; padding:0 18px; border:0; border-radius:12px; background:var(--red);
-    color:#fff; font:inherit; font-weight:800; cursor:pointer; }
-  .send:disabled { background:#c3c8d2; cursor:default; }
+  .send { flex:0 0 auto; width:48px; height:48px; display:grid; place-items:center; padding:0;
+    border:0; border-radius:50%; background:var(--red); color:#fff; cursor:pointer;
+    transition:background var(--dur,160ms) ease, transform 120ms ease; }
+  .send svg { width:22px; height:22px; display:block; }
+  .send:hover:not(:disabled) { background:var(--red-dark); }
+  .send:active:not(:disabled) { transform:scale(0.94); }
+  .send:focus-visible { outline:3px solid var(--navy); outline-offset:2px; }
+  .send:disabled { background:#b9c0cc; cursor:default; }
   .hint { text-align:center; font-size:.78rem; color:var(--muted); margin:2px 0 0; }
 
   /* ---- a field living IN the conversation ----
      No panel, no border box, no shadow — the field is the only thing you can see, sitting on the
      same background as the messages. It is not a bubble: bubbles are things that were said. */
   .inline { align-self:stretch; margin:2px 0 4px; }
-  .inline input { width:100%; font:inherit; font-size:1rem; padding:13px 15px; border-radius:22px;
-    border:2px solid var(--input-line); background:#fff; }
+  .inline input { width:100%; font:inherit; font-size:1rem; padding:13px 18px; border-radius:24px;
+    border:1.5px solid var(--input-line); background:#fff; }
   .inline input:focus { outline:3px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
   /* Matches drop straight under the field, as plain rows on the background. */
   .glist { margin-top:6px; display:flex; flex-direction:column; }
@@ -155,7 +164,7 @@ fbq('track', 'PageView');
 
     <div class="composer" id="composer" hidden>
       <textarea id="input" rows="1" placeholder="Type or tap the mic…" aria-label="Your answer"></textarea>
-      <button class="send" id="send" type="button">Send</button>
+      <button class="send" id="send" type="button" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
     </div>
     <p class="hint" id="hint" hidden><strong>On a phone:</strong> tap the box, then the microphone on your keyboard, and just talk.</p>
   </div>
