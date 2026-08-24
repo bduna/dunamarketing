@@ -54,6 +54,14 @@ fbq('track', 'PageView');
   .topbar img { height:32px; width:auto; display:block; background:#fff; border-radius:6px; padding:3px; }
   .topbar .name { font-weight:800; font-size:1.05rem; color:#fff; }
   .topbar .meta { margin-left:auto; color:rgba(255,255,255,.85); font-size:.82rem; font-weight:600; }
+  /* Shown only once there is saved progress. Without it a finished interview is a dead end —
+     the state survives a hard refresh, so there was no way back to the start for anyone. */
+  .topbar .restart { margin-left:auto; background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.7);
+    border-radius:4px; padding:6px 10px; font-size:.8rem; font-weight:700; cursor:pointer; min-height:34px; }
+  .topbar .restart:hover { background:rgba(255,255,255,.14); }
+  .topbar .restart:focus-visible { outline:3px solid #fff; outline-offset:2px; }
+  .topbar .restart + .meta { margin-left:12px; }
+  @media (max-width:480px) { .topbar .restart + .meta { display:none; } }
 
   main { flex:1; display:flex; flex-direction:column; align-items:center; width:100%;
     padding:16px 14px calc(12px + env(safe-area-inset-bottom)); }
@@ -121,6 +129,7 @@ fbq('track', 'PageView');
 <header class="topbar">
   <img src="duna_marketing_logo.png" alt="">
   <span class="name">Duna Marketing</span>
+  <button type="button" class="restart" id="restart" hidden>Start over</button>
   <span class="meta">saves as you go</span>
 </header>
 
@@ -160,6 +169,16 @@ fbq('track', 'PageView');
   var $ = function (id) { return document.getElementById(id); };
   var thread = $("thread"), composer = $("composer"), input = $("input"), send = $("send"), hint = $("hint");
 
+  // /chat.html?restart always begins a fresh interview. The saved state lives in localStorage, which
+  // a hard refresh does not touch, so without this the only way out of a finished interview was the
+  // browser console. The param is stripped from the URL afterwards so a reload does not re-trigger it.
+  try {
+    if (/[?&]restart\b/.test(location.search)) {
+      localStorage.removeItem(STORE_KEY);
+      if (history.replaceState) history.replaceState(null, "", location.pathname);
+    }
+  } catch (e) {}
+
   var S;
   try { S = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); } catch (e) { S = null; }
   if (!S || !S.lead_id) {
@@ -167,6 +186,18 @@ fbq('track', 'PageView');
           a: {}, google: null, msgs: [], phase: "places", started: false, done: false };
   }
   function save() { try { S.savedAt = Date.now(); localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
+
+  // Offer the way out as soon as there is anything to get out of.
+  (function () {
+    var btn = $("restart");
+    if (!btn) return;
+    if (S.started || S.done || (S.msgs && S.msgs.length) || (S.a && S.a.business_name)) btn.hidden = false;
+    btn.addEventListener("click", function () {
+      if (!confirm("Start the interview again from the beginning? Your answers so far will be cleared.")) return;
+      try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+      location.replace(location.pathname);
+    });
+  })();
   function esc(s) { return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
   function fb(ev, p) { try { if (window.fbq) fbq("trackCustom", ev, p || {}); } catch (e) {} }
   function metricsOff() { try { return localStorage.getItem("duna_notrack") === "1"; } catch (e) { return false; } }
