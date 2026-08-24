@@ -514,7 +514,9 @@ fbq('track', 'PageView');
       body: JSON.stringify({
         secret: LEADS_SECRET, action: "chat", lead_id: S.lead_id,
         known: knownFacts(),
-        messages: S.msgs.length ? S.msgs : [{ role: "user", content: "Let's begin." }]
+        // Not a message from the person — it is the cue that starts the interview. "Let's begin."
+        // read as an empty answer and tripped the model's abandon-the-interview rule.
+        messages: S.msgs.length ? S.msgs : [{ role: "user", content: "(Interview starting. Ask your first question.)" }]
       })
     }).then(function (r) { return r.json(); }).then(function (j) {
       typing(false); send.disabled = false;
