@@ -98,21 +98,30 @@ fbq('track', 'PageView');
   .send:disabled { background:#c3c8d2; cursor:default; }
   .hint { text-align:center; font-size:.78rem; color:var(--muted); margin:2px 0 0; }
 
-  /* ---- inline widgets (steps 1 and 2 live inside the thread) ---- */
-  .w label { display:block; font-size:.8rem; font-weight:700; color:var(--navy); margin:8px 0 4px; }
-  .w input { width:100%; font:inherit; font-size:1rem; padding:11px 12px; border-radius:10px;
+  /* ---- a field living IN the conversation ----
+     No panel, no border box, no shadow — the field is the only thing you can see, sitting on the
+     same background as the messages. It is not a bubble: bubbles are things that were said. */
+  .inline { align-self:stretch; margin:2px 0 4px; }
+  .inline input { width:100%; font:inherit; font-size:1rem; padding:13px 15px; border-radius:22px;
     border:2px solid var(--input-line); background:#fff; }
-  .w input:focus { outline:3px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
-  .grid2 { display:grid; gap:8px; grid-template-columns:1fr 1fr; }
-  @media (max-width:520px){ .grid2 { grid-template-columns:1fr; } }
-  .glist { margin-top:6px; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff; }
-  .glist button { display:block; width:100%; text-align:left; padding:10px 12px; border:0;
-    background:#fff; font:inherit; cursor:pointer; border-bottom:1px solid var(--line); }
+  .inline input:focus { outline:3px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
+  /* Matches drop straight under the field, as plain rows on the background. */
+  .glist { margin-top:6px; display:flex; flex-direction:column; }
+  .glist button { display:block; width:100%; text-align:left; padding:11px 15px; border:0;
+    background:transparent; font:inherit; cursor:pointer; border-bottom:1px solid var(--line); }
+  .glist button:first-child { border-top:1px solid var(--line); }
   .glist button:last-child { border-bottom:0; }
-  .glist button:hover { background:var(--navy-soft); }
-  .glist strong { display:block; font-size:.95rem; } .glist small { color:var(--muted); }
-  .gcard { border:1px solid var(--line); border-radius:10px; padding:10px 12px; background:#fff; margin-top:8px; }
-  .gcard h3 { margin:0 0 2px; font-size:1rem; } .gcard p { margin:0; font-size:.88rem; color:var(--muted); }
+  .glist button:hover, .glist button:focus-visible { background:var(--navy-soft); }
+  .glist strong { display:block; font-size:.95rem; font-weight:700; }
+  .glist small { color:var(--muted); }
+  /* The quiet way out, as a text link rather than another button box. */
+  .linkbtn { display:inline-flex; align-items:center; min-height:44px; margin-top:2px; padding:0 2px;
+    background:none; border:0; font:inherit; font-size:.88rem; font-weight:700; color:var(--navy);
+    text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+  .linkbtn:hover { color:var(--red); }
+  /* The Google result, spoken as a message. */
+  .gname { margin:0 0 2px; font-size:1rem; font-weight:800; }
+  .gline { margin:0; font-size:.88rem; color:var(--muted); }
   .thumbs { display:flex; gap:5px; margin-top:8px; overflow-x:auto; }
   .thumbs img { width:60px; height:44px; object-fit:cover; border-radius:5px; flex:0 0 auto; }
   .acts { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
@@ -120,7 +129,6 @@ fbq('track', 'PageView');
     cursor:pointer; border:2px solid transparent; }
   .btn-primary { background:var(--red); color:#fff; }
   .btn-ghost { background:#fff; color:var(--navy); border-color:var(--input-line); }
-  .err { color:var(--red); font-size:.85rem; margin:6px 0 0; font-weight:600; }
   .done { text-align:center; padding:20px 10px; }
   .done h2 { color:var(--navy); margin:0 0 6px; }
   /* The way out, where someone actually looks for it: in the message telling them they are finished.
@@ -218,6 +226,16 @@ fbq('track', 'PageView');
     d.scrollIntoView({ block: "end", behavior: "smooth" });
     return d;
   }
+  // A bare block in the thread — no bubble, no card, no shadow. Used for the inline fields so they
+  // sit ON the conversation background instead of hovering above it in a panel.
+  function inline(html) {
+    var d = document.createElement("div");
+    d.className = "inline";
+    d.innerHTML = html;
+    thread.appendChild(d);
+    d.scrollIntoView({ block: "end", behavior: "smooth" });
+    return d;
+  }
   function say(text) { return bubble("bot", esc(text).replace(/\n/g, "<br>")); }
   function me(text) { return bubble("me", esc(text).replace(/\n/g, "<br>")); }
   function typing(on) {
@@ -229,34 +247,60 @@ fbq('track', 'PageView');
   }
 
   // ================= PHASE 1 — Google Places (no model, no cost) =================
+  // Reads as a text conversation, not a form. The question is an ordinary bubble; the field sits
+  // directly on the page background with no card and no shadow; matches drop in as plain rows
+  // underneath it. Whatever the person picks is echoed back as their own message and the field
+  // disappears — the way a sent text behaves.
   function askPlaces() {
     say("Hi — what's your business called? Type the name and city and I'll pull the details from Google, so you don't have to.");
-    var w = bubble("bot", '<div class="w"><label for="gq">Business name and city</label>' +
-      '<input id="gq" type="text" placeholder="e.g. Maria’s Bakery, Pasadena" autocomplete="off">' +
-      '<div class="glist" id="glist" hidden></div><div id="gcard"></div>' +
-      '<div class="acts"><button type="button" class="btn btn-ghost" id="g-skip">Not on Google &mdash; I’ll type it</button></div></div>', true);
+    placesField();
+  }
+  // The field itself, wired. Used for the first ask and again if they say "Not me", so the two paths
+  // can never drift apart.
+  function placesField() {
+    var w = inline(
+      '<input id="gq" type="text" placeholder="e.g. Maria&rsquo;s Bakery, Pasadena" autocomplete="off" ' +
+        'autocapitalize="words" enterkeyhint="search" aria-label="Business name and city">' +
+      '<div class="glist" id="glist" hidden></div>' +
+      '<button type="button" class="linkbtn" id="g-skip">Not on Google &mdash; I&rsquo;ll type it</button>');
     var gq = w.querySelector("#gq"), glist = w.querySelector("#glist"), timer = null;
+
+    function choose(id, label) {
+      glist.hidden = true;
+      if (!S.a.business_name) { S.a.business_name = label; save(); }
+      me(label);      // their pick becomes their message
+      w.remove();     // and the field goes, like a text that has been sent
+      gDetails(id);
+    }
     gq.addEventListener("input", function () {
       clearTimeout(timer); var v = gq.value.trim();
       if (v.length < 3) { glist.hidden = true; return; }
       timer = setTimeout(function () {
         gAuto(v).then(function (items) {
           glist.innerHTML = items.map(function (it) {
-            return '<button type="button" data-id="' + esc(it.id) + '"><strong>' + esc(it.main) + '</strong><small>' + esc(it.sec) + '</small></button>';
+            return '<button type="button" data-id="' + esc(it.id) + '"><strong>' + esc(it.main) + '</strong>' +
+                   (it.sec ? '<small>' + esc(it.sec) + '</small>' : "") + '</button>';
           }).join("");
           glist.hidden = !items.length;
           glist.querySelectorAll("button").forEach(function (b) {
-            b.addEventListener("click", function () {
-              glist.hidden = true; gq.value = b.querySelector("strong").textContent;
-              gDetails(b.getAttribute("data-id"), w);
-            });
+            b.addEventListener("click", function () { choose(b.getAttribute("data-id"), b.querySelector("strong").textContent); });
           });
         }).catch(function () { glist.hidden = true; });
       }, 280);
     });
+    // Enter takes the first match — on a phone that is the keyboard's "search" key.
+    gq.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter") return;
+      e.preventDefault();
+      var b = glist.hidden ? null : glist.querySelector("button");
+      if (b) b.click();
+    });
     w.querySelector("#g-skip").addEventListener("click", function () {
-      S.a.business_name = gq.value.trim() || ""; save();
-      w.querySelector(".acts").remove(); askContact();
+      var typed = gq.value.trim();
+      if (typed) { S.a.business_name = typed; save(); }
+      me(typed || "It's not on Google");
+      w.remove();
+      askContact();
     });
     setTimeout(function () { try { gq.focus({ preventScroll: true }); } catch (e) {} }, 80);
   }
@@ -273,9 +317,9 @@ fbq('track', 'PageView');
       });
     });
   }
-  function gDetails(placeId, w) {
+  function gDetails(placeId) {
+    typing(true);
     var mask = "id,displayName,formattedAddress,nationalPhoneNumber,websiteUri,regularOpeningHours.weekdayDescriptions,rating,userRatingCount,reviews,photos,primaryTypeDisplayName,editorialSummary";
-    w.querySelector("#gcard").innerHTML = '<p class="gcard">Looking that up…</p>';
     fetch("https://places.googleapis.com/v1/places/" + encodeURIComponent(placeId),
       { headers: { "X-Goog-Api-Key": GOOGLE_PLACES_KEY, "X-Goog-FieldMask": mask } })
       .then(function (r) { return r.json(); })
@@ -287,77 +331,127 @@ fbq('track', 'PageView');
           rating: p.rating || null, ratings: p.userRatingCount || null,
           type: (p.primaryTypeDisplayName && p.primaryTypeDisplayName.text) || "",
           summary: (p.editorialSummary && p.editorialSummary.text) || "",
-          reviews: (p.reviews || []).filter(function (r) { return r.text && r.text.text; }).map(function (r) {
-            return { text: r.text.text, author: (r.authorAttribution && r.authorAttribution.displayName) || "", use: true }; }),
+          reviews: (p.reviews || []).slice(0, 5).map(function (r) {
+            return { text: (r.originalText && r.originalText.text) || (r.text && r.text.text) || "",
+                     author: (r.authorAttribution && r.authorAttribution.displayName) || "", rating: r.rating || null, use: false };
+          }).filter(function (r) { return r.text; }),
           photos: (p.photos || []).slice(0, 8).map(function (ph) {
-            var by = (ph.authorAttributions && ph.authorAttributions[0] && ph.authorAttributions[0].displayName) || "";
-            return { name: ph.name, by: by, owner: !!by && !!name && by.toLowerCase().indexOf(name.toLowerCase().split(" ")[0]) !== -1, url: null, use: false }; })
+            return { name: ph.name, url: null,
+                     owner: !!((ph.authorAttributions || [])[0] && (ph.authorAttributions[0].displayName || "").toLowerCase().indexOf(name.toLowerCase().slice(0, 8)) >= 0),
+                     by: ((ph.authorAttributions || [])[0] || {}).displayName || "" };
+          })
         };
         return Promise.all(g.photos.map(function (ph) {
           return fetch("https://places.googleapis.com/v1/" + ph.name + "/media?maxWidthPx=1600&skipHttpRedirect=true&key=" + GOOGLE_PLACES_KEY)
             .then(function (r) { return r.json(); }).then(function (m) { ph.url = m.photoUri || null; ph.use = ph.owner; }).catch(function () {});
         })).then(function () {
           g.photos = g.photos.filter(function (ph) { return ph.url; });
-          S.google = g; save(); drawCard(g, w);
+          typing(false); S.google = g; save(); drawCard(g);
         });
       })
-      .catch(function () { w.querySelector("#gcard").innerHTML = '<p class="err">Couldn’t reach Google — tap the button below and I’ll take it from your answers.</p>'; });
+      .catch(function () {
+        typing(false);
+        say("I couldn't reach Google just then — no problem, I'll take it from your answers.");
+        askContact();
+      });
   }
-  function drawCard(g, w) {
-    w.querySelector("#gcard").innerHTML = '<div class="gcard"><h3>' + esc(g.name) + '</h3>' +
-      (g.type ? '<p>' + esc(g.type) + '</p>' : "") + (g.address ? '<p>' + esc(g.address) + '</p>' : "") +
-      (g.hours ? '<p>' + esc(g.hours.split("; ")[0]) + (g.hours.indexOf(";") !== -1 ? " …" : "") + '</p>' : "") +
-      (g.rating ? '<p>★ ' + g.rating + ' · ' + g.ratings + ' reviews</p>' : "") +
+  // The confirmation is a message from the bot, with the two replies as taps. No card.
+  function drawCard(g) {
+    var b = bubble("bot",
+      '<p class="gname">' + esc(g.name) + '</p>' +
+      (g.type ? '<p class="gline">' + esc(g.type) + '</p>' : "") +
+      (g.address ? '<p class="gline">' + esc(g.address) + '</p>' : "") +
+      (g.hours ? '<p class="gline">' + esc(g.hours.split("; ")[0]) + (g.hours.indexOf(";") !== -1 ? " …" : "") + '</p>' : "") +
+      (g.rating ? '<p class="gline">★ ' + g.rating + ' · ' + g.ratings + ' reviews</p>' : "") +
       (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(ph.url) + '" alt="">'; }).join("") + '</div>' : "") +
-      '<div class="acts"><button type="button" class="btn btn-primary" id="g-yes">Yes, that’s me</button>' +
-      '<button type="button" class="btn btn-ghost" id="g-no">Not me</button></div></div>';
-    w.querySelector("#g-yes").addEventListener("click", function () {
+      '<div class="acts"><button type="button" class="btn btn-primary" id="g-yes">Yes, that&rsquo;s me</button>' +
+      '<button type="button" class="btn btn-ghost" id="g-no">Not me</button></div>');
+    b.querySelector("#g-yes").addEventListener("click", function () {
       S.a.place_id = g.place_id;
       if (!S.a.business_name) S.a.business_name = g.name;
-      if (!S.a.phone && g.phone) S.a.phone = g.phone;
+      // NOT the phone: Google lists the business line, which is often a landline, and Barrett
+      // replies by text. We ask for a textable number instead, offering this one as the default.
       if (g.address) S.a.address = g.address;
       if (g.hours) S.a.hours = g.hours;
       if (g.website) S.a.current_website_url = g.website;
       save(); fb("GoogleConfirmed");
-      w.querySelectorAll(".acts").forEach(function (a) { a.remove(); });
+      b.querySelector(".acts").remove();
+      me("Yes, that's me");
       askContact();
     });
-    w.querySelector("#g-no").addEventListener("click", function () {
-      S.google = null; S.a.place_id = ""; save();
-      w.querySelector("#gcard").innerHTML = ""; w.querySelector("#gq").focus();
+    b.querySelector("#g-no").addEventListener("click", function () {
+      S.google = null; S.a.place_id = ""; S.a.business_name = ""; save();
+      b.querySelector(".acts").remove();
+      me("Not me");
+      say("No problem — try the name and city again.");
+      placesField();
     });
   }
-
   // ================= PHASE 2 — contact (still no model, no cost) =================
+  // Asked one at a time, in the thread, answered in the same composer they will use for the whole
+  // interview. Anything Google already told us is skipped rather than asked twice.
+  var CONTACT_STEPS = [
+    { key: "first_name",
+      ask:  "What's your first name?",
+      ok:   function (v) { return v.length >= 2 && v.length <= 40 && !/\d/.test(v); },
+      err:  "Just your first name is fine." },
+    { key: "business_name",
+      ask:  "And what's the business called?",
+      ok:   function (v) { return v.length >= 2; },
+      err:  "Whatever name you want on the site." },
+    { key: "phone",
+      ask:  function () {
+              var gp = S.google && S.google.phone;
+              return gp ? ("Last one — what's the best number to text you? Google lists " + gp + ", if that's the one.")
+                        : "Last one — what's the best number to text you?";
+            },
+      // "yes" / "that one" means the number we just read out to them.
+      coerce: function (v) {
+              var gp = S.google && S.google.phone;
+              if (gp && /^(y|yes|yeah|yep|yup|sure|same|that|correct|right)\b/i.test(v)) return gp;
+              return v;
+            },
+      ok:   function (v) { return v.replace(/\D/g, "").length >= 7; },
+      err:  "That doesn't look like a phone number. Barrett texts you the quote, so I do need one that receives texts." }
+  ];
+  var contactStep = null;
+
   function askContact() {
     S.phase = "contact"; save();
     var g = S.google;
-    say(g ? ("Got it — " + g.name + (g.address ? ", " + g.address.split(",")[0] : "") + ". Where should I send your draft?")
-          : "Where should I send your draft?");
-    var w = bubble("bot", '<div class="w">' +
-      '<div class="grid2">' +
-        '<div><label for="f-first">First name</label><input id="f-first" type="text" autocomplete="given-name" value="' + esc(S.a.first_name) + '"></div>' +
-        '<div><label for="f-phone">Phone (for texts)</label><input id="f-phone" type="tel" autocomplete="tel" value="' + esc(S.a.phone) + '"></div>' +
-      '</div>' +
-      '<label for="f-biz">Business name</label><input id="f-biz" type="text" autocomplete="organization" value="' + esc(S.a.business_name) + '">' +
-      '<p class="err" id="c-err" hidden></p>' +
-      '<div class="acts"><button type="button" class="btn btn-primary" id="c-go">Start</button></div>' +
-      '</div>', true);
-    w.querySelector("#c-go").addEventListener("click", function () {
-      var f = w.querySelector("#f-first").value.trim(),
-          p = w.querySelector("#f-phone").value.trim(),
-          b = w.querySelector("#f-biz").value.trim();
-      if (!f || !b || (p.replace(/\D/g, "").length < 7)) {
-        var e = w.querySelector("#c-err");
-        e.textContent = "Just need your first name, a phone number, and the business name.";
-        e.hidden = false; return;
-      }
-      S.a.first_name = f; S.a.phone = p; S.a.business_name = b; save();
-      w.querySelector(".acts").remove();
-      submitStage("start");
-      fb("LeadStart");
-      beginInterview();
-    });
+    if (g) say("Got it — " + g.name + (g.address ? ", " + g.address.split(",")[0] : "") + ".");
+    composer.hidden = false; hint.hidden = false;
+    nextContact();
+  }
+  function nextContact() {
+    contactStep = null;
+    for (var i = 0; i < CONTACT_STEPS.length; i++) {
+      if (!String(S.a[CONTACT_STEPS[i].key] || "").trim()) { contactStep = CONTACT_STEPS[i]; break; }
+    }
+    if (!contactStep) { finishContact(); return; }
+    botSays(typeof contactStep.ask === "function" ? contactStep.ask() : contactStep.ask);
+  }
+  function contactAnswer(v) {
+    var st = contactStep;
+    if (!st) return;
+    var val = v.replace(/\s+/g, " ").trim();
+    if (st.coerce) val = st.coerce(val);
+    if (!st.ok(val)) { botSays(st.err); return; }
+    S.a[st.key] = val; save();
+    nextContact();
+  }
+  function finishContact() {
+    submitStage("start");
+    fb("LeadStart");
+    beginInterview();
+  }
+  // A short pause with the typing dots, so a reply never appears in the same instant they hit send.
+  function botSays(text) {
+    send.disabled = true; typing(true);
+    setTimeout(function () {
+      typing(false); send.disabled = false; say(text);
+      try { input.focus({ preventScroll: true }); } catch (e) {}
+    }, 420);
   }
 
   // ================= PHASE 3 — the interviewer (model starts HERE) =================
@@ -473,6 +567,13 @@ fbq('track', 'PageView');
   function sendNow() {
     var v = input.value.trim();
     if (!v || send.disabled) return;
+    // The contact questions are answered in the same box, but they never reach the model — no API
+    // call, no cost, and the time floor below does not apply to them.
+    if (S.phase === "contact") {
+      me(v); input.value = ""; input.style.height = "auto";
+      contactAnswer(v);
+      return;
+    }
     if ((Date.now() - LOADED_AT) < MIN_SECONDS_BEFORE_CHAT * 1000 && S.msgs.length === 0) {
       // matches the server-side floor; a human cannot have got here this fast
       return;
@@ -495,6 +596,11 @@ fbq('track', 'PageView');
   } else if (S.started && S.msgs.length) {
     S.msgs.forEach(function (m) { (m.role === "user" ? me : say)(m.content); });
     composer.hidden = false; hint.hidden = false;
+  } else if (S.phase === "contact") {
+    // Mid-contact reload: keep what Google gave us and carry on asking, rather than starting over.
+    if (S.google) say("Welcome back — " + S.google.name + ".");
+    composer.hidden = false; hint.hidden = false;
+    nextContact();
   } else {
     askPlaces();
   }
