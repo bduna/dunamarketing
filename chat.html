@@ -98,7 +98,11 @@ fbq('track', 'PageView');
     border-radius:24px; border:1px solid var(--input-line); background:#fff; resize:none;
     min-height:48px; max-height:140px; }
   .composer textarea::placeholder { color:var(--muted); }
-  .composer textarea:focus { outline:2px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
+  /* One edge, not two. Recolouring the border AND drawing an outline around it stacked two navy
+     rings and read as a double border. The border thickens in colour; the halo does the rest.
+     The transparent outline is kept so Windows High Contrast still paints a focus ring. */
+  .composer textarea:focus { outline:2px solid transparent; outline-offset:1px;
+    border-color:var(--navy); box-shadow:0 0 0 3px rgba(0,48,135,.16); }
   .send { flex:0 0 auto; width:48px; height:48px; display:grid; place-items:center; padding:0;
     border:0; border-radius:50%; background:var(--red); color:#fff; cursor:pointer;
     transition:background var(--dur,160ms) ease, transform 120ms ease; }
@@ -115,7 +119,8 @@ fbq('track', 'PageView');
   .inline { align-self:stretch; margin:2px 0 4px; }
   .inline input { width:100%; font:inherit; font-size:1rem; padding:13px 18px; border-radius:24px;
     border:1px solid var(--input-line); background:#fff; }
-  .inline input:focus { outline:2px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
+  .inline input:focus { outline:2px solid transparent; outline-offset:1px;
+    border-color:var(--navy); box-shadow:0 0 0 3px rgba(0,48,135,.16); }
   /* Matches drop straight under the field, as plain rows on the background. */
   .glist { margin-top:6px; display:flex; flex-direction:column; }
   .glist button { display:block; width:100%; text-align:left; padding:11px 15px; border:0;
