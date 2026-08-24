@@ -34,7 +34,7 @@ fbq('track', 'PageView');
 </script>
 <style>
   :root {
-    --ink:#1a1d24; --muted:#5a6070; --line:#e2e5ea; --input-line:#7c8494;   /* 3.54:1 on --bg — a control edge has to be visible (WCAG 1.4.11) */
+    --ink:#1a1d24; --muted:#5a6070; --line:#e2e5ea; --input-line:#8c9098;   /* 3.01:1 on --bg — the lightest this can go and still read as an edge (WCAG 1.4.11) */
     --navy:#003087; --navy-deep:#001d52; --navy-soft:#eaf0fb;
     --red:#C8102E; --red-dark:#a50d25; --bg:#f7f8fa; --card:#ffffff;
   }
@@ -95,10 +95,10 @@ fbq('track', 'PageView');
   /* A pill that grows with what they type, and a round send — the shape people already know from
      Messages. The border is thin on purpose; it only has to say "you can type here". */
   .composer textarea { flex:1; font:inherit; font-size:1rem; line-height:1.4; padding:12px 18px;
-    border-radius:24px; border:1.5px solid var(--input-line); background:#fff; resize:none;
+    border-radius:24px; border:1px solid var(--input-line); background:#fff; resize:none;
     min-height:48px; max-height:140px; }
   .composer textarea::placeholder { color:var(--muted); }
-  .composer textarea:focus { outline:3px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
+  .composer textarea:focus { outline:2px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
   .send { flex:0 0 auto; width:48px; height:48px; display:grid; place-items:center; padding:0;
     border:0; border-radius:50%; background:var(--red); color:#fff; cursor:pointer;
     transition:background var(--dur,160ms) ease, transform 120ms ease; }
@@ -114,8 +114,8 @@ fbq('track', 'PageView');
      same background as the messages. It is not a bubble: bubbles are things that were said. */
   .inline { align-self:stretch; margin:2px 0 4px; }
   .inline input { width:100%; font:inherit; font-size:1rem; padding:13px 18px; border-radius:24px;
-    border:1.5px solid var(--input-line); background:#fff; }
-  .inline input:focus { outline:3px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
+    border:1px solid var(--input-line); background:#fff; }
+  .inline input:focus { outline:2px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
   /* Matches drop straight under the field, as plain rows on the background. */
   .glist { margin-top:6px; display:flex; flex-direction:column; }
   .glist button { display:block; width:100%; text-align:left; padding:11px 15px; border:0;
