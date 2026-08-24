@@ -63,9 +63,9 @@ fbq('track', 'PageView');
   .topbar .restart + .meta { margin-left:12px; }
   @media (max-width:480px) { .topbar .restart + .meta { display:none; } }
 
-  main { flex:1; display:flex; flex-direction:column; align-items:center; width:100%;
-    padding:16px 14px calc(12px + env(safe-area-inset-bottom)); }
-  .wrap { width:100%; max-width:680px; display:flex; flex-direction:column; flex:1; }
+  main { display:flex; flex-direction:column; align-items:center; width:100%;
+    padding:16px 14px calc(20px + env(safe-area-inset-bottom)); }
+  .wrap { width:100%; max-width:680px; display:flex; flex-direction:column; }
 
   .intro { text-align:center; margin-bottom:14px; }
   .intro h1 { font-size:clamp(1.5rem,5.5vw,2.1rem); line-height:1.1; margin:0 0 6px;
@@ -73,7 +73,7 @@ fbq('track', 'PageView');
   .intro p { margin:0; color:var(--muted); font-size:.95rem; }
 
   /* ---- the thread ---- */
-  .thread { flex:1; display:flex; flex-direction:column; gap:12px; padding:4px 2px 12px; }
+  .thread { display:flex; flex-direction:column; gap:12px; padding:4px 2px 0; }
   .msg { max-width:88%; padding:11px 14px; border-radius:14px; font-size:1rem; }
   .msg.bot { align-self:flex-start; background:var(--card); border:1px solid var(--line);
     border-bottom-left-radius:4px; box-shadow:0 1px 3px rgba(0,29,82,.05); }
@@ -88,8 +88,10 @@ fbq('track', 'PageView');
   /* ---- composer ---- */
   /* An explicit display value beats the UA's [hidden] rule, so say it again for both. */
   .composer[hidden], .hint[hidden] { display:none; }
-  .composer { position:sticky; bottom:0; background:linear-gradient(to top,var(--bg) 72%,transparent);
-    padding:10px 0 4px; display:flex; gap:8px; align-items:flex-end; }
+  /* In the flow, tight under the last message — not pinned to the bottom of the screen. A composer
+     stuck to the viewport leaves a dead gap under a short conversation and reads like a form footer;
+     this way the input is simply the next thing after what was just said. */
+  .composer { margin-top:12px; padding:0 0 4px; display:flex; gap:8px; align-items:flex-end; }
   .composer textarea { flex:1; font:inherit; font-size:1rem; padding:12px 14px; border-radius:12px;
     border:2px solid var(--input-line); background:#fff; resize:none; min-height:48px; max-height:140px; }
   .composer textarea:focus { outline:3px solid var(--navy); outline-offset:1px; border-color:var(--navy); }
@@ -213,12 +215,18 @@ fbq('track', 'PageView');
   function cookie(n) { var m = document.cookie.match("(?:^|; )" + n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + "=([^;]*)"); return m ? decodeURIComponent(m[1]) : ""; }
 
   // ---------- thread helpers ----------
+  // The bottom of the conversation is whatever comes last — the composer when it is open, otherwise
+  // the newest message. Scrolling the bubble alone would leave the input just off screen.
+  function scrollTail() {
+    var t = (composer && !composer.hidden) ? composer : thread.lastElementChild;
+    if (t) t.scrollIntoView({ block: "end", behavior: "smooth" });
+  }
   function bubble(who, html, wide) {
     var d = document.createElement("div");
     d.className = "msg " + who + (wide ? " wide" : "");
     d.innerHTML = html;
     thread.appendChild(d);
-    d.scrollIntoView({ block: "end", behavior: "smooth" });
+    scrollTail();
     return d;
   }
   // A bare block in the thread — no bubble, no card, no shadow. Used for the inline fields so they
@@ -228,7 +236,7 @@ fbq('track', 'PageView');
     d.className = "inline";
     d.innerHTML = html;
     thread.appendChild(d);
-    d.scrollIntoView({ block: "end", behavior: "smooth" });
+    scrollTail();
     return d;
   }
   function say(text) { return bubble("bot", esc(text).replace(/\n/g, "<br>")); }
@@ -237,7 +245,7 @@ fbq('track', 'PageView');
     var t = $("typing");
     if (on && !t) { var d = document.createElement("div"); d.className = "typing"; d.id = "typing";
       d.innerHTML = "<span></span><span></span><span></span>"; thread.appendChild(d);
-      d.scrollIntoView({ block: "end", behavior: "smooth" }); }
+      scrollTail(); }
     if (!on && t) t.remove();
   }
 
