@@ -124,11 +124,6 @@ fbq('track', 'PageView');
   .gline { margin:0; font-size:.88rem; color:var(--muted); }
   .thumbs { display:flex; gap:5px; margin-top:8px; overflow-x:auto; }
   .thumbs img { width:60px; height:44px; object-fit:cover; border-radius:5px; flex:0 0 auto; }
-  .acts { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
-  .btn { min-height:44px; padding:0 16px; border-radius:10px; font:inherit; font-weight:800;
-    cursor:pointer; border:2px solid transparent; }
-  .btn-primary { background:var(--red); color:#fff; }
-  .btn-ghost { background:#fff; color:var(--navy); border-color:var(--input-line); }
   .done { text-align:center; padding:20px 10px; }
   .done h2 { color:var(--navy); margin:0 0 6px; }
   /* The way out, where someone actually looks for it: in the message telling them they are finished.
@@ -356,17 +351,27 @@ fbq('track', 'PageView');
       });
   }
   // The confirmation is a message from the bot, with the two replies as taps. No card.
+  // What Google found, as one message with nothing in it but the business — then the question as a
+  // separate message underneath, answered in the composer like every other question. No buttons
+  // living inside a panel.
   function drawCard(g) {
-    var b = bubble("bot",
+    bubble("bot",
       '<p class="gname">' + esc(g.name) + '</p>' +
       (g.type ? '<p class="gline">' + esc(g.type) + '</p>' : "") +
       (g.address ? '<p class="gline">' + esc(g.address) + '</p>' : "") +
       (g.hours ? '<p class="gline">' + esc(g.hours.split("; ")[0]) + (g.hours.indexOf(";") !== -1 ? " …" : "") + '</p>' : "") +
       (g.rating ? '<p class="gline">★ ' + g.rating + ' · ' + g.ratings + ' reviews</p>' : "") +
-      (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(ph.url) + '" alt="">'; }).join("") + '</div>' : "") +
-      '<div class="acts"><button type="button" class="btn btn-primary" id="g-yes">Yes, that&rsquo;s me</button>' +
-      '<button type="button" class="btn btn-ghost" id="g-no">Not me</button></div>');
-    b.querySelector("#g-yes").addEventListener("click", function () {
+      (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(ph.url) + '" alt="">'; }).join("") + '</div>' : ""));
+    S.phase = "confirm"; save();
+    composer.hidden = false; hint.hidden = false;
+    botSays("Is that your business?");
+  }
+  var YES_RE = /^(y|ye|yes|yeah|yep|yup|sure|correct|right|aye|ok|okay|that'?s (it|me|us|right)|it is|us|me|mine|thats? me)\b/i;
+  var NO_RE  = /^(n|no|nope|nah|not|negative|wrong|different|another|isn'?t)\b/i;
+  function confirmAnswer(v) {
+    var g = S.google;
+    if (!g) { S.phase = "places"; save(); composer.hidden = true; hint.hidden = true; placesField(); return; }
+    if (YES_RE.test(v)) {
       S.a.place_id = g.place_id;
       if (!S.a.business_name) S.a.business_name = g.name;
       // NOT the phone: Google lists the business line, which is often a landline, and Barrett
@@ -375,18 +380,18 @@ fbq('track', 'PageView');
       if (g.hours) S.a.hours = g.hours;
       if (g.website) S.a.current_website_url = g.website;
       save(); fb("GoogleConfirmed");
-      b.querySelector(".acts").remove();
-      me("Yes, that's me");
       askContact();
-    });
-    b.querySelector("#g-no").addEventListener("click", function () {
-      S.google = null; S.a.place_id = ""; S.a.business_name = ""; save();
-      b.querySelector(".acts").remove();
-      me("Not me");
-      say("No problem — try the name and city again.");
-      placesField();
-    });
+      return;
+    }
+    if (NO_RE.test(v)) {
+      S.google = null; S.a.place_id = ""; S.a.business_name = ""; S.phase = "places"; save();
+      composer.hidden = true; hint.hidden = true;
+      botSays("No problem — try the name and city again.", placesField);
+      return;
+    }
+    botSays("Sorry — is that your business? Yes or no is fine.");
   }
+
   // ================= PHASE 2 — contact (still no model, no cost) =================
   // Asked one at a time, in the thread, answered in the same composer they will use for the whole
   // interview. Anything Google already told us is skipped rather than asked twice.
@@ -446,10 +451,11 @@ fbq('track', 'PageView');
     beginInterview();
   }
   // A short pause with the typing dots, so a reply never appears in the same instant they hit send.
-  function botSays(text) {
+  function botSays(text, after) {
     send.disabled = true; typing(true);
     setTimeout(function () {
       typing(false); send.disabled = false; say(text);
+      if (after) { after(); return; }
       try { input.focus({ preventScroll: true }); } catch (e) {}
     }, 420);
   }
@@ -569,6 +575,11 @@ fbq('track', 'PageView');
     if (!v || send.disabled) return;
     // The contact questions are answered in the same box, but they never reach the model — no API
     // call, no cost, and the time floor below does not apply to them.
+    if (S.phase === "confirm") {
+      me(v); input.value = ""; input.style.height = "auto";
+      confirmAnswer(v);
+      return;
+    }
     if (S.phase === "contact") {
       me(v); input.value = ""; input.style.height = "auto";
       contactAnswer(v);
@@ -596,6 +607,8 @@ fbq('track', 'PageView');
   } else if (S.started && S.msgs.length) {
     S.msgs.forEach(function (m) { (m.role === "user" ? me : say)(m.content); });
     composer.hidden = false; hint.hidden = false;
+  } else if (S.phase === "confirm" && S.google) {
+    drawCard(S.google);
   } else if (S.phase === "contact") {
     // Mid-contact reload: keep what Google gave us and carry on asking, rather than starting over.
     if (S.google) say("Welcome back — " + S.google.name + ".");
