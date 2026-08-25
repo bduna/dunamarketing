@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
-<title>Website Interview &mdash; Duna Marketing</title>
-<meta name="description" content="Tell Duna Marketing about your business — just talk — and we'll build your website from your real answers.">
+<title>Duna Marketing &mdash; Big-Agency Websites. Small-Business Prices.</title>
+<meta name="description" content="Custom-built websites for small businesses, at a price that will surprise you. Tell me about your business in a two-minute chat and I'll build it from your own words.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Duna Marketing">
 <meta property="og:title" content="Your new website starts here — Duna Marketing">
@@ -12,334 +12,208 @@
 <meta name="theme-color" content="#003087">
 <link rel="icon" type="image/png" href="duna_marketing_logo.png">
 <link rel="apple-touch-icon" href="duna_marketing_logo.png">
-<link rel="preconnect" href="https://upload-widget.cloudinary.com">
-<link rel="preconnect" href="https://res.cloudinary.com">
 <link rel="preconnect" href="https://places.googleapis.com">
 <link rel="preconnect" href="https://connect.facebook.net">
-<!-- Meta Pixel Code -->
 <script>
-// Kill switch for our own visits. Visiting any page once with ?metrics=off sets a per-browser flag
-// and this entire block returns before the pixel stub even exists, so no event on this or any other
-// page of the site can fire (every caller guards on window.fbq). ?metrics=on clears the flag.
-// Owner testing was polluting the ad data; real visitors never hit these URLs.
+// Same kill switch as the rest of the site: ?metrics=off keeps owner testing out of the ad data.
 (function () {
   try {
     var m = location.search.match(/[?&]metrics=(on|off)\b/);
     if (m) { if (m[1] === "off") localStorage.setItem("duna_notrack", "1"); else localStorage.removeItem("duna_notrack"); }
     if (localStorage.getItem("duna_notrack") === "1") { console.log("[duna] metrics OFF on this browser"); return; }
   } catch (e) {}
-
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '949809188409734');
 fbq('track', 'PageView');
 })();
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
 <style>
   :root {
-    --ink: #1a1d24;
-    --muted: #5a6070;
-    --line: #e2e5ea;
-    --input-line: #9aa3b4;
-    --navy: #003087;
-    --navy-deep: #001d52;
-    --navy-soft: #eaf0fb;
-    --red: #C8102E;
-    --red-dark: #a50d25;
-    --bg: #f7f8fa;
-    --card: #ffffff;
+    --ink:#1a1d24; --muted:#5a6070; --line:#e2e5ea; --input-line:#8c9098;   /* 3.01:1 on --bg — the lightest this can go and still read as an edge (WCAG 1.4.11) */
+    --navy:#003087; --navy-deep:#001d52; --navy-soft:#eaf0fb;
+    --red:#C8102E; --red-dark:#a50d25; --bg:#f7f8fa; --card:#ffffff;
   }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg);
-    background-image:
-      linear-gradient(to right, rgba(60, 66, 80, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(60, 66, 80, 0.06) 1px, transparent 1px);
-    background-size: 20px 20px;
-    background-position: -1px -1px;
-    color: var(--ink);
-    line-height: 1.5;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background-color:var(--bg);
+    background-image:linear-gradient(to right,rgba(60,66,80,.06) 1px,transparent 1px),
+                     linear-gradient(to bottom,rgba(60,66,80,.06) 1px,transparent 1px);
+    background-size:20px 20px; background-position:-1px -1px;
+    color:var(--ink); line-height:1.5; display:flex; flex-direction:column; min-height:100dvh;
   }
-  .topbar {
-    position: sticky; top: 0; z-index: 50;
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 18px;
-    background: var(--navy);
-    border-bottom: 3px solid var(--red);
-    box-shadow: 0 2px 12px rgba(0, 29, 82, 0.35);
-  }
-  .topbar img { height: 32px; width: auto; display: block; background: #fff; border-radius: 6px; padding: 3px; }
-  .topbar .name { font-weight: 800; font-size: 1.05rem; color: #fff; }
-  .topbar .meta { margin-left: auto; color: rgba(255,255,255,0.85); font-size: 0.82rem; font-weight: 600; white-space: nowrap; }
-  main { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 22px 14px calc(40px + env(safe-area-inset-bottom)); }
-  .wrap { width: 100%; max-width: 680px; }
+  .topbar { position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:12px;
+    padding:10px 18px; background:var(--navy); border-bottom:3px solid var(--red);
+    box-shadow:0 2px 12px rgba(0,29,82,.35); }
+  .topbar img { height:32px; width:auto; display:block; background:#fff; border-radius:6px; padding:3px; }
+  .topbar .name { font-weight:800; font-size:1.05rem; color:#fff; }
+  .topbar .meta { margin-left:auto; color:rgba(255,255,255,.85); font-size:.82rem; font-weight:600; }
+  /* Shown only once there is saved progress. Without it a finished interview is a dead end —
+     the state survives a hard refresh, so there was no way back to the start for anyone. */
+  .topbar .restart { margin-left:auto; background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.7);
+    border-radius:4px; padding:6px 10px; font-size:.8rem; font-weight:700; cursor:pointer; min-height:34px; }
+  .topbar .restart:hover { background:rgba(255,255,255,.14); }
+  .topbar .restart:focus-visible { outline:3px solid #fff; outline-offset:2px; }
+  .topbar .restart + .meta { margin-left:12px; }
+  @media (max-width:480px) { .topbar .restart + .meta { display:none; } }
 
-  /* Intro (shown only on first screen) */
-  .intro { text-align: center; margin: 4px 0 18px; }
-  /* Each phrase is an unbreakable unit; lines only break BETWEEN phrases, and the separator dot is
-     drawn by CSS so it can never dangle at the start or end of a wrapped line. */
-  .intro .kicker { margin: 2px 0 14px; }
-  .intro .kicker svg { display: block; width: 100%; max-width: 560px; margin: 0 auto; height: auto; }
-  .intro .kicker text { fill: var(--red); font-family: inherit; font-weight: 800; font-size: 18px;
-    text-transform: uppercase; }
-  .intro h1 { font-size: clamp(2.5rem, 9vw, 3.6rem); line-height: 1.05; margin: 0 0 10px; letter-spacing: -0.03em; color: var(--navy); text-wrap: balance; }
-  .intro p { margin: 0 auto; color: var(--muted); max-width: 46ch; font-size: 1rem; }
-  /* The chat is a second way in, not a competing offer — it sits under the intro, quiet, and is
-     always underlined so it reads as a link without relying on colour alone. */
-  .altroute { margin: 12px auto 0; color: var(--muted); font-size: 0.95rem; }
-  .altroute a { color: var(--navy); font-weight: 700; text-decoration: underline;
-    text-underline-offset: 3px; text-decoration-thickness: 2px; border-radius: 3px; }
-  @media (hover: hover) and (pointer: fine) { .altroute a:hover { color: var(--red); } }
-  .altroute a:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+  main { display:flex; flex-direction:column; align-items:center; width:100%;
+    padding:16px 14px calc(20px + env(safe-area-inset-bottom)); }
+  .wrap { width:100%; max-width:680px; display:flex; flex-direction:column; }
 
-  /* Progress dots */
-  .dots { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin: 0 0 14px; }
-  .dots span { width: 9px; height: 9px; border-radius: 50%; background: #d3d8e2; transition: background 0.2s, transform 0.2s; }
-  .dots span.done { background: var(--navy); }
-  .dots span.cur { background: var(--red); transform: scale(1.3); }
+  .intro { text-align:center; margin-bottom:14px; }
+  .intro h1 { font-size:clamp(1.5rem,5.5vw,2.1rem); line-height:1.1; margin:0 0 6px;
+    letter-spacing:-.02em; color:var(--navy); }
+  .intro p { margin:0; color:var(--muted); font-size:.95rem; }
 
-  /* Chips of answered screens */
-  .trail { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
-  .trail button {
-    border: 1px solid #c9d6f0; background: var(--navy-soft); color: var(--navy);
-    font: inherit; font-size: 0.78rem; font-weight: 700; padding: 5px 10px; border-radius: 999px; cursor: pointer;
-  }
-  .trail button:hover { background: #dbe5f7; }
+  /* ---- the thread ---- */
+  .thread { display:flex; flex-direction:column; gap:12px; padding:4px 2px 0; }
+  .msg { max-width:88%; padding:11px 14px; border-radius:14px; font-size:1rem; }
+  .msg.bot { align-self:flex-start; background:var(--card); border:1px solid var(--line);
+    border-bottom-left-radius:4px; box-shadow:0 1px 3px rgba(0,29,82,.05); }
+  .msg.me { align-self:flex-end; background:var(--navy); color:#fff; border-bottom-right-radius:4px; }
+  .msg.wide { max-width:100%; align-self:stretch; }
+  .typing { align-self:flex-start; display:flex; gap:4px; padding:14px; }
+  .typing span { width:7px; height:7px; border-radius:50%; background:#b8c0cf; animation:bl 1.2s infinite; }
+  .typing span:nth-child(2){animation-delay:.2s} .typing span:nth-child(3){animation-delay:.4s}
+  @keyframes bl { 0%,60%,100%{opacity:.35} 30%{opacity:1} }
+  @media (prefers-reduced-motion:reduce){ .typing span{animation:none} }
 
-  /* The card */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-top: 5px solid var(--red);
-    border-radius: 14px;
-    padding: 24px 22px 20px;
-    box-shadow: 0 10px 30px rgba(0, 29, 82, 0.08);
-  }
-  .qwrap { min-height: 64px; transition: opacity 0.18s ease, transform 0.18s ease; }
-  .qwrap.fade { opacity: 0; transform: translateY(6px); }
-  .qnum { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); margin: 0 0 6px; }
-  .q { font-size: clamp(1.25rem, 4.2vw, 1.55rem); font-weight: 800; line-height: 1.25; margin: 0 0 8px; color: var(--ink); letter-spacing: -0.01em; }
-  .sub { color: var(--muted); margin: 0 0 12px; font-size: 0.95rem; }
-  .sub:empty { display: none; }
-  .nudge { display: none; margin: 8px 0 0; padding: 8px 12px; border-radius: 8px; background: #fff7e6; color: #7a4b00; font-size: 0.9rem; font-weight: 600; }
-  .nudge.show { display: block; }
-  .reassure { color: var(--muted); font-size: 0.85rem; margin: 6px 0 0; }
+  /* ---- composer ---- */
+  /* An explicit display value beats the UA's [hidden] rule, so say it again for both. */
+  .composer[hidden], .hint[hidden] { display:none; }
+  /* In the flow, tight under the last message — not pinned to the bottom of the screen. A composer
+     stuck to the viewport leaves a dead gap under a short conversation and reads like a form footer;
+     this way the input is simply the next thing after what was just said. */
+  .composer { margin-top:12px; padding:0 0 4px; display:flex; gap:8px; align-items:flex-end; }
+  /* A pill that grows with what they type, and a round send — the shape people already know from
+     Messages. The border is thin on purpose; it only has to say "you can type here". */
+  .composer textarea { flex:1; font:inherit; font-size:1rem; line-height:1.4; padding:12px 18px;
+    border-radius:24px; border:1px solid var(--input-line); background:#fff; resize:none;
+    min-height:48px; max-height:140px; }
+  .composer textarea::placeholder { color:var(--muted); }
+  /* One edge, not two. Recolouring the border AND drawing an outline around it stacked two navy
+     rings and read as a double border. The border thickens in colour; the halo does the rest.
+     The transparent outline is kept so Windows High Contrast still paints a focus ring. */
+  .composer textarea:focus { outline:2px solid transparent; outline-offset:1px;
+    border-color:var(--navy); box-shadow:0 0 0 3px rgba(0,48,135,.16); }
+  .send { flex:0 0 auto; width:48px; height:48px; display:grid; place-items:center; padding:0;
+    border:0; border-radius:50%; background:var(--red); color:#fff; cursor:pointer;
+    transition:background var(--dur,160ms) ease, transform 120ms ease; }
+  .send svg { width:22px; height:22px; display:block; }
+  .send:hover:not(:disabled) { background:var(--red-dark); }
+  .send:active:not(:disabled) { transform:scale(0.94); }
+  .send:focus-visible { outline:3px solid var(--navy); outline-offset:2px; }
+  .send:disabled { background:#b9c0cc; cursor:default; }
+  .hint { text-align:center; font-size:.78rem; color:var(--muted); margin:2px 0 0; }
 
-  textarea, input[type="text"], input[type="tel"], input[type="email"], input[type="url"] {
-    width: 100%; padding: 12px 14px; border: 1.5px solid var(--input-line); border-radius: 10px;
-    font: inherit; font-size: 1.05rem; background: #fff; color: var(--ink);
-    transition: border-color 0.15s;
-  }
-  input:focus, textarea:focus { outline: 3px solid var(--navy); outline-offset: 1px; border-color: var(--navy); }
-  textarea { min-height: 150px; resize: none; line-height: 1.5; }
-  .talk-hint { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; font-size: 0.86rem; color: var(--muted); }
-  /* Live word counter for required answers: explains WHY Next is disabled before anyone taps it.
-     A pill, not a whisper — amber while counting up, green once the 8-word floor is cleared.
-     Text contrast: 6.3:1 on amber, 5.9:1 on green. */
-  .wordcount { display: inline-flex; align-items: center; gap: 6px; margin: 10px 0 0;
-    font-size: 0.88rem; font-weight: 800; letter-spacing: 0.01em;
-    padding: 7px 14px; border-radius: 999px;
-    background: #FFF3DE; color: #7A5200; border: 1.5px solid #E8B24A; }
-  .wordcount.ok { background: #E4F5E9; color: #136A2E; border-color: #7FC48F; }
-  .talk-hint svg { width: 18px; height: 18px; color: var(--navy); flex: 0 0 auto; }
-  .talk-hint strong { color: var(--navy); }
+  /* ---- a field living IN the conversation ----
+     No panel, no border box, no shadow — the field is the only thing you can see, sitting on the
+     same background as the messages. It is not a bubble: bubbles are things that were said. */
+  .inline { align-self:stretch; margin:2px 0 4px; }
+  .inline input { width:100%; font:inherit; font-size:1rem; padding:13px 18px; border-radius:24px;
+    border:1px solid var(--input-line); background:#fff; }
+  .inline input:focus { outline:2px solid transparent; outline-offset:1px;
+    border-color:var(--navy); box-shadow:0 0 0 3px rgba(0,48,135,.16); }
+  /* Matches drop straight under the field, as plain rows on the background. */
+  .glist { margin-top:6px; display:flex; flex-direction:column; }
+  .glist button { display:block; width:100%; text-align:left; padding:11px 15px; border:0;
+    background:transparent; font:inherit; cursor:pointer; border-bottom:1px solid var(--line); }
+  .glist button:first-child { border-top:1px solid var(--line); }
+  .glist button:last-child { border-bottom:0; }
+  .glist button:hover, .glist button:focus-visible { background:var(--navy-soft); }
+  .glist strong { display:block; font-size:.95rem; font-weight:700; }
+  .glist small { color:var(--muted); }
+  /* The quiet way out, as a text link rather than another button box. */
+  .linkbtn { display:inline-flex; align-items:center; min-height:44px; margin-top:2px; padding:0 2px;
+    background:none; border:0; font:inherit; font-size:.88rem; font-weight:700; color:var(--navy);
+    text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+  .linkbtn:hover { color:var(--red); }
+  /* The Google result, spoken as a message. */
+  .gname { margin:0 0 2px; font-size:1rem; font-weight:800; }
+  .gline { margin:0; font-size:.88rem; color:var(--muted); }
+  .thumbs { display:flex; gap:5px; margin-top:8px; overflow-x:auto; }
+  .thumbs img { width:60px; height:44px; object-fit:cover; border-radius:5px; flex:0 0 auto; }
+  .done { text-align:center; padding:20px 10px; }
+  .done h2 { color:var(--navy); margin:0 0 6px; }
+  /* The way out, where someone actually looks for it: in the message telling them they are finished.
+     The top-bar button is easy to miss, and the completed state survives a refresh. */
+  .restart-link { display:inline-flex; align-items:center; min-height:44px; padding:0 4px;
+    color:var(--navy); font-weight:800; text-decoration:underline; text-underline-offset:3px;
+    text-decoration-thickness:2px; }
+  .restart-link:hover { color:var(--red); }
 
-  /* We-heard chips */
-  .heard { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
-  .heard span { font-size: 0.74rem; font-weight: 700; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--line); color: #9aa3b4; background: #fff; }
-  .heard span.on { color: #0a6b2f; border-color: #bfe3cc; background: #eef9f1; }
+  /* ---- homepage hero ---- */
+  .intro .kicker { margin:2px 0 14px; }
+  .intro .kicker svg { display:block; width:100%; max-width:560px; margin:0 auto; height:auto; }
+  .intro .kicker text { fill:var(--red); font-family:inherit; font-weight:800; font-size:18px; text-transform:uppercase; }
+  .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 10px;
+    letter-spacing:-.03em; color:var(--navy); text-wrap:balance; }
+  .intro p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
+  .savenote { text-align:center; font-size:.78rem; color:var(--muted); margin:14px 0 0; }
+  .altroute { margin:12px auto 0; color:var(--muted); font-size:.95rem; }
+  .altroute a { color:var(--navy); font-weight:700; text-decoration:underline; text-underline-offset:3px; }
+  @media (hover:hover) and (pointer:fine) { .altroute a:hover { color:var(--red); } }
 
-  /* Screen-specific controls */
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  @media (max-width: 480px) { .grid2 { grid-template-columns: 1fr; } }
-  .field label { display: block; font-size: 0.85rem; font-weight: 700; color: var(--muted); margin: 0 0 4px; }
-  .choices { display: grid; gap: 8px; }
-  .choices.two { grid-template-columns: 1fr 1fr; }
-  @media (max-width: 480px) { .choices.two { grid-template-columns: 1fr; } }
-  .choice {
-    display: flex; align-items: center; gap: 10px; padding: 12px 14px;
-    border: 1.5px solid var(--input-line); border-radius: 10px; background: #fff; cursor: pointer;
-    font: inherit; font-size: 1rem; text-align: left; color: var(--ink); transition: border-color 0.15s, background 0.15s;
-  }
-  .choice:hover { border-color: #6b7488; }
-  .choice.on { border-color: var(--navy); background: var(--navy-soft); box-shadow: inset 0 0 0 1px var(--navy); }
-  .choice .mark { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--input-line); flex: 0 0 auto; }
-  .choice.on .mark { border-color: var(--navy); background: var(--navy); box-shadow: inset 0 0 0 3px #fff; }
-  .words { display: flex; flex-wrap: wrap; gap: 8px; }
-  .word { padding: 9px 14px; border-radius: 999px; border: 1.5px solid var(--input-line); background: #fff; font: inherit; font-weight: 700; cursor: pointer; color: var(--ink); }
-  .word.on { background: var(--navy); border-color: var(--navy); color: #fff; }
-  .word:disabled { opacity: 0.45; cursor: not-allowed; }
-  .subq { font-weight: 700; margin: 18px 0 6px; }
-  .upload-btn {
-    display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; font: inherit; font-weight: 700;
-    color: var(--navy); background: var(--navy-soft); border: 1.5px dashed var(--navy); border-radius: 10px; cursor: pointer;
-  }
-  .upload-btn:hover { background: #dbe5f7; }
-  #logo-preview img { max-height: 64px; margin-top: 10px; border: 1px solid var(--line); border-radius: 8px; padding: 6px; background: #fff; display: block; }
-  .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 12px; }
-  .photo-card { border: 1.5px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; position: relative; }
-  .photo-card.is-hero { border-color: var(--red); box-shadow: 0 0 0 2px #fbe3e7; }
-  .photo-card img { width: 100%; height: 96px; object-fit: cover; display: block; }
-  .photo-card .pc { padding: 6px; display: flex; flex-direction: column; gap: 4px; }
-  .photo-card input { font-size: 0.8rem; padding: 6px 8px; }
-  .photo-card .star { border: none; background: none; font: inherit; font-size: 0.78rem; font-weight: 700; color: var(--muted); cursor: pointer; padding: 0; text-align: left; }
-  .photo-card.is-hero .star { color: var(--red); }
-  .photo-card .rm { position: absolute; top: 4px; right: 4px; border: none; background: rgba(255,255,255,0.9); color: var(--red); font-weight: 800; border-radius: 6px; padding: 2px 7px; cursor: pointer; }
-  .err { margin: 10px 0 0; padding: 10px 12px; border-radius: 8px; background: #fdecef; color: #8f0b21; font-size: 0.9rem; font-weight: 600; }
-  .err[hidden] { display: none; }
+  /* ---- proof strip: the six sample sites ---- */
+  .proof { margin:48px 0 0; }
+  .proof h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
+    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
+  .proof p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 20px; max-width:44ch; }
+  .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .proof-grid a { display:block; text-decoration:none; color:inherit; border:1px solid var(--line);
+    border-radius:10px; overflow:hidden; background:var(--card); }
+  .proof-grid img { display:block; width:100%; height:auto; border-bottom:1px solid var(--line); }
+  .proof-grid b { display:block; font-size:.78rem; font-weight:700; padding:8px 10px 2px; line-height:1.25; }
+  .proof-grid span { display:block; font-size:.72rem; color:var(--muted); padding:0 10px 9px; }
+  @media (max-width:560px) { .proof-grid { grid-template-columns:repeat(2,1fr); gap:10px; } }
 
-  /* Google confirm card */
-  .gsearch { position: relative; }
-  .glist { position: absolute; left: 0; right: 0; top: 100%; z-index: 20; background: #fff; border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,29,82,0.12); overflow: hidden; }
-  .glist button { display: block; width: 100%; text-align: left; border: none; background: none; font: inherit; padding: 10px 14px; cursor: pointer; border-bottom: 1px solid var(--line); }
-  .glist button:last-child { border-bottom: none; }
-  .glist button:hover { background: var(--navy-soft); }
-  .glist small { display: block; color: var(--muted); }
-  .gcard { margin-top: 12px; border: 1.5px solid var(--navy); border-radius: 12px; padding: 14px; background: var(--navy-soft); }
-  .gcard h3 { margin: 0 0 4px; font-size: 1.1rem; color: var(--navy); }
-  .gcard p { margin: 2px 0; font-size: 0.92rem; }
-  .gcard .thumbs { display: flex; gap: 6px; margin: 8px 0; overflow-x: auto; }
-  .gcard .thumbs img { height: 56px; width: 56px; object-fit: cover; border-radius: 6px; flex: 0 0 auto; }
-  .gcard .acts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-  .gpick { margin-top: 12px; }
-  .gpick label { display: flex; gap: 8px; align-items: flex-start; font-size: 0.9rem; padding: 6px 0; border-bottom: 1px solid var(--line); }
-  .gpick label:last-child { border-bottom: none; }
-  .gpick input { margin-top: 3px; }
-  .gpick .who { color: var(--muted); }
-  .gphotos { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; margin-top: 8px; }
-  .gphotos label { position: relative; display: block; cursor: pointer; }
-  .gphotos img { width: 100%; height: 76px; object-fit: cover; border-radius: 8px; border: 2px solid transparent; }
-  .gphotos input { position: absolute; top: 6px; left: 6px; }
-  .gphotos input:checked + img { border-color: var(--navy); }
-  .gphotos small { display: block; font-size: 0.7rem; color: var(--muted); }
-  .gnote { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
-
-  /* Review screen */
-  .review { display: grid; gap: 10px; }
-  .review .row { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; background: var(--navy-soft); border-radius: 10px; }
-  .review .row b { color: var(--navy); min-width: 84px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
-  .review .row span { flex: 1; }
-  .review .row button { border: none; background: none; color: var(--red); font: inherit; font-weight: 700; cursor: pointer; text-decoration: underline; padding: 0; }
-  .missing { margin-top: 12px; font-size: 0.9rem; color: var(--muted); }
-
-  /* Buttons + bottom bar */
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 12px 20px; border-radius: 10px; font: inherit; font-weight: 800; font-size: 1rem; cursor: pointer; border: 2px solid transparent; transition: background 0.15s, transform 0.08s; text-decoration: none; }
-  .btn:active { transform: translateY(1px); }
-  .btn-primary { background: var(--red); color: #fff; box-shadow: 0 6px 16px rgba(200,16,46,0.28); }
-  .btn-primary:hover { background: var(--red-dark); }
-  .btn-primary:disabled { background: #b8bec9; box-shadow: none; cursor: not-allowed; }
-  .btn-ghost { background: #fff; color: var(--navy); border-color: var(--navy); }
-  .btn-ghost:hover { background: var(--navy-soft); }
-  .btn-text { background: none; color: var(--muted); font-weight: 700; }
-  .btn-text:hover { color: var(--ink); text-decoration: underline; }
-  .actions { display: flex; align-items: center; gap: 8px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
-  .actions .spacer { flex: 1; }
-  .actions .btn-primary { min-width: 128px; }
-  .actions .btn-text { padding-left: 8px; padding-right: 8px; }
-  .savenote { text-align: center; font-size: 0.78rem; color: var(--muted); margin: 10px 0 0; }
-  /* Proof strip. Sits below the form and only on the first screen — it answers "will $500 get me
-     something cheap?" for someone who hesitates, then gets out of the way once they start. */
-  .proof { margin: 48px 0 0; }
-  .proof h2 { font-size: clamp(1.5rem, 5.5vw, 2.15rem); line-height: 1.1; font-weight: 800;
-    letter-spacing: -0.02em; color: var(--navy); text-align: center; margin: 0 0 8px; text-wrap: balance; }
-  .proof p.sub { text-align: center; font-size: 0.95rem; color: var(--muted); margin: 0 auto 20px; max-width: 44ch; }
-  .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .proof-grid a { display: block; text-decoration: none; color: inherit; border: 1px solid var(--line);
-    border-radius: 10px; overflow: hidden; background: var(--card); }
-  .proof-grid img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--line); }
-  .proof-grid b { display: block; font-size: 0.78rem; font-weight: 700; padding: 8px 10px 2px; line-height: 1.25; }
-  .proof-grid span { display: block; font-size: 0.72rem; color: var(--muted); padding: 0 10px 9px; }
-  @media (max-width: 560px) { .proof-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
-  /* Back to the top. Sits in the flow at the very end, so you only meet it by having scrolled —
-     no floating badge covering the Next button on a phone. */
-  .totop { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 30px auto 8px;
-    background: none; border: 0; padding: 8px 12px; cursor: pointer; color: var(--navy);
-    font: inherit; border-radius: 10px; }
-  .totop svg { width: 44px; height: 44px; display: block; transition: transform 0.15s ease; }
-  .totop span { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.01em; }
-  /* Hover only where a real pointer exists. On a touchscreen, :hover sticks after a tap and the
-     button stayed red until you tapped elsewhere; :active gives the same red as a press flash
-     that releases on lift. */
-  @media (hover: hover) and (pointer: fine) {
-    .totop:hover { color: var(--red); }
-    .totop:hover svg { transform: translateY(-3px); }
-  }
-  .totop:active { color: var(--red); }
-  .totop:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
-  @media (prefers-reduced-motion: reduce) { .totop svg { transition: none; } }
-  .resume { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--navy-soft); border: 1px solid #c9d6f0; border-left: 4px solid var(--navy); border-radius: 10px; padding: 10px 12px; margin: 0 0 14px; font-size: 0.92rem; }
-  .resume[hidden] { display: none; }
-  .resume button { border: none; background: none; color: var(--red); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; white-space: nowrap; }
-  .hidden { display: none !important; }
-  .fine { font-size: 0.8rem; color: var(--muted); text-align: center; margin: 14px 0 0; }
-  .fine a { color: var(--navy); }
-  @media (prefers-reduced-motion: reduce) { .qwrap { transition: none; } }
+  /* ---- back to the top: in the flow, so you only meet it by having scrolled ---- */
+  .totop { display:flex; flex-direction:column; align-items:center; gap:6px; margin:30px auto 8px;
+    background:none; border:0; padding:8px 12px; cursor:pointer; color:var(--navy); font:inherit; border-radius:10px; }
+  .totop svg { width:44px; height:44px; display:block; transition:transform .15s ease; }
+  .totop span { font-size:.8rem; font-weight:700; }
+  /* Hover only where a real pointer exists — on a touchscreen :hover sticks red after a tap. */
+  @media (hover:hover) and (pointer:fine) { .totop:hover { color:var(--red); } .totop:hover svg { transform:translateY(-3px); } }
+  .totop:active { color:var(--red); }
+  .totop:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
+  @media (prefers-reduced-motion:reduce) { .totop svg { transition:none; } }
 </style>
 </head>
 <body>
-<nav class="topbar">
+<header class="topbar">
   <img src="duna_marketing_logo.png" alt="">
   <span class="name">Duna Marketing</span>
+  <button type="button" class="restart" id="restart" hidden>Start over</button>
   <span class="meta">saves as you go</span>
-</nav>
+</header>
 
 <main>
   <div class="wrap">
     <div class="intro" id="intro">
       <p class="kicker">
-        <svg viewBox="0 0 600 30" role="img" aria-label="8 questions. Easy Mic Input Answers." focusable="false">
-          <text x="300" y="21" text-anchor="middle" textLength="430" lengthAdjust="spacingAndGlyphs">8 QUESTIONS &#183; EASY MIC INPUT ANSWERS</text>
+        <svg viewBox="0 0 600 30" role="img" aria-label="A short chat. Easy mic input answers." focusable="false">
+          <text x="300" y="21" text-anchor="middle" textLength="430" lengthAdjust="spacingAndGlyphs">A SHORT CHAT &#183; EASY MIC INPUT ANSWERS</text>
         </svg>
       </p>
       <h1>Big&#8209;Agency Websites. Small&#8209;Business Prices.</h1>
-      <p>Custom-built for your business, at a price that will surprise you. Get your quote by filling out the questionnaire.</p>
-      <p class="altroute">Rather just talk? <a href="chat.html">Answer by chat&nbsp;&#8594;</a></p>
+      <p>Custom-built for your business, at a price that will surprise you. Tell me about it below and I&rsquo;ll build the site from your own words.</p>
+      <p class="altroute">Rather fill in a form? <a href="form.html">Use the questionnaire&nbsp;&#8594;</a></p>
     </div>
 
-    <div class="resume" id="resume" hidden><span id="resume-msg"></span><button type="button" id="start-over">Start over</button></div>
+    <div class="thread" id="thread" aria-live="polite"></div>
 
-    <div class="dots" id="dots" aria-hidden="true"></div>
-    <div class="trail" id="trail" aria-label="Answered so far"></div>
-
-    <section class="card" aria-live="polite">
-      <div class="qwrap" id="qwrap">
-        <p class="qnum" id="qnum"></p>
-        <h2 class="q" id="q"></h2>
-        <p class="sub" id="sub"></p>
-      </div>
-      <div id="extra"></div>
-      <div id="talkwrap">
-        <textarea id="talk" rows="5" aria-label="Your answer"></textarea>
-        <p class="wordcount" id="wc" hidden aria-live="polite"></p>
-        <p class="talk-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span><strong>Easiest on a phone:</strong> tap in the box, then tap the microphone on your keyboard and just talk.</span></p>
-        <p class="reassure" id="reassure" hidden>A few sentences is plenty.</p>
-      </div>
-      <p class="nudge" id="nudge"></p>
-      <div class="heard" id="heard" aria-label="What we've heard so far"></div>
-      <div class="err" id="err" hidden></div>
-      <div class="actions">
-        <button type="button" class="btn btn-text" id="back">&larr; Back</button>
-        <span class="spacer"></span>
-        <button type="button" class="btn btn-text" id="skip">Skip</button>
-        <button type="button" class="btn btn-primary" id="next">Next &rarr;</button>
-      </div>
-    </section>
-    <p class="savenote">Everything saves on this device as you go. Stop anytime &mdash; I'll get the rest by text.</p>
+    <div class="composer" id="composer" hidden>
+      <textarea id="input" rows="1" placeholder="Type or tap the mic…" aria-label="Your answer"></textarea>
+      <button class="send" id="send" type="button" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+    </div>
+    <p class="hint" id="hint" hidden><strong>On a phone:</strong> tap the box, then the microphone on your keyboard, and just talk.</p>
+    <p class="savenote">Everything saves on this device as you go. Stop anytime &mdash; I&rsquo;ll get the rest by text.</p>
 
     <section class="proof" id="proof">
       <h2>The Duna Marketing Standard.</h2>
@@ -366,7 +240,6 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
       </div>
     </section>
 
-
     <button type="button" class="totop" id="totop" aria-label="Back to the top">
       <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
         <circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -378,531 +251,484 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   </div>
 </main>
 
-<!-- Real form Netlify parses at deploy time. All values are copied in from state before submit. -->
-<form id="interview-form" name="website-interview" hidden>
-  <input type="hidden" name="form-name" value="website-interview">
-  <!-- Honeypots. A person never sees or tabs to these; automated fillers take the bait because the
-       names look like fields worth filling. Any value in either one makes the server drop the row. -->
-  <input name="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true">
-  <input name="company_url" type="url" tabindex="-1" autocomplete="off" aria-hidden="true">
-  <input type="hidden" name="stage">
-  <input type="hidden" name="elapsed_ms"><input type="hidden" name="fbp"><input type="hidden" name="fbc"><input type="hidden" name="metrics_off"><input type="hidden" name="ua">
-  <input type="hidden" name="first_name"><input type="hidden" name="last_name"><input type="hidden" name="phone"><input type="hidden" name="email">
-  <input type="hidden" name="business_name"><input type="hidden" name="what_you_do"><input type="hidden" name="story_origin"><input type="hidden" name="known_for">
-  <input type="hidden" name="services_talk"><input type="hidden" name="typical_visitor"><input type="hidden" name="primary_goal"><input type="hidden" name="goal_detail">
-  <input type="hidden" name="aspirations"><input type="hidden" name="design_feel"><input type="hidden" name="vibe_words"><input type="hidden" name="design_refs">
-  <input type="hidden" name="brand_colors"><input type="hidden" name="logo_url"><input type="hidden" name="rules_talk"><input type="hidden" name="pages">
-  <input type="hidden" name="photos_json"><input type="hidden" name="photo_folder_link"><input type="hidden" name="testimonials">
-  <input type="hidden" name="place_id"><input type="hidden" name="place_json"><input type="hidden" name="current_website_url"><input type="hidden" name="hours"><input type="hidden" name="address">
-  <input type="hidden" name="skipped"><input type="hidden" name="utm">
+<!-- Honeypots: a person never sees or tabs to these. Same pair the form uses. -->
+<form id="hp" hidden aria-hidden="true">
+  <input name="bot-field" tabindex="-1" autocomplete="off">
+  <input name="company_url" type="url" tabindex="-1" autocomplete="off">
 </form>
 
-<script src="https://upload-widget.cloudinary.com/latest/global/all.js"></script>
 <script>
 (function () {
   // ==== CONFIG ====
-  var CLOUDINARY_CLOUD_NAME = "qvsg8okz";
-  var CLOUDINARY_UPLOAD_PRESET = "duna_intake";
-  var GOOGLE_PLACES_KEY = "AIzaSyA_2Mzsy3s9aZo8OS4DBFY-OYhayl-F_tI";   // Places API (New) browser key — restrict to HTTP referrers + Places API (New) in Google Cloud
-  var STORE_KEY = "duna_interview";
-  var LOADED_AT = Date.now();          // used for the server-side "too fast to be a person" check
-  var HARD_MIN_WORDS = 8;              // a required answer under this can't advance — one-word answers make a generic site
-  // Leads backend: Google Apps Script → your "Duna Leads" sheet (+ email & push alerts). Same URL for the full form.
+  var GOOGLE_PLACES_KEY = "AIzaSyA_2Mzsy3s9aZo8OS4DBFY-OYhayl-F_tI";
   var LEADS_URL = "https://script.google.com/macros/s/AKfycbw8eTCgh4a5N4y5qofitbrZUaU7xmW6_nFfABUj7AgE2UKPuZfzq83hWVGa8IYX9gQv/exec";
   var LEADS_SECRET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  var MAX_AGE = 30 * 24 * 60 * 60 * 1000;
+  var STORE_KEY = "duna_chat";
+  var LOADED_AT = Date.now();
+  var MIN_SECONDS_BEFORE_CHAT = 15;   // matches the server-side floor
 
-  // ==== SCREENS ====
-  var GHOST = {
-    what_you_do: "e.g. We're a family plumbing company — repairs and water heater installs for homeowners across Pasadena and the San Gabriel Valley.",
-    story_origin: "e.g. My dad started it in '09 with one truck. I took over in 2019 after ten years working with him…",
-    known_for: "e.g. People say we actually pick up the phone and show up when we said we would.",
-    services_talk: "e.g. Drain cleaning starts at $99, water heater installs from $1,200, remodels are by quote…",
-    typical_visitor: "e.g. A homeowner with a leaking water heater who needs someone today and is nervous about getting ripped off.",
-    goal_detail: "e.g. Most people book a 60-minute consult; a full session is two hours.",
-    aspirations: "e.g. In two years I want a second crew and to stop relying on Yelp. The site needs to make people call us directly.",
-    design_feel: "e.g. Trustworthy and calm — like walking into a clean, organized shop where everything has its place.",
-    design_refs: "e.g. I like how clean redwoodcu.org looks. Can't stand sites that are all popups. Our colors are navy and gold.",
-    rules_talk: "e.g. Must show our license number and that we're bilingual. No stock photos. Please, no chat popups."
-  };
-  // Three open-ended questions, deliberately. Google Places already supplies the name, address,
-  // phone, hours and category — asking for those again wastes the client's goodwill. These three
-  // capture only what Google cannot know, and each one fills a specific page of the site:
-  //   what_you_do    -> the homepage headline and the whole positioning
-  //   services_talk  -> the Services / Menu page, with prices exactly as spoken
-  //   story_origin   -> the About page, and the voice the copy is written in
-  var SCREENS = [
-    { id: "places",   type: "places",  q: "Find your business.", sub: "Type the name and city — I’ll pull the details from Google so you don’t have to type them." },
-    { id: "contact",  type: "contact", q: "Where should I send your draft?", sub: "Your name and the best number to text — that’s where the preview link goes. No spam, no sales calls.", required: true },
-
-    { id: "what",     type: "talk",    field: "what_you_do",
-      q: "What do you do, and why do people pick you instead of someone else?",
-      sub: "This becomes the headline. Say it the way you’d say it to a neighbour — the thing you’re actually known for.",
-      required: true, minWords: 15, reviewPrompt: true },
-
-    { id: "services", type: "talk",    field: "services_talk",
-      q: "Walk me through everything you offer and what it costs.",
-      sub: "This builds your Services page. Say the prices out loud — “from $89”, “$150 flat”, “by quote” all work. Anything you leave out won’t be on the site.",
-      required: true, minWords: 12, priceNudge: true },
-
-    { id: "origin",   type: "talk",    field: "story_origin",
-      q: "How did this start — and who do you most love working with?",
-      sub: "This becomes your About page. How long you’ve done it, what you did before, and the customer you wish you had more of.",
-      required: true, minWords: 12, reassure: true },
-
-    { id: "goal",     type: "goal",    field: "primary_goal",  q: "When someone lands on your site, what’s the ONE thing you want them to do?", sub: "One tap. This decides every button on the site.", required: true },
-    { id: "photos",   type: "photos",  q: "Photos.", sub: "Storefront, team, your best work. Then tap the one that’s most you. Skip if you’d rather send them by text." },
-    { id: "review",   type: "review",  q: "Here’s what I heard." }
-  ];
-  var VIBE_WORDS = ["Warm", "Sleek", "Playful", "Bold", "Calm", "Rugged", "Luxe", "Simple", "Friendly", "Serious", "Modern", "Classic"];
-  var GOALS = ["Call me", "Book an appointment", "Get a quote", "Buy something", "Sign up", "Other"];
-  var PAGES = ["About", "Services", "Gallery / Our work", "Menu / Price list", "Reviews", "FAQ", "Contact", "Booking", "You decide"];
-
-  // ==== STATE ====
-  var S = { a: {}, screen: 0, started: false, savedAt: 0, submittedAt: null, skipped: [], photos: [], google: null, probed: {}, lead_id: null };
-  try {
-    var raw = localStorage.getItem(STORE_KEY);
-    if (raw) { var d = JSON.parse(raw); if (d && d.savedAt && Date.now() - d.savedAt < MAX_AGE) S = Object.assign(S, d); else localStorage.removeItem(STORE_KEY); }
-  } catch (e) {}
-  if (!GOOGLE_PLACES_KEY) SCREENS = SCREENS.filter(function (s) { return s.type !== "places"; });
-  var utm = location.search.slice(1);
-  if (!S.lead_id) { S.lead_id = "L-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8); }
-  function save() { S.savedAt = Date.now(); try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
-  function fb(ev, params) { try { if (window.fbq) fbq("trackCustom", ev, params || {}); } catch (e) {} }
-  // Opening a sample is a strong intent signal — and lets us see whether the proof strip
-  // helps people start or just gives them somewhere else to go.
-  document.addEventListener("click", function (e) {
-    var a = e.target.closest && e.target.closest('.proof a[href^="/portfolio/"]');
-    if (a) fb("PortfolioSiteOpen", { site: a.getAttribute("href") });
-  });
-
-  // ==== DOM ====
   var $ = function (id) { return document.getElementById(id); };
-  var qwrap = $("qwrap"), qnum = $("qnum"), qEl = $("q"), subEl = $("sub"), extra = $("extra"), talkwrap = $("talkwrap"), talk = $("talk"), reassure = $("reassure"), nudge = $("nudge"), heard = $("heard"), err = $("err");
-  var back = $("back"), skip = $("skip"), next = $("next"), dots = $("dots"), trail = $("trail"), intro = $("intro"), proof = $("proof");
+  var thread = $("thread"), composer = $("composer"), input = $("input"), send = $("send"), hint = $("hint");
 
-  function visibleScreens() { return SCREENS.filter(function (s) { return !s.conditional || (S.a.primary_goal === "Book an appointment" || S.a.primary_goal === "Buy something"); }); }
-  function cur() { return visibleScreens()[S.screen]; }
-
-  // ==== RENDER ====
-  function render(dir) {
-    var list = visibleScreens(); if (S.screen >= list.length) S.screen = list.length - 1;
-    var sc = list[S.screen];
-    intro.classList.toggle("hidden", S.screen > 0);
-    proof.classList.toggle("hidden", S.screen > 0);   // proof answers a doubt before they start; after that it's an exit
-    err.hidden = true; nudge.className = "nudge"; nudge.textContent = "";
-    // dots + trail
-    dots.innerHTML = list.map(function (s, i) { return '<span class="' + (i < S.screen ? "done" : i === S.screen ? "cur" : "") + '"></span>'; }).join("");
-    trail.innerHTML = "";
-    list.forEach(function (s, i) {
-      if (i < S.screen && answered(s)) {
-        var b = document.createElement("button"); b.type = "button"; b.textContent = "✓ " + shortLabel(s); b.addEventListener("click", function () { go(i); }); trail.appendChild(b);
-      }
-    });
-    // question text
-    qwrap.classList.add("fade");
-    setTimeout(function () {
-      // The kicker promises EIGHT questions, matching the dots. Number the talk screens by their
-      // position in the full flow so "Question 4 of 8" always agrees with the dot row; the other
-      // screens keep their role labels.
-      var idx = list.indexOf(sc);
-      qnum.textContent =
-        sc.type === "talk" ? "Question " + (idx + 1) + " of " + list.length :
-        sc.type === "places" ? "First, the easy part" :
-        sc.type === "contact" ? "Where to send your draft" :
-        sc.type === "goal" ? "One tap" :
-        sc.type === "photos" ? "Last step" : "Almost done";
-      qEl.textContent = sc.type === "goaldetail" || sc.id === "goaldetail" ? goalDetailQ() : sc.q;
-      subEl.textContent = sc.sub || "";
-      if (sc.reviewPrompt && S.google && S.google.reviews && S.google.reviews.length) {
-        subEl.textContent = "A customer wrote: “" + S.google.reviews[0].text.slice(0, 140) + (S.google.reviews[0].text.length > 140 ? "…" : "") + "” — is that it?";
-      }
-      qwrap.classList.remove("fade");
-    }, 160);
-    // body
-    extra.innerHTML = "";
-    var showTalk = sc.type === "talk";
-    talkwrap.classList.toggle("hidden", !showTalk);
-    if (showTalk) {
-      talk.value = S.a[sc.field] || "";
-      talk.placeholder = GHOST[sc.field] || "";
-      reassure.hidden = !sc.reassure;
-      setTimeout(function () { try { talk.focus({ preventScroll: true }); } catch (e) {} }, 60);
+  // /chat.html?restart always begins a fresh interview. The saved state lives in localStorage, which
+  // a hard refresh does not touch, so without this the only way out of a finished interview was the
+  // browser console. The param is stripped from the URL afterwards so a reload does not re-trigger it.
+  try {
+    if (/[?&]restart\b/.test(location.search)) {
+      localStorage.removeItem(STORE_KEY);
+      if (history.replaceState) history.replaceState(null, "", location.pathname);
     }
-    if (sc.type === "places") renderPlaces();
-    if (sc.type === "contact") renderContact();
-    if (sc.type === "goal") renderGoal();
-    if (sc.type === "vibe") renderVibe();
-    if (sc.type === "rules") renderRules();
-    if (sc.type === "photos") renderPhotos();
-    if (sc.type === "review") renderReview();
-    // buttons
-    back.style.visibility = S.screen === 0 ? "hidden" : "visible";
-    skip.classList.toggle("hidden", !!sc.required || sc.type === "review");
-    next.textContent = sc.type === "review" ? "Send it →" : (S.screen === list.length - 2 ? "Review →" : "Next →");
-    updateHeard(); updateNext(); updateWC();
-    fb("ScreenView", { screen: sc.id, n: S.screen + 1 });
-    window.scrollTo({ top: 0, behavior: S.screen === 0 ? "auto" : "smooth" });
+  } catch (e) {}
+
+  var S;
+  try { S = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); } catch (e) { S = null; }
+  if (!S || !S.lead_id) {
+    S = { lead_id: "L-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8),
+          a: {}, google: null, msgs: [], phase: "places", started: false, done: false };
   }
-  function shortLabel(s) {
-    return { places: "Google listing", contact: "Contact", what: "What you do", origin: "How it started", known: "Known for", services: "Services & prices", visitor: "Your customer", goal: "Main goal", goaldetail: "Details", aspire: "Two years out", feel: "The feel", vibe: "Three words", rules: "Must-haves", photos: "Photos" }[s.id] || s.id;
+  function save() { try { S.savedAt = Date.now(); localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
+
+  // Offer the way out as soon as there is anything to get out of.
+  (function () {
+    var btn = $("restart");
+    if (!btn) return;
+    if (S.started || S.done || (S.msgs && S.msgs.length) || (S.a && S.a.business_name)) btn.hidden = false;
+    btn.addEventListener("click", function () {
+      if (!confirm("Start the interview again from the beginning? Your answers so far will be cleared.")) return;
+      try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+      location.replace(location.pathname);
+    });
+  })();
+  function esc(s) { return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;"); }
+  function fb(ev, p) { try { if (window.fbq) fbq("trackCustom", ev, p || {}); } catch (e) {} }
+  function metricsOff() { try { return localStorage.getItem("duna_notrack") === "1"; } catch (e) { return false; } }
+  function cookie(n) { var m = document.cookie.match("(?:^|; )" + n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + "=([^;]*)"); return m ? decodeURIComponent(m[1]) : ""; }
+
+  // ---------- thread helpers ----------
+  // The bottom of the conversation is whatever comes last — the composer when it is open, otherwise
+  // the newest message. Scrolling the bubble alone would leave the input just off screen.
+  function scrollTail() {
+    var t = (composer && !composer.hidden) ? composer : thread.lastElementChild;
+    if (t) t.scrollIntoView({ block: "end", behavior: "smooth" });
   }
-  function goalDetailQ() { return S.a.primary_goal === "Buy something" ? "What are your best sellers, and how do people buy them today?" : "What do people book, and how long does it usually take?"; }
-  function answered(s) {
-    if (s.type === "talk") return !!(S.a[s.field] || "").trim();
-    if (s.type === "contact") return !!(S.a.first_name && S.a.phone);
-    if (s.type === "goal") return !!S.a.primary_goal;
-    if (s.type === "vibe") return (S.a.vibe_words || []).length > 0;
-    if (s.type === "rules") return !!(S.a.rules_talk || (S.a.pages || []).length);
-    if (s.type === "photos") return S.photos.length > 0 || !!S.a.photo_folder_link;
-    if (s.type === "places") return !!S.google;
-    return false;
+  function bubble(who, html, wide) {
+    var d = document.createElement("div");
+    d.className = "msg " + who + (wide ? " wide" : "");
+    d.innerHTML = html;
+    thread.appendChild(d);
+    scrollTail();
+    return d;
+  }
+  // A bare block in the thread — no bubble, no card, no shadow. Used for the inline fields so they
+  // sit ON the conversation background instead of hovering above it in a panel.
+  function inline(html) {
+    var d = document.createElement("div");
+    d.className = "inline";
+    d.innerHTML = html;
+    thread.appendChild(d);
+    scrollTail();
+    return d;
+  }
+  function say(text) { return bubble("bot", esc(text).replace(/\n/g, "<br>")); }
+  function me(text) { return bubble("me", esc(text).replace(/\n/g, "<br>")); }
+  function typing(on) {
+    var t = $("typing");
+    if (on && !t) { var d = document.createElement("div"); d.className = "typing"; d.id = "typing";
+      d.innerHTML = "<span></span><span></span><span></span>"; thread.appendChild(d);
+      scrollTail(); }
+    if (!on && t) t.remove();
   }
 
-  // ==== SCREEN BODIES ====
-  function field(label, name, type, extraAttrs) {
-    return '<div class="field"><label for="f-' + name + '">' + label + '</label><input id="f-' + name + '" type="' + type + '" ' + (extraAttrs || "") + ' value="' + esc(S.a[name] || "") + '"></div>';
+  // ================= PHASE 1 — Google Places (no model, no cost) =================
+  // Reads as a text conversation, not a form. The question is an ordinary bubble; the field sits
+  // directly on the page background with no card and no shadow; matches drop in as plain rows
+  // underneath it. Whatever the person picks is echoed back as their own message and the field
+  // disappears — the way a sent text behaves.
+  function askPlaces() {
+    say("Hi — what's your business called? Type the name and city and I'll pull the details from Google, so you don't have to.");
+    placesField();
   }
-  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
-  function renderContact() {
-    extra.innerHTML = '<div class="grid2">' +
-      field("First name *", "first_name", "text", 'autocomplete="given-name" required') +
-      field("Last name", "last_name", "text", 'autocomplete="family-name"') +
-      field("Phone (for texts) *", "phone", "tel", 'autocomplete="tel" required') +
-      field("Email — optional", "email", "email", 'autocomplete="email"') +
-      '<div class="field" style="grid-column:1/-1">' + field("Business name *", "business_name", "text", 'autocomplete="organization" required') + '</div></div>';
-    ["first_name", "last_name", "phone", "email", "business_name"].forEach(function (n) {
-      $("f-" + n).addEventListener("input", function () { S.a[n] = this.value; save(); updateHeard(); updateNext(); });
-    });
-    setTimeout(function () { try { $("f-" + (S.a.first_name ? "phone" : "first_name")).focus({ preventScroll: true }); } catch (e) {} }, 60);
-  }
-  function renderGoal() {
-    extra.innerHTML = '<div class="choices" id="goals">' + GOALS.map(function (g) {
-      return '<button type="button" class="choice' + (S.a.primary_goal === g ? " on" : "") + '" data-v="' + g + '"><span class="mark"></span>' + g + '</button>';
-    }).join("") + '</div>';
-    extra.querySelectorAll(".choice").forEach(function (b) {
-      b.addEventListener("click", function () {
-        S.a.primary_goal = b.getAttribute("data-v"); save();
-        extra.querySelectorAll(".choice").forEach(function (x) { x.classList.toggle("on", x === b); });
-        updateNext();
-      });
-    });
-  }
-  function renderVibe() {
-    var picked = S.a.vibe_words || [];
-    extra.innerHTML = '<div class="words" id="words">' + VIBE_WORDS.map(function (w) {
-      return '<button type="button" class="word' + (picked.indexOf(w) !== -1 ? " on" : "") + '" data-v="' + w + '">' + w + '</button>';
-    }).join("") + '</div>' +
-      '<p class="subq">Any site or brand whose look you’d want to sit next to? Any you can’t stand? Brand colors?</p>' +
-      '<textarea id="refs" rows="3" placeholder="' + esc(GHOST.design_refs) + '">' + esc(S.a.design_refs || "") + '</textarea>' +
-      '<p class="subq">Your logo (optional)</p><button type="button" class="upload-btn" id="upload-logo-btn">&#8682; Upload logo</button><div id="logo-preview">' + (S.a.logo_url ? '<img src="' + esc(S.a.logo_url) + '" alt="Your logo">' : "") + '</div><div class="err" id="logo-err" hidden></div>';
-    function syncWords() {
-      var on = S.a.vibe_words || [];
-      extra.querySelectorAll(".word").forEach(function (b) { var v = b.getAttribute("data-v"); b.classList.toggle("on", on.indexOf(v) !== -1); b.disabled = on.length >= 3 && on.indexOf(v) === -1; });
+  // The field itself, wired. Used for the first ask and again if they say "Not me", so the two paths
+  // can never drift apart.
+  function placesField() {
+    var w = inline(
+      '<input id="gq" type="text" placeholder="e.g. Maria&rsquo;s Bakery, Pasadena" autocomplete="off" ' +
+        'autocapitalize="words" enterkeyhint="search" aria-label="Business name and city">' +
+      '<div class="glist" id="glist" hidden></div>' +
+      '<button type="button" class="linkbtn" id="g-skip">Not on Google &mdash; I&rsquo;ll type it</button>');
+    var gq = w.querySelector("#gq"), glist = w.querySelector("#glist"), timer = null;
+
+    function choose(id, label) {
+      glist.hidden = true;
+      if (!S.a.business_name) { S.a.business_name = label; save(); }
+      me(label);      // their pick becomes their message
+      w.remove();     // and the field goes, like a text that has been sent
+      gDetails(id);
     }
-    extra.querySelectorAll(".word").forEach(function (b) {
-      b.addEventListener("click", function () {
-        var v = b.getAttribute("data-v"); var on = S.a.vibe_words || [];
-        if (on.indexOf(v) !== -1) on = on.filter(function (x) { return x !== v; }); else if (on.length < 3) on.push(v);
-        S.a.vibe_words = on; save(); syncWords(); updateNext();
-      });
-    });
-    syncWords();
-    $("refs").addEventListener("input", function () { S.a.design_refs = this.value; save(); });
-    $("upload-logo-btn").addEventListener("click", function () {
-      if (!cloudinaryReady("logo-err")) return;
-      cloudinary.createUploadWidget({ cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET, folder: folderSlug() + "/logo", sources: ["local", "google_drive", "dropbox", "url"], multiple: false, clientAllowedFormats: ["image"], maxFileSize: 10000000 },
-        function (error, result) {
-          if (error) { showErr("logo-err", "That upload didn’t go through — try again, or just describe your logo."); return; }
-          if (result && result.event === "success") { S.a.logo_url = result.info.secure_url; save(); $("logo-preview").innerHTML = '<img src="' + esc(S.a.logo_url) + '" alt="Your logo">'; }
-        }).open();
-    });
-  }
-  function renderRules() {
-    var picked = S.a.pages || [];
-    extra.innerHTML = '<textarea id="rules" rows="4" placeholder="' + esc(GHOST.rules_talk) + '">' + esc(S.a.rules_talk || "") + '</textarea>' +
-      '<p class="talk-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span>Keyboard mic works here too.</span></p>' +
-      '<p class="subq">Which pages do you picture? <span style="font-weight:500;color:var(--muted)">Home is always included.</span></p><div class="words" id="pages">' + PAGES.map(function (p) {
-        return '<button type="button" class="word' + (picked.indexOf(p) !== -1 ? " on" : "") + '" data-v="' + p + '">' + p + '</button>';
-      }).join("") + '</div>';
-    $("rules").addEventListener("input", function () { S.a.rules_talk = this.value; save(); updateHeard(); });
-    extra.querySelectorAll("#pages .word").forEach(function (b) {
-      b.addEventListener("click", function () {
-        var v = b.getAttribute("data-v"); var on = S.a.pages || [];
-        if (v === "You decide") on = on.indexOf(v) !== -1 ? [] : ["You decide"];
-        else { on = on.filter(function (x) { return x !== "You decide"; }); on = on.indexOf(v) !== -1 ? on.filter(function (x) { return x !== v; }) : on.concat([v]); }
-        S.a.pages = on; save();
-        extra.querySelectorAll("#pages .word").forEach(function (x) { x.classList.toggle("on", on.indexOf(x.getAttribute("data-v")) !== -1); });
-      });
-    });
-    setTimeout(function () { try { $("rules").focus({ preventScroll: true }); } catch (e) {} }, 60);
-  }
-  function renderPhotos() {
-    extra.innerHTML = '<button type="button" class="upload-btn" id="upload-photos-btn">&#8682; Add photos</button><div class="err" id="photo-err" hidden></div><div class="photo-grid" id="photo-grid"></div>' +
-      '<p class="subq" style="font-weight:600;font-size:0.9rem;color:var(--muted)">Trouble uploading? Paste a shared folder link (Drive, Dropbox, iCloud):</p><input type="url" id="folder" placeholder="https://drive.google.com/…" value="' + esc(S.a.photo_folder_link || "") + '">';
-    $("folder").addEventListener("input", function () { S.a.photo_folder_link = this.value; save(); updateNext(); });
-    drawPhotos();
-    $("upload-photos-btn").addEventListener("click", function () {
-      if (!cloudinaryReady("photo-err")) return;
-      cloudinary.createUploadWidget({ cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET, folder: folderSlug(), sources: ["local", "camera", "google_drive", "dropbox", "url"], multiple: true, maxFiles: 30, clientAllowedFormats: ["image"], maxFileSize: 10000000 },
-        function (error, result) {
-          if (error) { showErr("photo-err", "That upload didn’t go through. Try again, or paste a folder link below."); return; }
-          if (result && result.event === "success") { S.photos.push({ url: result.info.secure_url, caption: "", is_hero: S.photos.length === 0 }); save(); drawPhotos(); updateNext(); }
-        }).open();
-    });
-  }
-  function drawPhotos() {
-    var grid = $("photo-grid"); if (!grid) return; grid.innerHTML = "";
-    S.photos.forEach(function (p, i) {
-      var card = document.createElement("div"); card.className = "photo-card" + (p.is_hero ? " is-hero" : "");
-      var img = document.createElement("img"); img.src = p.url.indexOf("/upload/") !== -1 ? p.url.replace("/upload/", "/upload/c_fill,w_320,h_220,q_auto,f_auto/") : p.url; img.alt = "Photo " + (i + 1); card.appendChild(img);
-      var pc = document.createElement("div"); pc.className = "pc";
-      var cap = document.createElement("input"); cap.type = "text"; cap.placeholder = "What is this?"; cap.value = p.caption || ""; cap.addEventListener("input", function () { p.caption = cap.value; save(); }); pc.appendChild(cap);
-      var star = document.createElement("button"); star.type = "button"; star.className = "star"; star.textContent = p.is_hero ? "★ Most me" : "☆ Most me"; star.addEventListener("click", function () { S.photos.forEach(function (q) { q.is_hero = false; }); p.is_hero = true; save(); drawPhotos(); }); pc.appendChild(star);
-      card.appendChild(pc);
-      var rm = document.createElement("button"); rm.type = "button"; rm.className = "rm"; rm.textContent = "×"; rm.setAttribute("aria-label", "Remove"); rm.addEventListener("click", function () { var wasHero = p.is_hero; S.photos.splice(i, 1); if (wasHero && S.photos.length) S.photos[0].is_hero = true; save(); drawPhotos(); updateNext(); }); card.appendChild(rm);
-      grid.appendChild(card);
-    });
-  }
-  function renderReview() {
-    var rows = [
-      ["Business", S.a.business_name || "—", "contact"],
-      ["You", [S.a.first_name, S.a.last_name].filter(Boolean).join(" ") + (S.a.phone ? " · " + S.a.phone : "") + (S.a.email ? " · " + S.a.email : ""), "contact"],
-      ["What you do", trunc(S.a.what_you_do, 140), "what"],
-      ["Services & prices", trunc(S.a.services_talk, 140), "services"],
-      ["Your story", trunc(S.a.story_origin, 140), "origin"],
-      ["Goal", S.a.primary_goal || "—", "goal"],
-      ["Photos", S.photos.length ? S.photos.length + " photo" + (S.photos.length === 1 ? "" : "s") + (S.photos.some(function (p) { return p.is_hero; }) ? " (one starred)" : "") : (S.a.photo_folder_link ? "Folder link" : "None yet"), "photos"]
-    ];
-    var skippedList = visibleScreens().filter(function (s) { return s.type !== "review" && s.type !== "places" && !answered(s); }).map(shortLabel);
-    extra.innerHTML = '<div class="review">' + rows.map(function (r) {
-      return '<div class="row"><b>' + r[0] + '</b><span>' + esc(r[1]) + '</span><button type="button" data-go="' + r[2] + '">Fix</button></div>';
-    }).join("") + '</div>' + (skippedList.length ? '<p class="missing">Skipped: ' + skippedList.join(", ") + ' — no problem, I’ll ask by text.</p>' : "") +
-      '<p class="missing">Tap <strong>Send it</strong> and you’ll get a one-tap button to text me. Nothing goes live until you’ve approved it.</p>';
-    extra.querySelectorAll("[data-go]").forEach(function (b) {
-      b.addEventListener("click", function () { var id = b.getAttribute("data-go"); var idx = visibleScreens().findIndex(function (s) { return s.id === id; }); if (idx >= 0) go(idx); });
-    });
-  }
-  function trunc(s, n) { s = (s || "").trim(); return s ? (s.length > n ? s.slice(0, n) + "…" : s) : "—"; }
-
-  // ==== GOOGLE PLACES (New) ====
-  function renderPlaces() {
-    extra.innerHTML = '<div class="gsearch"><input type="text" id="gq" placeholder="e.g. Maria’s Bakery, Pasadena" autocomplete="off"><div class="glist" id="glist" hidden></div></div><div id="gcard"></div>' +
-      '<p class="gnote">Not on Google, or would rather type it yourself? Just tap Skip.</p>';
-    var gq = $("gq"), glist = $("glist"), timer = null;
-    if (S.google) drawGoogleCard();
     gq.addEventListener("input", function () {
       clearTimeout(timer); var v = gq.value.trim();
       if (v.length < 3) { glist.hidden = true; return; }
-      timer = setTimeout(function () { gAutocomplete(v).then(function (items) {
-        glist.innerHTML = items.map(function (it) { return '<button type="button" data-id="' + esc(it.id) + '"><strong>' + esc(it.main) + '</strong><small>' + esc(it.sec) + '</small></button>'; }).join("");
-        glist.hidden = !items.length;
-        glist.querySelectorAll("button").forEach(function (b) { b.addEventListener("click", function () { glist.hidden = true; gq.value = b.querySelector("strong").textContent; gDetails(b.getAttribute("data-id")); }); });
-      }).catch(function () { glist.hidden = true; }); }, 280);
+      timer = setTimeout(function () {
+        gAuto(v).then(function (items) {
+          glist.innerHTML = items.map(function (it) {
+            return '<button type="button" data-id="' + esc(it.id) + '"><strong>' + esc(it.main) + '</strong>' +
+                   (it.sec ? '<small>' + esc(it.sec) + '</small>' : "") + '</button>';
+          }).join("");
+          glist.hidden = !items.length;
+          glist.querySelectorAll("button").forEach(function (b) {
+            b.addEventListener("click", function () { choose(b.getAttribute("data-id"), b.querySelector("strong").textContent); });
+          });
+        }).catch(function () { glist.hidden = true; });
+      }, 280);
     });
-    setTimeout(function () { try { gq.focus({ preventScroll: true }); } catch (e) {} }, 60);
+    // Enter takes the first match — on a phone that is the keyboard's "search" key.
+    gq.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter") return;
+      e.preventDefault();
+      var b = glist.hidden ? null : glist.querySelector("button");
+      if (b) b.click();
+    });
+    w.querySelector("#g-skip").addEventListener("click", function () {
+      var typed = gq.value.trim();
+      if (typed) { S.a.business_name = typed; save(); }
+      me(typed || "It's not on Google");
+      w.remove();
+      askContact();
+    });
+    setTimeout(function () { try { gq.focus({ preventScroll: true }); } catch (e) {} }, 80);
   }
-  function gAutocomplete(input) {
-    return fetch("https://places.googleapis.com/v1/places:autocomplete", { method: "POST", headers: { "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_PLACES_KEY }, body: JSON.stringify({ input: input, includedRegionCodes: ["us"] }) })
-      .then(function (r) { return r.json(); })
-      .then(function (j) { return (j.suggestions || []).filter(function (s) { return s.placePrediction; }).slice(0, 5).map(function (s) { var p = s.placePrediction; return { id: p.placeId, main: (p.structuredFormat && p.structuredFormat.mainText && p.structuredFormat.mainText.text) || p.text.text, sec: (p.structuredFormat && p.structuredFormat.secondaryText && p.structuredFormat.secondaryText.text) || "" }; }); });
+  function gAuto(v) {
+    return fetch("https://places.googleapis.com/v1/places:autocomplete", {
+      method: "POST", headers: { "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_PLACES_KEY },
+      body: JSON.stringify({ input: v, includedRegionCodes: ["us"] })
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      return (j.suggestions || []).filter(function (s) { return s.placePrediction; }).slice(0, 5).map(function (s) {
+        var p = s.placePrediction;
+        return { id: p.placeId,
+                 main: (p.structuredFormat && p.structuredFormat.mainText && p.structuredFormat.mainText.text) || p.text.text,
+                 sec: (p.structuredFormat && p.structuredFormat.secondaryText && p.structuredFormat.secondaryText.text) || "" };
+      });
+    });
   }
   function gDetails(placeId) {
-    var mask = "id,displayName,formattedAddress,nationalPhoneNumber,internationalPhoneNumber,websiteUri,regularOpeningHours.weekdayDescriptions,rating,userRatingCount,reviews,photos,primaryTypeDisplayName,editorialSummary,googleMapsUri";
-    $("gcard").innerHTML = '<p class="gnote">Looking that up…</p>';
-    fetch("https://places.googleapis.com/v1/places/" + encodeURIComponent(placeId), { headers: { "X-Goog-Api-Key": GOOGLE_PLACES_KEY, "X-Goog-FieldMask": mask } })
+    typing(true);
+    var mask = "id,displayName,formattedAddress,nationalPhoneNumber,websiteUri,regularOpeningHours.weekdayDescriptions,rating,userRatingCount,reviews,photos,primaryTypeDisplayName,editorialSummary";
+    fetch("https://places.googleapis.com/v1/places/" + encodeURIComponent(placeId),
+      { headers: { "X-Goog-Api-Key": GOOGLE_PLACES_KEY, "X-Goog-FieldMask": mask } })
       .then(function (r) { return r.json(); })
       .then(function (p) {
-        var name = p.displayName && p.displayName.text || "";
-        var g = {
-          place_id: p.id, name: name, address: p.formattedAddress || "", phone: p.nationalPhoneNumber || p.internationalPhoneNumber || "", website: p.websiteUri || "",
-          hours: (p.regularOpeningHours && p.regularOpeningHours.weekdayDescriptions || []).join("; "), rating: p.rating || null, ratings: p.userRatingCount || null,
-          type: p.primaryTypeDisplayName && p.primaryTypeDisplayName.text || "", summary: p.editorialSummary && p.editorialSummary.text || "", maps: p.googleMapsUri || "",
-          reviews: (p.reviews || []).filter(function (r) { return r.text && r.text.text; }).map(function (r) { return { text: r.text.text, author: r.authorAttribution && r.authorAttribution.displayName || "", rating: r.rating || null, use: false }; }),
-          photos: (p.photos || []).slice(0, 10).map(function (ph) { var by = ph.authorAttributions && ph.authorAttributions[0] && ph.authorAttributions[0].displayName || ""; return { name: ph.name, by: by, owner: !!by && !!name && by.toLowerCase().indexOf(name.toLowerCase().split(" ")[0]) !== -1, url: null, use: false }; })
+        var name = (p.displayName && p.displayName.text) || "";
+        var g = { place_id: p.id, name: name, address: p.formattedAddress || "",
+          phone: p.nationalPhoneNumber || "", website: p.websiteUri || "",
+          hours: ((p.regularOpeningHours && p.regularOpeningHours.weekdayDescriptions) || []).join("; "),
+          rating: p.rating || null, ratings: p.userRatingCount || null,
+          type: (p.primaryTypeDisplayName && p.primaryTypeDisplayName.text) || "",
+          summary: (p.editorialSummary && p.editorialSummary.text) || "",
+          reviews: (p.reviews || []).slice(0, 5).map(function (r) {
+            return { text: (r.originalText && r.originalText.text) || (r.text && r.text.text) || "",
+                     author: (r.authorAttribution && r.authorAttribution.displayName) || "", rating: r.rating || null, use: false };
+          }).filter(function (r) { return r.text; }),
+          photos: (p.photos || []).slice(0, 8).map(function (ph) {
+            return { name: ph.name, url: null,
+                     owner: !!((ph.authorAttributions || [])[0] && (ph.authorAttributions[0].displayName || "").toLowerCase().indexOf(name.toLowerCase().slice(0, 8)) >= 0),
+                     by: ((ph.authorAttributions || [])[0] || {}).displayName || "" };
+          })
         };
-        // resolve photo media URLs (public googleusercontent links)
         return Promise.all(g.photos.map(function (ph) {
-          return fetch("https://places.googleapis.com/v1/" + ph.name + "/media?maxWidthPx=1600&skipHttpRedirect=true&key=" + GOOGLE_PLACES_KEY).then(function (r) { return r.json(); }).then(function (m) { ph.url = m.photoUri || null; ph.use = ph.owner; }).catch(function () {});
-        })).then(function () { g.photos = g.photos.filter(function (ph) { return ph.url; }); S.google = g; save(); drawGoogleCard(); });
-      })
-      .catch(function () { $("gcard").innerHTML = '<p class="err">Couldn’t reach Google just now — tap Skip and I’ll take it from your answers.</p>'; });
-  }
-  function drawGoogleCard() {
-    var g = S.google; if (!g) return;
-    $("gcard").innerHTML = '<div class="gcard"><h3>' + esc(g.name) + '</h3>' +
-      (g.type ? '<p>' + esc(g.type) + '</p>' : "") + (g.address ? '<p>' + esc(g.address) + '</p>' : "") + (g.phone ? '<p>' + esc(g.phone) + '</p>' : "") +
-      (g.hours ? '<p><small>' + esc(g.hours.split("; ")[0]) + (g.hours.indexOf(";") !== -1 ? " …" : "") + '</small></p>' : "") +
-      (g.rating ? '<p>★ ' + g.rating + ' · ' + g.ratings + ' reviews</p>' : "") +
-      (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(ph.url) + '" alt="">'; }).join("") + '</div>' : "") +
-      '<div class="acts"><button type="button" class="btn btn-primary" id="g-yes">Yes, that’s me</button><button type="button" class="btn btn-ghost" id="g-no">Not me</button></div>' +
-      (S.a.place_id === g.place_id ? gPickHTML(g) : "") + '</div>';
-    $("g-yes").addEventListener("click", function () { applyGoogle(g); drawGoogleCard(); fb("GoogleConfirmed"); });
-    $("g-no").addEventListener("click", function () { S.google = null; S.a.place_id = ""; save(); $("gcard").innerHTML = ""; $("gq").value = ""; $("gq").focus(); });
-    bindPicks();
-  }
-  function gPickHTML(g) {
-    var h = '<div class="gpick">';
-    if (g.reviews.length) {
-      h += '<p class="subq" style="margin-top:14px">Use any of these reviews on your site? <span style="font-weight:500;color:var(--muted)">(shown as “via Google”)</span></p>';
-      h += g.reviews.map(function (r, i) { return '<label><input type="checkbox" data-rev="' + i + '"' + (r.use ? " checked" : "") + '><span>“' + esc(r.text.length > 220 ? r.text.slice(0, 220) + "…" : r.text) + '” <span class="who">— ' + esc(r.author) + (r.rating ? " · " + r.rating + "★" : "") + '</span></span></label>'; }).join("");
-    }
-    if (g.photos.length) {
-      h += '<p class="subq">Start with any of these photos? <span style="font-weight:500;color:var(--muted)">(ones you posted are pre-checked; you can add your own later)</span></p><div class="gphotos">';
-      h += g.photos.map(function (ph, i) { return '<label><input type="checkbox" data-ph="' + i + '"' + (ph.use ? " checked" : "") + '><img src="' + esc(ph.url) + '" alt=""><small>' + esc(ph.by ? "by " + ph.by : "") + '</small></label>'; }).join("") + '</div>';
-    }
-    return h + '</div>';
-  }
-  function bindPicks() {
-    extra.querySelectorAll("[data-rev]").forEach(function (cb) { cb.addEventListener("change", function () { S.google.reviews[+cb.getAttribute("data-rev")].use = cb.checked; save(); }); });
-    extra.querySelectorAll("[data-ph]").forEach(function (cb) { cb.addEventListener("change", function () { S.google.photos[+cb.getAttribute("data-ph")].use = cb.checked; save(); }); });
-  }
-  function applyGoogle(g) {
-    S.a.place_id = g.place_id;
-    if (!S.a.business_name) S.a.business_name = g.name;
-    if (!S.a.phone && g.phone) S.a.phone = g.phone;
-    if (g.address) S.a.address = g.address;
-    if (g.hours) S.a.hours = g.hours;
-    if (g.website) S.a.current_website_url = g.website;
-    if (!S.a.what_you_do && (g.type || g.summary)) GHOST.what_you_do = "e.g. " + (g.summary || (g.type + " in " + (g.address.split(",").slice(-3, -2)[0] || "").trim()));
-    save(); updateHeard(); updateNext();
-  }
-  function googleExports() {
-    var g = S.google; if (!g || S.a.place_id !== g.place_id) return { testimonials: "", gphotos: [] };
-    var t = g.reviews.filter(function (r) { return r.use; }).map(function (r) { return "“" + r.text + "” — " + r.author + " (via Google)"; }).join("\n");
-    var ph = g.photos.filter(function (p) { return p.use; }).map(function (p) { return { url: p.url, caption: "From Google listing" + (p.by ? " (by " + p.by + ")" : ""), is_hero: false, source: "google" }; });
-    return { testimonials: t, gphotos: ph };
-  }
-
-  // ==== HELPERS ====
-  function folderSlug() { var n = (S.a.business_name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); return "intake/" + (n || "unnamed"); }
-  function cloudinaryReady(errId) {
-    if (typeof cloudinary === "undefined") { showErr(errId, "The uploader couldn’t load — check your connection, or paste a folder link instead."); return false; }
-    $(errId).hidden = true; return true;
-  }
-  function showErr(id, msg) { var el = $(id); if (!el) return; el.textContent = msg; el.hidden = false; }
-  function words(s) { return (s || "").trim().split(/\s+/).filter(Boolean).length; }
-  function updateHeard() {
-    var all = Object.keys(S.a).map(function (k) { return typeof S.a[k] === "string" ? S.a[k] : ""; }).join(" ");
-    var chips = [
-      ["Name", !!S.a.first_name], ["Phone", /\d{3}[^\d]?\d{3}[^\d]?\d{4}/.test(S.a.phone || "")], ["Email", /\S+@\S+\.\S+/.test(S.a.email || "")],
-      ["What you do", words(S.a.what_you_do) >= 6], ["Services", words(S.a.services_talk) >= 4], ["Prices", /\$\s?\d|\b\d+\s?(dollars|bucks)\b|\bquote\b|\bestimate\b/i.test(S.a.services_talk || "")],
-      ["Story", words(S.a.story_origin) >= 8], ["Goal", !!S.a.primary_goal], ["Photos", S.photos.length > 0]
-    ];
-    heard.innerHTML = chips.map(function (c) { return '<span class="' + (c[1] ? "on" : "") + '">' + (c[1] ? "✓ " : "") + c[0] + '</span>'; }).join("");
-  }
-  function canProceed(sc) {
-    if (sc.type === "contact") return !!(S.a.first_name && /\d{7,}/.test((S.a.phone || "").replace(/\D/g, "")) && S.a.business_name && (!(S.a.email || "").trim() || /\S+@\S+\.\S+/.test(S.a.email)));
-    if (sc.type === "talk" && sc.required) return words(S.a[sc.field]) >= HARD_MIN_WORDS;
-    if (sc.type === "goal") return !!S.a.primary_goal;
-    if (sc.type === "vibe") return (S.a.vibe_words || []).length >= 2;
-    return true;
-  }
-  function updateNext() { next.disabled = !canProceed(cur()); }
-
-  // ==== NAV ====
-  function go(i) { S.screen = Math.max(0, Math.min(i, visibleScreens().length - 1)); save(); render(); }
-  function commitTalk() { var sc = cur(); if (sc && sc.type === "talk") { S.a[sc.field] = talk.value; save(); } }
-  function updateWC() {
-    var sc = cur(), el = $("wc");
-    if (!el) return;
-    if (!sc || sc.type !== "talk" || !sc.required) { el.hidden = true; return; }
-    var w = words(S.a[sc.field]);
-    el.hidden = false;
-    el.classList.toggle("ok", w >= HARD_MIN_WORDS);
-    el.textContent = w >= HARD_MIN_WORDS ? "\u2713 " + w + " words \u2014 good to go"
-                   : w + " of " + HARD_MIN_WORDS + " words \u2014 keep talking";
-  }
-  talk.addEventListener("input", function () { commitTalk(); updateHeard(); updateNext(); updateWC(); if (!S.started) { S.started = true; save(); fb("InterviewStart"); } });
-  next.addEventListener("click", function () {
-    var sc = cur(); commitTalk();
-    if (!canProceed(sc)) {
-      err.textContent = sc.type === "contact" ? "Just need your first name, a phone number, and the business name."
-        : sc.type === "talk" ? "Give me a full sentence or two here — a few words isn’t enough to build a site that sounds like you."
-        : "Just need this one to continue.";
-      err.hidden = false; return;
-    }
-    // one-time nudges on talk screens
-    if (sc.type === "talk" && !S.probed[sc.id]) {
-      var w = words(S.a[sc.field]);
-      if (sc.minWords && w > 0 && w < sc.minWords) { S.probed[sc.id] = true; save(); nudge.textContent = "Say a bit more — like you’d tell a neighbor. (Or tap Next again to move on.)"; nudge.classList.add("show"); talk.focus({ preventScroll: true }); return; }
-      if (sc.priceNudge && w > 0 && !/\$\s?\d|\b\d+\s?(dollars|bucks)\b|\bquote\b|\bestimate\b|\bfree\b|\bstarts? at\b/i.test(S.a[sc.field])) { S.probed[sc.id] = true; save(); nudge.textContent = "Rough prices? Or just say “by quote.” (Or tap Next again to move on.)"; nudge.classList.add("show"); talk.focus({ preventScroll: true }); return; }
-    }
-    fb("ScreenComplete", { screen: sc.id, n: S.screen + 1 });
-    if (sc.type === "contact" && !S.startSubmitted) submitStage("start");
-    if (sc.type === "review") { submitStage("complete"); return; }
-    go(S.screen + 1);
-  });
-  skip.addEventListener("click", function () { var sc = cur(); commitTalk(); if (S.skipped.indexOf(sc.id) === -1) S.skipped.push(sc.id); save(); fb("ScreenSkip", { screen: sc.id }); go(S.screen + 1); });
-  back.addEventListener("click", function () { commitTalk(); go(S.screen - 1); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !next.disabled) next.click(); });
-  $("totop").addEventListener("click", function () {
-    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    try { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }
-    catch (e) { window.scrollTo(0, 0); }          // older Safari has no options object
-  });
-  $("start-over").addEventListener("click", function () {
-    if (!confirm("Clear your saved answers on this device and start fresh?")) return;
-    try { localStorage.removeItem(STORE_KEY); } catch (e) {}
-    S = { a: {}, screen: 0, started: false, savedAt: 0, submittedAt: null, skipped: [], photos: [], google: null, probed: {} }; $("resume").hidden = true; render();
-  });
-
-  // ==== SUBMIT ====
-  function cookie(name) {
-    var m = document.cookie.match("(?:^|; )" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "=([^;]*)");
-    return m ? decodeURIComponent(m[1]) : "";
-  }
-  function metricsOff() { try { return localStorage.getItem("duna_notrack") === "1"; } catch (e) { return false; } }
-  function fillForm(stage) {
-    var f = $("interview-form"); var ge = googleExports();
-    var vals = Object.assign({}, S.a, {
-      stage: stage,
-      vibe_words: (S.a.vibe_words || []).join(", "),
-      pages: (S.a.pages || []).join(", "),
-      photos_json: JSON.stringify(S.photos.concat(ge.gphotos)),
-      testimonials: ge.testimonials,
-      place_json: S.google && S.a.place_id === S.google.place_id ? JSON.stringify(Object.assign({}, S.google, { photos: S.google.photos.map(function (p) { return { url: p.url, by: p.by, use: p.use }; }) })) : "",
-      skipped: S.skipped.join(", "), utm: utm,
-      // For the server-side Lead event: elapsed_ms proves a person was here long enough to type,
-      // _fbp/_fbc carry Meta's own attribution cookies so match quality doesn't drop, and
-      // metrics_off honours the ?metrics=off kill switch so owner testing never reaches the pixel.
-      elapsed_ms: String(Date.now() - LOADED_AT),
-      fbp: cookie("_fbp"), fbc: cookie("_fbc"), ua: navigator.userAgent,
-      metrics_off: metricsOff() ? "1" : ""
-    });
-    Array.prototype.forEach.call(f.querySelectorAll("input[name]"), function (inp) { if (inp.name in vals && inp.name !== "form-name") inp.value = vals[inp.name] == null ? "" : vals[inp.name]; });
-    return f;
-  }
-  function submitStage(stage) {
-    var f = fillForm(stage);
-    var payload = { secret: LEADS_SECRET, lead_id: S.lead_id, form: "website-interview", source_url: location.href.split("?")[0] };
-    Array.prototype.forEach.call(f.querySelectorAll("input[name]"), function (inp) { if (inp.name !== "form-name") payload[inp.name] = inp.value; });
-    if (stage === "complete") { next.disabled = true; next.textContent = "Sending…"; }
-    // text/plain keeps the request "simple" (no CORS preflight), which is what Apps Script web apps accept.
-    return fetch(LEADS_URL, { method: "POST", mode: "cors", redirect: "follow", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
-      .then(function (r) { return r.text().then(function (t) { var j = {}; try { j = JSON.parse(t); } catch (e) {} if (!r.ok || j.ok === false) throw new Error(j.error || ("HTTP " + r.status)); return j; }); })
-      .then(function (j) {
-        if (stage === "start") { S.startSubmitted = true; save(); fb("LeadStart"); return; }
-        S.submittedAt = Date.now(); save(); fb("InterviewComplete");
-        // lead_ok comes from the server and is the only thing that lets thanks.html fire Lead.
-        // lead_id rides along as the pixel's event_id so a server-side event can dedupe against it later.
-        try { sessionStorage.setItem("duna_intake", JSON.stringify({ first_name: S.a.first_name, business_name: S.a.business_name, submitted: true, skipped: S.skipped, lead_ok: j && j.lead_ok === true, lead_id: S.lead_id })); } catch (e) {}
-        window.location.href = "thanks.html";
+          return fetch("https://places.googleapis.com/v1/" + ph.name + "/media?maxWidthPx=1600&skipHttpRedirect=true&key=" + GOOGLE_PLACES_KEY)
+            .then(function (r) { return r.json(); }).then(function (m) { ph.url = m.photoUri || null; ph.use = ph.owner; }).catch(function () {});
+        })).then(function () {
+          g.photos = g.photos.filter(function (ph) { return ph.url; });
+          typing(false); S.google = g; save(); drawCard(g);
+        });
       })
       .catch(function () {
-        if (stage === "start") return; // silent; retried at the end
-        next.disabled = false; next.textContent = "Send it →";
-        err.innerHTML = "<strong>Hmm — that didn’t go through.</strong> Are you online? Your answers are saved on this device. Tap Send again, or text me at <a href='sms:+17073855673'>(707) 385-5673</a>.";
-        err.hidden = false;
+        typing(false);
+        say("I couldn't reach Google just then — no problem, I'll take it from your answers.");
+        askContact();
       });
   }
-
-  // ==== INIT ====
-  if (S.savedAt && (Object.keys(S.a).length || S.photos.length)) {
-    $("resume-msg").innerHTML = S.submittedAt ? "<strong>You’ve already sent this to me</strong> — your answers are here if you want to change anything. Sending again just updates it." : "<strong>Welcome back</strong> — picking up where you left off.";
-    $("resume").hidden = false;
+  // The confirmation is a message from the bot, with the two replies as taps. No card.
+  // What Google found, as one message with nothing in it but the business — then the question as a
+  // separate message underneath, answered in the composer like every other question. No buttons
+  // living inside a panel.
+  function drawCard(g) {
+    bubble("bot",
+      '<p class="gname">' + esc(g.name) + '</p>' +
+      (g.type ? '<p class="gline">' + esc(g.type) + '</p>' : "") +
+      (g.address ? '<p class="gline">' + esc(g.address) + '</p>' : "") +
+      (g.hours ? '<p class="gline">' + esc(g.hours.split("; ")[0]) + (g.hours.indexOf(";") !== -1 ? " …" : "") + '</p>' : "") +
+      (g.rating ? '<p class="gline">★ ' + g.rating + ' · ' + g.ratings + ' reviews</p>' : "") +
+      (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(ph.url) + '" alt="">'; }).join("") + '</div>' : ""));
+    S.phase = "confirm"; save();
+    composer.hidden = false; hint.hidden = false;
+    botSays("Is that your business?");
   }
-  render();
+  var YES_RE = /^(y|ye|yes|yeah|yep|yup|sure|correct|right|aye|ok|okay|that'?s (it|me|us|right)|it is|us|me|mine|thats? me)\b/i;
+  var NO_RE  = /^(n|no|nope|nah|not|negative|wrong|different|another|isn'?t)\b/i;
+  function confirmAnswer(v) {
+    var g = S.google;
+    if (!g) { S.phase = "places"; save(); composer.hidden = true; hint.hidden = true; placesField(); return; }
+    if (YES_RE.test(v)) {
+      S.a.place_id = g.place_id;
+      if (!S.a.business_name) S.a.business_name = g.name;
+      // NOT the phone: Google lists the business line, which is often a landline, and Barrett
+      // replies by text. We ask for a textable number instead, offering this one as the default.
+      if (g.address) S.a.address = g.address;
+      if (g.hours) S.a.hours = g.hours;
+      if (g.website) S.a.current_website_url = g.website;
+      save(); fb("GoogleConfirmed");
+      askContact();
+      return;
+    }
+    if (NO_RE.test(v)) {
+      S.google = null; S.a.place_id = ""; S.a.business_name = ""; S.phase = "places"; save();
+      composer.hidden = true; hint.hidden = true;
+      botSays("No problem — try the name and city again.", placesField);
+      return;
+    }
+    botSays("Sorry — is that your business? Yes or no is fine.");
+  }
+
+  // ================= PHASE 2 — contact (still no model, no cost) =================
+  // Asked one at a time, in the thread, answered in the same composer they will use for the whole
+  // interview. Anything Google already told us is skipped rather than asked twice.
+  var CONTACT_STEPS = [
+    { key: "first_name",
+      ask:  "What's your first name?",
+      ok:   function (v) { return v.length >= 2 && v.length <= 40 && !/\d/.test(v); },
+      err:  "Just your first name is fine." },
+    { key: "business_name",
+      ask:  "And what's the business called?",
+      ok:   function (v) { return v.length >= 2; },
+      err:  "Whatever name you want on the site." },
+    { key: "phone",
+      ask:  function () {
+              var gp = S.google && S.google.phone;
+              return gp ? ("Last one — what's the best number to text you? Google lists " + gp + ", if that's the one.")
+                        : "Last one — what's the best number to text you?";
+            },
+      // "yes" / "that one" means the number we just read out to them.
+      coerce: function (v) {
+              var gp = S.google && S.google.phone;
+              if (gp && /^(y|yes|yeah|yep|yup|sure|same|that|correct|right)\b/i.test(v)) return gp;
+              return v;
+            },
+      ok:   function (v) { return v.replace(/\D/g, "").length >= 7; },
+      err:  "That doesn't look like a phone number. Barrett texts you the quote, so I do need one that receives texts." }
+  ];
+  var contactStep = null;
+
+  function askContact() {
+    S.phase = "contact"; save();
+    var g = S.google;
+    if (g) say("Got it — " + g.name + (g.address ? ", " + g.address.split(",")[0] : "") + ".");
+    composer.hidden = false; hint.hidden = false;
+    nextContact();
+  }
+  function nextContact() {
+    contactStep = null;
+    for (var i = 0; i < CONTACT_STEPS.length; i++) {
+      if (!String(S.a[CONTACT_STEPS[i].key] || "").trim()) { contactStep = CONTACT_STEPS[i]; break; }
+    }
+    if (!contactStep) { finishContact(); return; }
+    botSays(typeof contactStep.ask === "function" ? contactStep.ask() : contactStep.ask);
+  }
+  function contactAnswer(v) {
+    var st = contactStep;
+    if (!st) return;
+    var val = v.replace(/\s+/g, " ").trim();
+    if (st.coerce) val = st.coerce(val);
+    if (!st.ok(val)) { botSays(st.err); return; }
+    S.a[st.key] = val; save();
+    nextContact();
+  }
+  function finishContact() {
+    submitStage("start");
+    fb("LeadStart");
+    beginInterview();
+  }
+  // A short pause with the typing dots, so a reply never appears in the same instant they hit send.
+  function botSays(text, after) {
+    send.disabled = true; typing(true);
+    setTimeout(function () {
+      typing(false); send.disabled = false; say(text);
+      if (after) { after(); return; }
+      try { input.focus({ preventScroll: true }); } catch (e) {}
+    }, 420);
+  }
+
+  // ================= PHASE 3 — the interviewer (model starts HERE) =================
+  function knownFacts() {
+    var g = S.google, out = [];
+    out.push("Business: " + (S.a.business_name || "(unknown)"));
+    out.push("Owner's first name: " + (S.a.first_name || "(unknown)"));
+    if (g) {
+      if (g.type) out.push("Google category: " + g.type);
+      if (g.address) out.push("Address: " + g.address);
+      if (g.hours) out.push("Hours: " + g.hours);
+      if (g.website) out.push("Existing website: " + g.website);
+      if (g.rating) out.push("Google rating: " + g.rating + " from " + g.ratings + " reviews");
+      if (g.summary) out.push("Google summary: " + g.summary);
+      var rv = g.reviews.slice(0, 3).map(function (r) { return '"' + r.text.slice(0, 200) + '" — ' + r.author; });
+      if (rv.length) out.push("Recent Google reviews:\n" + rv.join("\n"));
+    }
+    return out.join("\n");
+  }
+  function beginInterview() {
+    S.phase = "chat"; S.started = true; save();
+    composer.hidden = false; hint.hidden = false;
+    turn("");   // empty user turn: the model opens
+  }
+  function turn(userText) {
+    if (S.done) return;
+    if (userText) { S.msgs.push({ role: "user", content: userText }); save(); }
+    send.disabled = true; typing(true);
+    fetch(LEADS_URL, {
+      method: "POST", mode: "cors", redirect: "follow",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        secret: LEADS_SECRET, action: "chat", lead_id: S.lead_id,
+        known: knownFacts(),
+        // Not a message from the person — it is the cue that starts the interview. "Let's begin."
+        // read as an empty answer and tripped the model's abandon-the-interview rule.
+        messages: S.msgs.length ? S.msgs : [{ role: "user", content: "(Interview starting. Ask your first question.)" }]
+      })
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      typing(false); send.disabled = false;
+      if (!j || j.ok === false) { say("Sorry — something went wrong on my end. Tap Send to try again, or text Barrett on (707) 385-5673."); return; }
+      S.msgs.push({ role: "assistant", content: j.reply }); save();
+      say(j.reply);
+      if (j.done) finish(j.fields);
+      else setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 60);
+    }).catch(function () {
+      typing(false); send.disabled = false;
+      say("I lost the connection there. Tap Send to try again.");
+    });
+  }
+
+  // ================= finish: write the brief to the sheet =================
+  function finish(fields) {
+    S.done = true; save();
+    composer.hidden = true; hint.hidden = true;
+    var extra = {};
+    if (fields) {
+      extra.what_you_do = fields.what_you_do || "";
+      extra.services_talk = fields.services_talk || "";
+      extra.story_origin = fields.story_origin || "";
+      extra.known_for = fields.known_for || "";
+      extra.typical_visitor = fields.typical_visitor || "";
+      extra.rules_talk = [fields.must_haves && ("Must have: " + fields.must_haves),
+                          fields.absolutely_nots && ("Absolutely not: " + fields.absolutely_nots)]
+                          .filter(Boolean).join("\n");
+      extra.aspirations = fields.aspirations || "";
+      extra.vibe_words = fields.vibe_words || "";
+      extra.pages = fields.pages_suggested || "";
+    }
+    extra.transcript = S.msgs.map(function (m) { return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content; }).join("\n\n");
+    submitStage("complete", extra).then(function (j) {
+      try {
+        sessionStorage.setItem("duna_intake", JSON.stringify({
+          first_name: S.a.first_name, business_name: S.a.business_name, submitted: true,
+          lead_ok: !!(j && j.lead_ok), lead_id: S.lead_id
+        }));
+      } catch (e) {}
+      window.location.href = "thanks.html";
+    }).catch(function () {
+      bubble("bot", '<div class="done"><h2>Thank you.</h2><p>Barrett will text you shortly. If you don’t hear back, message (707) 385-5673.</p></div>', true);
+    });
+  }
+
+  // ================= sheet submit (same endpoint, same guards) =================
+  function submitStage(stage, extra) {
+    var g = S.google;
+    var payload = {
+      secret: LEADS_SECRET, lead_id: S.lead_id, form: "website-chat", stage: stage,
+      source_url: location.href.split("?")[0],
+      elapsed_ms: String(Date.now() - LOADED_AT),
+      fbp: cookie("_fbp"), fbc: cookie("_fbc"), ua: navigator.userAgent,
+      metrics_off: metricsOff() ? "1" : "",
+      "bot-field": (document.querySelector('#hp [name="bot-field"]') || {}).value || "",
+      company_url: (document.querySelector('#hp [name="company_url"]') || {}).value || "",
+      first_name: S.a.first_name || "", phone: S.a.phone || "", email: S.a.email || "",
+      business_name: S.a.business_name || "", place_id: S.a.place_id || "",
+      address: S.a.address || "", hours: S.a.hours || "",
+      current_website_url: S.a.current_website_url || "",
+      primary_goal: "", utm: location.search.replace(/^\?/, "")
+    };
+    if (g) {
+      payload.place_json = JSON.stringify({ name: g.name, type: g.type, rating: g.rating, ratings: g.ratings, summary: g.summary });
+      payload.testimonials = g.reviews.filter(function (r) { return r.use; })
+        .map(function (r) { return "“" + r.text + "” — " + r.author + " (via Google)"; }).join("\n");
+      payload.photos_json = JSON.stringify(g.photos.filter(function (p) { return p.use; })
+        .map(function (p) { return { url: p.url, caption: "From Google listing" + (p.by ? " (by " + p.by + ")" : ""), is_hero: false, source: "google" }; }));
+    }
+    Object.keys(extra || {}).forEach(function (k) { payload[k] = extra[k]; });
+    return fetch(LEADS_URL, { method: "POST", mode: "cors", redirect: "follow",
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
+      .then(function (r) { return r.text(); }).then(function (t) { try { return JSON.parse(t); } catch (e) { return {}; } });
+  }
+
+  // ================= composer =================
+  function sendNow() {
+    var v = input.value.trim();
+    if (!v || send.disabled) return;
+    // The contact questions are answered in the same box, but they never reach the model — no API
+    // call, no cost, and the time floor below does not apply to them.
+    if (S.phase === "confirm") {
+      me(v); input.value = ""; input.style.height = "auto";
+      confirmAnswer(v);
+      return;
+    }
+    if (S.phase === "contact") {
+      me(v); input.value = ""; input.style.height = "auto";
+      contactAnswer(v);
+      return;
+    }
+    if ((Date.now() - LOADED_AT) < MIN_SECONDS_BEFORE_CHAT * 1000 && S.msgs.length === 0) {
+      // matches the server-side floor; a human cannot have got here this fast
+      return;
+    }
+    me(v); input.value = ""; input.style.height = "auto";
+    turn(v);
+  }
+  send.addEventListener("click", sendNow);
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendNow(); }
+  });
+  input.addEventListener("input", function () {
+    this.style.height = "auto"; this.style.height = Math.min(this.scrollHeight, 140) + "px";
+  });
+
+  // Back to the top. Declared before use — a call above its assignment killed this whole script once.
+  (function () {
+    var t = $("totop");
+    if (!t) return;
+    t.addEventListener("click", function () {
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      try { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }
+      catch (e) { window.scrollTo(0, 0); }   // older Safari has no options object
+    });
+  })();
+
+  // ================= boot =================
+  if (S.done) {
+    bubble("bot", '<div class="done"><h2>You’ve already sent this.</h2><p>Barrett will text you shortly.</p>' +
+      '<p><a class="restart-link" href="?restart">Start a new interview</a></p></div>', true);
+  } else if (S.started && S.msgs.length) {
+    S.msgs.forEach(function (m) { (m.role === "user" ? me : say)(m.content); });
+    composer.hidden = false; hint.hidden = false;
+  } else if (S.phase === "confirm" && S.google) {
+    drawCard(S.google);
+  } else if (S.phase === "contact") {
+    // Mid-contact reload: keep what Google gave us and carry on asking, rather than starting over.
+    if (S.google) say("Welcome back — " + S.google.name + ".");
+    composer.hidden = false; hint.hidden = false;
+    nextContact();
+  } else {
+    askPlaces();
+  }
+  fb("ChatOpen");
 })();
 </script>
 </body>

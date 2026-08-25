@@ -229,7 +229,8 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     </div>
 
     <p class="fine" id="skipped-note" hidden></p>
-    <p class="fine">Forgot something? Just include it in your text, or <a href="index.html">go back and update your answers</a> &mdash; they&rsquo;re saved on this device.</p>
+    <p class="fine" id="edit-note" hidden>Forgot something? Just include it in your text, or <a id="edit-link" href="form.html">go back and update your answers</a> &mdash; they&rsquo;re saved on this device.</p>
+    <p class="fine" id="chat-note" hidden>Forgot something? Just include it in your text when I reach out.</p>
   </div>
 </main>
 
@@ -264,6 +265,16 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     function track(name) { if (window.fbq) fbq("track", "Contact", { content_name: name }); }
     textBtn.addEventListener("click", function () { track("text"); });
     document.getElementById("call-btn").addEventListener("click", function () { track("call"); });
+  })();
+</script>
+<script>
+  // The homepage is the chat now, and a finished chat has nothing to go back and edit — only the
+  // questionnaire keeps a re-openable draft. Show whichever sentence is actually true for them.
+  (function () {
+    var hasForm = false;
+    try { hasForm = !!localStorage.getItem("duna_interview"); } catch (e) {}
+    var el = document.getElementById(hasForm ? "edit-note" : "chat-note");
+    if (el) el.hidden = false;
   })();
 </script>
 </body>
