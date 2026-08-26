@@ -303,6 +303,13 @@ fbq('track', 'PageView');
   var GOOGLE_PLACES_KEY = "AIzaSyA_2Mzsy3s9aZo8OS4DBFY-OYhayl-F_tI";
   var LEADS_URL = "https://script.google.com/macros/s/AKfycbw8eTCgh4a5N4y5qofitbrZUaU7xmW6_nFfABUj7AgE2UKPuZfzq83hWVGa8IYX9gQv/exec";
   var LEADS_SECRET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  // A reload must start at the top. Browsers restore the previous scroll position by default, so
+  // refreshing after scrolling to the portfolio dumped you back at the portfolio — with the
+  // conversation rebuilt somewhere above, out of sight. We rebuild the thread from saved state and
+  // then scroll to wherever the conversation actually is, so the browser's guess is never right.
+  try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
+  try { window.scrollTo(0, 0); } catch (e) {}
+
   var STORE_KEY = "duna_chat";
   var LOADED_AT = Date.now();
   var MIN_SECONDS_BEFORE_CHAT = 15;   // matches the server-side floor
@@ -364,27 +371,60 @@ fbq('track', 'PageView');
     var h = window.innerHeight || document.documentElement.clientHeight;
     return { top: 0, bottom: h };
   }
-  // Autocomplete results render UNDER the field, and with a keyboard up that is off screen — you
-  // get matches you cannot see and no way to know whether to scroll or keep typing. So when results
-  // appear, ride the field up to the top of the visible area and let them fill the space between it
-  // and the keyboard, the way a native autocomplete does. Also caps the list to that space so it can
-  // never run underneath the keyboard again.
+  // Autocomplete results render UNDER the field, and with a keyboard up that can be off screen —
+  // matches you cannot see, and no way to know whether to scroll or keep typing.
+  //
+  // The rule is: move only if the results would NOT fit, and then only by as much as is needed.
+  // The first version lifted the field to the top of the screen every time results re-rendered,
+  // which fired on every keystroke and yanked the page back down whenever you tried to scroll away.
+  // If it already fits, this does nothing at all.
+  // If they have just scrolled themselves, they meant it — maybe to re-read the question above the
+  // field. Nothing may drag the page back for a couple of seconds. Our own scrolls set a short
+  // window so they are not mistaken for the user's.
+  var selfScrollUntil = 0, userScrolledUpAt = 0, lastY = 0;
+  window.addEventListener("scroll", function () {
+    var y = window.pageYOffset || 0;
+    // Only a scroll UP counts as "leave me alone" — that is someone going back to re-read the
+    // question. A blanket "don't move for 2s" was too blunt: it also blocked the lift that puts
+    // the results above the keyboard, so the matches stayed hidden.
+    if (Date.now() > selfScrollUntil && y < lastY - 2) userScrolledUpAt = Date.now();
+    lastY = y;
+  }, { passive: true });
+  function pageScrollBy(by) {
+    selfScrollUntil = Date.now() + 800;
+    try { window.scrollBy({ top: by, behavior: "smooth" }); }
+    catch (e) { window.scrollBy(0, by); }
+  }
+
   function revealSearch(field, list) {
     if (!field) return;
     var v = visibleBox();
-    var r = field.getBoundingClientRect();
-    var by = Math.round(r.top - (v.top + 8));
-    if (by > 4) {
-      try { window.scrollBy({ top: by, behavior: "smooth" }); }
-      catch (e) { window.scrollBy(0, by); }
+    var fr = field.getBoundingClientRect();
+
+    var need = 0;
+    if (list && !list.hidden) {
+      var rows = list.children.length;
+      need = Math.min(list.scrollHeight || (rows * 64), 220);   // cap what we will try to make room for
     }
-    if (!list || list.hidden) return;
-    // measured after the scroll settles, so the cap reflects where things actually ended up
-    setTimeout(function () {
-      var v2 = visibleBox(), fr = field.getBoundingClientRect();
-      var room = Math.round(v2.bottom - fr.bottom - 16);
-      list.style.maxHeight = (room > 140 ? room : 140) + "px";
-    }, 420);
+    var over = Math.round((fr.bottom + need + 16) - v.bottom);   // how far past the fold it would run
+    if (over <= 4) {                                             // already fits: leave the page alone
+      if (list && !list.hidden) list.style.maxHeight = "";
+      return;
+    }
+    var maxLift = Math.round(fr.top - (v.top + 8));              // never lift past the top of the view
+    var by = Math.min(over, maxLift);
+    // They scrolled up a moment ago to look at something — do not yank them back down.
+    if (by > 0 && Date.now() - userScrolledUpAt < 2000) return;
+    if (by > 4) pageScrollBy(by);
+    // Whatever room is left after that lift is the list's ceiling — it scrolls inside itself rather
+    // than disappearing under the keyboard.
+    if (list && !list.hidden) {
+      setTimeout(function () {
+        var v2 = visibleBox(), f2 = field.getBoundingClientRect();
+        var room = Math.round(v2.bottom - f2.bottom - 16);
+        list.style.maxHeight = (room > 120 ? room : 120) + "px";
+      }, 380);
+    }
   }
 
   function scrollTail() {
@@ -395,8 +435,7 @@ fbq('track', 'PageView');
     var above = (v.top + TAIL_GAP) - r.top;         // how far it sits above the top
     var by = below > 0 ? below : (above > 0 ? -above : 0);
     if (!by) return;                                 // already comfortably in view: leave it alone
-    try { window.scrollBy({ top: by, behavior: "smooth" }); }
-    catch (e) { window.scrollBy(0, by); }             // older Safari has no options object
+    pageScrollBy(by);
   }
 
   // When the keyboard opens or closes the visible area changes size without any scroll happening,
