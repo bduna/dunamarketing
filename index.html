@@ -624,6 +624,9 @@ fbq('track', 'PageView');
       extra.aspirations = fields.aspirations || "";
       extra.vibe_words = fields.vibe_words || "";
       extra.pages = fields.pages_suggested || "";
+      // The bulk of the interview: everything they said, grouped by page. This is what the
+      // site actually gets written from — the other fields are an index into it.
+      extra.page_notes = fields.page_notes || "";
     }
     extra.transcript = S.msgs.map(function (m) { return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content; }).join("\n\n");
     submitStage("complete", extra).then(function (j) {
