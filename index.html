@@ -190,12 +190,11 @@ fbq('track', 'PageView');
   /* Was an SVG stretched to the full width, which is why it could never line up with anything.
      Plain text now, and JS nudges it to start exactly where the centred headline's first line starts.
      Left-aligned at the column edge is the fallback if that measurement never runs. */
-  /* The kicker is a <p>, so `.intro p { max-width:46ch; margin:0 auto }` was boxing it into a
-     narrow centred column — narrower than the headline, which is why it could never reach it.
-     Full width, no auto margins, then JS nudges it across. */
-  .intro .kicker { margin:clamp(18px, 5vw, 40px) 0 10px; max-width:none; text-align:left; color:var(--red);
+  /* max-width:none so `.intro p { max-width:46ch }` cannot box it into a narrower column than the
+     headline — otherwise "centred" would mean centred on a different axis. */
+  .intro .kicker { margin:clamp(18px, 5vw, 40px) 0 10px; max-width:none; text-align:center; color:var(--red);
     font-weight:800; font-size:clamp(.74rem, 2.5vw, .88rem); letter-spacing:.07em;
-    text-transform:uppercase; white-space:nowrap; }
+    text-transform:uppercase; }
   .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 10px;
     letter-spacing:-.03em; color:var(--navy); text-wrap:balance; }
   .intro p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
@@ -979,39 +978,6 @@ fbq('track', 'PageView');
   input.addEventListener("input", function () {
     this.style.height = "auto"; this.style.height = Math.min(this.scrollHeight, 140) + "px";
   });
-
-  // The headline is centred, so its box edge is nowhere near where the words actually start.
-  // Measure the first line's real left edge and push the kicker across to meet it. Wrapped in
-  // try/catch and re-run on resize; if it never runs the kicker just stays at the column edge.
-  (function () {
-    var kicker = document.querySelector(".intro .kicker"),
-        h1 = document.querySelector(".intro h1");
-    if (!kicker || !h1 || !h1.firstChild) return;
-    function align() {
-      try {
-        kicker.style.paddingLeft = "0px";
-        var r = document.createRange();
-        r.selectNodeContents(h1);
-        var rects = r.getClientRects();
-        if (!rects.length) return;
-        var box = kicker.getBoundingClientRect();
-        var pad = Math.round(rects[0].left - box.left);
-        // Never push it so far that it runs off the right. scrollWidth is no use here: on a block
-        // element it reports the BOX width, not the text width, so the slack came out as zero and
-        // the offset was always clamped away. Measure the text itself.
-        var kr = document.createRange();
-        kr.selectNodeContents(kicker);
-        var textWidth = Math.ceil(kr.getBoundingClientRect().width);
-        var slack = Math.floor(box.width - textWidth);
-        if (pad > slack) pad = slack;
-        kicker.style.paddingLeft = (pad > 0 ? pad : 0) + "px";
-      } catch (e) {}
-    }
-    align();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(align);
-    window.addEventListener("resize", align);
-    window.addEventListener("orientationchange", align);
-  })();
 
   // Back to the top. Declared before use — a call above its assignment killed this whole script once.
   (function () {
