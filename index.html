@@ -653,7 +653,7 @@ fbq('track', 'PageView');
       (g.address ? '<p class="gline">' + esc(g.address) + '</p>' : "") +
       (g.hours ? '<p class="gline">' + esc(g.hours.split("; ")[0]) + (g.hours.indexOf(";") !== -1 ? " …" : "") + '</p>' : "") +
       (g.rating ? '<p class="gline">★ ' + g.rating + ' · ' + g.ratings + ' reviews</p>' : "") +
-      (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(ph.url) + '" alt="">'; }).join("") + '</div>' : ""));
+      (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(thumbUrl(ph.url)) + '" alt="" loading="lazy" decoding="async">'; }).join("") + '</div>' : ""));
     S.phase = "confirm"; save();
     composer.hidden = false; hint.hidden = false;
     botSays("Is that your business?");
@@ -835,7 +835,7 @@ fbq('track', 'PageView');
 
     function render() {
       if (!S.a.logo_url) { prev.innerHTML = ""; return; }
-      prev.innerHTML = '<div class="logoprev"><img src="' + esc(S.a.logo_url) + '" alt="Your logo"></div>' +
+      prev.innerHTML = '<div class="logoprev"><img src="' + esc(thumbUrl(S.a.logo_url)) + '" alt="Your logo"></div>' +
                        '<button type="button" class="linkbtn" id="logo-ok">Use this logo</button><br>';
       prev.querySelector("#logo-ok").addEventListener("click", function () { finishLogo("Logo added"); });
       w.querySelector("#logo-add").textContent = "Pick a different file";
@@ -851,7 +851,8 @@ fbq('track', 'PageView');
       cloudinary.createUploadWidget({
         cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET,
         folder: folderSlug() + "/logo", sources: ["local", "camera", "google_drive", "dropbox", "url"],
-        multiple: false, clientAllowedFormats: ["image"], maxFileSize: 10000000
+        multiple: false, clientAllowedFormats: ["image"], maxFileSize: 20000000,
+        maxImageWidth: 1200, maxImageHeight: 1200
       }, function (err, res) {
         if (err || !res) return;
         if (res.event === "success" && res.info && res.info.secure_url) {
@@ -925,7 +926,7 @@ fbq('track', 'PageView');
       grid.innerHTML = t.map(function (x) {
         return '<button type="button" class="ptile" data-kind="' + x.kind + '" data-i="' + x.i + '" ' +
                'aria-pressed="' + (x.on ? "true" : "false") + '" aria-label="Use this photo">' +
-               '<img src="' + esc(x.url) + '" alt="">' +
+               '<img src="' + esc(thumbUrl(x.url)) + '" alt="" loading="lazy" decoding="async">' +
                '<span class="ptile__tick" aria-hidden="true">&#10003;</span>' +
                (x.kind === "u" ? '<span class="ptile__mine">yours</span>' : "") + '</button>';
       }).join("");
@@ -953,7 +954,11 @@ fbq('track', 'PageView');
       cloudinary.createUploadWidget({
         cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET,
         folder: folderSlug(), sources: ["local", "camera", "google_drive", "dropbox", "url"],
-        multiple: true, maxFiles: 30, clientAllowedFormats: ["image"], maxFileSize: 10000000
+        multiple: true, maxFiles: 30, clientAllowedFormats: ["image"], maxFileSize: 20000000,
+        // Resize in the browser before it ever goes up the wire. A phone photo is often 4-12MB;
+        // nothing on the finished site uses more than about 1600px, so uploading the original is
+        // minutes of waiting for pixels that get thrown away.
+        maxImageWidth: 1800, maxImageHeight: 1800, maxChunkSize: 6000000
       }, function (err, res) {
         if (err || !res) return;
         if (res.event === "success" && res.info && res.info.secure_url) {
@@ -975,6 +980,22 @@ fbq('track', 'PageView');
       finishPhotos("I'll send photos by text later");
     });
   }
+  // Tiles are about 120px wide. Pointing them at the original meant downloading a multi-megabyte
+  // photo to draw a thumbnail — the single biggest reason the photo step felt slow. Cloudinary can
+  // resize on delivery, and Google's photo URLs carry their own size parameter.
+  function thumbUrl(url) {
+    if (!url) return url;
+    try {
+      if (url.indexOf("res.cloudinary.com") !== -1 && url.indexOf("/upload/") !== -1) {
+        return url.replace("/upload/", "/upload/w_400,h_300,c_fill,q_auto,f_auto/");
+      }
+      if (url.indexOf("googleusercontent.com") !== -1) {
+        return url.replace(/=s\d+-w\d+$/, "=w400").replace(/=w\d+$/, "=w400");
+      }
+    } catch (e) {}
+    return url;
+  }
+
   function folderSlug() {
     var n = (S.a.business_name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     return "intake/" + (n || "unnamed");
