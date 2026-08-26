@@ -198,6 +198,8 @@ fbq('track', 'PageView');
   .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 10px;
     letter-spacing:-.03em; color:var(--navy); text-wrap:balance; }
   .intro p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
+  /* Space under the subline so the first question does not sit on top of the pitch. */
+  .intro h1 + p { margin-bottom:clamp(18px, 4vw, 30px); }
   .savenote { text-align:center; font-size:.78rem; color:var(--muted); margin:14px 0 0; }
 
   /* ---- proof strip: the six sample sites ---- */
@@ -238,7 +240,7 @@ fbq('track', 'PageView');
     <div class="intro" id="intro">
       <p class="kicker">A short chat &#183; Easy mic input answers</p>
       <h1>Big&#8209;Agency Websites. Small&#8209;Business Prices.</h1>
-      <p>Custom-built for your business, at a price that will surprise you. Tell me about it below and I&rsquo;ll build the site from your own words.</p>
+      <p>Custom-built for your business, at a price that will surprise you. Tell me about yours below &mdash; or scroll down to see the work first.</p>
     </div>
 
     <div class="thread" id="thread" aria-live="polite"></div>
