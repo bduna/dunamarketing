@@ -347,24 +347,54 @@ fbq('track', 'PageView');
   // The bottom of the conversation is whatever comes last — the composer when it is open, otherwise
   // the newest message.
   //
-  // Two rules, both about not yanking the page around on a phone:
-  //  · do nothing if the tail is already on screen. block:"end" scrolled until the tail sat at the
-  //    very bottom of the viewport EVERY time, so each message shunted the page upward whether it
-  //    needed to or not — that is the lurch between questions.
-  //  · when it must move, block:"nearest" moves the minimum distance to bring it into view.
+  //  · window.innerHeight is the WRONG ruler once a keyboard is open. On iOS the layout viewport
+  //    stays full height and the keyboard covers the bottom of it, so anything measured against
+  //    innerHeight looks "visible" while sitting underneath the keyboard. visualViewport is the
+  //    part you can actually see; use it whenever the browser has it.
+  //  · leave a gap under the input rather than parking it flush against the keyboard.
   //  · deliberately NOT batched per frame. Coalescing into one requestAnimationFrame looked tidier
   //    and measured far worse: the queued frame fires after more content has landed, so one 200px
-  //    move became a 729px lurch, and some scrolls never happened at all — the input ended up off
-  //    screen. Several small moves beat one big one.
+  //    move became a 729px lurch, and some scrolls never happened at all.
+  var TAIL_GAP = 22;
+
+  function visibleBox() {
+    var vv = window.visualViewport;
+    if (vv) return { top: vv.offsetTop, bottom: vv.offsetTop + vv.height };
+    var h = window.innerHeight || document.documentElement.clientHeight;
+    return { top: 0, bottom: h };
+  }
   function scrollTail() {
     var t = (composer && !composer.hidden) ? composer : thread.lastElementChild;
     if (!t) return;
-    var r = t.getBoundingClientRect();
-    var vh = window.innerHeight || document.documentElement.clientHeight;
-    if (r.top >= 0 && r.bottom <= vh - 4) return;      // already visible: leave the page alone
-    try { t.scrollIntoView({ block: "nearest", behavior: "smooth" }); }
-    catch (e) { t.scrollIntoView(false); }             // older Safari has no options object
+    var r = t.getBoundingClientRect(), v = visibleBox();
+    var below = r.bottom - (v.bottom - TAIL_GAP);   // how far it sits under the fold / keyboard
+    var above = (v.top + TAIL_GAP) - r.top;         // how far it sits above the top
+    var by = below > 0 ? below : (above > 0 ? -above : 0);
+    if (!by) return;                                 // already comfortably in view: leave it alone
+    try { window.scrollBy({ top: by, behavior: "smooth" }); }
+    catch (e) { window.scrollBy(0, by); }             // older Safari has no options object
   }
+
+  // When the keyboard opens or closes the visible area changes size without any scroll happening,
+  // so re-check then too — otherwise the input is left behind the keyboard until they scroll.
+  (function () {
+    var vv = window.visualViewport;
+    if (!vv) return;
+    var t = null;
+    function recheck() {
+      // Reserve exactly as much room at the foot of the page as the keyboard is covering, so the
+      // input can always be scrolled clear of it — measured, not a guessed keyboard height, and it
+      // works out as zero on Android where the layout viewport already shrank by itself.
+      var inset = Math.max(0, (window.innerHeight || 0) - (vv.offsetTop + vv.height));
+      document.body.style.paddingBottom = inset > 1 ? inset + "px" : "";
+      clearTimeout(t);
+      t = setTimeout(function () { if (composer && !composer.hidden) scrollTail(); }, 120);
+    }
+    vv.addEventListener("resize", recheck);
+    vv.addEventListener("scroll", recheck);
+    recheck();
+  })();
+
   function bubble(who, html, wide) {
     var d = document.createElement("div");
     d.className = "msg " + who + (wide ? " wide" : "");
@@ -993,6 +1023,13 @@ fbq('track', 'PageView');
   });
   input.addEventListener("input", function () {
     this.style.height = "auto"; this.style.height = Math.min(this.scrollHeight, 140) + "px";
+    scrollTail();          // a growing box can push itself under the keyboard
+  });
+  // The keyboard animates in after focus, so check once it has settled as well as immediately.
+  input.addEventListener("focus", function () {
+    scrollTail();
+    setTimeout(scrollTail, 250);
+    setTimeout(scrollTail, 550);
   });
 
   // Back to the top. Declared before use — a call above its assignment killed this whole script once.
