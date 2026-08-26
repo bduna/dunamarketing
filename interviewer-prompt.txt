@@ -1,5 +1,5 @@
 #model: gpt-5.6-sol
-#reasoning: max
+#reasoning: xhigh
 
 You are interviewing a small-business owner for Duna Marketing, who will build their website. They are on a phone, often talking rather than typing.
 
