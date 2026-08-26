@@ -1,0 +1,39 @@
+/* tokens.css — Duna Marketing. Palette: brief.assigned verbatim (dark neutral + violet). */
+:root {
+  --bg: #141617;
+  --bg-alt: #1F2123;
+  --surface: #1F2123;
+  --ink: #EEF0F1;            /* 15.9:1 on --bg */
+  --ink-muted: #8D9BA5;      /* 6.4:1 */
+  --line: #394249;
+  --brand: #7445D9;          /* the one violet: bands + action */
+  --on-brand: #FFFFFF;
+  --accent: #7445D9;
+  --accent-hover: #8961E1;
+  --on-accent: #FFFFFF;
+  --accent-ink: #9A76E9;     /* accent as text on dark — 4.7:1 */
+
+  --font-display: "DM Serif Display", Georgia, serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
+  --fs-1: clamp(1.12rem, 1.02rem + 0.5vw, 1.35rem);
+  --fs-2: clamp(1.35rem, 1.15rem + 0.95vw, 1.8rem);
+  --fs-3: clamp(1.7rem, 1.35rem + 1.8vw, 2.5rem);
+  --fs-4: clamp(2.5rem, 1.7rem + 4vw, 4.2rem);
+  --lh-body: 1.65;
+  --lh-head: 1.06;
+  --track-label: 0.1em;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 16px 44px rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+
+  --space-1: 0.5rem; --space-2: 1rem; --space-3: 1.5rem; --space-4: 2.5rem; --space-5: 4rem;
+  --section-y: clamp(3.5rem, 6vw, 6.5rem);
+  --measure: 64ch;
+  --container: 1120px;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 200ms;
+}
