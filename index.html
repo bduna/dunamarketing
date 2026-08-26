@@ -13,6 +13,8 @@
 <link rel="icon" type="image/png" href="duna_marketing_logo.png">
 <link rel="apple-touch-icon" href="duna_marketing_logo.png">
 <link rel="preconnect" href="https://places.googleapis.com">
+<link rel="preconnect" href="https://upload-widget.cloudinary.com">
+<link rel="preconnect" href="https://res.cloudinary.com">
 <link rel="preconnect" href="https://connect.facebook.net">
 <script>
 // Same kill switch as the rest of the site: ?metrics=off keeps owner testing out of the ad data.
@@ -141,6 +143,23 @@ fbq('track', 'PageView');
   .sw__row input:focus { outline:2px solid transparent; outline-offset:1px;
     border-color:var(--navy); box-shadow:0 0 0 3px rgba(0,48,135,.16); }
   .sw__row input[type=text].bad { border-color:var(--red); }
+
+  /* Photo picking. Tap to include or drop — a dimmed tile with no tick is excluded. */
+  .pgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:2px 0 6px; }
+  @media (max-width:420px) { .pgrid { grid-template-columns:repeat(2,1fr); } }
+  .ptile { position:relative; padding:0; border:0; background:none; cursor:pointer; border-radius:10px;
+    overflow:hidden; aspect-ratio:4/3; }
+  .ptile img { width:100%; height:100%; object-fit:cover; display:block; transition:opacity .15s ease; }
+  .ptile[aria-pressed="false"] img { opacity:.32; }
+  .ptile::after { content:""; position:absolute; inset:0; border-radius:10px;
+    border:2px solid var(--navy); opacity:0; transition:opacity .15s ease; }
+  .ptile[aria-pressed="true"]::after { opacity:1; }
+  .ptile__tick { position:absolute; top:6px; right:6px; width:22px; height:22px; border-radius:50%;
+    background:var(--navy); color:#fff; display:grid; place-items:center; font-size:13px; font-weight:800;
+    opacity:0; transition:opacity .15s ease; }
+  .ptile[aria-pressed="true"] .ptile__tick { opacity:1; }
+  .ptile:focus-visible { outline:3px solid var(--navy); outline-offset:2px; }
+  .pcount { font-size:.85rem; color:var(--muted); margin:0 0 2px; }
 
   /* The quiet way out, as a text link rather than another button box. */
   .linkbtn { display:inline-flex; align-items:center; min-height:44px; margin-top:2px; padding:0 2px;
@@ -273,6 +292,8 @@ fbq('track', 'PageView');
 <script>
 (function () {
   // ==== CONFIG ====
+  var CLOUDINARY_CLOUD_NAME = "qvsg8okz";
+  var CLOUDINARY_UPLOAD_PRESET = "duna_intake";
   var GOOGLE_PLACES_KEY = "AIzaSyA_2Mzsy3s9aZo8OS4DBFY-OYhayl-F_tI";
   var LEADS_URL = "https://script.google.com/macros/s/AKfycbw8eTCgh4a5N4y5qofitbrZUaU7xmW6_nFfABUj7AgE2UKPuZfzq83hWVGa8IYX9gQv/exec";
   var LEADS_SECRET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -607,7 +628,7 @@ fbq('track', 'PageView');
     function finishDesign(text, stored) {
       S.a.brand_colors = stored; save();
       me(text); w.remove();
-      beginInterview();
+      askPhotos();
     }
     w.querySelector("#col-done").addEventListener("click", function () {
       var a = getMain(), b = getSecond();
@@ -629,6 +650,88 @@ fbq('track', 'PageView');
       if (after) { after(); return; }
       try { input.focus({ preventScroll: true }); } catch (e) {}
     }, 420);
+  }
+
+  // ================= PHASE 2c — photos (still no model, no cost) =================
+  // Photos decide more about how the finished site looks than any answer they can type, so they are
+  // collected before the interview rather than left to "send them over later" — which never happens.
+  // Google's own listing photos are offered first because they cost the owner nothing.
+  function askPhotos() {
+    S.phase = "photos"; save();
+    composer.hidden = true; hint.hidden = true;
+    var g = S.google, gp = (g && g.photos) ? g.photos : [];
+    send.disabled = true; typing(true);
+    setTimeout(function () {
+      typing(false); send.disabled = false;
+      say(gp.length
+        ? "These are on your Google listing. Tap any you'd rather not use, and add your own if you have better ones."
+        : "Last thing before the questions — any photos of your work? They make more difference to the finished site than anything else.");
+      photoWidget(gp);
+    }, 420);
+  }
+  function photoWidget(gp) {
+    S.uploads = S.uploads || [];
+    var w = inline(
+      (gp.length ? '<div class="pgrid" id="pgrid">' + gp.map(function (ph, i) {
+        return '<button type="button" class="ptile" data-i="' + i + '" aria-pressed="' + (ph.use ? "true" : "false") + '" ' +
+               'aria-label="Use this photo"><img src="' + esc(ph.url) + '" alt=""><span class="ptile__tick" aria-hidden="true">&#10003;</span></button>';
+      }).join("") + '</div>' : "") +
+      '<p class="pcount" id="pcount"></p>' +
+      '<button type="button" class="linkbtn" id="ph-add">&#43; Add your own photos</button><br>' +
+      '<button type="button" class="linkbtn" id="ph-done">Done with photos</button><br>' +
+      '<button type="button" class="linkbtn" id="ph-skip">I&rsquo;ll send photos by text later</button>');
+
+    function count() {
+      var picked = gp.filter(function (p) { return p.use; }).length + S.uploads.length;
+      var el = w.querySelector("#pcount");
+      el.textContent = picked ? (picked + (picked === 1 ? " photo" : " photos") + " selected"
+                                 + (S.uploads.length ? " (" + S.uploads.length + " of yours)" : ""))
+                              : "None selected — I'll build it without photos.";
+    }
+    w.querySelectorAll(".ptile").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var ph = gp[+b.getAttribute("data-i")];
+        ph.use = !ph.use;
+        b.setAttribute("aria-pressed", ph.use ? "true" : "false");
+        save(); count();
+      });
+    });
+    count();
+
+    w.querySelector("#ph-add").addEventListener("click", function () {
+      if (typeof cloudinary === "undefined") {
+        say("The uploader didn't load — no problem, text them to Barrett and he'll add them.");
+        return;
+      }
+      cloudinary.createUploadWidget({
+        cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+        folder: folderSlug(), sources: ["local", "camera", "google_drive", "dropbox", "url"],
+        multiple: true, maxFiles: 30, clientAllowedFormats: ["image"], maxFileSize: 10000000
+      }, function (err, res) {
+        if (err || !res) return;
+        if (res.event === "success" && res.info && res.info.secure_url) {
+          S.uploads.push({ url: res.info.secure_url, caption: "", is_hero: false, source: "upload" });
+          save(); count();
+        }
+      }).open();
+    });
+
+    function finishPhotos(text) {
+      me(text); w.remove(); beginInterview();
+    }
+    w.querySelector("#ph-done").addEventListener("click", function () {
+      var picked = gp.filter(function (p) { return p.use; }).length + S.uploads.length;
+      finishPhotos(picked ? (picked + (picked === 1 ? " photo" : " photos")) : "No photos for now");
+    });
+    w.querySelector("#ph-skip").addEventListener("click", function () {
+      gp.forEach(function (p) { p.use = false; });
+      S.uploads = []; save();
+      finishPhotos("I'll send photos by text later");
+    });
+  }
+  function folderSlug() {
+    var n = (S.a.business_name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    return "intake/" + (n || "unnamed");
   }
 
   // ================= PHASE 3 — the interviewer (model starts HERE) =================
@@ -739,7 +842,11 @@ fbq('track', 'PageView');
       payload.testimonials = g.reviews.filter(function (r) { return r.use; })
         .map(function (r) { return "“" + r.text + "” — " + r.author + " (via Google)"; }).join("\n");
       payload.photos_json = JSON.stringify(g.photos.filter(function (p) { return p.use; })
-        .map(function (p) { return { url: p.url, caption: "From Google listing" + (p.by ? " (by " + p.by + ")" : ""), is_hero: false, source: "google" }; }));
+        .map(function (p) { return { url: p.url, caption: "From Google listing" + (p.by ? " (by " + p.by + ")" : ""), is_hero: false, source: "google" }; })
+        .concat(S.uploads || []));
+    } else if ((S.uploads || []).length) {
+      // No Google listing, but they uploaded their own — those must still go through.
+      payload.photos_json = JSON.stringify(S.uploads);
     }
     Object.keys(extra || {}).forEach(function (k) { payload[k] = extra[k]; });
     return fetch(LEADS_URL, { method: "POST", mode: "cors", redirect: "follow",
@@ -798,6 +905,8 @@ fbq('track', 'PageView');
     composer.hidden = false; hint.hidden = false;
   } else if (S.phase === "confirm" && S.google) {
     drawCard(S.google);
+  } else if (S.phase === "photos") {
+    askPhotos();
   } else if (S.phase === "design") {
     askDesign();
   } else if (S.phase === "contact") {
@@ -811,5 +920,6 @@ fbq('track', 'PageView');
   fb("ChatOpen");
 })();
 </script>
+<script src="https://upload-widget.cloudinary.com/latest/global/all.js"></script>
 </body>
 </html>
