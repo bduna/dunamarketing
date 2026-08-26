@@ -775,10 +775,27 @@ fbq('track', 'PageView');
     composer.hidden = false; hint.hidden = false;
     turn("");   // empty user turn: the model opens
   }
-  function turn(userText) {
+  // Retries on its own before it ever bothers them. Their answer is already in S.msgs by the time a
+  // request goes out, so a retry re-sends the conversation with no new text — calling turn("") is a
+  // resend, not a fresh turn. The old error told people to "tap Send to try again", but Send does
+  // nothing with an empty box, so a single blip stranded the interview for good.
+  function turn(userText, attempt) {
     if (S.done) return;
+    attempt = attempt || 1;
     if (userText) { S.msgs.push({ role: "user", content: userText }); save(); }
     send.disabled = true; typing(true);
+
+    function fail(why) {
+      try { console.log("[duna] chat turn failed (attempt " + attempt + "): " + why); } catch (e) {}
+      if (attempt < 3) { setTimeout(function () { turn("", attempt + 1); }, 800 * attempt); return; }
+      typing(false); send.disabled = false;
+      var b = bubble("bot",
+        "I couldn&rsquo;t reach my end just then. Nothing you&rsquo;ve told me is lost.<br>" +
+        '<button type="button" class="linkbtn" id="retry-now">Try that again</button><br>' +
+        '<span class="pcount">Still stuck? Text Barrett on <a href="tel:+17073855673">(707) 385-5673</a>.</span>');
+      b.querySelector("#retry-now").addEventListener("click", function () { b.remove(); turn("", 1); });
+    }
+
     fetch(LEADS_URL, {
       method: "POST", mode: "cors", redirect: "follow",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -789,17 +806,20 @@ fbq('track', 'PageView');
         // read as an empty answer and tripped the model's abandon-the-interview rule.
         messages: S.msgs.length ? S.msgs : [{ role: "user", content: "(Interview starting. Ask your first question.)" }]
       })
-    }).then(function (r) { return r.json(); }).then(function (j) {
+    }).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.text();
+    }).then(function (t) {
+      var j = null;
+      try { j = JSON.parse(t); } catch (e) { throw new Error("bad JSON: " + t.slice(0, 120)); }
+      if (!j || j.ok === false) throw new Error("relay: " + ((j && j.error) || "unknown"));
+      if (!j.reply && !j.done) throw new Error("empty reply");
       typing(false); send.disabled = false;
-      if (!j || j.ok === false) { say("Sorry — something went wrong on my end. Tap Send to try again, or text Barrett on (707) 385-5673."); return; }
       S.msgs.push({ role: "assistant", content: j.reply }); save();
       say(j.reply);
       if (j.done) finish(j.fields);
       else setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 60);
-    }).catch(function () {
-      typing(false); send.disabled = false;
-      say("I lost the connection there. Tap Send to try again.");
-    });
+    }).catch(function (e) { fail(e && e.message ? e.message : String(e)); });
   }
 
   // ================= finish: write the brief to the sheet =================
