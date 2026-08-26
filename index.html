@@ -193,7 +193,7 @@ fbq('track', 'PageView');
   /* The kicker is a <p>, so `.intro p { max-width:46ch; margin:0 auto }` was boxing it into a
      narrow centred column — narrower than the headline, which is why it could never reach it.
      Full width, no auto margins, then JS nudges it across. */
-  .intro .kicker { margin:2px 0 10px; max-width:none; text-align:left; color:var(--red);
+  .intro .kicker { margin:clamp(18px, 5vw, 40px) 0 10px; max-width:none; text-align:left; color:var(--red);
     font-weight:800; font-size:clamp(.74rem, 2.5vw, .88rem); letter-spacing:.07em;
     text-transform:uppercase; white-space:nowrap; }
   .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 10px;
