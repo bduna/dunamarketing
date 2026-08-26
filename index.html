@@ -221,6 +221,15 @@ fbq('track', 'PageView');
   /* Space under the subline so the first question does not sit on top of the pitch. */
   .intro h1 + p { margin-bottom:clamp(18px, 4vw, 30px); }
   .savenote { text-align:center; font-size:.78rem; color:var(--muted); margin:14px 0 0; }
+  /* The smaller-commitment offer, for people who scrolled the portfolio without starting the chat.
+     Deliberately placed after the portfolio so it never competes with the interview up top. */
+  .gbp-offer { margin:36px 0 0; background:var(--navy-soft); border:1px solid #c9d6f0;
+    border-left:4px solid var(--navy); border-radius:12px; padding:18px 20px; text-align:center; }
+  .gbp-offer b { color:var(--navy); }
+  .gbp-offer p { margin:0 0 4px; font-size:.95rem; }
+  .gbp-offer a { display:inline-flex; align-items:center; min-height:44px; color:var(--navy);
+    font-weight:800; text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:2px; }
+  @media (hover:hover) and (pointer:fine) { .gbp-offer a:hover { color:var(--red); } }
 
   /* ---- proof strip: the six sample sites ---- */
   .proof { margin:48px 0 0; }
@@ -296,6 +305,11 @@ fbq('track', 'PageView');
           <b>Bright Beginnings</b><span>Preschool</span></a>
       </div>
     </section>
+
+    <aside class="gbp-offer">
+      <p><b>Not ready for a whole website?</b> Start smaller &mdash; we&rsquo;ll audit your Google Business Profile against your local competition and fix every gap. <b>$250, applied for you.</b></p>
+      <a href="/google/">See how it works &rarr;</a>
+    </aside>
 
     <button type="button" class="totop" id="totop" aria-label="Back to the top">
       <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
