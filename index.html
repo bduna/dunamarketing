@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
-<title>Duna Marketing &mdash; Big-Agency Websites. Small-Business Prices.</title>
-<meta name="description" content="Custom-built websites for small businesses, at a price that will surprise you. Tell me about your business in a two-minute chat and I'll build it from your own words.">
+<title>Duna Marketing &mdash; Your Google Listing, Fixed</title>
+<meta name="description" content="We audit your Google Business Profile against your local competition and fix every gap — description, services, Q&A, posts, review replies. $250, applied for you. Free audit in a two-minute chat.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Duna Marketing">
 <meta property="og:title" content="Your new website starts here — Duna Marketing">
@@ -13,8 +13,6 @@
 <link rel="icon" type="image/png" href="duna_marketing_logo.png">
 <link rel="apple-touch-icon" href="duna_marketing_logo.png">
 <link rel="preconnect" href="https://places.googleapis.com">
-<link rel="preconnect" href="https://upload-widget.cloudinary.com">
-<link rel="preconnect" href="https://res.cloudinary.com">
 <link rel="preconnect" href="https://connect.facebook.net">
 <script>
 // Same kill switch as the rest of the site: ?metrics=off keeps owner testing out of the ad data.
@@ -236,6 +234,14 @@ fbq('track', 'PageView');
   .proof h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
     letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
   .proof p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 20px; max-width:44ch; }
+  .audit-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
+  .audit-stats div { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+  .audit-stats b { display:block; font-size:1.7rem; color:var(--navy); line-height:1.15; }
+  .audit-stats span { font-size:.85rem; color:var(--muted); }
+  .proof-link { text-align:center; margin:16px 0 0; }
+  .proof-link a { display:inline-flex; align-items:center; min-height:44px; color:var(--navy);
+    font-weight:800; text-decoration:underline; text-underline-offset:3px; }
+  .proof-link a:hover { color:var(--red); }
   .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
   .proof-grid a { display:block; text-decoration:none; color:inherit; border:1px solid var(--line);
     border-radius:10px; overflow:hidden; background:var(--card); }
@@ -267,9 +273,9 @@ fbq('track', 'PageView');
 <main>
   <div class="wrap">
     <div class="intro" id="intro">
-      <p class="kicker">A short chat &#183; Easy mic input answers</p>
-      <h1>Big&#8209;Agency Websites. Small&#8209;Business Prices.</h1>
-      <p>Custom-built for your business, at a price that will surprise you. Tell me about yours below &mdash; or scroll down to see the portfolio first.</p>
+      <p class="kicker">Free audit &#183; A short chat &#183; $250, applied for you</p>
+      <h1>Your Google listing is losing you customers.</h1>
+      <p>When someone searches your trade in your town, Google shows you and your competitors side by side. Find your business below and I&rsquo;ll show you exactly what they see &mdash; free &mdash; then fix every gap.</p>
     </div>
 
     <div class="thread" id="thread" aria-live="polite"></div>
@@ -282,33 +288,19 @@ fbq('track', 'PageView');
     <p class="savenote">Everything saves on this device as you go. Stop anytime &mdash; I&rsquo;ll get the rest by text.</p>
 
     <section class="proof" id="proof">
-      <h2>Portfolio</h2>
-      <p class="sub">Sample sites, built the same way yours will be. Tap one and click around it.</p>
-      <div class="proof-grid">
-        <a href="/portfolio/long-table-catering/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering website" width="640" height="400" loading="lazy">
-          <b>Long Table Catering</b><span>Catering</span></a>
-        <a href="/portfolio/velvet-fig/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/velvet-fig.jpg" alt="Velvet Fig website" width="640" height="400" loading="lazy">
-          <b>Velvet Fig</b><span>Cocktail bar</span></a>
-        <a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy">
-          <b>Golden Crumb Bakery</b><span>Bakery</span></a>
-        <a href="/portfolio/cedar-hill-family-dental/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/cedar-hill-family-dental.jpg" alt="Cedar Hill Family Dental website" width="640" height="400" loading="lazy">
-          <b>Cedar Hill Family Dental</b><span>Dentist</span></a>
-        <a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/marden-estate-law.jpg" alt="Marden Estate Law website" width="640" height="400" loading="lazy">
-          <b>Marden Estate Law</b><span>Estate planning</span></a>
-        <a href="/portfolio/bright-beginnings-preschool/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/bright-beginnings-preschool.jpg" alt="Bright Beginnings Preschool website" width="640" height="400" loading="lazy">
-          <b>Bright Beginnings</b><span>Preschool</span></a>
+      <h2>Six real audits, published</h2>
+      <p class="sub">We audited six real Cloverdale businesses against their competition and published the complete fixes &mdash; free, because the work is the pitch.</p>
+      <div class="audit-stats">
+        <div><b>119</b><span>five-star reviews on a salon &mdash; with no website link</span></div>
+        <div><b>0</b><span>photos on a 24-hour plumber customers rave about</span></div>
+        <div><b>2</b><span>harsh reviews left unanswered on a loved barbershop</span></div>
       </div>
+      <p class="proof-link"><a href="/gbp/">Read all six packs &rarr;</a></p>
     </section>
 
     <aside class="gbp-offer">
-      <p><b>Not ready for a whole website?</b> Start smaller &mdash; we&rsquo;ll audit your Google Business Profile against your local competition and fix every gap. <b>$250, applied for you.</b></p>
-      <a href="/google/">See how it works &rarr;</a>
+      <p><b>Need the whole website too?</b> We build those as well &mdash; custom, fast, from a short questionnaire.</p>
+      <a href="form.html">Start the website questionnaire &rarr;</a>
     </aside>
 
     <button type="button" class="totop" id="totop" aria-label="Back to the top">
@@ -528,6 +520,30 @@ fbq('track', 'PageView');
     scrollTail();
     return d;
   }
+  // A short pause with the typing dots, so a reply never appears in the same instant they hit send.
+  function botSays(text, after) {
+    send.disabled = true; typing(true);
+    setTimeout(function () {
+      typing(false); send.disabled = false; say(text);
+      if (after) { after(); return; }
+      try { input.focus({ preventScroll: true }); } catch (e) {}
+    }, 420);
+  }
+  // Tiles and thumbnails ask for a resized copy — pointing an <img> at the original downloads
+  // megabytes to draw a stamp. (This was deleted with the photo-upload step once; drawCard still
+  // needs it, and the promise catch turned the crash into a silent "couldn't reach Google".)
+  function thumbUrl(url) {
+    if (!url) return url;
+    try {
+      if (url.indexOf("res.cloudinary.com") !== -1 && url.indexOf("/upload/") !== -1) {
+        return url.replace("/upload/", "/upload/w_400,h_300,c_fill,q_auto,f_auto/");
+      }
+      if (url.indexOf("googleusercontent.com") !== -1) {
+        return url.replace(/=s\d+-w\d+$/, "=w400").replace(/=w\d+$/, "=w400");
+      }
+    } catch (e) {}
+    return url;
+  }
   function say(text) { return bubble("bot", esc(text).replace(/\n/g, "<br>")); }
   function me(text) { return bubble("me", esc(text).replace(/\n/g, "<br>")); }
   function typing(on) {
@@ -553,7 +569,8 @@ fbq('track', 'PageView');
       '<input id="gq" type="text" placeholder="e.g. Maria&rsquo;s Bakery, Pasadena" autocomplete="off" ' +
         'autocapitalize="words" enterkeyhint="search" aria-label="Business name and city">' +
       '<div class="glist" id="glist" hidden></div>' +
-      '<button type="button" class="linkbtn" id="g-skip">Not on Google &mdash; I&rsquo;ll type it</button>');
+      '<p class="pcount" id="g-nores" hidden>None of these yours? A profile has to exist on Google before it can be optimized &mdash; ' +
+      'text Barrett on <a href="sms:+17073855673">(707) 385-5673</a> and he&rsquo;ll help you set one up first.</p>');
     var gq = w.querySelector("#gq"), glist = w.querySelector("#glist"), timer = null;
 
     function choose(id, label) {
@@ -578,6 +595,12 @@ fbq('track', 'PageView');
                    (it.sec ? '<small>' + esc(it.sec) + '</small>' : "") + '</span></button>';
           }).join("");
           glist.hidden = !items.length;
+          // Google's fuzzy autocomplete returns SOMETHING for almost any string, so "zero results"
+          // basically never happens — a fallback shown only then is unreachable. Show the quiet
+          // escape line whenever suggestions are on screen instead: the person whose business
+          // genuinely has no profile is the one looking at matches that aren't theirs.
+          var nores = w.querySelector("#g-nores");
+          if (nores) nores.hidden = glist.hidden;
           glist.querySelectorAll("button").forEach(function (b) {
             b.addEventListener("click", function () { choose(b.getAttribute("data-id"), b.querySelector("strong").textContent); });
           });
@@ -592,13 +615,9 @@ fbq('track', 'PageView');
       var b = glist.hidden ? null : glist.querySelector("button");
       if (b) b.click();
     });
-    w.querySelector("#g-skip").addEventListener("click", function () {
-      var typed = gq.value.trim();
-      if (typed) { S.a.business_name = typed; save(); }
-      me(typed || "It's not on Google");
-      w.remove();
-      askContact();
-    });
+    // No skip: the product IS the Google profile, so a listing must exist. When a search returns
+    // nothing, the fallback line under the field points them at Barrett to get one created.
+    
     // Deliberately NOT revealing on focus. The field is focused automatically on load, so doing it
     // here slid the page down to the search box before the visitor had read the headline or typed
     // anything. The page moves when they start typing, and not before.
@@ -650,8 +669,12 @@ fbq('track', 'PageView');
           typing(false); S.google = g; save(); drawCard(g);
         });
       })
-      .catch(function () {
+      .catch(function (err) {
+        // If S.google is already set, the DATA arrived fine and the failure is in OUR code — a bug
+        // wearing a network error's face. It hid a missing function for a whole debugging session.
+        try { console.log("[duna] gDetails failed: " + err); } catch (e) {}
         typing(false);
+        if (S.google) { drawCardSafe(S.google); return; }
         say("I couldn't reach Google just then — no problem, I'll take it from your answers.");
         askContact();
       });
@@ -672,6 +695,17 @@ fbq('track', 'PageView');
     composer.hidden = false; hint.hidden = false;
     botSays("Is that your business?");
   }
+  // drawCard without the decorations — used when the full card throws, so a rendering bug can
+  // never again silently skip the confirmation step.
+  function drawCardSafe(g) {
+    try {
+      bubble("bot", '<p class="gname">' + esc(g.name) + '</p>' +
+                    (g.address ? '<p class="gline">' + esc(g.address) + '</p>' : ""));
+      S.phase = "confirm"; save();
+      composer.hidden = false; hint.hidden = false;
+      botSays("Is that your business?");
+    } catch (e) { askContact(); }
+  }
   var YES_RE = /^(y|ye|yes|yeah|yep|yup|sure|correct|right|aye|ok|okay|that'?s (it|me|us|right)|it is|us|me|mine|thats? me)\b/i;
   var NO_RE  = /^(n|no|nope|nah|not|negative|wrong|different|another|isn'?t)\b/i;
   function confirmAnswer(v) {
@@ -686,6 +720,7 @@ fbq('track', 'PageView');
       if (g.hours) S.a.hours = g.hours;
       if (g.website) S.a.current_website_url = g.website;
       save(); fb("GoogleConfirmed");
+      fetchCompetitors(g);     // fire-and-forget: results land in S before the interview needs them
       askContact();
       return;
     }
@@ -696,6 +731,31 @@ fbq('track', 'PageView');
       return;
     }
     botSays("Sorry — is that your business? Yes or no is fine.");
+  }
+
+  // The analysis is only as sharp as its comparison. One extra Places call pulls the same-trade
+  // competition in their town, so the model can say "12 reviews against a local median of 95"
+  // instead of "you could use more reviews". Fails silently — the audit still works without it.
+  var competitorsReady = null;   // promise; the first interview turn waits on it (capped)
+  function fetchCompetitors(g) {
+    try {
+      var town = (g.address || "").split(",").length >= 3 ? g.address.split(",").slice(-3)[0].trim() : "";
+      var q = ((g.type || "business") + " in " + (town || "your area")).trim();
+      competitorsReady = fetch("https://places.googleapis.com/v1/places:searchText", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_PLACES_KEY,
+                   "X-Goog-FieldMask": "places.id,places.displayName,places.rating,places.userRatingCount,places.websiteUri,places.photos" },
+        body: JSON.stringify({ input: undefined, textQuery: q })
+      }).then(function (r) { return r.json(); }).then(function (j) {
+        S.competitors = (j.places || []).filter(function (p) { return p.id !== g.place_id; })
+          .slice(0, 6).map(function (p) {
+            return { name: p.displayName.text, rating: p.rating || null,
+                     reviews: p.userRatingCount || 0, website: !!p.websiteUri,
+                     photos: (p.photos || []).length };
+          });
+        save();
+      }).catch(function () {});
+    } catch (e) {}
   }
 
   // ================= PHASE 2 — contact (still no model, no cost) =================
@@ -754,289 +814,52 @@ fbq('track', 'PageView');
   function finishContact() {
     submitStage("start");
     fb("LeadStart");
-    askDesign();
-  }
-
-  // ================= PHASE 2b — colours (still no model, no cost) =================
-  // Asked up front so the interview never has to spend a turn on "what colours do you like?", and
-  // because a colour is something you point at, not something you describe over a text message.
-  function askDesign() {
-    S.phase = "design"; save();
-    composer.hidden = true; hint.hidden = true;
-    send.disabled = true; typing(true);
-    setTimeout(function () { typing(false); send.disabled = false;
-      say("Before the questions — do you have brand colours? Pick a main and a second, or type your hex codes if you know them.");
-      designWidget();
-    }, 420);
-  }
-  function designWidget() {
-    var w = inline(
-      '<div class="swatches">' +
-        '<label class="sw"><span class="sw__cap">Main colour</span><span class="sw__row">' +
-          '<input type="color" id="c1" value="#808080" aria-label="Main colour">' +
-          '<input type="text" id="h1" value="#808080" spellcheck="false" autocapitalize="characters" aria-label="Main colour hex code">' +
-        '</span></label>' +
-        '<label class="sw"><span class="sw__cap">Second colour</span><span class="sw__row">' +
-          '<input type="color" id="c2" value="#808080" aria-label="Second colour">' +
-          '<input type="text" id="h2" value="#808080" spellcheck="false" autocapitalize="characters" aria-label="Second colour hex code">' +
-        '</span></label>' +
-      '</div>' +
-      '<button type="button" class="linkbtn" id="col-done">Use these colours</button><br>' +
-      '<button type="button" class="linkbtn" id="col-skip">I don&rsquo;t have brand colours &mdash; you choose</button>');
-
-    // Only colours they actually TOUCHED count. Otherwise everyone ships mid-grey because they
-    // pressed the obvious button without moving anything.
-    var touched = { c1: false, c2: false };
-    function pair(cid, hid, key) {
-      var c = w.querySelector("#" + cid), h = w.querySelector("#" + hid);
-      c.addEventListener("input", function () { h.value = c.value.toUpperCase(); h.classList.remove("bad"); touched[key] = true; });
-      h.addEventListener("input", function () {
-        var v = h.value.trim().replace(/^#?/, "#");
-        if (/^#[0-9a-fA-F]{6}$/.test(v)) { c.value = v; h.classList.remove("bad"); touched[key] = true; }
-        else { h.classList.add("bad"); }
-      });
-      return function () { return touched[key] ? c.value.toUpperCase() : ""; };
-    }
-    var getMain = pair("c1", "h1", "c1"), getSecond = pair("c2", "h2", "c2");
-
-    function finishDesign(text, stored) {
-      S.a.brand_colors = stored; save();
-      me(text); w.remove();
-      askLogo();
-    }
-    w.querySelector("#col-done").addEventListener("click", function () {
-      var a = getMain(), b = getSecond();
-      if (!a && !b) { finishDesign("I don't have set colours \u2014 you choose", ""); return; }
-      var parts = [];
-      if (a) parts.push("Primary " + a);
-      if (b) parts.push("Secondary " + b);
-      finishDesign(parts.join(" \u00b7 "), parts.join(", "));
-    });
-    w.querySelector("#col-skip").addEventListener("click", function () {
-      finishDesign("I don't have set colours \u2014 you choose", "");
-    });
-  }
-  // A short pause with the typing dots, so a reply never appears in the same instant they hit send.
-  function botSays(text, after) {
-    send.disabled = true; typing(true);
-    setTimeout(function () {
-      typing(false); send.disabled = false; say(text);
-      if (after) { after(); return; }
-      try { input.focus({ preventScroll: true }); } catch (e) {}
-    }, 420);
-  }
-
-  // ================= PHASE 2b2 — logo (still no model, no cost) =================
-  // A logo changes the header, the favicon and often the palette, and it is a file — asking for it
-  // in the chat ("do you have a logo?" / "yes") gets an answer but not the artwork. Ask while they
-  // are holding the phone the file is on.
-  function askLogo() {
-    S.phase = "logo"; save();
-    composer.hidden = true; hint.hidden = true;
-    send.disabled = true; typing(true);
-    setTimeout(function () {
-      typing(false); send.disabled = false;
-      say("Do you have a logo? Add the file and I'll put it in the header — if you haven't got one, I'll set your name in type instead.");
-      logoWidget();
-    }, 420);
-  }
-  function logoWidget() {
-    var w = inline(
-      '<div id="logoprev"></div>' +
-      '<button type="button" class="linkbtn" id="logo-add">&#43; Add your logo</button><br>' +
-      '<button type="button" class="linkbtn" id="logo-none">I don&rsquo;t have a logo</button>');
-    var prev = w.querySelector("#logoprev");
-
-    function render() {
-      if (!S.a.logo_url) { prev.innerHTML = ""; return; }
-      prev.innerHTML = '<div class="logoprev"><img src="' + esc(thumbUrl(S.a.logo_url)) + '" alt="Your logo"></div>' +
-                       '<button type="button" class="linkbtn" id="logo-ok">Use this logo</button><br>';
-      prev.querySelector("#logo-ok").addEventListener("click", function () { finishLogo("Logo added"); });
-      w.querySelector("#logo-add").textContent = "Pick a different file";
-      w.querySelector("#logo-none").textContent = "Actually, skip the logo";
-    }
-    render();
-
-    w.querySelector("#logo-add").addEventListener("click", function () {
-      if (typeof cloudinary === "undefined") {
-        say("The uploader didn't load — no problem, text it to Barrett and he'll add it.");
-        return;
-      }
-      cloudinary.createUploadWidget({
-        cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET,
-        folder: folderSlug() + "/logo", sources: ["local", "camera", "google_drive", "dropbox", "url"],
-        multiple: false, clientAllowedFormats: ["image"], maxFileSize: 20000000,
-        maxImageWidth: 1200, maxImageHeight: 1200
-      }, function (err, res) {
-        if (err || !res) return;
-        if (res.event === "success" && res.info && res.info.secure_url) {
-          S.a.logo_url = res.info.secure_url; save(); render();
-        }
-      }).open();
-    });
-
-    function finishLogo(text) { me(text); w.remove(); askPhotos(); }
-    w.querySelector("#logo-none").addEventListener("click", function () {
-      S.a.logo_url = ""; save();
-      finishLogo("No logo — use my name in type");
-    });
-  }
-
-  // ================= PHASE 2c — photos (still no model, no cost) =================
-  // Photos decide more about how the finished site looks than any answer they can type, so they are
-  // collected before the interview rather than left to "send them over later" — which never happens.
-  // Google's own listing photos are offered first because they cost the owner nothing.
-  // Apps Script /exec returns a transient 404 roughly 10% of the time, and the failures cluster
-  // after the script has been idle. Colours, logo and photos take a minute or two with no requests,
-  // so the first interview turn was landing on a cold script — which is why it "always failed right
-  // after photos". This is a no-op request (no messages, so the relay never calls OpenAI and never
-  // writes a row) fired purely to keep it warm. Result ignored on purpose.
-  function warmRelay() {
-    try {
-      fetch(LEADS_URL, {
-        method: "POST", mode: "cors", redirect: "follow",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ secret: LEADS_SECRET, action: "chat", lead_id: S.lead_id, known: "", messages: [] })
-      }).catch(function () {});
-    } catch (e) {}
-  }
-
-  function askPhotos() {
-    S.phase = "photos"; save();
-    warmRelay();
-    composer.hidden = true; hint.hidden = true;
-    var g = S.google, gp = (g && g.photos) ? g.photos : [];
-    send.disabled = true; typing(true);
-    setTimeout(function () {
-      typing(false); send.disabled = false;
-      say(gp.length
-        ? "These are on your Google listing. Tap any you'd rather not use, and add your own if you have better ones."
-        : "Last thing before the questions — any photos of your work? They make more difference to the finished site than anything else.");
-      photoWidget(gp);
-    }, 420);
-  }
-  function photoWidget(gp) {
-    S.uploads = S.uploads || [];
-    var w = inline(
-      '<div class="pgrid" id="pgrid"></div>' +
-      '<p class="pcount" id="pcount"></p>' +
-      '<button type="button" class="linkbtn" id="ph-add">&#43; Add your own photos</button><br>' +
-      '<button type="button" class="linkbtn" id="ph-done">Done with photos</button><br>' +
-      '<button type="button" class="linkbtn" id="ph-skip">I&rsquo;ll send photos by text later</button>');
-    var grid = w.querySelector("#pgrid"), pcount = w.querySelector("#pcount");
-
-    // One grid holding BOTH their Google photos and anything they upload. Re-drawn after every
-    // upload — otherwise a photo they just added is only a number in a counter, which reads as
-    // "it didn't work".
-    function tiles() {
-      var out = [];
-      gp.forEach(function (p, i) { out.push({ url: p.url, on: !!p.use, kind: "g", i: i }); });
-      (S.uploads || []).forEach(function (p, i) { out.push({ url: p.url, on: p.use !== false, kind: "u", i: i }); });
-      return out;
-    }
-    function render() {
-      var t = tiles();
-      grid.hidden = !t.length;
-      grid.innerHTML = t.map(function (x) {
-        return '<button type="button" class="ptile" data-kind="' + x.kind + '" data-i="' + x.i + '" ' +
-               'aria-pressed="' + (x.on ? "true" : "false") + '" aria-label="Use this photo">' +
-               '<img src="' + esc(thumbUrl(x.url)) + '" alt="" loading="lazy" decoding="async">' +
-               '<span class="ptile__tick" aria-hidden="true">&#10003;</span>' +
-               (x.kind === "u" ? '<span class="ptile__mine">yours</span>' : "") + '</button>';
-      }).join("");
-      grid.querySelectorAll(".ptile").forEach(function (b) {
-        b.addEventListener("click", function () {
-          var i = +b.getAttribute("data-i");
-          if (b.getAttribute("data-kind") === "g") gp[i].use = !gp[i].use;
-          else S.uploads[i].use = (S.uploads[i].use === false);
-          save(); render();
-        });
-      });
-      var picked = tiles().filter(function (x) { return x.on; }).length;
-      var mine = (S.uploads || []).filter(function (p) { return p.use !== false; }).length;
-      pcount.textContent = picked
-        ? (picked + (picked === 1 ? " photo" : " photos") + " selected" + (mine ? " (" + mine + " of yours)" : ""))
-        : "None selected — I'll build it without photos.";
-    }
-    render();
-
-    w.querySelector("#ph-add").addEventListener("click", function () {
-      if (typeof cloudinary === "undefined") {
-        say("The uploader didn't load — no problem, text them to Barrett and he'll add them.");
-        return;
-      }
-      cloudinary.createUploadWidget({
-        cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET,
-        folder: folderSlug(), sources: ["local", "camera", "google_drive", "dropbox", "url"],
-        multiple: true, maxFiles: 30, clientAllowedFormats: ["image"], maxFileSize: 20000000,
-        // Resize in the browser before it ever goes up the wire. A phone photo is often 4-12MB;
-        // nothing on the finished site uses more than about 1600px, so uploading the original is
-        // minutes of waiting for pixels that get thrown away.
-        maxImageWidth: 1800, maxImageHeight: 1800, maxChunkSize: 6000000
-      }, function (err, res) {
-        if (err || !res) return;
-        if (res.event === "success" && res.info && res.info.secure_url) {
-          S.uploads.push({ url: res.info.secure_url, caption: "", is_hero: false, source: "upload", use: true });
-          save();
-          render();          // draw it immediately — this is the whole point
-        }
-      }).open();
-    });
-
-    function finishPhotos(text) { me(text); w.remove(); beginInterview(); }
-    w.querySelector("#ph-done").addEventListener("click", function () {
-      var picked = tiles().filter(function (x) { return x.on; }).length;
-      finishPhotos(picked ? (picked + (picked === 1 ? " photo" : " photos")) : "No photos for now");
-    });
-    w.querySelector("#ph-skip").addEventListener("click", function () {
-      gp.forEach(function (p) { p.use = false; });
-      S.uploads = []; save();
-      finishPhotos("I'll send photos by text later");
-    });
-  }
-  // Tiles are about 120px wide. Pointing them at the original meant downloading a multi-megabyte
-  // photo to draw a thumbnail — the single biggest reason the photo step felt slow. Cloudinary can
-  // resize on delivery, and Google's photo URLs carry their own size parameter.
-  function thumbUrl(url) {
-    if (!url) return url;
-    try {
-      if (url.indexOf("res.cloudinary.com") !== -1 && url.indexOf("/upload/") !== -1) {
-        return url.replace("/upload/", "/upload/w_400,h_300,c_fill,q_auto,f_auto/");
-      }
-      if (url.indexOf("googleusercontent.com") !== -1) {
-        return url.replace(/=s\d+-w\d+$/, "=w400").replace(/=w\d+$/, "=w400");
-      }
-    } catch (e) {}
-    return url;
-  }
-
-  function folderSlug() {
-    var n = (S.a.business_name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-    return "intake/" + (n || "unnamed");
+    beginInterview();
   }
 
   // ================= PHASE 3 — the interviewer (model starts HERE) =================
+  // Everything the analyst needs, formatted as an audit it can quote from. Numbers first — the
+  // model's opening message is built directly from these.
   function knownFacts() {
     var g = S.google, out = [];
     out.push("Business: " + (S.a.business_name || "(unknown)"));
     out.push("Owner's first name: " + (S.a.first_name || "(unknown)"));
-    out.push("Brand colours: " + (S.a.brand_colors || "none — Barrett picks them"));
     if (g) {
-      if (g.type) out.push("Google category: " + g.type);
+      if (g.type) out.push("Category: " + g.type);
       if (g.address) out.push("Address: " + g.address);
-      if (g.hours) out.push("Hours: " + g.hours);
-      if (g.website) out.push("Existing website: " + g.website);
-      if (g.rating) out.push("Google rating: " + g.rating + " from " + g.ratings + " reviews");
-      if (g.summary) out.push("Google summary: " + g.summary);
-      var rv = g.reviews.slice(0, 3).map(function (r) { return '"' + r.text.slice(0, 200) + '" — ' + r.author; });
-      if (rv.length) out.push("Recent Google reviews:\n" + rv.join("\n"));
+      out.push("AUDIT OF THEIR PROFILE:");
+      out.push("- Rating: " + (g.rating ? g.rating + " from " + (g.ratings || 0) + " reviews" : "NO REVIEWS YET"));
+      out.push("- Photos visible: " + ((g.photos || []).length) + (g.photos && g.photos.length >= 8 ? "+" : ""));
+      out.push("- Website link: " + (g.website ? g.website : "NONE"));
+      out.push("- Hours: " + (g.hours ? "set" : "NOT SET"));
+      if (g.summary) out.push("- Google's summary: " + g.summary);
+      var rv = (g.reviews || []).slice(0, 3).map(function (r) { return '"' + r.text.slice(0, 180) + '" — ' + r.author; });
+      if (rv.length) out.push("Their recent reviews:\n" + rv.join("\n"));
+      var comps = S.competitors || [];
+      if (comps.length) {
+        var meds = comps.map(function (c) { return c.reviews; }).sort(function (a, b) { return a - b; });
+        out.push("LOCAL COMPETITION (same trade, same town):");
+        comps.forEach(function (c) {
+          out.push("- " + c.name + ": " + (c.rating || "unrated") + ", " + c.reviews + " reviews, website " +
+                   (c.website ? "yes" : "no") + ", " + (c.photos >= 8 ? "8+" : c.photos) + " photos");
+        });
+        out.push("Competitor median reviews: " + meds[Math.floor(meds.length / 2)]);
+      }
     }
     return out.join("\n");
   }
   function beginInterview() {
     S.phase = "chat"; S.started = true; save();
     composer.hidden = false; hint.hidden = false;
-    turn("");   // empty user turn: the model opens
+    // The opening analysis is far sharper with the competitor numbers in it, so give the sweep a
+    // moment to land — but never hold a person hostage to a slow API: 2.5s cap, then go without.
+    send.disabled = true; typing(true);
+    var waited = false;
+    function go() { if (waited) return; waited = true; typing(false); send.disabled = false; turn(""); }
+    if (competitorsReady && !(S.competitors && S.competitors.length)) {
+      competitorsReady.then(go, go);
+      setTimeout(go, 2500);
+    } else { go(); }
   }
   // Retries on its own before it ever bothers them. Their answer is already in S.msgs by the time a
   // request goes out, so a retry re-sends the conversation with no new text — calling turn("") is a
@@ -1112,7 +935,7 @@ fbq('track', 'PageView');
       try {
         sessionStorage.setItem("duna_intake", JSON.stringify({
           first_name: S.a.first_name, business_name: S.a.business_name, submitted: true,
-          lead_ok: !!(j && j.lead_ok), lead_id: S.lead_id
+          lead_ok: !!(j && j.lead_ok), lead_id: S.lead_id, product: "gbp"
         }));
       } catch (e) {}
       window.location.href = "thanks.html";
@@ -1125,7 +948,7 @@ fbq('track', 'PageView');
   function submitStage(stage, extra) {
     var g = S.google;
     var payload = {
-      secret: LEADS_SECRET, lead_id: S.lead_id, form: "website-chat", stage: stage,
+      secret: LEADS_SECRET, lead_id: S.lead_id, form: "gbp-chat", stage: stage,
       source_url: location.href.split("?")[0],
       elapsed_ms: String(Date.now() - LOADED_AT),
       fbp: cookie("_fbp"), fbc: cookie("_fbc"), ua: navigator.userAgent,
@@ -1214,12 +1037,6 @@ fbq('track', 'PageView');
     composer.hidden = false; hint.hidden = false;
   } else if (S.phase === "confirm" && S.google) {
     drawCard(S.google);
-  } else if (S.phase === "logo") {
-    askLogo();
-  } else if (S.phase === "photos") {
-    askPhotos();
-  } else if (S.phase === "design") {
-    askDesign();
   } else if (S.phase === "contact") {
     // Mid-contact reload: keep what Google gave us and carry on asking, rather than starting over.
     if (S.google) say("Welcome back — " + S.google.name + ".");
@@ -1231,6 +1048,5 @@ fbq('track', 'PageView');
   fb("ChatOpen");
 })();
 </script>
-<script src="https://upload-widget.cloudinary.com/latest/global/all.js"></script>
 </body>
 </html>

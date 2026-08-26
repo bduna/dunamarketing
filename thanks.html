@@ -271,10 +271,21 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   // The homepage is the chat now, and a finished chat has nothing to go back and edit — only the
   // questionnaire keeps a re-openable draft. Show whichever sentence is actually true for them.
   (function () {
-    var hasForm = false;
+    var hasForm = false, info = {};
     try { hasForm = !!localStorage.getItem("duna_interview"); } catch (e) {}
+    try { info = JSON.parse(sessionStorage.getItem("duna_intake") || "{}"); } catch (e) {}
     var el = document.getElementById(hasForm ? "edit-note" : "chat-note");
     if (el) el.hidden = false;
+    // The GBP funnel lands here too — same page, different promise. Swap the copy so it describes
+    // what actually happens next for a profile optimization rather than a website build.
+    if (info.product === "gbp") {
+      var set = function (sel, txt) { var n = document.querySelector(sel); if (n) n.innerHTML = txt; };
+      set(".kicker", "Audit received");
+      set(".lede", "Your listing analysis is in. <strong>Fastest next step: text me.</strong> One tap opens a message that&rsquo;s already written &mdash; just hit send and we&rsquo;re talking.");
+      var notes = document.querySelectorAll(".reply-note");
+      if (notes[0]) notes[0].innerHTML = "I read every analysis personally and usually reply <b>within the hour</b> during the day.";
+      if (notes[1]) notes[1].innerHTML = "<b>$250 once</b> &mdash; your full optimization written and applied to your profile. Keep it alive with weekly posts and every review answered for <b>$99/month</b>, stop any time. You see the finished work before you pay.";
+    }
   })();
 </script>
 </body>
