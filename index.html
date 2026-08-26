@@ -125,8 +125,11 @@ fbq('track', 'PageView');
   /* Matches drop straight under the field — still on the conversation background, no floating panel,
      but each one is a proper target: a pin, the name, the street under it. */
   .glist { margin-top:8px; display:flex; flex-direction:column; gap:2px;
-    overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain;
     animation:glistIn .18s ease-out both; }
+  /* Only becomes a scroller when it genuinely overflows. It used to be overflow:auto with
+     overscroll-behavior:contain at all times, which swallowed swipes over the results and stopped
+     the PAGE scrolling — your finger was on a scroll container that had nothing to scroll. */
+  .glist--scroll { overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
   @keyframes glistIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:none; } }
   @media (prefers-reduced-motion:reduce) { .glist { animation:none; } }
   .glist button { display:flex; gap:11px; align-items:flex-start; width:100%; text-align:left;
@@ -447,12 +450,22 @@ fbq('track', 'PageView');
       list.classList.add("glist--compact");
       needed = list.scrollHeight;                 // re-measure once compacted
     }
-    list.style.maxHeight = Math.max(room, 96) + "px";
-    // If even compact rows overflow, the list scrolls — but say so rather than hide it silently.
-    list.setAttribute("data-overflow", needed > room ? "1" : "0");
+    if (needed > room) {
+      list.style.maxHeight = Math.max(room, 96) + "px";
+      list.classList.add("glist--scroll");        // it really does need to scroll
+    } else {
+      list.style.maxHeight = "";                  // it fits: let swipes pass through to the page
+      list.classList.remove("glist--scroll");
+    }
   }
 
+  // The opening question and the search field are added within milliseconds of load. Scrolling to
+  // them buried the headline before anyone had seen it, so the first render stays put.
+  var booting = true, justTyped = false;
+  setTimeout(function () { booting = false; }, 700);
+
   function scrollTail() {
+    if (booting) return;
     var t = (composer && !composer.hidden) ? composer : thread.lastElementChild;
     if (!t) return;
     var r = t.getBoundingClientRect(), v = visibleBox();
@@ -572,10 +585,10 @@ fbq('track', 'PageView');
       w.remove();
       askContact();
     });
-    gq.addEventListener("focus", function () {
-      revealSearch(gq, glist);
-      setTimeout(function () { revealSearch(gq, glist); }, 300);   // after the keyboard animates in
-    });
+    // Deliberately NOT revealing on focus. The field is focused automatically on load, so doing it
+    // here slid the page down to the search box before the visitor had read the headline or typed
+    // anything. The page moves when they start typing, and not before.
+    gq.addEventListener("keydown", function () { justTyped = true; });
     setTimeout(function () { try { gq.focus({ preventScroll: true }); } catch (e) {} }, 80);
   }
   function gAuto(v) {
