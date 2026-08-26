@@ -159,6 +159,9 @@ fbq('track', 'PageView');
     opacity:0; transition:opacity .15s ease; }
   .ptile[aria-pressed="true"] .ptile__tick { opacity:1; }
   .ptile:focus-visible { outline:3px solid var(--navy); outline-offset:2px; }
+  .ptile__mine { position:absolute; left:6px; bottom:6px; padding:1px 6px; border-radius:999px;
+    background:rgba(0,48,135,.9); color:#fff; font-size:.62rem; font-weight:800; letter-spacing:.03em; }
+  .pgrid[hidden] { display:none; }
   .pcount { font-size:.85rem; color:var(--muted); margin:0 0 2px; }
 
   /* The quiet way out, as a text link rather than another button box. */
@@ -672,31 +675,47 @@ fbq('track', 'PageView');
   function photoWidget(gp) {
     S.uploads = S.uploads || [];
     var w = inline(
-      (gp.length ? '<div class="pgrid" id="pgrid">' + gp.map(function (ph, i) {
-        return '<button type="button" class="ptile" data-i="' + i + '" aria-pressed="' + (ph.use ? "true" : "false") + '" ' +
-               'aria-label="Use this photo"><img src="' + esc(ph.url) + '" alt=""><span class="ptile__tick" aria-hidden="true">&#10003;</span></button>';
-      }).join("") + '</div>' : "") +
+      '<div class="pgrid" id="pgrid"></div>' +
       '<p class="pcount" id="pcount"></p>' +
       '<button type="button" class="linkbtn" id="ph-add">&#43; Add your own photos</button><br>' +
       '<button type="button" class="linkbtn" id="ph-done">Done with photos</button><br>' +
       '<button type="button" class="linkbtn" id="ph-skip">I&rsquo;ll send photos by text later</button>');
+    var grid = w.querySelector("#pgrid"), pcount = w.querySelector("#pcount");
 
-    function count() {
-      var picked = gp.filter(function (p) { return p.use; }).length + S.uploads.length;
-      var el = w.querySelector("#pcount");
-      el.textContent = picked ? (picked + (picked === 1 ? " photo" : " photos") + " selected"
-                                 + (S.uploads.length ? " (" + S.uploads.length + " of yours)" : ""))
-                              : "None selected — I'll build it without photos.";
+    // One grid holding BOTH their Google photos and anything they upload. Re-drawn after every
+    // upload — otherwise a photo they just added is only a number in a counter, which reads as
+    // "it didn't work".
+    function tiles() {
+      var out = [];
+      gp.forEach(function (p, i) { out.push({ url: p.url, on: !!p.use, kind: "g", i: i }); });
+      (S.uploads || []).forEach(function (p, i) { out.push({ url: p.url, on: p.use !== false, kind: "u", i: i }); });
+      return out;
     }
-    w.querySelectorAll(".ptile").forEach(function (b) {
-      b.addEventListener("click", function () {
-        var ph = gp[+b.getAttribute("data-i")];
-        ph.use = !ph.use;
-        b.setAttribute("aria-pressed", ph.use ? "true" : "false");
-        save(); count();
+    function render() {
+      var t = tiles();
+      grid.hidden = !t.length;
+      grid.innerHTML = t.map(function (x) {
+        return '<button type="button" class="ptile" data-kind="' + x.kind + '" data-i="' + x.i + '" ' +
+               'aria-pressed="' + (x.on ? "true" : "false") + '" aria-label="Use this photo">' +
+               '<img src="' + esc(x.url) + '" alt="">' +
+               '<span class="ptile__tick" aria-hidden="true">&#10003;</span>' +
+               (x.kind === "u" ? '<span class="ptile__mine">yours</span>' : "") + '</button>';
+      }).join("");
+      grid.querySelectorAll(".ptile").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var i = +b.getAttribute("data-i");
+          if (b.getAttribute("data-kind") === "g") gp[i].use = !gp[i].use;
+          else S.uploads[i].use = (S.uploads[i].use === false);
+          save(); render();
+        });
       });
-    });
-    count();
+      var picked = tiles().filter(function (x) { return x.on; }).length;
+      var mine = (S.uploads || []).filter(function (p) { return p.use !== false; }).length;
+      pcount.textContent = picked
+        ? (picked + (picked === 1 ? " photo" : " photos") + " selected" + (mine ? " (" + mine + " of yours)" : ""))
+        : "None selected — I'll build it without photos.";
+    }
+    render();
 
     w.querySelector("#ph-add").addEventListener("click", function () {
       if (typeof cloudinary === "undefined") {
@@ -710,17 +729,16 @@ fbq('track', 'PageView');
       }, function (err, res) {
         if (err || !res) return;
         if (res.event === "success" && res.info && res.info.secure_url) {
-          S.uploads.push({ url: res.info.secure_url, caption: "", is_hero: false, source: "upload" });
-          save(); count();
+          S.uploads.push({ url: res.info.secure_url, caption: "", is_hero: false, source: "upload", use: true });
+          save();
+          render();          // draw it immediately — this is the whole point
         }
       }).open();
     });
 
-    function finishPhotos(text) {
-      me(text); w.remove(); beginInterview();
-    }
+    function finishPhotos(text) { me(text); w.remove(); beginInterview(); }
     w.querySelector("#ph-done").addEventListener("click", function () {
-      var picked = gp.filter(function (p) { return p.use; }).length + S.uploads.length;
+      var picked = tiles().filter(function (x) { return x.on; }).length;
       finishPhotos(picked ? (picked + (picked === 1 ? " photo" : " photos")) : "No photos for now");
     });
     w.querySelector("#ph-skip").addEventListener("click", function () {
@@ -843,10 +861,10 @@ fbq('track', 'PageView');
         .map(function (r) { return "“" + r.text + "” — " + r.author + " (via Google)"; }).join("\n");
       payload.photos_json = JSON.stringify(g.photos.filter(function (p) { return p.use; })
         .map(function (p) { return { url: p.url, caption: "From Google listing" + (p.by ? " (by " + p.by + ")" : ""), is_hero: false, source: "google" }; })
-        .concat(S.uploads || []));
+        .concat((S.uploads || []).filter(function (p) { return p.use !== false; })));
     } else if ((S.uploads || []).length) {
       // No Google listing, but they uploaded their own — those must still go through.
-      payload.photos_json = JSON.stringify(S.uploads);
+      payload.photos_json = JSON.stringify((S.uploads || []).filter(function (p) { return p.use !== false; }));
     }
     Object.keys(extra || {}).forEach(function (k) { payload[k] = extra[k]; });
     return fetch(LEADS_URL, { method: "POST", mode: "cors", redirect: "follow",
