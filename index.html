@@ -123,7 +123,8 @@ fbq('track', 'PageView');
   .inline input:focus { outline:2px solid transparent; outline-offset:1px;
     border-color:var(--navy); box-shadow:0 0 0 3px rgba(0,48,135,.16); }
   /* Matches drop straight under the field, as plain rows on the background. */
-  .glist { margin-top:6px; display:flex; flex-direction:column; }
+  .glist { margin-top:6px; display:flex; flex-direction:column;
+    overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
   .glist button { display:block; width:100%; text-align:left; padding:11px 15px; border:0;
     background:transparent; font:inherit; cursor:pointer; border-bottom:1px solid var(--line); }
   .glist button:first-child { border-top:1px solid var(--line); }
@@ -363,6 +364,29 @@ fbq('track', 'PageView');
     var h = window.innerHeight || document.documentElement.clientHeight;
     return { top: 0, bottom: h };
   }
+  // Autocomplete results render UNDER the field, and with a keyboard up that is off screen — you
+  // get matches you cannot see and no way to know whether to scroll or keep typing. So when results
+  // appear, ride the field up to the top of the visible area and let them fill the space between it
+  // and the keyboard, the way a native autocomplete does. Also caps the list to that space so it can
+  // never run underneath the keyboard again.
+  function revealSearch(field, list) {
+    if (!field) return;
+    var v = visibleBox();
+    var r = field.getBoundingClientRect();
+    var by = Math.round(r.top - (v.top + 8));
+    if (by > 4) {
+      try { window.scrollBy({ top: by, behavior: "smooth" }); }
+      catch (e) { window.scrollBy(0, by); }
+    }
+    if (!list || list.hidden) return;
+    // measured after the scroll settles, so the cap reflects where things actually ended up
+    setTimeout(function () {
+      var v2 = visibleBox(), fr = field.getBoundingClientRect();
+      var room = Math.round(v2.bottom - fr.bottom - 16);
+      list.style.maxHeight = (room > 140 ? room : 140) + "px";
+    }, 420);
+  }
+
   function scrollTail() {
     var t = (composer && !composer.hidden) ? composer : thread.lastElementChild;
     if (!t) return;
@@ -461,6 +485,7 @@ fbq('track', 'PageView');
           glist.querySelectorAll("button").forEach(function (b) {
             b.addEventListener("click", function () { choose(b.getAttribute("data-id"), b.querySelector("strong").textContent); });
           });
+          if (!glist.hidden) revealSearch(gq, glist);
         }).catch(function () { glist.hidden = true; });
       }, 280);
     });
@@ -477,6 +502,10 @@ fbq('track', 'PageView');
       me(typed || "It's not on Google");
       w.remove();
       askContact();
+    });
+    gq.addEventListener("focus", function () {
+      revealSearch(gq, glist);
+      setTimeout(function () { revealSearch(gq, glist); }, 300);   // after the keyboard animates in
     });
     setTimeout(function () { try { gq.focus({ preventScroll: true }); } catch (e) {} }, 80);
   }
