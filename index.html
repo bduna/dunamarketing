@@ -159,6 +159,9 @@ fbq('track', 'PageView');
     opacity:0; transition:opacity .15s ease; }
   .ptile[aria-pressed="true"] .ptile__tick { opacity:1; }
   .ptile:focus-visible { outline:3px solid var(--navy); outline-offset:2px; }
+  .logoprev { display:inline-flex; align-items:center; justify-content:center; padding:10px 14px;
+    background:#fff; border:1px solid var(--line); border-radius:12px; margin-bottom:6px; }
+  .logoprev img { max-height:74px; max-width:220px; width:auto; height:auto; display:block; }
   .ptile__mine { position:absolute; left:6px; bottom:6px; padding:1px 6px; border-radius:999px;
     background:rgba(0,48,135,.9); color:#fff; font-size:.62rem; font-weight:800; letter-spacing:.03em; }
   .pgrid[hidden] { display:none; }
@@ -631,7 +634,7 @@ fbq('track', 'PageView');
     function finishDesign(text, stored) {
       S.a.brand_colors = stored; save();
       me(text); w.remove();
-      askPhotos();
+      askLogo();
     }
     w.querySelector("#col-done").addEventListener("click", function () {
       var a = getMain(), b = getSecond();
@@ -653,6 +656,61 @@ fbq('track', 'PageView');
       if (after) { after(); return; }
       try { input.focus({ preventScroll: true }); } catch (e) {}
     }, 420);
+  }
+
+  // ================= PHASE 2b2 — logo (still no model, no cost) =================
+  // A logo changes the header, the favicon and often the palette, and it is a file — asking for it
+  // in the chat ("do you have a logo?" / "yes") gets an answer but not the artwork. Ask while they
+  // are holding the phone the file is on.
+  function askLogo() {
+    S.phase = "logo"; save();
+    composer.hidden = true; hint.hidden = true;
+    send.disabled = true; typing(true);
+    setTimeout(function () {
+      typing(false); send.disabled = false;
+      say("Do you have a logo? Add the file and I'll put it in the header — if you haven't got one, I'll set your name in type instead.");
+      logoWidget();
+    }, 420);
+  }
+  function logoWidget() {
+    var w = inline(
+      '<div id="logoprev"></div>' +
+      '<button type="button" class="linkbtn" id="logo-add">&#43; Add your logo</button><br>' +
+      '<button type="button" class="linkbtn" id="logo-none">I don&rsquo;t have a logo</button>');
+    var prev = w.querySelector("#logoprev");
+
+    function render() {
+      if (!S.a.logo_url) { prev.innerHTML = ""; return; }
+      prev.innerHTML = '<div class="logoprev"><img src="' + esc(S.a.logo_url) + '" alt="Your logo"></div>' +
+                       '<button type="button" class="linkbtn" id="logo-ok">Use this logo</button><br>';
+      prev.querySelector("#logo-ok").addEventListener("click", function () { finishLogo("Logo added"); });
+      w.querySelector("#logo-add").textContent = "Pick a different file";
+      w.querySelector("#logo-none").textContent = "Actually, skip the logo";
+    }
+    render();
+
+    w.querySelector("#logo-add").addEventListener("click", function () {
+      if (typeof cloudinary === "undefined") {
+        say("The uploader didn't load — no problem, text it to Barrett and he'll add it.");
+        return;
+      }
+      cloudinary.createUploadWidget({
+        cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+        folder: folderSlug() + "/logo", sources: ["local", "camera", "google_drive", "dropbox", "url"],
+        multiple: false, clientAllowedFormats: ["image"], maxFileSize: 10000000
+      }, function (err, res) {
+        if (err || !res) return;
+        if (res.event === "success" && res.info && res.info.secure_url) {
+          S.a.logo_url = res.info.secure_url; save(); render();
+        }
+      }).open();
+    });
+
+    function finishLogo(text) { me(text); w.remove(); askPhotos(); }
+    w.querySelector("#logo-none").addEventListener("click", function () {
+      S.a.logo_url = ""; save();
+      finishLogo("No logo — use my name in type");
+    });
   }
 
   // ================= PHASE 2c — photos (still no model, no cost) =================
@@ -873,6 +931,7 @@ fbq('track', 'PageView');
       business_name: S.a.business_name || "", place_id: S.a.place_id || "",
       address: S.a.address || "", hours: S.a.hours || "",
       current_website_url: S.a.current_website_url || "",
+      logo_url: S.a.logo_url || "",
       primary_goal: "", utm: location.search.replace(/^\?/, "")
     };
     if (g) {
@@ -943,6 +1002,8 @@ fbq('track', 'PageView');
     composer.hidden = false; hint.hidden = false;
   } else if (S.phase === "confirm" && S.google) {
     drawCard(S.google);
+  } else if (S.phase === "logo") {
+    askLogo();
   } else if (S.phase === "photos") {
     askPhotos();
   } else if (S.phase === "design") {
