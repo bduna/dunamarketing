@@ -129,6 +129,19 @@ fbq('track', 'PageView');
   .glist button:hover, .glist button:focus-visible { background:var(--navy-soft); }
   .glist strong { display:block; font-size:.95rem; font-weight:700; }
   .glist small { color:var(--muted); }
+  /* Colour pickers — same "sits on the background" treatment as the other inline fields. */
+  .swatches { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:2px; }
+  .sw { flex:1 1 150px; min-width:0; }
+  .sw__cap { display:block; font-size:.8rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
+  .sw__row { display:flex; gap:6px; align-items:center; }
+  .sw__row input[type=color] { flex:0 0 auto; width:48px; height:48px; padding:2px; cursor:pointer;
+    border:1px solid var(--input-line); border-radius:12px; background:#fff; }
+  .sw__row input[type=text] { flex:1; min-width:0; font:inherit; font-size:.95rem; padding:11px 14px;
+    border-radius:24px; border:1px solid var(--input-line); background:#fff; text-transform:uppercase; }
+  .sw__row input:focus { outline:2px solid transparent; outline-offset:1px;
+    border-color:var(--navy); box-shadow:0 0 0 3px rgba(0,48,135,.16); }
+  .sw__row input[type=text].bad { border-color:var(--red); }
+
   /* The quiet way out, as a text link rather than another button box. */
   .linkbtn { display:inline-flex; align-items:center; min-height:44px; margin-top:2px; padding:0 2px;
     background:none; border:0; font:inherit; font-size:.88rem; font-weight:700; color:var(--navy);
@@ -546,7 +559,67 @@ fbq('track', 'PageView');
   function finishContact() {
     submitStage("start");
     fb("LeadStart");
-    beginInterview();
+    askDesign();
+  }
+
+  // ================= PHASE 2b — colours (still no model, no cost) =================
+  // Asked up front so the interview never has to spend a turn on "what colours do you like?", and
+  // because a colour is something you point at, not something you describe over a text message.
+  function askDesign() {
+    S.phase = "design"; save();
+    composer.hidden = true; hint.hidden = true;
+    send.disabled = true; typing(true);
+    setTimeout(function () { typing(false); send.disabled = false;
+      say("Before the questions — do you have brand colours? Pick a main and a second, or type your hex codes if you know them.");
+      designWidget();
+    }, 420);
+  }
+  function designWidget() {
+    var w = inline(
+      '<div class="swatches">' +
+        '<label class="sw"><span class="sw__cap">Main colour</span><span class="sw__row">' +
+          '<input type="color" id="c1" value="#808080" aria-label="Main colour">' +
+          '<input type="text" id="h1" value="#808080" spellcheck="false" autocapitalize="characters" aria-label="Main colour hex code">' +
+        '</span></label>' +
+        '<label class="sw"><span class="sw__cap">Second colour</span><span class="sw__row">' +
+          '<input type="color" id="c2" value="#808080" aria-label="Second colour">' +
+          '<input type="text" id="h2" value="#808080" spellcheck="false" autocapitalize="characters" aria-label="Second colour hex code">' +
+        '</span></label>' +
+      '</div>' +
+      '<button type="button" class="linkbtn" id="col-done">Use these colours</button><br>' +
+      '<button type="button" class="linkbtn" id="col-skip">I don&rsquo;t have brand colours &mdash; you choose</button>');
+
+    // Only colours they actually TOUCHED count. Otherwise everyone ships mid-grey because they
+    // pressed the obvious button without moving anything.
+    var touched = { c1: false, c2: false };
+    function pair(cid, hid, key) {
+      var c = w.querySelector("#" + cid), h = w.querySelector("#" + hid);
+      c.addEventListener("input", function () { h.value = c.value.toUpperCase(); h.classList.remove("bad"); touched[key] = true; });
+      h.addEventListener("input", function () {
+        var v = h.value.trim().replace(/^#?/, "#");
+        if (/^#[0-9a-fA-F]{6}$/.test(v)) { c.value = v; h.classList.remove("bad"); touched[key] = true; }
+        else { h.classList.add("bad"); }
+      });
+      return function () { return touched[key] ? c.value.toUpperCase() : ""; };
+    }
+    var getMain = pair("c1", "h1", "c1"), getSecond = pair("c2", "h2", "c2");
+
+    function finishDesign(text, stored) {
+      S.a.brand_colors = stored; save();
+      me(text); w.remove();
+      beginInterview();
+    }
+    w.querySelector("#col-done").addEventListener("click", function () {
+      var a = getMain(), b = getSecond();
+      if (!a && !b) { finishDesign("I don't have set colours \u2014 you choose", ""); return; }
+      var parts = [];
+      if (a) parts.push("Primary " + a);
+      if (b) parts.push("Secondary " + b);
+      finishDesign(parts.join(" \u00b7 "), parts.join(", "));
+    });
+    w.querySelector("#col-skip").addEventListener("click", function () {
+      finishDesign("I don't have set colours \u2014 you choose", "");
+    });
   }
   // A short pause with the typing dots, so a reply never appears in the same instant they hit send.
   function botSays(text, after) {
@@ -563,6 +636,7 @@ fbq('track', 'PageView');
     var g = S.google, out = [];
     out.push("Business: " + (S.a.business_name || "(unknown)"));
     out.push("Owner's first name: " + (S.a.first_name || "(unknown)"));
+    out.push("Brand colours: " + (S.a.brand_colors || "none — Barrett picks them"));
     if (g) {
       if (g.type) out.push("Google category: " + g.type);
       if (g.address) out.push("Address: " + g.address);
@@ -627,6 +701,7 @@ fbq('track', 'PageView');
       // The bulk of the interview: everything they said, grouped by page. This is what the
       // site actually gets written from — the other fields are an index into it.
       extra.page_notes = fields.page_notes || "";
+      extra.brand_colors = S.a.brand_colors || "";
     }
     extra.transcript = S.msgs.map(function (m) { return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content; }).join("\n\n");
     submitStage("complete", extra).then(function (j) {
@@ -723,6 +798,8 @@ fbq('track', 'PageView');
     composer.hidden = false; hint.hidden = false;
   } else if (S.phase === "confirm" && S.google) {
     drawCard(S.google);
+  } else if (S.phase === "design") {
+    askDesign();
   } else if (S.phase === "contact") {
     // Mid-contact reload: keep what Google gave us and carry on asking, rather than starting over.
     if (S.google) say("Welcome back — " + S.google.name + ".");
