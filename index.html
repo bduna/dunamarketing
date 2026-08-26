@@ -345,10 +345,25 @@ fbq('track', 'PageView');
 
   // ---------- thread helpers ----------
   // The bottom of the conversation is whatever comes last — the composer when it is open, otherwise
-  // the newest message. Scrolling the bubble alone would leave the input just off screen.
+  // the newest message.
+  //
+  // Two rules, both about not yanking the page around on a phone:
+  //  · do nothing if the tail is already on screen. block:"end" scrolled until the tail sat at the
+  //    very bottom of the viewport EVERY time, so each message shunted the page upward whether it
+  //    needed to or not — that is the lurch between questions.
+  //  · when it must move, block:"nearest" moves the minimum distance to bring it into view.
+  //  · deliberately NOT batched per frame. Coalescing into one requestAnimationFrame looked tidier
+  //    and measured far worse: the queued frame fires after more content has landed, so one 200px
+  //    move became a 729px lurch, and some scrolls never happened at all — the input ended up off
+  //    screen. Several small moves beat one big one.
   function scrollTail() {
     var t = (composer && !composer.hidden) ? composer : thread.lastElementChild;
-    if (t) t.scrollIntoView({ block: "end", behavior: "smooth" });
+    if (!t) return;
+    var r = t.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    if (r.top >= 0 && r.bottom <= vh - 4) return;      // already visible: leave the page alone
+    try { t.scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+    catch (e) { t.scrollIntoView(false); }             // older Safari has no options object
   }
   function bubble(who, html, wide) {
     var d = document.createElement("div");
@@ -373,8 +388,7 @@ fbq('track', 'PageView');
   function typing(on) {
     var t = $("typing");
     if (on && !t) { var d = document.createElement("div"); d.className = "typing"; d.id = "typing";
-      d.innerHTML = "<span></span><span></span><span></span>"; thread.appendChild(d);
-      scrollTail(); }
+      d.innerHTML = "<span></span><span></span><span></span>"; thread.appendChild(d); }
     if (!on && t) t.remove();
   }
 
