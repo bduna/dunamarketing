@@ -29,7 +29,10 @@
   .score b { display:block; font-size:1.5rem; line-height:1.2; }
   .score span { font-size:.82rem; color:var(--muted); }
   .good { color:var(--good); } .bad { color:var(--bad); } .warnc { color:var(--warn); }
-  table { width:100%; border-collapse:collapse; font-size:.92rem; }
+  /* The five-column table must scroll INSIDE its card on a phone — otherwise it widens the
+     whole page and clips every headline on the way down. */
+  .card { overflow-x:auto; }
+  table { width:100%; min-width:470px; border-collapse:collapse; font-size:.92rem; }
   th,td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); }
   th { font-size:.78rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
   tr.you { background:var(--navy-soft); font-weight:700; }
