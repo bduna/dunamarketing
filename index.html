@@ -1837,12 +1837,13 @@ fbq('track', 'PageView');
     var k = $("kicker");
     if (!k) return;
     var REF = 32, MIN = 10;
-    // Never louder than 45% of the headline: past that it competes with it instead of introducing it.
+    // The ceiling exists only to stop a pathologically short string from outgrowing the headline —
+    // it is not meant to bind on normal copy, so a real eyebrow reaches the full column width.
     function maxSize() {
       var h = document.querySelector(".intro h1");
-      if (!h) return 22;
+      if (!h) return 40;
       var hs = parseFloat(window.getComputedStyle(h).fontSize) || 34;
-      return Math.max(14, hs * 0.45);
+      return Math.max(14, hs * 0.75);
     }
 
     // scrollWidth on a block element returns the BOX width, not the text width — so once the text
