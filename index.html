@@ -263,6 +263,15 @@ fbq('track', 'PageView');
     border-radius:999px; vertical-align:middle; margin-left:4px; letter-spacing:.03em; }
   table.sb td.weak { color:var(--red); font-weight:800; }
 
+  .others { margin:16px 0 0; padding:14px 16px; background:#f4f6f9; border:1px dashed #cdd5e2; border-radius:10px; }
+  .others .oh { margin:0 0 9px; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em;
+    color:var(--muted); font-weight:800; }
+  .others ul { margin:0; padding:0; list-style:none; }
+  .others li { margin:0 0 6px; font-size:.9rem; }
+  .others li b { font-weight:700; }
+  .others li span { color:var(--muted); font-size:.84rem; }
+  .others .fine { margin:9px 0 0; }
+
   ol.gaps { margin:0; padding:0; list-style:none; counter-reset:g; }
   ol.gaps li { counter-increment:g; position:relative; padding:0 0 0 40px; margin:0 0 16px; }
   ol.gaps li::before { content:counter(g); position:absolute; left:0; top:1px; width:26px; height:26px;
@@ -831,6 +840,10 @@ fbq('track', 'PageView');
   // salon" while its actual rivals are typed "Hair Salon". Exact string matching threw those away
   // and left an empty table. Shared significant word = same trade, which keeps "Beauty salon" with
   // "Hair Salon" and correctly separates "Plumber" from "General Contractor".
+  var NOT_A_RIVAL = { "manufacturer": 1, "shopping mall": 1, "business center": 1, "business centre": 1,
+                      "store": 1, "supermarket": 1, "gift shop": 1, "brewpub": 1, "restaurant": 1,
+                      "medical clinic": 1, "corporate office": 1, "wholesaler": 1, "hardware store": 1,
+                      "building materials supplier": 1, "lumber store": 1, "real estate agency": 1 };
   var TRADE_STOP = { "and": 1, "of": 1, "the": 1, "service": 1, "services": 1, "company": 1,
                      "shop": 1, "store": 1, "center": 1, "centre": 1, "contractor": 0 };
   function tradeWords(t) {
@@ -870,10 +883,18 @@ fbq('track', 'PageView');
       function byReviews(a, b) { return b.reviews - a.reviews; }
       var exact = rows.filter(function (c) { return cat && c.type === cat; }).sort(byReviews);
       var near  = rows.filter(function (c) { return !(cat && c.type === cat) && sameTrade(cat, c.type); }).sort(byReviews);
-      // Everything else is DISCARDED. Filling empty rows from other trades is how a plumber ends up
-      // in a general contractor's scoreboard, and one business the owner knows isn't a competitor
-      // discredits every real number next to it. A short table is fine; a wrong one is not.
-      return exact.concat(near).slice(0, 6);
+      // The strip is for businesses that MIGHT be competitors Google mis-filed. A materials supplier
+      // or a shopping centre is not a judgement call, so it never earns a line.
+      var off = rows.filter(function (c) {
+        return !(cat && c.type === cat) && !sameTrade(cat, c.type) && !NOT_A_RIVAL[(c.type || "").toLowerCase()];
+      }).sort(byReviews);
+      // Two lists, never merged. `rivals` are the same trade and are the ONLY businesses any number
+      // in this report is computed from. `others` came back for the same search but Google files
+      // them under a different category — often a real competitor mis-typed ("Services" instead of
+      // "General Contractor"), sometimes a genuinely different trade. They are shown, labelled, and
+      // excluded from every calculation, so the owner can judge them without a wrong row ever
+      // contaminating a figure.
+      return { rivals: exact.concat(near).slice(0, 6), others: off.slice(0, 4) };
     });
   }
 
@@ -881,7 +902,7 @@ fbq('track', 'PageView');
     try {
       var town = (g.address || "").split(",").length >= 3 ? g.address.split(",").slice(-3)[0].trim() : "";
       competitorsReady = sweepCompetitors(g.type, town, g.name, g.place_id)
-        .then(function (rows) { S.competitors = rows; save(); })
+        .then(function (res) { S.competitors = res.rivals; S.nearMatches = res.others; save(); })
         .catch(function () {});
     } catch (e) {}
   }
@@ -1316,6 +1337,17 @@ fbq('track', 'PageView');
            ' in your trade there &mdash; we would rather show you a short table than pad it with businesses ' +
            'you do not compete with' : '') + '.</p>';
       }
+      var others = S.nearMatches || [];
+      if (top.length && others.length) {
+        html += '<div class="others"><p class="oh">Also returned for your trade &mdash; Google files these ' +
+          'under a different category</p><ul>';
+        others.forEach(function (c) {
+          html += '<li><b>' + esc2(c.name) + '</b> <span>' + esc2(c.type || "uncategorised") + ' &middot; ' +
+                  c.reviews + ' review' + (c.reviews === 1 ? '' : 's') + '</span></li>';
+        });
+        html += '</ul><p class="fine">Some of these are competitors Google has mis-filed; some really are ' +
+                'a different trade. Either way they are not counted in any number above.</p></div>';
+      }
       html += '</section>';
 
       if (gaps.length) {
@@ -1345,7 +1377,11 @@ fbq('track', 'PageView');
     // Runs alongside the rewrite, so it costs no extra wall-clock. Keeps whichever set is richer.
     var better = fields.area
       ? sweepCompetitors(g.type, fields.area, g.name, g.place_id)
-          .then(function (rows) { if (rows && rows.length >= comps.length) { comps = rows; S.competitors = rows; save(); } })
+          .then(function (res) {
+            if (res && res.rivals.length >= comps.length) {
+              comps = res.rivals; S.competitors = res.rivals; S.nearMatches = res.others; save();
+            }
+          })
           .catch(function () {})
       : Promise.resolve();
 
