@@ -717,8 +717,32 @@ fbq('track', 'PageView');
       });
     });
   }
+  // Apps Script tears its container down when idle, and the first request after that pays the
+  // rebuild: measured 27.7s cold, 15.6s warm-ish, 4.0s hot for an identical payload. The model is
+  // not the slow part — the trace shows one clean call every time.
+  //
+  // So we knock on the door as soon as they pick their business, which buys the container the
+  // 30-60s they spend confirming the listing and typing a name and number. Sending action:"chat"
+  // with no messages returns immediately at the relay's own guard, before any OpenAI call: it
+  // costs nothing and writes nothing. (This existed before, fired from the photo-upload step, and
+  // I deleted it along with that step when this became the GBP funnel.)
+  var warmedAt = 0;
+  function warmRelay() {
+    var now = Date.now();
+    if (now - warmedAt < 45000) return;
+    warmedAt = now;
+    try {
+      fetch(LEADS_URL, {
+        method: "POST", mode: "cors", redirect: "follow",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ secret: LEADS_SECRET, action: "chat" })
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
   function gDetails(placeId) {
     typing(true);
+    warmRelay();   // earliest point we know they are really going through with this
     var mask = "id,displayName,formattedAddress,nationalPhoneNumber,websiteUri,regularOpeningHours.weekdayDescriptions,rating,userRatingCount,reviews,photos,primaryTypeDisplayName,editorialSummary";
     fetch("https://places.googleapis.com/v1/places/" + encodeURIComponent(placeId),
       { headers: { "X-Goog-Api-Key": GOOGLE_PLACES_KEY, "X-Goog-FieldMask": mask } })
@@ -961,6 +985,7 @@ fbq('track', 'PageView');
     nextContact();
   }
   function finishContact() {
+    warmRelay();   // one more, moments before the first real model call
     submitStage("start");
     fb("LeadStart");
     beginInterview();
@@ -1020,7 +1045,20 @@ fbq('track', 'PageView');
     if (userText) { S.msgs.push({ role: "user", content: userText }); save(); }
     send.disabled = true; typing(true);
 
+    // A cold relay can take half a minute. Dots alone read as broken at that length, and the first
+    // turn is exactly where a cold start is most likely, so say something true rather than nothing.
+    var slowNote = null;
+    var slowTimer = setTimeout(function () {
+      if (S.done) return;
+      slowNote = bubble("bot", "Still working &mdash; first answer takes a few seconds longer.", true);
+    }, 7000);
+    function clearSlow() {
+      clearTimeout(slowTimer);
+      if (slowNote) { slowNote.remove(); slowNote = null; }
+    }
+
     function fail(why) {
+      clearSlow();
       try { console.log("[duna] chat turn failed (attempt " + attempt + "): " + why); } catch (e) {}
       if (attempt < 3) { setTimeout(function () { turn("", attempt + 1); }, 800 * attempt); return; }
       typing(false); send.disabled = false;
@@ -1049,6 +1087,7 @@ fbq('track', 'PageView');
       try { j = JSON.parse(t); } catch (e) { throw new Error("bad JSON: " + t.slice(0, 120)); }
       if (!j || j.ok === false) throw new Error("relay: " + ((j && j.error) || "unknown"));
       if (!j.reply && !j.done) throw new Error("empty reply");
+      clearSlow();
       typing(false); send.disabled = false;
       S.msgs.push({ role: "assistant", content: j.reply }); save();
       say(j.reply);
