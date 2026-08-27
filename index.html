@@ -724,7 +724,7 @@ fbq('track', 'PageView');
   function gDetails(placeId) {
     typing(true);
     warmRelay();   // earliest point we know they are really going through with this
-    var mask = "id,displayName,formattedAddress,nationalPhoneNumber,websiteUri,regularOpeningHours.weekdayDescriptions,rating,userRatingCount,reviews,photos,primaryTypeDisplayName,editorialSummary";
+    var mask = "id,displayName,formattedAddress,nationalPhoneNumber,websiteUri,regularOpeningHours.weekdayDescriptions,rating,userRatingCount,reviews,photos,primaryTypeDisplayName,editorialSummary,addressComponents";
     fetch("https://places.googleapis.com/v1/places/" + encodeURIComponent(placeId),
       { headers: { "X-Goog-Api-Key": GOOGLE_PLACES_KEY, "X-Goog-FieldMask": mask } })
       .then(function (r) { return r.json(); })
@@ -735,6 +735,14 @@ fbq('track', 'PageView');
           hours: ((p.regularOpeningHours && p.regularOpeningHours.weekdayDescriptions) || []).join("; "),
           rating: p.rating || null, ratings: p.userRatingCount || null,
           type: (p.primaryTypeDisplayName && p.primaryTypeDisplayName.text) || "",
+          // The county widens a starved competitor search dramatically — measured 4 results for
+          // "Plumber in Cloverdale" against 10 for "Plumber in Cloverdale, Sonoma County".
+          county: (function () {
+            var c = (p.addressComponents || []).filter(function (x) {
+              return (x.types || []).indexOf("administrative_area_level_2") >= 0;
+            })[0];
+            return c ? (c.longText || c.shortText || "") : "";
+          })(),
           summary: (p.editorialSummary && p.editorialSummary.text) || "",
           reviews: (p.reviews || []).slice(0, 5).map(function (r) {
             return { text: (r.originalText && r.originalText.text) || (r.text && r.text.text) || "",
@@ -868,7 +876,18 @@ fbq('track', 'PageView');
     return false;
   }
 
-  function sweepCompetitors(cat, area, selfName, selfId) {
+  // The area comes from an option the model wrote, so it can arrive as a phrase rather than a place
+  // — "Just in Cloverdale" produced "Plumber in Just in Cloverdale", which returned two results.
+  function tidyArea(area) {
+    return String(area || "").trim()
+      .replace(/^(just|only|mostly|mainly|primarily)\s+/i, "")
+      .replace(/^(in|around|near|within)\s+/i, "")
+      .replace(/\s+and\s+(nearby|surrounding)\s+(towns|areas)$/i, "")
+      .replace(/\s{2,}/g, " ")
+      .trim();
+  }
+
+  function sweepOnce(cat, area, selfName, selfId) {
     var q = ((cat || "business") + " in " + (area || "the area")).trim();
     return fetch("https://places.googleapis.com/v1/places:searchText", {
       method: "POST",
@@ -908,10 +927,33 @@ fbq('track', 'PageView');
     });
   }
 
+  // Google's text search is noticeably tighter from a browser than from a server for the same query
+  // — "Plumber in Cloverdale" returns 4 places here against 13 server-side, while the same query
+  // with the county returns 10. So a thin result is widened once, by county, and merged. Without
+  // this a real plumber in a small town sees a one-row scoreboard, which is the weakest possible
+  // version of the whole argument.
+  function sweepCompetitors(cat, area, selfName, selfId, county) {
+    var clean = tidyArea(area);
+    return sweepOnce(cat, clean, selfName, selfId).then(function (res) {
+      if (res.rivals.length >= 3 || !county) return res;
+      var wider = clean && clean.toLowerCase().indexOf(county.toLowerCase()) < 0
+        ? clean + ", " + county : county;
+      return sweepOnce(cat, wider, selfName, selfId).then(function (res2) {
+        var seen = {}, merged = [];
+        res.rivals.concat(res2.rivals).forEach(function (c) {
+          var k = c.id || c.name;
+          if (!seen[k]) { seen[k] = 1; merged.push(c); }
+        });
+        merged.sort(function (a, b) { return b.reviews - a.reviews; });
+        return { rivals: merged.slice(0, 6), others: (res.others.length ? res.others : res2.others) };
+      }).catch(function () { return res; });
+    });
+  }
+
   function fetchCompetitors(g) {
     try {
       var town = (g.address || "").split(",").length >= 3 ? g.address.split(",").slice(-3)[0].trim() : "";
-      competitorsReady = sweepCompetitors(g.type, town, g.name, g.place_id)
+      competitorsReady = sweepCompetitors(g.type, town, g.name, g.place_id, g.county)
         .then(function (res) { S.competitors = res.rivals; S.nearMatches = res.others; save(); })
         .catch(function () {});
     } catch (e) {}
@@ -1728,7 +1770,7 @@ fbq('track', 'PageView');
     // only use the town their address sits in, which is too small for a trade that drives 20 miles.
     // Runs alongside the rewrite, so it costs no extra wall-clock. Keeps whichever set is richer.
     var better = fields.area
-      ? sweepCompetitors(g.type, fields.area, g.name, g.place_id)
+      ? sweepCompetitors(g.type, fields.area, g.name, g.place_id, g.county)
           .then(function (res) {
             if (res && res.rivals.length >= comps.length) {
               comps = res.rivals; S.competitors = res.rivals; S.nearMatches = res.others; save();
