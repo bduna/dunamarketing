@@ -248,6 +248,9 @@ fbq('track', 'PageView');
     border-radius:999px; vertical-align:middle; margin-left:4px; letter-spacing:.03em; }
   table.sb td.weak { color:var(--red); font-weight:800; }
 
+  .paid-back { margin:10px 0 0; }
+  .paid-back a { color:#cbd6ee; font-size:.82rem; text-decoration:underline; }
+
   .qa { margin:22px 0 0; padding:18px 16px; background:var(--card); border:1px solid var(--line); border-radius:12px; }
   .qa-h { margin:0 0 12px; font-weight:800; font-size:1rem; }
   .qa-thread:empty { display:none; }
@@ -1224,30 +1227,23 @@ fbq('track', 'PageView');
         transcript: S.msgs.map(function (m) {
           return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content;
         }).join("\n\n"),
-        page_notes: "(interview did not complete at question " + (S.qNum || 0) + " of 5" +
-                    (S.doneRetried ? "; one retry was attempted" : "") + ")"
+        answers: "(interview did not complete at question " + (S.qNum || 0) + " of 5" +
+                 (S.doneRetried ? "; one retry was attempted" : "") + ")"
       });
       return;
     }
 
     var extra = {};
     if (fields) {
-      extra.what_you_do = fields.what_you_do || "";
-      extra.services_talk = fields.services_talk || "";
-      extra.story_origin = fields.story_origin || "";
-      extra.known_for = fields.known_for || "";
-      extra.typical_visitor = fields.typical_visitor || "";
-      extra.rules_talk = [fields.must_haves && ("Must have: " + fields.must_haves),
-                          fields.absolutely_nots && ("Absolutely not: " + fields.absolutely_nots)]
-                          .filter(Boolean).join("\n");
-      extra.aspirations = fields.aspirations || "";
-      extra.vibe_words = fields.vibe_words || "";
-      extra.pages = fields.pages_suggested || "";
-      // The bulk of the interview: everything they said, grouped by page. This is what the
-      // site actually gets written from — the other fields are an index into it.
-      extra.page_notes = fields.page_notes || "";
-      if (fields.rebuilt) extra.skipped = "page_notes rebuilt from the chat (model summary was empty)";
-      extra.brand_colors = S.a.brand_colors || "";
+      extra.job_value = fields.job_value || "";
+      extra.area_served = fields.area || "";
+      extra.what_they_do = fields.what_you_do || "";
+      extra.why_them = fields.known_for || "";
+      extra.services_listed = fields.services_talk || "";
+      extra.must_haves = fields.must_haves || "";
+      // The interview itself, section by section. Everything written for them comes from this.
+      extra.answers = fields.page_notes || "";
+      if (fields.rebuilt) extra.answers += "\n\n(rebuilt from the chat: the model's summary came back empty)";
     }
     extra.transcript = S.msgs.map(function (m) { return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content; }).join("\n\n");
     // The report is the product of this page, so it renders whether or not the sheet write lands.
@@ -1516,43 +1512,19 @@ fbq('track', 'PageView');
   // Six exchanges is a real ceiling, not a soft one. Each request carries only the Q&A history —
   // never the interview — so it stays far under the relay's 14-turn session cap, and the two padding
   // turns inside relayChat keep it from being counted as a new interview against the daily ceiling.
-  // Square's receipt email names the buyer, not the business they were audited for — and the whole
-  // job depends on knowing which Google listing to edit. So the moment they tap Pay we stamp the
-  // row with the business, the place_id and the time.
+  // A tap is not a payment — they can reach the Square screen and bail. So nothing is written and
+  // no alert is sent here. All this does is leave a way back: if Square is not configured to return
+  // them to the access page, a "paid" link appears so the confirmation step is never a dead end.
   //
-  // sendBeacon because the browser is navigating away to Square in the same instant: a normal fetch
-  // gets cancelled mid-flight, a beacon is handed to the OS and survives the page unload.
-  //
-  // Stage is "complete" deliberately. The sheet only emails Barrett on "complete", and a payment is
-  // the one event he must not miss — re-sending it on the same lead_id updates the same row and
-  // fires a second alert, with PAID at the front of the subject line.
+  // Everything Barrett needs is already in localStorage; access.html reads it once payment is real.
   function wirePayClick(host) {
     var btn = host.querySelector(".cta .pay");
     if (!btn) return;
     btn.addEventListener("click", function () {
-      var g = S.google || {};
-      var body = JSON.stringify({
-        secret: LEADS_SECRET, lead_id: S.lead_id, form: "gbp-chat", stage: "complete",
-        business_name: S.a.business_name || g.name || "", place_id: S.a.place_id || g.place_id || "",
-        phone: S.a.phone || "", address: S.a.address || "",
-        primary_goal: "PAID \u2014 tapped Square checkout ($250) for " + (g.name || S.a.business_name || "?") +
-                      (g.place_id ? "  [place_id " + g.place_id + "]" : ""),
-        source_url: location.href.split("?")[0]
-      });
-      try {
-        var blob = new Blob([body], { type: "text/plain;charset=UTF-8" });
-        if (!navigator.sendBeacon || !navigator.sendBeacon(LEADS_URL, blob)) {
-          fetch(LEADS_URL, { method: "POST", mode: "cors", keepalive: true,
-                             headers: { "Content-Type": "text/plain;charset=utf-8" }, body: body });
-        }
-      } catch (e) {}
       fb("InitiateCheckout");
-      try {
-        sessionStorage.setItem("duna_paid", JSON.stringify({
-          lead_id: S.lead_id, business_name: S.a.business_name || g.name || "",
-          place_id: S.a.place_id || g.place_id || "", address: S.a.address || ""
-        }));
-      } catch (e) {}
+      save();
+      var back = host.querySelector("#paid-back");
+      if (back) setTimeout(function () { back.hidden = false; }, 2500);
     });
   }
 
@@ -1623,6 +1595,7 @@ fbq('track', 'PageView');
       '<p class="refund">If we can\'t get access, or can\'t improve the profile, you get a full refund.</p>' +
       '<p class="fine">After payment you\'ll get a short page showing the four clicks that give us Manager ' +
       'access. Nothing on your listing changes until you see it first.</p>' +
+      '<p class="paid-back" id="paid-back" hidden><a href="access.html">Already paid? Finish setting it up &rarr;</a></p>' +
       '</div>';
   }
   // One relay call, in rewrite mode. It gets its own 400-token output budget — which is exactly why
@@ -1755,6 +1728,11 @@ fbq('track', 'PageView');
 
       // Handed to renderReport rather than painted here, so the phone question gets its moment
       // without the report appearing over the top of it mid-sentence.
+      // Held so access.html can put the finished copy in Barrett's summary email after payment.
+      if (rw) { S.rewrite = rw; }
+      if (analysis) { S.analysis = analysis; }
+      S.reportAt = Date.now(); save();
+
       paintReport = function () {
         typing(false);
         host = document.createElement("div");
@@ -1762,7 +1740,12 @@ fbq('track', 'PageView');
         host.innerHTML = html;
         thread.appendChild(host);
         host.scrollIntoView({ block: "start" });
-        submitLead("report_shown");
+        submitLead("report_shown", {
+          new_description: (rw && rw.description) || "",
+          new_services: (rw && (rw.services || []).join(", ")) || "",
+          new_categories: rw ? [rw.primary_category].concat(rw.secondary_categories || []).filter(Boolean).join(", ") : "",
+          analysis: analysis || ""
+        });
         fb("ReportShown");
         wireQA(host);
         wirePayClick(host);
@@ -1803,7 +1786,7 @@ fbq('track', 'PageView');
   // That is what makes step-by-step drop-off visible without a single Apps Script change.
   function submitLead(stage, extra) { return submitStage(stage, extra); }
   function submitStage(stage, extra) {
-    var g = S.google;
+    var g = S.google, comps = S.competitors || [];
     var payload = {
       secret: LEADS_SECRET, lead_id: S.lead_id, form: "gbp-chat", stage: stage,
       source_url: location.href.split("?")[0],
@@ -1812,23 +1795,27 @@ fbq('track', 'PageView');
       metrics_off: metricsOff() ? "1" : "",
       "bot-field": (document.querySelector('#hp [name="bot-field"]') || {}).value || "",
       company_url: (document.querySelector('#hp [name="company_url"]') || {}).value || "",
-      first_name: S.a.first_name || "", phone: S.a.phone || "", email: S.a.email || "",
       business_name: S.a.business_name || "", place_id: S.a.place_id || "",
-      address: S.a.address || "", hours: S.a.hours || "",
-      current_website_url: S.a.current_website_url || "",
-      logo_url: S.a.logo_url || "",
-      primary_goal: "", utm: location.search.replace(/^\?/, "")
+      phone: S.a.phone || "", address: S.a.address || "",
+      utm: location.search.replace(/^\?/, "")
     };
+    // The audit as it stood when they ran it. Worth storing rather than re-fetching later: it is the
+    // evidence behind the report they were shown, and their profile will have moved on by the time
+    // anyone opens the row.
     if (g) {
-      payload.place_json = JSON.stringify({ name: g.name, type: g.type, rating: g.rating, ratings: g.ratings, summary: g.summary });
-      payload.testimonials = g.reviews.filter(function (r) { return r.use; })
-        .map(function (r) { return "“" + r.text + "” — " + r.author + " (via Google)"; }).join("\n");
-      payload.photos_json = JSON.stringify(g.photos.filter(function (p) { return p.use; })
-        .map(function (p) { return { url: p.url, caption: "From Google listing" + (p.by ? " (by " + p.by + ")" : ""), is_hero: false, source: "google" }; })
-        .concat((S.uploads || []).filter(function (p) { return p.use !== false; })));
-    } else if ((S.uploads || []).length) {
-      // No Google listing, but they uploaded their own — those must still go through.
-      payload.photos_json = JSON.stringify((S.uploads || []).filter(function (p) { return p.use !== false; }));
+      payload.gbp_category = g.type || "";
+      payload.gbp_rating = g.rating || "";
+      payload.gbp_reviews = g.ratings || 0;
+      payload.gbp_photos = (g.photos || []).length;
+      payload.gbp_hours = g.hours ? "set" : "NOT SET";
+      payload.gbp_website = g.website || "";
+      if (comps.length) {
+        var med = comps.map(function (c) { return c.reviews || 0; }).sort(function (x, y) { return x - y; });
+        payload.rival_median_reviews = med[Math.floor(med.length / 2)];
+        payload.rivals = comps.slice(0, 3).map(function (c) {
+          return c.name + " (" + (c.reviews || 0) + " reviews, " + (c.rating || "unrated") + ")";
+        }).join("\n");
+      }
     }
     Object.keys(extra || {}).forEach(function (k) { payload[k] = extra[k]; });
     return fetch(LEADS_URL, { method: "POST", mode: "cors", redirect: "follow",

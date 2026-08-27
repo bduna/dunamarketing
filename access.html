@@ -119,36 +119,66 @@
   </div>
 </div>
 <script>
-// Two jobs, both about knowing WHICH listing this payment belongs to.
+// This page is reached AFTER Square takes the money, so it is the one place allowed to say PAID.
 //
-// On screen: name the business back to them, so nobody grants us access to the wrong profile.
-//
-// To the sheet: mark the row as returned-from-checkout. Square's receipt email identifies the
-// buyer, never the business — this is the link between the two, and it is the strongest one we
-// get, because it proves the same browser that ran the audit came back after paying.
+// It reads the audit straight out of localStorage — not sessionStorage, which does not reliably
+// survive the trip out to Square and back — and posts one final row carrying everything needed to
+// do the work: the listing, the audit as it stood, their answers, and the copy we wrote for them.
+// That write lands on the same lead_id, so it updates the audit row rather than starting a new one,
+// and stage "complete" is what makes the sheet email it to Barrett.
 (function () {
   var LEADS_URL = "https://script.google.com/macros/s/AKfycbz5czvMKJWHN92D_kah_JbCLSgo4UknxG37zhEfZExFCcupdYur6phh2457sP5E8K_X/exec";
   var LEADS_SECRET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  var paid = null;
-  try { paid = JSON.parse(sessionStorage.getItem("duna_paid") || "null"); } catch (e) {}
-  if (!paid || !paid.business_name) return;
 
+  var S = null;
+  try { S = JSON.parse(localStorage.getItem("duna_chat") || "null"); } catch (e) {}
+  if (!S || !S.google) return;
+  var g = S.google, a = S.a || {}, ans = S.answers || {}, rw = S.rewrite || null;
+
+  // Name the listing back to them, so nobody grants access on the wrong profile.
   var el = document.getElementById("which");
   if (el) {
-    el.innerHTML = "Profile: " + paid.business_name.replace(/[<>&]/g, "") +
-      (paid.address ? "<span>" + paid.address.replace(/[<>&]/g, "") + "</span>" : "");
+    el.textContent = "Profile: " + (g.name || a.business_name || "");
+    if (g.address) { var sp = document.createElement("span"); sp.textContent = g.address; el.appendChild(sp); }
     el.hidden = false;
   }
+
+  // Once only. A refresh, or coming back to this page later, must not re-alert.
+  var sent = false;
+  try { sent = localStorage.getItem("duna_paid_sent") === S.lead_id; } catch (e) {}
+  if (sent) return;
+  try { localStorage.setItem("duna_paid_sent", S.lead_id); } catch (e) {}
+
+  var comps = S.competitors || [];
+  var med = comps.map(function (c) { return c.reviews || 0; }).sort(function (x, y) { return x - y; });
+  var body = {
+    secret: LEADS_SECRET, lead_id: S.lead_id, form: "gbp-chat", stage: "complete",
+    business_name: g.name || a.business_name || "", place_id: g.place_id || a.place_id || "",
+    phone: a.phone || g.phone || "", address: g.address || "",
+    gbp_category: g.type || "", gbp_rating: g.rating || "", gbp_reviews: g.ratings || 0,
+    gbp_photos: (g.photos || []).length, gbp_hours: g.hours ? "set" : "NOT SET",
+    gbp_website: g.website || "",
+    rival_median_reviews: med.length ? med[Math.floor(med.length / 2)] : "",
+    rivals: comps.slice(0, 3).map(function (c) {
+      return c.name + " (" + (c.reviews || 0) + " reviews, " + (c.rating || "unrated") + ")";
+    }).join("\n"),
+    job_value: ans.job_value || "", area_served: ans.area_served || "",
+    what_they_do: ans.what_they_do || "", why_them: ans.why_them || "",
+    services_listed: ans.services_listed || "", must_haves: ans.must_haves || "",
+    answers: ans.answers || "",
+    new_description: rw ? (rw.description || "") : "",
+    new_services: rw ? (rw.services || []).join(", ") : "",
+    new_categories: rw ? [rw.primary_category].concat(rw.secondary_categories || []).filter(Boolean).join(", ") : "",
+    analysis: S.analysis || "",
+    paid_at: new Date().toISOString(),
+    paid_note: "PAID $250 via Square \u2014 returned to the access page. Grant access to " +
+               (g.name || "") + (g.place_id ? "  [place_id " + g.place_id + "]" : "")
+  };
   try {
     fetch(LEADS_URL, {
       method: "POST", mode: "cors", redirect: "follow",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({
-        secret: LEADS_SECRET, lead_id: paid.lead_id, form: "gbp-chat", stage: "complete",
-        business_name: paid.business_name, place_id: paid.place_id || "",
-        primary_goal: "PAID \u2014 returned from Square checkout for " + paid.business_name +
-                      (paid.place_id ? "  [place_id " + paid.place_id + "]" : "")
-      })
+      body: JSON.stringify(body)
     }).catch(function () {});
   } catch (e) {}
 })();
