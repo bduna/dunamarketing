@@ -1363,21 +1363,17 @@ fbq('track', 'PageView');
     // No usable answers means the interview never really happened — a capacity message, an
     // abandonment, a relay failure. Generating "their" profile copy from nothing would invent a
     // business description and publish-ready text for a real company, so it stops here instead.
-    var got = fields && (String(fields.page_notes || "").length > 40 ||
-                         String(fields.what_you_do || "").length > 20);
+    // The word-for-word record comes from here, not from the model: every question it asked and
+    // every answer they typed, already in the browser. The model only sends the short fields.
+    var rb = transcriptFromChat();
+    fields = fields || {};
+    if (!fields.page_notes) fields.page_notes = rb.text;
+    if (!fields.job_value) fields.job_value = moneyFromChat();
 
-    // Thin summary, but they did answer: rebuild it from the conversation and carry on.
-    if (!got) {
-      var rb = transcriptFromChat();
-      if (rb.pairs >= 2) {
-        try { console.log("[duna] fields unusable — rebuilt from " + rb.pairs + " answered questions"); } catch (e) {}
-        fields = fields || {};
-        fields.page_notes = rb.text;
-        if (!fields.job_value) fields.job_value = moneyFromChat();
-        fields.rebuilt = "1";
-        got = true;
-      }
-    }
+    // Usable if the model's fields came through OR the person genuinely answered questions.
+    var got = String(fields.what_you_do || "").length > 12 ||
+              String(fields.known_for || "").length > 12 ||
+              rb.pairs >= 2;
 
     if (!got) {
       typing(false);
