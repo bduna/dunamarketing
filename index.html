@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
-<title>Duna Marketing &mdash; Free Google Listing Audit</title>
-<meta name="description" content="See your Google Business Profile next to your local competition, and get it rewritten — description, services, categories, Q&A. Free audit in about two minutes. $250 to publish it.">
+<title>Duna Marketing &mdash; Free Google Profile Scan for Roofers &amp; HVAC</title>
+<meta name="description" content="See your Google Business Profile next to the roofing and HVAC companies sitting above you in the map — reviews, rating, photos, what they list that you don't. Free, about a minute, no email or phone number.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Duna Marketing">
-<meta property="og:title" content="Get a competitive audit of your Google listing for free">
-<meta property="og:description" content="What&#39;s the catch? Nothing, we run the audit and on the report page, if you like our analysis, there is an offer for you to sign up for our service — no strings attached.">
+<meta property="og:title" content="See why the same companies always sit above you on Google">
+<meta property="og:description" content="A furnace quits at 6am. A ceiling stain spreads mid-storm. Those calls go to whoever looks right in the map. See how your profile compares — free, no email or phone number.">
 <meta name="theme-color" content="#003087">
 <link rel="icon" type="image/png" href="duna_marketing_logo.png">
 <link rel="apple-touch-icon" href="duna_marketing_logo.png">
@@ -386,8 +386,8 @@ fbq('track', 'PageView');
   <div class="wrap">
     <div class="intro" id="intro">
       <p class="kicker" id="kicker">No email or phone number required</p>
-      <h1>Get a competitive audit of your Google listing for free. Start below!</h1>
-      <p>What&rsquo;s the catch? Nothing, we run the audit and on the report page, if you like our analysis, there is an offer for you to sign up for our service &mdash; no strings attached.</p>
+      <h1>See why the same companies always sit above you on Google.</h1>
+      <p>A furnace quits at 6am. A ceiling stain spreads mid&#8209;storm. Those calls go to whoever looks right in the map. Five questions and I&rsquo;ll show you exactly how your profile compares to theirs.</p>
     </div>
 
     <div class="thread" id="thread" aria-live="polite"></div>
@@ -649,14 +649,14 @@ fbq('track', 'PageView');
   // underneath it. Whatever the person picks is echoed back as their own message and the field
   // disappears — the way a sent text behaves.
   function askPlaces() {
-    say("What's the name and city of your business? I'll find you on Google.");
+    say("What's your company name and city? I'll pull up your Google profile.");
     placesField();
   }
   // The field itself, wired. Used for the first ask and again if they say "Not me", so the two paths
   // can never drift apart.
   function placesField() {
     var w = inline(
-      '<input id="gq" type="text" placeholder="e.g. Maria&rsquo;s Bakery, Pasadena" autocomplete="off" ' +
+      '<input id="gq" type="text" placeholder="e.g. Ridgeline Roofing, Santa Rosa" autocomplete="off" ' +
         'autocapitalize="words" enterkeyhint="search" aria-label="Business name and city">' +
       '<div class="glist" id="glist" hidden></div>' +
       '<p class="pcount" id="g-nores" hidden>None of these yours? A profile has to exist on Google before it can be optimized &mdash; ' +
@@ -1524,37 +1524,37 @@ fbq('track', 'PageView');
       out.push({ score: (med - mine) * 3,
         what: "You have " + mine + " review" + (mine === 1 ? "" : "s") + ". The typical " +
               ((g.type || "business").toLowerCase()) + " near you has " + med + ".",
-        why: "Review count is the first thing a searcher compares, and it is the one number Google shows before anyone clicks. Being visibly behind costs you the call before you have said a word." });
+        why: "A homeowner with no heat at 6am, or water coming through a ceiling, compares two listings and calls the one with more reviews. That takes about ten seconds and you never hear about it." });
     }
     var np = (g.photos || []).length;
     if (np < 3) {
       var richer = comps.filter(function (c) { return (c.photos || 0) >= 8; }).length;
       out.push({ score: 40 + (richer * 10),
         what: np === 0 ? "Your profile has no photos." : "Your profile has only " + np + " photo" + (np === 1 ? "" : "s") + ".",
-        why: richer ? richer + " of the competitors above have a full gallery. Faced with one listing that shows the work and one that shows nothing, people pick the one they can see." :
-                      "People decide from photos before they read anything. An empty listing gives them nothing to decide with." });
+        why: richer ? richer + " of the companies above you show their crews and their work. A homeowner lining up quotes is deciding who looks legitimate, and an empty gallery answers that for them." :
+                      "Before anyone lets a stranger onto their roof or into their house, they want to see the work. An empty gallery gives them nothing to go on." });
     }
     if (!g.website) {
       out.push({ score: 55,
         what: "No website link on your profile.",
-        why: "The link is a free button on a page Google already shows for you, and without it a searcher's only next step is to call a competitor who has one." });
+        why: "It is a free button on a page Google already shows for you. Without it, someone checking whether you are a real company has nowhere to go but the next listing." });
     }
     if (!g.hours) {
       out.push({ score: 45,
         what: "Your hours are not listed.",
-        why: "\"Open now\" is one of the most-used filters in local search. With no hours set you can be filtered out of results you would otherwise win." });
+        why: "No-heat and no-cool calls come at night and on weekends, and \"open now\" is how those searchers filter. With no hours set you can be dropped before anyone sees your name." });
     }
     var rated = comps.filter(function (c) { return c.rating; });
     var avg = rated.length ? rated.reduce(function (a, c) { return a + c.rating; }, 0) / rated.length : 0;
     if (g.rating && avg && g.rating < avg - 0.15) {
       out.push({ score: Math.round((avg - g.rating) * 60),
         what: "Your rating is " + g.rating.toFixed(1) + " against a local average of " + avg.toFixed(1) + ".",
-        why: "At this range the gap is usually a handful of old reviews left unanswered, not the work itself. Replies are visible to everyone who reads them afterwards." });
+        why: "At this range it is usually a few old reviews nobody answered, not the work. Every homeowner who reads them afterwards sees whether you replied." });
     }
     if (leader && leader.reviews > mine) {
       out.push({ score: (leader.reviews - mine),
         what: esc2(leader.name) + " has " + leader.reviews + " reviews to your " + mine + ".",
-        why: "They appear above you in the results Google returned for your own category and town. That position is earned by signals you can change." });
+        why: "They sit above you in the results Google returns for your own trade and town. That position comes from what is on the profile, not from who does better work." });
     }
     return out.sort(function (a, b) { return b.score - a.score; }).slice(0, 3);
   }
@@ -1582,15 +1582,18 @@ fbq('track', 'PageView');
   function moneyBlock(jobValue) {
     var n = jobValueNumber(jobValue);
     if (!n || n < 1) {
-      return '<p>You didn\'t put a number on a typical job, so do this arithmetic yourself: take what one ' +
-             'job is worth to you and multiply it by three. That is roughly what three extra calls a month ' +
-             'is worth &mdash; and three is a conservative number for a profile that currently gets skipped.</p>';
+      return '<p>You didn\'t put a number on a typical job, so do the arithmetic yourself: take what one ' +
+             'job is worth to you and multiply it by twelve. That is one extra job a month for a year, ' +
+             'which is a low bar for a profile that is currently getting skipped.</p>';
     }
-    var m = n * 3;
+    // One job a month, not three. On a $12,000 replacement, three would put a number on screen that no
+    // owner believes — and a figure he can laugh at costs more than a small one earns.
+    var m = n * 12;
     return '<p>You told us a typical job is worth about <b>$' + n.toLocaleString() + '</b>.</p>' +
-           '<p class="sum">3 extra calls a month &times; $' + n.toLocaleString() + ' = <b>$' + m.toLocaleString() + ' a month</b></p>' +
-           '<p class="fine">Three is deliberately conservative &mdash; it is the number we would rather be under than over. ' +
-           'We are not going to quote you a click-through statistic we cannot show you the source of.</p>';
+           '<p class="sum">One extra job a month &times; 12 &times; $' + n.toLocaleString() +
+           ' = <b>$' + m.toLocaleString() + ' a year</b></p>' +
+           '<p class="fine">One a month is deliberately low &mdash; it is the number we would rather be under ' +
+           'than over. We are not going to quote you a click-through statistic we cannot show you the source of.</p>';
   }
 
   function rewriteBlock(rw, g) {
@@ -1711,18 +1714,19 @@ fbq('track', 'PageView');
     return '<div class="cta">' +
       '<h3>The copy above is yours. Keep&nbsp;it.</h3>' +
       '<p>Paste it in yourself if you want to &mdash; it&rsquo;s your business and your words. ' +
-      'What ' + PAY_PRICE + ' buys is the rest of it, done properly:</p>' +
+      PAY_PRICE + ' once, no contract, buys the rest of it done properly:</p>' +
       '<ul class="cta-list">' +
-        '<li><b>Every review answered</b>, including the ones you&rsquo;ve been avoiding. Replies are public and permanent, and they are read by everyone who comes after.</li>' +
-        '<li><b>Questions asked and answered</b> on your profile. You&rsquo;re allowed to post both &mdash; almost nobody does, and it is the emptiest space on most listings.</li>' +
-        '<li><b>Categories set so they hold.</b> Naming them is the easy half. Which combination you can keep, and what each one puts you in front of, is the half that takes doing.</li>' +
+        '<li><b>Every review answered</b>, including the one about the callback that never happened. A homeowner deciding between three roofers reads the replies, not just the stars.</li>' +
+        '<li><b>Questions asked and answered</b> on your profile &mdash; do you do emergency calls, do you work with insurance, what areas do you cover. You&rsquo;re allowed to post both sides, and almost nobody does.</li>' +
+        '<li><b>Categories set so they hold.</b> Naming them is the easy half. Which combination you can keep, and which searches each one puts you in, is the half that takes doing.</li>' +
         '<li><b>Services entered the way Google wants them</b>, not pasted in as a block of text.</li>' +
-        '<li><b>Nothing that gets you suspended.</b> Profiles go down for edits owners think are harmless, and getting one back takes weeks.</li>' +
+        '<li><b>Nothing that gets you suspended.</b> Profiles go down for edits owners think are harmless, and getting one back can take weeks &mdash; everything here stays inside Google&rsquo;s guidelines.</li>' +
       '</ul>' +
-      '<p class="cta-close">You don&rsquo;t touch your Google login, and you see every word before it goes live.</p>' +
+      '<p class="cta-close">You never hand over your Google login, and you see every word before it goes live. One payment, no contract, nothing renews.</p>' +
+      '<p class="fine">Worth doing before the first cold snap and the fall storm run &mdash; whatever is on your profile that week is what those searchers see.</p>' +
       btn +
       '<p class="refund">If we can\'t get access, or can\'t improve the profile, you get a full refund.</p>' +
-      '<p class="fine">After payment you\'ll get a short page showing the four clicks that give us Manager access.</p>' +
+      '<p class="fine">After payment you&rsquo;ll get a short page showing the four clicks that give us Manager access. Takes about a minute of your time, and that is the whole of it.</p>' +
       '<p class="paid-back" id="paid-back" hidden><a href="access.html">Already paid? Finish setting it up &rarr;</a></p>' +
       '</div>';
   }
@@ -1791,7 +1795,7 @@ fbq('track', 'PageView');
         '<p>What someone searching your trade in ' + esc2((g.address || "").split(",")[1] || "your area") +
         ' sees today, and what we would change.</p></div>';
 
-      html += '<section class="rp-sec"><h3>1. How you compare right now</h3>';
+      html += '<section class="rp-sec"><h3>1. How you look next to them right now</h3>';
       html += top.length ? sb.html
         : '<p class="empty">Google doesn\'t list another ' + esc2((g.type || "business").toLowerCase()) +
           ' in the area you gave us, so there is nothing honest to compare you against here. That is ' +
@@ -1819,13 +1823,13 @@ fbq('track', 'PageView');
 
       var n = 1;
       if (gaps.length) {
-        html += '<section class="rp-sec"><h3>' + (++n) + '. The three gaps that cost you the most</h3><ol class="gaps">';
+        html += '<section class="rp-sec"><h3>' + (++n) + '. The three gaps costing you calls</h3><ol class="gaps">';
         gaps.forEach(function (x) { html += '<li><b>' + x.what + '</b><span>' + x.why + '</span></li>'; });
         html += '</ol></section>';
       }
 
       if (analysis) {
-        html += '<section class="rp-sec"><h3>' + (++n) + '. What is working for them</h3>' +
+        html += '<section class="rp-sec"><h3>' + (++n) + '. What the companies above you are doing</h3>' +
           '<div class="analysis">' +
           analysis.split(/\n{2,}/).map(function (para) {
             return '<p>' + esc2(para.trim()).replace(/\n/g, "<br>") + '</p>';
@@ -1833,7 +1837,7 @@ fbq('track', 'PageView');
           '</div><p class="fine">Drawn from the review text on those competitors\' own listings.</p></section>';
       }
 
-      html += '<section class="rp-sec"><h3>' + (++n) + '. What that is worth</h3>' +
+      html += '<section class="rp-sec"><h3>' + (++n) + '. What that is worth on your jobs</h3>' +
               moneyBlock(fields.job_value) + '</section>';
 
       html += '<section class="rp-sec rp-work"><h3>' + (++n) + '. Your profile, rewritten</h3>';
@@ -1845,10 +1849,10 @@ fbq('track', 'PageView');
 
       html += ctaBlock();
       html += '<div class="qa" id="qa">' +
-        '<p class="qa-h">Questions about any of this?</p>' +
+        '<p class="qa-h">Anything you want to ask before you decide?</p>' +
         '<div class="qa-thread" id="qa-thread"></div>' +
         '<div class="qa-row">' +
-          '<input id="qa-in" type="text" autocomplete="off" placeholder="Ask about your profile or the work">' +
+          '<input id="qa-in" type="text" autocomplete="off" placeholder="Ask about your profile, or the work">' +
           '<button type="button" id="qa-send" aria-label="Send">Ask</button>' +
         '</div>' +
         '<p class="fine" id="qa-left">Straight answers. If it needs Barrett, it\'ll say so.</p>' +
