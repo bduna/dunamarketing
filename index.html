@@ -290,8 +290,6 @@ fbq('track', 'PageView');
   .qdots .d { width:7px; height:7px; border-radius:50%; background:#cfd6e2; display:inline-block; }
   .qdots .d.done { background:var(--navy); }
   .qdots .d.now { background:var(--red); transform:scale(1.25); }
-  .teaser table.sb { min-width:0; }
-  .teaser .fine { margin:10px 0 0; font-size:.82rem; color:var(--muted); }
 
   .others { margin:16px 0 0; padding:14px 16px; background:#f4f6f9; border:1px dashed #cdd5e2; border-radius:10px; }
   .others .oh { margin:0 0 9px; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em;
@@ -810,8 +808,8 @@ fbq('track', 'PageView');
       if (g.website) S.a.current_website_url = g.website;
       save(); fb("GoogleConfirmed");
       submitLead("confirmed");
-      fetchCompetitors(g);
-      showTeaser(g);
+      fetchCompetitors(g);   // still runs, in the background — the REPORT needs it, the chat no longer does
+      beginInterview();
       return;
     }
     if (NO_RE.test(v)) {
@@ -952,32 +950,8 @@ fbq('track', 'PageView');
     }
     return out.join("\n");
   }
-  // The free look, before a single question. Someone who lands, finds themselves, and immediately
-  // sees three named competitors with real numbers has been given something — which is the only
-  // honest reason they should give five answers back. Nothing here is gated.
-  function showTeaser(g) {
-    say("Here's how you look against them right now.");
-    typing(true);
-    var done = false;
-    function draw() {
-      if (done) return; done = true;
-      typing(false);
-      var comps = (S.competitors || []).slice(0, 3);
-      if (comps.length) {
-        var sb = scoreboard(g, comps);
-        bubble("bot", '<div class="teaser">' + sb.html +
-          '<p class="fine">Live from Google. Five quick questions and I\'ll show you the rest &mdash; ' +
-          'the gaps that cost you calls, and your profile rewritten.</p></div>', true);
-      }
-      beginInterview();
-    }
-    // Never let a slow sweep hold the flow: 3s and we move on with or without the table.
-    if (competitorsReady) { competitorsReady.then(draw, draw); setTimeout(draw, 3000); }
-    else setTimeout(draw, 600);
-  }
-
-  // Five questions is the promise the teaser makes, so the count is on screen the whole way. An
-  // interview with a visible end gets finished; one that could go on forever gets abandoned.
+  // Five questions is the promise, so the count is on screen the whole way. An interview with a
+  // visible end gets finished; one that could go on forever gets abandoned.
   function showProgress() {
     var n = S.qNum || 0;
     if (!n || S.done) { hint.hidden = true; return; }
@@ -991,15 +965,9 @@ fbq('track', 'PageView');
   function beginInterview() {
     S.phase = "chat"; S.started = true; S.qNum = 0; save();
     composer.hidden = false; hint.hidden = false;
-    // The opening analysis is far sharper with the competitor numbers in it, so give the sweep a
-    // moment to land — but never hold a person hostage to a slow API: 2.5s cap, then go without.
-    send.disabled = true; typing(true);
-    var waited = false;
-    function go() { if (waited) return; waited = true; typing(false); send.disabled = false; turn(""); }
-    if (competitorsReady && !(S.competitors && S.competitors.length)) {
-      competitorsReady.then(go, go);
-      setTimeout(go, 2500);
-    } else { go(); }
+    // No wait: the first question is about their own business, so the competitor sweep can finish in
+    // its own time. It used to be held for the opening comparison, which is gone.
+    turn("");
   }
   // Retries on its own before it ever bothers them. Their answer is already in S.msgs by the time a
   // request goes out, so a retry re-sends the conversation with no new text — calling turn("") is a
