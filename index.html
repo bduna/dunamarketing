@@ -806,7 +806,7 @@ fbq('track', 'PageView');
         typing(false);
         if (S.google) { drawCardSafe(S.google); return; }
         say("I couldn't reach Google just then — no problem, I'll take it from your answers.");
-        askContact();
+        beginInterview();
       });
   }
   // The confirmation is a message from the bot, with the two replies as taps. No card.
@@ -834,7 +834,7 @@ fbq('track', 'PageView');
       S.phase = "confirm"; save();
       composer.hidden = false; hint.hidden = false;
       botSays("Is that your business?");
-    } catch (e) { askContact(); }
+    } catch (e) { beginInterview(); }
   }
   var YES_RE = /^(y|ye|yes|yeah|yep|yup|sure|correct|right|aye|ok|okay|that'?s (it|me|us|right)|it is|us|me|mine|thats? me)\b/i;
   var NO_RE  = /^(n|no|nope|nah|not|negative|wrong|different|another|isn'?t)\b/i;
@@ -848,6 +848,10 @@ fbq('track', 'PageView');
       // replies by text. We ask for a textable number instead, offering this one as the default.
       if (g.address) S.a.address = g.address;
       if (g.hours) S.a.hours = g.hours;
+      // Google already publishes the business line, so asking for a number is a step that buys
+      // nothing. Square collects the buyer's own name, email and mobile at checkout — the personal
+      // details arrive with the payment instead of with a question.
+      if (g.phone && !S.a.phone) S.a.phone = g.phone;
       if (g.website) S.a.current_website_url = g.website;
       save(); fb("GoogleConfirmed");
       submitLead("confirmed");
@@ -961,66 +965,6 @@ fbq('track', 'PageView');
   // ================= PHASE 2 — contact (still no model, no cost) =================
   // Asked one at a time, in the thread, answered in the same composer they will use for the whole
   // interview. Anything Google already told us is skipped rather than asked twice.
-  // Phone only, and asked at the end. Name and business name are dropped: Google already told us
-  // the business, and a first name is not worth a step when every step is somewhere to leave.
-  var CONTACT_STEPS = [
-    { key: "phone",
-      ask:  function () {
-              var gp = S.google && S.google.phone;
-              return gp ? ("And what's the best number for you? Google lists " + gp + ", if that's the one.")
-                        : "And what's the best number for you?";
-            },
-      // "yes" / "that one" means the number we just read out to them.
-      coerce: function (v) {
-              var gp = S.google && S.google.phone;
-              if (gp && /^(y|yes|yeah|yep|yup|sure|same|that|correct|right)\b/i.test(v)) return gp;
-              return v;
-            },
-      ok:   function (v) { return v.replace(/\D/g, "").length >= 7; },
-      err:  "That doesn't look like a phone number &mdash; or skip it, your report is below either way." }
-  ];
-  var contactStep = null;
-
-  function askContact() {
-    S.phase = "contact"; save();
-    composer.hidden = false; hint.hidden = false;
-    nextContact();
-  }
-  function nextContact() {
-    contactStep = null;
-    for (var i = 0; i < CONTACT_STEPS.length; i++) {
-      if (!String(S.a[CONTACT_STEPS[i].key] || "").trim()) { contactStep = CONTACT_STEPS[i]; break; }
-    }
-    if (!contactStep) { finishContact(); return; }
-    botSays(typeof contactStep.ask === "function" ? contactStep.ask() : contactStep.ask);
-  }
-  function contactAnswer(v) {
-    var st = contactStep;
-    if (!st) return;
-    var val = v.replace(/\s+/g, " ").trim();
-    if (st.coerce) val = st.coerce(val);
-    if (!st.ok(val)) { botSays(st.err); return; }
-    S.a[st.key] = val; save();
-    nextContact();
-  }
-  // The phone arrives AFTER the report has been generated, so this is the moment the lead is
-  // worth telling Barrett about. The report itself never waits on it.
-  function finishContact() {
-    phoneDone = true;
-    S.phase = "chat"; save();
-    composer.hidden = true; hint.hidden = true;
-    submitLead("complete", S.answers || {}).then(function (j) {
-      try {
-        sessionStorage.setItem("duna_intake", JSON.stringify({
-          first_name: S.a.first_name, business_name: S.a.business_name, submitted: true,
-          lead_ok: !!(j && j.lead_ok), lead_id: S.lead_id, product: "gbp"
-        }));
-      } catch (e) {}
-    }).catch(function () {});
-    fb("LeadComplete");
-    renderReport();
-  }
-
   // ================= PHASE 3 — the interviewer (model starts HERE) =================
   // Everything the analyst needs, formatted as an audit it can quote from. Numbers first — the
   // model's opening message is built directly from these.
@@ -1282,15 +1226,24 @@ fbq('track', 'PageView');
     // The report is the product of this page, so it renders whether or not the sheet write lands.
     // A failed lead row costs Barrett a notification; a withheld report costs the sale.
     S.answers = extra; save();
-    submitLead("report", extra).catch(function () {});
+    composer.hidden = true; hint.hidden = true;
+    var sn = $("savenote"); if (sn) sn.hidden = true;
 
-    // Both at once: the work starts silently while they answer one short question. By the time
-    // they have typed a phone number the report is usually already built, so it lands instantly.
+    // Nothing is asked after the last question now, so this write carries everything we will ever
+    // have from the site: their answers plus the number Google publishes for the business.
+    submitLead("complete", extra).then(function (j) {
+      try {
+        sessionStorage.setItem("duna_intake", JSON.stringify({
+          business_name: S.a.business_name, submitted: true,
+          lead_ok: !!(j && j.lead_ok), lead_id: S.lead_id, product: "gbp"
+        }));
+      } catch (e) {}
+    }).catch(function () {});
+    fb("LeadComplete");
+
+    phoneDone = true;                 // nothing left to wait on; paint the moment it is built
+    say("That's everything \u2014 building your report now.");
     buildReport(fields || {});
-    askContact();
-
-    // Ungated: if they never answer, the report still appears.
-    setTimeout(function () { if (!phoneDone) renderReport(); }, 12000);
   }
 
   // ======================================================================
@@ -1723,11 +1676,6 @@ fbq('track', 'PageView');
       confirmAnswer(v);
       return;
     }
-    if (S.phase === "contact") {
-      me(v); input.value = ""; input.style.height = "auto";
-      contactAnswer(v);
-      return;
-    }
     if ((Date.now() - LOADED_AT) < MIN_SECONDS_BEFORE_CHAT * 1000 && S.msgs.length === 0) {
       // matches the server-side floor; a human cannot have got here this fast
       return;
@@ -1770,11 +1718,6 @@ fbq('track', 'PageView');
     composer.hidden = false; hint.hidden = false;
   } else if (S.phase === "confirm" && S.google) {
     drawCard(S.google);
-  } else if (S.phase === "contact") {
-    // Mid-contact reload: keep what Google gave us and carry on asking, rather than starting over.
-    if (S.google) say("Welcome back — " + S.google.name + ".");
-    composer.hidden = false; hint.hidden = false;
-    nextContact();
   } else {
     askPlaces();
   }
