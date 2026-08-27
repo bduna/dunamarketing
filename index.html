@@ -1143,6 +1143,40 @@ fbq('track', 'PageView');
     fn();
   }
 
+  // The model's closing summary is a convenience, not the source of truth — the browser already
+  // holds every question it asked and every answer that came back. When that summary arrives empty
+  // or truncated (400 output tokens is not much once page_notes is full), rebuilding the transcript
+  // here is strictly better than telling a customer who answered everything to go away.
+  //
+  // Nothing is invented: each line is a question we asked and the words they chose.
+  function transcriptFromChat() {
+    var out = [], lastQ = null, pairs = 0;
+    for (var i = 0; i < S.msgs.length; i++) {
+      var m = S.msgs[i];
+      if (m.role === "assistant") {
+        var spec = parseSpec(m.content);
+        lastQ = spec ? spec.q : String(m.content || "").trim();
+        if (lastQ && lastQ.length > 120) lastQ = null;      // the sign-off, not a question
+      } else if (m.role === "user" && lastQ) {
+        var a = String(m.content || "").trim();
+        if (a && a.indexOf("(Interview starting") !== 0) {
+          out.push(lastQ + "\n" + a); pairs++;
+        }
+        lastQ = null;
+      }
+    }
+    return { text: out.join("\n\n"), pairs: pairs };
+  }
+
+  function moneyFromChat() {
+    for (var i = 0; i < S.msgs.length; i++) {
+      if (S.msgs[i].role !== "user") continue;
+      var m = String(S.msgs[i].content || "").match(/\$\s?([\d,]{2,})/);
+      if (m) return m[1].replace(/,/g, "");
+    }
+    return "";
+  }
+
   function finish(fields) {
     S.done = true; save();
 
@@ -1151,6 +1185,20 @@ fbq('track', 'PageView');
     // business description and publish-ready text for a real company, so it stops here instead.
     var got = fields && (String(fields.page_notes || "").length > 40 ||
                          String(fields.what_you_do || "").length > 20);
+
+    // Thin summary, but they did answer: rebuild it from the conversation and carry on.
+    if (!got) {
+      var rb = transcriptFromChat();
+      if (rb.pairs >= 2) {
+        try { console.log("[duna] fields unusable — rebuilt from " + rb.pairs + " answered questions"); } catch (e) {}
+        fields = fields || {};
+        fields.page_notes = rb.text;
+        if (!fields.job_value) fields.job_value = moneyFromChat();
+        fields.rebuilt = "1";
+        got = true;
+      }
+    }
+
     if (!got) {
       composer.hidden = true; hint.hidden = true;
       // Two very different reasons land here and they used to read identically, which made a
@@ -1197,6 +1245,7 @@ fbq('track', 'PageView');
       // The bulk of the interview: everything they said, grouped by page. This is what the
       // site actually gets written from — the other fields are an index into it.
       extra.page_notes = fields.page_notes || "";
+      if (fields.rebuilt) extra.skipped = "page_notes rebuilt from the chat (model summary was empty)";
       extra.brand_colors = S.a.brand_colors || "";
     }
     extra.transcript = S.msgs.map(function (m) { return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content; }).join("\n\n");
