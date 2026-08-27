@@ -263,6 +263,13 @@ fbq('track', 'PageView');
     border-radius:999px; vertical-align:middle; margin-left:4px; letter-spacing:.03em; }
   table.sb td.weak { color:var(--red); font-weight:800; }
 
+  .qdots { display:inline-flex; gap:4px; vertical-align:middle; margin-right:7px; }
+  .qdots .d { width:7px; height:7px; border-radius:50%; background:#cfd6e2; display:inline-block; }
+  .qdots .d.done { background:var(--navy); }
+  .qdots .d.now { background:var(--red); transform:scale(1.25); }
+  .teaser table.sb { min-width:0; }
+  .teaser .fine { margin:10px 0 0; font-size:.82rem; color:var(--muted); }
+
   .others { margin:16px 0 0; padding:14px 16px; background:#f4f6f9; border:1px dashed #cdd5e2; border-radius:10px; }
   .others .oh { margin:0 0 9px; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em;
     color:var(--muted); font-weight:800; }
@@ -824,8 +831,9 @@ fbq('track', 'PageView');
       if (g.hours) S.a.hours = g.hours;
       if (g.website) S.a.current_website_url = g.website;
       save(); fb("GoogleConfirmed");
-      fetchCompetitors(g);     // fire-and-forget: results land in S before the interview needs them
-      askContact();
+      submitLead("confirmed");
+      fetchCompetitors(g);
+      showTeaser(g);
       return;
     }
     if (NO_RE.test(v)) {
@@ -934,20 +942,14 @@ fbq('track', 'PageView');
   // ================= PHASE 2 — contact (still no model, no cost) =================
   // Asked one at a time, in the thread, answered in the same composer they will use for the whole
   // interview. Anything Google already told us is skipped rather than asked twice.
+  // Phone only, and asked at the end. Name and business name are dropped: Google already told us
+  // the business, and a first name is not worth a step when every step is somewhere to leave.
   var CONTACT_STEPS = [
-    { key: "first_name",
-      ask:  "What's your first name?",
-      ok:   function (v) { return v.length >= 2 && v.length <= 40 && !/\d/.test(v); },
-      err:  "Just your first name is fine." },
-    { key: "business_name",
-      ask:  "And what's the business called?",
-      ok:   function (v) { return v.length >= 2; },
-      err:  "Whatever name you want on the site." },
     { key: "phone",
       ask:  function () {
               var gp = S.google && S.google.phone;
-              return gp ? ("Last one — what's the best number to text you? Google lists " + gp + ", if that's the one.")
-                        : "Last one — what's the best number to text you?";
+              return gp ? ("And what's the best number for you? Google lists " + gp + ", if that's the one.")
+                        : "And what's the best number for you?";
             },
       // "yes" / "that one" means the number we just read out to them.
       coerce: function (v) {
@@ -956,14 +958,12 @@ fbq('track', 'PageView');
               return v;
             },
       ok:   function (v) { return v.replace(/\D/g, "").length >= 7; },
-      err:  "That doesn't look like a phone number. Barrett texts you the quote, so I do need one that receives texts." }
+      err:  "That doesn't look like a phone number &mdash; or skip it, your report is below either way." }
   ];
   var contactStep = null;
 
   function askContact() {
     S.phase = "contact"; save();
-    var g = S.google;
-    if (g) say("Got it — " + g.name + (g.address ? ", " + g.address.split(",")[0] : "") + ".");
     composer.hidden = false; hint.hidden = false;
     nextContact();
   }
@@ -984,11 +984,22 @@ fbq('track', 'PageView');
     S.a[st.key] = val; save();
     nextContact();
   }
+  // The phone arrives AFTER the report has been generated, so this is the moment the lead is
+  // worth telling Barrett about. The report itself never waits on it.
   function finishContact() {
-    warmRelay();   // one more, moments before the first real model call
-    submitStage("start");
-    fb("LeadStart");
-    beginInterview();
+    phoneDone = true;
+    S.phase = "chat"; save();
+    composer.hidden = true; hint.hidden = true;
+    submitLead("complete", S.answers || {}).then(function (j) {
+      try {
+        sessionStorage.setItem("duna_intake", JSON.stringify({
+          first_name: S.a.first_name, business_name: S.a.business_name, submitted: true,
+          lead_ok: !!(j && j.lead_ok), lead_id: S.lead_id, product: "gbp"
+        }));
+      } catch (e) {}
+    }).catch(function () {});
+    fb("LeadComplete");
+    renderReport();
   }
 
   // ================= PHASE 3 — the interviewer (model starts HERE) =================
@@ -997,7 +1008,8 @@ fbq('track', 'PageView');
   function knownFacts() {
     var g = S.google, out = [];
     out.push("Business: " + (S.a.business_name || "(unknown)"));
-    out.push("Owner's first name: " + (S.a.first_name || "(unknown)"));
+    // No name any more: the only thing asked after the interview is a phone number, and asking
+    // for a first name up front was a step that bought nothing the interview needs.
     if (g) {
       if (g.type) out.push("Category: " + g.type);
       if (g.address) out.push("Address: " + g.address);
@@ -1022,8 +1034,44 @@ fbq('track', 'PageView');
     }
     return out.join("\n");
   }
+  // The free look, before a single question. Someone who lands, finds themselves, and immediately
+  // sees three named competitors with real numbers has been given something — which is the only
+  // honest reason they should give five answers back. Nothing here is gated.
+  function showTeaser(g) {
+    say("Here's how you look against them right now.");
+    typing(true);
+    var done = false;
+    function draw() {
+      if (done) return; done = true;
+      typing(false);
+      var comps = (S.competitors || []).slice(0, 3);
+      if (comps.length) {
+        var sb = scoreboard(g, comps);
+        bubble("bot", '<div class="teaser">' + sb.html +
+          '<p class="fine">Live from Google. Five quick questions and I\'ll show you the rest &mdash; ' +
+          'the gaps that cost you calls, and your profile rewritten.</p></div>', true);
+      }
+      beginInterview();
+    }
+    // Never let a slow sweep hold the flow: 3s and we move on with or without the table.
+    if (competitorsReady) { competitorsReady.then(draw, draw); setTimeout(draw, 3000); }
+    else setTimeout(draw, 600);
+  }
+
+  // Five questions is the promise the teaser makes, so the count is on screen the whole way. An
+  // interview with a visible end gets finished; one that could go on forever gets abandoned.
+  function showProgress() {
+    var n = S.qNum || 0;
+    if (!n || S.done) { hint.hidden = true; return; }
+    hint.hidden = false;
+    hint.innerHTML = '<span class="qdots">' +
+      [1,2,3,4,5].map(function (i) {
+        return '<i class="' + (i < n ? "d done" : (i === n ? "d now" : "d")) + '"></i>';
+      }).join("") + '</span> Question ' + n + ' of 5';
+  }
+
   function beginInterview() {
-    S.phase = "chat"; S.started = true; save();
+    S.phase = "chat"; S.started = true; S.qNum = 0; save();
     composer.hidden = false; hint.hidden = false;
     // The opening analysis is far sharper with the competitor numbers in it, so give the sweep a
     // moment to land — but never hold a person hostage to a slow API: 2.5s cap, then go without.
@@ -1090,6 +1138,10 @@ fbq('track', 'PageView');
       clearSlow();
       typing(false); send.disabled = false;
       S.msgs.push({ role: "assistant", content: j.reply }); save();
+      if (!j.done && S.phase === "chat") {
+        S.qNum = Math.min((S.qNum || 0) + 1, 5); save();
+        showProgress();
+      }
       say(j.reply);
       if (j.done) finish(j.fields);
       else setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 60);
@@ -1097,9 +1149,33 @@ fbq('track', 'PageView');
   }
 
   // ================= finish: write the brief to the sheet =================
+  var reportReady = false, paintReport = null, phoneDone = false;
+
+  // Paint as soon as the work is done. The report is NEVER held back for the phone number — that
+  // was the whole point of moving the ask to the end.
+  function renderReport() {
+    if (!reportReady || !paintReport) return;
+    var fn = paintReport; paintReport = null;
+    fn();
+  }
+
   function finish(fields) {
     S.done = true; save();
-    composer.hidden = true; hint.hidden = true;
+
+    // No usable answers means the interview never really happened — a capacity message, an
+    // abandonment, a relay failure. Generating "their" profile copy from nothing would invent a
+    // business description and publish-ready text for a real company, so it stops here instead.
+    var got = fields && (String(fields.page_notes || "").length > 40 ||
+                         String(fields.what_you_do || "").length > 20);
+    if (!got) {
+      composer.hidden = true; hint.hidden = true;
+      bubble("bot", '<div class="done"><h2>Let\'s pick this up by text.</h2>' +
+        '<p>I couldn\'t finish the questions just now, and I\'m not going to write your profile from ' +
+        'guesses. Text Barrett on <a href="sms:+17073855673">(707) 385-5673</a> and he\'ll take it from here.</p></div>', true);
+      submitLead("incomplete");
+      return;
+    }
+
     var extra = {};
     if (fields) {
       extra.what_you_do = fields.what_you_do || "";
@@ -1121,15 +1197,16 @@ fbq('track', 'PageView');
     extra.transcript = S.msgs.map(function (m) { return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content; }).join("\n\n");
     // The report is the product of this page, so it renders whether or not the sheet write lands.
     // A failed lead row costs Barrett a notification; a withheld report costs the sale.
-    submitStage("complete", extra).then(function (j) {
-      try {
-        sessionStorage.setItem("duna_intake", JSON.stringify({
-          first_name: S.a.first_name, business_name: S.a.business_name, submitted: true,
-          lead_ok: !!(j && j.lead_ok), lead_id: S.lead_id, product: "gbp"
-        }));
-      } catch (e) {}
-    }).catch(function () {});
+    S.answers = extra; save();
+    submitLead("report", extra).catch(function () {});
+
+    // Both at once: the work starts silently while they answer one short question. By the time
+    // they have typed a phone number the report is usually already built, so it lands instantly.
     buildReport(fields || {});
+    askContact();
+
+    // Ungated: if they never answer, the report still appears.
+    setTimeout(function () { if (!phoneDone) renderReport(); }, 12000);
   }
 
   // ======================================================================
@@ -1329,27 +1406,9 @@ fbq('track', 'PageView');
   // Generation is visible on purpose. The work takes a few seconds either way; showing it is worth
   // more than hiding it, and a blank screen after the last answer reads as broken.
   function buildReport(fields) {
-    composer.hidden = true; hint.hidden = true;
-    // The "everything saves as you go" reassurance belongs to the interview; under a finished
-    // report it reads as though something is still pending.
-    var sn = $("savenote"); if (sn) sn.hidden = true;
     var g = S.google || {}, comps = S.competitors || [];
-    var host = document.createElement("div");
-    host.className = "report";
-    host.innerHTML = '<div class="progress" id="rp">' +
-      '<p class="step" data-i="0">Pulling your profile and your competitors\u2026</p>' +
-      '<p class="step" data-i="1">Comparing you against them\u2026</p>' +
-      '<p class="step" data-i="2">Writing your new profile copy\u2026</p>' +
-      '</div>';
-    thread.appendChild(host);
-    host.scrollIntoView({ block: "start" });
-
-    var steps = host.querySelectorAll(".step");
-    function mark(i) { for (var k = 0; k <= i && k < steps.length; k++) steps[k].className = "step done"; 
-                       if (i + 1 < steps.length) steps[i + 1].className = "step now"; }
-    mark(-1); steps[0].className = "step now";
-    setTimeout(function () { mark(0); }, 700);
-    setTimeout(function () { mark(1); }, 1600);
+    var host = null;
+    function mark() {}
 
     function render(rw, failed) {
       // ONE list, ranked once by the sweep (same-trade first, strongest first within that), used by
@@ -1406,9 +1465,21 @@ fbq('track', 'PageView');
       html += '</section>';
 
       html += ctaBlock();
-      host.innerHTML = html;
-      host.scrollIntoView({ block: "start" });
-      fb("ReportShown");
+
+      // Handed to renderReport rather than painted here, so the phone question gets its moment
+      // without the report appearing over the top of it mid-sentence.
+      paintReport = function () {
+        var sn = $("savenote"); if (sn) sn.hidden = true;
+        host = document.createElement("div");
+        host.className = "report";
+        host.innerHTML = html;
+        thread.appendChild(host);
+        host.scrollIntoView({ block: "start" });
+        submitLead("report_shown");
+        fb("ReportShown");
+      };
+      reportReady = true;
+      if (phoneDone) renderReport();
     }
 
     // Re-sweep with the area they just told us. The first sweep ran before the interview and could
@@ -1432,6 +1503,10 @@ fbq('track', 'PageView');
   }
 
   // ================= sheet submit (same endpoint, same guards) =================
+  // The sheet merges on lead_id and only alerts on "complete" (ALERT_ON_START is false), so the
+  // earlier stages are free: they update the same row and tell Barrett nothing until it matters.
+  // That is what makes step-by-step drop-off visible without a single Apps Script change.
+  function submitLead(stage, extra) { return submitStage(stage, extra); }
   function submitStage(stage, extra) {
     var g = S.google;
     var payload = {
