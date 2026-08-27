@@ -808,24 +808,60 @@ fbq('track', 'PageView');
   // competition in their town, so the model can say "12 reviews against a local median of 95"
   // instead of "you could use more reviews". Fails silently — the audit still works without it.
   var competitorsReady = null;   // promise; the first interview turn waits on it (capped)
+
+  /**
+   * The competitors a local owner recognises as competitors.
+   *
+   * Three things had to be true at once, and each was learned by testing against the real API:
+   *  · RANK BY REVIEWS. Taking the API's own result order and sorting only that slice surfaced
+   *    3- and 10-review shops while the 775-review firm actually eating their lunch sat further
+   *    down the response. The strongest same-trade businesses are the persuasive ones.
+   *  · PREFER THE EXACT CATEGORY, BUT ONLY PREFER IT. Google's categories are coarse — a painter,
+   *    an excavator and a remodeler are all "General Contractor" — so the exact-match businesses
+   *    go first. A hard filter is wrong though: a salon Google types "Beauty salon" sits among
+   *    rivals typed "Hair Salon", and strict matching returned an empty table. So: exact matches
+   *    first, then fill from the rest.
+   *  · SCOPE BY THE AREA THEY SERVE, not the town they sit in. Cloverdale has exactly one other
+   *    barber shop; the owner competes with Healdsburg and Windsor too, and only they know that.
+   *    That is why the interview asks.
+   * Also drops permanently-closed listings and anything with no reviews at all — neither tells the
+   * owner anything about who is beating them.
+   */
+  function sweepCompetitors(cat, area, selfName, selfId) {
+    var q = ((cat || "business") + " in " + (area || "the area")).trim();
+    return fetch("https://places.googleapis.com/v1/places:searchText", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_PLACES_KEY,
+                 "X-Goog-FieldMask": "places.id,places.displayName,places.primaryTypeDisplayName," +
+                                     "places.rating,places.userRatingCount,places.websiteUri," +
+                                     "places.photos,places.businessStatus" },
+      body: JSON.stringify({ textQuery: q })
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      var self8 = (selfName || "").toLowerCase().slice(0, 14);
+      var rows = (j.places || []).filter(function (p) {
+        return p.id !== selfId &&
+               (p.businessStatus || "OPERATIONAL") === "OPERATIONAL" &&
+               (p.userRatingCount || 0) > 0 &&
+               !(self8 && (p.displayName.text || "").toLowerCase().indexOf(self8) >= 0);
+      }).map(function (p) {
+        return { name: p.displayName.text, rating: p.rating || null,
+                 reviews: p.userRatingCount || 0, website: !!p.websiteUri,
+                 photos: (p.photos || []).length,
+                 type: (p.primaryTypeDisplayName && p.primaryTypeDisplayName.text) || "" };
+      });
+      function byReviews(a, b) { return b.reviews - a.reviews; }
+      var exact = rows.filter(function (c) { return cat && c.type === cat; }).sort(byReviews);
+      var rest  = rows.filter(function (c) { return !(cat && c.type === cat); }).sort(byReviews);
+      return exact.concat(rest).slice(0, 6);
+    });
+  }
+
   function fetchCompetitors(g) {
     try {
       var town = (g.address || "").split(",").length >= 3 ? g.address.split(",").slice(-3)[0].trim() : "";
-      var q = ((g.type || "business") + " in " + (town || "your area")).trim();
-      competitorsReady = fetch("https://places.googleapis.com/v1/places:searchText", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_PLACES_KEY,
-                   "X-Goog-FieldMask": "places.id,places.displayName,places.rating,places.userRatingCount,places.websiteUri,places.photos" },
-        body: JSON.stringify({ input: undefined, textQuery: q })
-      }).then(function (r) { return r.json(); }).then(function (j) {
-        S.competitors = (j.places || []).filter(function (p) { return p.id !== g.place_id; })
-          .slice(0, 6).map(function (p) {
-            return { name: p.displayName.text, rating: p.rating || null,
-                     reviews: p.userRatingCount || 0, website: !!p.websiteUri,
-                     photos: (p.photos || []).length };
-          });
-        save();
-      }).catch(function () {});
+      competitorsReady = sweepCompetitors(g.type, town, g.name, g.place_id)
+        .then(function (rows) { S.competitors = rows; save(); })
+        .catch(function () {});
     } catch (e) {}
   }
 
@@ -1029,8 +1065,7 @@ fbq('track', 'PageView');
   // Their row and the three biggest competitors, measured on the four fields the sweep actually
   // fetches. Hours and categories are NOT compared: the sweep doesn't retrieve them for
   // competitors, and a column we cannot fill honestly is worse than a column that isn't there.
-  function scoreboard(g, comps) {
-    var top = comps.slice().sort(function (a, b) { return (b.reviews || 0) - (a.reviews || 0); }).slice(0, 3);
+  function scoreboard(g, top) {
     var mine = { name: g.name, rating: g.rating, reviews: g.ratings || 0,
                  website: !!g.website, photos: (g.photos || []).length, me: true };
     var rows = [mine].concat(top);
@@ -1053,6 +1088,7 @@ fbq('track', 'PageView');
     });
     return { html: html + '</tbody></table></div>', top: top };
   }
+
 
   // Every gap carries a severity score computed from real deltas; we sort and take three. Three is
   // a decision, not a truncation — a twelve-item list reads as generated and dilutes the one thing
@@ -1234,10 +1270,14 @@ fbq('track', 'PageView');
     setTimeout(function () { mark(0); }, 700);
     setTimeout(function () { mark(1); }, 1600);
 
-    var sb = scoreboard(g, comps);
-    var gaps = pickGaps(g, comps);
-
     function render(rw, failed) {
+      // ONE list, ranked once by the sweep (same-trade first, strongest first within that), used by
+      // both the table and the gap text. Re-sorting here by review count alone was quietly undoing
+      // the trade filter — it put two salons into a barbershop's scoreboard because they had more
+      // reviews than the third barbershop. The report must also argue about the businesses it shows.
+      var top = comps.slice(0, 3);
+      var sb = scoreboard(g, top);
+      var gaps = pickGaps(g, top);
       var html = '<div class="rp-head"><h2>' + esc2(g.name || S.a.business_name) + '</h2>' +
         '<p>What someone searching your trade in ' + esc2((g.address || "").split(",")[1] || "your area") +
         ' sees today, and what we would change.</p></div>';
@@ -1245,8 +1285,8 @@ fbq('track', 'PageView');
       html += '<section class="rp-sec"><h3>1. How you compare right now</h3>';
       html += comps.length ? sb.html
         : '<p class="empty">We couldn\'t pull your local competition just now, so this section is empty rather than guessed at.</p>';
-      html += '<p class="fine">Live from Google, just now. Competitors are the businesses Google itself returns ' +
-              'for your category in your town &mdash; not a list we chose.</p></section>';
+      html += '<p class="fine">Live from Google, just now &mdash; the strongest businesses in your trade across ' +
+              'the area you told us you serve. Google returned them, not us.</p></section>';
 
       if (gaps.length) {
         html += '<section class="rp-sec"><h3>2. The three gaps that cost you the most</h3><ol class="gaps">';
@@ -1270,9 +1310,20 @@ fbq('track', 'PageView');
       fb("ReportShown");
     }
 
-    requestRewrite(fields, 0)
-      .then(function (rw) { mark(2); setTimeout(function () { render(rw, false); }, 350); })
-      .catch(function () { mark(2); setTimeout(function () { render(null, true); }, 350); });
+    // Re-sweep with the area they just told us. The first sweep ran before the interview and could
+    // only use the town their address sits in, which is too small for a trade that drives 20 miles.
+    // Runs alongside the rewrite, so it costs no extra wall-clock. Keeps whichever set is richer.
+    var better = fields.area
+      ? sweepCompetitors(g.type, fields.area, g.name, g.place_id)
+          .then(function (rows) { if (rows && rows.length >= comps.length) { comps = rows; S.competitors = rows; save(); } })
+          .catch(function () {})
+      : Promise.resolve();
+
+    requestRewrite(fields, 0).then(function (rw) {
+      return better.then(function () { mark(2); setTimeout(function () { render(rw, false); }, 350); });
+    }).catch(function () {
+      better.then(function () { mark(2); setTimeout(function () { render(null, true); }, 350); });
+    });
   }
 
   // ================= sheet submit (same endpoint, same guards) =================
