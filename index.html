@@ -263,6 +263,25 @@ fbq('track', 'PageView');
     border-radius:999px; vertical-align:middle; margin-left:4px; letter-spacing:.03em; }
   table.sb td.weak { color:var(--red); font-weight:800; }
 
+  .qa { margin:22px 0 0; padding:18px 16px; background:var(--card); border:1px solid var(--line); border-radius:12px; }
+  .qa-h { margin:0 0 12px; font-weight:800; font-size:1rem; }
+  .qa-thread:empty { display:none; }
+  .qa-thread { margin:0 0 12px; }
+  .qa-msg { max-width:86%; padding:9px 13px; border-radius:14px; margin:0 0 8px; font-size:.92rem; line-height:1.5; }
+  .qa-msg.bot { background:#eef1f6; border-bottom-left-radius:5px; }
+  .qa-msg.them { background:var(--navy); color:#fff; margin-left:auto; border-bottom-right-radius:5px; }
+  .qa-msg.waiting { color:var(--muted); letter-spacing:2px; }
+  .qa-row { display:flex; gap:8px; }
+  .qa-row input { flex:1; min-width:0; font:inherit; font-size:1rem; padding:12px 14px; border-radius:22px;
+    border:1px solid #dfe3ea; background:#f7f8fa; color:var(--ink); min-height:46px; }
+  .qa-row input:focus { outline:none; border-color:#b9c4d8; background:#fff; }
+  .qa-row button { flex:0 0 auto; min-height:46px; padding:0 18px; border:0; border-radius:22px;
+    background:var(--navy); color:#fff; font-weight:800; font-size:.95rem; cursor:pointer; }
+  .qa-row button:disabled { opacity:.5; }
+
+  .analysis p { margin:0 0 10px; font-size:.95rem; }
+  .analysis p:last-child { margin-bottom:0; }
+
   .qdots { display:inline-flex; gap:4px; vertical-align:middle; margin-right:7px; }
   .qdots .d { width:7px; height:7px; border-radius:50%; background:#cfd6e2; display:inline-block; }
   .qdots .d.done { background:var(--navy); }
@@ -907,7 +926,7 @@ fbq('track', 'PageView');
                (p.userRatingCount || 0) > 0 &&
                !(self8 && (p.displayName.text || "").toLowerCase().indexOf(self8) >= 0);
       }).map(function (p) {
-        return { name: p.displayName.text, rating: p.rating || null,
+        return { id: p.id, name: p.displayName.text, rating: p.rating || null,
                  reviews: p.userRatingCount || 0, website: !!p.websiteUri,
                  photos: (p.photos || []).length,
                  type: (p.primaryTypeDisplayName && p.primaryTypeDisplayName.text) || "" };
@@ -1149,6 +1168,58 @@ fbq('track', 'PageView');
   }
 
   // ================= finish: write the brief to the sheet =================
+  // What customers actually say about the businesses beating them. Review counts tell you there is
+  // a gap; review TEXT tells you what the gap is made of — and it is the one thing on this page the
+  // owner cannot get by looking at their own listing. Three extra Place Details calls, a few cents.
+  function fetchRivalReviews(top) {
+    return Promise.all(top.slice(0, 3).filter(function (c) { return c.id; }).map(function (c) {
+      return fetch("https://places.googleapis.com/v1/places/" + encodeURIComponent(c.id),
+        { headers: { "X-Goog-Api-Key": GOOGLE_PLACES_KEY, "X-Goog-FieldMask": "reviews" } })
+        .then(function (r) { return r.json(); })
+        .then(function (p) {
+          var txt = (p.reviews || []).slice(0, 4).map(function (r) {
+            return ((r.originalText && r.originalText.text) || (r.text && r.text.text) || "").slice(0, 240);
+          }).filter(Boolean);
+          return txt.length ? { name: c.name, reviews: txt } : null;
+        })
+        .catch(function () { return null; });
+    })).then(function (rows) { return rows.filter(Boolean); });
+  }
+
+  // Its own call, its own 400-token budget — the same reason the rewrite is separate.
+  function requestAnalysis(fields, rivals) {
+    if (!rivals.length) return Promise.resolve("");
+    var msg = "#ANALYSIS\nTheir answers:\n" +
+      "What they do: " + (fields.what_you_do || "") + "\n" +
+      "Why customers pick them: " + (fields.known_for || "") + "\n" +
+      "Services: " + (fields.services_talk || "") + "\n" +
+      "Area: " + (fields.area || "") + "\n\nCOMPETITOR REVIEW TEXT:\n" +
+      rivals.map(function (r) {
+        return r.name + ":\n" + r.reviews.map(function (t) { return '  "' + t + '"'; }).join("\n");
+      }).join("\n\n");
+    return relayChat([{ role: "user", content: "(Interview starting. Ask your first question.)" },
+                      { role: "assistant", content: "Ready." },
+                      { role: "user", content: msg }])
+      .then(function (j) { return (j.reply || "").trim(); })
+      .catch(function () { return ""; });
+  }
+
+  // Every mode call shares this shape: two padding turns so the relay counts it as a continuation
+  // rather than a new interview (which would eat a slot from the daily ceiling) and stays well
+  // under the per-session turn cap.
+  function relayChat(messages) {
+    return fetch(LEADS_URL, {
+      method: "POST", mode: "cors", redirect: "follow",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ secret: LEADS_SECRET, action: "chat", lead_id: S.lead_id,
+                             known: knownFacts(), messages: messages })
+    }).then(function (r) { return r.text(); }).then(function (t) {
+      var j = JSON.parse(t);
+      if (!j || j.ok === false) throw new Error((j && j.error) || "relay");
+      return j;
+    });
+  }
+
   var reportReady = false, paintReport = null, phoneDone = false;
 
   // Paint as soon as the work is done. The report is NEVER held back for the phone number — that
@@ -1356,6 +1427,67 @@ fbq('track', 'PageView');
     return html + '</div>';
   }
 
+  // Objection handling at the moment of decision. Deliberately AFTER the report: before it, an open
+  // chat is just a way to avoid answering the five questions.
+  //
+  // Six exchanges is a real ceiling, not a soft one. Each request carries only the Q&A history —
+  // never the interview — so it stays far under the relay's 14-turn session cap, and the two padding
+  // turns inside relayChat keep it from being counted as a new interview against the daily ceiling.
+  var QA_MAX = 6, qaUsed = 0, qaBusy = false;
+  function wireQA(host) {
+    var box = host.querySelector("#qa-in"), btn = host.querySelector("#qa-send"),
+        pane = host.querySelector("#qa-thread"), left = host.querySelector("#qa-left");
+    if (!box) return;
+    var hist = [];
+
+    function add(who, text) {
+      var b = document.createElement("div");
+      b.className = "qa-msg " + who;
+      b.innerHTML = esc2(text).replace(/\n/g, "<br>");
+      pane.appendChild(b);
+      return b;
+    }
+    function ask() {
+      var q = box.value.replace(/\s+/g, " ").trim();
+      if (!q || qaBusy) return;
+      if (qaUsed >= QA_MAX) return;
+      qaBusy = true; box.value = ""; btn.disabled = true;
+      add("them", q);
+      var wait = add("bot", "\u2026"); wait.className = "qa-msg bot waiting";
+      hist.push({ role: "user", content: (hist.length ? "#QA\n" : "#QA\n") + q });
+
+      // Only the LAST message carries the #QA marker in the prompt's contract, so earlier turns are
+      // re-sent as plain text and the marker is re-applied to the newest one each time.
+      var msgs = [{ role: "user", content: "(Interview starting. Ask your first question.)" },
+                  { role: "assistant", content: "Ready." }]
+        .concat(hist.map(function (m, i) {
+          if (m.role !== "user") return m;
+          var isLast = (i === hist.length - 1);
+          return { role: "user", content: isLast ? m.content : m.content.replace(/^#QA\n/, "") };
+        }));
+
+      relayChat(msgs).then(function (j) {
+        var a = (j.reply || "").trim() || "I don't have that one — text Barrett on (707) 385-5673.";
+        wait.remove();
+        add("bot", a);
+        hist.push({ role: "assistant", content: a });
+        qaUsed++;
+        qaBusy = false; btn.disabled = false;
+        left.textContent = qaUsed >= QA_MAX
+          ? "That's the lot from me — anything else, text Barrett on (707) 385-5673."
+          : (QA_MAX - qaUsed) + " more question" + (QA_MAX - qaUsed === 1 ? "" : "s") + " if you want them.";
+        if (qaUsed >= QA_MAX) { box.disabled = true; btn.disabled = true; box.placeholder = "Text Barrett for anything else"; }
+        submitLead("qa_" + qaUsed);
+      }).catch(function () {
+        wait.remove();
+        add("bot", "That didn't go through. Text Barrett on (707) 385-5673 and he'll answer it himself.");
+        qaBusy = false; btn.disabled = false;
+      });
+    }
+    btn.addEventListener("click", ask);
+    box.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); ask(); } });
+  }
+
   function ctaBlock() {
     var btn = PAY_URL
       ? '<a class="pay" href="' + esc2(PAY_URL) + '">Get this published &mdash; ' + PAY_PRICE + '</a>'
@@ -1423,7 +1555,7 @@ fbq('track', 'PageView');
     var host = null;
     function mark() {}
 
-    function render(rw, failed) {
+    function render(rw, failed, analysis) {
       // ONE list, ranked once by the sweep (same-trade first, strongest first within that), used by
       // both the table and the gap text. Re-sorting here by review count alone was quietly undoing
       // the trade filter — it put two salons into a barbershop's scoreboard because they had more
@@ -1461,16 +1593,26 @@ fbq('track', 'PageView');
       }
       html += '</section>';
 
+      var n = 1;
       if (gaps.length) {
-        html += '<section class="rp-sec"><h3>2. The three gaps that cost you the most</h3><ol class="gaps">';
+        html += '<section class="rp-sec"><h3>' + (++n) + '. The three gaps that cost you the most</h3><ol class="gaps">';
         gaps.forEach(function (x) { html += '<li><b>' + x.what + '</b><span>' + x.why + '</span></li>'; });
         html += '</ol></section>';
       }
 
-      html += '<section class="rp-sec"><h3>' + (gaps.length ? "3" : "2") + '. What that is worth</h3>' +
+      if (analysis) {
+        html += '<section class="rp-sec"><h3>' + (++n) + '. What is working for them</h3>' +
+          '<div class="analysis">' +
+          analysis.split(/\n{2,}/).map(function (para) {
+            return '<p>' + esc2(para.trim()).replace(/\n/g, "<br>") + '</p>';
+          }).join("") +
+          '</div><p class="fine">Drawn from the review text on those competitors\' own listings.</p></section>';
+      }
+
+      html += '<section class="rp-sec"><h3>' + (++n) + '. What that is worth</h3>' +
               moneyBlock(fields.job_value) + '</section>';
 
-      html += '<section class="rp-sec rp-work"><h3>' + (gaps.length ? "4" : "3") + '. Your profile, rewritten</h3>';
+      html += '<section class="rp-sec rp-work"><h3>' + (++n) + '. Your profile, rewritten</h3>';
       html += failed
         ? '<p class="empty">The rewrite didn\'t generate just now. Text Barrett and he\'ll send it to you directly &mdash; ' +
           'your answers are saved.</p>'
@@ -1478,6 +1620,15 @@ fbq('track', 'PageView');
       html += '</section>';
 
       html += ctaBlock();
+      html += '<div class="qa" id="qa">' +
+        '<p class="qa-h">Questions about any of this?</p>' +
+        '<div class="qa-thread" id="qa-thread"></div>' +
+        '<div class="qa-row">' +
+          '<input id="qa-in" type="text" autocomplete="off" placeholder="Ask about your profile or the work">' +
+          '<button type="button" id="qa-send" aria-label="Send">Ask</button>' +
+        '</div>' +
+        '<p class="fine" id="qa-left">Straight answers. If it needs Barrett, it\'ll say so.</p>' +
+        '</div>';
 
       // Handed to renderReport rather than painted here, so the phone question gets its moment
       // without the report appearing over the top of it mid-sentence.
@@ -1490,6 +1641,7 @@ fbq('track', 'PageView');
         host.scrollIntoView({ block: "start" });
         submitLead("report_shown");
         fb("ReportShown");
+        wireQA(host);
       };
       reportReady = true;
       if (phoneDone) renderReport();
@@ -1508,10 +1660,16 @@ fbq('track', 'PageView');
           .catch(function () {})
       : Promise.resolve();
 
+    // Rewrite, re-sweep and competitor-review analysis all run together. The analysis depends on the
+    // re-sweep (it needs the final three rivals), so it is chained after it, not raced with it.
+    var analysisReady = better.then(function () {
+      return fetchRivalReviews(comps).then(function (rivals) { return requestAnalysis(fields, rivals); });
+    }).catch(function () { return ""; });
+
     requestRewrite(fields, 0).then(function (rw) {
-      return better.then(function () { mark(2); setTimeout(function () { render(rw, false); }, 350); });
+      return analysisReady.then(function (an) { setTimeout(function () { render(rw, false, an); }, 250); });
     }).catch(function () {
-      better.then(function () { mark(2); setTimeout(function () { render(null, true); }, 350); });
+      analysisReady.then(function (an) { setTimeout(function () { render(null, true, an); }, 250); });
     });
   }
 
