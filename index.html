@@ -351,6 +351,12 @@ fbq('track', 'PageView');
   .cta { margin:30px 0 0; padding:22px 20px; border-radius:14px; background:var(--navy); color:#fff; text-align:center; }
   .cta h3 { margin:0 0 8px; font-size:1.25rem; color:#fff; }
   .cta p { margin:0 0 14px; font-size:.95rem; color:#d7e0f2; }
+  .cta-list { text-align:left; margin:0 0 14px; padding:0; list-style:none; }
+  .cta-list li { position:relative; padding:0 0 0 24px; margin:0 0 10px; font-size:.92rem;
+    color:#dbe3f4; line-height:1.45; }
+  .cta-list li::before { content:"\2713"; position:absolute; left:0; top:0; color:#fff; font-weight:800; }
+  .cta-list b { color:#fff; }
+  .cta-close { margin:0 0 16px; font-size:.92rem; color:#dbe3f4; }
   .cta .pay { display:inline-flex; align-items:center; justify-content:center; min-height:52px;
     padding:0 26px; background:var(--red); color:#fff; border-radius:10px; font-weight:800;
     font-size:1.05rem; text-decoration:none; }
@@ -1693,16 +1699,26 @@ fbq('track', 'PageView');
 
   function ctaBlock() {
     var btn = PAY_URL
-      ? '<a class="pay" href="' + esc2(PAY_URL) + '">Get this published &mdash; ' + PAY_PRICE + '</a>'
-      : '<a class="pay disabled" href="sms:+17073855673">Text Barrett to get this published &mdash; ' + PAY_PRICE + '</a>';
+      ? '<a class="pay" href="' + esc2(PAY_URL) + '">Have it done for me &mdash; ' + PAY_PRICE + '</a>'
+      : '<a class="pay disabled" href="sms:+17073855673">Text Barrett to have it done &mdash; ' + PAY_PRICE + '</a>';
+    // The copy above is visible and therefore copyable. Pretending otherwise invites the comparison
+    // we lose, so this says plainly that it is theirs either way, and prices the parts that need
+    // access, judgement and repetition — which is what actually takes the work off their desk.
     return '<div class="cta">' +
-      '<h3>Get this on your profile</h3>' +
-      '<p>' + PAY_PRICE + ', one time. We publish the description, the services and the categories above to your ' +
-      'Google Business Profile, and reply to the reviews sitting there unanswered.</p>' +
+      '<h3>The copy above is yours. Keep it.</h3>' +
+      '<p>Paste it in yourself if you want to &mdash; it&rsquo;s your business and your words. ' +
+      'What ' + PAY_PRICE + ' buys is the rest of it, done properly:</p>' +
+      '<ul class="cta-list">' +
+        '<li><b>Every review answered</b>, including the ones you&rsquo;ve been avoiding. Replies are public and permanent, and they are read by everyone who comes after.</li>' +
+        '<li><b>Questions asked and answered</b> on your profile. You&rsquo;re allowed to post both &mdash; almost nobody does, and it is the emptiest space on most listings.</li>' +
+        '<li><b>Categories set so they hold.</b> Naming them is the easy half. Which combination you can keep, and what each one puts you in front of, is the half that takes doing.</li>' +
+        '<li><b>Services entered the way Google wants them</b>, not pasted in as a block of text.</li>' +
+        '<li><b>Nothing that gets you suspended.</b> Profiles go down for edits owners think are harmless, and getting one back takes weeks.</li>' +
+      '</ul>' +
+      '<p class="cta-close">You don&rsquo;t touch your Google login, and you see every word before it goes live.</p>' +
       btn +
       '<p class="refund">If we can\'t get access, or can\'t improve the profile, you get a full refund.</p>' +
-      '<p class="fine">After payment you\'ll get a short page showing the four clicks that give us Manager ' +
-      'access. Nothing on your listing changes until you see it first.</p>' +
+      '<p class="fine">After payment you\'ll get a short page showing the four clicks that give us Manager access.</p>' +
       '<p class="paid-back" id="paid-back" hidden><a href="access.html">Already paid? Finish setting it up &rarr;</a></p>' +
       '</div>';
   }
