@@ -222,18 +222,8 @@ fbq('track', 'PageView');
      removes the objection people have before they type a business name. */
   /* Scoped to .intro so it outranks `.intro p`, which would otherwise repaint it muted grey at 1rem.
      A class-only selector loses to class+element, and silently. */
-  /* Centred between the sentence above and the chat below. The space underneath is not this
-     element's alone: the intro adds 14px of its own bottom margin and the thread another 4px of
-     padding, so the bottom margin here is the target gap MINUS that 18px. Subtracting it is what
-     makes the two gaps actually equal rather than merely symmetrical in the stylesheet. */
-  .intro .nodetails { margin-top:clamp(18px, 4vw, 30px);
-    margin-bottom:max(0px, calc(clamp(18px, 4vw, 30px) - 18px));
-    margin-left:auto; margin-right:auto;
-    color:var(--red); font-weight:800; font-size:.78rem; letter-spacing:.08em;
-    text-transform:uppercase; max-width:none; }
   /* Space under the subline so the first question does not sit on top of the pitch. */
-  .intro h1 + p { margin-bottom:0; }
-  .intro:not(:has(.nodetails)) h1 + p { margin-bottom:clamp(18px, 4vw, 30px); }
+  .intro h1 + p { margin-bottom:clamp(18px, 4vw, 30px); }
 
   /* ---------- the report ---------- */
   .report { margin:22px 0 8px; }
@@ -398,7 +388,6 @@ fbq('track', 'PageView');
       <p class="kicker" id="kicker">Free audit &#183; No email or phone number required</p>
       <h1>Free competitive audit of your Google listing.</h1>
       <p>Most listings are half-filled and never touched again. Answer five questions and I&rsquo;ll show you exactly where you stand against your local competition &mdash; free.</p>
-      <p class="nodetails">No email or phone number required</p>
     </div>
 
     <div class="thread" id="thread" aria-live="polite"></div>
