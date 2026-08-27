@@ -288,10 +288,20 @@ fbq('track', 'PageView');
     .opt.done:disabled:hover { border-color:#dfe4ee; }
   }
 
-  .qdots { display:inline-flex; gap:4px; vertical-align:middle; margin-right:7px; }
-  .qdots .d { width:7px; height:7px; border-radius:50%; background:#cfd6e2; display:inline-block; }
-  .qdots .d.done { background:var(--navy); }
-  .qdots .d.now { background:var(--red); transform:scale(1.25); }
+  /* The question, with its counter pinned to the top right of the row. */
+  .qrow { display:flex; align-items:flex-start; gap:10px; width:100%; }
+  .qrow .msg { flex:0 1 auto; }
+  .qmeta { flex:0 0 auto; margin-left:auto; display:flex; align-items:center; gap:6px;
+    padding-top:3px; white-space:nowrap; }
+  .qmeta b { font-size:.72rem; font-weight:800; color:var(--muted); letter-spacing:.02em; }
+
+  /* Flex children with no basis stretch to the row height — which is what turned the finished dots
+     into ovals. flex:0 0 7px fixes the size on both axes; align-items keeps them centred. */
+  .qdots { display:inline-flex; align-items:center; gap:4px; }
+  .qdots .d { flex:0 0 7px; width:7px; height:7px; padding:0; margin:0; border:0;
+    border-radius:50%; background:#cfd6e2; display:block; box-sizing:border-box; }
+  .qdots .d.fill { background:var(--navy); }
+  .qdots .d.live { background:var(--red); box-shadow:0 0 0 3px rgba(200,16,46,.18); }
 
   .others { margin:16px 0 0; padding:14px 16px; background:#f4f6f9; border:1px dashed #cdd5e2; border-radius:10px; }
   .others .oh { margin:0 0 9px; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em;
@@ -996,15 +1006,35 @@ fbq('track', 'PageView');
   }
   // Five questions is the promise, so the count is on screen the whole way. An interview with a
   // visible end gets finished; one that could go on forever gets abandoned.
-  function showProgress() {
-    var n = S.qNum || 0;
-    if (!n || S.done) { hint.hidden = true; return; }
-    hint.hidden = false;
-    hint.innerHTML = '<span class="qdots">' +
-      [1,2,3,4,5].map(function (i) {
-        return '<i class="' + (i < n ? "d done" : (i === n ? "d now" : "d")) + '"></i>';
-      }).join("") + '</span> Question ' + n + ' of 5';
+  function progressHtml(n) {
+    return '<span class="qdots">' +
+      [1, 2, 3, 4, 5].map(function (i) {
+        return '<i class="' + (i < n ? "d fill" : (i === n ? "d live" : "d")) + '"></i>';
+      }).join("") + '</span><b>' + n + ' of 5</b>';
   }
+
+  // The question and its counter as one row: bubble on the left, counter pinned to the top right.
+  // It used to live in the hint line under the composer, which put it a long way from the thing it
+  // was counting.
+  function sayQuestion(text, n) {
+    var row = document.createElement("div");
+    row.className = "qrow";
+    var b = document.createElement("div");
+    b.className = "msg bot";
+    b.innerHTML = esc(text).replace(/\n/g, "<br>");
+    row.appendChild(b);
+    if (n) {
+      var meta = document.createElement("div");
+      meta.className = "qmeta";
+      meta.innerHTML = progressHtml(n);
+      row.appendChild(meta);
+    }
+    thread.appendChild(row);
+    scrollTail();
+    return row;
+  }
+
+  function showProgress() { hint.hidden = true; }
 
   function beginInterview() {
     S.phase = "chat"; S.started = true; S.qNum = 0; save();
@@ -1320,7 +1350,7 @@ fbq('track', 'PageView');
       return;
     }
     if (spec.say) say(spec.say);
-    say(spec.q);
+    sayQuestion(spec.q, S.phase === "chat" ? (S.qNum || 0) : 0);
 
     if (spec.type === "text") {
       composer.hidden = false;
