@@ -218,22 +218,7 @@ fbq('track', 'PageView');
   .intro p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
   /* Space under the subline so the first question does not sit on top of the pitch. */
   .intro h1 + p { margin-bottom:clamp(18px, 4vw, 30px); }
-  .savenote { text-align:center; font-size:.78rem; color:var(--muted); margin:14px 0 0; }
-  /* The smaller-commitment offer, for people who scrolled the portfolio without starting the chat.
-     Deliberately placed after the portfolio so it never competes with the interview up top. */
-  .gbp-offer { margin:36px 0 0; background:var(--navy-soft); border:1px solid #c9d6f0;
-    border-left:4px solid var(--navy); border-radius:12px; padding:18px 20px; text-align:center; }
-  .gbp-offer b { color:var(--navy); }
-  .gbp-offer p { margin:0 0 4px; font-size:.95rem; }
-  .gbp-offer a { display:inline-flex; align-items:center; min-height:44px; color:var(--navy);
-    font-weight:800; text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:2px; }
-  @media (hover:hover) and (pointer:fine) { .gbp-offer a:hover { color:var(--red); } }
 
-  /* ---- proof strip: the six sample sites ---- */
-  .proof { margin:48px 0 0; }
-  .proof h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
-    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
-  .proof p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 20px; max-width:44ch; }
   /* ---------- the report ---------- */
   .report { margin:22px 0 8px; }
   .progress { padding:18px 4px; }
@@ -352,32 +337,9 @@ fbq('track', 'PageView');
   @media (hover:hover) and (pointer:fine) { .cta .pay:hover { filter:brightness(1.08); } }
   @media (max-width:560px) { .rw-pair { grid-template-columns:1fr; } }
 
-  .audit-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
-  .audit-stats div { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
-  .audit-stats b { display:block; font-size:1.7rem; color:var(--navy); line-height:1.15; }
-  .audit-stats span { font-size:.85rem; color:var(--muted); }
-  .proof-link { text-align:center; margin:16px 0 0; }
-  .proof-link a { display:inline-flex; align-items:center; min-height:44px; color:var(--navy);
-    font-weight:800; text-decoration:underline; text-underline-offset:3px; }
-  .proof-link a:hover { color:var(--red); }
-  .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
-  .proof-grid a { display:block; text-decoration:none; color:inherit; border:1px solid var(--line);
-    border-radius:10px; overflow:hidden; background:var(--card); }
-  .proof-grid img { display:block; width:100%; height:auto; border-bottom:1px solid var(--line); }
-  .proof-grid b { display:block; font-size:.78rem; font-weight:700; padding:8px 10px 2px; line-height:1.25; }
-  .proof-grid span { display:block; font-size:.72rem; color:var(--muted); padding:0 10px 9px; }
-  @media (max-width:560px) { .proof-grid { grid-template-columns:repeat(2,1fr); gap:10px; } }
 
   /* ---- back to the top: in the flow, so you only meet it by having scrolled ---- */
-  .totop { display:flex; flex-direction:column; align-items:center; gap:6px; margin:30px auto 8px;
-    background:none; border:0; padding:8px 12px; cursor:pointer; color:var(--navy); font:inherit; border-radius:10px; }
-  .totop svg { width:44px; height:44px; display:block; transition:transform .15s ease; }
-  .totop span { font-size:.8rem; font-weight:700; }
   /* Hover only where a real pointer exists — on a touchscreen :hover sticks red after a tap. */
-  @media (hover:hover) and (pointer:fine) { .totop:hover { color:var(--red); } .totop:hover svg { transform:translateY(-3px); } }
-  .totop:active { color:var(--red); }
-  .totop:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
-  @media (prefers-reduced-motion:reduce) { .totop svg { transition:none; } }
 </style>
 </head>
 <body>
@@ -403,32 +365,6 @@ fbq('track', 'PageView');
       <button class="send" id="send" type="button" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
     </div>
     <p class="hint" id="hint" hidden><strong>On a phone:</strong> tap the box, then the microphone on your keyboard, and just talk.</p>
-    <p class="savenote" id="savenote">Everything saves on this device as you go. Stop anytime &mdash; I&rsquo;ll get the rest by text.</p>
-
-    <section class="proof" id="proof">
-      <h2>Six real audits, published</h2>
-      <p class="sub">We audited six real Cloverdale businesses against their competition and published the complete fixes &mdash; free, because the work is the pitch.</p>
-      <div class="audit-stats">
-        <div><b>119</b><span>five-star reviews on a salon &mdash; with no website link</span></div>
-        <div><b>0</b><span>photos on a 24-hour plumber customers rave about</span></div>
-        <div><b>2</b><span>harsh reviews left unanswered on a loved barbershop</span></div>
-      </div>
-      <p class="proof-link"><a href="/gbp/">Read all six packs &rarr;</a></p>
-    </section>
-
-    <aside class="gbp-offer">
-      <p><b>Need the whole website too?</b> We build those as well &mdash; custom, fast, from a short questionnaire.</p>
-      <a href="form.html">Start the website questionnaire &rarr;</a>
-    </aside>
-
-    <button type="button" class="totop" id="totop" aria-label="Back to the top">
-      <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
-        <circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
-        <path d="M22 30V15M22 15l-6.5 6.5M22 15l6.5 6.5" fill="none" stroke="currentColor"
-              stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Back to the top</span>
-    </button>
   </div>
 </main>
 
@@ -1242,7 +1178,6 @@ fbq('track', 'PageView');
     // A failed lead row costs Barrett a notification; a withheld report costs the sale.
     S.answers = extra; save();
     composer.hidden = true; hint.hidden = true;
-    var sn = $("savenote"); if (sn) sn.hidden = true;
 
     // Nothing is asked after the last question now, so this write carries everything we will ever
     // have from the site: their answers plus the number Google publishes for the business.
@@ -1702,7 +1637,6 @@ fbq('track', 'PageView');
       // Handed to renderReport rather than painted here, so the phone question gets its moment
       // without the report appearing over the top of it mid-sentence.
       paintReport = function () {
-        var sn = $("savenote"); if (sn) sn.hidden = true;
         host = document.createElement("div");
         host.className = "report";
         host.innerHTML = html;
@@ -1813,17 +1747,6 @@ fbq('track', 'PageView');
     setTimeout(scrollTail, 250);
     setTimeout(scrollTail, 550);
   });
-
-  // Back to the top. Declared before use — a call above its assignment killed this whole script once.
-  (function () {
-    var t = $("totop");
-    if (!t) return;
-    t.addEventListener("click", function () {
-      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      try { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }
-      catch (e) { window.scrollTo(0, 0); }   // older Safari has no options object
-    });
-  })();
 
   // ================= boot =================
   if (S.done) {
