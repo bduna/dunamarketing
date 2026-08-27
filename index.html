@@ -282,6 +282,22 @@ fbq('track', 'PageView');
   .analysis p { margin:0 0 10px; font-size:.95rem; }
   .analysis p:last-child { margin-bottom:0; }
 
+  .opts { display:flex; flex-wrap:wrap; gap:8px; }
+  .opts.money { flex-direction:column; }
+  .opt { font:inherit; font-size:.95rem; line-height:1.3; padding:11px 15px; min-height:44px;
+    border-radius:20px; border:1.5px solid #ccd6ea; background:#fff; color:var(--navy);
+    font-weight:650; cursor:pointer; text-align:left; }
+  .opts.money .opt { width:100%; }
+  .opt.on { background:var(--navy); border-color:var(--navy); color:#fff; }
+  .opt.on::before { content:"\2713 "; }
+  .opt.done { background:var(--navy); border-color:var(--navy); color:#fff; font-weight:800; }
+  .opt.done:disabled { background:#eef1f6; border-color:#dfe4ee; color:#93a0b5; cursor:default; }
+  .opt.other { border-style:dashed; color:var(--muted); font-weight:600; }
+  @media (hover:hover) and (pointer:fine) {
+    .opt:hover { border-color:var(--navy); }
+    .opt.done:disabled:hover { border-color:#dfe4ee; }
+  }
+
   .qdots { display:inline-flex; gap:4px; vertical-align:middle; margin-right:7px; }
   .qdots .d { width:7px; height:7px; border-radius:50%; background:#cfd6e2; display:inline-block; }
   .qdots .d.done { background:var(--navy); }
@@ -1105,9 +1121,8 @@ fbq('track', 'PageView');
         S.qNum = Math.min((S.qNum || 0) + 1, 5); save();
         showProgress();
       }
-      say(j.reply);
-      if (j.done) finish(j.fields);
-      else setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 60);
+      if (j.done) { say(j.reply); finish(j.fields); return; }
+      askUI(j.reply);
     }).catch(function (e) { fail(e && e.message ? e.message : String(e)); });
   }
 
@@ -1244,6 +1259,102 @@ fbq('track', 'PageView');
     phoneDone = true;                 // nothing left to wait on; paint the moment it is built
     say("That's everything \u2014 building your report now.");
     buildReport(fields || {});
+  }
+
+  // ======================================================================
+  //  ANSWERING WITHOUT TYPING
+  //
+  //  Each interview turn arrives as a small spec — {say, q, type, options, other} — and we render
+  //  the control it asks for. Tapping is the whole point: on a phone, five typed answers is where
+  //  people quit, and a tapped option is not a worse answer when the options are built from their
+  //  own review text rather than a stock list.
+  //
+  //  Everything degrades to the old behaviour: if the JSON is malformed, or names a type we don't
+  //  know, or carries no options, the reply is shown as plain text and the keyboard comes back.
+  // ======================================================================
+
+  function parseSpec(reply) {
+    var t = String(reply || "").trim();
+    var m = t.match(/\{[\s\S]*\}/);
+    if (!m) return null;
+    var o = null;
+    try { o = JSON.parse(m[0]); } catch (e) { return null; }
+    if (!o || typeof o.q !== "string" || !o.q.trim()) return null;
+    var type = String(o.type || "").toLowerCase();
+    if (["money", "multi", "chips", "text"].indexOf(type) < 0) type = "text";
+    var opts = (o.options || []).filter(function (x) { return typeof x === "string" && x.trim(); })
+                                .map(function (x) { return x.trim(); }).slice(0, 6);
+    if (type !== "text" && opts.length < 2) type = "text";
+    return { say: (typeof o.say === "string" ? o.say.trim() : ""), q: o.q.trim(),
+             type: type, options: opts, other: o.other !== false };
+  }
+
+  function askUI(reply) {
+    var spec = parseSpec(reply);
+    if (!spec) {                       // not a spec at all — behave exactly as before
+      say(reply);
+      composer.hidden = false;
+      setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 60);
+      return;
+    }
+    if (spec.say) say(spec.say);
+    say(spec.q);
+
+    if (spec.type === "text") {
+      composer.hidden = false;
+      setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 60);
+      return;
+    }
+
+    composer.hidden = true;            // no keyboard unless they ask for one
+    var multi = (spec.type === "multi");
+    var picked = [];
+    var box = bubble("bot", '<div class="opts' + (spec.type === "money" ? " money" : "") + '"></div>', true);
+    var wrap = box.querySelector(".opts");
+
+    function send(text) {
+      wrap.parentNode.removeChild(wrap);
+      me(text);
+      turn(text);
+    }
+
+    spec.options.forEach(function (label) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "opt"; b.textContent = label;
+      b.addEventListener("click", function () {
+        if (!multi) { send(label); return; }
+        var i = picked.indexOf(label);
+        if (i >= 0) { picked.splice(i, 1); b.classList.remove("on"); }
+        else { picked.push(label); b.classList.add("on"); }
+        doneBtn.disabled = !picked.length;
+        doneBtn.textContent = picked.length ? "Done (" + picked.length + ")" : "Done";
+      });
+      wrap.appendChild(b);
+    });
+
+    var doneBtn = null;
+    if (multi) {
+      doneBtn = document.createElement("button");
+      doneBtn.type = "button"; doneBtn.className = "opt done"; doneBtn.textContent = "Done";
+      doneBtn.disabled = true;
+      doneBtn.addEventListener("click", function () {
+        if (picked.length) send(picked.join(", "));
+      });
+      wrap.appendChild(doneBtn);
+    }
+
+    if (spec.other) {
+      var o = document.createElement("button");
+      o.type = "button"; o.className = "opt other"; o.textContent = "Something else\u2026";
+      o.addEventListener("click", function () {
+        wrap.parentNode.removeChild(wrap);
+        composer.hidden = false;
+        input.placeholder = "Type your answer";
+        setTimeout(function () { try { input.focus(); } catch (e) {} }, 60);
+      });
+      wrap.appendChild(o);
+    }
+    scrollTail();
   }
 
   // ======================================================================
