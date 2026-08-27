@@ -215,7 +215,7 @@ fbq('track', 'PageView');
     text-transform:uppercase; }
   /* Set by fitKicker() once measured; nowrap is what lets it be one full-width line. */
   .intro .kicker.fitted { white-space:nowrap; }
-  .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 10px;
+  .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 clamp(16px, 3.5vw, 30px);
     letter-spacing:-.03em; color:var(--navy); text-wrap:balance; }
   .intro p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
   /* Space under the subline so the first question does not sit on top of the pitch. */
