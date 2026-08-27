@@ -234,6 +234,73 @@ fbq('track', 'PageView');
   .proof h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
     letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
   .proof p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 20px; max-width:44ch; }
+  /* ---------- the report ---------- */
+  .report { margin:22px 0 8px; }
+  .progress { padding:18px 4px; }
+  .progress .step { margin:0 0 10px; color:#8b95a6; font-size:.95rem; transition:color .2s; }
+  .progress .step::before { content:"○ "; }
+  .progress .step.now { color:var(--navy); font-weight:700; }
+  .progress .step.now::before { content:"◐ "; }
+  .progress .step.done { color:#3f8f5f; }
+  .progress .step.done::before { content:"● "; }
+  .rp-head h2 { margin:0 0 4px; font-size:1.5rem; color:var(--navy); line-height:1.2; }
+  .rp-head p { margin:0 0 6px; color:var(--muted); font-size:.95rem; }
+  .rp-sec { margin:26px 0 0; }
+  .rp-sec h3 { margin:0 0 12px; font-size:1.1rem; color:var(--ink); }
+  .rp-sec .fine { font-size:.8rem; color:var(--muted); margin:8px 0 0; }
+  .rp-sec .empty { color:var(--muted); font-style:italic; margin:0; }
+  .rp-sec .lede { margin:0 0 14px; color:var(--muted); font-size:.95rem; }
+
+  .sb-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  table.sb { border-collapse:collapse; width:100%; min-width:430px; font-size:.9rem; }
+  table.sb th { text-align:left; font-size:.72rem; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--muted); font-weight:800; padding:0 10px 7px; border-bottom:1px solid var(--line); }
+  table.sb td { padding:10px; border-bottom:1px solid var(--line); }
+  table.sb tr.me { background:var(--navy-soft); }
+  table.sb tr.me td { font-weight:700; }
+  table.sb td.bn { font-weight:600; }
+  table.sb .you { font-size:.68rem; background:var(--navy); color:#fff; padding:2px 6px;
+    border-radius:999px; vertical-align:middle; margin-left:4px; letter-spacing:.03em; }
+  table.sb td.weak { color:var(--red); font-weight:800; }
+
+  ol.gaps { margin:0; padding:0; list-style:none; counter-reset:g; }
+  ol.gaps li { counter-increment:g; position:relative; padding:0 0 0 40px; margin:0 0 16px; }
+  ol.gaps li::before { content:counter(g); position:absolute; left:0; top:1px; width:26px; height:26px;
+    border-radius:50%; background:var(--navy); color:#fff; font-weight:800; font-size:.85rem;
+    display:flex; align-items:center; justify-content:center; }
+  ol.gaps b { display:block; margin:0 0 3px; font-size:1rem; }
+  ol.gaps span { color:var(--muted); font-size:.92rem; }
+
+  .rp-sec .sum { font-size:1.15rem; margin:10px 0; padding:12px 14px; background:var(--navy-soft);
+    border-radius:10px; border-left:4px solid var(--navy); }
+  .rp-sec .sum b { color:var(--navy); }
+
+  .rw-row { margin:0 0 20px; }
+  .rw-row h4 { margin:0 0 8px; font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+  .rw-pair { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .rw-old, .rw-new { border:1px solid var(--line); border-radius:10px; padding:12px 14px; background:var(--card); }
+  .rw-old { opacity:.75; }
+  .rw-new { border-color:#bcd3b4; background:#f6fbf4; }
+  .rw-old p, .rw-new p { margin:0; font-size:.9rem; }
+  .rw-new ul { margin:0; padding-left:18px; font-size:.9rem; }
+  .rw-new li { margin:0 0 3px; }
+  .tag { display:block; font-size:.68rem; text-transform:uppercase; letter-spacing:.05em;
+    color:var(--muted); font-weight:800; margin:0 0 6px; }
+  .tag.ok { color:#3f7a4f; }
+  .rw .empty { font-style:italic; color:var(--muted); }
+  .rw .fine { font-size:.76rem; color:var(--muted); margin:8px 0 0; }
+
+  .cta { margin:30px 0 0; padding:22px 20px; border-radius:14px; background:var(--navy); color:#fff; text-align:center; }
+  .cta h3 { margin:0 0 8px; font-size:1.25rem; color:#fff; }
+  .cta p { margin:0 0 14px; font-size:.95rem; color:#d7e0f2; }
+  .cta .pay { display:inline-flex; align-items:center; justify-content:center; min-height:52px;
+    padding:0 26px; background:var(--red); color:#fff; border-radius:10px; font-weight:800;
+    font-size:1.05rem; text-decoration:none; }
+  .cta .refund { margin:12px 0 0; font-size:.88rem; color:#fff; font-weight:600; }
+  .cta .fine { margin:8px 0 0; font-size:.78rem; color:#aab8d4; }
+  @media (hover:hover) and (pointer:fine) { .cta .pay:hover { filter:brightness(1.08); } }
+  @media (max-width:560px) { .rw-pair { grid-template-columns:1fr; } }
+
   .audit-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
   .audit-stats div { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
   .audit-stats b { display:block; font-size:1.7rem; color:var(--navy); line-height:1.15; }
@@ -285,7 +352,7 @@ fbq('track', 'PageView');
       <button class="send" id="send" type="button" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
     </div>
     <p class="hint" id="hint" hidden><strong>On a phone:</strong> tap the box, then the microphone on your keyboard, and just talk.</p>
-    <p class="savenote">Everything saves on this device as you go. Stop anytime &mdash; I&rsquo;ll get the rest by text.</p>
+    <p class="savenote" id="savenote">Everything saves on this device as you go. Stop anytime &mdash; I&rsquo;ll get the rest by text.</p>
 
     <section class="proof" id="proof">
       <h2>Six real audits, published</h2>
@@ -327,6 +394,10 @@ fbq('track', 'PageView');
   var CLOUDINARY_UPLOAD_PRESET = "duna_intake";
   var GOOGLE_PLACES_KEY = "AIzaSyA_2Mzsy3s9aZo8OS4DBFY-OYhayl-F_tI";
   var LEADS_URL = "https://script.google.com/macros/s/AKfycbz5czvMKJWHN92D_kah_JbCLSgo4UknxG37zhEfZExFCcupdYur6phh2457sP5E8K_X/exec";
+  // Square payment link, $250 one-time. Swap this one string when the live link exists; nothing
+  // else in the report refers to the payment provider.
+  var PAY_URL = "";          // e.g. "https://square.link/u/xxxxxxxx"
+  var PAY_PRICE = "$250";
   var LEADS_SECRET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   // A reload must start at the top. Browsers restore the previous scroll position by default, so
   // refreshing after scrolling to the portfolio dumped you back at the portfolio — with the
@@ -931,6 +1002,8 @@ fbq('track', 'PageView');
       extra.brand_colors = S.a.brand_colors || "";
     }
     extra.transcript = S.msgs.map(function (m) { return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content; }).join("\n\n");
+    // The report is the product of this page, so it renders whether or not the sheet write lands.
+    // A failed lead row costs Barrett a notification; a withheld report costs the sale.
     submitStage("complete", extra).then(function (j) {
       try {
         sessionStorage.setItem("duna_intake", JSON.stringify({
@@ -938,10 +1011,267 @@ fbq('track', 'PageView');
           lead_ok: !!(j && j.lead_ok), lead_id: S.lead_id, product: "gbp"
         }));
       } catch (e) {}
-      window.location.href = "thanks.html";
-    }).catch(function () {
-      bubble("bot", '<div class="done"><h2>Thank you.</h2><p>Barrett will text you shortly. If you don’t hear back, message (707) 385-5673.</p></div>', true);
+    }).catch(function () {});
+    buildReport(fields || {});
+  }
+
+  // ======================================================================
+  //  THE REPORT
+  //
+  //  Division of labour, and it is deliberate: every NUMBER on this page is computed here in JS
+  //  from what the Places API actually returned. The model is handed no numbers and asked for no
+  //  numbers — it writes prose only, from the owner's own answers. That makes an invented
+  //  competitor statistic structurally impossible rather than merely discouraged.
+  // ======================================================================
+
+  function esc2(x) { return esc(String(x == null ? "" : x)); }
+
+  // Their row and the three biggest competitors, measured on the four fields the sweep actually
+  // fetches. Hours and categories are NOT compared: the sweep doesn't retrieve them for
+  // competitors, and a column we cannot fill honestly is worse than a column that isn't there.
+  function scoreboard(g, comps) {
+    var top = comps.slice().sort(function (a, b) { return (b.reviews || 0) - (a.reviews || 0); }).slice(0, 3);
+    var mine = { name: g.name, rating: g.rating, reviews: g.ratings || 0,
+                 website: !!g.website, photos: (g.photos || []).length, me: true };
+    var rows = [mine].concat(top);
+    var best = {
+      reviews: Math.max.apply(null, rows.map(function (r) { return r.reviews || 0; })),
+      rating: Math.max.apply(null, rows.map(function (r) { return r.rating || 0; }))
+    };
+    function cell(v, weak) { return '<td' + (weak ? ' class="weak"' : '') + '>' + v + '</td>'; }
+    var html = '<div class="sb-wrap"><table class="sb"><thead><tr>' +
+      '<th>Business</th><th>Reviews</th><th>Rating</th><th>Website</th><th>Photos</th>' +
+      '</tr></thead><tbody>';
+    rows.forEach(function (r) {
+      html += '<tr' + (r.me ? ' class="me"' : '') + '>' +
+        '<td class="bn">' + esc2(r.name) + (r.me ? ' <span class="you">you</span>' : '') + '</td>' +
+        cell(r.reviews || 0, r.me && r.reviews < best.reviews) +
+        cell(r.rating ? r.rating.toFixed(1) : '—', r.me && r.rating && r.rating < best.rating) +
+        cell(r.website ? 'yes' : 'no', r.me && !r.website) +
+        cell(r.photos >= 8 ? '8+' : (r.photos || 0), r.me && (r.photos || 0) < 3) +
+        '</tr>';
     });
+    return { html: html + '</tbody></table></div>', top: top };
+  }
+
+  // Every gap carries a severity score computed from real deltas; we sort and take three. Three is
+  // a decision, not a truncation — a twelve-item list reads as generated and dilutes the one thing
+  // they should act on.
+  function pickGaps(g, comps) {
+    var mine = g.ratings || 0, out = [];
+    var counts = comps.map(function (c) { return c.reviews || 0; }).sort(function (a, b) { return a - b; });
+    var med = counts.length ? counts[Math.floor(counts.length / 2)] : 0;
+    var leader = comps.slice().sort(function (a, b) { return (b.reviews || 0) - (a.reviews || 0); })[0];
+
+    if (med > mine) {
+      out.push({ score: (med - mine) * 3,
+        what: "You have " + mine + " review" + (mine === 1 ? "" : "s") + ". The typical plumber-sized competitor near you has " + med + ".",
+        why: "Review count is the first thing a searcher compares, and it is the one number Google shows before anyone clicks. Being visibly behind costs you the call before you have said a word." });
+    }
+    var np = (g.photos || []).length;
+    if (np < 3) {
+      var richer = comps.filter(function (c) { return (c.photos || 0) >= 8; }).length;
+      out.push({ score: 40 + (richer * 10),
+        what: np === 0 ? "Your profile has no photos." : "Your profile has only " + np + " photo" + (np === 1 ? "" : "s") + ".",
+        why: richer ? richer + " of the competitors above have a full gallery. Faced with one listing that shows the work and one that shows nothing, people pick the one they can see." :
+                      "People decide from photos before they read anything. An empty listing gives them nothing to decide with." });
+    }
+    if (!g.website) {
+      out.push({ score: 55,
+        what: "No website link on your profile.",
+        why: "The link is a free button on a page Google already shows for you, and without it a searcher's only next step is to call a competitor who has one." });
+    }
+    if (!g.hours) {
+      out.push({ score: 45,
+        what: "Your hours are not listed.",
+        why: "\"Open now\" is one of the most-used filters in local search. With no hours set you can be filtered out of results you would otherwise win." });
+    }
+    var rated = comps.filter(function (c) { return c.rating; });
+    var avg = rated.length ? rated.reduce(function (a, c) { return a + c.rating; }, 0) / rated.length : 0;
+    if (g.rating && avg && g.rating < avg - 0.15) {
+      out.push({ score: Math.round((avg - g.rating) * 60),
+        what: "Your rating is " + g.rating.toFixed(1) + " against a local average of " + avg.toFixed(1) + ".",
+        why: "At this range the gap is usually a handful of old reviews left unanswered, not the work itself. Replies are visible to everyone who reads them afterwards." });
+    }
+    if (leader && leader.reviews > mine) {
+      out.push({ score: (leader.reviews - mine),
+        what: esc2(leader.name) + " has " + leader.reviews + " reviews to your " + mine + ".",
+        why: "They appear above you in the results Google returned for your own category and town. That position is earned by signals you can change." });
+    }
+    return out.sort(function (a, b) { return b.score - a.score; }).slice(0, 3);
+  }
+
+  // Their number, multiplied by a deliberately small number of extra calls, with the arithmetic on
+  // screen. No industry multipliers, no click-through statistics — nothing we would have to source.
+  function moneyBlock(jobValue) {
+    var n = parseInt(String(jobValue || "").replace(/[^0-9]/g, ""), 10);
+    if (!n || n < 1) {
+      return '<p>You didn\'t put a number on a typical job, so do this arithmetic yourself: take what one ' +
+             'job is worth to you and multiply it by three. That is roughly what three extra calls a month ' +
+             'is worth &mdash; and three is a conservative number for a profile that currently gets skipped.</p>';
+    }
+    var m = n * 3;
+    return '<p>You told us a typical job is worth about <b>$' + n.toLocaleString() + '</b>.</p>' +
+           '<p class="sum">3 extra calls a month &times; $' + n.toLocaleString() + ' = <b>$' + m.toLocaleString() + ' a month</b></p>' +
+           '<p class="fine">Three is deliberately conservative &mdash; it is the number we would rather be under than over. ' +
+           'We are not going to quote you a click-through statistic we cannot show you the source of.</p>';
+  }
+
+  function rewriteBlock(rw, g) {
+    var cur = g.summary || "";
+    var curHtml = cur
+      ? '<p>' + esc2(cur) + '</p><p class="fine">That text is written by Google, not by you &mdash; ' +
+        'the owner description on your profile is either empty or not public.</p>'
+      : '<p class="empty">Nothing here.</p><p class="fine">No owner description is visible on your profile. ' +
+        'This is the largest piece of free space on your listing and it is blank.</p>';
+    var curSvc = g.type ? '<p>' + esc2(g.type) + '</p><p class="fine">One approximate category. Not a services list.</p>'
+                        : '<p class="empty">Nothing here.</p>';
+    var html = '<div class="rw">' +
+      '<div class="rw-row"><h4>Description</h4><div class="rw-pair">' +
+        '<div class="rw-old"><span class="tag">On your profile now</span>' + curHtml + '</div>' +
+        '<div class="rw-new"><span class="tag ok">Rewritten for you</span><p>' + esc2(rw.description) + '</p></div>' +
+      '</div></div>';
+    if ((rw.services || []).length) {
+      html += '<div class="rw-row"><h4>Services</h4><div class="rw-pair">' +
+        '<div class="rw-old"><span class="tag">On your profile now</span>' + curSvc + '</div>' +
+        '<div class="rw-new"><span class="tag ok">Rewritten for you</span><ul>' +
+          rw.services.slice(0, 10).map(function (x) { return '<li>' + esc2(x) + '</li>'; }).join("") +
+        '</ul></div></div></div>';
+    }
+    if (rw.primary_category) {
+      html += '<div class="rw-row"><h4>Categories</h4><div class="rw-pair">' +
+        '<div class="rw-old"><span class="tag">On your profile now</span><p>' + (g.type ? esc2(g.type) : '<span class="empty">Not set</span>') + '</p></div>' +
+        '<div class="rw-new"><span class="tag ok">Recommended</span><p><b>' + esc2(rw.primary_category) + '</b>' +
+          ((rw.secondary_categories || []).length ? '<br>' + rw.secondary_categories.slice(0, 3).map(esc2).join('<br>') : '') +
+        '</p></div></div></div>';
+    }
+    return html + '</div>';
+  }
+
+  function ctaBlock() {
+    var btn = PAY_URL
+      ? '<a class="pay" href="' + esc2(PAY_URL) + '">Get this published &mdash; ' + PAY_PRICE + '</a>'
+      : '<a class="pay disabled" href="sms:+17073855673">Text Barrett to get this published &mdash; ' + PAY_PRICE + '</a>';
+    return '<div class="cta">' +
+      '<h3>Get this on your profile</h3>' +
+      '<p>' + PAY_PRICE + ', one time. We publish the description, the services and the categories above to your ' +
+      'Google Business Profile, and reply to the reviews sitting there unanswered.</p>' +
+      btn +
+      '<p class="refund">If we can\'t get access, or can\'t improve the profile, you get a full refund.</p>' +
+      '<p class="fine">After payment you\'ll get a short page showing the four clicks that give us Manager ' +
+      'access. Nothing on your listing changes until you see it first.</p>' +
+      '</div>';
+  }
+  // One relay call, in rewrite mode. It gets its own 400-token output budget — which is exactly why
+  // the rewrite is NOT folded into the interview's closing JSON, where it would truncate that JSON
+  // and take the whole interview down with it. Two user turns in the payload so the relay's
+  // "new interview" daily-cap check doesn't count this continuation as a fresh session.
+  function requestRewrite(fields, attempt) {
+    var answers = [
+      "Business: " + (S.a.business_name || ""),
+      "Category on Google: " + ((S.google && S.google.type) || "unknown"),
+      "Area served: " + (fields.area || ""),
+      "What they do: " + (fields.what_you_do || ""),
+      "Why customers pick them: " + (fields.known_for || ""),
+      "Services they listed: " + (fields.services_talk || ""),
+      fields.must_haves ? "Must appear: " + fields.must_haves : "",
+      "",
+      "Full transcript by section:",
+      fields.page_notes || ""
+    ].filter(Boolean).join("\n");
+
+    return fetch(LEADS_URL, {
+      method: "POST", mode: "cors", redirect: "follow",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        secret: LEADS_SECRET, action: "chat", lead_id: S.lead_id,
+        known: knownFacts(),
+        messages: [
+          { role: "user", content: "(Interview starting. Ask your first question.)" },
+          { role: "assistant", content: "Ready." },
+          { role: "user", content: "#REWRITE\n" + answers }
+        ]
+      })
+    }).then(function (r) { return r.text(); }).then(function (t) {
+      var j = JSON.parse(t);
+      if (!j || j.ok === false) throw new Error((j && j.error) || "relay");
+      var m = (j.reply || "").match(/\{[\s\S]*\}/);
+      if (!m) throw new Error("no json");
+      var rw = JSON.parse(m[0]);
+      if (!rw.description || rw.description.length < 80) throw new Error("thin");
+      return rw;
+    }).catch(function (e) {
+      // One retry: a truncated or malformed JSON is the failure mode here, and it is usually
+      // transient. Two attempts, then the report ships without this section rather than not at all.
+      if ((attempt || 0) < 1) return requestRewrite(fields, 1);
+      throw e;
+    });
+  }
+
+  // Generation is visible on purpose. The work takes a few seconds either way; showing it is worth
+  // more than hiding it, and a blank screen after the last answer reads as broken.
+  function buildReport(fields) {
+    composer.hidden = true; hint.hidden = true;
+    // The "everything saves as you go" reassurance belongs to the interview; under a finished
+    // report it reads as though something is still pending.
+    var sn = $("savenote"); if (sn) sn.hidden = true;
+    var g = S.google || {}, comps = S.competitors || [];
+    var host = document.createElement("div");
+    host.className = "report";
+    host.innerHTML = '<div class="progress" id="rp">' +
+      '<p class="step" data-i="0">Pulling your profile and your competitors\u2026</p>' +
+      '<p class="step" data-i="1">Comparing you against them\u2026</p>' +
+      '<p class="step" data-i="2">Writing your new profile copy\u2026</p>' +
+      '</div>';
+    thread.appendChild(host);
+    host.scrollIntoView({ block: "start" });
+
+    var steps = host.querySelectorAll(".step");
+    function mark(i) { for (var k = 0; k <= i && k < steps.length; k++) steps[k].className = "step done"; 
+                       if (i + 1 < steps.length) steps[i + 1].className = "step now"; }
+    mark(-1); steps[0].className = "step now";
+    setTimeout(function () { mark(0); }, 700);
+    setTimeout(function () { mark(1); }, 1600);
+
+    var sb = scoreboard(g, comps);
+    var gaps = pickGaps(g, comps);
+
+    function render(rw, failed) {
+      var html = '<div class="rp-head"><h2>' + esc2(g.name || S.a.business_name) + '</h2>' +
+        '<p>What someone searching your trade in ' + esc2((g.address || "").split(",")[1] || "your area") +
+        ' sees today, and what we would change.</p></div>';
+
+      html += '<section class="rp-sec"><h3>1. How you compare right now</h3>';
+      html += comps.length ? sb.html
+        : '<p class="empty">We couldn\'t pull your local competition just now, so this section is empty rather than guessed at.</p>';
+      html += '<p class="fine">Live from Google, just now. Competitors are the businesses Google itself returns ' +
+              'for your category in your town &mdash; not a list we chose.</p></section>';
+
+      if (gaps.length) {
+        html += '<section class="rp-sec"><h3>2. The three gaps that cost you the most</h3><ol class="gaps">';
+        gaps.forEach(function (x) { html += '<li><b>' + x.what + '</b><span>' + x.why + '</span></li>'; });
+        html += '</ol></section>';
+      }
+
+      html += '<section class="rp-sec"><h3>' + (gaps.length ? "3" : "2") + '. What that is worth</h3>' +
+              moneyBlock(fields.job_value) + '</section>';
+
+      html += '<section class="rp-sec rp-work"><h3>' + (gaps.length ? "4" : "3") + '. Your profile, rewritten</h3>';
+      html += failed
+        ? '<p class="empty">The rewrite didn\'t generate just now. Text Barrett and he\'ll send it to you directly &mdash; ' +
+          'your answers are saved.</p>'
+        : '<p class="lede">Written from your own answers, ready to publish:</p>' + rewriteBlock(rw, g);
+      html += '</section>';
+
+      html += ctaBlock();
+      host.innerHTML = html;
+      host.scrollIntoView({ block: "start" });
+      fb("ReportShown");
+    }
+
+    requestRewrite(fields, 0)
+      .then(function (rw) { mark(2); setTimeout(function () { render(rw, false); }, 350); })
+      .catch(function () { mark(2); setTimeout(function () { render(null, true); }, 350); });
   }
 
   // ================= sheet submit (same endpoint, same guards) =================
