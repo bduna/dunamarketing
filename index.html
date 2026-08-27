@@ -298,6 +298,8 @@ fbq('track', 'PageView');
   .cbtn { font:inherit; font-size:.95rem; font-weight:800; color:#fff; border:0; border-radius:18px;
     min-height:40px; padding:0 clamp(14px, 4.5vw, 22px); cursor:pointer; line-height:1; }
   .cbtn.yes { background:var(--navy); }
+  .cbtn.alt { background:#5a6070; }
+  .confirm.trade { flex-wrap:wrap; }
   .cbtn.no { background:var(--red); }
   @media (hover:hover) and (pointer:fine) { .cbtn:hover { filter:brightness(1.1); } }
   .cbtn:active { transform:translateY(1px); }
@@ -746,7 +748,7 @@ fbq('track', 'PageView');
   function gDetails(placeId) {
     typing(true);
     warmRelay();   // earliest point we know they are really going through with this
-    var mask = "id,displayName,formattedAddress,nationalPhoneNumber,websiteUri,regularOpeningHours.weekdayDescriptions,rating,userRatingCount,reviews,photos,primaryTypeDisplayName,editorialSummary,addressComponents";
+    var mask = "id,displayName,formattedAddress,nationalPhoneNumber,websiteUri,regularOpeningHours.weekdayDescriptions,rating,userRatingCount,reviews,photos,primaryTypeDisplayName,editorialSummary,addressComponents,location";
     fetch("https://places.googleapis.com/v1/places/" + encodeURIComponent(placeId),
       { headers: { "X-Goog-Api-Key": GOOGLE_PLACES_KEY, "X-Goog-FieldMask": mask } })
       .then(function (r) { return r.json(); })
@@ -759,6 +761,8 @@ fbq('track', 'PageView');
           type: (p.primaryTypeDisplayName && p.primaryTypeDisplayName.text) || "",
           // The county widens a starved competitor search dramatically — measured 4 results for
           // "Plumber in Cloverdale" against 10 for "Plumber in Cloverdale, Sonoma County".
+          lat: (p.location && p.location.latitude) || null,
+          lng: (p.location && p.location.longitude) || null,
           county: (function () {
             var c = (p.addressComponents || []).filter(function (x) {
               return (x.types || []).indexOf("administrative_area_level_2") >= 0;
@@ -878,8 +882,7 @@ fbq('track', 'PageView');
       if (g.website) S.a.current_website_url = g.website;
       save(); fb("GoogleConfirmed");
       submitLead("confirmed");
-      fetchCompetitors(g);   // still runs, in the background — the REPORT needs it, the chat no longer does
-      beginInterview();
+      askTrade(g);
       return;
     }
     if (NO_RE.test(v)) {
@@ -918,6 +921,34 @@ fbq('track', 'PageView');
   // salon" while its actual rivals are typed "Hair Salon". Exact string matching threw those away
   // and left an empty table. Shared significant word = same trade, which keeps "Beauty salon" with
   // "Hair Salon" and correctly separates "Plumber" from "General Contractor".
+  // A competitor is only useful if the owner would name it as one. Google's category is too coarse
+  // to promise that — "Roofing Contractor" and "HVAC contractor" both sit under broad buckets that
+  // sweep in gutter installers and appliance repair. Requiring the trade in the NAME is a blunt
+  // instrument, but a roofer's competitor almost always has "roof" on the truck, and a false
+  // negative costs one row while a false positive costs the whole report's credibility.
+  var TRADES = {
+    roofing: { label: "Roofing", query: "roofing contractor",
+               re: /\broof/i },
+    // "Elevated Comfort" and "Temperature Solutions" are real HVAC companies whose names never say
+    // heating or air — the words this trade actually uses on a truck are wider than the obvious ones.
+    // Names with no trade word at all (Bragg Home Services, Ongaro & Sons) are the accepted cost:
+    // one missing row beats a report full of businesses the owner does not recognise.
+    hvac:    { label: "HVAC", query: "HVAC contractor",
+               re: /\bhvac\b|heating|cooling|furnace|air ?condition|\bclimate\b|\bcomfort\b|temperature|mechanical|\bair\b|heat(ing)? (and|&) air|\bh\/?a\b/i }
+  };
+  // 25 miles is about as far as a homeowner's search results reach, and further than most of these
+  // companies will drive for a service call. A competitor 100 miles away is not a competitor.
+  var MAX_MILES = 25, WIDE_MILES = 50;
+
+  function milesBetween(a, b, c, d) {
+    if (a == null || b == null || c == null || d == null) return null;
+    var R = 3958.8, t = Math.PI / 180;
+    var dLat = (c - a) * t, dLng = (d - b) * t;
+    var x = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(a * t) * Math.cos(c * t) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
+  }
+
   var NOT_A_RIVAL = { "manufacturer": 1, "shopping mall": 1, "business center": 1, "business centre": 1,
                       "store": 1, "supermarket": 1, "gift shop": 1, "brewpub": 1, "restaurant": 1,
                       "medical clinic": 1, "corporate office": 1, "wholesaler": 1, "hardware store": 1,
@@ -947,17 +978,19 @@ fbq('track', 'PageView');
       .trim();
   }
 
-  function sweepOnce(cat, area, selfName, selfId) {
-    var q = ((cat || "business") + " in " + (area || "the area")).trim();
+  function sweepOnce(cat, area, selfName, selfId, trade, origin, miles) {
+    var t = TRADES[trade] || null;
+    var q = ((t ? t.query : (cat || "business")) + " in " + (area || "the area")).trim();
     return fetch("https://places.googleapis.com/v1/places:searchText", {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_PLACES_KEY,
                  "X-Goog-FieldMask": "places.id,places.displayName,places.primaryTypeDisplayName," +
                                      "places.rating,places.userRatingCount,places.websiteUri," +
-                                     "places.photos,places.businessStatus" },
+                                     "places.photos,places.businessStatus,places.location" },
       body: JSON.stringify({ textQuery: q })
     }).then(function (r) { return r.json(); }).then(function (j) {
       var self8 = (selfName || "").toLowerCase().slice(0, 14);
+      var cap = miles || MAX_MILES;
       var rows = (j.places || []).filter(function (p) {
         return p.id !== selfId &&
                (p.businessStatus || "OPERATIONAL") === "OPERATIONAL" &&
@@ -967,14 +1000,25 @@ fbq('track', 'PageView');
         return { id: p.id, name: p.displayName.text, rating: p.rating || null,
                  reviews: p.userRatingCount || 0, website: !!p.websiteUri,
                  photos: (p.photos || []).length,
-                 type: (p.primaryTypeDisplayName && p.primaryTypeDisplayName.text) || "" };
+                 type: (p.primaryTypeDisplayName && p.primaryTypeDisplayName.text) || "",
+                 miles: origin ? milesBetween(origin.lat, origin.lng,
+                          (p.location && p.location.latitude), (p.location && p.location.longitude)) : null };
+      }).filter(function (c) {
+        // Too far to be competing for the same customer.
+        if (c.miles != null && c.miles > cap) return false;
+        // Trade named on the sign, not inferred from a Google bucket.
+        if (t && !t.re.test(c.name)) return false;
+        return true;
       });
       function byReviews(a, b) { return b.reviews - a.reviews; }
-      var exact = rows.filter(function (c) { return cat && c.type === cat; }).sort(byReviews);
-      var near  = rows.filter(function (c) { return !(cat && c.type === cat) && sameTrade(cat, c.type); }).sort(byReviews);
+      // With a named-trade filter in play every survivor is already a real rival, so they sort
+      // purely by size. Without one (trade "other") fall back to Google's category matching.
+      var exact = t ? rows.slice().sort(byReviews)
+                    : rows.filter(function (c) { return cat && c.type === cat; }).sort(byReviews);
+      var near  = t ? [] : rows.filter(function (c) { return !(cat && c.type === cat) && sameTrade(cat, c.type); }).sort(byReviews);
       // The strip is for businesses that MIGHT be competitors Google mis-filed. A materials supplier
       // or a shopping centre is not a judgement call, so it never earns a line.
-      var off = rows.filter(function (c) {
+      var off = t ? [] : rows.filter(function (c) {
         return !(cat && c.type === cat) && !sameTrade(cat, c.type) && !NOT_A_RIVAL[(c.type || "").toLowerCase()];
       }).sort(byReviews);
       // Two lists, never merged. `rivals` are the same trade and are the ONLY businesses any number
@@ -992,13 +1036,15 @@ fbq('track', 'PageView');
   // with the county returns 10. So a thin result is widened once, by county, and merged. Without
   // this a real plumber in a small town sees a one-row scoreboard, which is the weakest possible
   // version of the whole argument.
-  function sweepCompetitors(cat, area, selfName, selfId, county) {
+  function sweepCompetitors(cat, area, selfName, selfId, county, trade, origin) {
     var clean = tidyArea(area);
-    return sweepOnce(cat, clean, selfName, selfId).then(function (res) {
+    return sweepOnce(cat, clean, selfName, selfId, trade, origin, MAX_MILES).then(function (res) {
       if (res.rivals.length >= 3 || !county) return res;
+      // Thin at 25 miles: widen the search area AND the distance cap together, once. Still bounded —
+      // 50 miles is the outer edge of "someone he'd recognise", not an open-ended search.
       var wider = clean && clean.toLowerCase().indexOf(county.toLowerCase()) < 0
         ? clean + ", " + county : county;
-      return sweepOnce(cat, wider, selfName, selfId).then(function (res2) {
+      return sweepOnce(cat, wider, selfName, selfId, trade, origin, WIDE_MILES).then(function (res2) {
         var seen = {}, merged = [];
         res.rivals.concat(res2.rivals).forEach(function (c) {
           var k = c.id || c.name;
@@ -1013,7 +1059,8 @@ fbq('track', 'PageView');
   function fetchCompetitors(g) {
     try {
       var town = (g.address || "").split(",").length >= 3 ? g.address.split(",").slice(-3)[0].trim() : "";
-      competitorsReady = sweepCompetitors(g.type, town, g.name, g.place_id, g.county)
+      competitorsReady = sweepCompetitors(g.type, town, g.name, g.place_id, g.county, S.trade,
+                                          { lat: g.lat, lng: g.lng })
         .then(function (res) { S.competitors = res.rivals; S.nearMatches = res.others; save(); })
         .catch(function () {});
     } catch (e) {}
@@ -1085,6 +1132,43 @@ fbq('track', 'PageView');
   }
 
   function showProgress() { hint.hidden = true; }
+
+  // Which trade, asked once, before the sweep runs. Google's category will not carry this reliably
+  // — plenty of roofers are filed as "Contractor" and plenty of HVAC companies as "Contractor" too
+  // — and the competitor filter is only trustworthy if we know which word to look for.
+  function askTrade(g) {
+    send.disabled = true; typing(true);
+    setTimeout(function () {
+      typing(false); send.disabled = false;
+      var row = document.createElement("div");
+      row.className = "qrow";
+      var b = document.createElement("div");
+      b.className = "msg bot";
+      b.textContent = "Which one are you?";
+      row.appendChild(b);
+
+      var box = document.createElement("div");
+      box.className = "confirm trade";
+      [["Roofing", "roofing"], ["HVAC", "hvac"], ["Other", "other"]].forEach(function (t) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "cbtn " + (t[1] === "other" ? "alt" : "yes");
+        btn.textContent = t[0];
+        btn.addEventListener("click", function () {
+          if (box.parentNode) box.parentNode.removeChild(box);
+          S.trade = t[1]; save();
+          me(t[0]);
+          submitLead("trade", { trade: t[0] }).catch(function () {});
+          fetchCompetitors(g);      // now it knows what to look for
+          beginInterview();
+        });
+        box.appendChild(btn);
+      });
+      row.appendChild(box);
+      thread.appendChild(row);
+      scrollTail();
+    }, 380);
+  }
 
   function beginInterview() {
     S.phase = "chat"; S.started = true; S.qNum = 0; save();
@@ -1794,9 +1878,10 @@ fbq('track', 'PageView');
           ' in the area you gave us, so there is nothing honest to compare you against here. That is ' +
           'unusual and it is worth knowing &mdash; the sections below still apply.</p>';
       if (top.length) {
-        html += '<p class="fine">Live from Google, just now &mdash; the strongest ' +
-          esc2((g.type || "business").toLowerCase()) + (top.length === 1 ? "" : "s") +
-          ' across the area you told us you serve. Google returned them, not us' +
+        html += '<p class="fine">Live from Google, just now &mdash; ' +
+          (S.trade === "roofing" ? "roofing companies" : S.trade === "hvac" ? "heating and air companies" :
+            (esc2((g.type || "business").toLowerCase()) + (top.length === 1 ? "" : "s"))) +
+          ' within about ' + MAX_MILES + ' miles of you, ranked by review count. Google returned them, not us' +
           (top.length < 3 ? ', and it lists only ' + top.length + ' other' + (top.length === 1 ? "" : "s") +
            ' in your trade there &mdash; we would rather show you a short table than pad it with businesses ' +
            'you do not compete with' : '') + '.</p>';
@@ -1883,7 +1968,8 @@ fbq('track', 'PageView');
     // only use the town their address sits in, which is too small for a trade that drives 20 miles.
     // Runs alongside the rewrite, so it costs no extra wall-clock. Keeps whichever set is richer.
     var better = fields.area
-      ? sweepCompetitors(g.type, fields.area, g.name, g.place_id, g.county)
+      ? sweepCompetitors(g.type, fields.area, g.name, g.place_id, g.county, S.trade,
+                         { lat: g.lat, lng: g.lng })
           .then(function (res) {
             if (res && res.rivals.length >= comps.length) {
               comps = res.rivals; S.competitors = res.rivals; S.nearMatches = res.others; save();
