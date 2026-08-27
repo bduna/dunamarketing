@@ -1216,8 +1216,9 @@ fbq('track', 'PageView');
   function moneyFromChat() {
     for (var i = 0; i < S.msgs.length; i++) {
       if (S.msgs[i].role !== "user") continue;
-      var m = String(S.msgs[i].content || "").match(/\$\s?([\d,]{2,})/);
-      if (m) return m[1].replace(/,/g, "");
+      if (!/\$|\d/.test(S.msgs[i].content || "")) continue;
+      var n = jobValueNumber(S.msgs[i].content);
+      if (n) return String(n);
     }
     return "";
   }
@@ -1503,8 +1504,26 @@ fbq('track', 'PageView');
 
   // Their number, multiplied by a deliberately small number of extra calls, with the arithmetic on
   // screen. No industry multipliers, no click-through statistics — nothing we would have to source.
+  // The answer is usually a BAND they tapped — "$5,000 to $25,000". Stripping every non-digit turned
+  // that into 500025000 and told an owner their average job was worth half a billion dollars, which
+  // discredits the entire report in one line. Take the FIRST number instead: on a band written
+  // low-to-high that is the conservative end, which is the side this report should always err to.
+  function jobValueNumber(raw) {
+    var txt = String(raw || "");
+    var m = txt.match(/\d[\d,]*(?:\.\d+)?/g);
+    if (!m || !m.length) return 0;
+    var n = parseFloat(m[0].replace(/,/g, ""));
+    if (!isFinite(n) || n < 1) return 0;
+    // "$5k" and "$5,000" both arrive here; a k suffix on the first number means thousands.
+    if (new RegExp("^" + m[0].replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*k\\b", "i").test(
+          txt.slice(txt.indexOf(m[0])))) n *= 1000;
+    // Nobody's average local job is eight figures — a number that large means we misread it.
+    if (n > 5000000) return 0;
+    return Math.round(n);
+  }
+
   function moneyBlock(jobValue) {
-    var n = parseInt(String(jobValue || "").replace(/[^0-9]/g, ""), 10);
+    var n = jobValueNumber(jobValue);
     if (!n || n < 1) {
       return '<p>You didn\'t put a number on a typical job, so do this arithmetic yourself: take what one ' +
              'job is worth to you and multiply it by three. That is roughly what three extra calls a month ' +
