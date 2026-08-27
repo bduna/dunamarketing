@@ -1516,6 +1516,46 @@ fbq('track', 'PageView');
   // Six exchanges is a real ceiling, not a soft one. Each request carries only the Q&A history —
   // never the interview — so it stays far under the relay's 14-turn session cap, and the two padding
   // turns inside relayChat keep it from being counted as a new interview against the daily ceiling.
+  // Square's receipt email names the buyer, not the business they were audited for — and the whole
+  // job depends on knowing which Google listing to edit. So the moment they tap Pay we stamp the
+  // row with the business, the place_id and the time.
+  //
+  // sendBeacon because the browser is navigating away to Square in the same instant: a normal fetch
+  // gets cancelled mid-flight, a beacon is handed to the OS and survives the page unload.
+  //
+  // Stage is "complete" deliberately. The sheet only emails Barrett on "complete", and a payment is
+  // the one event he must not miss — re-sending it on the same lead_id updates the same row and
+  // fires a second alert, with PAID at the front of the subject line.
+  function wirePayClick(host) {
+    var btn = host.querySelector(".cta .pay");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var g = S.google || {};
+      var body = JSON.stringify({
+        secret: LEADS_SECRET, lead_id: S.lead_id, form: "gbp-chat", stage: "complete",
+        business_name: S.a.business_name || g.name || "", place_id: S.a.place_id || g.place_id || "",
+        phone: S.a.phone || "", address: S.a.address || "",
+        primary_goal: "PAID \u2014 tapped Square checkout ($250) for " + (g.name || S.a.business_name || "?") +
+                      (g.place_id ? "  [place_id " + g.place_id + "]" : ""),
+        source_url: location.href.split("?")[0]
+      });
+      try {
+        var blob = new Blob([body], { type: "text/plain;charset=UTF-8" });
+        if (!navigator.sendBeacon || !navigator.sendBeacon(LEADS_URL, blob)) {
+          fetch(LEADS_URL, { method: "POST", mode: "cors", keepalive: true,
+                             headers: { "Content-Type": "text/plain;charset=utf-8" }, body: body });
+        }
+      } catch (e) {}
+      fb("InitiateCheckout");
+      try {
+        sessionStorage.setItem("duna_paid", JSON.stringify({
+          lead_id: S.lead_id, business_name: S.a.business_name || g.name || "",
+          place_id: S.a.place_id || g.place_id || "", address: S.a.address || ""
+        }));
+      } catch (e) {}
+    });
+  }
+
   var QA_MAX = 6, qaUsed = 0, qaBusy = false;
   function wireQA(host) {
     var box = host.querySelector("#qa-in"), btn = host.querySelector("#qa-send"),
@@ -1725,6 +1765,7 @@ fbq('track', 'PageView');
         submitLead("report_shown");
         fb("ReportShown");
         wireQA(host);
+        wirePayClick(host);
       };
       reportReady = true;
       if (phoneDone) renderReport();
