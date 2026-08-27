@@ -1052,12 +1052,30 @@ fbq('track', 'PageView');
       if (!j.reply && !j.done) throw new Error("empty reply");
       clearSlow();
       typing(false); send.disabled = false;
+
+      if (j.done) {
+        var f = j.fields;
+        var usable = f && (String(f.page_notes || "").length > 40 ||
+                           String(f.what_you_do || "").length > 20);
+        // The relay calls it done whenever the model emits ANY json containing "complete" — which
+        // includes the abandonment object {"complete": false}. A tapped interview can trip that by
+        // mistake, and the person is then told to go away mid-way through. One more attempt on the
+        // same conversation costs a few seconds and usually gets a proper turn back.
+        if (!usable && !S.doneRetried && (S.qNum || 0) < 5 && !/at capacity/i.test(j.reply || "")) {
+          S.doneRetried = true; save();
+          try { console.log("[duna] done with no usable fields at q" + S.qNum + " — retrying once"); } catch (e) {}
+          turn("");
+          return;
+        }
+        S.msgs.push({ role: "assistant", content: j.reply }); save();
+        say(j.reply); finish(f); return;
+      }
+
       S.msgs.push({ role: "assistant", content: j.reply }); save();
-      if (!j.done && S.phase === "chat") {
+      if (S.phase === "chat") {
         S.qNum = Math.min((S.qNum || 0) + 1, 5); save();
         showProgress();
       }
-      if (j.done) { say(j.reply); finish(j.fields); return; }
       askUI(j.reply);
     }).catch(function (e) { fail(e && e.message ? e.message : String(e)); });
   }
@@ -1151,7 +1169,15 @@ fbq('track', 'PageView');
           '<p>I couldn\'t finish the questions just now, and I\'m not going to write your profile from ' +
           'guesses. Text Barrett on <a href="sms:+17073855673">(707) 385-5673</a> and he\'ll take it from here.</p></div>',
         true);
-      submitLead(capped ? "capped" : "incomplete");
+      // Save the conversation. The last time this fired the row held nothing at all, so there was
+      // no way to tell an abandonment from a bug — which is most of why it fired twice more.
+      submitLead(capped ? "capped" : "incomplete", {
+        transcript: S.msgs.map(function (m) {
+          return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content;
+        }).join("\n\n"),
+        page_notes: "(interview did not complete at question " + (S.qNum || 0) + " of 5" +
+                    (S.doneRetried ? "; one retry was attempted" : "") + ")"
+      });
       return;
     }
 
