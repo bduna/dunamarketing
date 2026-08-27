@@ -1065,7 +1065,8 @@ fbq('track', 'PageView');
 
     if (med > mine) {
       out.push({ score: (med - mine) * 3,
-        what: "You have " + mine + " review" + (mine === 1 ? "" : "s") + ". The typical plumber-sized competitor near you has " + med + ".",
+        what: "You have " + mine + " review" + (mine === 1 ? "" : "s") + ". The typical " +
+              ((g.type || "business").toLowerCase()) + " near you has " + med + ".",
         why: "Review count is the first thing a searcher compares, and it is the one number Google shows before anyone clicks. Being visibly behind costs you the call before you have said a word." });
     }
     var np = (g.photos || []).length;
