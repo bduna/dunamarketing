@@ -289,10 +289,10 @@ fbq('track', 'PageView');
   }
 
   /* The question, with its counter pinned to the top right of the row. */
-  .qrow { display:flex; align-items:flex-start; gap:10px; width:100%; }
+  .qrow { display:flex; align-items:flex-end; gap:10px; width:100%; }
   .qrow .msg { flex:0 1 auto; }
   .qmeta { flex:0 0 auto; margin-left:auto; display:flex; align-items:center; gap:6px;
-    padding-top:3px; white-space:nowrap; }
+    padding-bottom:3px; white-space:nowrap; }
   .qmeta b { font-size:.72rem; font-weight:800; color:var(--muted); letter-spacing:.02em; }
 
   /* Flex children with no basis stretch to the row height — which is what turned the finished dots
