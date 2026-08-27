@@ -222,10 +222,18 @@ fbq('track', 'PageView');
      removes the objection people have before they type a business name. */
   /* Scoped to .intro so it outranks `.intro p`, which would otherwise repaint it muted grey at 1rem.
      A class-only selector loses to class+element, and silently. */
-  .intro .nodetails { margin:clamp(10px, 2.5vw, 16px) auto 0; color:var(--red); font-weight:800;
-    font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; max-width:none; }
+  /* Centred between the sentence above and the chat below. The space underneath is not this
+     element's alone: the intro adds 14px of its own bottom margin and the thread another 4px of
+     padding, so the bottom margin here is the target gap MINUS that 18px. Subtracting it is what
+     makes the two gaps actually equal rather than merely symmetrical in the stylesheet. */
+  .intro .nodetails { margin-top:clamp(18px, 4vw, 30px);
+    margin-bottom:max(0px, calc(clamp(18px, 4vw, 30px) - 18px));
+    margin-left:auto; margin-right:auto;
+    color:var(--red); font-weight:800; font-size:.78rem; letter-spacing:.08em;
+    text-transform:uppercase; max-width:none; }
   /* Space under the subline so the first question does not sit on top of the pitch. */
-  .intro h1 + p { margin-bottom:clamp(18px, 4vw, 30px); }
+  .intro h1 + p { margin-bottom:0; }
+  .intro:not(:has(.nodetails)) h1 + p { margin-bottom:clamp(18px, 4vw, 30px); }
 
   /* ---------- the report ---------- */
   .report { margin:22px 0 8px; }
