@@ -658,9 +658,7 @@ fbq('track', 'PageView');
     var w = inline(
       '<input id="gq" type="text" placeholder="e.g. Ridgeline Roofing, Santa Rosa" autocomplete="off" ' +
         'autocapitalize="words" enterkeyhint="search" aria-label="Business name and city">' +
-      '<div class="glist" id="glist" hidden></div>' +
-      '<p class="pcount" id="g-nores" hidden>None of these yours? A profile has to exist on Google before it can be optimized &mdash; ' +
-      'text Barrett on <a href="sms:+17073855673">(707) 385-5673</a> and he&rsquo;ll help you set one up first.</p>');
+      '<div class="glist" id="glist" hidden></div>');
     var gq = w.querySelector("#gq"), glist = w.querySelector("#glist"), timer = null;
 
     function choose(id, label) {
@@ -685,12 +683,6 @@ fbq('track', 'PageView');
                    (it.sec ? '<small>' + esc(it.sec) + '</small>' : "") + '</span></button>';
           }).join("");
           glist.hidden = !items.length;
-          // Google's fuzzy autocomplete returns SOMETHING for almost any string, so "zero results"
-          // basically never happens — a fallback shown only then is unreachable. Show the quiet
-          // escape line whenever suggestions are on screen instead: the person whose business
-          // genuinely has no profile is the one looking at matches that aren't theirs.
-          var nores = w.querySelector("#g-nores");
-          if (nores) nores.hidden = glist.hidden;
           glist.querySelectorAll("button").forEach(function (b) {
             b.addEventListener("click", function () { choose(b.getAttribute("data-id"), b.querySelector("strong").textContent); });
           });
