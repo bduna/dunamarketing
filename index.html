@@ -1169,10 +1169,23 @@ fbq('track', 'PageView');
                          String(fields.what_you_do || "").length > 20);
     if (!got) {
       composer.hidden = true; hint.hidden = true;
-      bubble("bot", '<div class="done"><h2>Let\'s pick this up by text.</h2>' +
-        '<p>I couldn\'t finish the questions just now, and I\'m not going to write your profile from ' +
-        'guesses. Text Barrett on <a href="sms:+17073855673">(707) 385-5673</a> and he\'ll take it from here.</p></div>', true);
-      submitLead("incomplete");
+      // Two very different reasons land here and they used to read identically, which made a
+      // self-inflicted daily ceiling look like a broken interview. Say which one it was.
+      var lastBot = "";
+      for (var k = S.msgs.length - 1; k >= 0; k--) {
+        if (S.msgs[k].role === "assistant") { lastBot = S.msgs[k].content || ""; break; }
+      }
+      var capped = /at capacity for today/i.test(lastBot);
+      bubble("bot", capped
+        ? '<div class="done"><h2>We\'re full for today.</h2>' +
+          '<p>There\'s a daily limit on how many of these I run, and it\'s been reached. Nothing is wrong ' +
+          'with your listing or your answers. Text Barrett on <a href="sms:+17073855673">(707) 385-5673</a> ' +
+          'and he\'ll run yours himself, or come back tomorrow.</p></div>'
+        : '<div class="done"><h2>Let\'s pick this up by text.</h2>' +
+          '<p>I couldn\'t finish the questions just now, and I\'m not going to write your profile from ' +
+          'guesses. Text Barrett on <a href="sms:+17073855673">(707) 385-5673</a> and he\'ll take it from here.</p></div>',
+        true);
+      submitLead(capped ? "capped" : "incomplete");
       return;
     }
 
