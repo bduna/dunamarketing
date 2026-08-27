@@ -1312,8 +1312,13 @@ fbq('track', 'PageView');
     var box = bubble("bot", '<div class="opts' + (spec.type === "money" ? " money" : "") + '"></div>', true);
     var wrap = box.querySelector(".opts");
 
+    // Remove the whole bubble, not just the buttons inside it — dropping only the inner div leaves
+    // an empty white card sitting in the thread after every answered question.
+    function clearOptions() {
+      if (box && box.parentNode) box.parentNode.removeChild(box);
+    }
     function send(text) {
-      wrap.parentNode.removeChild(wrap);
+      clearOptions();
       me(text);
       turn(text);
     }
@@ -1347,7 +1352,7 @@ fbq('track', 'PageView');
       var o = document.createElement("button");
       o.type = "button"; o.className = "opt other"; o.textContent = "Something else\u2026";
       o.addEventListener("click", function () {
-        wrap.parentNode.removeChild(wrap);
+        clearOptions();
         composer.hidden = false;
         input.placeholder = "Type your answer";
         setTimeout(function () { try { input.focus(); } catch (e) {} }, 60);
