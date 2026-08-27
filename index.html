@@ -218,6 +218,12 @@ fbq('track', 'PageView');
   .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 clamp(16px, 3.5vw, 30px);
     letter-spacing:-.03em; color:var(--navy); text-wrap:balance; }
   .intro p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
+  /* Reassurance, not decoration: the funnel genuinely asks for nothing, and saying so up front
+     removes the objection people have before they type a business name. */
+  /* Scoped to .intro so it outranks `.intro p`, which would otherwise repaint it muted grey at 1rem.
+     A class-only selector loses to class+element, and silently. */
+  .intro .nodetails { margin:clamp(10px, 2.5vw, 16px) auto 0; color:var(--red); font-weight:800;
+    font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; max-width:none; }
   /* Space under the subline so the first question does not sit on top of the pitch. */
   .intro h1 + p { margin-bottom:clamp(18px, 4vw, 30px); }
 
@@ -384,6 +390,7 @@ fbq('track', 'PageView');
       <p class="kicker" id="kicker">Free audit &#183; Five Quick Questions</p>
       <h1>Your Google listing can do more work than it&rsquo;s doing.</h1>
       <p>Most listings are half-filled and never touched again. Answer five questions and I&rsquo;ll show you exactly where you stand against your local competition &mdash; free.</p>
+      <p class="nodetails">No contact details required</p>
     </div>
 
     <div class="thread" id="thread" aria-live="polite"></div>
