@@ -213,6 +213,8 @@ fbq('track', 'PageView');
   .intro .kicker { margin:clamp(18px, 5vw, 40px) 0 10px; max-width:none; text-align:center; color:var(--red);
     font-weight:800; font-size:clamp(.74rem, 2.5vw, .88rem); letter-spacing:.07em;
     text-transform:uppercase; }
+  /* Set by fitKicker() once measured; nowrap is what lets it be one full-width line. */
+  .intro .kicker.fitted { white-space:nowrap; }
   .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 10px;
     letter-spacing:-.03em; color:var(--navy); text-wrap:balance; }
   .intro p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
@@ -354,7 +356,7 @@ fbq('track', 'PageView');
 <main>
   <div class="wrap">
     <div class="intro" id="intro">
-      <p class="kicker">Free audit &#183; Five quick questions &#183; Update your profile today</p>
+      <p class="kicker" id="kicker">Free audit &#183; Five Quick Questions</p>
       <h1>Your Google listing can do more work than it&rsquo;s doing.</h1>
       <p>For most local businesses it&rsquo;s the first thing a customer sees and the least looked-after thing they own. Find yours below and I&rsquo;ll show you what&rsquo;s possible &mdash; free, in about two minutes.</p>
     </div>
@@ -1823,6 +1825,61 @@ fbq('track', 'PageView');
     setTimeout(scrollTail, 250);
     setTimeout(scrollTail, 550);
   });
+
+  // The eyebrow line, sized so it spans exactly the width of the headline column and stays one line
+  // at any screen size. Measure once at a reference size, then scale by the ratio — no guessing, no
+  // media queries, and it re-fits on rotate or resize.
+  //
+  // The floor matters: this string is long, so on a narrow phone an exact fit would drive it down to
+  // something unreadable. Below 10px it stops shrinking and is allowed to wrap instead — a legible
+  // two-line eyebrow beats a full-width one nobody can read.
+  (function () {
+    var k = $("kicker");
+    if (!k) return;
+    var REF = 32, MIN = 10;
+    // Never louder than 45% of the headline: past that it competes with it instead of introducing it.
+    function maxSize() {
+      var h = document.querySelector(".intro h1");
+      if (!h) return 22;
+      var hs = parseFloat(window.getComputedStyle(h).fontSize) || 34;
+      return Math.max(14, hs * 0.45);
+    }
+
+    // scrollWidth on a block element returns the BOX width, not the text width — so once the text
+    // is NARROWER than the column it reports the column back and the fit silently stops working.
+    // (Same trap cost an hour on the headline alignment earlier.) A Range measures the glyphs.
+    function textWidth() {
+      try {
+        var r = document.createRange();
+        r.selectNodeContents(k);
+        var w = r.getBoundingClientRect().width;
+        r.detach && r.detach();
+        if (w) return w;
+      } catch (e) {}
+      return k.scrollWidth;
+    }
+
+    function fit() {
+      var box = k.parentNode ? k.parentNode.getBoundingClientRect().width : 0;
+      if (!box) return;
+      k.classList.add("fitted");
+      k.style.fontSize = REF + "px";
+      var natural = textWidth();
+      if (!natural) return;
+      var size = REF * (box / natural);
+      if (size < MIN) {                 // too long to fit legibly — let it wrap at a readable size
+        k.classList.remove("fitted");
+        k.style.fontSize = "";
+        return;
+      }
+      k.style.fontSize = Math.min(size, maxSize()).toFixed(2) + "px";
+    }
+
+    fit();
+    window.addEventListener("resize", fit);
+    // Webfonts land after first paint and change the measurement underneath us.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit).catch(function () {});
+  })();
 
   // ================= boot =================
   if (S.done) {
