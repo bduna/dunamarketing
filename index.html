@@ -1417,6 +1417,7 @@ fbq('track', 'PageView');
       extra.what_they_do = fields.what_you_do || "";
       extra.why_them = fields.known_for || "";
       extra.services_listed = fields.services_talk || "";
+      extra.years_in_business = fields.years || "";
       extra.must_haves = fields.must_haves || "";
       // The interview itself, section by section. Everything written for them comes from this.
       extra.answers = fields.page_notes || "";
@@ -1819,6 +1820,7 @@ fbq('track', 'PageView');
       "What they do: " + (fields.what_you_do || ""),
       "Why customers pick them: " + (fields.known_for || ""),
       "Services they listed: " + (fields.services_talk || ""),
+      fields.years ? "How long in business: " + fields.years : "",
       fields.must_haves ? "Must appear: " + fields.must_haves : "",
       "",
       "Full transcript by section:",
