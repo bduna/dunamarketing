@@ -827,6 +827,24 @@ fbq('track', 'PageView');
    * Also drops permanently-closed listings and anything with no reviews at all — neither tells the
    * owner anything about who is beating them.
    */
+  // Google's category strings are coarse and inconsistent: the same salon may be typed "Beauty
+  // salon" while its actual rivals are typed "Hair Salon". Exact string matching threw those away
+  // and left an empty table. Shared significant word = same trade, which keeps "Beauty salon" with
+  // "Hair Salon" and correctly separates "Plumber" from "General Contractor".
+  var TRADE_STOP = { "and": 1, "of": 1, "the": 1, "service": 1, "services": 1, "company": 1,
+                     "shop": 1, "store": 1, "center": 1, "centre": 1, "contractor": 0 };
+  function tradeWords(t) {
+    return String(t || "").toLowerCase().replace(/[^a-z ]/g, " ").split(/\s+/)
+      .filter(function (w) { return w.length > 2 && !TRADE_STOP[w]; });
+  }
+  function sameTrade(a, b) {
+    if (!a || !b) return false;
+    if (a === b) return true;
+    var A = tradeWords(a), B = tradeWords(b);
+    for (var i = 0; i < A.length; i++) if (B.indexOf(A[i]) >= 0) return true;
+    return false;
+  }
+
   function sweepCompetitors(cat, area, selfName, selfId) {
     var q = ((cat || "business") + " in " + (area || "the area")).trim();
     return fetch("https://places.googleapis.com/v1/places:searchText", {
@@ -851,8 +869,11 @@ fbq('track', 'PageView');
       });
       function byReviews(a, b) { return b.reviews - a.reviews; }
       var exact = rows.filter(function (c) { return cat && c.type === cat; }).sort(byReviews);
-      var rest  = rows.filter(function (c) { return !(cat && c.type === cat); }).sort(byReviews);
-      return exact.concat(rest).slice(0, 6);
+      var near  = rows.filter(function (c) { return !(cat && c.type === cat) && sameTrade(cat, c.type); }).sort(byReviews);
+      // Everything else is DISCARDED. Filling empty rows from other trades is how a plumber ends up
+      // in a general contractor's scoreboard, and one business the owner knows isn't a competitor
+      // discredits every real number next to it. A short table is fine; a wrong one is not.
+      return exact.concat(near).slice(0, 6);
     });
   }
 
@@ -1283,10 +1304,19 @@ fbq('track', 'PageView');
         ' sees today, and what we would change.</p></div>';
 
       html += '<section class="rp-sec"><h3>1. How you compare right now</h3>';
-      html += comps.length ? sb.html
-        : '<p class="empty">We couldn\'t pull your local competition just now, so this section is empty rather than guessed at.</p>';
-      html += '<p class="fine">Live from Google, just now &mdash; the strongest businesses in your trade across ' +
-              'the area you told us you serve. Google returned them, not us.</p></section>';
+      html += top.length ? sb.html
+        : '<p class="empty">Google doesn\'t list another ' + esc2((g.type || "business").toLowerCase()) +
+          ' in the area you gave us, so there is nothing honest to compare you against here. That is ' +
+          'unusual and it is worth knowing &mdash; the sections below still apply.</p>';
+      if (top.length) {
+        html += '<p class="fine">Live from Google, just now &mdash; the strongest ' +
+          esc2((g.type || "business").toLowerCase()) + (top.length === 1 ? "" : "s") +
+          ' across the area you told us you serve. Google returned them, not us' +
+          (top.length < 3 ? ', and it lists only ' + top.length + ' other' + (top.length === 1 ? "" : "s") +
+           ' in your trade there &mdash; we would rather show you a short table than pad it with businesses ' +
+           'you do not compete with' : '') + '.</p>';
+      }
+      html += '</section>';
 
       if (gaps.length) {
         html += '<section class="rp-sec"><h3>2. The three gaps that cost you the most</h3><ol class="gaps">';
