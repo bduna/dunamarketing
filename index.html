@@ -288,6 +288,15 @@ fbq('track', 'PageView');
     .opt.done:disabled:hover { border-color:#dfe4ee; }
   }
 
+  .confirm { flex:0 0 auto; margin-left:auto; display:flex; gap:8px; align-items:flex-end;
+    padding-bottom:2px; }
+  .cbtn { font:inherit; font-size:.95rem; font-weight:800; color:#fff; border:0; border-radius:18px;
+    min-height:40px; padding:0 clamp(14px, 4.5vw, 22px); cursor:pointer; line-height:1; }
+  .cbtn.yes { background:var(--navy); }
+  .cbtn.no { background:var(--red); }
+  @media (hover:hover) and (pointer:fine) { .cbtn:hover { filter:brightness(1.1); } }
+  .cbtn:active { transform:translateY(1px); }
+
   /* The question, with its counter pinned to the top right of the row. */
   .qrow { display:flex; align-items:flex-end; gap:10px; width:100%; }
   .qrow .msg { flex:0 1 auto; }
@@ -796,7 +805,7 @@ fbq('track', 'PageView');
       (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(thumbUrl(ph.url)) + '" alt="" loading="lazy" decoding="async">'; }).join("") + '</div>' : ""));
     S.phase = "confirm"; save();
     composer.hidden = false; hint.hidden = false;
-    botSays("Is that your business?");
+    askConfirm();
   }
   // drawCard without the decorations — used when the full card throws, so a rendering bug can
   // never again silently skip the confirmation step.
@@ -806,9 +815,47 @@ fbq('track', 'PageView');
                     (g.address ? '<p class="gline">' + esc(g.address) + '</p>' : ""));
       S.phase = "confirm"; save();
       composer.hidden = false; hint.hidden = false;
-      botSays("Is that your business?");
+      askConfirm();
     } catch (e) { beginInterview(); }
   }
+  // "Is that your business?" is a yes/no, so it should cost a tap, not a keyboard. The buttons sit
+  // in the same .qrow the interview questions use, so this reads as the first of the tappable
+  // answers rather than a one-off. Typing still works — the composer stays open underneath.
+  function askConfirm() {
+    send.disabled = true; typing(true);
+    setTimeout(function () {
+      typing(false); send.disabled = false;
+      var row = document.createElement("div");
+      row.className = "qrow";
+      var b = document.createElement("div");
+      b.className = "msg bot";
+      b.textContent = "Is that your business?";
+      row.appendChild(b);
+
+      var box = document.createElement("div");
+      box.className = "confirm";
+      var yes = document.createElement("button");
+      yes.type = "button"; yes.className = "cbtn yes"; yes.textContent = "Yes";
+      var no = document.createElement("button");
+      no.type = "button"; no.className = "cbtn no"; no.textContent = "No";
+      box.appendChild(yes); box.appendChild(no);
+      row.appendChild(box);
+
+      thread.appendChild(row);
+      scrollTail();
+
+      function answer(label, value) {
+        if (box.parentNode) box.parentNode.removeChild(box);
+        me(label);
+        confirmAnswer(value);
+      }
+      yes.addEventListener("click", function () { answer("Yes", "yes"); });
+      no.addEventListener("click", function () { answer("No", "no"); });
+      // Deliberately no focus() here: with two buttons on screen, opening the keyboard would push
+      // them off it on a phone.
+    }, 420);
+  }
+
   var YES_RE = /^(y|ye|yes|yeah|yep|yup|sure|correct|right|aye|ok|okay|that'?s (it|me|us|right)|it is|us|me|mine|thats? me)\b/i;
   var NO_RE  = /^(n|no|nope|nah|not|negative|wrong|different|another|isn'?t)\b/i;
   function confirmAnswer(v) {
