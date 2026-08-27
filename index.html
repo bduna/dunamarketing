@@ -292,8 +292,9 @@ fbq('track', 'PageView');
     .opt.done:disabled:hover { border-color:#dfe4ee; }
   }
 
-  .confirm { flex:0 0 auto; margin-left:auto; display:flex; gap:8px; align-items:flex-end;
-    padding-bottom:2px; }
+  /* Sit right beside the question, not shoved to the far edge — the buttons have to read as the
+     answer to the words next to them, and margin-left:auto put a hand's width of gap in between. */
+  .confirm { flex:0 0 auto; display:flex; gap:8px; align-items:flex-end; padding-bottom:2px; }
   .cbtn { font:inherit; font-size:.95rem; font-weight:800; color:#fff; border:0; border-radius:18px;
     min-height:40px; padding:0 clamp(14px, 4.5vw, 22px); cursor:pointer; line-height:1; }
   .cbtn.yes { background:var(--navy); }
