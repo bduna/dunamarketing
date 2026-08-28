@@ -312,6 +312,14 @@ fbq('track', 'PageView');
   .paid-back { margin:10px 0 0; }
   .paid-back a { color:#cbd6ee; font-size:.82rem; text-decoration:underline; }
 
+  /* CTA and Q&A as one row. The navy block leads because it is the offer; the questions sit beside
+     it rather than under it, where they were only ever read after the price. */
+  .cta-pair { display:grid; grid-template-columns:1.25fr 1fr; gap:14px; align-items:start; margin:30px 0 0; }
+  .cta-pair > .cta, .cta-pair > .qa { margin:0; }
+  @media (max-width:620px) {
+    .cta-pair { grid-template-columns:1fr; gap:16px; }
+    .cta-pair > .qa { order:-1; }
+  }
   .qa { margin:22px 0 0; padding:18px 16px; background:var(--card); border:1px solid var(--line); border-radius:12px; }
   .qa-h { margin:0 0 12px; font-weight:800; font-size:1rem; }
   .qa-thread:empty { display:none; }
@@ -2243,9 +2251,12 @@ fbq('track', 'PageView');
         : '<p class="lede">Written from your own answers, ready to publish:</p>' + rewriteBlock(rw, g);
       html += '</section>';
 
-      // Questions come BEFORE the price. Objections answered after the button has been read are
-      // answered too late, and a reader who still has one does not scroll back up to buy.
-      html += '<div class="qa" id="qa">' +
+      // Side by side: the price and the place to question it sit in one row, so a reader with a doubt
+      // never has to leave the offer to resolve it. Below 620px there is no room for two columns, and
+      // the pair stacks with the questions on top — an objection answered after the price has been
+      // read is answered too late.
+      html += '<div class="cta-pair">' + ctaBlock() +
+        '<div class="qa" id="qa">' +
         '<p class="qa-h">Any questions about how the service works?</p>' +
         '<div class="qa-thread" id="qa-thread"></div>' +
         '<div class="qa-row">' +
@@ -2253,8 +2264,7 @@ fbq('track', 'PageView');
           '<button type="button" id="qa-send" aria-label="Send">Ask</button>' +
         '</div>' +
         '<p class="fine" id="qa-left">Straight answers. If it needs Barrett, it\'ll say so.</p>' +
-        '</div>';
-      html += ctaBlock();
+        '</div></div>';
 
       // Handed to renderReport rather than painted here, so the phone question gets its moment
       // without the report appearing over the top of it mid-sentence.
