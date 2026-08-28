@@ -242,6 +242,12 @@ fbq('track', 'PageView');
   .rp-sec .empty { color:var(--muted); font-style:italic; margin:0; }
   .rp-sec .lede { margin:0 0 14px; color:var(--muted); font-size:.95rem; }
 
+  .sample { text-align:center; margin:16px 0 0; font-size:.8rem; }
+  .sample a { color:var(--muted); text-decoration:underline; text-underline-offset:3px; }
+  .sample a:hover { color:var(--navy); }
+  .demo-note { font-size:.9rem; }
+  .demo-note a { color:var(--navy); font-weight:700; }
+
   /* ---------- review momentum ----------
      Tokens by role, defined once. This report is a fixed light design — it is read on a phone and
      screenshotted — so the surface and every colour is stated explicitly rather than inherited.
@@ -449,6 +455,7 @@ fbq('track', 'PageView');
       <button class="send" id="send" type="button" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
     </div>
     <p class="hint" id="hint" hidden><strong>On a phone:</strong> tap the box, then the microphone on your keyboard, and just talk.</p>
+    <p class="sample"><a href="?demo=roofing">See a sample report</a> &#183; <a href="?demo=hvac">HVAC version</a></p>
   </div>
 </main>
 
@@ -852,6 +859,7 @@ fbq('track', 'PageView');
   // separate message underneath, answered in the composer like every other question. No buttons
   // living inside a panel.
   function drawCard(g) {
+    if (S.demo) { S.phase = "confirm"; save(); return; }   // sample mode wants the data, not the card
     bubble("bot",
       '<p class="gname">' + esc(g.name) + '</p>' +
       (g.type ? '<p class="gline">' + esc(g.type) + '</p>' : "") +
@@ -866,6 +874,7 @@ fbq('track', 'PageView');
   // drawCard without the decorations — used when the full card throws, so a rendering bug can
   // never again silently skip the confirmation step.
   function drawCardSafe(g) {
+    if (S.demo) { S.phase = "confirm"; save(); return; }
     try {
       bubble("bot", '<p class="gname">' + esc(g.name) + '</p>' +
                     (g.address ? '<p class="gline">' + esc(g.address) + '</p>' : ""));
@@ -2298,6 +2307,9 @@ fbq('track', 'PageView');
   // That is what makes step-by-step drop-off visible without a single Apps Script change.
   function submitLead(stage, extra) { return submitStage(stage, extra); }
   function submitStage(stage, extra) {
+    // A sample report is not a lead. Nothing from this path reaches the sheet or the alerts —
+    // otherwise every look at the demo would land in Barrett's inbox as a new customer.
+    if (S.demo) return Promise.resolve({ ok: true, demo: true });
     var g = S.google, comps = S.competitors || [];
     var payload = {
       secret: LEADS_SECRET, lead_id: S.lead_id, form: "gbp-chat", stage: stage,
@@ -2424,8 +2436,79 @@ fbq('track', 'PageView');
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit).catch(function () {});
   })();
 
+  // A working sample of the finished report, for looking at the thing without answering five
+  // questions first. Everything except the answers is REAL: a real Google profile, a real competitor
+  // sweep, real review dates, a real rewrite. Only the five interview answers are canned, because
+  // they are the one part a sample cannot go and fetch.
+  var DEMOS = {
+    roofing: {
+      search: "Ridgeline Roofing Co, Windsor CA",
+      trade: "roofing",
+      fields: { job_value: "14000", area: "Windsor, Santa Rosa and Healdsburg",
+                what_you_do: "Tear-offs and full replacements, plus storm damage repairs",
+                known_for: "We show up the day we say we will and we clean up after ourselves",
+                services_talk: "Roof replacement, tear-off, leak repair, storm damage",
+                years: "Since 2004, took it over from my dad", must_haves: "" }
+    },
+    hvac: {
+      search: "Valley Comfort Heating and Air, Santa Rosa CA",
+      trade: "hvac",
+      fields: { job_value: "9000", area: "Santa Rosa and the surrounding towns",
+                what_you_do: "Furnace and AC replacements, repairs, and yearly tune-ups",
+                known_for: "We answer the phone at night and we do not charge a weekend rate",
+                services_talk: "Furnace replacement, AC install, repairs, maintenance plans",
+                years: "About 18 years", must_haves: "" }
+    }
+  };
+
+  function runDemo(key) {
+    var demo = DEMOS[key] || DEMOS.roofing;
+    S.demo = true; S.trade = demo.trade; save();
+    composer.hidden = true; hint.hidden = true;
+    bubble("bot", '<div class="demo-note"><b>Sample report.</b> Real profile, real competitors, ' +
+      'real review dates &mdash; only the five answers are made up, so you can see the finished ' +
+      'thing without filling anything in. <a href="?restart">Run it properly &rarr;</a></div>', true);
+    typing(true);
+
+    fetch("https://places.googleapis.com/v1/places:searchText", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_PLACES_KEY,
+                 "X-Goog-FieldMask": "places.id,places.displayName" },
+      body: JSON.stringify({ textQuery: demo.search })
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      var hit = (j.places || [])[0];
+      if (!hit) throw new Error("no demo place");
+      // gDetails fills S.google and draws the confirm card; in sample mode the card is suppressed,
+      // so just wait for the data to land.
+      gDetails(hit.id);
+      return new Promise(function (resolve) {
+        var waited = 0;
+        (function poll() {
+          if (S.google || waited > 9000) return resolve();
+          waited += 150; setTimeout(poll, 150);
+        })();
+      });
+    }).then(function () {
+      var g = S.google;
+      if (!g) throw new Error("no details");
+      S.a.business_name = g.name; S.a.place_id = g.place_id;
+      if (g.address) S.a.address = g.address;
+      fetchCompetitors(g);
+      return competitorsReady || Promise.resolve();
+    }).then(function () {
+      typing(false);
+      finish(demo.fields);          // the real report path, from here on
+    }).catch(function () {
+      typing(false);
+      bubble("bot", "The sample couldn't load just now &mdash; <a href=\"?restart\">try the real thing</a>.", true);
+    });
+  }
+
   // ================= boot =================
-  if (S.done) {
+  var demoKey = (location.search.match(/[?&]demo=([a-z]+)/i) || [])[1];
+  if (demoKey) {
+    runDemo(demoKey.toLowerCase());
+  } else if (S.done) {
     bubble("bot", '<div class="done"><h2>You’ve already sent this.</h2><p>Barrett will text you shortly.</p>' +
       '<p><a class="restart-link" href="?restart">Start a new interview</a></p></div>', true);
   } else if (S.started && S.msgs.length) {
