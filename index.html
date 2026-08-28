@@ -430,6 +430,11 @@ fbq('track', 'PageView');
        the cap-height block, not the line box. 2px of bottom padding lifts it another pixel. */
     padding:0 26px 2px; background:var(--red); color:#fff; border-radius:10px; font-weight:800;
     font-size:1.05rem; text-decoration:none; }
+  /* The single most-missed line on the page: the buyer has to do something after paying, and if he
+     doesn't know that, he pays and vanishes. Prominence comes from contrast and containment, not
+     size — a panel a shade lighter than the CTA, white text, one step above the fine print. */
+  .cta .cta-access { margin:0 auto 14px; max-width:34em; padding:12px 14px; border-radius:10px;
+    background:rgba(255,255,255,.10); font-size:.95rem; line-height:1.5; color:#fff; font-weight:500; }
   .cta .refund { margin:0; font-size:.88rem; color:#fff; font-weight:600; }
   .cta .fine { margin:8px 0 0; font-size:.78rem; color:#aab8d4; }
   @media (hover:hover) and (pointer:fine) { .cta .pay:hover { filter:brightness(1.08); } }
@@ -2101,7 +2106,7 @@ fbq('track', 'PageView');
       btn +
       // Reassurance before the doubt it answers: the four clicks first, THEN the refund. Flipped,
       // the refund line raises "what could go wrong" one beat before anything resolves it.
-      '<p class="fine">After payment you&rsquo;ll get a short page showing the four clicks that give me Manager access. About a minute of your time, and that is the whole of it.</p>' +
+      '<p class="cta-access">After payment you&rsquo;ll get redirected to a short page showing the four clicks that give me Manager access. About a minute of your time, and that is the whole of it.</p>' +
       '<p class="refund">If I can\'t get access, or can\'t improve the profile, you get a full refund.</p>' +
       '<p class="paid-back" id="paid-back" hidden><a href="access.html">Already paid? Finish setting it up &rarr;</a></p>' +
       '</div>';
