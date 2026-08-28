@@ -2243,7 +2243,8 @@ fbq('track', 'PageView');
         : '<p class="lede">Written from your own answers, ready to publish:</p>' + rewriteBlock(rw, g);
       html += '</section>';
 
-      html += ctaBlock();
+      // Questions come BEFORE the price. Objections answered after the button has been read are
+      // answered too late, and a reader who still has one does not scroll back up to buy.
       html += '<div class="qa" id="qa">' +
         '<p class="qa-h">Anything you want to ask before you decide?</p>' +
         '<div class="qa-thread" id="qa-thread"></div>' +
@@ -2253,6 +2254,7 @@ fbq('track', 'PageView');
         '</div>' +
         '<p class="fine" id="qa-left">Straight answers. If it needs Barrett, it\'ll say so.</p>' +
         '</div>';
+      html += ctaBlock();
 
       // Handed to renderReport rather than painted here, so the phone question gets its moment
       // without the report appearing over the top of it mid-sentence.
