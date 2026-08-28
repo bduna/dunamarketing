@@ -520,7 +520,14 @@ fbq('track', 'PageView');
     S = { lead_id: "L-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8),
           a: {}, google: null, msgs: [], phase: "places", started: false, done: false };
   }
-  function save() { try { S.savedAt = Date.now(); localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
+  // A sample report is a demonstration, not this visitor's interview, so it is never written to
+  // storage. It used to be: viewing a sample replaced a real customer's saved listing and answers
+  // with the demo business, and access.html — which reads exactly this key after payment — would
+  // then tell Barrett a paying customer was the demo company.
+  function save() {
+    if (S.demo) return;
+    try { S.savedAt = Date.now(); localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {}
+  }
 
   // Offer the way out as soon as there is anything to get out of.
   (function () {
@@ -2525,7 +2532,18 @@ fbq('track', 'PageView');
     bubble("bot", '<div class="done"><h2>You’ve already sent this.</h2><p>Barrett will text you shortly.</p>' +
       '<p><a class="restart-link" href="?restart">Start a new interview</a></p></div>', true);
   } else if (S.started && S.msgs.length) {
-    S.msgs.forEach(function (m) { (m.role === "user" ? me : say)(m.content); });
+    // Every question arrives from the relay as a JSON spec ({"say":"","q":"..."}), and that raw
+    // string is what S.msgs holds. Replaying it verbatim printed the JSON to the visitor after any
+    // reload — the question was in there, wrapped in braces and quotes. Unwrap it the same way the
+    // live turn does, and restore the "n of 5" counter while we are at it.
+    var qn = 0;
+    S.msgs.forEach(function (m) {
+      if (m.role === "user") { me(m.content); return; }
+      var spec = parseSpec(m.content);
+      if (spec) { qn = Math.min(qn + 1, 5); sayQuestion(spec.q, qn); }
+      else say(m.content);
+    });
+    S.qNum = qn; save();
     composer.hidden = false; hint.hidden = false;
   } else if (S.phase === "confirm" && S.google) {
     drawCard(S.google);

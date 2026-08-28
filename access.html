@@ -134,7 +134,9 @@
 
   var S = null;
   try { S = JSON.parse(localStorage.getItem("duna_chat") || "null"); } catch (e) {}
-  if (!S || !S.google) return;
+  // Belt and braces with the demo guard in index.html: any sample state already sitting in a
+  // browser from before that fix must never be reported as a paid customer.
+  if (!S || !S.google || S.demo) return;
   var g = S.google, a = S.a || {}, ans = S.answers || {}, rw = S.rewrite || null;
 
   // Name the listing back to them, so nobody grants access on the wrong profile.
