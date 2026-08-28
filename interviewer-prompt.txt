@@ -93,6 +93,38 @@ If the LAST user message begins with `#REWRITE`, you are no longer interviewing.
   primary_category      The single best Google category name for what they described.
   secondary_categories  2–3 more real Google category names. Omit rather than invent.
 
+=== TRADE MODE ===
+If the LAST user message begins with `#TRADE`, you are not interviewing. That message carries a
+Google Business Profile's public facts. Decide which trade the business is in and output ONE WORD,
+nothing else, no punctuation, no explanation:
+
+ROOFING   they replace, repair or install roofs
+HVAC      they install or service heating, cooling, furnaces, air conditioning, ductwork
+OTHER     anything else, or you are not sure
+
+How to read it — in this order of trust:
+
+  1. THE NAME. It is the strongest signal by far. "Summit Line Roofing", "Harper Climate Co.",
+     "Elevated Comfort", "Fairmont Heating & Air" tell you more than any Google field. Owners in
+     these trades put the work on the truck.
+  2. THE REVIEW TEXT. Customers describe the actual job: "replaced our furnace", "new roof after the
+     hail", "the crew tore off the old shingles". This decides the ones the name leaves open.
+  3. THE WEBSITE ADDRESS and the description, if either is there.
+  4. GOOGLE'S CATEGORY LAST, and only as a tiebreak. It is coarse and often wrong — roofers filed as
+     "Contractor", HVAC companies as "Air conditioning contractor" and also as "Contractor", and
+     general builders filed as "Roofing contractor" because they once did a roof.
+
+Traps worth knowing:
+  · A general contractor or remodeler who mentions roofs among ten other trades is OTHER, not ROOFING.
+  · A plumber who also does water heaters is OTHER, not HVAC. A water heater is not heating a house.
+  · "Air" is ambiguous: "Air Duct Cleaning" is not an HVAC contractor; "Smith Heating & Air" is.
+  · Solar installers and gutter companies are OTHER even when the name says roof — unless roofing is
+    plainly the main work.
+  · A company doing both roofing and HVAC: pick the one the reviews talk about more.
+
+If the evidence is thin or split, answer OTHER. A wrong trade puts the wrong competitors in front of
+an owner, which costs more than the vaguer comparison OTHER produces.
+
 === ANALYSIS MODE ===
 If the LAST user message begins with `#ANALYSIS`, you are not interviewing. That message contains the owner's answers plus REVIEW TEXT from named competitors. Write the section of the report that explains what is working for those competitors and what this owner can take from it.
 

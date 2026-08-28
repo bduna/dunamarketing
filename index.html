@@ -350,8 +350,6 @@ fbq('track', 'PageView');
   .cbtn { font:inherit; font-size:.95rem; font-weight:800; color:#fff; border:0; border-radius:18px;
     min-height:40px; padding:0 clamp(14px, 4.5vw, 22px); cursor:pointer; line-height:1; }
   .cbtn.yes { background:var(--navy); }
-  .cbtn.alt { background:#5a6070; }
-  .confirm.trade { flex-wrap:wrap; }
   .cbtn.no { background:var(--red); }
   @media (hover:hover) and (pointer:fine) { .cbtn:hover { filter:brightness(1.1); } }
   .cbtn:active { transform:translateY(1px); }
@@ -953,7 +951,7 @@ fbq('track', 'PageView');
       if (g.website) S.a.current_website_url = g.website;
       save(); fb("GoogleConfirmed");
       submitLead("confirmed");
-      askTrade(g);
+      startAfterConfirm(g);
       return;
     }
     if (NO_RE.test(v)) {
@@ -1207,38 +1205,75 @@ fbq('track', 'PageView');
   // Which trade, asked once, before the sweep runs. Google's category will not carry this reliably
   // — plenty of roofers are filed as "Contractor" and plenty of HVAC companies as "Contractor" too
   // — and the competitor filter is only trustworthy if we know which word to look for.
-  function askTrade(g) {
-    send.disabled = true; typing(true);
-    setTimeout(function () {
-      typing(false); send.disabled = false;
-      var row = document.createElement("div");
-      row.className = "qrow";
-      var b = document.createElement("div");
-      b.className = "msg bot";
-      b.textContent = "Which one are you?";
-      row.appendChild(b);
+  // Which trade, decided from the listing rather than asked. The question cost a tap and a beat of
+  // the visitor's attention to learn something the profile already says out loud.
+  //
+  // Two stages, because most listings never need a model:
+  //   1. THE NAME. A roofer's company name says roof; an HVAC company's says heating, air, comfort,
+  //      climate or mechanical. When the name is decisive this returns instantly and costs nothing.
+  //   2. Everything else goes to the relay with the name, category, description, website and the
+  //      newest review text, and comes back as one word. The reviews settle the ambiguous ones —
+  //      customers describe the actual job even when the name never does.
+  // Google's category is the weakest input on both paths: roofers sit under "Contractor" and general
+  // builders sit under "Roofing contractor" often enough to poison anything built on it.
+  var TRADE_NAME_RE = {
+    roofing: /\broof/i,
+    hvac: /\bhvac\b|heating|cooling|furnace|air ?condition|\bclimate\b|\bcomfort\b|temperature|\bmechanical\b|heat(ing)? (and|&) air|\bh\/?a\b/i
+  };
+  // Names carrying a trade word while being a different business entirely.
+  var TRADE_NAME_NOT = /gutter|solar|duct cleaning|air duct|chimney|window|siding|supply|materials/i;
 
-      var box = document.createElement("div");
-      box.className = "confirm trade";
-      [["Roofing", "roofing"], ["HVAC", "hvac"], ["Other", "other"]].forEach(function (t) {
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "cbtn " + (t[1] === "other" ? "alt" : "yes");
-        btn.textContent = t[0];
-        btn.addEventListener("click", function () {
-          if (box.parentNode) box.parentNode.removeChild(box);
-          S.trade = t[1]; save();
-          me(t[0]);
-          submitLead("trade", { trade: t[0] }).catch(function () {});
-          fetchCompetitors(g);      // now it knows what to look for
-          beginInterview();
-        });
-        box.appendChild(btn);
-      });
-      row.appendChild(box);
-      thread.appendChild(row);
-      scrollTail();
-    }, 380);
+  function tradeFromName(name) {
+    var n = String(name || "");
+    if (TRADE_NAME_NOT.test(n)) return "";
+    if (TRADE_NAME_RE.roofing.test(n)) return "roofing";
+    if (TRADE_NAME_RE.hvac.test(n)) return "hvac";
+    return "";
+  }
+
+  function classifyTrade(g) {
+    var quick = tradeFromName(g.name);
+    if (quick) {
+      try { console.log("[duna] trade from name: " + quick); } catch (e) {}
+      return Promise.resolve(quick);
+    }
+    var facts = [
+      "Name: " + (g.name || ""),
+      "Google category: " + (g.type || "none"),
+      g.summary ? "Google's description: " + g.summary : "",
+      g.website ? "Website: " + g.website : "",
+      (g.reviews || []).length
+        ? "Recent review text:\n" + (g.reviews || []).slice(0, 4).map(function (r) {
+            return '  "' + String(r.text || "").slice(0, 220) + '"';
+          }).join("\n")
+        : "No review text available."
+    ].filter(Boolean).join("\n");
+
+    return relayChat([{ role: "user", content: "(Interview starting. Ask your first question.)" },
+                      { role: "assistant", content: "Ready." },
+                      { role: "user", content: "#TRADE\n" + facts }])
+      .then(function (j) {
+        var word = String((j && j.reply) || "").toUpperCase();
+        var t = word.indexOf("ROOFING") >= 0 ? "roofing" : word.indexOf("HVAC") >= 0 ? "hvac" : "other";
+        try { console.log("[duna] trade from model: " + t); } catch (e) {}
+        return t;
+      })
+      // A failed classification is not a failed scan: "other" drops the name filter and falls back to
+      // Google's own category matching, which is what every business outside these two trades gets.
+      .catch(function () { return "other"; });
+  }
+
+  var TRADE_LABEL = { roofing: "Roofing", hvac: "HVAC", other: "Other" };
+
+  function startAfterConfirm(g) {
+    // The interview does not wait on this. Question one is about the towns they cover, which needs no
+    // trade, and the competitor sweep is only read when the report is built minutes later.
+    classifyTrade(g).then(function (t) {
+      S.trade = t; save();
+      submitLead("trade", { trade: TRADE_LABEL[t] || "Other" }).catch(function () {});
+      fetchCompetitors(g);
+    });
+    beginInterview();
   }
 
   function beginInterview() {
