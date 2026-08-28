@@ -2027,10 +2027,15 @@ fbq('track', 'PageView');
     });
   }
 
-  var QA_MAX = 6, qaUsed = 0, qaBusy = false;
+  // Not a ration — a fuse. Six was a cost ceiling on something that costs a cent, and it cut off the
+  // most engaged reader on the page while stopping nobody who meant harm (the relay's secret is in
+  // this file, so an abuser never sees this counter). It is high enough that no real buyer meets it,
+  // and it is never mentioned: a countdown shown from the first question tells someone they are
+  // being rationed at the exact moment they should feel free to ask anything.
+  var QA_MAX = 25, qaUsed = 0, qaBusy = false;
   function wireQA(host) {
     var box = host.querySelector("#qa-in"), btn = host.querySelector("#qa-send"),
-        pane = host.querySelector("#qa-thread"), left = host.querySelector("#qa-left");
+        pane = host.querySelector("#qa-thread");
     if (!box) return;
     var hist = [];
 
@@ -2060,17 +2065,23 @@ fbq('track', 'PageView');
           return { role: "user", content: isLast ? m.content : m.content.replace(/^#QA\n/, "") };
         }));
 
-      relayChat(msgs).then(function (j) {
+      // Apps Script drops the odd request — a cold container, an intermittent 404 — and one blip used
+      // to end the conversation with "that didn't go through". The interview already retries for
+      // exactly this reason; the questions people ask before paying deserve the same. Retried on the
+      // same payload, so a retry costs a few seconds and never asks them to type anything twice.
+      function attempt(n) {
+        return relayChat(msgs).catch(function (e) {
+          if (n >= 3) throw e;
+          return new Promise(function (r) { setTimeout(r, 700 * n); }).then(function () { return attempt(n + 1); });
+        });
+      }
+      attempt(1).then(function (j) {
         var a = (j.reply || "").trim() || "I don't have that one — text Barrett on (707) 385-5673.";
         wait.remove();
         add("bot", a);
         hist.push({ role: "assistant", content: a });
         qaUsed++;
         qaBusy = false; btn.disabled = false;
-        left.textContent = qaUsed >= QA_MAX
-          ? "That's the lot from me — anything else, text Barrett on (707) 385-5673."
-          : (QA_MAX - qaUsed) + " more question" + (QA_MAX - qaUsed === 1 ? "" : "s") + " if you want them.";
-        if (qaUsed >= QA_MAX) { box.disabled = true; btn.disabled = true; box.placeholder = "Text Barrett for anything else"; }
         submitLead("qa_" + qaUsed);
       }).catch(function () {
         wait.remove();
