@@ -2062,20 +2062,27 @@ fbq('track', 'PageView');
     // access, judgement and repetition — which is what actually takes the work off their desk.
     return '<div class="cta">' +
       '<h3>The copy above is yours. Keep&nbsp;it.</h3>' +
-      '<p>Paste it in yourself if you want to &mdash; it&rsquo;s your business and your words. ' +
-      PAY_PRICE + ' once, no contract, buys the rest of it done properly:</p>' +
+      '<p>Paste it in yourself if you like &mdash; it&rsquo;s your business and your words. ' +
+      PAY_PRICE + ' gets the rest done properly:</p>' +
       '<ul class="cta-list">' +
-        '<li><b>Every review answered</b>, including the one about the callback that never happened. A homeowner deciding between three roofers reads the replies, not just the stars.</li>' +
-        '<li><b>Questions asked and answered</b> on your profile &mdash; do you do emergency calls, do you work with insurance, what areas do you cover. You&rsquo;re allowed to post both sides, and almost nobody does.</li>' +
-        '<li><b>Categories set so they hold.</b> Naming them is the easy half. Which combination you can keep, and which searches each one puts you in, is the half that takes doing.</li>' +
-        '<li><b>Services entered the way Google wants them</b>, not pasted in as a block of text.</li>' +
-        '<li><b>Nothing that gets you suspended.</b> Profiles go down for edits owners think are harmless, and getting one back can take weeks &mdash; everything here stays inside Google&rsquo;s guidelines.</li>' +
+        '<li><b>Every review answered</b>, including the ones nobody replied to. A homeowner choosing between three companies reads the replies, not just the stars.</li>' +
+        '<li><b>Questions asked and answered</b> on your profile &mdash; emergency calls, insurance, the areas you cover. You&rsquo;re allowed to post both sides, and almost nobody does.</li>' +
+        // The report flags photos and hours, so the offer has to answer for them or a reader whose
+        // loudest problem was photos scans this list and never finds his own fix.
+        '<li><b>Every field Google scores, filled in</b> &mdash; hours, service area, links, categories and services, entered the way Google wants them. Photos I can&rsquo;t add for you, so you get a short list of exactly which ones to put up.</li>' +
+        '<li><b>Nothing that gets you suspended.</b> Profiles go down for edits owners think are harmless, and getting one back can take weeks &mdash; everything stays inside Google&rsquo;s guidelines.</li>' +
       '</ul>' +
-      '<p class="cta-close">You never hand over your Google login, and you see every word before it goes live. One payment, no contract, nothing renews.</p>' +
-      '<p class="fine">Worth doing before the first cold snap and the fall storm run &mdash; whatever is on your profile that week is what those searchers see.</p>' +
+      // "When will it be done?" is a top-three question at the moment of paying, and the seasonal
+      // line above sharpens it by saying timing matters. Answering it here costs one clause.
+      '<p class="cta-close">Live on your profile inside a week. You never hand over your Google login, ' +
+      'and you see every word before it goes live. One payment, no contract, nothing renews.</p>' +
+      '<p class="fine">Worth doing before the first cold snap and the fall storm run &mdash; whatever is on ' +
+      'your profile that week is what those searchers see.</p>' +
       btn +
-      '<p class="refund">If we can\'t get access, or can\'t improve the profile, you get a full refund.</p>' +
-      '<p class="fine">After payment you&rsquo;ll get a short page showing the four clicks that give us Manager access. Takes about a minute of your time, and that is the whole of it.</p>' +
+      // Reassurance before the doubt it answers: the four clicks first, THEN the refund. Flipped,
+      // the refund line raises "what could go wrong" one beat before anything resolves it.
+      '<p class="fine">After payment you&rsquo;ll get a short page showing the four clicks that give me Manager access. About a minute of your time, and that is the whole of it.</p>' +
+      '<p class="refund">If I can\'t get access, or can\'t improve the profile, you get a full refund.</p>' +
       '<p class="paid-back" id="paid-back" hidden><a href="access.html">Already paid? Finish setting it up &rarr;</a></p>' +
       '</div>';
   }
