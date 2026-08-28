@@ -402,6 +402,23 @@ fbq('track', 'PageView');
   .rw .empty { font-style:italic; color:var(--muted); }
   .rw .fine { font-size:.76rem; color:var(--muted); margin:8px 0 0; }
 
+  /* The offer that stands where the rewritten description will go. Warm rather than loud: it is a
+     gift, not a second sales block, so it borrows the card styling and not the navy CTA's. */
+  .offer { background:var(--navy-soft); border:1px solid #cfdcf5; border-radius:12px; padding:18px 18px 20px; }
+  .offer .oh { margin:0 0 8px; font-size:1.05rem; font-weight:800; color:var(--navy-deep); }
+  .offer .ol { margin:0 0 14px; font-size:.95rem; line-height:1.5; color:var(--ink); }
+  .offer-btn { font:inherit; font-size:1rem; font-weight:800; color:#fff; background:var(--navy);
+    border:0; border-radius:10px; min-height:50px; padding:0 22px; cursor:pointer; width:100%; }
+  .offer-btn:disabled { opacity:.6; }
+  @media (min-width:520px) { .offer-btn { width:auto; min-width:260px; } }
+  @media (hover:hover) and (pointer:fine) { .offer-btn:hover { filter:brightness(1.12); } }
+  .offer .fine { margin:10px 0 0; }
+  /* When the description lands, say so without a splash: one slow fade of the panel it arrived in. */
+  .just-in { animation:justin 1.6s ease-out 1; }
+  @keyframes justin {
+    from { background:var(--navy-soft); box-shadow:0 0 0 6px var(--navy-soft); }
+    to   { background:transparent; box-shadow:0 0 0 6px transparent; }
+  }
   .cta { margin:30px 0 0; padding:22px 20px; border-radius:14px; background:var(--navy); color:#fff; text-align:center; }
   .cta h3 { margin:0 0 8px; font-size:1.25rem; color:#fff; }
   .cta p { margin:0 0 14px; font-size:.95rem; color:#d7e0f2; }
@@ -449,7 +466,7 @@ fbq('track', 'PageView');
     <div class="intro" id="intro">
       <p class="kicker" id="kicker">No email or phone number required</p>
       <h1>See why the same companies always sit above you on Google.</h1>
-      <p>A furnace quits at 6am. A ceiling stain spreads mid&#8209;storm. Those calls go to the competitors of yours that dominate the Google Maps Box search results. Three questions and I&rsquo;ll show you exactly how your profile compares to theirs.</p>
+      <p>A furnace quits at 6am. A ceiling stain spreads mid&#8209;storm. Those calls go to the competitors of yours that dominate the Google Maps Box search results. Pick your listing and I&rsquo;ll show you exactly how your profile compares to theirs.</p>
     </div>
 
     <div class="thread" id="thread" aria-live="polite"></div>
@@ -1266,14 +1283,39 @@ fbq('track', 'PageView');
   var TRADE_LABEL = { roofing: "Roofing", hvac: "HVAC", other: "Other" };
 
   function startAfterConfirm(g) {
-    // The interview does not wait on this. Question one is about the towns they cover, which needs no
-    // trade, and the competitor sweep is only read when the report is built minutes later.
-    classifyTrade(g).then(function (t) {
+    // Nothing is asked. The listing is all the report needs, so it gets built the moment they say
+    // yes — and the three questions become an offer inside it, next to the one section that cannot
+    // be written without them. Asking first was asking a stranger to work before seeing anything.
+    composer.hidden = true; hint.hidden = true;
+    botSays("Give me a moment \u2014 I\u2019m reading your profile and the companies above you.");
+    typing(true);
+
+    var traded = classifyTrade(g).then(function (t) {
       S.trade = t; save();
       submitLead("trade", { trade: TRADE_LABEL[t] || "Other" }).catch(function () {});
-      fetchCompetitors(g);
+      return fetchCompetitors(g);
     });
+
+    // The scoreboard is the first thing on screen, so give the sweep a moment to land — but never
+    // hold the report hostage to it. Whatever has arrived by then is what gets drawn.
+    var waited = new Promise(function (r) { setTimeout(r, 9000); });
+    Promise.race([traded.then(function () { return competitorsReady; }), waited])
+      .catch(function () {})
+      .then(function () {
+        phoneDone = true;
+        S.reportOnly = true; save();
+        buildReport({}, true);
+      });
+  }
+
+  // They asked for the description after all. The interview picks up under the report they are
+  // already looking at, and its answers are dropped into the gap the report left for them.
+  function startQuestions(btn) {
+    if (S.started) return;
+    if (btn) { btn.disabled = true; btn.textContent = "One moment\u2026"; }
+    fb("QuestionsStarted");
     beginInterview();
+    setTimeout(scrollTail, 60);
   }
 
   function beginInterview() {
@@ -1418,7 +1460,7 @@ fbq('track', 'PageView');
     });
   }
 
-  var reportReady = false, paintReport = null, phoneDone = false;
+  var reportReady = false, paintReport = null, phoneDone = false, reportHost = null;
 
   // Paint as soon as the work is done. The report is NEVER held back for the phone number — that
   // was the whole point of moving the ask to the end.
@@ -1531,11 +1573,11 @@ fbq('track', 'PageView');
     fb("LeadComplete");
 
     phoneDone = true;                 // nothing left to wait on; paint the moment it is built
-    // The model already said "building your report now" — saying it again underneath was just the
-    // same sentence twice. Show the typing dots instead: generation takes a few seconds and there
-    // is nothing else on screen now that the phone question is gone.
+    // Two ways in: the report is already on screen and only the description is missing, or (a
+    // resumed session, a demo) there is no report yet and the whole thing gets built.
+    if (reportHost) { fillRewrite(fields || {}); return; }
     typing(true);
-    buildReport(fields || {});
+    buildReport(fields || {}, false);
   }
 
   // ======================================================================
@@ -2071,7 +2113,63 @@ fbq('track', 'PageView');
     box.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); ask(); } });
   }
 
-  function ctaBlock() {
+  // The one section a report cannot fill on its own. Rather than an empty apology, it holds the
+  // offer: three questions, and the thing that belongs here gets written while they wait.
+  function offerCard() {
+    return '<div class="offer" id="offer">' +
+      '<p class="oh">I can write this one for you. Free.</p>' +
+      '<p class="ol">Google gives you 750 characters to describe your business and yours is ' +
+      'either empty or written by Google. Answer three short questions &mdash; under a minute, ' +
+      'no email, no phone number &mdash; and I&rsquo;ll write it in your own words while you wait. ' +
+      'It&rsquo;s yours to paste in whether you buy anything or not.</p>' +
+      '<button type="button" class="offer-btn" id="want-copy">Answer three questions</button>' +
+      '<p class="fine">Or skip it &mdash; everything above is yours to keep either way.</p>' +
+      '</div>';
+  }
+
+  function wireOffer(host) {
+    var b = host.querySelector("#want-copy");
+    if (!b) return;
+    b.addEventListener("click", function () { startQuestions(b); });
+  }
+
+  // Their answers arrive after the report is already on screen, so the gap is filled in place —
+  // rebuilding the whole report would throw away the thing they have been reading.
+  function fillRewrite(fields) {
+    var sec = reportHost && reportHost.querySelector("#rw-sec");
+    if (!sec) { typing(true); buildReport(fields || {}, false); return; }
+    var g = S.google || {};
+    typing(true);
+    bubble("bot", "Writing it now &mdash; about ten seconds.");
+
+    function paint(html) {
+      typing(false);
+      sec.innerHTML = '<h3>' + esc2(sec.querySelector("h3").textContent.split(".")[0]) +
+                      '. Your profile, rewritten</h3>' + html;
+      sec.classList.add("just-in");
+      sec.scrollIntoView({ block: "start" });
+      // The CTA above sold "the description above is yours" — which was not true until now.
+      var h = reportHost.querySelector("#cta-h"), give = reportHost.querySelector("#cta-give");
+      if (h) h.innerHTML = "The profile description above is yours. Keep&nbsp;it.";
+      if (give) give.textContent = "Paste it in yourself if you like at no cost to you.";
+    }
+
+    requestRewrite(fields, 0).then(function (rw) {
+      if (rw) { S.rewrite = rw; save(); }
+      paint('<p class="lede">Written from your own answers, ready to publish:</p>' + rewriteBlock(rw, g));
+      submitLead("rewrite_shown", {
+        new_description: (rw && rw.description) || "",
+        new_services: (rw && (rw.services || []).join(", ")) || "",
+        new_categories: rw ? [rw.primary_category].concat(rw.secondary_categories || []).filter(Boolean).join(", ") : ""
+      }).catch(function () {});
+    }).catch(function () {
+      paint('<p class="empty">The rewrite didn\'t generate just now. Text Barrett on ' +
+            '<a href="sms:+17073855673">(707) 385-5673</a> and he\'ll send it to you directly &mdash; ' +
+            'your answers are saved.</p>');
+    });
+  }
+
+  function ctaBlock(hasRewrite) {
     var btn = PAY_URL
       ? '<a class="pay" href="' + esc2(PAY_URL) + '">Have it done for me &mdash; ' + PAY_PRICE + '</a>'
       : '<a class="pay disabled" href="sms:+17073855673">Text Barrett to have it done &mdash; ' + PAY_PRICE + '</a>';
@@ -2079,8 +2177,12 @@ fbq('track', 'PageView');
     // we lose, so this says plainly that it is theirs either way, and prices the parts that need
     // access, judgement and repetition — which is what actually takes the work off their desk.
     return '<div class="cta">' +
-      '<h3>The profile description above is yours. Keep&nbsp;it.</h3>' +
-      '<p>Paste it in yourself if you like at no cost to you.</p>' +
+      '<h3 id="cta-h">' + (hasRewrite
+        ? 'The profile description above is yours. Keep&nbsp;it.'
+        : 'Everything above, fixed properly.') + '</h3>' +
+      '<p id="cta-give">' + (hasRewrite
+        ? 'Paste it in yourself if you like at no cost to you.'
+        : 'You have seen what is missing. This is what it takes to put it right.') + '</p>' +
       '<p class="cta-lead"><b>' + PAY_PRICE + ' gets the rest done properly &mdash; the essential parts that get the phone ringing&hellip;</b></p>' +
       '<ul class="cta-list">' +
         '<li><b>Every review answered</b>, including the ones nobody replied to. A homeowner choosing between three companies reads the replies, not just the stars.</li>' +
@@ -2159,7 +2261,7 @@ fbq('track', 'PageView');
 
   // Generation is visible on purpose. The work takes a few seconds either way; showing it is worth
   // more than hiding it, and a blank screen after the last answer reads as broken.
-  function buildReport(fields) {
+  function buildReport(fields, noRewrite) {
     var g = S.google || {}, comps = S.competitors || [];
     var host = null;
     function mark() {}
@@ -2225,14 +2327,17 @@ fbq('track', 'PageView');
           '</div><p class="fine">Drawn from the review text on those competitors\' own listings.</p></section>';
       }
 
-      html += '<section class="rp-sec rp-work"><h3>' + (++n) + '. Your profile, rewritten</h3>';
-      html += failed
-        ? '<p class="empty">The rewrite didn\'t generate just now. Text Barrett and he\'ll send it to you directly &mdash; ' +
-          'your answers are saved.</p>'
-        : '<p class="lede">Written from your own answers, ready to publish:</p>' + rewriteBlock(rw, g);
+      html += '<section class="rp-sec rp-work" id="rw-sec"><h3>' + (++n) + '. ' +
+              (noRewrite ? 'Your profile description' : 'Your profile, rewritten') + '</h3>';
+      html += noRewrite
+        ? offerCard()
+        : (failed
+            ? '<p class="empty">The rewrite didn\'t generate just now. Text Barrett and he\'ll send it to you directly &mdash; ' +
+              'your answers are saved.</p>'
+            : '<p class="lede">Written from your own answers, ready to publish:</p>' + rewriteBlock(rw, g));
       html += '</section>';
 
-      html += ctaBlock();
+      html += ctaBlock(!noRewrite);
       html += '<div class="qa" id="qa">' +
         '<p class="qa-h">Any questions about how the service works?</p>' +
         '<div class="qa-thread" id="qa-thread"></div>' +
@@ -2268,6 +2373,8 @@ fbq('track', 'PageView');
         fb("ReportShown");
         wireQA(host);
         wirePayClick(host);
+        wireOffer(host);
+        reportHost = host;
       };
       reportReady = true;
       if (phoneDone) renderReport();
@@ -2299,15 +2406,22 @@ fbq('track', 'PageView');
       return fetchVelocity([g.place_id].concat(comps.slice(0, 3).map(function (c) { return c.id; })));
     }).catch(function () { return {}; });
 
-    requestRewrite(fields, 0).then(function (rw) {
-      return Promise.all([analysisReady, velReady]).then(function (a) {
-        setTimeout(function () { render(rw, false, a[0], a[1]); }, 250);
-      });
-    }).catch(function () {
+    if (noRewrite) {
+      // No answers, so nothing to write from and no relay call to make.
       Promise.all([analysisReady, velReady]).then(function (a) {
-        setTimeout(function () { render(null, true, a[0], a[1]); }, 250);
+        setTimeout(function () { render(null, false, a[0], a[1]); }, 250);
       });
-    });
+    } else {
+      requestRewrite(fields, 0).then(function (rw) {
+        return Promise.all([analysisReady, velReady]).then(function (a) {
+          setTimeout(function () { render(rw, false, a[0], a[1]); }, 250);
+        });
+      }).catch(function () {
+        Promise.all([analysisReady, velReady]).then(function (a) {
+          setTimeout(function () { render(null, true, a[0], a[1]); }, 250);
+        });
+      });
+    }
   }
 
   // ================= sheet submit (same endpoint, same guards) =================
