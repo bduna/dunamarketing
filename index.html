@@ -388,9 +388,6 @@ fbq('track', 'PageView');
   ol.gaps b { display:block; margin:0 0 3px; font-size:1rem; }
   ol.gaps span { color:var(--muted); font-size:.92rem; }
 
-  .rp-sec .sum { font-size:1.15rem; margin:10px 0; padding:12px 14px; background:var(--navy-soft);
-    border-radius:10px; border-left:4px solid var(--navy); }
-  .rp-sec .sum b { color:var(--navy); }
 
   .rw-row { margin:0 0 20px; }
   .rw-row h4 { margin:0 0 8px; font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
@@ -454,7 +451,7 @@ fbq('track', 'PageView');
     <div class="intro" id="intro">
       <p class="kicker" id="kicker">No email or phone number required</p>
       <h1>See why the same companies always sit above you on Google.</h1>
-      <p>A furnace quits at 6am. A ceiling stain spreads mid&#8209;storm. Those calls go to the competitors of yours that dominate the Google Maps Box search results. Five questions and I&rsquo;ll show you exactly how your profile compares to theirs.</p>
+      <p>A furnace quits at 6am. A ceiling stain spreads mid&#8209;storm. Those calls go to the competitors of yours that dominate the Google Maps Box search results. Three questions and I&rsquo;ll show you exactly how your profile compares to theirs.</p>
     </div>
 
     <div class="thread" id="thread" aria-live="polite"></div>
@@ -1175,13 +1172,13 @@ fbq('track', 'PageView');
     }
     return out.join("\n");
   }
-  // Five questions is the promise, so the count is on screen the whole way. An interview with a
+  // Three questions is the promise, so the count is on screen the whole way. An interview with a
   // visible end gets finished; one that could go on forever gets abandoned.
   function progressHtml(n) {
     return '<span class="qdots">' +
-      [1, 2, 3, 4, 5].map(function (i) {
+      [1, 2, 3].map(function (i) {
         return '<i class="' + (i < n ? "d fill" : (i === n ? "d live" : "d")) + '"></i>';
-      }).join("") + '</span><b>' + n + ' of 5</b>';
+      }).join("") + '</span><b>' + n + ' of 3</b>';
   }
 
   // The question and its counter as one row: bubble on the left, counter pinned to the top right.
@@ -1314,7 +1311,7 @@ fbq('track', 'PageView');
         // includes the abandonment object {"complete": false}. A tapped interview can trip that by
         // mistake, and the person is then told to go away mid-way through. One more attempt on the
         // same conversation costs a few seconds and usually gets a proper turn back.
-        if (!usable && !S.doneRetried && (S.qNum || 0) < 5 && !/at capacity/i.test(j.reply || "")) {
+        if (!usable && !S.doneRetried && (S.qNum || 0) < 3 && !/at capacity/i.test(j.reply || "")) {
           S.doneRetried = true; save();
           try { console.log("[duna] done with no usable fields at q" + S.qNum + " — retrying once"); } catch (e) {}
           turn("");
@@ -1326,7 +1323,7 @@ fbq('track', 'PageView');
 
       S.msgs.push({ role: "assistant", content: j.reply }); save();
       if (S.phase === "chat") {
-        S.qNum = Math.min((S.qNum || 0) + 1, 5); save();
+        S.qNum = Math.min((S.qNum || 0) + 1, 3); save();
         showProgress();
       }
       askUI(j.reply);
@@ -1421,16 +1418,6 @@ fbq('track', 'PageView');
     return { text: out.join("\n\n"), pairs: pairs };
   }
 
-  function moneyFromChat() {
-    for (var i = 0; i < S.msgs.length; i++) {
-      if (S.msgs[i].role !== "user") continue;
-      if (!/\$|\d/.test(S.msgs[i].content || "")) continue;
-      var n = jobValueNumber(S.msgs[i].content);
-      if (n) return String(n);
-    }
-    return "";
-  }
-
   function finish(fields) {
     S.done = true; save();
 
@@ -1442,7 +1429,6 @@ fbq('track', 'PageView');
     var rb = transcriptFromChat();
     fields = fields || {};
     if (!fields.page_notes) fields.page_notes = rb.text;
-    if (!fields.job_value) fields.job_value = moneyFromChat();
 
     // Usable if the model's fields came through OR the person genuinely answered questions.
     var got = String(fields.what_you_do || "").length > 12 ||
@@ -1474,7 +1460,7 @@ fbq('track', 'PageView');
         transcript: S.msgs.map(function (m) {
           return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content;
         }).join("\n\n"),
-        answers: "(interview did not complete at question " + (S.qNum || 0) + " of 5" +
+        answers: "(interview did not complete at question " + (S.qNum || 0) + " of 3" +
                  (S.doneRetried ? "; one retry was attempted" : "") + ")"
       });
       return;
@@ -1482,12 +1468,10 @@ fbq('track', 'PageView');
 
     var extra = {};
     if (fields) {
-      extra.job_value = fields.job_value || "";
       extra.area_served = fields.area || "";
       extra.what_they_do = fields.what_you_do || "";
       extra.why_them = fields.known_for || "";
       extra.services_listed = fields.services_talk || "";
-      extra.years_in_business = fields.years || "";
       extra.must_haves = fields.must_haves || "";
       // The interview itself, section by section. Everything written for them comes from this.
       extra.answers = fields.page_notes || "";
@@ -1933,43 +1917,6 @@ fbq('track', 'PageView');
     return out.sort(function (a, b) { return b.score - a.score; }).slice(0, 3);
   }
 
-  // Their number, multiplied by a deliberately small number of extra calls, with the arithmetic on
-  // screen. No industry multipliers, no click-through statistics — nothing we would have to source.
-  // The answer is usually a BAND they tapped — "$5,000 to $25,000". Stripping every non-digit turned
-  // that into 500025000 and told an owner their average job was worth half a billion dollars, which
-  // discredits the entire report in one line. Take the FIRST number instead: on a band written
-  // low-to-high that is the conservative end, which is the side this report should always err to.
-  function jobValueNumber(raw) {
-    var txt = String(raw || "");
-    var m = txt.match(/\d[\d,]*(?:\.\d+)?/g);
-    if (!m || !m.length) return 0;
-    var n = parseFloat(m[0].replace(/,/g, ""));
-    if (!isFinite(n) || n < 1) return 0;
-    // "$5k" and "$5,000" both arrive here; a k suffix on the first number means thousands.
-    if (new RegExp("^" + m[0].replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*k\\b", "i").test(
-          txt.slice(txt.indexOf(m[0])))) n *= 1000;
-    // Nobody's average local job is eight figures — a number that large means we misread it.
-    if (n > 5000000) return 0;
-    return Math.round(n);
-  }
-
-  function moneyBlock(jobValue) {
-    var n = jobValueNumber(jobValue);
-    if (!n || n < 1) {
-      return '<p>You didn\'t put a number on a typical job, so do the arithmetic yourself: take what one ' +
-             'job is worth to you and multiply it by twelve. That is one extra job a month for a year, ' +
-             'which is a low bar for a profile that is currently getting skipped.</p>';
-    }
-    // One job a month, not three. On a $12,000 replacement, three would put a number on screen that no
-    // owner believes — and a figure he can laugh at costs more than a small one earns.
-    var m = n * 12;
-    return '<p>You told us a typical job is worth about <b>$' + n.toLocaleString() + '</b>.</p>' +
-           '<p class="sum">One extra job a month &times; 12 &times; $' + n.toLocaleString() +
-           ' = <b>$' + m.toLocaleString() + ' a year</b></p>' +
-           '<p class="fine">One a month is deliberately low &mdash; it is the number we would rather be under ' +
-           'than over. We are not going to quote you a click-through statistic we cannot show you the source of.</p>';
-  }
-
   function rewriteBlock(rw, g) {
     var cur = g.summary || "";
     var curHtml = cur
@@ -2002,7 +1949,7 @@ fbq('track', 'PageView');
   }
 
   // Objection handling at the moment of decision. Deliberately AFTER the report: before it, an open
-  // chat is just a way to avoid answering the five questions.
+  // chat is just a way to avoid answering the three questions.
   //
   // Six exchanges is a real ceiling, not a soft one. Each request carries only the Q&A history —
   // never the interview — so it stays far under the relay's 14-turn session cap, and the two padding
@@ -2141,7 +2088,6 @@ fbq('track', 'PageView');
       "What they do: " + (fields.what_you_do || ""),
       "Why customers pick them: " + (fields.known_for || ""),
       "Services they listed: " + (fields.services_talk || ""),
-      fields.years ? "How long in business: " + fields.years : "",
       fields.must_haves ? "Must appear: " + fields.must_haves : "",
       "",
       "Full transcript by section:",
@@ -2243,9 +2189,6 @@ fbq('track', 'PageView');
           }).join("") +
           '</div><p class="fine">Drawn from the review text on those competitors\' own listings.</p></section>';
       }
-
-      html += '<section class="rp-sec"><h3>' + (++n) + '. What that is worth on your jobs</h3>' +
-              moneyBlock(fields.job_value) + '</section>';
 
       html += '<section class="rp-sec rp-work"><h3>' + (++n) + '. Your profile, rewritten</h3>';
       html += failed
@@ -2469,26 +2412,26 @@ fbq('track', 'PageView');
 
   // A working sample of the finished report, for looking at the thing without answering five
   // questions first. Everything except the answers is REAL: a real Google profile, a real competitor
-  // sweep, real review dates, a real rewrite. Only the five interview answers are canned, because
+  // sweep, real review dates, a real rewrite. Only the three interview answers are canned, because
   // they are the one part a sample cannot go and fetch.
   var DEMOS = {
     roofing: {
       search: "Ridgeline Roofing Co, Windsor CA",
       trade: "roofing",
-      fields: { job_value: "14000", area: "Windsor, Santa Rosa and Healdsburg",
+      fields: { area: "Windsor, Santa Rosa and Healdsburg",
                 what_you_do: "Tear-offs and full replacements, plus storm damage repairs",
                 known_for: "We show up the day we say we will and we clean up after ourselves",
                 services_talk: "Roof replacement, tear-off, leak repair, storm damage",
-                years: "Since 2004, took it over from my dad", must_haves: "" }
+                must_haves: "" }
     },
     hvac: {
       search: "Valley Comfort Heating and Air, Santa Rosa CA",
       trade: "hvac",
-      fields: { job_value: "9000", area: "Santa Rosa and the surrounding towns",
+      fields: { area: "Santa Rosa and the surrounding towns",
                 what_you_do: "Furnace and AC replacements, repairs, and yearly tune-ups",
                 known_for: "We answer the phone at night and we do not charge a weekend rate",
                 services_talk: "Furnace replacement, AC install, repairs, maintenance plans",
-                years: "About 18 years", must_haves: "" }
+                must_haves: "" }
     }
   };
 
@@ -2546,12 +2489,12 @@ fbq('track', 'PageView');
     // Every question arrives from the relay as a JSON spec ({"say":"","q":"..."}), and that raw
     // string is what S.msgs holds. Replaying it verbatim printed the JSON to the visitor after any
     // reload — the question was in there, wrapped in braces and quotes. Unwrap it the same way the
-    // live turn does, and restore the "n of 5" counter while we are at it.
+    // live turn does, and restore the "n of 3" counter while we are at it.
     var qn = 0;
     S.msgs.forEach(function (m) {
       if (m.role === "user") { me(m.content); return; }
       var spec = parseSpec(m.content);
-      if (spec) { qn = Math.min(qn + 1, 5); sayQuestion(spec.q, qn); }
+      if (spec) { qn = Math.min(qn + 1, 3); sayQuestion(spec.q, qn); }
       else say(m.content);
     });
     S.qNum = qn; save();
