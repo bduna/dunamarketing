@@ -52,15 +52,12 @@ fbq('track', 'PageView');
     box-shadow:0 2px 12px rgba(0,29,82,.35); }
   .topbar img { height:32px; width:auto; display:block; background:#fff; border-radius:6px; padding:3px; }
   .topbar .name { font-weight:800; font-size:1.05rem; color:#fff; }
-  .topbar .meta { margin-left:auto; color:rgba(255,255,255,.85); font-size:.82rem; font-weight:600; }
   /* Shown only once there is saved progress. Without it a finished interview is a dead end —
      the state survives a hard refresh, so there was no way back to the start for anyone. */
   .topbar .restart { margin-left:auto; background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.7);
     border-radius:4px; padding:6px 10px; font-size:.8rem; font-weight:700; cursor:pointer; min-height:34px; }
   .topbar .restart:hover { background:rgba(255,255,255,.14); }
   .topbar .restart:focus-visible { outline:3px solid #fff; outline-offset:2px; }
-  .topbar .restart + .meta { margin-left:12px; }
-  @media (max-width:480px) { .topbar .restart + .meta { display:none; } }
 
   main { display:flex; flex-direction:column; align-items:center; width:100%;
     padding:16px 14px calc(20px + env(safe-area-inset-bottom)); }
@@ -450,7 +447,6 @@ fbq('track', 'PageView');
   <img src="duna_marketing_logo.png" alt="">
   <span class="name">Duna Marketing</span>
   <button type="button" class="restart" id="restart" hidden>Start over</button>
-  <span class="meta">saves as you go</span>
 </header>
 
 <main>
