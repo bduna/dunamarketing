@@ -431,10 +431,10 @@ fbq('track', 'PageView');
     padding:0 26px 2px; background:var(--red); color:#fff; border-radius:10px; font-weight:800;
     font-size:1.05rem; text-decoration:none; }
   /* The single most-missed line on the page: the buyer has to do something after paying, and if he
-     doesn't know that, he pays and vanishes. Prominence comes from contrast and containment, not
-     size — a panel a shade lighter than the CTA, white text, one step above the fine print. */
-  .cta .cta-access { margin:0 auto 14px; max-width:34em; padding:12px 14px; border-radius:10px;
-    background:rgba(255,255,255,.10); font-size:.95rem; line-height:1.5; color:#fff; font-weight:500; }
+     doesn't know that, he pays and vanishes. Prominence comes from white at full strength one step
+     above the fine print, not from a box; 33em holds the measure near 65 characters on desktop. */
+  .cta .cta-access { margin:2px auto 14px; max-width:33em; font-size:.95rem; line-height:1.5;
+    color:#fff; font-weight:500; }
   .cta .refund { margin:0; font-size:.88rem; color:#fff; font-weight:600; }
   .cta .fine { margin:8px 0 0; font-size:.78rem; color:#aab8d4; }
   @media (hover:hover) and (pointer:fine) { .cta .pay:hover { filter:brightness(1.08); } }
