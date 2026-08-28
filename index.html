@@ -419,10 +419,13 @@ fbq('track', 'PageView');
   .cta-list li::before { content:"\2713"; position:absolute; left:0; top:0; color:#fff; font-weight:800; }
   .cta-list b { color:#fff; }
   .cta-close { margin:0 0 16px; font-size:.92rem; color:#dbe3f4; }
+  /* The button is the one thing in this block that gets tapped, so it gets air on both sides —
+     an inline-flex element takes no vertical margin of its own from the paragraphs around it. */
   .cta .pay { display:inline-flex; align-items:center; justify-content:center; min-height:52px;
+    margin:clamp(18px, 5vw, 28px) 0 clamp(16px, 4vw, 24px);
     padding:0 26px; background:var(--red); color:#fff; border-radius:10px; font-weight:800;
     font-size:1.05rem; text-decoration:none; }
-  .cta .refund { margin:12px 0 0; font-size:.88rem; color:#fff; font-weight:600; }
+  .cta .refund { margin:0; font-size:.88rem; color:#fff; font-weight:600; }
   .cta .fine { margin:8px 0 0; font-size:.78rem; color:#aab8d4; }
   @media (hover:hover) and (pointer:fine) { .cta .pay:hover { filter:brightness(1.08); } }
   @media (max-width:560px) { .rw-pair { grid-template-columns:1fr; } }
