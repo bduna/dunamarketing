@@ -392,7 +392,7 @@ fbq('track', 'PageView');
     to   { background:transparent; box-shadow:0 0 0 6px transparent; }
   }
   .notme { margin:10px 0 0; }
-  .notme a { font-size:.86rem; color:var(--muted); }
+  .notme a { font-size:.86rem; color:var(--navy); font-weight:600; }
   .cta { margin:30px 0 0; padding:22px 20px; border-radius:14px; background:var(--navy); color:#fff; text-align:center; }
   .cta h3 { margin:0 0 8px; font-size:1.25rem; color:#fff; }
   .cta p { margin:0 0 14px; font-size:.95rem; color:#d7e0f2; }
@@ -1160,11 +1160,11 @@ fbq('track', 'PageView');
     if (g.website) S.a.current_website_url = g.website;
     save(); fb("GoogleConfirmed");
     submitLead("listing_picked");
+    botSays("Give me a moment \u2014 I\u2019m reading your profile and displaying the results.");
 
     // Nothing is asked. The listing is all the report needs, so it gets built the moment they say
     // yes — and the three questions become an offer inside it, next to the one section that cannot
     // be written without them. Asking first was asking a stranger to work before seeing anything.
-    botSays("Give me a moment \u2014 I\u2019m reading your profile and the companies above you.");
     typing(true);
 
     var traded = classifyTrade(g).then(function (t) {
