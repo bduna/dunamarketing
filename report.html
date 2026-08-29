@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
-<title>Duna Marketing &mdash; Free Google Profile Scan for Roofers &amp; HVAC</title>
+<title>Your Google Profile Report &mdash; Duna Marketing</title>
 <meta name="description" content="See your Google Business Profile next to the roofing and HVAC companies sitting above you in the map — reviews, rating, photos, what they list that you don't. Free, about a minute, no email or phone number.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Duna Marketing">
@@ -716,11 +716,7 @@ fbq('track', 'PageView');
       if (!S.a.business_name) { S.a.business_name = label; save(); }
       me(label);      // their pick becomes their message
       w.remove();     // and the field goes, like a text that has been sent
-      // The homepage's job ends here. The pick is handed to the report page through storage rather
-      // than a query string, so a shared link can never run a report for somebody else's business.
-      try { localStorage.setItem("duna_pick", JSON.stringify({ place_id: id, name: label, at: Date.now() })); } catch (e) {}
-      typing(true);
-      setTimeout(function () { location.href = "report.html"; }, 260);
+      gDetails(id);
     }
     gq.addEventListener("input", function () {
       clearTimeout(timer); var v = gq.value.trim();
@@ -1986,14 +1982,26 @@ fbq('track', 'PageView');
 
   // ================= boot =================
   var demoKey = (location.search.match(/[?&]demo=([a-z]+)/i) || [])[1];
-  if (demoKey) {
+  // The homepage hands the pick over in localStorage rather than a query string: a place_id in a URL
+  // is a thing people share, and a shared link would run a report for somebody else's business.
+  var handoff = null;
+  try { handoff = JSON.parse(localStorage.getItem("duna_pick") || "null"); } catch (e) {}
+  if (handoff && handoff.place_id && (!S.google || S.google.place_id !== handoff.place_id)) {
+    try { localStorage.removeItem("duna_pick"); } catch (e) {}
+    S.a.business_name = handoff.name || S.a.business_name || "";
+    S.google = null; S.phase = "report"; save();
+    me(handoff.name || "");
+    gDetails(handoff.place_id);
+  } else if (demoKey) {
     runDemo(demoKey.toLowerCase());
   } else if (S.google && (S.phase === "report" || S.phase === "confirm")) {
     // A reload re-runs the report on the listing they already picked, rather than making them
     // search for their own business a second time.
     drawCard(S.google);
   } else {
-    askPlaces();
+    // Reached directly with nothing chosen. The search lives on the homepage now.
+    say("Let\u2019s find your listing first.");
+    setTimeout(function () { location.replace("/"); }, 900);
   }
   fb("ChatOpen");
 })();
