@@ -81,34 +81,6 @@ fbq('track', 'PageView');
   @keyframes bl { 0%,60%,100%{opacity:.35} 30%{opacity:1} }
   @media (prefers-reduced-motion:reduce){ .typing span{animation:none} }
 
-  /* ---- composer ---- */
-  /* An explicit display value beats the UA's [hidden] rule, so say it again for both. */
-  .composer[hidden], .hint[hidden] { display:none; }
-  /* In the flow, tight under the last message — not pinned to the bottom of the screen. A composer
-     stuck to the viewport leaves a dead gap under a short conversation and reads like a form footer;
-     this way the input is simply the next thing after what was just said. */
-  .composer { margin-top:12px; padding:0 0 4px; display:flex; gap:8px; align-items:flex-end; }
-  /* A pill that grows with what they type, and a round send — the shape people already know from
-     Messages. The border is thin on purpose; it only has to say "you can type here". */
-  .composer textarea { flex:1; font:inherit; font-size:1rem; line-height:1.4; padding:12px 18px;
-    border-radius:24px; border:1px solid var(--input-line); background:#fff; resize:none;
-    min-height:48px; max-height:140px; }
-  .composer textarea::placeholder { color:var(--muted); }
-  /* One edge, not two. Recolouring the border AND drawing an outline around it stacked two navy
-     rings and read as a double border. The border thickens in colour; the halo does the rest.
-     The transparent outline is kept so Windows High Contrast still paints a focus ring. */
-  .composer textarea:focus { outline:2px solid transparent; outline-offset:1px;
-    border-color:var(--navy); box-shadow:0 0 0 3px rgba(0,48,135,.16); }
-  .send { flex:0 0 auto; width:48px; height:48px; display:grid; place-items:center; padding:0;
-    border:0; border-radius:50%; background:var(--red); color:#fff; cursor:pointer;
-    transition:background var(--dur,160ms) ease, transform 120ms ease; }
-  .send svg { width:22px; height:22px; display:block; }
-  .send:hover:not(:disabled) { background:var(--red-dark); }
-  .send:active:not(:disabled) { transform:scale(0.94); }
-  .send:focus-visible { outline:3px solid var(--navy); outline-offset:2px; }
-  .send:disabled { background:#b9c0cc; cursor:default; }
-  .hint { text-align:center; font-size:.78rem; color:var(--muted); margin:2px 0 0; }
-
   /* ---- a field living IN the conversation ----
      No panel, no border box, no shadow — the field is the only thing you can see, sitting on the
      same background as the messages. It is not a bubble: bubbles are things that were said. */
@@ -419,6 +391,8 @@ fbq('track', 'PageView');
     from { background:var(--navy-soft); box-shadow:0 0 0 6px var(--navy-soft); }
     to   { background:transparent; box-shadow:0 0 0 6px transparent; }
   }
+  .notme { margin:10px 0 0; }
+  .notme a { font-size:.86rem; color:var(--muted); }
   .cta { margin:30px 0 0; padding:22px 20px; border-radius:14px; background:var(--navy); color:#fff; text-align:center; }
   .cta h3 { margin:0 0 8px; font-size:1.25rem; color:#fff; }
   .cta p { margin:0 0 14px; font-size:.95rem; color:#d7e0f2; }
@@ -471,11 +445,6 @@ fbq('track', 'PageView');
 
     <div class="thread" id="thread" aria-live="polite"></div>
 
-    <div class="composer" id="composer" hidden>
-      <textarea id="input" rows="1" placeholder="Type or tap the mic…" aria-label="Your answer"></textarea>
-      <button class="send" id="send" type="button" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
-    </div>
-    <p class="hint" id="hint" hidden><strong>On a phone:</strong> tap the box, then the microphone on your keyboard, and just talk.</p>
     <p class="sample"><a href="?demo=roofing">Sample Roofing Report</a> &#183; <a href="?demo=hvac">Sample HVAC Report</a></p>
   </div>
 </main>
@@ -510,7 +479,7 @@ fbq('track', 'PageView');
   var MIN_SECONDS_BEFORE_CHAT = 15;   // matches the server-side floor
 
   var $ = function (id) { return document.getElementById(id); };
-  var thread = $("thread"), composer = $("composer"), input = $("input"), send = $("send"), hint = $("hint");
+  var thread = $("thread");
 
   // /chat.html?restart always begins a fresh interview. The saved state lives in localStorage, which
   // a hard refresh does not touch, so without this the only way out of a finished interview was the
@@ -541,9 +510,9 @@ fbq('track', 'PageView');
   (function () {
     var btn = $("restart");
     if (!btn) return;
-    if (S.started || S.done || (S.msgs && S.msgs.length) || (S.a && S.a.business_name)) btn.hidden = false;
+    if (S.google || (S.a && S.a.business_name)) btn.hidden = false;
     btn.addEventListener("click", function () {
-      if (!confirm("Start the interview again from the beginning? Your answers so far will be cleared.")) return;
+      if (!confirm("Start again with a different business?")) return;
       try { localStorage.removeItem(STORE_KEY); } catch (e) {}
       location.replace(location.pathname);
     });
@@ -554,8 +523,7 @@ fbq('track', 'PageView');
   function cookie(n) { var m = document.cookie.match("(?:^|; )" + n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + "=([^;]*)"); return m ? decodeURIComponent(m[1]) : ""; }
 
   // ---------- thread helpers ----------
-  // The bottom of the conversation is whatever comes last — the composer when it is open, otherwise
-  // the newest message.
+  // The bottom of the conversation is whatever came last.
   //
   //  · window.innerHeight is the WRONG ruler once a keyboard is open. On iOS the layout viewport
   //    stays full height and the keyboard covers the bottom of it, so anything measured against
@@ -649,7 +617,7 @@ fbq('track', 'PageView');
 
   function scrollTail() {
     if (booting) return;
-    var t = (composer && !composer.hidden) ? composer : thread.lastElementChild;
+    var t = thread.lastElementChild;
     if (!t) return;
     var r = t.getBoundingClientRect(), v = visibleBox();
     var below = r.bottom - (v.bottom - TAIL_GAP);   // how far it sits under the fold / keyboard
@@ -672,7 +640,7 @@ fbq('track', 'PageView');
       var inset = Math.max(0, (window.innerHeight || 0) - (vv.offsetTop + vv.height));
       document.body.style.paddingBottom = inset > 1 ? inset + "px" : "";
       clearTimeout(t);
-      t = setTimeout(function () { if (composer && !composer.hidden) scrollTail(); }, 120);
+      t = setTimeout(scrollTail, 120);
     }
     vv.addEventListener("resize", recheck);
     vv.addEventListener("scroll", recheck);
@@ -697,13 +665,12 @@ fbq('track', 'PageView');
     scrollTail();
     return d;
   }
-  // A short pause with the typing dots, so a reply never appears in the same instant they hit send.
+  // A short pause with the typing dots, so a line never lands in the same instant as the last one.
   function botSays(text, after) {
-    send.disabled = true; typing(true);
+    typing(true);
     setTimeout(function () {
-      typing(false); send.disabled = false; say(text);
-      if (after) { after(); return; }
-      try { input.focus({ preventScroll: true }); } catch (e) {}
+      typing(false); say(text);
+      if (after) after();
     }, 420);
   }
   // Tiles and thumbnails ask for a resized copy — pointing an <img> at the original downloads
@@ -878,26 +845,33 @@ fbq('track', 'PageView');
         try { console.log("[duna] gDetails failed: " + err); } catch (e) {}
         typing(false);
         if (S.google) { drawCardSafe(S.google); return; }
-        say("I couldn't reach Google just then — no problem, I'll take it from your answers.");
-        beginInterview();
+        say("I couldn't reach Google just then. Give it a moment and search again.");
+        placesField();
       });
   }
   // The confirmation is a message from the bot, with the two replies as taps. No card.
   // What Google found, as one message with nothing in it but the business — then the question as a
-  // separate message underneath, answered in the composer like every other question. No buttons
-  // living inside a panel.
   function drawCard(g) {
     if (S.demo) { S.phase = "confirm"; save(); return; }   // sample mode wants the data, not the card
+    // The pick IS the confirmation. Asking "is that your business?" after they chose it from a list
+    // of their own name and address was a tap that bought nothing — the card below shows what was
+    // matched, and the way out sits inside it for the one person in fifty who picked wrong.
     bubble("bot",
       '<p class="gname">' + esc(g.name) + '</p>' +
       (g.type ? '<p class="gline">' + esc(g.type) + '</p>' : "") +
       (g.address ? '<p class="gline">' + esc(g.address) + '</p>' : "") +
       (g.hours ? '<p class="gline">' + esc(g.hours.split("; ")[0]) + (g.hours.indexOf(";") !== -1 ? " …" : "") + '</p>' : "") +
       (g.rating ? '<p class="gline">★ ' + g.rating + ' · ' + g.ratings + ' reviews</p>' : "") +
-      (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(thumbUrl(ph.url)) + '" alt="" loading="lazy" decoding="async">'; }).join("") + '</div>' : ""));
-    S.phase = "confirm"; save();
-    composer.hidden = false; hint.hidden = false;
-    askConfirm();
+      (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(thumbUrl(ph.url)) + '" alt="" loading="lazy" decoding="async">'; }).join("") + '</div>' : "") +
+      '<p class="notme"><a href="#" id="notme">Not your listing? Search again</a></p>');
+    S.phase = "report"; save();
+    var link = document.getElementById("notme");
+    if (link) link.addEventListener("click", function (e) {
+      e.preventDefault();
+      S.google = null; S.a.place_id = ""; S.a.business_name = ""; S.phase = "places"; save();
+      location.replace(location.pathname);
+    });
+    startAfterConfirm(g);
   }
   // drawCard without the decorations — used when the full card throws, so a rendering bug can
   // never again silently skip the confirmation step.
@@ -906,80 +880,10 @@ fbq('track', 'PageView');
     try {
       bubble("bot", '<p class="gname">' + esc(g.name) + '</p>' +
                     (g.address ? '<p class="gline">' + esc(g.address) + '</p>' : ""));
-      S.phase = "confirm"; save();
-      composer.hidden = false; hint.hidden = false;
-      askConfirm();
-    } catch (e) { beginInterview(); }
-  }
-  // "Is that your business?" is a yes/no, so it should cost a tap, not a keyboard. The buttons sit
-  // in the same .qrow the interview questions use, so this reads as the first of the tappable
-  // answers rather than a one-off. Typing still works — the composer stays open underneath.
-  function askConfirm() {
-    send.disabled = true; typing(true);
-    setTimeout(function () {
-      typing(false); send.disabled = false;
-      var row = document.createElement("div");
-      row.className = "qrow";
-      var b = document.createElement("div");
-      b.className = "msg bot";
-      b.textContent = "Is that your business?";
-      row.appendChild(b);
-
-      var box = document.createElement("div");
-      box.className = "confirm";
-      var yes = document.createElement("button");
-      yes.type = "button"; yes.className = "cbtn yes"; yes.textContent = "Yes";
-      var no = document.createElement("button");
-      no.type = "button"; no.className = "cbtn no"; no.textContent = "No";
-      box.appendChild(yes); box.appendChild(no);
-      row.appendChild(box);
-
-      thread.appendChild(row);
-      scrollTail();
-
-      function answer(label, value) {
-        if (box.parentNode) box.parentNode.removeChild(box);
-        me(label);
-        confirmAnswer(value);
-      }
-      yes.addEventListener("click", function () { answer("Yes", "yes"); });
-      no.addEventListener("click", function () { answer("No", "no"); });
-      // Deliberately no focus() here: with two buttons on screen, opening the keyboard would push
-      // them off it on a phone.
-    }, 420);
-  }
-
-  var YES_RE = /^(y|ye|yes|yeah|yep|yup|sure|correct|right|aye|ok|okay|that'?s (it|me|us|right)|it is|us|me|mine|thats? me)\b/i;
-  var NO_RE  = /^(n|no|nope|nah|not|negative|wrong|different|another|isn'?t)\b/i;
-  function confirmAnswer(v) {
-    var g = S.google;
-    if (!g) { S.phase = "places"; save(); composer.hidden = true; hint.hidden = true; placesField(); return; }
-    if (YES_RE.test(v)) {
-      S.a.place_id = g.place_id;
-      if (!S.a.business_name) S.a.business_name = g.name;
-      // NOT the phone: Google lists the business line, which is often a landline, and Barrett
-      // replies by text. We ask for a textable number instead, offering this one as the default.
-      if (g.address) S.a.address = g.address;
-      if (g.hours) S.a.hours = g.hours;
-      // Google already publishes the business line, so asking for a number is a step that buys
-      // nothing. Square collects the buyer's own name, email and mobile at checkout — the personal
-      // details arrive with the payment instead of with a question.
-      if (g.phone && !S.a.phone) S.a.phone = g.phone;
-      if (g.website) S.a.current_website_url = g.website;
-      save(); fb("GoogleConfirmed");
-      submitLead("confirmed");
+      S.phase = "report"; save();
       startAfterConfirm(g);
-      return;
-    }
-    if (NO_RE.test(v)) {
-      S.google = null; S.a.place_id = ""; S.a.business_name = ""; S.phase = "places"; save();
-      composer.hidden = true; hint.hidden = true;
-      botSays("No problem — try the name and city again.", placesField);
-      return;
-    }
-    botSays("Sorry — is that your business? Yes or no is fine.");
+    } catch (e) { startAfterConfirm(g); }
   }
-
   // The analysis is only as sharp as its comparison. One extra Places call pulls the same-trade
   // competition in their town, so the model can say "12 reviews against a local median of 95"
   // instead of "you could use more reviews". Fails silently — the audit still works without it.
@@ -1153,8 +1057,6 @@ fbq('track', 'PageView');
   }
 
   // ================= PHASE 2 — contact (still no model, no cost) =================
-  // Asked one at a time, in the thread, answered in the same composer they will use for the whole
-  // interview. Anything Google already told us is skipped rather than asked twice.
   // ================= PHASE 3 — the interviewer (model starts HERE) =================
   // Everything the analyst needs, formatted as an audit it can quote from. Numbers first — the
   // model's opening message is built directly from these.
@@ -1187,41 +1089,6 @@ fbq('track', 'PageView');
     }
     return out.join("\n");
   }
-  // Three questions is the promise, so the count is on screen the whole way. An interview with a
-  // visible end gets finished; one that could go on forever gets abandoned.
-  function progressHtml(n) {
-    return '<span class="qdots">' +
-      [1, 2, 3].map(function (i) {
-        return '<i class="' + (i < n ? "d fill" : (i === n ? "d live" : "d")) + '"></i>';
-      }).join("") + '</span><b>' + n + ' of 3</b>';
-  }
-
-  // The question and its counter as one row: bubble on the left, counter pinned to the top right.
-  // It used to live in the hint line under the composer, which put it a long way from the thing it
-  // was counting.
-  function sayQuestion(text, n) {
-    var row = document.createElement("div");
-    row.className = "qrow";
-    var b = document.createElement("div");
-    b.className = "msg bot";
-    b.innerHTML = esc(text).replace(/\n/g, "<br>");
-    row.appendChild(b);
-    if (n) {
-      var meta = document.createElement("div");
-      meta.className = "qmeta";
-      meta.innerHTML = progressHtml(n);
-      row.appendChild(meta);
-    }
-    thread.appendChild(row);
-    scrollTail();
-    return row;
-  }
-
-  function showProgress() { hint.hidden = true; }
-
-  // Which trade, asked once, before the sweep runs. Google's category will not carry this reliably
-  // — plenty of roofers are filed as "Contractor" and plenty of HVAC companies as "Contractor" too
-  // — and the competitor filter is only trustworthy if we know which word to look for.
   // Which trade, decided from the listing rather than asked. The question cost a tap and a beat of
   // the visitor's attention to learn something the profile already says out loud.
   //
@@ -1283,10 +1150,20 @@ fbq('track', 'PageView');
   var TRADE_LABEL = { roofing: "Roofing", hvac: "HVAC", other: "Other" };
 
   function startAfterConfirm(g) {
+    // What the confirm step used to record. Without this the lead row has a business name and no
+    // place_id, which is the one field the work cannot start from.
+    S.a.place_id = g.place_id;
+    if (!S.a.business_name) S.a.business_name = g.name;
+    if (g.address) S.a.address = g.address;
+    if (g.hours) S.a.hours = g.hours;
+    if (g.phone && !S.a.phone) S.a.phone = g.phone;
+    if (g.website) S.a.current_website_url = g.website;
+    save(); fb("GoogleConfirmed");
+    submitLead("listing_picked");
+
     // Nothing is asked. The listing is all the report needs, so it gets built the moment they say
     // yes — and the three questions become an offer inside it, next to the one section that cannot
     // be written without them. Asking first was asking a stranger to work before seeing anything.
-    composer.hidden = true; hint.hidden = true;
     botSays("Give me a moment \u2014 I\u2019m reading your profile and the companies above you.");
     typing(true);
 
@@ -1306,105 +1183,6 @@ fbq('track', 'PageView');
         S.reportOnly = true; save();
         buildReport({}, true);
       });
-  }
-
-  // They asked for the description after all. The interview picks up under the report they are
-  // already looking at, and its answers are dropped into the gap the report left for them.
-  function startQuestions(btn) {
-    if (S.started) return;
-    if (btn) { btn.disabled = true; btn.textContent = "One moment\u2026"; }
-    fb("QuestionsStarted");
-    beginInterview();
-    setTimeout(scrollTail, 60);
-  }
-
-  function beginInterview() {
-    S.phase = "chat"; S.started = true; S.qNum = 0; save();
-    composer.hidden = false; hint.hidden = false;
-    // No wait: the first question is about their own business, so the competitor sweep can finish in
-    // its own time. It used to be held for the opening comparison, which is gone.
-    turn("");
-  }
-  // Retries on its own before it ever bothers them. Their answer is already in S.msgs by the time a
-  // request goes out, so a retry re-sends the conversation with no new text — calling turn("") is a
-  // resend, not a fresh turn. The old error told people to "tap Send to try again", but Send does
-  // nothing with an empty box, so a single blip stranded the interview for good.
-  function turn(userText, attempt) {
-    if (S.done) return;
-    attempt = attempt || 1;
-    if (userText) { S.msgs.push({ role: "user", content: userText }); save(); }
-    send.disabled = true; typing(true);
-
-    // A cold relay can take half a minute. Dots alone read as broken at that length, and the first
-    // turn is exactly where a cold start is most likely, so say something true rather than nothing.
-    var slowNote = null;
-    var slowTimer = setTimeout(function () {
-      if (S.done) return;
-      slowNote = bubble("bot", "Still working &mdash; first answer takes a few seconds longer.", true);
-    }, 7000);
-    function clearSlow() {
-      clearTimeout(slowTimer);
-      if (slowNote) { slowNote.remove(); slowNote = null; }
-    }
-
-    function fail(why) {
-      clearSlow();
-      try { console.log("[duna] chat turn failed (attempt " + attempt + "): " + why); } catch (e) {}
-      if (attempt < 3) { setTimeout(function () { turn("", attempt + 1); }, 800 * attempt); return; }
-      typing(false); send.disabled = false;
-      var b = bubble("bot",
-        "I couldn&rsquo;t reach my end just then. Nothing you&rsquo;ve told me is lost.<br>" +
-        '<button type="button" class="linkbtn" id="retry-now">Try that again</button><br>' +
-        '<span class="pcount">Still stuck? Text Barrett on <a href="tel:+17073855673">(707) 385-5673</a>.</span>');
-      b.querySelector("#retry-now").addEventListener("click", function () { b.remove(); turn("", 1); });
-    }
-
-    fetch(LEADS_URL, {
-      method: "POST", mode: "cors", redirect: "follow",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({
-        secret: LEADS_SECRET, action: "chat", lead_id: S.lead_id,
-        known: knownFacts(),
-        // Not a message from the person — it is the cue that starts the interview. "Let's begin."
-        // read as an empty answer and tripped the model's abandon-the-interview rule.
-        messages: S.msgs.length ? S.msgs : [{ role: "user", content: "(Interview starting. Ask your first question.)" }]
-      })
-    }).then(function (r) {
-      if (!r.ok) throw new Error("HTTP " + r.status);
-      return r.text();
-    }).then(function (t) {
-      var j = null;
-      try { j = JSON.parse(t); } catch (e) { throw new Error("bad JSON: " + t.slice(0, 120)); }
-      if (!j || j.ok === false) throw new Error("relay: " + ((j && j.error) || "unknown"));
-      if (!j.reply && !j.done) throw new Error("empty reply");
-      clearSlow();
-      typing(false); send.disabled = false;
-
-      if (j.done) {
-        var f = j.fields;
-        var usable = f && (String(f.page_notes || "").length > 40 ||
-                           String(f.what_you_do || "").length > 20);
-        // The relay calls it done whenever the model emits ANY json containing "complete" — which
-        // includes the abandonment object {"complete": false}. A tapped interview can trip that by
-        // mistake, and the person is then told to go away mid-way through. One more attempt on the
-        // same conversation costs a few seconds and usually gets a proper turn back.
-        if (!usable && !S.doneRetried && (S.qNum || 0) < 3 && !/at capacity/i.test(j.reply || "")) {
-          S.doneRetried = true; save();
-          try { console.log("[duna] done with no usable fields at q" + S.qNum + " — retrying once"); } catch (e) {}
-          turn("");
-          return;
-        }
-        S.msgs.push({ role: "assistant", content: j.reply }); save();
-        say(j.reply); finish(f); return;
-      }
-
-      S.msgs.push({ role: "assistant", content: j.reply }); save();
-      if (S.phase === "chat") {
-        S.qNum = Math.min((S.qNum || 0) + 1, 3); save();
-        showProgress();
-      }
-      askUI(j.reply);
-    }).catch(function (e) { fail(e && e.message ? e.message : String(e)); });
   }
 
   // ================= finish: write the brief to the sheet =================
@@ -1469,226 +1247,6 @@ fbq('track', 'PageView');
     var fn = paintReport; paintReport = null;
     fn();
   }
-
-  // The model's closing summary is a convenience, not the source of truth — the browser already
-  // holds every question it asked and every answer that came back. When that summary arrives empty
-  // or truncated (400 output tokens is not much once page_notes is full), rebuilding the transcript
-  // here is strictly better than telling a customer who answered everything to go away.
-  //
-  // Nothing is invented: each line is a question we asked and the words they chose.
-  function transcriptFromChat() {
-    var out = [], lastQ = null, pairs = 0;
-    for (var i = 0; i < S.msgs.length; i++) {
-      var m = S.msgs[i];
-      if (m.role === "assistant") {
-        var spec = parseSpec(m.content);
-        lastQ = spec ? spec.q : String(m.content || "").trim();
-        if (lastQ && lastQ.length > 120) lastQ = null;      // the sign-off, not a question
-      } else if (m.role === "user" && lastQ) {
-        var a = String(m.content || "").trim();
-        if (a && a.indexOf("(Interview starting") !== 0) {
-          out.push(lastQ + "\n" + a); pairs++;
-        }
-        lastQ = null;
-      }
-    }
-    return { text: out.join("\n\n"), pairs: pairs };
-  }
-
-  function finish(fields) {
-    S.done = true; save();
-
-    // No usable answers means the interview never really happened — a capacity message, an
-    // abandonment, a relay failure. Generating "their" profile copy from nothing would invent a
-    // business description and publish-ready text for a real company, so it stops here instead.
-    // The word-for-word record comes from here, not from the model: every question it asked and
-    // every answer they typed, already in the browser. The model only sends the short fields.
-    var rb = transcriptFromChat();
-    fields = fields || {};
-    if (!fields.page_notes) fields.page_notes = rb.text;
-
-    // Usable if the model's fields came through OR the person genuinely answered questions.
-    var got = String(fields.what_you_do || "").length > 12 ||
-              String(fields.known_for || "").length > 12 ||
-              rb.pairs >= 2;
-
-    if (!got) {
-      typing(false);
-      composer.hidden = true; hint.hidden = true;
-      // Two very different reasons land here and they used to read identically, which made a
-      // self-inflicted daily ceiling look like a broken interview. Say which one it was.
-      var lastBot = "";
-      for (var k = S.msgs.length - 1; k >= 0; k--) {
-        if (S.msgs[k].role === "assistant") { lastBot = S.msgs[k].content || ""; break; }
-      }
-      var capped = /at capacity for today/i.test(lastBot);
-      bubble("bot", capped
-        ? '<div class="done"><h2>We\'re full for today.</h2>' +
-          '<p>There\'s a daily limit on how many of these I run, and it\'s been reached. Nothing is wrong ' +
-          'with your listing or your answers. Text Barrett on <a href="sms:+17073855673">(707) 385-5673</a> ' +
-          'and he\'ll run yours himself, or come back tomorrow.</p></div>'
-        : '<div class="done"><h2>Let\'s pick this up by text.</h2>' +
-          '<p>I couldn\'t finish the questions just now, and I\'m not going to write your profile from ' +
-          'guesses. Text Barrett on <a href="sms:+17073855673">(707) 385-5673</a> and he\'ll take it from here.</p></div>',
-        true);
-      // Save the conversation. The last time this fired the row held nothing at all, so there was
-      // no way to tell an abandonment from a bug — which is most of why it fired twice more.
-      submitLead(capped ? "capped" : "incomplete", {
-        transcript: S.msgs.map(function (m) {
-          return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content;
-        }).join("\n\n"),
-        answers: "(interview did not complete at question " + (S.qNum || 0) + " of 3" +
-                 (S.doneRetried ? "; one retry was attempted" : "") + ")"
-      });
-      return;
-    }
-
-    var extra = {};
-    if (fields) {
-      extra.area_served = fields.area || "";
-      extra.what_they_do = fields.what_you_do || "";
-      extra.why_them = fields.known_for || "";
-      extra.services_listed = fields.services_talk || "";
-      extra.must_haves = fields.must_haves || "";
-      // The interview itself, section by section. Everything written for them comes from this.
-      extra.answers = fields.page_notes || "";
-      if (fields.rebuilt) extra.answers += "\n\n(rebuilt from the chat: the model's summary came back empty)";
-    }
-    extra.transcript = S.msgs.map(function (m) { return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content; }).join("\n\n");
-    // The report is the product of this page, so it renders whether or not the sheet write lands.
-    // A failed lead row costs Barrett a notification; a withheld report costs the sale.
-    S.answers = extra; save();
-    composer.hidden = true; hint.hidden = true;
-
-    // Nothing is asked after the last question now, so this write carries everything we will ever
-    // have from the site: their answers plus the number Google publishes for the business.
-    submitLead("complete", extra).then(function (j) {
-      try {
-        sessionStorage.setItem("duna_intake", JSON.stringify({
-          business_name: S.a.business_name, submitted: true,
-          lead_ok: !!(j && j.lead_ok), lead_id: S.lead_id, product: "gbp"
-        }));
-      } catch (e) {}
-    }).catch(function () {});
-    fb("LeadComplete");
-
-    phoneDone = true;                 // nothing left to wait on; paint the moment it is built
-    // Two ways in: the report is already on screen and only the description is missing, or (a
-    // resumed session, a demo) there is no report yet and the whole thing gets built.
-    if (reportHost) { fillRewrite(fields || {}); return; }
-    typing(true);
-    buildReport(fields || {}, false);
-  }
-
-  // ======================================================================
-  //  ANSWERING WITHOUT TYPING
-  //
-  //  Each interview turn arrives as a small spec — {say, q, type, options, other} — and we render
-  //  the control it asks for. Tapping is the whole point: on a phone, five typed answers is where
-  //  people quit, and a tapped option is not a worse answer when the options are built from their
-  //  own review text rather than a stock list.
-  //
-  //  Everything degrades to the old behaviour: if the JSON is malformed, or names a type we don't
-  //  know, or carries no options, the reply is shown as plain text and the keyboard comes back.
-  // ======================================================================
-
-  function parseSpec(reply) {
-    var t = String(reply || "").trim();
-    var m = t.match(/\{[\s\S]*\}/);
-    if (!m) return null;
-    var o = null;
-    try { o = JSON.parse(m[0]); } catch (e) { return null; }
-    if (!o || typeof o.q !== "string" || !o.q.trim()) return null;
-    var type = String(o.type || "").toLowerCase();
-    if (["money", "multi", "chips", "text"].indexOf(type) < 0) type = "text";
-    var opts = (o.options || []).filter(function (x) { return typeof x === "string" && x.trim(); })
-                                .map(function (x) { return x.trim(); }).slice(0, 6);
-    if (type !== "text" && opts.length < 2) type = "text";
-    return { say: (typeof o.say === "string" ? o.say.trim() : ""), q: o.q.trim(),
-             type: type, options: opts, other: o.other !== false };
-  }
-
-  function askUI(reply) {
-    var spec = parseSpec(reply);
-    if (!spec) {                       // not a spec at all — behave exactly as before
-      say(reply);
-      composer.hidden = false;
-      setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 60);
-      return;
-    }
-    if (spec.say) say(spec.say);
-    sayQuestion(spec.q, S.phase === "chat" ? (S.qNum || 0) : 0);
-
-    if (spec.type === "text") {
-      composer.hidden = false;
-      setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 60);
-      return;
-    }
-
-    composer.hidden = true;            // no keyboard unless they ask for one
-    var multi = (spec.type === "multi");
-    var picked = [];
-    var box = bubble("bot", '<div class="opts' + (spec.type === "money" ? " money" : "") + '"></div>', true);
-    var wrap = box.querySelector(".opts");
-
-    // Remove the whole bubble, not just the buttons inside it — dropping only the inner div leaves
-    // an empty white card sitting in the thread after every answered question.
-    function clearOptions() {
-      if (box && box.parentNode) box.parentNode.removeChild(box);
-    }
-    function send(text) {
-      clearOptions();
-      me(text);
-      turn(text);
-    }
-
-    spec.options.forEach(function (label) {
-      var b = document.createElement("button");
-      b.type = "button"; b.className = "opt"; b.textContent = label;
-      b.addEventListener("click", function () {
-        if (!multi) { send(label); return; }
-        var i = picked.indexOf(label);
-        if (i >= 0) { picked.splice(i, 1); b.classList.remove("on"); }
-        else { picked.push(label); b.classList.add("on"); }
-        doneBtn.disabled = !picked.length;
-        doneBtn.textContent = picked.length ? "Done (" + picked.length + ")" : "Done";
-      });
-      wrap.appendChild(b);
-    });
-
-    var doneBtn = null;
-    if (multi) {
-      doneBtn = document.createElement("button");
-      doneBtn.type = "button"; doneBtn.className = "opt done"; doneBtn.textContent = "Done";
-      doneBtn.disabled = true;
-      doneBtn.addEventListener("click", function () {
-        if (picked.length) send(picked.join(", "));
-      });
-      wrap.appendChild(doneBtn);
-    }
-
-    if (spec.other) {
-      var o = document.createElement("button");
-      o.type = "button"; o.className = "opt other"; o.textContent = "Something else\u2026";
-      o.addEventListener("click", function () {
-        clearOptions();
-        composer.hidden = false;
-        input.placeholder = "Type your answer";
-        setTimeout(function () { try { input.focus(); } catch (e) {} }, 60);
-      });
-      wrap.appendChild(o);
-    }
-    scrollTail();
-  }
-
-  // ======================================================================
-  //  THE REPORT
-  //
-  //  Division of labour, and it is deliberate: every NUMBER on this page is computed here in JS
-  //  from what the Places API actually returned. The model is handed no numbers and asked for no
-  //  numbers — it writes prose only, from the owner's own answers. That makes an invented
-  //  competitor statistic structurally impossible rather than merely discouraged.
-  // ======================================================================
 
   function esc2(x) { return esc(String(x == null ? "" : x)); }
 
@@ -1994,48 +1552,6 @@ fbq('track', 'PageView');
     return out.sort(function (a, b) { return b.score - a.score; }).slice(0, 3);
   }
 
-  function rewriteBlock(rw, g) {
-    var cur = g.summary || "";
-    var curHtml = cur
-      ? '<p>' + esc2(cur) + '</p><p class="fine">That text is written by Google, not by you &mdash; ' +
-        'the owner description on your profile is either empty or not public.</p>'
-      : '<p class="empty">Nothing here.</p><p class="fine">No owner description is visible on your profile. ' +
-        'This is the largest piece of free space on your listing and it is blank.</p>';
-    var curSvc = g.type ? '<p>' + esc2(g.type) + '</p><p class="fine">One approximate category. Not a services list.</p>'
-                        : '<p class="empty">Nothing here.</p>';
-    var html = '<div class="rw">' +
-      '<div class="rw-row"><h4>Description</h4><div class="rw-pair">' +
-        '<div class="rw-old"><span class="tag">On your profile now</span>' + curHtml + '</div>' +
-        '<div class="rw-new"><span class="tag ok">Rewritten for you</span><p>' + esc2(rw.description) + '</p></div>' +
-      '</div></div>';
-    if ((rw.services || []).length) {
-      html += '<div class="rw-row"><h4>Services</h4><div class="rw-pair">' +
-        '<div class="rw-old"><span class="tag">On your profile now</span>' + curSvc + '</div>' +
-        '<div class="rw-new"><span class="tag ok">Rewritten for you</span><ul>' +
-          rw.services.slice(0, 10).map(function (x) { return '<li>' + esc2(x) + '</li>'; }).join("") +
-        '</ul></div></div></div>';
-    }
-    if (rw.primary_category) {
-      html += '<div class="rw-row"><h4>Categories</h4><div class="rw-pair">' +
-        '<div class="rw-old"><span class="tag">On your profile now</span><p>' + (g.type ? esc2(g.type) : '<span class="empty">Not set</span>') + '</p></div>' +
-        '<div class="rw-new"><span class="tag ok">Recommended</span><p><b>' + esc2(rw.primary_category) + '</b>' +
-          ((rw.secondary_categories || []).length ? '<br>' + rw.secondary_categories.slice(0, 3).map(esc2).join('<br>') : '') +
-        '</p></div></div></div>';
-    }
-    return html + '</div>';
-  }
-
-  // Objection handling at the moment of decision. Deliberately AFTER the report: before it, an open
-  // chat is just a way to avoid answering the three questions.
-  //
-  // Six exchanges is a real ceiling, not a soft one. Each request carries only the Q&A history —
-  // never the interview — so it stays far under the relay's 14-turn session cap, and the two padding
-  // turns inside relayChat keep it from being counted as a new interview against the daily ceiling.
-  // A tap is not a payment — they can reach the Square screen and bail. So nothing is written and
-  // no alert is sent here. All this does is leave a way back: if Square is not configured to return
-  // them to the access page, a "paid" link appears so the confirmation step is never a dead end.
-  //
-  // Everything Barrett needs is already in localStorage; access.html reads it once payment is real.
   function wirePayClick(host) {
     var btn = host.querySelector(".cta .pay");
     if (!btn) return;
@@ -2113,63 +1629,7 @@ fbq('track', 'PageView');
     box.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); ask(); } });
   }
 
-  // The one section a report cannot fill on its own. Rather than an empty apology, it holds the
-  // offer: three questions, and the thing that belongs here gets written while they wait.
-  function offerCard() {
-    return '<div class="offer" id="offer">' +
-      '<p class="oh">I can write this one for you. Free.</p>' +
-      '<p class="ol">Google gives you 750 characters to describe your business and yours is ' +
-      'either empty or written by Google. Answer three short questions &mdash; under a minute, ' +
-      'no email, no phone number &mdash; and I&rsquo;ll write it in your own words while you wait. ' +
-      'It&rsquo;s yours to paste in whether you buy anything or not.</p>' +
-      '<button type="button" class="offer-btn" id="want-copy">Answer three questions</button>' +
-      '<p class="fine">Or skip it &mdash; everything above is yours to keep either way.</p>' +
-      '</div>';
-  }
-
-  function wireOffer(host) {
-    var b = host.querySelector("#want-copy");
-    if (!b) return;
-    b.addEventListener("click", function () { startQuestions(b); });
-  }
-
-  // Their answers arrive after the report is already on screen, so the gap is filled in place —
-  // rebuilding the whole report would throw away the thing they have been reading.
-  function fillRewrite(fields) {
-    var sec = reportHost && reportHost.querySelector("#rw-sec");
-    if (!sec) { typing(true); buildReport(fields || {}, false); return; }
-    var g = S.google || {};
-    typing(true);
-    bubble("bot", "Writing it now &mdash; about ten seconds.");
-
-    function paint(html) {
-      typing(false);
-      sec.innerHTML = '<h3>' + esc2(sec.querySelector("h3").textContent.split(".")[0]) +
-                      '. Your profile, rewritten</h3>' + html;
-      sec.classList.add("just-in");
-      sec.scrollIntoView({ block: "start" });
-      // The CTA above sold "the description above is yours" — which was not true until now.
-      var h = reportHost.querySelector("#cta-h"), give = reportHost.querySelector("#cta-give");
-      if (h) h.innerHTML = "The profile description above is yours. Keep&nbsp;it.";
-      if (give) give.textContent = "Paste it in yourself if you like at no cost to you.";
-    }
-
-    requestRewrite(fields, 0).then(function (rw) {
-      if (rw) { S.rewrite = rw; save(); }
-      paint('<p class="lede">Written from your own answers, ready to publish:</p>' + rewriteBlock(rw, g));
-      submitLead("rewrite_shown", {
-        new_description: (rw && rw.description) || "",
-        new_services: (rw && (rw.services || []).join(", ")) || "",
-        new_categories: rw ? [rw.primary_category].concat(rw.secondary_categories || []).filter(Boolean).join(", ") : ""
-      }).catch(function () {});
-    }).catch(function () {
-      paint('<p class="empty">The rewrite didn\'t generate just now. Text Barrett on ' +
-            '<a href="sms:+17073855673">(707) 385-5673</a> and he\'ll send it to you directly &mdash; ' +
-            'your answers are saved.</p>');
-    });
-  }
-
-  function ctaBlock(hasRewrite) {
+  function ctaBlock() {
     var btn = PAY_URL
       ? '<a class="pay" href="' + esc2(PAY_URL) + '">Have it done for me &mdash; ' + PAY_PRICE + '</a>'
       : '<a class="pay disabled" href="sms:+17073855673">Text Barrett to have it done &mdash; ' + PAY_PRICE + '</a>';
@@ -2177,14 +1637,13 @@ fbq('track', 'PageView');
     // we lose, so this says plainly that it is theirs either way, and prices the parts that need
     // access, judgement and repetition — which is what actually takes the work off their desk.
     return '<div class="cta">' +
-      '<h3 id="cta-h">' + (hasRewrite
-        ? 'The profile description above is yours. Keep&nbsp;it.'
-        : 'Everything above, fixed properly.') + '</h3>' +
-      '<p id="cta-give">' + (hasRewrite
-        ? 'Paste it in yourself if you like at no cost to you.'
-        : 'You have seen what is missing. This is what it takes to put it right.') + '</p>' +
+      '<h3 id="cta-h">Everything above, fixed properly.</h3>' +
+      '<p id="cta-give">You have seen what is missing. This is what I do about it.</p>' +
       '<p class="cta-lead"><b>' + PAY_PRICE + ' gets the rest done properly &mdash; the essential parts that get the phone ringing&hellip;</b></p>' +
       '<ul class="cta-list">' +
+        '<li><b>Your profile description, written for you</b> &mdash; the 750 characters Google gives you, ' +
+        'in your own words rather than Google\'s. It is the largest piece of free space on your listing ' +
+        'and yours is almost certainly empty.</li>' +
         '<li><b>Every review answered</b>, including the ones nobody replied to. A homeowner choosing between three companies reads the replies, not just the stars.</li>' +
         '<li><b>Questions asked and answered</b> on your profile &mdash; emergency calls, insurance, the areas you cover. You&rsquo;re allowed to post both sides, and almost nobody does.</li>' +
         // The report flags photos and hours, so the offer has to answer for them or a reader whose
@@ -2208,65 +1667,17 @@ fbq('track', 'PageView');
       btn +
       // Reassurance before the doubt it answers: the four clicks first, THEN the refund. Flipped,
       // the refund line raises "what could go wrong" one beat before anything resolves it.
-      '<p class="cta-access">After payment you&rsquo;ll get redirected to a short page showing the four clicks that give me Manager access. About a minute of your time, and that is the whole of it.</p>' +
+      '<p class="cta-access">After payment you&rsquo;ll get redirected to one page: a few questions about your business so I never have to chase you for them, then the four clicks that give me Manager access. Five minutes, once, and that is the whole of your involvement.</p>' +
       '<p class="refund">If I can\'t get access, or can\'t improve the profile, you get a full refund.</p>' +
       '<p class="paid-back" id="paid-back" hidden><a href="access.html">Already paid? Finish setting it up &rarr;</a></p>' +
       '</div>';
   }
-  // One relay call, in rewrite mode. It gets its own 400-token output budget — which is exactly why
-  // the rewrite is NOT folded into the interview's closing JSON, where it would truncate that JSON
-  // and take the whole interview down with it. Two user turns in the payload so the relay's
-  // "new interview" daily-cap check doesn't count this continuation as a fresh session.
-  function requestRewrite(fields, attempt) {
-    var answers = [
-      "Business: " + (S.a.business_name || ""),
-      "Category on Google: " + ((S.google && S.google.type) || "unknown"),
-      "Area served: " + (fields.area || ""),
-      "What they do: " + (fields.what_you_do || ""),
-      "Why customers pick them: " + (fields.known_for || ""),
-      "Services they listed: " + (fields.services_talk || ""),
-      fields.must_haves ? "Must appear: " + fields.must_haves : "",
-      "",
-      "Full transcript by section:",
-      fields.page_notes || ""
-    ].filter(Boolean).join("\n");
-
-    return fetch(LEADS_URL, {
-      method: "POST", mode: "cors", redirect: "follow",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({
-        secret: LEADS_SECRET, action: "chat", lead_id: S.lead_id,
-        known: knownFacts(),
-        messages: [
-          { role: "user", content: "(Interview starting. Ask your first question.)" },
-          { role: "assistant", content: "Ready." },
-          { role: "user", content: "#REWRITE\n" + answers }
-        ]
-      })
-    }).then(function (r) { return r.text(); }).then(function (t) {
-      var j = JSON.parse(t);
-      if (!j || j.ok === false) throw new Error((j && j.error) || "relay");
-      var m = (j.reply || "").match(/\{[\s\S]*\}/);
-      if (!m) throw new Error("no json");
-      var rw = JSON.parse(m[0]);
-      if (!rw.description || rw.description.length < 80) throw new Error("thin");
-      return rw;
-    }).catch(function (e) {
-      // One retry: a truncated or malformed JSON is the failure mode here, and it is usually
-      // transient. Two attempts, then the report ships without this section rather than not at all.
-      if ((attempt || 0) < 1) return requestRewrite(fields, 1);
-      throw e;
-    });
-  }
-
-  // Generation is visible on purpose. The work takes a few seconds either way; showing it is worth
-  // more than hiding it, and a blank screen after the last answer reads as broken.
-  function buildReport(fields, noRewrite) {
+  function buildReport(fields) {
     var g = S.google || {}, comps = S.competitors || [];
     var host = null;
     function mark() {}
 
-    function render(rw, failed, analysis, vel) {
+    function render(analysis, vel) {
       vel = vel || {};
       // ONE list, ranked once by the sweep (same-trade first, strongest first within that), used by
       // both the table and the gap text. Re-sorting here by review count alone was quietly undoing
@@ -2327,17 +1738,7 @@ fbq('track', 'PageView');
           '</div><p class="fine">Drawn from the review text on those competitors\' own listings.</p></section>';
       }
 
-      html += '<section class="rp-sec rp-work" id="rw-sec"><h3>' + (++n) + '. ' +
-              (noRewrite ? 'Your profile description' : 'Your profile, rewritten') + '</h3>';
-      html += noRewrite
-        ? offerCard()
-        : (failed
-            ? '<p class="empty">The rewrite didn\'t generate just now. Text Barrett and he\'ll send it to you directly &mdash; ' +
-              'your answers are saved.</p>'
-            : '<p class="lede">Written from your own answers, ready to publish:</p>' + rewriteBlock(rw, g));
-      html += '</section>';
-
-      html += ctaBlock(!noRewrite);
+      html += ctaBlock();
       html += '<div class="qa" id="qa">' +
         '<p class="qa-h">Any questions about how the service works?</p>' +
         '<div class="qa-thread" id="qa-thread"></div>' +
@@ -2351,7 +1752,6 @@ fbq('track', 'PageView');
       // Handed to renderReport rather than painted here, so the phone question gets its moment
       // without the report appearing over the top of it mid-sentence.
       // Held so access.html can put the finished copy in Barrett's summary email after payment.
-      if (rw) { S.rewrite = rw; }
       if (analysis) { S.analysis = analysis; }
       S.reportAt = Date.now(); save();
 
@@ -2364,16 +1764,10 @@ fbq('track', 'PageView');
         var slot = host.querySelector("#vel-slot");
         if (slot && velNode) slot.parentNode.replaceChild(velNode, slot);
         host.scrollIntoView({ block: "start" });
-        submitLead("report_shown", {
-          new_description: (rw && rw.description) || "",
-          new_services: (rw && (rw.services || []).join(", ")) || "",
-          new_categories: rw ? [rw.primary_category].concat(rw.secondary_categories || []).filter(Boolean).join(", ") : "",
-          analysis: analysis || ""
-        });
+        submitLead("report_shown", { analysis: analysis || "" });
         fb("ReportShown");
         wireQA(host);
         wirePayClick(host);
-        wireOffer(host);
         reportHost = host;
       };
       reportReady = true;
@@ -2406,22 +1800,9 @@ fbq('track', 'PageView');
       return fetchVelocity([g.place_id].concat(comps.slice(0, 3).map(function (c) { return c.id; })));
     }).catch(function () { return {}; });
 
-    if (noRewrite) {
-      // No answers, so nothing to write from and no relay call to make.
-      Promise.all([analysisReady, velReady]).then(function (a) {
-        setTimeout(function () { render(null, false, a[0], a[1]); }, 250);
-      });
-    } else {
-      requestRewrite(fields, 0).then(function (rw) {
-        return Promise.all([analysisReady, velReady]).then(function (a) {
-          setTimeout(function () { render(rw, false, a[0], a[1]); }, 250);
-        });
-      }).catch(function () {
-        Promise.all([analysisReady, velReady]).then(function (a) {
-          setTimeout(function () { render(null, true, a[0], a[1]); }, 250);
-        });
-      });
-    }
+    Promise.all([analysisReady, velReady]).then(function (a) {
+      setTimeout(function () { render(a[0], a[1]); }, 250);
+    });
   }
 
   // ================= sheet submit (same endpoint, same guards) =================
@@ -2469,39 +1850,6 @@ fbq('track', 'PageView');
       headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) })
       .then(function (r) { return r.text(); }).then(function (t) { try { return JSON.parse(t); } catch (e) { return {}; } });
   }
-
-  // ================= composer =================
-  function sendNow() {
-    var v = input.value.trim();
-    if (!v || send.disabled) return;
-    // The contact questions are answered in the same box, but they never reach the model — no API
-    // call, no cost, and the time floor below does not apply to them.
-    if (S.phase === "confirm") {
-      me(v); input.value = ""; input.style.height = "auto";
-      confirmAnswer(v);
-      return;
-    }
-    if ((Date.now() - LOADED_AT) < MIN_SECONDS_BEFORE_CHAT * 1000 && S.msgs.length === 0) {
-      // matches the server-side floor; a human cannot have got here this fast
-      return;
-    }
-    me(v); input.value = ""; input.style.height = "auto";
-    turn(v);
-  }
-  send.addEventListener("click", sendNow);
-  input.addEventListener("keydown", function (e) {
-    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendNow(); }
-  });
-  input.addEventListener("input", function () {
-    this.style.height = "auto"; this.style.height = Math.min(this.scrollHeight, 140) + "px";
-    scrollTail();          // a growing box can push itself under the keyboard
-  });
-  // The keyboard animates in after focus, so check once it has settled as well as immediately.
-  input.addEventListener("focus", function () {
-    scrollTail();
-    setTimeout(scrollTail, 250);
-    setTimeout(scrollTail, 550);
-  });
 
   // The eyebrow line, sized so it spans exactly the width of the headline column and stays one line
   // at any screen size. Measure once at a reference size, then scale by the ratio — no guessing, no
@@ -2587,10 +1935,9 @@ fbq('track', 'PageView');
   function runDemo(key) {
     var demo = DEMOS[key] || DEMOS.roofing;
     S.demo = true; S.trade = demo.trade; save();
-    composer.hidden = true; hint.hidden = true;
-    bubble("bot", '<div class="demo-note"><b>Sample report.</b> Real profile, real competitors, ' +
-      'real review dates &mdash; only the five answers are made up, so you can see the finished ' +
-      'thing without filling anything in. <a href="?restart">Run it properly &rarr;</a></div>', true);
+    bubble("bot", '<div class="demo-note"><b>Sample report.</b> A real profile, real competitors and ' +
+      'real review dates &mdash; exactly what you get for your own listing. ' +
+      '<a href="?restart">Run yours &rarr;</a></div>', true);
     typing(true);
 
     fetch("https://places.googleapis.com/v1/places:searchText", {
@@ -2620,7 +1967,8 @@ fbq('track', 'PageView');
       return competitorsReady || Promise.resolve();
     }).then(function () {
       typing(false);
-      finish(demo.fields);          // the real report path, from here on
+      phoneDone = true;
+      buildReport({});              // the real report path, from here on
     }).catch(function () {
       typing(false);
       bubble("bot", "The sample couldn't load just now &mdash; <a href=\"?restart\">try the real thing</a>.", true);
@@ -2631,24 +1979,9 @@ fbq('track', 'PageView');
   var demoKey = (location.search.match(/[?&]demo=([a-z]+)/i) || [])[1];
   if (demoKey) {
     runDemo(demoKey.toLowerCase());
-  } else if (S.done) {
-    bubble("bot", '<div class="done"><h2>You’ve already sent this.</h2><p>Barrett will text you shortly.</p>' +
-      '<p><a class="restart-link" href="?restart">Start a new interview</a></p></div>', true);
-  } else if (S.started && S.msgs.length) {
-    // Every question arrives from the relay as a JSON spec ({"say":"","q":"..."}), and that raw
-    // string is what S.msgs holds. Replaying it verbatim printed the JSON to the visitor after any
-    // reload — the question was in there, wrapped in braces and quotes. Unwrap it the same way the
-    // live turn does, and restore the "n of 3" counter while we are at it.
-    var qn = 0;
-    S.msgs.forEach(function (m) {
-      if (m.role === "user") { me(m.content); return; }
-      var spec = parseSpec(m.content);
-      if (spec) { qn = Math.min(qn + 1, 3); sayQuestion(spec.q, qn); }
-      else say(m.content);
-    });
-    S.qNum = qn; save();
-    composer.hidden = false; hint.hidden = false;
-  } else if (S.phase === "confirm" && S.google) {
+  } else if (S.google && (S.phase === "report" || S.phase === "confirm")) {
+    // A reload re-runs the report on the listing they already picked, rather than making them
+    // search for their own business a second time.
     drawCard(S.google);
   } else {
     askPlaces();
