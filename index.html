@@ -1769,6 +1769,13 @@ fbq('track', 'PageView');
         wireQA(host);
         wirePayClick(host);
         reportHost = host;
+        // The sample's only exit used to be a link in the note at the top of the thread, a long way
+        // above where anyone is standing by the time they have read it.
+        if (S.demo) {
+          bubble("bot", '<div class="demo-note"><b>That was a sample</b> &mdash; the numbers and ' +
+            'competitors belong to that business, not yours.<br>' +
+            '<a class="restart-link" href="?restart">Run this on your own business &rarr;</a></div>', true);
+        }
       };
       reportReady = true;
       if (phoneDone) renderReport();
@@ -1935,6 +1942,8 @@ fbq('track', 'PageView');
   function runDemo(key) {
     var demo = DEMOS[key] || DEMOS.roofing;
     S.demo = true; S.trade = demo.trade; save();
+    var rb = document.getElementById("restart");
+    if (rb) rb.hidden = false;          // save() is a no-op in demo mode, so boot never unhid this
     bubble("bot", '<div class="demo-note"><b>Sample report.</b> A real profile, real competitors and ' +
       'real review dates &mdash; exactly what you get for your own listing. ' +
       '<a href="?restart">Run yours &rarr;</a></div>', true);
