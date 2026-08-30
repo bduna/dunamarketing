@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Duna Marketing &mdash; Give me access</title>
-<meta name="description" content="The four clicks that give Duna Marketing manager access to your Google Business Profile.">
+<title>Duna Marketing &mdash; Onboarding</title>
+<meta name="description" content="Two steps to get your Google Business Profile rebuilt: answer a few questions, then add Duna Marketing as a manager.">
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="favicon.ico">
 <style>
   :root {
     --ink:#1a1d24; --muted:#5a6070; --line:#e2e5ea; --navy:#003087; --navy-deep:#001d52;
-    --red:#C8102E; --navy-soft:#eaf0fb; --bg:#f7f8fa; --card:#ffffff;
+    --red:#C8102E; --navy-soft:#eaf0fb; --bg:#f7f8fa; --card:#ffffff; --good:#0ca30c;
   }
   * { box-sizing:border-box; }
   html, body { margin:0; }
@@ -23,17 +23,85 @@
     background-size:20px 20px; background-position:-1px -1px;
     color:var(--ink); line-height:1.55; min-height:100vh;
   }
-  .wrap { max-width:660px; margin:0 auto; padding:26px 20px 70px; }
+  .wrap { max-width:680px; margin:0 auto; padding:26px 20px 90px; }
   .kicker { font-size:.72rem; text-transform:uppercase; letter-spacing:.09em;
     color:var(--navy); font-weight:800; margin:0 0 8px; }
   h1 { margin:0 0 10px; font-size:1.7rem; line-height:1.18; color:var(--navy-deep); }
   .lede { margin:0 0 22px; color:var(--muted); font-size:1rem; }
+  .which { margin:0 0 18px; padding:12px 16px; background:var(--navy-soft); border-left:4px solid var(--navy);
+    border-radius:10px; font-weight:700; color:var(--navy); }
+  .which span { display:block; font-weight:500; font-size:.86rem; color:var(--muted); margin-top:2px; }
+
   .card { background:var(--card); border:1px solid var(--line); border-radius:14px;
     padding:20px; margin:0 0 18px; }
-  .card h2 { margin:0 0 12px; font-size:1.05rem; }
+  .card > h2 { margin:0 0 4px; font-size:1.15rem; color:var(--navy-deep); }
+  .card > .sub { margin:0 0 18px; color:var(--muted); font-size:.92rem; }
+  .step { display:inline-block; font-size:.7rem; font-weight:800; letter-spacing:.08em;
+    text-transform:uppercase; color:#fff; background:var(--navy); border-radius:20px;
+    padding:4px 10px; margin:0 0 10px; }
 
-  /* 16:9 by padding rather than aspect-ratio, so the box is the right shape in every browser that
-     might open this on a job site. The iframe fills it — a fixed 560x315 would run off a phone. */
+  /* ---- form ---- */
+  fieldset { border:0; padding:0; margin:0 0 24px; }
+  legend { padding:0; font-size:.95rem; font-weight:800; color:var(--navy-deep);
+    border-top:1px solid var(--line); width:100%; padding-top:16px; margin:0 0 2px; }
+  fieldset:first-of-type legend { border-top:0; padding-top:0; }
+  .q { margin:16px 0 0; }
+  .q > label, .q > .lab { display:block; font-weight:700; font-size:.95rem; margin:0 0 2px; }
+  .q .help { display:block; color:var(--muted); font-size:.85rem; margin:0 0 8px; }
+  input[type=text], input[type=tel], input[type=url], input[type=email], input[type=number], textarea {
+    width:100%; font:inherit; font-size:1rem; padding:11px 13px; border:1px solid #d6dae2;
+    border-radius:9px; background:#fff; color:var(--ink); }
+  textarea { min-height:88px; resize:vertical; line-height:1.5; }
+  input:focus, textarea:focus { outline:none; border-color:var(--navy);
+    box-shadow:0 0 0 3px rgba(0,48,135,.14); }
+  .row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  @media (max-width:520px) { .row2 { grid-template-columns:1fr; } }
+
+  /* Tick-boxes as chips: on a phone this is one tap per answer instead of a column of small squares. */
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin:2px 0 0; }
+  .chip { position:relative; }
+  .chip input { position:absolute; opacity:0; width:0; height:0; }
+  .chip span { display:inline-block; padding:9px 14px; border:1px solid #d6dae2; border-radius:20px;
+    background:#fff; font-size:.92rem; font-weight:600; cursor:pointer; user-select:none; }
+  .chip input:checked + span { background:var(--navy); border-color:var(--navy); color:#fff; }
+  .chip input:focus-visible + span { box-shadow:0 0 0 3px rgba(0,48,135,.3); }
+  .radios { display:flex; flex-wrap:wrap; gap:8px; }
+  .radios .chip span { border-radius:9px; }
+
+  .adder { display:flex; gap:8px; margin:10px 0 0; }
+  .adder input { flex:1; }
+  .adder button { flex:0 0 auto; font:inherit; font-weight:700; font-size:.9rem; padding:0 16px;
+    border:1px solid var(--navy); background:#fff; color:var(--navy); border-radius:9px; cursor:pointer; }
+  .taglist { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; }
+  .tag { display:inline-flex; align-items:center; gap:6px; background:var(--navy-soft);
+    border:1px solid #cfdcf5; border-radius:20px; padding:7px 8px 7px 14px; font-size:.92rem; font-weight:600; }
+  .tag button { border:0; background:transparent; color:var(--navy); font-size:1.15rem; line-height:1;
+    cursor:pointer; padding:0 4px; }
+
+  .hours { display:grid; gap:8px; margin:8px 0 0; }
+  .hrow { display:grid; grid-template-columns:46px 1fr 10px 1fr auto; gap:8px; align-items:center; }
+  .hrow b { font-size:.85rem; }
+  .hrow input[type=time] { width:100%; font:inherit; font-size:.95rem; padding:8px 10px;
+    border:1px solid #d6dae2; border-radius:8px; }
+  .hrow .sep { color:var(--muted); text-align:center; }
+  .hrow .cl { font-size:.82rem; color:var(--muted); display:flex; align-items:center; gap:5px; white-space:nowrap; }
+  .hidden { display:none; }
+
+  .qa-pair { border:1px solid var(--line); border-radius:10px; padding:12px; margin:10px 0 0; background:#fcfcfd; }
+  .qa-pair input { margin:0 0 8px; }
+  .qa-pair input:last-child { margin:0; }
+
+  .save { position:sticky; bottom:0; margin:22px -20px -20px; padding:16px 20px;
+    background:linear-gradient(to top, var(--card) 74%, rgba(255,255,255,0));
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .save button { flex:0 0 auto; font:inherit; font-size:1.05rem; font-weight:800; color:#fff;
+    background:var(--red); border:0; border-radius:10px; min-height:54px; padding:0 26px; cursor:pointer; }
+  .save button:disabled { opacity:.55; cursor:default; }
+  .save .state { font-size:.88rem; color:var(--muted); }
+  .save .state.ok { color:var(--good); font-weight:700; }
+  .done-note { background:#e9f7ea; border:1px solid #bfe3c2; border-radius:10px; padding:14px 16px;
+    color:#14591a; font-weight:700; margin:0 0 18px; }
+
   .vid { position:relative; width:100%; padding-top:56.25%; background:var(--navy-soft);
     border-radius:10px; overflow:hidden; }
   .vid iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
@@ -46,35 +114,234 @@
   ol.steps b { display:block; }
   ol.steps span { color:var(--muted); font-size:.92rem; }
   code { background:#eef1f6; padding:2px 6px; border-radius:5px; font-size:.92em; }
-
   .email { display:block; margin:14px 0 0; padding:14px 16px; background:var(--navy-soft);
     border-radius:10px; border-left:4px solid var(--navy); font-weight:800; color:var(--navy);
     font-size:1.05rem; word-break:break-all; text-align:center; text-decoration:none; }
-
   details { border-top:1px solid var(--line); padding:12px 0 0; margin:12px 0 0; }
   details summary { cursor:pointer; font-weight:700; font-size:.95rem; }
   details p { color:var(--muted); font-size:.92rem; margin:8px 0 0; }
-
-  .help { text-align:center; margin:26px 0 0; }
-  .help a { display:inline-flex; align-items:center; justify-content:center; min-height:50px;
-    padding:0 24px; background:var(--navy); color:#fff; border-radius:10px; font-weight:800;
-    text-decoration:none; }
+  .help-cta { text-align:center; margin:26px 0 0; }
+  .help-cta a { display:inline-flex; align-items:center; justify-content:center; min-height:50px;
+    padding:0 24px; background:var(--navy); color:#fff; border-radius:10px; font-weight:800; text-decoration:none; }
   .fine { font-size:.82rem; color:var(--muted); text-align:center; margin:12px 0 0; }
-  .which { margin:0 0 18px; padding:12px 16px; background:var(--navy-soft); border-left:4px solid var(--navy);
-    border-radius:10px; font-weight:700; color:var(--navy); }
-  .which span { display:block; font-weight:500; font-size:.86rem; color:var(--muted); margin-top:2px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <p class="kicker">Payment received</p>
-  <h1>One last thing &mdash; give me access</h1>
+  <h1>Two things and I can start</h1>
   <p class="which" id="which" hidden></p>
-  <p class="lede">I can&rsquo;t touch your profile until you add me as a manager. It takes about a minute,
-  and you stay the owner the whole time &mdash; you can remove me with two clicks whenever you want.</p>
+  <p class="lede">A few questions so I never have to chase you for anything, then the four clicks that let
+  me edit the profile. Five minutes, once, and that is the whole of your involvement.</p>
 
+  <!-- ============ STEP 1 — everything the work needs, asked once ============ -->
+  <div class="card" id="qcard">
+    <span class="step">Step 1 of 2</span>
+    <h2>About the business</h2>
+    <p class="sub">This is what goes on your profile, in your own words. Most of it is taps. It saves as
+    you go, so you can put the phone down and come back to it.</p>
+
+    <div class="done-note" id="done-note" hidden>Got it &mdash; your answers are in. Nothing else needed here.</div>
+
+    <form id="ob" autocomplete="on">
+      <fieldset>
+        <legend>The work</legend>
+        <div class="q">
+          <label for="what_you_do">What do you actually do most?</label>
+          <span class="help">The jobs that pay the bills, in your own words. This becomes the description on your profile.</span>
+          <textarea id="what_you_do" placeholder="e.g. Full tear-offs and replacements, storm damage repairs, and leaks on older roofs."></textarea>
+        </div>
+        <div class="q">
+          <label for="why_them">Why do customers pick you over the other guys?</label>
+          <span class="help">The honest answer, not the marketing one. This is the line that makes the profile sound like you.</span>
+          <textarea id="why_them" placeholder="e.g. Same crew every job, we turn up when we say, and we clean up before we leave."></textarea>
+        </div>
+        <div class="q row2">
+          <div>
+            <label for="year_started">What year did you start?</label>
+            <span class="help">Just the year.</span>
+            <input type="number" id="year_started" min="1900" max="2100" placeholder="2004" inputmode="numeric">
+          </div>
+          <div>
+            <label for="employees">How many people work there?</label>
+            <span class="help">Including you. A rough number is fine.</span>
+            <input type="text" id="employees" placeholder="6">
+          </div>
+        </div>
+        <div class="q">
+          <span class="lab">Which of these do you offer?</span>
+          <span class="help">Tick everything you do. These fill Google's services list, which most profiles leave completely empty.</span>
+          <div class="chips" id="services"></div>
+          <div class="adder">
+            <input type="text" id="svc_add" placeholder="Something not listed? Type it and press Add">
+            <button type="button" id="svc_btn">Add</button>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Where you work</legend>
+        <div class="q">
+          <span class="lab">Which towns or areas do you cover?</span>
+          <span class="help">Add them one at a time, or paste a list separated by commas.</span>
+          <div class="adder">
+            <input type="text" id="area_add" placeholder="e.g. Santa Rosa">
+            <button type="button" id="area_btn">Add</button>
+          </div>
+          <div class="taglist" id="areas"></div>
+        </div>
+        <div class="q">
+          <span class="lab">Do customers ever come to your address?</span>
+          <span class="help">This decides whether Google shows your address or hides it, and getting it wrong is a common reason a profile gets filtered out of results.</span>
+          <div class="radios" id="storefront"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Hours</legend>
+        <div class="q">
+          <span class="lab">Are the hours on your profile right?</span>
+          <span class="help" id="hours-now">&nbsp;</span>
+          <div class="radios" id="hours_ok"></div>
+        </div>
+        <div class="q hidden" id="hours-edit">
+          <span class="lab">What should they be?</span>
+          <span class="help">Tick a day closed if you do not work it.</span>
+          <div class="hours" id="hours-grid"></div>
+        </div>
+        <div class="q">
+          <span class="lab">Do you take emergency or after-hours calls?</span>
+          <div class="radios" id="emergency"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>How you want to be reached</legend>
+        <div class="q row2">
+          <div>
+            <label for="phone_public">Best number for the profile</label>
+            <input type="tel" id="phone_public" placeholder="(707) 555-0100">
+          </div>
+          <div>
+            <label for="website">Website</label>
+            <input type="url" id="website" placeholder="https://">
+          </div>
+        </div>
+        <div class="q">
+          <label for="booking_url">Booking or quote-request link, if you have one</label>
+          <input type="url" id="booking_url" placeholder="https://">
+        </div>
+        <div class="q">
+          <span class="lab">How do you prefer leads to arrive?</span>
+          <div class="chips" id="lead_pref"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Credentials</legend>
+        <div class="q row2">
+          <div>
+            <label for="license_no">Licence number</label>
+            <span class="help">Goes on the profile as proof you are the real thing.</span>
+            <input type="text" id="license_no" placeholder="CSLB #123456">
+          </div>
+          <div>
+            <label for="license_state">State</label>
+            <span class="help">&nbsp;</span>
+            <input type="text" id="license_state" placeholder="CA">
+          </div>
+        </div>
+        <div class="q">
+          <span class="lab">Which of these are true?</span>
+          <span class="help">Only tick what you can stand behind &mdash; everything here goes on the profile as a claim.</span>
+          <div class="chips" id="attributes"></div>
+        </div>
+        <div class="q">
+          <label for="warranty">If you offer a warranty, what is it?</label>
+          <input type="text" id="warranty" placeholder="e.g. 10 years on workmanship, manufacturer's on materials">
+        </div>
+        <div class="q">
+          <span class="lab">Payment methods you accept</span>
+          <div class="chips" id="payments"></div>
+        </div>
+        <div class="q">
+          <span class="lab">Languages your crew speaks</span>
+          <div class="chips" id="languages"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Questions customers ask</legend>
+        <p class="help" style="margin:8px 0 0">Google lets a business post its own questions and answer them,
+        and almost nobody does it. Tick the ones that apply and I will write and post them for you.</p>
+        <div class="q"><div class="chips" id="faq_common"></div></div>
+        <div class="q">
+          <span class="lab">Anything else people ask you constantly?</span>
+          <span class="help">Optional. Skip it if nothing springs to mind.</span>
+          <div id="faq-own"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Replying to your reviews</legend>
+        <div class="q">
+          <span class="lab">How should the replies sound?</span>
+          <div class="radios" id="tone"></div>
+        </div>
+        <div class="q">
+          <label for="review_notes">Any review you want handled carefully?</label>
+          <span class="help">A bad one with a story behind it, or a customer you would rather not poke. Tell me and I will tread lightly.</span>
+          <textarea id="review_notes" placeholder="Optional"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Photos</legend>
+        <div class="q">
+          <span class="lab">Which of these do you already have on your phone?</span>
+          <span class="help">I cannot upload photos for you, but I will tell you exactly which ones to post and in what order. This tells me what there is to work with.</span>
+          <div class="chips" id="photos_have"></div>
+        </div>
+        <div class="q">
+          <span class="lab">How will you get them to me?</span>
+          <div class="radios" id="photo_send"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Last few</legend>
+        <div class="q">
+          <label for="avoid">Anything that must NOT go on the profile?</label>
+          <span class="help">A service you have stopped offering, a town you no longer cover, an old number, a claim you do not want made.</span>
+          <textarea id="avoid" placeholder="Optional"></textarea>
+        </div>
+        <div class="q row2">
+          <div>
+            <label for="owner_email">Which Google account owns the profile?</label>
+            <span class="help">So I know which invite to look for.</span>
+            <input type="email" id="owner_email" placeholder="you@gmail.com">
+          </div>
+          <div>
+            <label for="contact_mobile">Best mobile if I have a question</label>
+            <span class="help">I would rather text once than guess.</span>
+            <input type="tel" id="contact_mobile" placeholder="(707) 555-0100">
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="save">
+        <button type="submit" id="submit">Send this to Barrett</button>
+        <span class="state" id="state">Saves as you type</span>
+      </div>
+    </form>
+  </div>
+
+  <!-- ============ STEP 2 — access ============ -->
   <div class="card">
+    <span class="step">Step 2 of 2</span>
     <h2>Instructional Video &mdash; Use Email barrett@DunaMarketing.com</h2>
+    <p class="sub">I can&rsquo;t touch your profile until you add me as a manager. You stay the owner the
+    whole time and can remove me with two clicks whenever you want.</p>
     <div class="vid"><iframe src="https://www.youtube.com/embed/-MHMgPXyd28?si=pIIsW0V75P7hX3LO"
       title="How to add a manager to a Google Business Profile" loading="lazy"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -119,77 +386,396 @@
     </details>
   </div>
 
-  <div class="help">
+  <div class="help-cta">
     <a href="sms:+17073855673">Text me &mdash; (707) 385-5673</a>
     <p class="fine">Nothing on your listing changes until you&rsquo;ve seen it. If I can&rsquo;t get access,
     you get a full refund.</p>
   </div>
 </div>
+
 <script>
-// This page is reached AFTER Square takes the money, so it is the one place allowed to say PAID.
+// Reached AFTER Square takes the money, so this page does two jobs:
+//   1. post the PAID row once, carrying the audit the browser is already holding
+//   2. collect everything the rebuild needs, in a shape that can be worked from without a phone call
 //
-// It reads the audit straight out of localStorage — not sessionStorage, which does not reliably
-// survive the trip out to Square and back — and posts one final row carrying everything needed to
-// do the work: the listing, the audit as it stood, their answers, and the copy we wrote for them.
-// That write lands on the same lead_id, so it updates the audit row rather than starting a new one,
-// and stage "complete" is what makes the sheet email it to Barrett.
+// Every question here earns its place by mapping to something concrete: a Google field, an attribute,
+// a Q&A to post, or an instruction about what NOT to do. The answers come back as named columns AND
+// as one paste-ready block, so the job starts from a copy rather than from an interpretation.
 (function () {
   var LEADS_URL = "https://script.google.com/macros/s/AKfycbz5czvMKJWHN92D_kah_JbCLSgo4UknxG37zhEfZExFCcupdYur6phh2457sP5E8K_X/exec";
   var LEADS_SECRET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  var DRAFT_KEY = "duna_onboarding";
 
   var S = null;
   try { S = JSON.parse(localStorage.getItem("duna_chat") || "null"); } catch (e) {}
-  // Belt and braces with the demo guard in index.html: any sample state already sitting in a
-  // browser from before that fix must never be reported as a paid customer.
-  if (!S || !S.google || S.demo) return;
-  var g = S.google, a = S.a || {}, ans = S.answers || {}, rw = S.rewrite || null;
+  var isDemo = !!(S && S.demo);
+  var g = (S && !isDemo && S.google) || {};
+  var a = (S && S.a) || {};
+  var leadId = (S && !isDemo && S.lead_id) || "";
+  var trade = (S && S.trade) || "other";
 
-  // Name the listing back to them, so nobody grants access on the wrong profile.
-  var el = document.getElementById("which");
-  if (el) {
-    el.textContent = "Profile: " + (g.name || a.business_name || "");
-    if (g.address) { var sp = document.createElement("span"); sp.textContent = g.address; el.appendChild(sp); }
-    el.hidden = false;
-  }
-
-  // Once only. A refresh, or coming back to this page later, must not re-alert.
-  var sent = false;
-  try { sent = localStorage.getItem("duna_paid_sent") === S.lead_id; } catch (e) {}
-  if (sent) return;
-  try { localStorage.setItem("duna_paid_sent", S.lead_id); } catch (e) {}
-
-  var comps = S.competitors || [];
-  var med = comps.map(function (c) { return c.reviews || 0; }).sort(function (x, y) { return x - y; });
-  var body = {
-    secret: LEADS_SECRET, lead_id: S.lead_id, form: "gbp-chat", stage: "complete",
-    business_name: g.name || a.business_name || "", place_id: g.place_id || a.place_id || "",
-    phone: a.phone || g.phone || "", address: g.address || "",
-    gbp_category: g.type || "", gbp_rating: g.rating || "", gbp_reviews: g.ratings || 0,
-    gbp_photos: (g.photos || []).length, gbp_hours: g.hours ? "set" : "NOT SET",
-    gbp_website: g.website || "",
-    rival_median_reviews: med.length ? med[Math.floor(med.length / 2)] : "",
-    rivals: comps.slice(0, 3).map(function (c) {
-      return c.name + " (" + (c.reviews || 0) + " reviews, " + (c.rating || "unrated") + ")";
-    }).join("\n"),
-    job_value: ans.job_value || "", area_served: ans.area_served || "",
-    what_they_do: ans.what_they_do || "", why_them: ans.why_them || "",
-    services_listed: ans.services_listed || "", must_haves: ans.must_haves || "",
-    answers: ans.answers || "",
-    new_description: rw ? (rw.description || "") : "",
-    new_services: rw ? (rw.services || []).join(", ") : "",
-    new_categories: rw ? [rw.primary_category].concat(rw.secondary_categories || []).filter(Boolean).join(", ") : "",
-    analysis: S.analysis || "",
-    paid_at: new Date().toISOString(),
-    paid_note: "PAID $250 via Square \u2014 returned to the access page. Grant access to " +
-               (g.name || "") + (g.place_id ? "  [place_id " + g.place_id + "]" : "")
-  };
-  try {
-    fetch(LEADS_URL, {
+  function post(body) {
+    body.secret = LEADS_SECRET;
+    if (leadId) body.lead_id = leadId;
+    return fetch(LEADS_URL, {
       method: "POST", mode: "cors", redirect: "follow",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(body)
-    }).catch(function () {});
-  } catch (e) {}
+    }).then(function (r) { return r.text(); });
+  }
+
+  // ---------------------------------------------------------------- the PAID row, once
+  if (S && S.google && !isDemo) {
+    var el = document.getElementById("which");
+    if (el) {
+      el.textContent = "Profile: " + (g.name || a.business_name || "");
+      if (g.address) { var sp = document.createElement("span"); sp.textContent = g.address; el.appendChild(sp); }
+      el.hidden = false;
+    }
+    var sent = false;
+    try { sent = localStorage.getItem("duna_paid_sent") === S.lead_id; } catch (e) {}
+    if (!sent) {
+      try { localStorage.setItem("duna_paid_sent", S.lead_id); } catch (e) {}
+      var comps = S.competitors || [];
+      var med = comps.map(function (c) { return c.reviews || 0; }).sort(function (x, y) { return x - y; });
+      post({
+        form: "gbp-chat", stage: "complete",
+        business_name: g.name || a.business_name || "", place_id: g.place_id || a.place_id || "",
+        phone: a.phone || g.phone || "", address: g.address || "",
+        gbp_category: g.type || "", gbp_rating: g.rating || "", gbp_reviews: g.ratings || 0,
+        gbp_photos: (g.photos || []).length, gbp_hours: g.hours ? "set" : "NOT SET",
+        gbp_website: g.website || "",
+        rival_median_reviews: med.length ? med[Math.floor(med.length / 2)] : "",
+        rivals: comps.slice(0, 3).map(function (c) {
+          return c.name + " (" + (c.reviews || 0) + " reviews, " + (c.rating || "unrated") + ")";
+        }).join("\n"),
+        analysis: S.analysis || "",
+        paid_at: new Date().toISOString(),
+        paid_note: "PAID $250 via Square — returned to the onboarding page. Grant access to " +
+                   (g.name || "") + (g.place_id ? "  [place_id " + g.place_id + "]" : "")
+      }).catch(function () {});
+    }
+  }
+
+  // ---------------------------------------------------------------- option sets
+  // Trade-aware: a roofer being offered "furnace repair" is a form that does not know its own job.
+  var SERVICES = {
+    roofing: ["Roof replacement", "Roof repair", "Tear-off", "Leak repair", "Storm & hail damage",
+              "Emergency tarping", "Flat / TPO roofing", "Metal roofing", "Gutter install",
+              "Gutter cleaning", "Skylights", "Roof inspection", "Insurance claim help", "Ventilation"],
+    hvac: ["Furnace repair", "Furnace replacement", "AC repair", "AC installation", "Heat pump install",
+           "Mini-split install", "Ductwork", "Duct cleaning", "Thermostat install", "Maintenance plans",
+           "Indoor air quality", "Emergency service", "Commercial HVAC", "System tune-up"],
+    other: ["Repairs", "Installation", "Replacement", "Maintenance", "Inspections",
+            "Emergency service", "Commercial work", "Residential work"]
+  };
+  var ATTRS = ["Licensed", "Insured", "Bonded", "Free estimates", "Financing available",
+               "Warranty offered", "24/7 emergency service", "Veteran-owned", "Family-owned",
+               "Women-owned", "Locally owned"];
+  var PAYMENTS = ["Cash", "Check", "Credit card", "Debit card", "Bank transfer", "Financing"];
+  var LANGS = ["English", "Spanish", "Portuguese", "Other"];
+  var LEADPREF = ["Phone call", "Text message", "Website form", "Email"];
+  var PHOTOS = ["Crew on a job", "Finished work", "Before and after", "Trucks or vans",
+                "The team", "Shop or office", "Logo"];
+  var FAQ_COMMON = ["Do you give free estimates?", "Are you licensed and insured?",
+                    "Do you handle insurance claims?", "Do you offer financing?",
+                    "How soon can you come out?", "Do you do emergency call-outs?",
+                    "Do you offer a warranty?", "What areas do you cover?"];
+  var DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  // ---------------------------------------------------------------- build the controls
+  function esc(v) { return String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
+  function group(hostId, items, name, type) {
+    document.getElementById(hostId).innerHTML = items.map(function (v, i) {
+      return '<label class="chip"><input type="' + type + '" id="' + name + "_" + i + '" name="' + name +
+             '" value="' + esc(v) + '"><span>' + esc(v) + '</span></label>';
+    }).join("");
+  }
+  group("services", SERVICES[trade] || SERVICES.other, "services", "checkbox");
+  group("attributes", ATTRS, "attributes", "checkbox");
+  group("payments", PAYMENTS, "payments", "checkbox");
+  group("languages", LANGS, "languages", "checkbox");
+  group("lead_pref", LEADPREF, "lead_pref", "checkbox");
+  group("photos_have", PHOTOS, "photos_have", "checkbox");
+  group("faq_common", FAQ_COMMON, "faq_common", "checkbox");
+  group("storefront", ["No — I go to them", "Yes — they come to me", "Both"], "storefront", "radio");
+  group("hours_ok", ["Yes, they're right", "No, they need changing"], "hours_ok", "radio");
+  group("emergency", ["Yes, any time", "Only in the season", "No, normal hours only"], "emergency", "radio");
+  group("tone", ["Warm and personal", "Plain and factual", "Short and businesslike"], "tone", "radio");
+  group("photo_send", ["I'll text them", "I'll email them", "I don't have any yet"], "photo_send", "radio");
+
+  document.getElementById("faq-own").innerHTML = [1, 2, 3].map(function (i) {
+    return '<div class="qa-pair">' +
+      '<input type="text" name="faq_q" placeholder="Question ' + i + '">' +
+      '<input type="text" name="faq_a" placeholder="Your answer, in a sentence">' +
+      '</div>';
+  }).join("");
+
+  document.getElementById("hours-grid").innerHTML = DAYS.map(function (d, i) {
+    var weekend = i > 4;
+    return '<div class="hrow"><b>' + d + '</b>' +
+      '<input type="time" name="h_open" value="' + (weekend ? "" : "08:00") + '" aria-label="' + d + ' open">' +
+      '<span class="sep">&ndash;</span>' +
+      '<input type="time" name="h_close" value="' + (weekend ? "" : "17:00") + '" aria-label="' + d + ' close">' +
+      '<label class="cl"><input type="checkbox" name="h_closed"' + (weekend ? " checked" : "") + '> closed</label>' +
+      '</div>';
+  }).join("");
+
+  // ---------------------------------------------------------------- prefill from the audit
+  var hoursNow = document.getElementById("hours-now");
+  hoursNow.textContent = g.hours
+    ? "Google currently shows: " + g.hours.split("; ").join("  ·  ")
+    : "Your profile has no hours set at all — one of the things I'll fix.";
+  if (g.phone || a.phone) document.getElementById("phone_public").value = g.phone || a.phone;
+  if (g.website) document.getElementById("website").value = g.website;
+
+  document.getElementById("hours_ok").addEventListener("change", function (e) {
+    document.getElementById("hours-edit").classList.toggle("hidden", (e.target.value || "").indexOf("Yes") === 0);
+  });
+
+  // ---------------------------------------------------------------- the towns list
+  var areaList = [];
+  function drawAreas() {
+    var host = document.getElementById("areas");
+    host.innerHTML = areaList.map(function (v, i) {
+      return '<span class="tag">' + esc(v) + '<button type="button" data-i="' + i + '" aria-label="Remove">&times;</button></span>';
+    }).join("");
+    [].forEach.call(host.querySelectorAll("button"), function (b) {
+      b.addEventListener("click", function () { areaList.splice(+b.getAttribute("data-i"), 1); drawAreas(); touch(); });
+    });
+  }
+  function addAreas() {
+    var el = document.getElementById("area_add");
+    String(el.value || "").split(",").forEach(function (v) {
+      v = v.trim();
+      if (v && areaList.indexOf(v) < 0) areaList.push(v);
+    });
+    el.value = ""; drawAreas(); touch();
+  }
+  document.getElementById("area_btn").addEventListener("click", addAreas);
+  document.getElementById("area_add").addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === ",") { e.preventDefault(); addAreas(); }
+  });
+
+  document.getElementById("svc_btn").addEventListener("click", function () {
+    var el = document.getElementById("svc_add"), v = el.value.trim();
+    if (!v) return;
+    var host = document.getElementById("services");
+    var lab = document.createElement("label");
+    lab.className = "chip";
+    lab.innerHTML = '<input type="checkbox" id="services_x' + host.children.length + '" name="services" value="' +
+                    esc(v) + '" checked><span>' + esc(v) + '</span>';
+    host.appendChild(lab);
+    el.value = ""; touch();
+  });
+
+  // ---------------------------------------------------------------- collect
+  function checked(name) {
+    return [].slice.call(document.querySelectorAll('input[name="' + name + '"]:checked'))
+             .map(function (i) { return i.value; });
+  }
+  function one(name) {
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : "";
+  }
+  function val(id) { return String((document.getElementById(id) || {}).value || "").trim(); }
+
+  function hoursOut() {
+    if ((one("hours_ok") || "").indexOf("Yes") === 0) return "same as the profile shows now";
+    var opens = document.querySelectorAll('input[name="h_open"]'),
+        closes = document.querySelectorAll('input[name="h_close"]'),
+        shut = document.querySelectorAll('input[name="h_closed"]');
+    return DAYS.map(function (d, i) {
+      if (shut[i] && shut[i].checked) return d + ": closed";
+      return d + ": " + (opens[i].value || "?") + "-" + (closes[i].value || "?");
+    }).join("; ");
+  }
+  function faqOwn() {
+    var qs = document.querySelectorAll('input[name="faq_q"]'),
+        as = document.querySelectorAll('input[name="faq_a"]'), out = [];
+    for (var i = 0; i < qs.length; i++) {
+      var q = qs[i].value.trim(), an = as[i].value.trim();
+      if (q) out.push(q + (an ? "  ||  " + an : ""));
+    }
+    return out;
+  }
+
+  function collect() {
+    var services = checked("services");
+    var yr = val("year_started");
+    var d = {
+      what_they_do: val("what_you_do"),
+      why_them: val("why_them"),
+      year_started: yr,
+      years_in_business: yr ? ((new Date()).getFullYear() - Number(yr)) + " years (since " + yr + ")" : "",
+      employees: val("employees"),
+      services_listed: services.join(", "),
+      area_served: areaList.join(", "),
+      storefront: one("storefront"),
+      hours_wanted: hoursOut(),
+      emergency_calls: one("emergency"),
+      phone_public: val("phone_public"),
+      website_url: val("website"),
+      booking_url: val("booking_url"),
+      lead_pref: checked("lead_pref").join(", "),
+      license_no: val("license_no"),
+      license_state: val("license_state"),
+      attributes: checked("attributes").join(", "),
+      warranty: val("warranty"),
+      payments: checked("payments").join(", "),
+      languages: checked("languages").join(", "),
+      faq_to_post: checked("faq_common").concat(faqOwn()).join("  |  "),
+      review_tone: one("tone"),
+      review_notes: val("review_notes"),
+      photos_have: checked("photos_have").join(", "),
+      photo_send: one("photo_send"),
+      must_haves: val("avoid"),
+      owner_email: val("owner_email"),
+      contact_mobile: val("contact_mobile")
+    };
+    // One paste-ready block: the job starts from a copy, not from reading a spreadsheet row sideways.
+    d.onboarding_paste = [
+      "BUSINESS: " + (g.name || a.business_name || ""),
+      "PLACE ID: " + (g.place_id || a.place_id || ""),
+      "TRADE: " + trade,
+      "",
+      "-- DESCRIPTION SOURCE --",
+      "what they do : " + d.what_they_do,
+      "why them     : " + d.why_them,
+      "since        : " + (d.year_started || "-") + (d.employees ? "   crew: " + d.employees : ""),
+      "licence      : " + (d.license_no || "-") + (d.license_state ? " (" + d.license_state + ")" : ""),
+      "warranty     : " + (d.warranty || "-"),
+      "",
+      "-- SERVICES (paste into Google's services list) --",
+      services.length ? services.map(function (s) { return "  " + s; }).join("\n") : "  (none ticked)",
+      "",
+      "-- PROFILE FIELDS --",
+      "service area : " + (d.area_served || "-"),
+      "storefront   : " + (d.storefront || "-"),
+      "hours        : " + d.hours_wanted,
+      "emergency    : " + (d.emergency_calls || "-"),
+      "phone        : " + (d.phone_public || "-"),
+      "website      : " + (d.website_url || "-"),
+      "booking      : " + (d.booking_url || "-"),
+      "attributes   : " + (d.attributes || "-"),
+      "payments     : " + (d.payments || "-"),
+      "languages    : " + (d.languages || "-"),
+      "",
+      "-- Q&A TO POST --",
+      d.faq_to_post ? d.faq_to_post.split("  |  ").map(function (q) { return "  " + q; }).join("\n") : "  (none)",
+      "",
+      "-- REVIEW REPLIES --",
+      "tone         : " + (d.review_tone || "-"),
+      "careful with : " + (d.review_notes || "nothing flagged"),
+      "",
+      "-- PHOTOS --",
+      "they have    : " + (d.photos_have || "-"),
+      "sending by   : " + (d.photo_send || "-"),
+      "",
+      "-- DO NOT --",
+      (d.must_haves || "nothing flagged"),
+      "",
+      "owner account: " + (d.owner_email || "-"),
+      "contact      : " + (d.contact_mobile || "-")
+    ].join("\n");
+    d.onboarding_json = JSON.stringify(d);
+    return d;
+  }
+
+  // ---------------------------------------------------------------- draft, autosave, submit
+  var state = document.getElementById("state"), form = document.getElementById("ob");
+  var dirty = false, timer = null;
+
+  function snapshot() {
+    var out = { fields: {}, checks: [], radios: {}, areas: areaList, extra: {} };
+    [].forEach.call(form.querySelectorAll("input, textarea"), function (el) {
+      if (el.type === "checkbox") { if (el.checked) out.checks.push(el.name + "||" + el.value); }
+      else if (el.type === "radio") { if (el.checked) out.radios[el.name] = el.value; }
+      else if (el.id) out.fields[el.id] = el.value;
+      else if (el.name) { (out.extra[el.name] = out.extra[el.name] || []).push(el.value); }
+    });
+    return out;
+  }
+  function restore() {
+    var d = null;
+    try { d = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch (e) {}
+    if (!d) return;
+    Object.keys(d.fields || {}).forEach(function (k) {
+      var el = document.getElementById(k);
+      if (el && d.fields[k]) el.value = d.fields[k];
+    });
+    Object.keys(d.extra || {}).forEach(function (n) {
+      var list = form.querySelectorAll('[name="' + n + '"]');
+      for (var i = 0; i < list.length && i < d.extra[n].length; i++) list[i].value = d.extra[n][i];
+    });
+    (d.checks || []).forEach(function (key) {
+      var p = key.split("||");
+      [].forEach.call(form.querySelectorAll('input[name="' + p[0] + '"]'), function (i) {
+        if (i.value === p[1]) i.checked = true;
+      });
+    });
+    Object.keys(d.radios || {}).forEach(function (n) {
+      [].forEach.call(form.querySelectorAll('input[name="' + n + '"]'), function (i) {
+        if (i.value === d.radios[n]) { i.checked = true; i.dispatchEvent(new Event("change", { bubbles: true })); }
+      });
+    });
+    if (d.areas && d.areas.length) { areaList = d.areas; drawAreas(); }
+  }
+
+  function touch() {
+    dirty = true;
+    state.className = "state";
+    state.textContent = "Saving…";
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      try { localStorage.setItem(DRAFT_KEY, JSON.stringify(snapshot())); } catch (e) {}
+      state.textContent = "Saved on this phone";
+    }, 600);
+  }
+  form.addEventListener("input", touch);
+  form.addEventListener("change", touch);
+
+  // If they wander off half-done, what they typed goes to the sheet anyway. Nobody gets chased for
+  // answers they already gave.
+  window.addEventListener("pagehide", function () {
+    if (!dirty || !leadId) return;
+    try {
+      var body = collect();
+      body.stage = "onboarding_partial";
+      body.form = "gbp-onboarding";
+      body.secret = LEADS_SECRET;
+      body.lead_id = leadId;
+      navigator.sendBeacon(LEADS_URL, new Blob([JSON.stringify(body)], { type: "text/plain;charset=UTF-8" }));
+    } catch (e) {}
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var btn = document.getElementById("submit");
+    btn.disabled = true;
+    state.className = "state";
+    state.textContent = "Sending…";
+    var body = collect();
+    body.stage = "onboarding";
+    body.form = "gbp-onboarding";
+    body.business_name = g.name || a.business_name || "";
+    body.place_id = g.place_id || a.place_id || "";
+    post(body).then(function () {
+      dirty = false;
+      state.className = "state ok";
+      state.textContent = "Sent — thank you";
+      btn.textContent = "Sent";
+      var note = document.getElementById("done-note");
+      note.hidden = false;
+      note.scrollIntoView({ block: "center", behavior: "smooth" });
+    }).catch(function () {
+      btn.disabled = false;
+      state.className = "state";
+      state.textContent = "That didn't send. Try once more, or text me and I'll take it by phone.";
+    });
+  });
+
+  restore();
 })();
 </script>
 </body>
