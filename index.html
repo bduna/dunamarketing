@@ -522,12 +522,17 @@ fbq('track', 'PageView');
     try { S.savedAt = Date.now(); localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {}
   }
 
-  // Offer the way out as soon as there is anything to get out of.
+  // Offer the way out as soon as there is anything to get out of — including a sample, which is
+  // otherwise a page with no exit.
   (function () {
     var btn = $("restart");
     if (!btn) return;
-    if (S.google || (S.a && S.a.business_name)) btn.hidden = false;
+    var isDemo = /[?&]demo=/i.test(location.search);
+    if (isDemo || S.google || (S.a && S.a.business_name)) btn.hidden = false;
     btn.addEventListener("click", function () {
+      // Leaving a sample abandons nothing, so no confirm — and the visitor's own saved report,
+      // if they have one, is left in storage for the homepage to resume.
+      if (isDemo) { location.replace(location.pathname); return; }
       if (!confirm("Start again with a different business?")) return;
       try { localStorage.removeItem(STORE_KEY); } catch (e) {}
       location.replace(location.pathname);
@@ -636,6 +641,10 @@ fbq('track', 'PageView');
     var t = thread.lastElementChild;
     if (!t) return;
     var r = t.getBoundingClientRect(), v = visibleBox();
+    // A tail taller than the screen — the report — can't have its bottom brought into view without
+    // burying its start. The paint already put its top at the top; after that the reader's own
+    // scroll position is the right one, so a URL-bar collapse or keyboard close must not move it.
+    if (r.height > (v.bottom - v.top)) return;
     var below = r.bottom - (v.bottom - TAIL_GAP);   // how far it sits under the fold / keyboard
     var above = (v.top + TAIL_GAP) - r.top;         // how far it sits above the top
     var by = below > 0 ? below : (above > 0 ? -above : 0);
