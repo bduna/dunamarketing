@@ -52,9 +52,25 @@ fbq('track', 'PageView');
     box-shadow:0 2px 12px rgba(0,29,82,.35); }
   .topbar img { height:32px; width:auto; display:block; background:#fff; border-radius:6px; padding:3px; }
   .topbar .name { font-weight:800; font-size:1.05rem; color:#fff; }
+  /* The sample reports live up here, out of the funnel: under the search they read as a step of it,
+     and the one thing on that path should be typing your own business name. */
+  .topbar .samples { margin-left:auto; display:flex; align-items:center; gap:8px;
+    font-size:.8rem; white-space:nowrap; }
+  .topbar .samples .sl { color:#aab8d4; font-weight:600; }
+  .topbar .samples a { color:#fff; opacity:.88; font-weight:700; text-decoration:underline;
+    text-underline-offset:3px; min-height:34px; display:inline-flex; align-items:center; }
+  .topbar .samples a:hover { opacity:1; }
+  .topbar .samples a:focus-visible { outline:3px solid #fff; outline-offset:2px; }
+  /* On a narrow phone the label is the part that doesn't fit; the two links keep their meaning.
+     And once Start over is showing, a narrow bar can't hold both — the returning visitor already
+     has a real report, so the samples are the thing to give up. Browsers without :has() just wrap. */
+  @media (max-width:430px) {
+    .topbar .samples .sl.label { display:none; }
+    .topbar:has(.restart:not([hidden])) .samples { display:none; }
+  }
   /* Shown only once there is saved progress. Without it a finished interview is a dead end —
      the state survives a hard refresh, so there was no way back to the start for anyone. */
-  .topbar .restart { margin-left:auto; background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.7);
+  .topbar .restart { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.7);
     border-radius:4px; padding:6px 10px; font-size:.8rem; font-weight:700; cursor:pointer; min-height:34px; }
   .topbar .restart:hover { background:rgba(255,255,255,.14); }
   .topbar .restart:focus-visible { outline:3px solid #fff; outline-offset:2px; }
@@ -211,9 +227,6 @@ fbq('track', 'PageView');
   .rp-sec .empty { color:var(--muted); font-style:italic; margin:0; }
   .rp-sec .lede { margin:0 0 14px; color:var(--muted); font-size:.95rem; }
 
-  .sample { text-align:center; margin:16px 0 0; font-size:.8rem; }
-  .sample a { color:var(--muted); text-decoration:underline; text-underline-offset:3px; }
-  .sample a:hover { color:var(--navy); }
   .demo-note { font-size:.9rem; }
   .demo-note a { color:var(--navy); font-weight:700; }
 
@@ -432,6 +445,12 @@ fbq('track', 'PageView');
 <header class="topbar">
   <img src="duna_marketing_logo.png" alt="">
   <span class="name">Duna Marketing</span>
+  <nav class="samples" aria-label="Sample reports">
+    <span class="sl label">Sample report:</span>
+    <a href="?demo=roofing">Roofing</a>
+    <span class="sl" aria-hidden="true">&#183;</span>
+    <a href="?demo=hvac">HVAC</a>
+  </nav>
   <button type="button" class="restart" id="restart" hidden>Start over</button>
 </header>
 
@@ -445,7 +464,6 @@ fbq('track', 'PageView');
 
     <div class="thread" id="thread" aria-live="polite"></div>
 
-    <p class="sample"><a href="?demo=roofing">Sample Roofing Report</a> &#183; <a href="?demo=hvac">Sample HVAC Report</a></p>
   </div>
 </main>
 
