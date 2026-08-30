@@ -47,25 +47,25 @@ fbq('track', 'PageView');
     background-size:20px 20px; background-position:-1px -1px;
     color:var(--ink); line-height:1.5; display:flex; flex-direction:column; min-height:100dvh;
   }
-  .topbar { position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:12px;
-    padding:10px 18px; background:var(--navy); border-bottom:3px solid var(--red);
+  .topbar { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; align-items:center;
+    gap:8px 12px; padding:10px 18px; background:var(--navy); border-bottom:3px solid var(--red);
     box-shadow:0 2px 12px rgba(0,29,82,.35); }
   .topbar img { height:32px; width:auto; display:block; background:#fff; border-radius:6px; padding:3px; }
   .topbar .name { font-weight:800; font-size:1.05rem; color:#fff; }
   /* The sample reports live up here, out of the funnel: under the search they read as a step of it,
-     and the one thing on that path should be typing your own business name. */
-  .topbar .samples { margin-left:auto; display:flex; align-items:center; gap:8px;
-    font-size:.8rem; white-space:nowrap; }
-  .topbar .samples .sl { color:#aab8d4; font-weight:600; }
-  .topbar .samples a { color:#fff; opacity:.88; font-weight:700; text-decoration:underline;
-    text-underline-offset:3px; min-height:34px; display:inline-flex; align-items:center; }
-  .topbar .samples a:hover { opacity:1; }
+     and the one thing on that path should be typing your own business name. Buttons in the same
+     voice as Start over, held a little off the right edge so they don't crowd it. */
+  .topbar .samples { margin-left:auto; margin-right:14px; display:flex; align-items:center;
+    gap:8px; white-space:nowrap; }
+  .topbar .samples a { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.7);
+    border-radius:4px; padding:6px 10px; font-size:.8rem; font-weight:700; text-decoration:none;
+    min-height:34px; display:inline-flex; align-items:center; }
+  .topbar .samples a:hover { background:rgba(255,255,255,.14); }
   .topbar .samples a:focus-visible { outline:3px solid #fff; outline-offset:2px; }
-  /* On a narrow phone the label is the part that doesn't fit; the two links keep their meaning.
-     And once Start over is showing, a narrow bar can't hold both — the returning visitor already
-     has a real report, so the samples are the thing to give up. Browsers without :has() just wrap. */
+  /* The bar wraps rather than shrinking the labels: on a phone the two buttons take a second row.
+     Once Start over is showing, a narrow bar can't hold everything — the returning visitor already
+     has a real report, so the samples are the thing to give up. Without :has() they just wrap. */
   @media (max-width:430px) {
-    .topbar .samples .sl.label { display:none; }
     .topbar:has(.restart:not([hidden])) .samples { display:none; }
   }
   /* Shown only once there is saved progress. Without it a finished interview is a dead end —
@@ -446,10 +446,8 @@ fbq('track', 'PageView');
   <img src="duna_marketing_logo.png" alt="">
   <span class="name">Duna Marketing</span>
   <nav class="samples" aria-label="Sample reports">
-    <span class="sl label">Sample report:</span>
-    <a href="?demo=roofing">Roofing</a>
-    <span class="sl" aria-hidden="true">&#183;</span>
-    <a href="?demo=hvac">HVAC</a>
+    <a href="?demo=roofing">Sample Roofing Report</a>
+    <a href="?demo=hvac">Sample HVAC Report</a>
   </nav>
   <button type="button" class="restart" id="restart" hidden>Start over</button>
 </header>
