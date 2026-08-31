@@ -189,7 +189,10 @@ h2 { text-wrap: balance; }
 .quote--bare p { font-size: var(--fs-1); margin-bottom: var(--space-1); }
 
 /* ---------- Services page ---------- */
-.page-hero { padding-block: clamp(2.5rem, 5vw, 4rem) 0.5rem; }
+.page-hero { padding-block: clamp(2.5rem, 5vw, 4rem) 0.25rem; }
+/* The subpage headline owns its first section: the section's full --section-y top padding after
+   the hero read as a hole in the page. */
+.page-hero + .section { padding-block-start: 0.75rem; }
 .page-hero h1 { max-width: 18ch; }
 .offer-band { position: relative; display: grid; align-items: center; overflow: hidden;
               min-height: clamp(380px, 46vw, 480px); }
