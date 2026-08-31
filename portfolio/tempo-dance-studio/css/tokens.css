@@ -3,26 +3,26 @@
    Family: tinted blush/pink. Contrast measured in direction.md §2. */
 :root {
   /* Palette (60-30-10): 60 blush base · 30 deep-wine brand bands · 10 electric violet accent */
-  --bg: #FBEDDF;
-  --bg-alt: #F4DFC8;
+  --bg: #F4EFF6;
+  --bg-alt: #E9E0EE;
   --surface: #FFFFFF;
-  --ink: #1F2D2E;
-  --ink-muted: #4E6163;
-  --line: #E3CDB2;
-  --brand: #134E4A;
-  --on-brand: #FBEDDF;
-  --accent: #E4572E;
-  --accent-hover: #C74722;
-  --on-accent: #FFFFFF;
-  --accent-ink: #A93C17;   /* small text: eyebrows, prices, labels — 5.71:1 on --bg, 4.98:1 on --bg-alt */
+  --ink: #241B2E;
+  --ink-muted: #5A4C68;
+  --line: #D9CDE1;
+  --brand: #4A2352;
+  --on-brand: #F4EFF6;
+  --accent: #B7912F;
+  --accent-hover: #9A7825;
+  --on-accent: #241B2E;
+  --accent-ink: #77601C;   /* small text: eyebrows, prices, labels — 5.71:1 on --bg, 4.98:1 on --bg-alt */
 
   /* Derived, no new hues */
   --brand-line: rgba(245, 232, 236, 0.28);   /* hairline inside the wine bands */
   --scrim: 12, 6, 18;                         /* the one dark band (T4) */
 
   /* Type — Syne + DM Sans (assigned) */
-  --font-display: "Syne", "Trebuchet MS", sans-serif;
-  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Libre Bodoni", "Bodoni MT", Georgia, serif;
+  --font-body: "Jost", system-ui, -apple-system, "Segoe UI", sans-serif;
   --fs-0: clamp(1.0625rem, 1rem + 0.25vw, 1.125rem);
   --fs-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
   --fs-2: clamp(1.35rem, 1.15rem + 0.9vw, 1.75rem);
