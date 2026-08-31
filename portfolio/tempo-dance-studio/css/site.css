@@ -189,10 +189,11 @@ h2 { text-wrap: balance; }
 .quote--bare p { font-size: var(--fs-1); margin-bottom: var(--space-1); }
 
 /* ---------- Services page ---------- */
-.page-hero { padding-block: clamp(2.5rem, 5vw, 4rem) 0.25rem; }
-/* The subpage headline owns its first section: the section's full --section-y top padding after
-   the hero read as a hole in the page. */
-.page-hero + .section { padding-block-start: 0.75rem; }
+/* The gap between a subpage headline and its first section is EXACTLY 30px: the hero contributes
+   no bottom padding and its h1 no bottom margin, so the section's top padding is the whole gap. */
+.page-hero { padding-block: clamp(2.5rem, 5vw, 4rem) 0; }
+.page-hero h1 { margin-bottom: 0; }
+.page-hero + .section { padding-block-start: 30px; }
 .page-hero h1 { max-width: 18ch; }
 .offer-band { position: relative; display: grid; align-items: center; overflow: hidden;
               min-height: clamp(380px, 46vw, 480px); }
