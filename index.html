@@ -94,7 +94,9 @@ fbq('track', 'PageView');
   .intro h1 + p { margin-bottom:clamp(18px, 4vw, 30px); }
 
   /* ---- proof strip: the six sample sites ---- */
-  .proof { margin:23px 0 0; }
+  /* The subline hands straight off to the samples ("click around the portfolio below"), so the
+     hero's own bottom margin carries nearly all of the gap — the two read as one pitch. */
+  .proof { margin:6px 0 0; }
   .proof h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
     letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
   .proof p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 20px; max-width:44ch; }
