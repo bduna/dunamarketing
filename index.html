@@ -3,16 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
-<title>Duna Marketing &mdash; Free Google Profile Scan for Roofers &amp; HVAC</title>
-<meta name="description" content="See your Google Business Profile next to the roofing and HVAC companies sitting above you in the map — reviews, rating, photos, what they list that you don't. Free, about a minute, no email or phone number.">
+<title>Duna Marketing &mdash; Big-Agency Websites. Small-Business Prices.</title>
+<meta name="description" content="Custom-built websites for small businesses, at a price that will surprise you. Tell me about your business in a two-minute chat and I'll build it from your own words.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Duna Marketing">
-<meta property="og:title" content="Enter your Google listing info and I'll show you exactly why you need it optimized">
-<meta property="og:description" content="A furnace quits at 6am. A ceiling stain spreads mid-storm. Those calls go to the competitors of yours that dominate the Google Maps Box search results. See how your profile compares — free, no email or phone number.">
+<meta property="og:title" content="Your new website starts here — Duna Marketing">
+<meta property="og:description" content="Nothing to prepare, no tech skills needed. Answer a few questions out loud and we build the rest.">
 <meta name="theme-color" content="#003087">
 <link rel="icon" type="image/png" href="duna_marketing_logo.png">
 <link rel="apple-touch-icon" href="duna_marketing_logo.png">
 <link rel="preconnect" href="https://places.googleapis.com">
+<link rel="preconnect" href="https://upload-widget.cloudinary.com">
+<link rel="preconnect" href="https://res.cloudinary.com">
 <link rel="preconnect" href="https://connect.facebook.net">
 <script>
 // Same kill switch as the rest of the site: ?metrics=off keeps owner testing out of the ad data.
@@ -47,33 +49,20 @@ fbq('track', 'PageView');
     background-size:20px 20px; background-position:-1px -1px;
     color:var(--ink); line-height:1.5; display:flex; flex-direction:column; min-height:100dvh;
   }
-  .topbar { position:sticky; top:0; z-index:50; display:flex; flex-wrap:wrap; align-items:center;
-    gap:8px 12px; padding:10px 18px; background:var(--navy); border-bottom:3px solid var(--red);
+  .topbar { position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:12px;
+    padding:10px 18px; background:var(--navy); border-bottom:3px solid var(--red);
     box-shadow:0 2px 12px rgba(0,29,82,.35); }
   .topbar img { height:32px; width:auto; display:block; background:#fff; border-radius:6px; padding:3px; }
   .topbar .name { font-weight:800; font-size:1.05rem; color:#fff; }
-  /* The sample reports live up here, out of the funnel: under the search they read as a step of it,
-     and the one thing on that path should be typing your own business name. Buttons in the same
-     voice as Start over, held a little off the right edge so they don't crowd it. */
-  .topbar .samples { margin-left:auto; margin-right:14px; display:flex; align-items:center;
-    gap:8px; white-space:nowrap; }
-  .topbar .samples a { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.7);
-    border-radius:4px; padding:6px 10px; font-size:.8rem; font-weight:700; text-decoration:none;
-    min-height:34px; display:inline-flex; align-items:center; }
-  .topbar .samples a:hover { background:rgba(255,255,255,.14); }
-  .topbar .samples a:focus-visible { outline:3px solid #fff; outline-offset:2px; }
-  /* The bar wraps rather than shrinking the labels: on a phone the two buttons take a second row.
-     Once Start over is showing, a narrow bar can't hold everything — the returning visitor already
-     has a real report, so the samples are the thing to give up. Without :has() they just wrap. */
-  @media (max-width:430px) {
-    .topbar:has(.restart:not([hidden])) .samples { display:none; }
-  }
+  .topbar .meta { margin-left:auto; color:rgba(255,255,255,.85); font-size:.82rem; font-weight:600; }
   /* Shown only once there is saved progress. Without it a finished interview is a dead end —
      the state survives a hard refresh, so there was no way back to the start for anyone. */
-  .topbar .restart { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.7);
+  .topbar .restart { margin-left:auto; background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.7);
     border-radius:4px; padding:6px 10px; font-size:.8rem; font-weight:700; cursor:pointer; min-height:34px; }
   .topbar .restart:hover { background:rgba(255,255,255,.14); }
   .topbar .restart:focus-visible { outline:3px solid #fff; outline-offset:2px; }
+  .topbar .restart + .meta { margin-left:12px; }
+  @media (max-width:480px) { .topbar .restart + .meta { display:none; } }
 
   main { display:flex; flex-direction:column; align-items:center; width:100%;
     padding:16px 14px calc(20px + env(safe-area-inset-bottom)); }
@@ -96,6 +85,34 @@ fbq('track', 'PageView');
   .typing span:nth-child(2){animation-delay:.2s} .typing span:nth-child(3){animation-delay:.4s}
   @keyframes bl { 0%,60%,100%{opacity:.35} 30%{opacity:1} }
   @media (prefers-reduced-motion:reduce){ .typing span{animation:none} }
+
+  /* ---- composer ---- */
+  /* An explicit display value beats the UA's [hidden] rule, so say it again for both. */
+  .composer[hidden], .hint[hidden] { display:none; }
+  /* In the flow, tight under the last message — not pinned to the bottom of the screen. A composer
+     stuck to the viewport leaves a dead gap under a short conversation and reads like a form footer;
+     this way the input is simply the next thing after what was just said. */
+  .composer { margin-top:12px; padding:0 0 4px; display:flex; gap:8px; align-items:flex-end; }
+  /* A pill that grows with what they type, and a round send — the shape people already know from
+     Messages. The border is thin on purpose; it only has to say "you can type here". */
+  .composer textarea { flex:1; font:inherit; font-size:1rem; line-height:1.4; padding:12px 18px;
+    border-radius:24px; border:1px solid var(--input-line); background:#fff; resize:none;
+    min-height:48px; max-height:140px; }
+  .composer textarea::placeholder { color:var(--muted); }
+  /* One edge, not two. Recolouring the border AND drawing an outline around it stacked two navy
+     rings and read as a double border. The border thickens in colour; the halo does the rest.
+     The transparent outline is kept so Windows High Contrast still paints a focus ring. */
+  .composer textarea:focus { outline:2px solid transparent; outline-offset:1px;
+    border-color:var(--navy); box-shadow:0 0 0 3px rgba(0,48,135,.16); }
+  .send { flex:0 0 auto; width:48px; height:48px; display:grid; place-items:center; padding:0;
+    border:0; border-radius:50%; background:var(--red); color:#fff; cursor:pointer;
+    transition:background var(--dur,160ms) ease, transform 120ms ease; }
+  .send svg { width:22px; height:22px; display:block; }
+  .send:hover:not(:disabled) { background:var(--red-dark); }
+  .send:active:not(:disabled) { transform:scale(0.94); }
+  .send:focus-visible { outline:3px solid var(--navy); outline-offset:2px; }
+  .send:disabled { background:#b9c0cc; cursor:default; }
+  .hint { text-align:center; font-size:.78rem; color:var(--muted); margin:2px 0 0; }
 
   /* ---- a field living IN the conversation ----
      No panel, no border box, no shadow — the field is the only thing you can see, sitting on the
@@ -195,213 +212,99 @@ fbq('track', 'PageView');
      Left-aligned at the column edge is the fallback if that measurement never runs. */
   /* max-width:none so `.intro p { max-width:46ch }` cannot box it into a narrower column than the
      headline — otherwise "centred" would mean centred on a different axis. */
-  .intro .kicker { margin:clamp(38px, 9vw, 88px) 0 10px; max-width:none; text-align:center; color:var(--red);
+  .intro .kicker { margin:clamp(18px, 5vw, 40px) 0 10px; max-width:none; text-align:center; color:var(--red);
     font-weight:800; font-size:clamp(.74rem, 2.5vw, .88rem); letter-spacing:.07em;
     text-transform:uppercase; }
-  /* Set by fitKicker() once measured; nowrap is what lets it be one full-width line. */
-  .intro .kicker.fitted { white-space:nowrap; }
-  .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 clamp(16px, 3.5vw, 30px);
+  .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 10px;
     letter-spacing:-.03em; color:var(--navy); text-wrap:balance; }
   .intro p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
-  /* Reassurance, not decoration: the funnel genuinely asks for nothing, and saying so up front
-     removes the objection people have before they type a business name. */
-  /* Scoped to .intro so it outranks `.intro p`, which would otherwise repaint it muted grey at 1rem.
-     A class-only selector loses to class+element, and silently. */
   /* Space under the subline so the first question does not sit on top of the pitch. */
   .intro h1 + p { margin-bottom:clamp(18px, 4vw, 30px); }
+  .savenote { text-align:center; font-size:.78rem; color:var(--muted); margin:14px 0 0; }
 
-  /* ---------- the report ---------- */
-  .report { margin:22px 0 8px; }
-  .progress { padding:18px 4px; }
-  .progress .step { margin:0 0 10px; color:#8b95a6; font-size:.95rem; transition:color .2s; }
-  .progress .step::before { content:"○ "; }
-  .progress .step.now { color:var(--navy); font-weight:700; }
-  .progress .step.now::before { content:"◐ "; }
-  .progress .step.done { color:#3f8f5f; }
-  .progress .step.done::before { content:"● "; }
-  .rp-head h2 { margin:0 0 4px; font-size:1.5rem; color:var(--navy); line-height:1.2; }
-  .rp-head p { margin:0 0 6px; color:var(--muted); font-size:.95rem; }
-  .rp-sec { margin:26px 0 0; }
-  .rp-sec h3 { margin:0 0 12px; font-size:1.1rem; color:var(--ink); }
-  .rp-sec .fine { font-size:.8rem; color:var(--muted); margin:8px 0 0; }
-  .rp-sec .empty { color:var(--muted); font-style:italic; margin:0; }
-  .rp-sec .lede { margin:0 0 14px; color:var(--muted); font-size:.95rem; }
-
-  .demo-note { font-size:.9rem; }
-  .demo-note a { color:var(--navy); font-weight:700; }
-
-  /* ---------- the checklist ----------
-     Fixed light like the rest of the report — it is read on a phone and screenshotted, so every
-     colour is stated explicitly. The icon carries the verdict in colour AND the row carries it in
-     words, so a colourblind reader and a screen reader lose nothing. */
-  .ck { margin:0; padding:0; list-style:none; }
-  .ck li { display:grid; grid-template-columns:26px 1fr; gap:0 10px; padding:13px 0;
-    border-bottom:1px solid var(--line); }
-  .ck li:last-child { border-bottom:0; padding-bottom:4px; }
-  .ck-ic { width:24px; height:24px; border-radius:50%; display:flex; align-items:center;
-    justify-content:center; font-size:.8rem; font-weight:800; color:#fff; margin-top:1px; }
-  .ck li.ok .ck-ic { background:#1a7f37; }
-  .ck li.flag .ck-ic { background:#a86400; }
-  .ck li.miss .ck-ic { background:var(--red); }
-  .ck-lab { display:block; font-size:.98rem; font-weight:750; color:var(--ink); }
-  .ck-st { display:block; font-size:.9rem; color:var(--muted); margin-top:1px; }
-  .ck li.flag .ck-st, .ck li.miss .ck-st { color:var(--ink); }
-  .ck-why { margin:6px 0 0; font-size:.88rem; color:var(--muted); line-height:1.5; }
-
-  .sum p { margin:0 0 10px; font-size:.95rem; }
-  .sum p:last-child { margin-bottom:0; }
-  .sum .sum-wait { color:var(--muted); font-style:italic; }
-
-  .paid-back { margin:10px 0 0; }
-  .paid-back a { color:#cbd6ee; font-size:.82rem; text-decoration:underline; }
-
-  .qa { margin:22px 0 0; padding:18px 16px; background:var(--card); border:1px solid var(--line); border-radius:12px; }
-  .qa-h { margin:0 0 12px; font-weight:800; font-size:1rem; }
-  .qa-thread:empty { display:none; }
-  .qa-thread { margin:0 0 12px; }
-  .qa-msg { max-width:86%; padding:9px 13px; border-radius:14px; margin:0 0 8px; font-size:.92rem; line-height:1.5; }
-  .qa-msg.bot { background:#eef1f6; border-bottom-left-radius:5px; }
-  .qa-msg.them { background:var(--navy); color:#fff; margin-left:auto; border-bottom-right-radius:5px; }
-  .qa-msg.waiting { color:var(--muted); letter-spacing:2px; }
-  .qa-row { display:flex; gap:8px; }
-  .qa-row input { flex:1; min-width:0; font:inherit; font-size:1rem; padding:12px 14px; border-radius:22px;
-    border:1px solid #dfe3ea; background:#f7f8fa; color:var(--ink); min-height:46px; }
-  .qa-row input:focus { outline:none; border-color:#b9c4d8; background:#fff; }
-  .qa-row button { flex:0 0 auto; min-height:46px; padding:0 18px; border:0; border-radius:22px;
-    background:var(--navy); color:#fff; font-weight:800; font-size:.95rem; cursor:pointer; }
-  .qa-row button:disabled { opacity:.5; }
-
-  .opts { display:flex; flex-wrap:wrap; gap:8px; }
-  .opts.money { flex-direction:column; }
-  .opt { font:inherit; font-size:.95rem; line-height:1.3; padding:11px 15px; min-height:44px;
-    border-radius:20px; border:1.5px solid #ccd6ea; background:#fff; color:var(--navy);
-    font-weight:650; cursor:pointer; text-align:left; }
-  .opts.money .opt { width:100%; }
-  .opt.on { background:var(--navy); border-color:var(--navy); color:#fff; }
-  .opt.on::before { content:"\2713 "; }
-  .opt.done { background:var(--navy); border-color:var(--navy); color:#fff; font-weight:800; }
-  .opt.done:disabled { background:#eef1f6; border-color:#dfe4ee; color:#93a0b5; cursor:default; }
-  .opt.other { border-style:dashed; color:var(--muted); font-weight:600; }
-  @media (hover:hover) and (pointer:fine) {
-    .opt:hover { border-color:var(--navy); }
-    .opt.done:disabled:hover { border-color:#dfe4ee; }
-  }
-
-  /* Sit right beside the question, not shoved to the far edge — the buttons have to read as the
-     answer to the words next to them, and margin-left:auto put a hand's width of gap in between. */
-  .confirm { flex:0 0 auto; display:flex; gap:8px; align-items:flex-end; padding-bottom:2px; }
-  .cbtn { font:inherit; font-size:.95rem; font-weight:800; color:#fff; border:0; border-radius:18px;
-    min-height:40px; padding:0 clamp(14px, 4.5vw, 22px); cursor:pointer; line-height:1; }
-  .cbtn.yes { background:var(--navy); }
-  .cbtn.no { background:var(--red); }
-  @media (hover:hover) and (pointer:fine) { .cbtn:hover { filter:brightness(1.1); } }
-  .cbtn:active { transform:translateY(1px); }
-
-  /* The question, with its counter pinned to the top right of the row. */
-  .qrow { display:flex; align-items:flex-end; gap:10px; width:100%; }
-  .qrow .msg { flex:0 1 auto; }
-  .qmeta { flex:0 0 auto; margin-left:auto; display:flex; align-items:center; gap:6px;
-    padding-bottom:3px; white-space:nowrap; }
-  .qmeta b { font-size:.72rem; font-weight:800; color:var(--muted); letter-spacing:.02em; }
-
-  /* Flex children with no basis stretch to the row height — which is what turned the finished dots
-     into ovals. flex:0 0 7px fixes the size on both axes; align-items keeps them centred. */
-  .qdots { display:inline-flex; align-items:center; gap:4px; }
-  .qdots .d { flex:0 0 7px; width:7px; height:7px; padding:0; margin:0; border:0;
-    border-radius:50%; background:#cfd6e2; display:block; box-sizing:border-box; }
-  .qdots .d.fill { background:var(--navy); }
-  .qdots .d.live { background:var(--red); box-shadow:0 0 0 3px rgba(200,16,46,.18); }
-
-  .rw-row { margin:0 0 20px; }
-  .rw-row h4 { margin:0 0 8px; font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
-  .rw-pair { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  .rw-old, .rw-new { border:1px solid var(--line); border-radius:10px; padding:12px 14px; background:var(--card); }
-  .rw-old { opacity:.75; }
-  .rw-new { border-color:#bcd3b4; background:#f6fbf4; }
-  .rw-old p, .rw-new p { margin:0; font-size:.9rem; }
-  .rw-new ul { margin:0; padding-left:18px; font-size:.9rem; }
-  .rw-new li { margin:0 0 3px; }
-  .tag { display:block; font-size:.68rem; text-transform:uppercase; letter-spacing:.05em;
-    color:var(--muted); font-weight:800; margin:0 0 6px; }
-  .tag.ok { color:#3f7a4f; }
-  .rw .empty { font-style:italic; color:var(--muted); }
-  .rw .fine { font-size:.76rem; color:var(--muted); margin:8px 0 0; }
-
-  /* The offer that stands where the rewritten description will go. Warm rather than loud: it is a
-     gift, not a second sales block, so it borrows the card styling and not the navy CTA's. */
-  .offer { background:var(--navy-soft); border:1px solid #cfdcf5; border-radius:12px; padding:18px 18px 20px; }
-  .offer .oh { margin:0 0 8px; font-size:1.05rem; font-weight:800; color:var(--navy-deep); }
-  .offer .ol { margin:0 0 14px; font-size:.95rem; line-height:1.5; color:var(--ink); }
-  .offer-btn { font:inherit; font-size:1rem; font-weight:800; color:#fff; background:var(--navy);
-    border:0; border-radius:10px; min-height:50px; padding:0 22px; cursor:pointer; width:100%; }
-  .offer-btn:disabled { opacity:.6; }
-  @media (min-width:520px) { .offer-btn { width:auto; min-width:260px; } }
-  @media (hover:hover) and (pointer:fine) { .offer-btn:hover { filter:brightness(1.12); } }
-  .offer .fine { margin:10px 0 0; }
-  /* When the description lands, say so without a splash: one slow fade of the panel it arrived in. */
-  .just-in { animation:justin 1.6s ease-out 1; }
-  @keyframes justin {
-    from { background:var(--navy-soft); box-shadow:0 0 0 6px var(--navy-soft); }
-    to   { background:transparent; box-shadow:0 0 0 6px transparent; }
-  }
-  .notme { margin:10px 0 0; }
-  .notme a { font-size:.86rem; color:var(--muted); }
-  .cta { margin:30px 0 0; padding:22px 20px; border-radius:14px; background:var(--navy); color:#fff; text-align:center; }
-  .cta h3 { margin:0 0 8px; font-size:1.25rem; color:#fff; }
-  .cta p { margin:0 0 14px; font-size:.95rem; color:#d7e0f2; }
-  .cta-lead { margin:0 0 14px; font-size:1rem; }
-  .cta-lead b { color:#fff; }
-  .cta-list { text-align:left; margin:0 0 14px; padding:0; list-style:none; }
-  .cta-list li { position:relative; padding:0 0 0 24px; margin:0 0 10px; font-size:.92rem;
-    color:#dbe3f4; line-height:1.45; }
-  .cta-list li::before { content:"\2713"; position:absolute; left:0; top:0; color:#fff; font-weight:800; }
-  .cta-list b { color:#fff; }
-  .cta-close { margin:0 0 16px; font-size:.92rem; color:#dbe3f4; }
-  /* The button is the one thing in this block that gets tapped, so it gets air on both sides —
-     an inline-flex element takes no vertical margin of its own from the paragraphs around it. */
-  .cta .pay { display:inline-flex; align-items:center; justify-content:center; min-height:52px;
-    margin:clamp(18px, 5vw, 28px) 0 clamp(10px, 2.5vw, 15px);
-    /* Optical centring. Measured, the label already sat a hair above true centre, but bold text with
-       no descenders ("Have it done for me — $250") reads as sitting low because the eye centres on
-       the cap-height block, not the line box. 2px of bottom padding lifts it another pixel. */
-    padding:0 26px 2px; background:var(--red); color:#fff; border-radius:10px; font-weight:800;
-    font-size:1.05rem; text-decoration:none; }
-  /* The single most-missed line on the page: the buyer has to do something after paying, and if he
-     doesn't know that, he pays and vanishes. Prominence comes from white at full strength one step
-     above the fine print — no box, no bold; 33em holds the measure near 65 characters on desktop. */
-  .cta .cta-access { margin:2px auto 14px; max-width:33em; font-size:.95rem; line-height:1.5;
-    color:#fff; font-weight:400; }
-  .cta .refund { margin:0; font-size:.88rem; color:#fff; font-weight:600; }
-  .cta .fine { margin:8px 0 0; font-size:.78rem; color:#aab8d4; }
-  @media (hover:hover) and (pointer:fine) { .cta .pay:hover { filter:brightness(1.08); } }
-  @media (max-width:560px) { .rw-pair { grid-template-columns:1fr; } }
-
+  /* ---- proof strip: the six sample sites ---- */
+  .proof { margin:48px 0 0; }
+  .proof h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
+    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
+  .proof p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 20px; max-width:44ch; }
+  .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .proof-grid a { display:block; text-decoration:none; color:inherit; border:1px solid var(--line);
+    border-radius:10px; overflow:hidden; background:var(--card); }
+  .proof-grid img { display:block; width:100%; height:auto; border-bottom:1px solid var(--line); }
+  .proof-grid b { display:block; font-size:.78rem; font-weight:700; padding:8px 10px 2px; line-height:1.25; }
+  .proof-grid span { display:block; font-size:.72rem; color:var(--muted); padding:0 10px 9px; }
+  @media (max-width:560px) { .proof-grid { grid-template-columns:repeat(2,1fr); gap:10px; } }
 
   /* ---- back to the top: in the flow, so you only meet it by having scrolled ---- */
+  .totop { display:flex; flex-direction:column; align-items:center; gap:6px; margin:30px auto 8px;
+    background:none; border:0; padding:8px 12px; cursor:pointer; color:var(--navy); font:inherit; border-radius:10px; }
+  .totop svg { width:44px; height:44px; display:block; transition:transform .15s ease; }
+  .totop span { font-size:.8rem; font-weight:700; }
   /* Hover only where a real pointer exists — on a touchscreen :hover sticks red after a tap. */
+  @media (hover:hover) and (pointer:fine) { .totop:hover { color:var(--red); } .totop:hover svg { transform:translateY(-3px); } }
+  .totop:active { color:var(--red); }
+  .totop:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
+  @media (prefers-reduced-motion:reduce) { .totop svg { transition:none; } }
 </style>
 </head>
 <body>
 <header class="topbar">
   <img src="duna_marketing_logo.png" alt="">
   <span class="name">Duna Marketing</span>
-  <nav class="samples" aria-label="Sample reports">
-    <a href="?demo=roofing">Sample Roofing Report</a>
-    <a href="?demo=hvac">Sample HVAC Report</a>
-  </nav>
   <button type="button" class="restart" id="restart" hidden>Start over</button>
+  <span class="meta">saves as you go</span>
 </header>
 
 <main>
   <div class="wrap">
     <div class="intro" id="intro">
-      <p class="kicker" id="kicker">No email or phone number required</p>
-      <h1>Enter your Google listing info and I&rsquo;ll show you exactly why you need it optimized.</h1>
-      <p>Homeowners compare listings before they call. A half&#8209;empty profile hands the job to the company next to you &mdash; an optimized one books it.</p>
+      <p class="kicker">A short chat &#183; Easy mic input answers</p>
+      <h1>Big&#8209;Agency Websites. Small&#8209;Business Prices.</h1>
+      <p>Custom-built for your business, at a price that will surprise you. Tell me about yours below &mdash; or scroll down to see the portfolio first.</p>
     </div>
 
     <div class="thread" id="thread" aria-live="polite"></div>
 
+    <div class="composer" id="composer" hidden>
+      <textarea id="input" rows="1" placeholder="Type or tap the mic…" aria-label="Your answer"></textarea>
+      <button class="send" id="send" type="button" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+    </div>
+    <p class="hint" id="hint" hidden><strong>On a phone:</strong> tap the box, then the microphone on your keyboard, and just talk.</p>
+    <p class="savenote">Everything saves on this device as you go. Stop anytime &mdash; I&rsquo;ll get the rest by text.</p>
+
+    <section class="proof" id="proof">
+      <h2>Portfolio</h2>
+      <p class="sub">Sample sites, built the same way yours will be. Tap one and click around it.</p>
+      <div class="proof-grid">
+        <a href="/portfolio/long-table-catering/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering website" width="640" height="400" loading="lazy">
+          <b>Long Table Catering</b><span>Catering</span></a>
+        <a href="/portfolio/velvet-fig/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/velvet-fig.jpg" alt="Velvet Fig website" width="640" height="400" loading="lazy">
+          <b>Velvet Fig</b><span>Cocktail bar</span></a>
+        <a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy">
+          <b>Golden Crumb Bakery</b><span>Bakery</span></a>
+        <a href="/portfolio/cedar-hill-family-dental/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/cedar-hill-family-dental.jpg" alt="Cedar Hill Family Dental website" width="640" height="400" loading="lazy">
+          <b>Cedar Hill Family Dental</b><span>Dentist</span></a>
+        <a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/marden-estate-law.jpg" alt="Marden Estate Law website" width="640" height="400" loading="lazy">
+          <b>Marden Estate Law</b><span>Estate planning</span></a>
+        <a href="/portfolio/bright-beginnings-preschool/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/bright-beginnings-preschool.jpg" alt="Bright Beginnings Preschool website" width="640" height="400" loading="lazy">
+          <b>Bright Beginnings</b><span>Preschool</span></a>
+      </div>
+    </section>
+
+    <button type="button" class="totop" id="totop" aria-label="Back to the top">
+      <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
+        <circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M22 30V15M22 15l-6.5 6.5M22 15l6.5 6.5" fill="none" stroke="currentColor"
+              stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Back to the top</span>
+    </button>
   </div>
 </main>
 
@@ -418,10 +321,6 @@ fbq('track', 'PageView');
   var CLOUDINARY_UPLOAD_PRESET = "duna_intake";
   var GOOGLE_PLACES_KEY = "AIzaSyA_2Mzsy3s9aZo8OS4DBFY-OYhayl-F_tI";
   var LEADS_URL = "https://script.google.com/macros/s/AKfycbz5czvMKJWHN92D_kah_JbCLSgo4UknxG37zhEfZExFCcupdYur6phh2457sP5E8K_X/exec";
-  // Square payment link, $250 one-time. Swap this one string when the live link exists; nothing
-  // else in the report refers to the payment provider.
-  var PAY_URL = "https://square.link/u/Id1Woof5";
-  var PAY_PRICE = "$250";
   var LEADS_SECRET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   // A reload must start at the top. Browsers restore the previous scroll position by default, so
   // refreshing after scrolling to the portfolio dumped you back at the portfolio — with the
@@ -435,7 +334,7 @@ fbq('track', 'PageView');
   var MIN_SECONDS_BEFORE_CHAT = 15;   // matches the server-side floor
 
   var $ = function (id) { return document.getElementById(id); };
-  var thread = $("thread");
+  var thread = $("thread"), composer = $("composer"), input = $("input"), send = $("send"), hint = $("hint");
 
   // /chat.html?restart always begins a fresh interview. The saved state lives in localStorage, which
   // a hard refresh does not touch, so without this the only way out of a finished interview was the
@@ -453,27 +352,15 @@ fbq('track', 'PageView');
     S = { lead_id: "L-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8),
           a: {}, google: null, msgs: [], phase: "places", started: false, done: false };
   }
-  // A sample report is a demonstration, not this visitor's interview, so it is never written to
-  // storage. It used to be: viewing a sample replaced a real customer's saved listing and answers
-  // with the demo business, and access.html — which reads exactly this key after payment — would
-  // then tell Barrett a paying customer was the demo company.
-  function save() {
-    if (S.demo) return;
-    try { S.savedAt = Date.now(); localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {}
-  }
+  function save() { try { S.savedAt = Date.now(); localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
 
-  // Offer the way out as soon as there is anything to get out of — including a sample, which is
-  // otherwise a page with no exit.
+  // Offer the way out as soon as there is anything to get out of.
   (function () {
     var btn = $("restart");
     if (!btn) return;
-    var isDemo = /[?&]demo=/i.test(location.search);
-    if (isDemo || S.google || (S.a && S.a.business_name)) btn.hidden = false;
+    if (S.started || S.done || (S.msgs && S.msgs.length) || (S.a && S.a.business_name)) btn.hidden = false;
     btn.addEventListener("click", function () {
-      // Leaving a sample abandons nothing, so no confirm — and the visitor's own saved report,
-      // if they have one, is left in storage for the homepage to resume.
-      if (isDemo) { location.replace(location.pathname); return; }
-      if (!confirm("Start again with a different business?")) return;
+      if (!confirm("Start the interview again from the beginning? Your answers so far will be cleared.")) return;
       try { localStorage.removeItem(STORE_KEY); } catch (e) {}
       location.replace(location.pathname);
     });
@@ -484,7 +371,8 @@ fbq('track', 'PageView');
   function cookie(n) { var m = document.cookie.match("(?:^|; )" + n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + "=([^;]*)"); return m ? decodeURIComponent(m[1]) : ""; }
 
   // ---------- thread helpers ----------
-  // The bottom of the conversation is whatever came last.
+  // The bottom of the conversation is whatever comes last — the composer when it is open, otherwise
+  // the newest message.
   //
   //  · window.innerHeight is the WRONG ruler once a keyboard is open. On iOS the layout viewport
   //    stays full height and the keyboard covers the bottom of it, so anything measured against
@@ -578,13 +466,9 @@ fbq('track', 'PageView');
 
   function scrollTail() {
     if (booting) return;
-    var t = thread.lastElementChild;
+    var t = (composer && !composer.hidden) ? composer : thread.lastElementChild;
     if (!t) return;
     var r = t.getBoundingClientRect(), v = visibleBox();
-    // A tail taller than the screen — the report — can't have its bottom brought into view without
-    // burying its start. The paint already put its top at the top; after that the reader's own
-    // scroll position is the right one, so a URL-bar collapse or keyboard close must not move it.
-    if (r.height > (v.bottom - v.top)) return;
     var below = r.bottom - (v.bottom - TAIL_GAP);   // how far it sits under the fold / keyboard
     var above = (v.top + TAIL_GAP) - r.top;         // how far it sits above the top
     var by = below > 0 ? below : (above > 0 ? -above : 0);
@@ -605,7 +489,7 @@ fbq('track', 'PageView');
       var inset = Math.max(0, (window.innerHeight || 0) - (vv.offsetTop + vv.height));
       document.body.style.paddingBottom = inset > 1 ? inset + "px" : "";
       clearTimeout(t);
-      t = setTimeout(scrollTail, 120);
+      t = setTimeout(function () { if (composer && !composer.hidden) scrollTail(); }, 120);
     }
     vv.addEventListener("resize", recheck);
     vv.addEventListener("scroll", recheck);
@@ -630,29 +514,6 @@ fbq('track', 'PageView');
     scrollTail();
     return d;
   }
-  // A short pause with the typing dots, so a line never lands in the same instant as the last one.
-  function botSays(text, after) {
-    typing(true);
-    setTimeout(function () {
-      typing(false); say(text);
-      if (after) after();
-    }, 420);
-  }
-  // Tiles and thumbnails ask for a resized copy — pointing an <img> at the original downloads
-  // megabytes to draw a stamp. (This was deleted with the photo-upload step once; drawCard still
-  // needs it, and the promise catch turned the crash into a silent "couldn't reach Google".)
-  function thumbUrl(url) {
-    if (!url) return url;
-    try {
-      if (url.indexOf("res.cloudinary.com") !== -1 && url.indexOf("/upload/") !== -1) {
-        return url.replace("/upload/", "/upload/w_400,h_300,c_fill,q_auto,f_auto/");
-      }
-      if (url.indexOf("googleusercontent.com") !== -1) {
-        return url.replace(/=s\d+-w\d+$/, "=w400").replace(/=w\d+$/, "=w400");
-      }
-    } catch (e) {}
-    return url;
-  }
   function say(text) { return bubble("bot", esc(text).replace(/\n/g, "<br>")); }
   function me(text) { return bubble("me", esc(text).replace(/\n/g, "<br>")); }
   function typing(on) {
@@ -668,16 +529,17 @@ fbq('track', 'PageView');
   // underneath it. Whatever the person picks is echoed back as their own message and the field
   // disappears — the way a sent text behaves.
   function askPlaces() {
-    say("Let me grab your Google profile. Business name and city?");
+    say("What's the name and city of your business? I'll find you on Google.");
     placesField();
   }
   // The field itself, wired. Used for the first ask and again if they say "Not me", so the two paths
   // can never drift apart.
   function placesField() {
     var w = inline(
-      '<input id="gq" type="text" placeholder="e.g. Ridgeline Roofing, Santa Rosa" autocomplete="off" ' +
+      '<input id="gq" type="text" placeholder="e.g. Maria&rsquo;s Bakery, Pasadena" autocomplete="off" ' +
         'autocapitalize="words" enterkeyhint="search" aria-label="Business name and city">' +
-      '<div class="glist" id="glist" hidden></div>');
+      '<div class="glist" id="glist" hidden></div>' +
+      '<button type="button" class="linkbtn" id="g-skip">Not on Google &mdash; I&rsquo;ll type it</button>');
     var gq = w.querySelector("#gq"), glist = w.querySelector("#glist"), timer = null;
 
     function choose(id, label) {
@@ -716,9 +578,13 @@ fbq('track', 'PageView');
       var b = glist.hidden ? null : glist.querySelector("button");
       if (b) b.click();
     });
-    // No skip: the product IS the Google profile, so a listing must exist. When a search returns
-    // nothing, the fallback line under the field points them at Barrett to get one created.
-    
+    w.querySelector("#g-skip").addEventListener("click", function () {
+      var typed = gq.value.trim();
+      if (typed) { S.a.business_name = typed; save(); }
+      me(typed || "It's not on Google");
+      w.remove();
+      askContact();
+    });
     // Deliberately NOT revealing on focus. The field is focused automatically on load, so doing it
     // here slid the page down to the search box before the visitor had read the headline or typed
     // anything. The page moves when they start typing, and not before.
@@ -738,33 +604,9 @@ fbq('track', 'PageView');
       });
     });
   }
-  // Apps Script tears its container down when idle, and the first request after that pays the
-  // rebuild: measured 27.7s cold, 15.6s warm-ish, 4.0s hot for an identical payload. The model is
-  // not the slow part — the trace shows one clean call every time.
-  //
-  // So we knock on the door as soon as they pick their business, which buys the container the
-  // 30-60s they spend confirming the listing and typing a name and number. Sending action:"chat"
-  // with no messages returns immediately at the relay's own guard, before any OpenAI call: it
-  // costs nothing and writes nothing. (This existed before, fired from the photo-upload step, and
-  // I deleted it along with that step when this became the GBP funnel.)
-  var warmedAt = 0;
-  function warmRelay() {
-    var now = Date.now();
-    if (now - warmedAt < 45000) return;
-    warmedAt = now;
-    try {
-      fetch(LEADS_URL, {
-        method: "POST", mode: "cors", redirect: "follow",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ secret: LEADS_SECRET, action: "chat" })
-      }).catch(function () {});
-    } catch (e) {}
-  }
-
   function gDetails(placeId) {
     typing(true);
-    warmRelay();   // earliest point we know they are really going through with this
-    var mask = "id,displayName,formattedAddress,nationalPhoneNumber,websiteUri,regularOpeningHours.weekdayDescriptions,rating,userRatingCount,reviews,photos,primaryTypeDisplayName,editorialSummary,addressComponents,location";
+    var mask = "id,displayName,formattedAddress,nationalPhoneNumber,websiteUri,regularOpeningHours.weekdayDescriptions,rating,userRatingCount,reviews,photos,primaryTypeDisplayName,editorialSummary";
     fetch("https://places.googleapis.com/v1/places/" + encodeURIComponent(placeId),
       { headers: { "X-Goog-Api-Key": GOOGLE_PLACES_KEY, "X-Goog-FieldMask": mask } })
       .then(function (r) { return r.json(); })
@@ -775,16 +617,6 @@ fbq('track', 'PageView');
           hours: ((p.regularOpeningHours && p.regularOpeningHours.weekdayDescriptions) || []).join("; "),
           rating: p.rating || null, ratings: p.userRatingCount || null,
           type: (p.primaryTypeDisplayName && p.primaryTypeDisplayName.text) || "",
-          // The county widens a starved competitor search dramatically — measured 4 results for
-          // "Plumber in Cloverdale" against 10 for "Plumber in Cloverdale, Sonoma County".
-          lat: (p.location && p.location.latitude) || null,
-          lng: (p.location && p.location.longitude) || null,
-          county: (function () {
-            var c = (p.addressComponents || []).filter(function (x) {
-              return (x.types || []).indexOf("administrative_area_level_2") >= 0;
-            })[0];
-            return c ? (c.longText || c.shortText || "") : "";
-          })(),
           summary: (p.editorialSummary && p.editorialSummary.text) || "",
           reviews: (p.reviews || []).slice(0, 5).map(function (r) {
             return { text: (r.originalText && r.originalText.text) || (r.text && r.text.text) || "",
@@ -804,842 +636,505 @@ fbq('track', 'PageView');
           typing(false); S.google = g; save(); drawCard(g);
         });
       })
-      .catch(function (err) {
-        // If S.google is already set, the DATA arrived fine and the failure is in OUR code — a bug
-        // wearing a network error's face. It hid a missing function for a whole debugging session.
-        try { console.log("[duna] gDetails failed: " + err); } catch (e) {}
+      .catch(function () {
         typing(false);
-        if (S.google) { drawCardSafe(S.google); return; }
-        say("I couldn't reach Google just then. Give it a moment and search again.");
-        placesField();
+        say("I couldn't reach Google just then — no problem, I'll take it from your answers.");
+        askContact();
       });
   }
   // The confirmation is a message from the bot, with the two replies as taps. No card.
   // What Google found, as one message with nothing in it but the business — then the question as a
+  // separate message underneath, answered in the composer like every other question. No buttons
+  // living inside a panel.
   function drawCard(g) {
-    if (S.demo) { S.phase = "confirm"; save(); return; }   // sample mode wants the data, not the card
-    // The pick IS the confirmation. Asking "is that your business?" after they chose it from a list
-    // of their own name and address was a tap that bought nothing — the card below shows what was
-    // matched, and the way out sits inside it for the one person in fifty who picked wrong.
     bubble("bot",
       '<p class="gname">' + esc(g.name) + '</p>' +
       (g.type ? '<p class="gline">' + esc(g.type) + '</p>' : "") +
       (g.address ? '<p class="gline">' + esc(g.address) + '</p>' : "") +
       (g.hours ? '<p class="gline">' + esc(g.hours.split("; ")[0]) + (g.hours.indexOf(";") !== -1 ? " …" : "") + '</p>' : "") +
       (g.rating ? '<p class="gline">★ ' + g.rating + ' · ' + g.ratings + ' reviews</p>' : "") +
-      (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(thumbUrl(ph.url)) + '" alt="" loading="lazy" decoding="async">'; }).join("") + '</div>' : "") +
-      '<p class="notme"><a href="#" id="notme">Not your listing? Search again</a></p>');
-    S.phase = "report"; save();
-    var link = document.getElementById("notme");
-    if (link) link.addEventListener("click", function (e) {
-      e.preventDefault();
+      (g.photos.length ? '<div class="thumbs">' + g.photos.slice(0, 6).map(function (ph) { return '<img src="' + esc(thumbUrl(ph.url)) + '" alt="" loading="lazy" decoding="async">'; }).join("") + '</div>' : ""));
+    S.phase = "confirm"; save();
+    composer.hidden = false; hint.hidden = false;
+    botSays("Is that your business?");
+  }
+  var YES_RE = /^(y|ye|yes|yeah|yep|yup|sure|correct|right|aye|ok|okay|that'?s (it|me|us|right)|it is|us|me|mine|thats? me)\b/i;
+  var NO_RE  = /^(n|no|nope|nah|not|negative|wrong|different|another|isn'?t)\b/i;
+  function confirmAnswer(v) {
+    var g = S.google;
+    if (!g) { S.phase = "places"; save(); composer.hidden = true; hint.hidden = true; placesField(); return; }
+    if (YES_RE.test(v)) {
+      S.a.place_id = g.place_id;
+      if (!S.a.business_name) S.a.business_name = g.name;
+      // NOT the phone: Google lists the business line, which is often a landline, and Barrett
+      // replies by text. We ask for a textable number instead, offering this one as the default.
+      if (g.address) S.a.address = g.address;
+      if (g.hours) S.a.hours = g.hours;
+      if (g.website) S.a.current_website_url = g.website;
+      save(); fb("GoogleConfirmed");
+      askContact();
+      return;
+    }
+    if (NO_RE.test(v)) {
       S.google = null; S.a.place_id = ""; S.a.business_name = ""; S.phase = "places"; save();
-      location.replace(location.pathname);
-    });
-    startAfterConfirm(g);
-  }
-  // drawCard without the decorations — used when the full card throws, so a rendering bug can
-  // never again silently skip the confirmation step.
-  function drawCardSafe(g) {
-    if (S.demo) { S.phase = "confirm"; save(); return; }
-    try {
-      bubble("bot", '<p class="gname">' + esc(g.name) + '</p>' +
-                    (g.address ? '<p class="gline">' + esc(g.address) + '</p>' : ""));
-      S.phase = "report"; save();
-      startAfterConfirm(g);
-    } catch (e) { startAfterConfirm(g); }
-  }
-  // The analysis is only as sharp as its comparison. One extra Places call pulls the same-trade
-  // competition in their town, so the model can say "12 reviews against a local median of 95"
-  // instead of "you could use more reviews". Fails silently — the audit still works without it.
-  var competitorsReady = null;   // promise; the first interview turn waits on it (capped)
-
-  /**
-   * The competitors a local owner recognises as competitors.
-   *
-   * Three things had to be true at once, and each was learned by testing against the real API:
-   *  · RANK BY REVIEWS. Taking the API's own result order and sorting only that slice surfaced
-   *    3- and 10-review shops while the 775-review firm actually eating their lunch sat further
-   *    down the response. The strongest same-trade businesses are the persuasive ones.
-   *  · PREFER THE EXACT CATEGORY, BUT ONLY PREFER IT. Google's categories are coarse — a painter,
-   *    an excavator and a remodeler are all "General Contractor" — so the exact-match businesses
-   *    go first. A hard filter is wrong though: a salon Google types "Beauty salon" sits among
-   *    rivals typed "Hair Salon", and strict matching returned an empty table. So: exact matches
-   *    first, then fill from the rest.
-   *  · SCOPE BY THE AREA THEY SERVE, not the town they sit in. Cloverdale has exactly one other
-   *    barber shop; the owner competes with Healdsburg and Windsor too, and only they know that.
-   *    That is why the interview asks.
-   * Also drops permanently-closed listings and anything with no reviews at all — neither tells the
-   * owner anything about who is beating them.
-   */
-  // Google's category strings are coarse and inconsistent: the same salon may be typed "Beauty
-  // salon" while its actual rivals are typed "Hair Salon". Exact string matching threw those away
-  // and left an empty table. Shared significant word = same trade, which keeps "Beauty salon" with
-  // "Hair Salon" and correctly separates "Plumber" from "General Contractor".
-  // A competitor is only useful if the owner would name it as one. Google's category is too coarse
-  // to promise that — "Roofing Contractor" and "HVAC contractor" both sit under broad buckets that
-  // sweep in gutter installers and appliance repair. Requiring the trade in the NAME is a blunt
-  // instrument, but a roofer's competitor almost always has "roof" on the truck, and a false
-  // negative costs one row while a false positive costs the whole report's credibility.
-  var TRADES = {
-    roofing: { label: "Roofing", query: "roofing contractor",
-               re: /\broof/i },
-    // "Elevated Comfort" and "Temperature Solutions" are real HVAC companies whose names never say
-    // heating or air — the words this trade actually uses on a truck are wider than the obvious ones.
-    // Names with no trade word at all (Bragg Home Services, Ongaro & Sons) are the accepted cost:
-    // one missing row beats a report full of businesses the owner does not recognise.
-    hvac:    { label: "HVAC", query: "HVAC contractor",
-               re: /\bhvac\b|heating|cooling|furnace|air ?condition|\bclimate\b|\bcomfort\b|temperature|mechanical|\bair\b|heat(ing)? (and|&) air|\bh\/?a\b/i }
-  };
-  // 25 miles is about as far as a homeowner's search results reach, and further than most of these
-  // companies will drive for a service call. A competitor 100 miles away is not a competitor.
-  var MAX_MILES = 25, WIDE_MILES = 50;
-
-  function milesBetween(a, b, c, d) {
-    if (a == null || b == null || c == null || d == null) return null;
-    var R = 3958.8, t = Math.PI / 180;
-    var dLat = (c - a) * t, dLng = (d - b) * t;
-    var x = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(a * t) * Math.cos(c * t) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
-    return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
-  }
-
-  var NOT_A_RIVAL = { "manufacturer": 1, "shopping mall": 1, "business center": 1, "business centre": 1,
-                      "store": 1, "supermarket": 1, "gift shop": 1, "brewpub": 1, "restaurant": 1,
-                      "medical clinic": 1, "corporate office": 1, "wholesaler": 1, "hardware store": 1,
-                      "building materials supplier": 1, "lumber store": 1, "real estate agency": 1 };
-  var TRADE_STOP = { "and": 1, "of": 1, "the": 1, "service": 1, "services": 1, "company": 1,
-                     "shop": 1, "store": 1, "center": 1, "centre": 1, "contractor": 0 };
-  function tradeWords(t) {
-    return String(t || "").toLowerCase().replace(/[^a-z ]/g, " ").split(/\s+/)
-      .filter(function (w) { return w.length > 2 && !TRADE_STOP[w]; });
-  }
-  function sameTrade(a, b) {
-    if (!a || !b) return false;
-    if (a === b) return true;
-    var A = tradeWords(a), B = tradeWords(b);
-    for (var i = 0; i < A.length; i++) if (B.indexOf(A[i]) >= 0) return true;
-    return false;
-  }
-
-  // The area comes from an option the model wrote, so it can arrive as a phrase rather than a place
-  // — "Just in Cloverdale" produced "Plumber in Just in Cloverdale", which returned two results.
-  function tidyArea(area) {
-    return String(area || "").trim()
-      .replace(/^(just|only|mostly|mainly|primarily)\s+/i, "")
-      .replace(/^(in|around|near|within)\s+/i, "")
-      .replace(/\s+and\s+(nearby|surrounding)\s+(towns|areas)$/i, "")
-      .replace(/\s{2,}/g, " ")
-      .trim();
-  }
-
-  function sweepOnce(cat, area, selfName, selfId, trade, origin, miles) {
-    var t = TRADES[trade] || null;
-    var q = ((t ? t.query : (cat || "business")) + " in " + (area || "the area")).trim();
-    return fetch("https://places.googleapis.com/v1/places:searchText", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_PLACES_KEY,
-                 "X-Goog-FieldMask": "places.id,places.displayName,places.primaryTypeDisplayName," +
-                                     "places.rating,places.userRatingCount,places.websiteUri," +
-                                     "places.photos,places.businessStatus,places.location" },
-      body: JSON.stringify({ textQuery: q })
-    }).then(function (r) { return r.json(); }).then(function (j) {
-      var self8 = (selfName || "").toLowerCase().slice(0, 14);
-      var cap = miles || MAX_MILES;
-      var rows = (j.places || []).filter(function (p) {
-        return p.id !== selfId &&
-               (p.businessStatus || "OPERATIONAL") === "OPERATIONAL" &&
-               (p.userRatingCount || 0) > 0 &&
-               !(self8 && (p.displayName.text || "").toLowerCase().indexOf(self8) >= 0);
-      }).map(function (p) {
-        return { id: p.id, name: p.displayName.text, rating: p.rating || null,
-                 reviews: p.userRatingCount || 0, website: !!p.websiteUri,
-                 photos: (p.photos || []).length,
-                 type: (p.primaryTypeDisplayName && p.primaryTypeDisplayName.text) || "",
-                 miles: origin ? milesBetween(origin.lat, origin.lng,
-                          (p.location && p.location.latitude), (p.location && p.location.longitude)) : null };
-      }).filter(function (c) {
-        // Too far to be competing for the same customer.
-        if (c.miles != null && c.miles > cap) return false;
-        // Trade named on the sign, not inferred from a Google bucket.
-        if (t && !t.re.test(c.name)) return false;
-        return true;
-      });
-      function byReviews(a, b) { return b.reviews - a.reviews; }
-      // With a named-trade filter in play every survivor is already a real rival, so they sort
-      // purely by size. Without one (trade "other") fall back to Google's category matching.
-      var exact = t ? rows.slice().sort(byReviews)
-                    : rows.filter(function (c) { return cat && c.type === cat; }).sort(byReviews);
-      var near  = t ? [] : rows.filter(function (c) { return !(cat && c.type === cat) && sameTrade(cat, c.type); }).sort(byReviews);
-      // The strip is for businesses that MIGHT be competitors Google mis-filed. A materials supplier
-      // or a shopping centre is not a judgement call, so it never earns a line.
-      var off = t ? [] : rows.filter(function (c) {
-        return !(cat && c.type === cat) && !sameTrade(cat, c.type) && !NOT_A_RIVAL[(c.type || "").toLowerCase()];
-      }).sort(byReviews);
-      // Two lists, never merged. `rivals` are the same trade and are the ONLY businesses any number
-      // in this report is computed from. `others` came back for the same search but Google files
-      // them under a different category — often a real competitor mis-typed ("Services" instead of
-      // "General Contractor"), sometimes a genuinely different trade. They are shown, labelled, and
-      // excluded from every calculation, so the owner can judge them without a wrong row ever
-      // contaminating a figure.
-      return { rivals: exact.concat(near).slice(0, 6), others: off.slice(0, 4) };
-    });
-  }
-
-  // Google's text search is noticeably tighter from a browser than from a server for the same query
-  // — "Plumber in Cloverdale" returns 4 places here against 13 server-side, while the same query
-  // with the county returns 10. So a thin result is widened once, by county, and merged. Without
-  // this a real plumber in a small town sees a one-row scoreboard, which is the weakest possible
-  // version of the whole argument.
-  function sweepCompetitors(cat, area, selfName, selfId, county, trade, origin) {
-    var clean = tidyArea(area);
-    return sweepOnce(cat, clean, selfName, selfId, trade, origin, MAX_MILES).then(function (res) {
-      if (res.rivals.length >= 3 || !county) return res;
-      // Thin at 25 miles: widen the search area AND the distance cap together, once. Still bounded —
-      // 50 miles is the outer edge of "someone he'd recognise", not an open-ended search.
-      var wider = clean && clean.toLowerCase().indexOf(county.toLowerCase()) < 0
-        ? clean + ", " + county : county;
-      return sweepOnce(cat, wider, selfName, selfId, trade, origin, WIDE_MILES).then(function (res2) {
-        var seen = {}, merged = [];
-        res.rivals.concat(res2.rivals).forEach(function (c) {
-          var k = c.id || c.name;
-          if (!seen[k]) { seen[k] = 1; merged.push(c); }
-        });
-        merged.sort(function (a, b) { return b.reviews - a.reviews; });
-        return { rivals: merged.slice(0, 6), others: (res.others.length ? res.others : res2.others) };
-      }).catch(function () { return res; });
-    });
-  }
-
-  function fetchCompetitors(g) {
-    try {
-      var town = (g.address || "").split(",").length >= 3 ? g.address.split(",").slice(-3)[0].trim() : "";
-      competitorsReady = sweepCompetitors(g.type, town, g.name, g.place_id, g.county, S.trade,
-                                          { lat: g.lat, lng: g.lng })
-        .then(function (res) { S.competitors = res.rivals; S.nearMatches = res.others; save(); })
-        .catch(function () {});
-    } catch (e) {}
+      composer.hidden = true; hint.hidden = true;
+      botSays("No problem — try the name and city again.", placesField);
+      return;
+    }
+    botSays("Sorry — is that your business? Yes or no is fine.");
   }
 
   // ================= PHASE 2 — contact (still no model, no cost) =================
+  // Asked one at a time, in the thread, answered in the same composer they will use for the whole
+  // interview. Anything Google already told us is skipped rather than asked twice.
+  var CONTACT_STEPS = [
+    { key: "first_name",
+      ask:  "What's your first name?",
+      ok:   function (v) { return v.length >= 2 && v.length <= 40 && !/\d/.test(v); },
+      err:  "Just your first name is fine." },
+    { key: "business_name",
+      ask:  "And what's the business called?",
+      ok:   function (v) { return v.length >= 2; },
+      err:  "Whatever name you want on the site." },
+    { key: "phone",
+      ask:  function () {
+              var gp = S.google && S.google.phone;
+              return gp ? ("Last one — what's the best number to text you? Google lists " + gp + ", if that's the one.")
+                        : "Last one — what's the best number to text you?";
+            },
+      // "yes" / "that one" means the number we just read out to them.
+      coerce: function (v) {
+              var gp = S.google && S.google.phone;
+              if (gp && /^(y|yes|yeah|yep|yup|sure|same|that|correct|right)\b/i.test(v)) return gp;
+              return v;
+            },
+      ok:   function (v) { return v.replace(/\D/g, "").length >= 7; },
+      err:  "That doesn't look like a phone number. Barrett texts you the quote, so I do need one that receives texts." }
+  ];
+  var contactStep = null;
+
+  function askContact() {
+    S.phase = "contact"; save();
+    var g = S.google;
+    if (g) say("Got it — " + g.name + (g.address ? ", " + g.address.split(",")[0] : "") + ".");
+    composer.hidden = false; hint.hidden = false;
+    nextContact();
+  }
+  function nextContact() {
+    contactStep = null;
+    for (var i = 0; i < CONTACT_STEPS.length; i++) {
+      if (!String(S.a[CONTACT_STEPS[i].key] || "").trim()) { contactStep = CONTACT_STEPS[i]; break; }
+    }
+    if (!contactStep) { finishContact(); return; }
+    botSays(typeof contactStep.ask === "function" ? contactStep.ask() : contactStep.ask);
+  }
+  function contactAnswer(v) {
+    var st = contactStep;
+    if (!st) return;
+    var val = v.replace(/\s+/g, " ").trim();
+    if (st.coerce) val = st.coerce(val);
+    if (!st.ok(val)) { botSays(st.err); return; }
+    S.a[st.key] = val; save();
+    nextContact();
+  }
+  function finishContact() {
+    submitStage("start");
+    fb("LeadStart");
+    askDesign();
+  }
+
+  // ================= PHASE 2b — colours (still no model, no cost) =================
+  // Asked up front so the interview never has to spend a turn on "what colours do you like?", and
+  // because a colour is something you point at, not something you describe over a text message.
+  function askDesign() {
+    S.phase = "design"; save();
+    composer.hidden = true; hint.hidden = true;
+    send.disabled = true; typing(true);
+    setTimeout(function () { typing(false); send.disabled = false;
+      say("Before the questions — do you have brand colours? Pick a main and a second, or type your hex codes if you know them.");
+      designWidget();
+    }, 420);
+  }
+  function designWidget() {
+    var w = inline(
+      '<div class="swatches">' +
+        '<label class="sw"><span class="sw__cap">Main colour</span><span class="sw__row">' +
+          '<input type="color" id="c1" value="#808080" aria-label="Main colour">' +
+          '<input type="text" id="h1" value="#808080" spellcheck="false" autocapitalize="characters" aria-label="Main colour hex code">' +
+        '</span></label>' +
+        '<label class="sw"><span class="sw__cap">Second colour</span><span class="sw__row">' +
+          '<input type="color" id="c2" value="#808080" aria-label="Second colour">' +
+          '<input type="text" id="h2" value="#808080" spellcheck="false" autocapitalize="characters" aria-label="Second colour hex code">' +
+        '</span></label>' +
+      '</div>' +
+      '<button type="button" class="linkbtn" id="col-done">Use these colours</button><br>' +
+      '<button type="button" class="linkbtn" id="col-skip">I don&rsquo;t have brand colours &mdash; you choose</button>');
+
+    // Only colours they actually TOUCHED count. Otherwise everyone ships mid-grey because they
+    // pressed the obvious button without moving anything.
+    var touched = { c1: false, c2: false };
+    function pair(cid, hid, key) {
+      var c = w.querySelector("#" + cid), h = w.querySelector("#" + hid);
+      c.addEventListener("input", function () { h.value = c.value.toUpperCase(); h.classList.remove("bad"); touched[key] = true; });
+      h.addEventListener("input", function () {
+        var v = h.value.trim().replace(/^#?/, "#");
+        if (/^#[0-9a-fA-F]{6}$/.test(v)) { c.value = v; h.classList.remove("bad"); touched[key] = true; }
+        else { h.classList.add("bad"); }
+      });
+      return function () { return touched[key] ? c.value.toUpperCase() : ""; };
+    }
+    var getMain = pair("c1", "h1", "c1"), getSecond = pair("c2", "h2", "c2");
+
+    function finishDesign(text, stored) {
+      S.a.brand_colors = stored; save();
+      me(text); w.remove();
+      askLogo();
+    }
+    w.querySelector("#col-done").addEventListener("click", function () {
+      var a = getMain(), b = getSecond();
+      if (!a && !b) { finishDesign("I don't have set colours \u2014 you choose", ""); return; }
+      var parts = [];
+      if (a) parts.push("Primary " + a);
+      if (b) parts.push("Secondary " + b);
+      finishDesign(parts.join(" \u00b7 "), parts.join(", "));
+    });
+    w.querySelector("#col-skip").addEventListener("click", function () {
+      finishDesign("I don't have set colours \u2014 you choose", "");
+    });
+  }
+  // A short pause with the typing dots, so a reply never appears in the same instant they hit send.
+  function botSays(text, after) {
+    send.disabled = true; typing(true);
+    setTimeout(function () {
+      typing(false); send.disabled = false; say(text);
+      if (after) { after(); return; }
+      try { input.focus({ preventScroll: true }); } catch (e) {}
+    }, 420);
+  }
+
+  // ================= PHASE 2b2 — logo (still no model, no cost) =================
+  // A logo changes the header, the favicon and often the palette, and it is a file — asking for it
+  // in the chat ("do you have a logo?" / "yes") gets an answer but not the artwork. Ask while they
+  // are holding the phone the file is on.
+  function askLogo() {
+    S.phase = "logo"; save();
+    composer.hidden = true; hint.hidden = true;
+    send.disabled = true; typing(true);
+    setTimeout(function () {
+      typing(false); send.disabled = false;
+      say("Do you have a logo? Add the file and I'll put it in the header — if you haven't got one, I'll set your name in type instead.");
+      logoWidget();
+    }, 420);
+  }
+  function logoWidget() {
+    var w = inline(
+      '<div id="logoprev"></div>' +
+      '<button type="button" class="linkbtn" id="logo-add">&#43; Add your logo</button><br>' +
+      '<button type="button" class="linkbtn" id="logo-none">I don&rsquo;t have a logo</button>');
+    var prev = w.querySelector("#logoprev");
+
+    function render() {
+      if (!S.a.logo_url) { prev.innerHTML = ""; return; }
+      prev.innerHTML = '<div class="logoprev"><img src="' + esc(thumbUrl(S.a.logo_url)) + '" alt="Your logo"></div>' +
+                       '<button type="button" class="linkbtn" id="logo-ok">Use this logo</button><br>';
+      prev.querySelector("#logo-ok").addEventListener("click", function () { finishLogo("Logo added"); });
+      w.querySelector("#logo-add").textContent = "Pick a different file";
+      w.querySelector("#logo-none").textContent = "Actually, skip the logo";
+    }
+    render();
+
+    w.querySelector("#logo-add").addEventListener("click", function () {
+      if (typeof cloudinary === "undefined") {
+        say("The uploader didn't load — no problem, text it to Barrett and he'll add it.");
+        return;
+      }
+      cloudinary.createUploadWidget({
+        cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+        folder: folderSlug() + "/logo", sources: ["local", "camera", "google_drive", "dropbox", "url"],
+        multiple: false, clientAllowedFormats: ["image"], maxFileSize: 20000000,
+        maxImageWidth: 1200, maxImageHeight: 1200
+      }, function (err, res) {
+        if (err || !res) return;
+        if (res.event === "success" && res.info && res.info.secure_url) {
+          S.a.logo_url = res.info.secure_url; save(); render();
+        }
+      }).open();
+    });
+
+    function finishLogo(text) { me(text); w.remove(); askPhotos(); }
+    w.querySelector("#logo-none").addEventListener("click", function () {
+      S.a.logo_url = ""; save();
+      finishLogo("No logo — use my name in type");
+    });
+  }
+
+  // ================= PHASE 2c — photos (still no model, no cost) =================
+  // Photos decide more about how the finished site looks than any answer they can type, so they are
+  // collected before the interview rather than left to "send them over later" — which never happens.
+  // Google's own listing photos are offered first because they cost the owner nothing.
+  // Apps Script /exec returns a transient 404 roughly 10% of the time, and the failures cluster
+  // after the script has been idle. Colours, logo and photos take a minute or two with no requests,
+  // so the first interview turn was landing on a cold script — which is why it "always failed right
+  // after photos". This is a no-op request (no messages, so the relay never calls OpenAI and never
+  // writes a row) fired purely to keep it warm. Result ignored on purpose.
+  function warmRelay() {
+    try {
+      fetch(LEADS_URL, {
+        method: "POST", mode: "cors", redirect: "follow",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ secret: LEADS_SECRET, action: "chat", lead_id: S.lead_id, known: "", messages: [] })
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
+  function askPhotos() {
+    S.phase = "photos"; save();
+    warmRelay();
+    composer.hidden = true; hint.hidden = true;
+    var g = S.google, gp = (g && g.photos) ? g.photos : [];
+    send.disabled = true; typing(true);
+    setTimeout(function () {
+      typing(false); send.disabled = false;
+      say(gp.length
+        ? "These are on your Google listing. Tap any you'd rather not use, and add your own if you have better ones."
+        : "Last thing before the questions — any photos of your work? They make more difference to the finished site than anything else.");
+      photoWidget(gp);
+    }, 420);
+  }
+  function photoWidget(gp) {
+    S.uploads = S.uploads || [];
+    var w = inline(
+      '<div class="pgrid" id="pgrid"></div>' +
+      '<p class="pcount" id="pcount"></p>' +
+      '<button type="button" class="linkbtn" id="ph-add">&#43; Add your own photos</button><br>' +
+      '<button type="button" class="linkbtn" id="ph-done">Done with photos</button><br>' +
+      '<button type="button" class="linkbtn" id="ph-skip">I&rsquo;ll send photos by text later</button>');
+    var grid = w.querySelector("#pgrid"), pcount = w.querySelector("#pcount");
+
+    // One grid holding BOTH their Google photos and anything they upload. Re-drawn after every
+    // upload — otherwise a photo they just added is only a number in a counter, which reads as
+    // "it didn't work".
+    function tiles() {
+      var out = [];
+      gp.forEach(function (p, i) { out.push({ url: p.url, on: !!p.use, kind: "g", i: i }); });
+      (S.uploads || []).forEach(function (p, i) { out.push({ url: p.url, on: p.use !== false, kind: "u", i: i }); });
+      return out;
+    }
+    function render() {
+      var t = tiles();
+      grid.hidden = !t.length;
+      grid.innerHTML = t.map(function (x) {
+        return '<button type="button" class="ptile" data-kind="' + x.kind + '" data-i="' + x.i + '" ' +
+               'aria-pressed="' + (x.on ? "true" : "false") + '" aria-label="Use this photo">' +
+               '<img src="' + esc(thumbUrl(x.url)) + '" alt="" loading="lazy" decoding="async">' +
+               '<span class="ptile__tick" aria-hidden="true">&#10003;</span>' +
+               (x.kind === "u" ? '<span class="ptile__mine">yours</span>' : "") + '</button>';
+      }).join("");
+      grid.querySelectorAll(".ptile").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var i = +b.getAttribute("data-i");
+          if (b.getAttribute("data-kind") === "g") gp[i].use = !gp[i].use;
+          else S.uploads[i].use = (S.uploads[i].use === false);
+          save(); render();
+        });
+      });
+      var picked = tiles().filter(function (x) { return x.on; }).length;
+      var mine = (S.uploads || []).filter(function (p) { return p.use !== false; }).length;
+      pcount.textContent = picked
+        ? (picked + (picked === 1 ? " photo" : " photos") + " selected" + (mine ? " (" + mine + " of yours)" : ""))
+        : "None selected — I'll build it without photos.";
+    }
+    render();
+
+    w.querySelector("#ph-add").addEventListener("click", function () {
+      if (typeof cloudinary === "undefined") {
+        say("The uploader didn't load — no problem, text them to Barrett and he'll add them.");
+        return;
+      }
+      cloudinary.createUploadWidget({
+        cloudName: CLOUDINARY_CLOUD_NAME, uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+        folder: folderSlug(), sources: ["local", "camera", "google_drive", "dropbox", "url"],
+        multiple: true, maxFiles: 30, clientAllowedFormats: ["image"], maxFileSize: 20000000,
+        // Resize in the browser before it ever goes up the wire. A phone photo is often 4-12MB;
+        // nothing on the finished site uses more than about 1600px, so uploading the original is
+        // minutes of waiting for pixels that get thrown away.
+        maxImageWidth: 1800, maxImageHeight: 1800, maxChunkSize: 6000000
+      }, function (err, res) {
+        if (err || !res) return;
+        if (res.event === "success" && res.info && res.info.secure_url) {
+          S.uploads.push({ url: res.info.secure_url, caption: "", is_hero: false, source: "upload", use: true });
+          save();
+          render();          // draw it immediately — this is the whole point
+        }
+      }).open();
+    });
+
+    function finishPhotos(text) { me(text); w.remove(); beginInterview(); }
+    w.querySelector("#ph-done").addEventListener("click", function () {
+      var picked = tiles().filter(function (x) { return x.on; }).length;
+      finishPhotos(picked ? (picked + (picked === 1 ? " photo" : " photos")) : "No photos for now");
+    });
+    w.querySelector("#ph-skip").addEventListener("click", function () {
+      gp.forEach(function (p) { p.use = false; });
+      S.uploads = []; save();
+      finishPhotos("I'll send photos by text later");
+    });
+  }
+  // Tiles are about 120px wide. Pointing them at the original meant downloading a multi-megabyte
+  // photo to draw a thumbnail — the single biggest reason the photo step felt slow. Cloudinary can
+  // resize on delivery, and Google's photo URLs carry their own size parameter.
+  function thumbUrl(url) {
+    if (!url) return url;
+    try {
+      if (url.indexOf("res.cloudinary.com") !== -1 && url.indexOf("/upload/") !== -1) {
+        return url.replace("/upload/", "/upload/w_400,h_300,c_fill,q_auto,f_auto/");
+      }
+      if (url.indexOf("googleusercontent.com") !== -1) {
+        return url.replace(/=s\d+-w\d+$/, "=w400").replace(/=w\d+$/, "=w400");
+      }
+    } catch (e) {}
+    return url;
+  }
+
+  function folderSlug() {
+    var n = (S.a.business_name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    return "intake/" + (n || "unnamed");
+  }
+
   // ================= PHASE 3 — the interviewer (model starts HERE) =================
-  // Everything the analyst needs, formatted as an audit it can quote from. Numbers first — the
-  // model's opening message is built directly from these.
   function knownFacts() {
     var g = S.google, out = [];
     out.push("Business: " + (S.a.business_name || "(unknown)"));
-    // No name any more: the only thing asked after the interview is a phone number, and asking
-    // for a first name up front was a step that bought nothing the interview needs.
+    out.push("Owner's first name: " + (S.a.first_name || "(unknown)"));
+    out.push("Brand colours: " + (S.a.brand_colors || "none — Barrett picks them"));
     if (g) {
-      if (g.type) out.push("Category: " + g.type);
+      if (g.type) out.push("Google category: " + g.type);
       if (g.address) out.push("Address: " + g.address);
-      out.push("AUDIT OF THEIR PROFILE:");
-      out.push("- Rating: " + (g.rating ? g.rating + " from " + (g.ratings || 0) + " reviews" : "NO REVIEWS YET"));
-      out.push("- Photos visible: " + ((g.photos || []).length) + (g.photos && g.photos.length >= 8 ? "+" : ""));
-      out.push("- Website link: " + (g.website ? g.website : "NONE"));
-      out.push("- Hours: " + (g.hours ? "set" : "NOT SET"));
-      if (g.summary) out.push("- Google's summary: " + g.summary);
-      var rv = (g.reviews || []).slice(0, 3).map(function (r) { return '"' + r.text.slice(0, 180) + '" — ' + r.author; });
-      if (rv.length) out.push("Their recent reviews:\n" + rv.join("\n"));
-      var comps = S.competitors || [];
-      if (comps.length) {
-        var meds = comps.map(function (c) { return c.reviews; }).sort(function (a, b) { return a - b; });
-        out.push("LOCAL COMPETITION (same trade, same town):");
-        comps.forEach(function (c) {
-          out.push("- " + c.name + ": " + (c.rating || "unrated") + ", " + c.reviews + " reviews, website " +
-                   (c.website ? "yes" : "no") + ", " + (c.photos >= 8 ? "8+" : c.photos) + " photos");
-        });
-        out.push("Competitor median reviews: " + meds[Math.floor(meds.length / 2)]);
-      }
+      if (g.hours) out.push("Hours: " + g.hours);
+      if (g.website) out.push("Existing website: " + g.website);
+      if (g.rating) out.push("Google rating: " + g.rating + " from " + g.ratings + " reviews");
+      if (g.summary) out.push("Google summary: " + g.summary);
+      var rv = g.reviews.slice(0, 3).map(function (r) { return '"' + r.text.slice(0, 200) + '" — ' + r.author; });
+      if (rv.length) out.push("Recent Google reviews:\n" + rv.join("\n"));
     }
     return out.join("\n");
   }
-  // Which trade, decided from the listing rather than asked. The question cost a tap and a beat of
-  // the visitor's attention to learn something the profile already says out loud.
-  //
-  // Two stages, because most listings never need a model:
-  //   1. THE NAME. A roofer's company name says roof; an HVAC company's says heating, air, comfort,
-  //      climate or mechanical. When the name is decisive this returns instantly and costs nothing.
-  //   2. Everything else goes to the relay with the name, category, description, website and the
-  //      newest review text, and comes back as one word. The reviews settle the ambiguous ones —
-  //      customers describe the actual job even when the name never does.
-  // Google's category is the weakest input on both paths: roofers sit under "Contractor" and general
-  // builders sit under "Roofing contractor" often enough to poison anything built on it.
-  var TRADE_NAME_RE = {
-    roofing: /\broof/i,
-    hvac: /\bhvac\b|heating|cooling|furnace|air ?condition|\bclimate\b|\bcomfort\b|temperature|\bmechanical\b|heat(ing)? (and|&) air|\bh\/?a\b/i
-  };
-  // Names carrying a trade word while being a different business entirely.
-  var TRADE_NAME_NOT = /gutter|solar|duct cleaning|air duct|chimney|window|siding|supply|materials/i;
-
-  function tradeFromName(name) {
-    var n = String(name || "");
-    if (TRADE_NAME_NOT.test(n)) return "";
-    if (TRADE_NAME_RE.roofing.test(n)) return "roofing";
-    if (TRADE_NAME_RE.hvac.test(n)) return "hvac";
-    return "";
+  function beginInterview() {
+    S.phase = "chat"; S.started = true; save();
+    composer.hidden = false; hint.hidden = false;
+    turn("");   // empty user turn: the model opens
   }
+  // Retries on its own before it ever bothers them. Their answer is already in S.msgs by the time a
+  // request goes out, so a retry re-sends the conversation with no new text — calling turn("") is a
+  // resend, not a fresh turn. The old error told people to "tap Send to try again", but Send does
+  // nothing with an empty box, so a single blip stranded the interview for good.
+  function turn(userText, attempt) {
+    if (S.done) return;
+    attempt = attempt || 1;
+    if (userText) { S.msgs.push({ role: "user", content: userText }); save(); }
+    send.disabled = true; typing(true);
 
-  function classifyTrade(g) {
-    var quick = tradeFromName(g.name);
-    if (quick) {
-      try { console.log("[duna] trade from name: " + quick); } catch (e) {}
-      return Promise.resolve(quick);
+    function fail(why) {
+      try { console.log("[duna] chat turn failed (attempt " + attempt + "): " + why); } catch (e) {}
+      if (attempt < 3) { setTimeout(function () { turn("", attempt + 1); }, 800 * attempt); return; }
+      typing(false); send.disabled = false;
+      var b = bubble("bot",
+        "I couldn&rsquo;t reach my end just then. Nothing you&rsquo;ve told me is lost.<br>" +
+        '<button type="button" class="linkbtn" id="retry-now">Try that again</button><br>' +
+        '<span class="pcount">Still stuck? Text Barrett on <a href="tel:+17073855673">(707) 385-5673</a>.</span>');
+      b.querySelector("#retry-now").addEventListener("click", function () { b.remove(); turn("", 1); });
     }
-    var facts = [
-      "Name: " + (g.name || ""),
-      "Google category: " + (g.type || "none"),
-      g.summary ? "Google's description: " + g.summary : "",
-      g.website ? "Website: " + g.website : "",
-      (g.reviews || []).length
-        ? "Recent review text:\n" + (g.reviews || []).slice(0, 4).map(function (r) {
-            return '  "' + String(r.text || "").slice(0, 220) + '"';
-          }).join("\n")
-        : "No review text available."
-    ].filter(Boolean).join("\n");
 
-    return relayChat([{ role: "user", content: "(Interview starting. Ask your first question.)" },
-                      { role: "assistant", content: "Ready." },
-                      { role: "user", content: "#TRADE\n" + facts }])
-      .then(function (j) {
-        var word = String((j && j.reply) || "").toUpperCase();
-        var t = word.indexOf("ROOFING") >= 0 ? "roofing" : word.indexOf("HVAC") >= 0 ? "hvac" : "other";
-        try { console.log("[duna] trade from model: " + t); } catch (e) {}
-        return t;
+    fetch(LEADS_URL, {
+      method: "POST", mode: "cors", redirect: "follow",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({
+        secret: LEADS_SECRET, action: "chat", lead_id: S.lead_id,
+        known: knownFacts(),
+        // Not a message from the person — it is the cue that starts the interview. "Let's begin."
+        // read as an empty answer and tripped the model's abandon-the-interview rule.
+        messages: S.msgs.length ? S.msgs : [{ role: "user", content: "(Interview starting. Ask your first question.)" }]
       })
-      // A failed classification is not a failed scan: "other" drops the name filter and falls back to
-      // Google's own category matching, which is what every business outside these two trades gets.
-      .catch(function () { return "other"; });
-  }
-
-  var TRADE_LABEL = { roofing: "Roofing", hvac: "HVAC", other: "Other" };
-
-  function startAfterConfirm(g) {
-    // What the confirm step used to record. Without this the lead row has a business name and no
-    // place_id, which is the one field the work cannot start from.
-    S.a.place_id = g.place_id;
-    if (!S.a.business_name) S.a.business_name = g.name;
-    if (g.address) S.a.address = g.address;
-    if (g.hours) S.a.hours = g.hours;
-    if (g.phone && !S.a.phone) S.a.phone = g.phone;
-    if (g.website) S.a.current_website_url = g.website;
-    save(); fb("GoogleConfirmed");
-    submitLead("listing_picked");
-
-    // Nothing is asked. The listing is all the report needs, so it gets built the moment they say
-    // yes — and the three questions become an offer inside it, next to the one section that cannot
-    // be written without them. Asking first was asking a stranger to work before seeing anything.
-    botSays("Give me a moment \u2014 I\u2019m reading your profile and the companies above you.");
-    typing(true);
-
-    var traded = classifyTrade(g).then(function (t) {
-      S.trade = t; save();
-      submitLead("trade", { trade: TRADE_LABEL[t] || "Other" }).catch(function () {});
-      return fetchCompetitors(g);
-    });
-
-    // The checklist judges against the competitor sweep, so give it a moment to land — but never
-    // hold the report hostage to it. Whatever has arrived by then is what gets drawn.
-    var waited = new Promise(function (r) { setTimeout(r, 9000); });
-    Promise.race([traded.then(function () { return competitorsReady; }), waited])
-      .catch(function () {})
-      .then(function () {
-        phoneDone = true;
-        S.reportOnly = true; save();
-        buildReport({});
-      });
+    }).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.text();
+    }).then(function (t) {
+      var j = null;
+      try { j = JSON.parse(t); } catch (e) { throw new Error("bad JSON: " + t.slice(0, 120)); }
+      if (!j || j.ok === false) throw new Error("relay: " + ((j && j.error) || "unknown"));
+      if (!j.reply && !j.done) throw new Error("empty reply");
+      typing(false); send.disabled = false;
+      S.msgs.push({ role: "assistant", content: j.reply }); save();
+      say(j.reply);
+      if (j.done) finish(j.fields);
+      else setTimeout(function () { try { input.focus({ preventScroll: true }); } catch (e) {} }, 60);
+    }).catch(function (e) { fail(e && e.message ? e.message : String(e)); });
   }
 
   // ================= finish: write the brief to the sheet =================
-  // The verdict at the foot of the checklist, written by the model from the audit itself — never
-  // from anything it might invent. It gets the same rows the reader just saw, tagged, plus the
-  // competitor numbers, and nothing else; a summary that cites a fact not on the page is a bug.
-  function requestSummary(rows, g, top) {
-    var lines = rows.map(function (r) {
-      var tag = r.state === "ok" ? "IN PLACE" : r.state === "flag" ? "FLAGGED" : "MISSING";
-      return tag + " — " + r.label + ": " + r.status.replace(/<[^>]+>/g, "").replace(/&[#\w]+;/g, " ");
-    });
-    var msg = "#SUMMARY\nBusiness: " + (g.name || S.a.business_name) +
-      (g.type ? " (" + g.type + ")" : "") + "\n" +
-      "Line-by-line audit of their Google Business Profile, as shown to them:\n" + lines.join("\n") +
-      (top.length ? "\nTop local competitors, same trade: " + top.map(function (c) {
-        return c.name + " (" + (c.reviews || 0) + " reviews, " + (c.rating || "unrated") + ")";
-      }).join("; ") : "");
-    return relayChat([{ role: "user", content: "(Interview starting. Ask your first question.)" },
-                      { role: "assistant", content: "Ready." },
-                      { role: "user", content: msg }])
-      .then(function (j) { return (j.reply || "").trim(); });
-  }
-
-  // Every mode call shares this shape: two padding turns so the relay counts it as a continuation
-  // rather than a new interview (which would eat a slot from the daily ceiling) and stays well
-  // under the per-session turn cap.
-  function relayChat(messages) {
-    return fetch(LEADS_URL, {
-      method: "POST", mode: "cors", redirect: "follow",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ secret: LEADS_SECRET, action: "chat", lead_id: S.lead_id,
-                             known: knownFacts(), messages: messages })
-    }).then(function (r) { return r.text(); }).then(function (t) {
-      var j = JSON.parse(t);
-      if (!j || j.ok === false) throw new Error((j && j.error) || "relay");
-      return j;
-    });
-  }
-
-  var reportReady = false, paintReport = null, phoneDone = false, reportHost = null;
-
-  // Paint as soon as the work is done. The report is NEVER held back for the phone number — that
-  // was the whole point of moving the ask to the end.
-  function renderReport() {
-    if (!reportReady || !paintReport) return;
-    var fn = paintReport; paintReport = null;
-    fn();
-  }
-
-  function esc2(x) { return esc(String(x == null ? "" : x)); }
-
-  // ======================================================================
-  //  REVIEW VELOCITY
-  //
-  //  Review COUNT is a weak argument — a rival with 211 to your 96 might simply be older. What
-  //  actually lands is the gap that is widening today: their last review was 2 days ago, yours was
-  //  143. This computes that from the five most recent reviews of each business.
-  //
-  //  Everything here is an estimate off a 5-review sample, and it is written to be conservative:
-  //  the measuring window runs to TODAY rather than to their newest review, so a business's own
-  //  silence counts against its rate. Numbers that flatter nobody are the ones that survive being
-  //  checked.
-  // ======================================================================
-  var VELOCITY = {
-    FRESH_DAYS: 30,      // green: reviewed within a month AND at least one a month
-    STALE_DAYS: 90,      // yellow up to here, red past it
-    MIN_WINDOW: 30,      // never extrapolate a rate from less than a month of data
-    AXIS_DAYS: 365       // the timeline never stretches past 12 months
-  };
-
-  function fetchVelocity(ids) {
-    var want = ids.filter(Boolean).slice(0, 6);
-    if (!want.length) return Promise.resolve({});
-    return fetch(LEADS_URL, {
-      method: "POST", mode: "cors", redirect: "follow",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ secret: LEADS_SECRET, action: "reviews", ids: want })
-    }).then(function (r) { return r.text(); }).then(function (t) {
-      var j = JSON.parse(t);
-      return (j && j.ok && j.places) ? j.places : {};
-    }).catch(function () { return {}; });
-  }
-
-  // One business's numbers. Returns nulls rather than guesses whenever the sample cannot carry the
-  // claim — a rate computed from a single review is not a rate.
-  function velocityOf(raw) {
-    var out = { total: 0, rating: null, days: null, perMonth: null, burst: false, times: [] };
-    if (!raw || raw.error) return out;
-    out.total = raw.total || 0;
-    out.rating = raw.rating || null;
-    var times = (raw.times || []).slice().sort(function (a, b) { return b - a; });
-    out.times = times;
-    if (!times.length) return out;
-
-    var nowSec = Date.now() / 1000;
-    out.days = Math.max(0, Math.floor((nowSec - times[0]) / 86400));
-    if (times.length < 2) return out;      // recency only; one point is not a trend
-
-    var windowDays = (nowSec - times[times.length - 1]) / 86400;
-    out.burst = windowDays < VELOCITY.MIN_WINDOW;
-    var w = Math.max(windowDays, VELOCITY.MIN_WINDOW);
-    out.perMonth = times.length / w * 30.4;
-    return out;
-  }
-
-  function agoLabel(days) {
-    if (days == null) return "no reviews yet";
-    if (days <= 1) return days === 0 ? "today" : "yesterday";
-    if (days < 60) return days + " days ago";
-    var months = Math.round(days / 30.4);
-    if (months < 24) return months + " months ago";
-    return "over " + Math.floor(months / 12) + " years ago";
-  }
-
-  function velocityState(v) {
-    if (!v || v.days == null) return { key: "bad", word: "No reviews yet", icon: "\u2715" };
-    if (v.days <= VELOCITY.FRESH_DAYS && (v.perMonth == null || v.perMonth >= 1))
-      return { key: "good", word: "Keeping up", icon: "\u2713" };
-    if (v.days <= VELOCITY.STALE_DAYS) return { key: "warn", word: "Slowing down", icon: "!" };
-    return { key: "bad", word: "Falling behind", icon: "!" };
-  }
-
-
-  // ======================================================================
-  //  THE CHECKLIST
-  //
-  //  Every aspect of the profile that can be read honestly from outside, one row each, with a
-  //  verdict: ok (green tick), flag (amber - filled in but not working for them), miss (red cross).
-  //  Aspects Google scores but does NOT expose - review replies, the Q&A section, posts - are
-  //  named in a note instead of faked as rows. Thresholds lean on the competitor sweep where one
-  //  exists, so "enough reviews" means enough for THEIR town, not a number picked in a meeting.
-  // ======================================================================
-  function buildChecklist(g, comps, vel) {
-    var rows = [];
-    function add(state, label, status, why) {
-      rows.push({ state: state, label: label, status: status, why: why || "" });
+  function finish(fields) {
+    S.done = true; save();
+    composer.hidden = true; hint.hidden = true;
+    var extra = {};
+    if (fields) {
+      extra.what_you_do = fields.what_you_do || "";
+      extra.services_talk = fields.services_talk || "";
+      extra.story_origin = fields.story_origin || "";
+      extra.known_for = fields.known_for || "";
+      extra.typical_visitor = fields.typical_visitor || "";
+      extra.rules_talk = [fields.must_haves && ("Must have: " + fields.must_haves),
+                          fields.absolutely_nots && ("Absolutely not: " + fields.absolutely_nots)]
+                          .filter(Boolean).join("\n");
+      extra.aspirations = fields.aspirations || "";
+      extra.vibe_words = fields.vibe_words || "";
+      extra.pages = fields.pages_suggested || "";
+      // The bulk of the interview: everything they said, grouped by page. This is what the
+      // site actually gets written from — the other fields are an index into it.
+      extra.page_notes = fields.page_notes || "";
+      extra.brand_colors = S.a.brand_colors || "";
     }
-
-    add("ok", "Business name", "\u201C" + esc2(g.name || S.a.business_name) + "\u201D is on the listing.");
-
-    var typeL = (g.type || "").toLowerCase();
-    var tradeWords = S.trade === "roofing" ? ["roof"] :
-                     S.trade === "hvac" ? ["hvac", "heat", "air", "furnace", "cool"] : [];
-    if (!g.type) {
-      add("miss", "Primary category", "No category is set.",
-        "The category decides which searches Google shows you in at all. Without the right one you are invisible for your own trade.");
-    } else if (tradeWords.length && !tradeWords.some(function (w) { return typeL.indexOf(w) >= 0; })) {
-      add("flag", "Primary category", "Filed as \u201C" + esc2(g.type) + "\u201D \u2014 not the category homeowners search for your trade.",
-        "Google matches searches to categories before anything else, so a near-miss category quietly leaves you out of the searches that matter.");
-    } else {
-      add("ok", "Primary category", "Filed as \u201C" + esc2(g.type) + "\u201D.");
-    }
-
-    if (g.phone) add("ok", "Phone number", esc2(g.phone) + " is on the listing.");
-    else add("miss", "Phone number", "No phone number is shown.",
-      "Nearly all of these searches happen on a phone, and the call button is the whole point of the listing. Without a number it is a dead end.");
-
-    if (g.website) add("ok", "Website link", "Links to " + esc2(g.website.replace(/^https?:\/\//, "").replace(/\/.*$/, "")) + ".");
-    else add("miss", "Website link", "No website link on the profile.",
-      "It is a free button on a page Google already shows for you. Without it, someone checking whether you are a real company has nowhere to go but the next listing.");
-
-    if (g.hours) add("ok", "Business hours", "Set \u2014 " + esc2(g.hours.split("; ")[0]) + (g.hours.indexOf(";") !== -1 ? " \u2026" : "") + ".");
-    else add("miss", "Business hours", "No hours are listed.",
-      "No-heat and no-cool calls come at night and on weekends, and \u201Copen now\u201D is how those searchers filter. With no hours set you can be dropped before anyone sees your name.");
-
-    if (g.summary) add("flag", "Business description", "What shows today is a one-liner Google wrote, not your own words.",
-      "Google gives you 750 characters \u2014 the largest piece of free space on the listing. Until you use it, Google\u2019s guess speaks for you.");
-    else add("miss", "Business description", "Nothing shows in the description at all.",
-      "Google gives you 750 characters to say what you do, where, and why you \u2014 the largest piece of free space on the listing, and it is sitting empty.");
-
-    var ph = g.photos || [], np = ph.length, ownerN = ph.filter(function (p) { return p.owner; }).length;
-    var npLabel = np >= 8 ? "8+" : String(np);
-    if (np === 0) add("miss", "Photos", "The profile has no photos.",
-      "Before anyone lets a stranger onto their roof or into their house, they want to see the work. An empty gallery gives them nothing to go on.");
-    else if (np < 3) add("flag", "Photos", "Only " + np + " photo" + (np === 1 ? "" : "s") + " on the profile.",
-      "A homeowner lining up quotes is deciding who looks legitimate, and a near-empty gallery reads as a profile nobody tends.");
-    else if (!ownerN) add("flag", "Photos", npLabel + " photos \u2014 all added by customers, none by you.",
-      "Customer photos are whatever got snapped. The crews, the trucks and the finished work \u2014 the pictures that win jobs \u2014 only get there if the business posts them.");
-    else add("ok", "Photos", npLabel + " photos on the profile, including your own.");
-
-    var rated = comps.filter(function (c) { return c.rating; });
-    var avg = rated.length ? rated.reduce(function (a, c) { return a + c.rating; }, 0) / rated.length : 0;
-    if (!g.rating) add("miss", "Star rating", "No rating yet.",
-      "An unrated listing next to two 4.8s does not get the benefit of the doubt \u2014 it gets skipped.");
-    else if (avg && g.rating < avg - 0.15) add("flag", "Star rating", g.rating.toFixed(1) + " against a local average of " + avg.toFixed(1) + ".",
-      "At this range it is usually a few old reviews nobody answered, not the work. Every homeowner who reads them afterwards sees whether you replied.");
-    else add("ok", "Star rating", g.rating.toFixed(1) + (avg ? " against a local average of " + avg.toFixed(1) : "") + ".");
-
-    var mine = g.ratings || 0;
-    var counts = comps.map(function (c) { return c.reviews || 0; }).sort(function (a, b) { return a - b; });
-    var med = counts.length ? counts[Math.floor(counts.length / 2)] : 0;
-    if (!mine) add("miss", "Reviews", "No reviews yet.",
-      "A homeowner with water coming through a ceiling compares two listings and calls the one with reviews. That takes about ten seconds and you never hear about it.");
-    else if (med > mine) add("flag", "Reviews", mine + " review" + (mine === 1 ? "" : "s") + " \u2014 the typical " + esc2((g.type || "business").toLowerCase()) + " near you has " + med + ".",
-      "The gap is the first thing a comparing homeowner sees, and it reads as a verdict even when it is only a head start.");
-    else add("ok", "Reviews", mine + " review" + (mine === 1 ? "" : "s") + " \u2014 holding your own against the businesses near you.");
-
-    // Momentum only exists once there are reviews at all; a second red row for the same absence
-    // would be double-counting the miss above.
-    if (mine) {
-      var v = velocityOf(vel[g.place_id]);
-      var st = velocityState(v);
-      if (st.key === "good") add("ok", "Review momentum", "Last review " + agoLabel(v.days) + " \u2014 keeping up.");
-      else add("flag", "Review momentum", "Last review " + agoLabel(v.days) + ".",
-        "Review dates are on every listing. A profile that went quiet months ago looks like a business that did too, and the gap against an active competitor widens every week.");
-    }
-
-    return rows;
-  }
-
-  function wirePayClick(host) {
-    var btn = host.querySelector(".cta .pay");
-    if (!btn) return;
-    btn.addEventListener("click", function () {
-      fb("InitiateCheckout");
-      save();
-      var back = host.querySelector("#paid-back");
-      if (back) setTimeout(function () { back.hidden = false; }, 2500);
-    });
-  }
-
-  // Not a ration — a fuse. Six was a cost ceiling on something that costs a cent, and it cut off the
-  // most engaged reader on the page while stopping nobody who meant harm (the relay's secret is in
-  // this file, so an abuser never sees this counter). It is high enough that no real buyer meets it,
-  // and it is never mentioned: a countdown shown from the first question tells someone they are
-  // being rationed at the exact moment they should feel free to ask anything.
-  var QA_MAX = 25, qaUsed = 0, qaBusy = false;
-  function wireQA(host) {
-    var box = host.querySelector("#qa-in"), btn = host.querySelector("#qa-send"),
-        pane = host.querySelector("#qa-thread");
-    if (!box) return;
-    var hist = [];
-
-    function add(who, text) {
-      var b = document.createElement("div");
-      b.className = "qa-msg " + who;
-      b.innerHTML = esc2(text).replace(/\n/g, "<br>");
-      pane.appendChild(b);
-      return b;
-    }
-    function ask() {
-      var q = box.value.replace(/\s+/g, " ").trim();
-      if (!q || qaBusy) return;
-      if (qaUsed >= QA_MAX) return;
-      qaBusy = true; box.value = ""; btn.disabled = true;
-      add("them", q);
-      var wait = add("bot", "\u2026"); wait.className = "qa-msg bot waiting";
-      hist.push({ role: "user", content: (hist.length ? "#QA\n" : "#QA\n") + q });
-
-      // Only the LAST message carries the #QA marker in the prompt's contract, so earlier turns are
-      // re-sent as plain text and the marker is re-applied to the newest one each time.
-      var msgs = [{ role: "user", content: "(Interview starting. Ask your first question.)" },
-                  { role: "assistant", content: "Ready." }]
-        .concat(hist.map(function (m, i) {
-          if (m.role !== "user") return m;
-          var isLast = (i === hist.length - 1);
-          return { role: "user", content: isLast ? m.content : m.content.replace(/^#QA\n/, "") };
+    extra.transcript = S.msgs.map(function (m) { return (m.role === "user" ? "THEM: " : "ASKED: ") + m.content; }).join("\n\n");
+    submitStage("complete", extra).then(function (j) {
+      try {
+        sessionStorage.setItem("duna_intake", JSON.stringify({
+          first_name: S.a.first_name, business_name: S.a.business_name, submitted: true,
+          lead_ok: !!(j && j.lead_ok), lead_id: S.lead_id
         }));
-
-      // Apps Script drops the odd request — a cold container, an intermittent 404 — and one blip used
-      // to end the conversation with "that didn't go through". The interview already retries for
-      // exactly this reason; the questions people ask before paying deserve the same. Retried on the
-      // same payload, so a retry costs a few seconds and never asks them to type anything twice.
-      function attempt(n) {
-        return relayChat(msgs).catch(function (e) {
-          if (n >= 3) throw e;
-          return new Promise(function (r) { setTimeout(r, 700 * n); }).then(function () { return attempt(n + 1); });
-        });
-      }
-      attempt(1).then(function (j) {
-        var a = (j.reply || "").trim() || "I don't have that one — text Barrett on (707) 385-5673.";
-        wait.remove();
-        add("bot", a);
-        hist.push({ role: "assistant", content: a });
-        qaUsed++;
-        qaBusy = false; btn.disabled = false;
-        submitLead("qa_" + qaUsed);
-      }).catch(function () {
-        wait.remove();
-        add("bot", "That didn't go through. Text Barrett on (707) 385-5673 and he'll answer it himself.");
-        qaBusy = false; btn.disabled = false;
-      });
-    }
-    btn.addEventListener("click", ask);
-    box.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); ask(); } });
-  }
-
-  function ctaBlock() {
-    var btn = PAY_URL
-      ? '<a class="pay" href="' + esc2(PAY_URL) + '">Have it done for me &mdash; ' + PAY_PRICE + '</a>'
-      : '<a class="pay disabled" href="sms:+17073855673">Text Barrett to have it done &mdash; ' + PAY_PRICE + '</a>';
-    // The copy above is visible and therefore copyable. Pretending otherwise invites the comparison
-    // we lose, so this says plainly that it is theirs either way, and prices the parts that need
-    // access, judgement and repetition — which is what actually takes the work off their desk.
-    return '<div class="cta">' +
-      '<h3 id="cta-h">Everything above, fixed properly.</h3>' +
-      '<p id="cta-give">You have seen what is missing. This is what I do about it.</p>' +
-      '<p class="cta-lead"><b>' + PAY_PRICE + ' gets the rest done properly &mdash; the essential parts that get the phone ringing&hellip;</b></p>' +
-      '<ul class="cta-list">' +
-        '<li><b>Your profile description, written for you</b> &mdash; the 750 characters Google gives you, ' +
-        'in your own words rather than Google\'s. It is the largest piece of free space on your listing ' +
-        'and yours is almost certainly empty.</li>' +
-        '<li><b>Every review answered</b>, including the ones nobody replied to. A homeowner choosing between three companies reads the replies, not just the stars.</li>' +
-        '<li><b>Questions asked and answered</b> on your profile &mdash; emergency calls, insurance, the areas you cover. You&rsquo;re allowed to post both sides, and almost nobody does.</li>' +
-        // The report flags photos and hours, so the offer has to answer for them or a reader whose
-        // loudest problem was photos scans this list and never finds his own fix.
-        '<li><b>Every field Google scores, filled in</b> &mdash; hours, service area, links, categories and services, entered the way Google wants them. Photos I can&rsquo;t add for you, so you get a short list of exactly which ones to put up.</li>' +
-        '<li><b>Nothing that gets you suspended.</b> Profiles go down for edits owners think are harmless, and getting one back can take weeks &mdash; everything stays inside Google&rsquo;s guidelines.</li>' +
-      '</ul>' +
-      // "When will it be done?" is a top-three question at the moment of paying, and the seasonal
-      // line above sharpens it by saying timing matters. Answering it here costs one clause.
-      // Anchored to ACCESS, not to payment: the days between paying and granting Manager access are
-      // the buyer's, and a clock Barrett does not control is a promise he can miss without doing
-      // anything wrong.
-      '<p class="cta-close">Live on your profile within 10 days of getting access. You never hand over your Google login, ' +
-      'and you see every word before it goes live. One payment, no contract, nothing renews.</p>' +
-      // The monthly is named here, at the price, at full size. Holding it back until someone asks is
-      // how a buyer finds out after paying — which is the thing this whole page is arguing against.
-      '<p class="cta-close">If you want it kept up afterwards &mdash; posts going out, new reviews answered as they ' +
-      'land &mdash; that is $99 a month. Entirely optional, and it starts only if you ask for it.</p>' +
-      '<p class="fine">Worth doing before the first cold snap and the fall storm run &mdash; whatever is on ' +
-      'your profile that week is what those searchers see.</p>' +
-      btn +
-      // Reassurance before the doubt it answers: the four clicks first, THEN the refund. Flipped,
-      // the refund line raises "what could go wrong" one beat before anything resolves it.
-      '<p class="cta-access">After payment you&rsquo;ll get redirected to one page: a few questions about your business so I never have to chase you for them, then the four clicks that give me Manager access. Five minutes, once, and that is the whole of your involvement.</p>' +
-      '<p class="refund">If I can\'t get access, or can\'t improve the profile, you get a full refund.</p>' +
-      '<p class="paid-back" id="paid-back" hidden><a href="access.html">Already paid? Finish setting it up &rarr;</a></p>' +
-      '</div>';
-  }
-  function buildReport(fields) {
-    var g = S.google || {}, comps = S.competitors || [];
-    var host = null;
-    function mark() {}
-
-    function render(vel) {
-      vel = vel || {};
-      // The sweep already ranked these (same-trade first, strongest first within that); they set
-      // the local thresholds the checklist judges against.
-      var top = comps.slice(0, 3);
-      var rows = buildChecklist(g, top, vel);
-      var tally = { ok: 0, flag: 0, miss: 0 };
-      rows.forEach(function (r) { tally[r.state]++; });
-
-      var html = '<div class="rp-head"><h2>' + esc2(g.name || S.a.business_name) + '</h2>' +
-        '<p>What someone searching your trade in ' + esc2((g.address || "").split(",")[1] || "your area") +
-        ' sees today, checked line by line.</p></div>';
-
-      html += '<section class="rp-sec"><h3>Your listing, line by line</h3>';
-      html += '<p class="lede">' + tally.ok + ' of ' + rows.length + ' in place' +
-        (tally.flag ? ', ' + tally.flag + ' there but not working for you' : '') +
-        (tally.miss ? ', ' + tally.miss + ' missing altogether' : '') + '.</p>';
-      html += '<ul class="ck">' + rows.map(function (r) {
-        var word = r.state === "ok" ? "In place" : r.state === "flag" ? "Needs attention" : "Missing";
-        var icon = r.state === "ok" ? "\u2713" : r.state === "flag" ? "!" : "\u2715";
-        return '<li class="' + r.state + '">' +
-          '<span class="ck-ic" role="img" aria-label="' + word + '">' + icon + '</span>' +
-          '<div><b class="ck-lab">' + r.label + '</b>' +
-          '<span class="ck-st">' + r.status + '</span>' +
-          (r.why ? '<p class="ck-why">' + r.why + '</p>' : '') +
-          '</div></li>';
-      }).join("") + '</ul>';
-      html += '<p class="fine">Checked against Google\u2019s live data just now' +
-        (top.length ? ', with the ' + (top.length === 1 ? 'strongest same-trade competitor' :
-          top.length + ' strongest same-trade competitors') + ' near you as the yardstick' : '') +
-        '. Three more things Google scores can\u2019t be read from outside \u2014 whether your reviews ' +
-        'get replies, the Q&amp;A section, and posts. They\u2019re part of the work priced below.</p>';
-      html += '</section>';
-
-      html += '<section class="rp-sec"><h3>The state of your profile, summed up</h3>' +
-        '<div class="sum" id="sum-slot"><p class="sum-wait">Reading the audit above\u2026</p></div></section>';
-
-      html += ctaBlock();
-      html += '<div class="qa" id="qa">' +
-        '<p class="qa-h">Any questions about how the service works?</p>' +
-        '<div class="qa-thread" id="qa-thread"></div>' +
-        '<div class="qa-row">' +
-          '<input id="qa-in" type="text" autocomplete="off" placeholder="Ask about your profile, or the work">' +
-          '<button type="button" id="qa-send" aria-label="Send">Ask</button>' +
-        '</div>' +
-        '</div>';
-
-      // Handed to renderReport rather than painted here, so the phone question gets its moment
-      // without the report appearing over the top of it mid-sentence.
-      S.reportAt = Date.now(); save();
-
-      paintReport = function () {
-        typing(false);
-        host = document.createElement("div");
-        host.className = "report";
-        host.innerHTML = html;
-        thread.appendChild(host);
-        host.scrollIntoView({ block: "start" });
-        submitLead("report_shown", {
-          checklist: rows.map(function (r) {
-            return (r.state === "ok" ? "IN PLACE" : r.state === "flag" ? "FLAGGED" : "MISSING") +
-              " \u2014 " + r.label;
-          }).join("\n")
-        });
-        fb("ReportShown");
-        wireQA(host);
-        wirePayClick(host);
-        reportHost = host;
-
-        // The verdict arrives after the page it judges — written from the rows above and nothing
-        // else. If the relay stumbles, the tally line already said the honest version, so the
-        // fallback restates it rather than apologising.
-        var slot = host.querySelector("#sum-slot");
-        requestSummary(rows, g, top).then(function (text) {
-          // Anything that is not two paragraphs of prose — an interview-shaped JSON spec, a
-          // one-word reply — paints the fallback instead. A verdict box showing raw JSON once is
-          // worse than the plain tally every time.
-          if (!text || text.length < 40 || /^\s*[{\[]/.test(text)) throw new Error("not prose");
-          slot.innerHTML = text.split(/\n{2,}/).map(function (para) {
-            return '<p>' + esc2(para.trim()).replace(/\n/g, "<br>") + '</p>';
-          }).join("");
-          // Held so access.html can put the verdict in Barrett's summary email after payment.
-          S.analysis = text; save();
-          submitLead("summary_shown", { analysis: text }).catch(function () {});
-        }).catch(function () {
-          slot.innerHTML = '<p>' + tally.ok + ' of the ' + rows.length + ' essentials are in place. ' +
-            (tally.flag + tally.miss ?
-              'The other ' + (tally.flag + tally.miss) + ' are what a comparing homeowner sees first \u2014 ' +
-              'and every one of them is fixable. The work below puts them right.' :
-              'That is a profile in good shape \u2014 the work below is what keeps it that way.') + '</p>';
-        });
-      };
-      reportReady = true;
-      if (phoneDone) renderReport();
-    }
-
-    // Re-sweep with the area they just told us. The first sweep ran before the interview and could
-    // only use the town their address sits in, which is too small for a trade that drives 20 miles.
-    var better = fields.area
-      ? sweepCompetitors(g.type, fields.area, g.name, g.place_id, g.county, S.trade,
-                         { lat: g.lat, lng: g.lng })
-          .then(function (res) {
-            if (res && res.rivals.length >= comps.length) {
-              comps = res.rivals; S.competitors = res.rivals; S.nearMatches = res.others; save();
-            }
-          })
-          .catch(function () {})
-      : Promise.resolve();
-
-    // Review timestamps for the momentum row. Chained after the re-sweep so it asks about the
-    // three rivals that actually set the thresholds, not the provisional ones.
-    better.then(function () {
-      return fetchVelocity([g.place_id].concat(comps.slice(0, 3).map(function (c) { return c.id; })));
-    }).catch(function () { return {}; }).then(function (vel) {
-      setTimeout(function () { render(vel); }, 250);
+      } catch (e) {}
+      window.location.href = "thanks.html";
+    }).catch(function () {
+      bubble("bot", '<div class="done"><h2>Thank you.</h2><p>Barrett will text you shortly. If you don’t hear back, message (707) 385-5673.</p></div>', true);
     });
   }
 
   // ================= sheet submit (same endpoint, same guards) =================
-  // The sheet merges on lead_id and only alerts on "complete" (ALERT_ON_START is false), so the
-  // earlier stages are free: they update the same row and tell Barrett nothing until it matters.
-  // That is what makes step-by-step drop-off visible without a single Apps Script change.
-  function submitLead(stage, extra) { return submitStage(stage, extra); }
   function submitStage(stage, extra) {
-    // A sample report is not a lead. Nothing from this path reaches the sheet or the alerts —
-    // otherwise every look at the demo would land in Barrett's inbox as a new customer.
-    if (S.demo) return Promise.resolve({ ok: true, demo: true });
-    var g = S.google, comps = S.competitors || [];
+    var g = S.google;
     var payload = {
-      secret: LEADS_SECRET, lead_id: S.lead_id, form: "gbp-chat", stage: stage,
+      secret: LEADS_SECRET, lead_id: S.lead_id, form: "website-chat", stage: stage,
       source_url: location.href.split("?")[0],
       elapsed_ms: String(Date.now() - LOADED_AT),
       fbp: cookie("_fbp"), fbc: cookie("_fbc"), ua: navigator.userAgent,
       metrics_off: metricsOff() ? "1" : "",
       "bot-field": (document.querySelector('#hp [name="bot-field"]') || {}).value || "",
       company_url: (document.querySelector('#hp [name="company_url"]') || {}).value || "",
+      first_name: S.a.first_name || "", phone: S.a.phone || "", email: S.a.email || "",
       business_name: S.a.business_name || "", place_id: S.a.place_id || "",
-      phone: S.a.phone || "", address: S.a.address || "",
-      utm: location.search.replace(/^\?/, "")
+      address: S.a.address || "", hours: S.a.hours || "",
+      current_website_url: S.a.current_website_url || "",
+      logo_url: S.a.logo_url || "",
+      primary_goal: "", utm: location.search.replace(/^\?/, "")
     };
-    // The audit as it stood when they ran it. Worth storing rather than re-fetching later: it is the
-    // evidence behind the report they were shown, and their profile will have moved on by the time
-    // anyone opens the row.
     if (g) {
-      payload.gbp_category = g.type || "";
-      payload.gbp_rating = g.rating || "";
-      payload.gbp_reviews = g.ratings || 0;
-      payload.gbp_photos = (g.photos || []).length;
-      payload.gbp_hours = g.hours ? "set" : "NOT SET";
-      payload.gbp_website = g.website || "";
-      if (comps.length) {
-        var med = comps.map(function (c) { return c.reviews || 0; }).sort(function (x, y) { return x - y; });
-        payload.rival_median_reviews = med[Math.floor(med.length / 2)];
-        payload.rivals = comps.slice(0, 3).map(function (c) {
-          return c.name + " (" + (c.reviews || 0) + " reviews, " + (c.rating || "unrated") + ")";
-        }).join("\n");
-      }
+      payload.place_json = JSON.stringify({ name: g.name, type: g.type, rating: g.rating, ratings: g.ratings, summary: g.summary });
+      payload.testimonials = g.reviews.filter(function (r) { return r.use; })
+        .map(function (r) { return "“" + r.text + "” — " + r.author + " (via Google)"; }).join("\n");
+      payload.photos_json = JSON.stringify(g.photos.filter(function (p) { return p.use; })
+        .map(function (p) { return { url: p.url, caption: "From Google listing" + (p.by ? " (by " + p.by + ")" : ""), is_hero: false, source: "google" }; })
+        .concat((S.uploads || []).filter(function (p) { return p.use !== false; })));
+    } else if ((S.uploads || []).length) {
+      // No Google listing, but they uploaded their own — those must still go through.
+      payload.photos_json = JSON.stringify((S.uploads || []).filter(function (p) { return p.use !== false; }));
     }
     Object.keys(extra || {}).forEach(function (k) { payload[k] = extra[k]; });
     return fetch(LEADS_URL, { method: "POST", mode: "cors", redirect: "follow",
@@ -1647,143 +1142,81 @@ fbq('track', 'PageView');
       .then(function (r) { return r.text(); }).then(function (t) { try { return JSON.parse(t); } catch (e) { return {}; } });
   }
 
-  // The eyebrow line, sized so it spans exactly the width of the headline column and stays one line
-  // at any screen size. Measure once at a reference size, then scale by the ratio — no guessing, no
-  // media queries, and it re-fits on rotate or resize.
-  //
-  // The floor matters: this string is long, so on a narrow phone an exact fit would drive it down to
-  // something unreadable. Below 10px it stops shrinking and is allowed to wrap instead — a legible
-  // two-line eyebrow beats a full-width one nobody can read.
+  // ================= composer =================
+  function sendNow() {
+    var v = input.value.trim();
+    if (!v || send.disabled) return;
+    // The contact questions are answered in the same box, but they never reach the model — no API
+    // call, no cost, and the time floor below does not apply to them.
+    if (S.phase === "confirm") {
+      me(v); input.value = ""; input.style.height = "auto";
+      confirmAnswer(v);
+      return;
+    }
+    if (S.phase === "contact") {
+      me(v); input.value = ""; input.style.height = "auto";
+      contactAnswer(v);
+      return;
+    }
+    if ((Date.now() - LOADED_AT) < MIN_SECONDS_BEFORE_CHAT * 1000 && S.msgs.length === 0) {
+      // matches the server-side floor; a human cannot have got here this fast
+      return;
+    }
+    me(v); input.value = ""; input.style.height = "auto";
+    turn(v);
+  }
+  send.addEventListener("click", sendNow);
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendNow(); }
+  });
+  input.addEventListener("input", function () {
+    this.style.height = "auto"; this.style.height = Math.min(this.scrollHeight, 140) + "px";
+    scrollTail();          // a growing box can push itself under the keyboard
+  });
+  // The keyboard animates in after focus, so check once it has settled as well as immediately.
+  input.addEventListener("focus", function () {
+    scrollTail();
+    setTimeout(scrollTail, 250);
+    setTimeout(scrollTail, 550);
+  });
+
+  // Back to the top. Declared before use — a call above its assignment killed this whole script once.
   (function () {
-    var k = $("kicker");
-    if (!k) return;
-    var REF = 32, MIN = 10;
-    // The ceiling exists only to stop a pathologically short string from outgrowing the headline —
-    // it is not meant to bind on normal copy, so a real eyebrow reaches the full column width.
-    function maxSize() {
-      var h = document.querySelector(".intro h1");
-      if (!h) return 40;
-      var hs = parseFloat(window.getComputedStyle(h).fontSize) || 34;
-      return Math.max(14, hs * 0.75);
-    }
-
-    // scrollWidth on a block element returns the BOX width, not the text width — so once the text
-    // is NARROWER than the column it reports the column back and the fit silently stops working.
-    // (Same trap cost an hour on the headline alignment earlier.) A Range measures the glyphs.
-    function textWidth() {
-      try {
-        var r = document.createRange();
-        r.selectNodeContents(k);
-        var w = r.getBoundingClientRect().width;
-        r.detach && r.detach();
-        if (w) return w;
-      } catch (e) {}
-      return k.scrollWidth;
-    }
-
-    function fit() {
-      var box = k.parentNode ? k.parentNode.getBoundingClientRect().width : 0;
-      if (!box) return;
-      k.classList.add("fitted");
-      k.style.fontSize = REF + "px";
-      var natural = textWidth();
-      if (!natural) return;
-      var size = REF * (box / natural);
-      if (size < MIN) {                 // too long to fit legibly — let it wrap at a readable size
-        k.classList.remove("fitted");
-        k.style.fontSize = "";
-        return;
-      }
-      k.style.fontSize = Math.min(size, maxSize()).toFixed(2) + "px";
-    }
-
-    fit();
-    window.addEventListener("resize", fit);
-    // Webfonts land after first paint and change the measurement underneath us.
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit).catch(function () {});
+    var t = $("totop");
+    if (!t) return;
+    t.addEventListener("click", function () {
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      try { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }
+      catch (e) { window.scrollTo(0, 0); }   // older Safari has no options object
+    });
   })();
 
-  // A working sample of the finished report, for looking at the thing without answering five
-  // questions first. Everything except the answers is REAL: a real Google profile, a real competitor
-  // sweep, real review dates, a real rewrite. Only the three interview answers are canned, because
-  // they are the one part a sample cannot go and fetch.
-  var DEMOS = {
-    roofing: {
-      search: "Ridgeline Roofing Co, Windsor CA",
-      trade: "roofing",
-      fields: { area: "Windsor, Santa Rosa and Healdsburg",
-                what_you_do: "Tear-offs and full replacements, plus storm damage repairs",
-                known_for: "We show up the day we say we will and we clean up after ourselves",
-                services_talk: "Roof replacement, tear-off, leak repair, storm damage",
-                must_haves: "" }
-    },
-    hvac: {
-      search: "Valley Comfort Heating and Air, Santa Rosa CA",
-      trade: "hvac",
-      fields: { area: "Santa Rosa and the surrounding towns",
-                what_you_do: "Furnace and AC replacements, repairs, and yearly tune-ups",
-                known_for: "We answer the phone at night and we do not charge a weekend rate",
-                services_talk: "Furnace replacement, AC install, repairs, maintenance plans",
-                must_haves: "" }
-    }
-  };
-
-  function runDemo(key) {
-    var demo = DEMOS[key] || DEMOS.roofing;
-    S.demo = true; S.trade = demo.trade; save();
-    bubble("bot", '<div class="demo-note"><b>Sample report.</b> A real profile, real competitors and ' +
-      'real review dates &mdash; exactly what you get for your own listing. ' +
-      '<a href="?restart">Run yours &rarr;</a></div>', true);
-    typing(true);
-
-    fetch("https://places.googleapis.com/v1/places:searchText", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "X-Goog-Api-Key": GOOGLE_PLACES_KEY,
-                 "X-Goog-FieldMask": "places.id,places.displayName" },
-      body: JSON.stringify({ textQuery: demo.search })
-    }).then(function (r) { return r.json(); }).then(function (j) {
-      var hit = (j.places || [])[0];
-      if (!hit) throw new Error("no demo place");
-      // gDetails fills S.google and draws the confirm card; in sample mode the card is suppressed,
-      // so just wait for the data to land.
-      gDetails(hit.id);
-      return new Promise(function (resolve) {
-        var waited = 0;
-        (function poll() {
-          if (S.google || waited > 9000) return resolve();
-          waited += 150; setTimeout(poll, 150);
-        })();
-      });
-    }).then(function () {
-      var g = S.google;
-      if (!g) throw new Error("no details");
-      S.a.business_name = g.name; S.a.place_id = g.place_id;
-      if (g.address) S.a.address = g.address;
-      fetchCompetitors(g);
-      return competitorsReady || Promise.resolve();
-    }).then(function () {
-      typing(false);
-      phoneDone = true;
-      buildReport({});              // the real report path, from here on
-    }).catch(function () {
-      typing(false);
-      bubble("bot", "The sample couldn't load just now &mdash; <a href=\"?restart\">try the real thing</a>.", true);
-    });
-  }
-
   // ================= boot =================
-  var demoKey = (location.search.match(/[?&]demo=([a-z]+)/i) || [])[1];
-  if (demoKey) {
-    runDemo(demoKey.toLowerCase());
-  } else if (S.google && (S.phase === "report" || S.phase === "confirm")) {
-    // A reload re-runs the report on the listing they already picked, rather than making them
-    // search for their own business a second time.
+  if (S.done) {
+    bubble("bot", '<div class="done"><h2>You’ve already sent this.</h2><p>Barrett will text you shortly.</p>' +
+      '<p><a class="restart-link" href="?restart">Start a new interview</a></p></div>', true);
+  } else if (S.started && S.msgs.length) {
+    S.msgs.forEach(function (m) { (m.role === "user" ? me : say)(m.content); });
+    composer.hidden = false; hint.hidden = false;
+  } else if (S.phase === "confirm" && S.google) {
     drawCard(S.google);
+  } else if (S.phase === "logo") {
+    askLogo();
+  } else if (S.phase === "photos") {
+    askPhotos();
+  } else if (S.phase === "design") {
+    askDesign();
+  } else if (S.phase === "contact") {
+    // Mid-contact reload: keep what Google gave us and carry on asking, rather than starting over.
+    if (S.google) say("Welcome back — " + S.google.name + ".");
+    composer.hidden = false; hint.hidden = false;
+    nextContact();
   } else {
     askPlaces();
   }
   fb("ChatOpen");
 })();
 </script>
+<script src="https://upload-widget.cloudinary.com/latest/global/all.js"></script>
 </body>
 </html>
