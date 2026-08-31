@@ -21,7 +21,7 @@
   --scrim: 12, 6, 18;                         /* the one dark band (T4) */
 
   /* Type — Syne + DM Sans (assigned) */
-  --font-display: "Libre Bodoni", "Bodoni MT", Georgia, serif;
+  --font-display: "Fraunces", Georgia, serif;
   --font-body: "Jost", system-ui, -apple-system, "Segoe UI", sans-serif;
   --fs-0: clamp(1.0625rem, 1rem + 0.25vw, 1.125rem);
   --fs-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
