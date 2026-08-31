@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Got it — Duna Marketing</title>
+<title>Payment received — Duna Marketing</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#003087">
 <link rel="icon" type="image/png" href="duna_marketing_logo.png">
@@ -95,8 +95,9 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   main {
     flex: 1;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
     padding: 40px 20px 60px;
   }
   .card {
@@ -183,6 +184,30 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
   .steps li:last-child { margin-bottom: 0; }
   .fine { margin: 0; font-size: 0.85rem; color: var(--muted); }
   .fine a { color: var(--navy); font-weight: 600; }
+  /* The questionnaire lives at the foot of the page: payment is confirmed above, and this is the
+     one thing the buyer can do right now that moves their build forward. */
+  .qcard {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-top: 6px solid var(--navy);
+    border-radius: 14px;
+    max-width: 600px;
+    width: 100%;
+    padding: 28px 36px 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 29, 82, 0.08);
+  }
+  .qcard h2 { margin: 0 0 8px; font-size: 1.35rem; color: var(--navy); letter-spacing: -0.01em; }
+  .qcard p { margin: 0 auto 18px; color: var(--muted); font-size: 0.98rem; max-width: 440px; }
+  .btn-form {
+    background: var(--navy);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(0, 48, 135, 0.3);
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .btn-form:hover, .btn-form:focus-visible { background: var(--navy-deep); }
+  .qcard .fine { margin-top: 12px; }
   @media (max-width: 560px) {
     .topbar .topbar-tag { display: none; }
     main { padding: 20px 14px 40px; }
@@ -201,9 +226,9 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
 <main>
   <div class="card">
     <div class="check">✓</div>
-    <p class="kicker">Questionnaire received</p>
-    <h1>Got it &mdash; thank you<span id="who"></span>!</h1>
-    <p class="lede">Your answers are in. <strong>Fastest next step: text me.</strong> One tap opens a message that&rsquo;s already written &mdash; just hit send and we&rsquo;re talking.</p>
+    <p class="kicker">Payment received</p>
+    <h1>Thank you<span id="who"></span> &mdash; <span id="biz">your website</span> is underway.</h1>
+    <p class="lede">Your payment went through and your build is on the board. <strong>Barrett will text you shortly</strong> &mdash; or get in first with one tap below.</p>
 
     <div class="cta-stack">
       <a class="btn btn-text" id="text-btn" href="sms:+17073855673">
@@ -215,46 +240,56 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
         Or call (707) 385-5673
       </a>
     </div>
-    <p class="reply-note">I read every answer personally and usually reply <b>within the hour</b> during the day.</p>
-    <p class="reply-note"><b>One flat price, quoted in your first text</b> &mdash; two rounds of changes included, and nothing goes live until you&rsquo;ve seen it and approved it.</p>
+    <p class="reply-note">I usually reply <b>within the hour</b> during the day.</p>
     <p class="reply-note desk-only">On a computer? Text <b>(707) 385-5673</b> from your phone &mdash; just mention your business name.</p>
 
     <div class="steps">
       <strong class="title">What happens next</strong>
       <ol>
-        <li><strong>We talk.</strong> Text me now, or I&rsquo;ll reach out to the number you gave me &mdash; quick questions, timing, anything you forgot to mention.</li>
+        <li><strong>You answer the questionnaire below</strong> &mdash; it&rsquo;s what your site gets written from. Ten minutes, saved as you go. Skip it and Barrett collects the same answers by text instead.</li>
         <li><strong>I build.</strong> Your site gets made from your real answers and photos.</li>
         <li><strong>You approve.</strong> You get a preview link first. Nothing goes live until you say &ldquo;yes.&rdquo;</li>
       </ol>
     </div>
 
-    <p class="fine" id="skipped-note" hidden></p>
-    <p class="fine" id="edit-note" hidden>Forgot something? Just include it in your text, or <a id="edit-link" href="form.html">go back and update your answers</a> &mdash; they&rsquo;re saved on this device.</p>
-    <p class="fine" id="chat-note" hidden>Forgot something? Just include it in your text when I reach out.</p>
+    <p class="fine">Two rounds of changes included &mdash; and nothing goes live until you&rsquo;ve seen it and approved it.</p>
+  </div>
+
+  <div class="qcard">
+    <h2>Start here: the questionnaire</h2>
+    <p>Every word on your site comes from your answers &mdash; what you do, what things cost, the story behind the business. The sooner it&rsquo;s in, the sooner the build starts.</p>
+    <a class="btn btn-form" id="form-btn" href="form.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      Fill out the questionnaire
+    </a>
+    <p class="fine">Not right now? No problem &mdash; Barrett will ask you the same things by text.</p>
   </div>
 </main>
 
 <script>
   (function () {
     var PHONE = "+17073855673";
-    var info = {};
-    try { info = JSON.parse(sessionStorage.getItem("duna_intake") || "{}"); } catch (e) {}
 
-    var first = (info.first_name || "").trim();
-    var biz = (info.business_name || "").trim();
-
-    if (first) document.getElementById("who").textContent = ", " + first;
-
-    // Interview: list anything they skipped so they know I'll ask by text
-    var LABELS = { what: "what you do", origin: "how you started", known: "what you're known for", services: "services & prices", visitor: "your typical customer", goaldetail: "booking/ordering details", aspire: "where you're headed", feel: "the look & feel", vibe: "your three words", rules: "must-haves", photos: "photos", places: "your Google listing" };
-    var skipped = Array.isArray(info.skipped) ? info.skipped.map(function (k) { return LABELS[k] || k; }) : [];
-    if (skipped.length) {
-      var el = document.getElementById("skipped-note");
-      el.textContent = "You skipped " + skipped.join(", ") + " — no problem, I'll ask you by text.";
-      el.hidden = false;
+    // The buyer arrived here from the payment link, not from a submitted form, so the business
+    // lives in the chat's saved state — sessionStorage's intake record is only a fallback for
+    // someone who happens to have submitted the questionnaire in this same tab.
+    var first = "", biz = "";
+    try {
+      var chat = JSON.parse(localStorage.getItem("duna_chat") || "null");
+      if (chat && chat.a) { first = (chat.a.first_name || "").trim(); biz = (chat.a.business_name || "").trim(); }
+    } catch (e) {}
+    if (!biz) {
+      try {
+        var info = JSON.parse(sessionStorage.getItem("duna_intake") || "{}");
+        first = first || (info.first_name || "").trim();
+        biz = (info.business_name || "").trim();
+      } catch (e) {}
     }
 
-    var body = "Hi Barrett — I just submitted the website questionnaire" +
+    if (first) document.getElementById("who").textContent = ", " + first;
+    if (biz) document.getElementById("biz").textContent = "the " + biz + " website";
+
+    var body = "Hi Barrett — I just paid for the website" +
       (biz ? " for " + biz : "") +
       (first ? ". This is " + first + "." : ".");
 
@@ -265,16 +300,6 @@ src="https://www.facebook.com/tr?id=949809188409734&ev=PageView&noscript=1"
     function track(name) { if (window.fbq) fbq("track", "Contact", { content_name: name }); }
     textBtn.addEventListener("click", function () { track("text"); });
     document.getElementById("call-btn").addEventListener("click", function () { track("call"); });
-  })();
-</script>
-<script>
-  // The homepage is the chat now, and a finished chat has nothing to go back and edit — only the
-  // questionnaire keeps a re-openable draft. Show whichever sentence is actually true for them.
-  (function () {
-    var hasForm = false;
-    try { hasForm = !!localStorage.getItem("duna_interview"); } catch (e) {}
-    var el = document.getElementById(hasForm ? "edit-note" : "chat-note");
-    if (el) el.hidden = false;
   })();
 </script>
 </body>
