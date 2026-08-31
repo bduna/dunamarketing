@@ -49,7 +49,11 @@ h2 { text-wrap: balance; }
          max-width: 33rem; }
 .pcard--light { background: var(--surface); color: var(--ink); }
 .pcard--light .lead, .pcard--light .muted, .pcard--light footer { color: var(--ink-muted); }
-.pcard h1 { margin-bottom: var(--space-2); overflow-wrap: break-word; }
+.pcard h1 { margin-bottom: var(--space-2); overflow-wrap: break-word;
+            /* Syne is wide and the card is narrow: at the full --fs-4 scale "Technique"
+               cannot fit on one line and break-word snapped it mid-word. One step down
+               keeps it huge and keeps every break between words. */
+            font-size: clamp(1.9rem, 1.1rem + 2.6vw, 2.75rem); text-wrap: balance; }
 .pcard .muted { font-size: 0.95rem; margin-bottom: 0; margin-top: var(--space-3);
                 padding-top: var(--space-2); border-top: 1px solid var(--line); }
 .pcard__actions { margin-top: var(--space-3); }
