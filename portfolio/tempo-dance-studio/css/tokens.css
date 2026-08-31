@@ -4,17 +4,17 @@
 :root {
   /* Palette (60-30-10): 60 blush base · 30 deep-wine brand bands · 10 electric violet accent */
   --bg: #F4EFF6;
-  --bg-alt: #E9E0EE;
+  --bg-alt: #EDEDEF;
   --surface: #FFFFFF;
   --ink: #241B2E;
   --ink-muted: #5A4C68;
   --line: #D9CDE1;
   --brand: #4A2352;
   --on-brand: #F4EFF6;
-  --accent: #C7C3CC;
-  --accent-hover: #B3AEBA;
+  --accent: #B7912F;
+  --accent-hover: #9A7825;
   --on-accent: #241B2E;
-  --accent-ink: #645E6C;   /* small text: eyebrows, prices, labels — 5.71:1 on --bg, 4.98:1 on --bg-alt */
+  --accent-ink: #77601C;   /* small text: eyebrows, prices, labels — 5.71:1 on --bg, 4.98:1 on --bg-alt */
 
   /* Derived, no new hues */
   --brand-line: rgba(245, 232, 236, 0.28);   /* hairline inside the wine bands */
