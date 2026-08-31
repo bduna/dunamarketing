@@ -2,18 +2,18 @@
    Palette: brief.assigned.palette, copied verbatim (family: tinted lavender). Do not re-derive. */
 :root {
   /* --- assigned palette, copied verbatim, exact hex --- */
-  --bg: #F4E7F5;               /* 60: tinted lavender base */
-  --bg-alt: #EBD5EE;           /* tinted panel */
+  --bg: #F4F1E8;               /* 60: tinted lavender base */
+  --bg-alt: #E9E4D4;           /* tinted panel */
   --surface: #FFFFFF;          /* cards, price panel */
-  --ink: #28182A;              /* body text */
-  --ink-muted: #69526D;        /* secondary text */
-  --line: #DDD0DF;             /* hairlines */
-  --brand: #522159;            /* 30: plum band, wordmark mark */
-  --on-brand: #F4E7F5;         /* on the plum band */
-  --accent: #E3A11C;           /* 10: the one accent — antique brass. Buttons only. */
-  --accent-hover: #E9AD35;     /* lighter brass on hover; on-accent ink still 8.37:1 */
-  --on-accent: #28182A;        /* dark ink on brass — 7.48:1. The accent is BRIGHT; never invert this. */
-  --accent-ink: #7A5814;       /* darker brass for small text (raw --accent is 1.82:1 on --bg) */
+  --ink: #1E2A22;              /* body text */
+  --ink-muted: #55645A;        /* secondary text */
+  --line: #DCD6C2;             /* hairlines */
+  --brand: #24422F;            /* 30: plum band, wordmark mark */
+  --on-brand: #F4F1E8;         /* on the plum band */
+  --accent: #C08A2D;           /* 10: the one accent — antique brass. Buttons only. */
+  --accent-hover: #A67624;     /* lighter brass on hover; on-accent ink still 8.37:1 */
+  --on-accent: #1E2A22;        /* dark ink on brass — 7.48:1. The accent is BRIGHT; never invert this. */
+  --accent-ink: #79581A;       /* darker brass for small text (raw --accent is 1.82:1 on --bg) */
 
   /* --- derived (site-specific; no assigned token altered) --- */
   --accent-ink-alt: #6B4A07;    /* the brass step for small text on --bg-alt, where
