@@ -93,7 +93,7 @@ h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; }
 .price-chip { display: inline-block; background: var(--yellow); color: var(--on-yellow); font-weight: 800; font-family: var(--font-display); padding: 0.28rem 0.7rem; border-radius: 999px; white-space: nowrap; }
 .price-chip--quote { background: transparent; color: var(--brand); border: 2px solid var(--brand); text-decoration: none; padding: 0.24rem 0.7rem; }
 .price-chip--quote:hover { background: var(--brand); color: var(--on-brand); }
-.menu-note { margin: var(--space-3) 0 0; display: flex; gap: 0.6rem; align-items: center; color: var(--ink-muted); font-size: 0.95rem; }
+.menu-note { margin: var(--space-3) 0 12px 12px; display: flex; gap: 0.6rem; align-items: center; color: var(--ink-muted); font-size: 0.95rem; }
 .menu-note svg { flex: 0 0 auto; color: var(--brand); }
 
 /* Menu side card */
