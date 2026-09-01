@@ -10,10 +10,10 @@
   --line: #DCD6C2;             /* hairlines */
   --brand: #24422F;            /* 30: plum band, wordmark mark */
   --on-brand: #F4F1E8;         /* on the plum band */
-  --accent: #2E5540;           /* 10: the one accent — antique brass. Buttons only. */
-  --accent-hover: #24422F;     /* lighter brass on hover; on-accent ink still 8.37:1 */
-  --on-accent: #F4F1E8;        /* dark ink on brass — 7.48:1. The accent is BRIGHT; never invert this. */
-  --accent-ink: #2E5540;       /* darker brass for small text (raw --accent is 1.82:1 on --bg) */
+  --accent: #B05C3A;           /* 10: the one accent — antique brass. Buttons only. */
+  --accent-hover: #96482C;     /* lighter brass on hover; on-accent ink still 8.37:1 */
+  --on-accent: #FFFFFF;        /* dark ink on brass — 7.48:1. The accent is BRIGHT; never invert this. */
+  --accent-ink: #9A4A28;       /* darker brass for small text (raw --accent is 1.82:1 on --bg) */
 
   /* --- derived (site-specific; no assigned token altered) --- */
   --accent-ink-alt: #6B4A07;    /* the brass step for small text on --bg-alt, where
