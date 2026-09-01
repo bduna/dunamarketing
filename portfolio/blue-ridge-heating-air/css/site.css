@@ -30,6 +30,9 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
 .trust { background: var(--bg-alt); border-block: 1px solid var(--line); padding-block: var(--space-3); }
 .trust .container { display: grid; gap: var(--space-2) var(--space-4); grid-template-columns: 1fr; }
 @media (min-width: 720px) { .trust .container { grid-template-columns: repeat(3, 1fr); } }
+/* Same trust-item look, no band background — for use inside a plain section */
+.trust-list { display: grid; gap: var(--space-3); grid-template-columns: 1fr; margin-top: var(--space-4); }
+@media (min-width: 720px) { .trust-list { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); } }
 .trust__item { display: flex; gap: 0.7rem; align-items: flex-start; }
 .trust__item svg { color: var(--accent); flex: 0 0 auto; margin-top: 2px; }
 .trust__item b { display: block; font-family: var(--font-display); font-size: 1.02rem; }
@@ -51,7 +54,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
 .band { min-height: clamp(280px, 46vw, 520px); }
 .band img { object-position: center 62%; }
 .band .container { position: relative; min-height: inherit; display: flex; align-items: flex-end; padding-block: var(--space-4); color: #fff; }
-.band .container::before { content: ""; position: absolute; left: -100vw; right: -100vw; top: 0; bottom: 0; background: linear-gradient(180deg, rgba(10,30,48,0) 35%, rgba(10,30,48,0.78) 100%); }
+.band .container::before { content: ""; position: absolute; left: -100vw; right: -100vw; top: 0; bottom: 0; background: linear-gradient(180deg, rgba(10,30,48,0) 25%, rgba(10,30,48,0.92) 100%); }
 .band .container > * { position: relative; z-index: 1; }
 .band p { font-family: var(--font-display); font-size: var(--fs-2); font-weight: 700; margin: 0; max-width: 22ch; }
 .band small { display: block; font-weight: 600; font-size: 0.95rem; opacity: 0.9; margin-top: 0.4rem; }
@@ -67,6 +70,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
 /* Testimonials */
 .reviews-grid { display: grid; gap: var(--space-3); grid-template-columns: 1fr; margin-top: var(--space-4); }
 @media (min-width: 720px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
+.reviews-grid--single { max-width: 640px; }
 .quote { margin: 0; padding: var(--space-3); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); border-left: 4px solid var(--accent); }
 .quote p { font-family: var(--font-display); font-size: var(--fs-1); line-height: 1.4; margin-bottom: 0.7rem; }
 .quote footer { color: var(--ink-muted); font-weight: 700; }
