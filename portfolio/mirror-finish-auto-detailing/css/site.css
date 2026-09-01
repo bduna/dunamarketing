@@ -103,12 +103,14 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 /* --- Before/after band --- */
 .band { min-height: clamp(300px, 52vw, 560px); }
 .band img { object-position: center 60%; }
-/* The caption sits bottom-left, so the scrim has to darken in both directions — a horizontal-only
-   wash left white text on the bright half of a foam-covered panel at ~2:1. */
-.band__scrim { position: absolute; inset: 0; background:
-  linear-gradient(90deg, rgba(15,18,24,0.86) 0%, rgba(15,18,24,0.42) 55%, rgba(15,18,24,0.12) 100%),
-  linear-gradient(0deg, rgba(15,18,24,0.72) 0%, rgba(15,18,24,0) 62%); }
-.band__caption { position: absolute; inset: 0; display: flex; align-items: flex-end; }
+/* T5, not T4: the band photo stays bright and the words sit in a contained card. Darkening the whole
+   frame is the habit mappings/section-treatments.md caps at 1-2 sections a site, and the hero already
+   spends that budget. The card also holds its own contrast over a foam-covered panel. */
+.band__scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,18,24,0.30), rgba(15,18,24,0) 62%); }
+.pcard { background: rgba(18,22,28,0.90); border: 1px solid rgba(244,246,249,0.16); box-shadow: var(--shadow); padding-inline: var(--space-4); }
+.pcard .eyebrow { color: var(--accent-bright); }
+.pcard small { color: var(--brand-muted); }
+.band__caption { position: absolute; inset: 0; display: flex; align-items: flex-end; padding-bottom: clamp(1.5rem, 4vw, 3rem); }
 .band__caption > div { position: relative; z-index: 2; color: #fff; padding-block: var(--space-4); max-width: 40rem; }
 .band__caption .eyebrow { color: var(--accent-bright); }
 .band__caption p { color: #fff; font-family: var(--font-display); font-size: var(--fs-2); margin: 0; }
