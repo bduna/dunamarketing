@@ -1,212 +1,220 @@
-/* site.css — everything specific to Velvet Fig. Tokens live in tokens.css.
-   The site is one dark room: deep plum end to end, brass hairlines standing in for the
-   original pharmacy cabinetry, and every readable word on a solid surface or an opaque card. */
+/* site.css — Velvet Fig: the sections.
+   ---------------------------------------------------------------------------
+   Signature: the shelf label. Every section opens with small caps and a brass
+   hairline running out beside it — the apothecary label the room was built out
+   of, since the bar is a former pharmacy and the cabinets are the originals.
+   Candlelight (a warm cream card) is spent exactly twice a page: the reviews and
+   the reservation form, so the two things worth reading on a dark page glow.
+   Rhythm: photograph → plum plate → ruled rail → plum → candlelit stage →
+   plum → deep plum with the reservation card.
+   --------------------------------------------------------------------------- */
 
-/* ---------------------------------------------------------------- dark-base overrides
-   base.css assumes a light page in a few places. Fix them once, here. */
-body { -webkit-font-smoothing: antialiased; }
-h1, h2, h3 { letter-spacing: -0.015em; }
+/* ================================================================== 1 · hero */
 
-/* The assigned --line is 1.27:1 on the base, i.e. invisible. Use the derived hairlines. */
-.site-header { background: var(--bg); backdrop-filter: none; border-bottom: 1px solid var(--hair); }
-.card { border-color: var(--hair); box-shadow: none; }
-.site-footer { border-top: 1px solid var(--hair); }
-.cta-bar { background: var(--bg-alt); border-top: 1px solid var(--hair-brass); box-shadow: 0 -10px 30px rgba(0,0,0,.5); }
-@media (max-width: 720px) {
-  .nav { background: var(--bg); border-bottom: 1px solid var(--hair); }
-  .nav a { border-bottom: 1px solid var(--hair-soft); }
-}
-
-/* Small brass text needs the lighter step (--accent is only 4.11:1 on --bg-alt). */
-.eyebrow { color: var(--accent-ink); font-family: var(--font-body); font-size: 0.74rem; font-weight: 600; }
-.nav a[aria-current="page"] { color: var(--accent-ink); text-decoration-color: var(--hair-brass); }
-.nav a:not(.btn):hover { color: var(--accent-ink); }
-
-/* Buttons: brass fill with plum ink (as assigned); hover lifts rather than darkens. */
-.btn { border-radius: var(--radius-sm); letter-spacing: 0.01em; }
-.btn--primary, a.btn--primary, .nav a.btn--primary, .site-footer a.btn--primary {
-  background-color: var(--accent); color: var(--on-accent); box-shadow: none;
-}
-.btn--primary:hover, .btn--primary:focus-visible { background: var(--accent-lift); transform: none; }
-.btn--ghost { color: var(--ink); border-color: var(--hair-btn); background: transparent; }
-.btn--ghost:hover, .btn--ghost:focus-visible { border-color: var(--accent); background: rgba(212,108,43,.14); }
-.btn--ghost:active { border-color: var(--accent-hover); }
-/* On the brass band the buttons invert: plum fill, plum-ink ghost. */
-.section--brand .btn--primary { background-color: var(--bg); color: var(--ink); }
-.section--brand .btn--primary:hover, .section--brand .btn--primary:focus-visible { background: #24092C; }
-.section--brand .btn--ghost { color: var(--on-brand); border-color: rgba(52,15,62,.55); }
-.section--brand .btn--ghost:hover { background: rgba(52,15,62,.12); border-color: var(--on-brand); }
-.section--brand :focus-visible { outline-color: var(--on-brand); }
-
-/* ---------------------------------------------------------------- the cabinet rule
-   Signature element: a brass hairline with a small-caps label sitting on it, like the
-   label on a pharmacy drawer front. Used to open every section. */
-.rulelabel { display: flex; align-items: center; gap: 0.9rem; margin: 0 0 var(--space-3); }
-.rulelabel::after { content: ""; flex: 1 1 auto; height: 1px; background: var(--hair-brass); }
-.rulelabel .eyebrow { margin: 0; white-space: nowrap; }
-@media (max-width: 520px) { .rulelabel { flex-wrap: wrap; } .rulelabel .eyebrow { white-space: normal; } .rulelabel::after { min-width: 2rem; } }
-.hairline { border: 0; height: 1px; background: var(--hair-brass); margin: 0; }
-
-/* ---------------------------------------------------------------- hero (T6 + T1)
-   Full-bleed photograph carrying NO text at all, then the title plate on solid plum
-   hard beneath it, separated by a brass rule. */
-.hero-plate { position: relative; }
-.heroshot { position: relative; height: clamp(310px, 46vh, 560px); overflow: hidden; background: #1d0824; }
-.heroshot img { width: 100%; height: 100%; object-fit: cover; object-position: center 42%; }
-.heroshot::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
-  background: linear-gradient(to bottom, rgba(52,15,62,0) 0%, rgba(52,15,62,.75) 62%, var(--bg) 100%);
+.hero__shot { position: relative; }
+.hero__shot img { width: 100%; height: clamp(260px, 40vw, 520px); object-fit: cover; object-position: 50% 58%; }
+/* Fades the photograph into the plate below so the join is a dissolve rather
+   than a cut. Functional, not decoration — it is the only gradient here. */
+.hero__shot::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 42%;
+  background: linear-gradient(to bottom, rgba(55, 16, 58, 0), var(--plum));
   pointer-events: none;
 }
-.hero-plate .container { padding-top: clamp(1.75rem, 3.5vw, 3rem); padding-bottom: clamp(2.5rem, 5vw, 4.5rem); }
-.hero-plate h1 { max-width: 15ch; margin-bottom: var(--space-3); }
-.hero-plate h1 em { font-style: italic; color: var(--accent-ink); }
-.hero-plate .lead { max-width: 46ch; color: var(--ink); }
-.hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); align-items: center; }
-.hero-note { margin: var(--space-2) 0 0; font-size: 0.9rem; color: var(--ink-muted); }
-.hero-note a { white-space: nowrap; }
-.hero-meta { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; margin-top: var(--space-4); padding-top: var(--space-3);
-  border-top: 1px solid var(--hair); font-size: 0.9rem; color: var(--ink-muted); }
-.hero-meta b { color: var(--ink); font-weight: 600; }
+.hero__plate { padding-block: clamp(1.75rem, 4vw, 3rem) clamp(2.5rem, 5vw, 4rem); }
+.hero__plate h1 { max-width: 15ch; margin-bottom: var(--sp-3); }
+.hero__plate h1 em { color: var(--brass); }
+.hero__lede { font-size: var(--fs-1); line-height: 1.55; color: var(--muted); max-width: 40ch; }
+.hero__note { margin-top: var(--sp-4); font-size: var(--fs-sm); color: var(--muted); }
+.hero__note a { color: var(--brass); text-decoration: none; border-bottom: 1px solid currentColor; }
 
-/* Compact title plate used at the top of the inner pages */
-.plate { padding-block: clamp(2.5rem, 5vw, 4.25rem) clamp(2rem, 4vw, 3.25rem); border-bottom: 1px solid var(--hair); }
-.plate h1 { max-width: 18ch; }
-.plate .lead { max-width: 52ch; color: var(--ink); }
+/* ================================================================== 2 · the ruled rail */
 
-/* ---------------------------------------------------------------- known-for strip (T1 tinted) */
-.marks { display: grid; gap: 0; grid-template-columns: 1fr; }
-.marks > div { padding: var(--space-3) 0; border-top: 1px solid var(--hair); }
-.marks > div:first-child { border-top: 0; }
-.marks p { margin: 0; font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.25; color: var(--ink); max-width: 26ch; }
-.marks span { display: block; margin-top: 0.55rem; font-size: 0.86rem; color: var(--ink-muted); }
-@media (min-width: 780px) {
-  .marks { grid-template-columns: repeat(3, 1fr); gap: 0 var(--space-4); }
-  .marks > div { border-top: 1px solid var(--hair-brass); padding-top: var(--space-3); }
+.rail { border-block: 1px solid var(--hair-brass); background: var(--plum-3); }
+.rail__grid { display: grid; grid-template-columns: 1fr 1fr; }
+.rail__item { padding: clamp(1.3rem, 3vw, 1.9rem) clamp(1rem, 2.4vw, 1.6rem); border-left: 1px solid var(--hair-soft); }
+.rail__item:nth-child(odd) { border-left: 0; padding-left: 0; }
+.rail__item:nth-child(n + 3) { border-top: 1px solid var(--hair-soft); }
+.rail__v {
+  display: block; font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.3rem, 1.05rem + 1vw, 1.85rem); line-height: 1.1;
+  letter-spacing: -0.012em; color: var(--brass); margin-bottom: var(--sp-2);
+}
+.rail__k {
+  display: block; font-size: var(--fs-xs); font-weight: 600;
+  letter-spacing: var(--track-label); text-transform: uppercase; color: var(--muted);
+}
+@media (min-width: 880px) {
+  .rail__grid { grid-template-columns: repeat(4, 1fr); }
+  /* :nth-child(odd) is (0,2,0); a bare `.rail__item` here would lose to it. */
+  .rail__item, .rail__item:nth-child(odd) { border-left: 1px solid var(--hair-soft); padding-left: clamp(1rem, 2.4vw, 1.6rem); }
+  .rail__item:first-child { border-left: 0; padding-left: 0; }
+  .rail__item:nth-child(n + 3) { border-top: 0; }
 }
 
-/* ---------------------------------------------------------------- the list (T1)
-   Prices on a solid surface, ruled line by line with brass leaders — the cabinet motif again. */
-.pricelist { list-style: none; margin: 0; padding: 0; max-width: 54rem; }
-.pricelist li { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 0.4rem 1rem;
-  padding: var(--space-3) 0; border-bottom: 1px solid var(--hair); }
-.pricelist li:first-child { border-top: 1px solid var(--hair-brass); }
-.pricelist h3 { margin: 0; font-size: var(--fs-2); }
-.pricelist .price { font-family: var(--font-body); font-weight: 600; font-size: 1.05rem; color: var(--accent-ink);
-  letter-spacing: 0.01em; white-space: nowrap; }
-.pricelist .price--quote { text-transform: uppercase; font-size: 0.78rem; letter-spacing: var(--track-label); }
-.pricelist p { grid-column: 1 / -1; margin: 0.35rem 0 0; color: var(--ink-muted); max-width: 48ch; }
-.list-foot { margin-top: var(--space-4); display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
-.list-foot p { margin: 0; color: var(--ink-muted); font-size: 0.92rem; }
+/* ================================================================== 3 · the price card */
 
-/* ---------------------------------------------------------------- T5 photo + contained card
-   The photograph stays bright; an OPAQUE card carries every word. No scrim does any
-   legibility work anywhere on this site. */
-.photostage { min-height: clamp(420px, 56vh, 620px); }
-.photostage--band { min-height: clamp(400px, 52vw, 560px); }
-.photostage__img { object-position: center 60%; }
-.photostage::after { background: linear-gradient(90deg, rgba(29,8,36,.34), rgba(29,8,36,0) 62%); }
-.pcard { border-radius: var(--radius); }
-.pcard--plum { background: #340F3E; color: var(--ink); border: 1px solid var(--hair-brass); box-shadow: var(--shadow); }
-.pcard--plum .lead, .pcard--plum .muted { color: #C9BACD; }
-.pcard--candle { background: var(--candle); color: var(--candle-ink); border: 1px solid rgba(52,15,62,.18); box-shadow: var(--shadow); }
-.pcard--candle .eyebrow { color: var(--candle-brass); }
-.pcard--candle .rulelabel::after { background: rgba(138,62,16,.45); }
-.pcard--candle .muted, .pcard--candle footer, .pcard--candle cite { color: var(--candle-muted); }
-.pcard h2 { margin-bottom: var(--space-2); }
-.pcard > p:last-child { margin-bottom: 0; }
+.plist { border: 1px solid var(--hair-brass); border-radius: var(--r-lg); background: var(--plum-2); }
+.plist > li {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1.1rem, 2.6vw, 1.6rem) clamp(1.1rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--hair-soft);
+}
+.plist > li:last-child { border-bottom: 0; }
+.plist h3 { grid-column: 1; grid-row: 1; margin: 0 0 0.35rem; font-size: clamp(1.15rem, 1.02rem + 0.55vw, 1.5rem); }
+.plist__price {
+  grid-column: 2; grid-row: 1; align-self: start; text-align: right;
+  font-family: var(--font-display); font-weight: 600; font-size: var(--fs-price);
+  line-height: 1.1; color: var(--brass); white-space: nowrap;
+}
+.plist__price--quote { font-style: italic; font-size: 1.05rem; }
+.plist p { grid-column: 1 / -1; grid-row: 2; margin: 0; color: var(--muted); font-size: var(--fs-sm); max-width: 58ch; }
+@media (min-width: 620px) { .plist p { grid-column: 1; } }
 
-/* Two verbatim quotes inside the candle card */
-.quotes { display: grid; gap: var(--space-3); }
-.quotes blockquote { margin: 0; padding-top: var(--space-3); border-top: 1px solid rgba(52,15,62,.16); }
-.quotes blockquote:first-child { padding-top: 0; border-top: 0; }
-.quotes p { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.3; margin: 0 0 0.6rem; color: var(--candle-ink); max-width: 30ch; }
-.quotes cite { font-style: normal; font-size: 0.86rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.listnote {
+  display: flex; gap: 0.75rem; align-items: flex-start;
+  margin-top: var(--sp-4); font-size: var(--fs-sm); color: var(--muted); max-width: 62ch;
+}
+.listnote svg { flex: none; margin-top: 0.2rem; color: var(--brass); }
+.listnote a { color: var(--brass); text-decoration: none; border-bottom: 1px solid currentColor; }
 
-/* ---------------------------------------------------------------- T3 split (photo beside text, no overlay) */
-.split--tight { gap: clamp(2rem, 5vw, 4rem); align-items: center; }
-@media (min-width: 820px) { .split--tight { grid-template-columns: 1fr 0.85fr; } }
-.shelf { position: relative; margin: 0; }   /* the UA's 40px figure margin narrows the photo — zero it */
-.shelf img { width: 100%; height: auto; display: block; border-radius: var(--radius); }
-.shelf figcaption { margin-top: 0.75rem; font-size: 0.84rem; color: var(--ink-muted); }
-.storycopy p { font-size: var(--fs-1); line-height: 1.6; }
-.storycopy p + p { margin-top: var(--space-2); }
-.pullnote { margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--hair-brass); }
-.pullnote p { margin: 0; font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.3; color: var(--ink); max-width: 28ch; }
+/* ================================================================== 4 · candlelit stage */
 
-/* ---------------------------------------------------------------- T6 full-bleed breath */
-.breath { position: relative; height: clamp(260px, 38vw, 460px); overflow: hidden; background: #1d0824; }
-.breath img { width: 100%; height: 100%; object-fit: cover; }
-.breath--splash img { object-position: center 55%; }
-.breath--hands img { object-position: center 45%; }
-.breath-caption { padding-block: var(--space-3); border-bottom: 1px solid var(--hair); }
-.breath-caption p { margin: 0; font-size: 0.88rem; color: var(--ink-muted); }
+.stage { position: relative; display: grid; align-items: center; min-height: clamp(400px, 56vw, 600px); overflow: hidden; }
+.stage__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.stage::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, rgba(38, 10, 41, 0.74), rgba(38, 10, 41, 0.12) 62%);
+}
+.stage__inner { position: relative; z-index: 2; display: flex; padding-block: clamp(2rem, 5vw, 4rem); }
+.stage__inner--end { justify-content: flex-end; }
+@media (max-width: 700px) { .stage__inner--end { justify-content: flex-start; } }
 
-/* ---------------------------------------------------------------- T2 brass closing band */
-.section--brand { color: var(--on-brand); }
-.section--brand h2, .section--brand p, .section--brand a, .section--brand li { color: var(--on-brand); }
-.section--brand .eyebrow { color: var(--on-brand); }
-.section--brand .rulelabel::after { background: rgba(52,15,62,.45); }
-.reserve { display: grid; gap: var(--space-4); align-items: start; }
-@media (min-width: 860px) { .reserve { grid-template-columns: 1fr 1fr; } }
-.reserve h2 { max-width: 16ch; }
-.reserve__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
-.reserve dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.55rem 1.25rem; font-size: 1rem;
-  border-top: 1px solid rgba(52,15,62,.35); padding-top: var(--space-3); }
-.reserve dt { font-size: 0.72rem; text-transform: uppercase; letter-spacing: var(--track-label); font-weight: 700;
-  padding-top: 0.25rem; }
-.reserve dd { margin: 0; font-weight: 600; }
-.reserve dd a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.card-candle {
+  background: var(--candle); color: var(--candle-ink);
+  max-width: 34rem; padding: clamp(1.4rem, 3.5vw, 2.4rem);
+  border-radius: var(--r-lg); box-shadow: var(--shadow);
+}
+.card-candle .label span { color: var(--brass-ink); }
+.card-candle .label::after { background: rgba(138, 90, 24, 0.4); }
+.card-candle .lead, .card-candle .muted { color: var(--candle-muted); }
+.card-candle h2 { color: var(--candle-ink); }
 
-/* ---------------------------------------------------------------- footer */
-.site-footer { color: var(--ink-muted); }
-.site-footer .brand { color: var(--ink); }
-.site-footer a:hover { color: var(--accent-ink); }
-.site-footer .demo { grid-column: 1 / -1; padding-top: var(--space-3); border-top: 1px solid var(--hair-soft);
-  font-size: 0.82rem; margin: 0; }
-
-/* ---------------------------------------------------------------- misc */
-.cta-bar { transition: transform 250ms var(--ease); }
-.cta-bar .btn { width: 100%; }
-.section--alt { background: var(--bg-alt); }
-.skip { position: absolute; left: -9999px; }
-.skip:focus { left: var(--gutter); top: 0.5rem; z-index: 100; padding: 0.6rem 1rem; background: var(--accent); color: var(--on-accent); }
-
-@media (max-width: 700px) {
-  .heroshot { height: clamp(240px, 34vh, 320px); }
-  .hero-plate h1 { max-width: none; }
-  .pricelist li { grid-template-columns: 1fr; }
-  .pricelist .price { grid-row: 2; }
-  .reserve dl { grid-template-columns: 1fr; gap: 0.15rem; }
-  .reserve dt { padding-top: 0.75rem; }
+.quotes { display: grid; gap: var(--sp-4); }
+.quotes blockquote + blockquote { border-top: 1px solid var(--hair-candle); padding-top: var(--sp-4); }
+.quotes blockquote p {
+  font-family: var(--font-display); font-size: var(--fs-quote); line-height: 1.28;
+  color: var(--candle-ink); margin: 0 0 var(--sp-2); max-width: 24ch;
+}
+.quotes cite {
+  font-style: normal; font-family: var(--font-body); font-size: var(--fs-xs);
+  font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--candle-muted);
 }
 
-/* per-photo focal points (what I actually saw in each frame) */
-.photostage__img--pour { object-position: center 38%; }
-.photostage__img--candles { object-position: 60% 55%; }
+/* ================================================================== 5 · a breath */
 
-/* --- multipage front door: teaser cards that link to the real pages --- */
-.teasers { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
-.teaser { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: var(--space-3); display: flex; flex-direction: column; gap: 0.5rem; box-shadow: var(--shadow-sm); }
-.teaser h3 { margin: 0; font-size: var(--fs-2); }
-.teaser p { margin: 0; color: var(--ink-muted); }
-/* --ink is the one colour guaranteed to be legible on --surface on every palette. The accent is
-   a FILL and measured 2.7:1 as link text on dark cards. Underline carries the affordance. */
-.teaser__link { font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
-.teaser__link:hover { text-decoration: underline; }
+.breath img { width: 100%; height: clamp(220px, 32vw, 440px); object-fit: cover; }
 
-/* On a saturated brand band an accent-filled button can sit under 2:1 against the band and read as
-   a coloured block rather than a control (WCAG 1.4.11 wants 3:1). A rim in the band's own text
-   colour guarantees the boundary whatever the two fills happen to be. */
-/* Self-contained closing CTA. The first version reused .section--brand and assumed it paints a
-   --brand background; on sites where that class means something else, --on-brand text landed on the
-   page colour at 1.18:1. Setting both sides here guarantees the pair always matches. */
-.cta-band { background: var(--brand); color: var(--on-brand); padding-block: var(--section-y); }
-.cta-band h2 { color: var(--on-brand); margin-top: 0; }
-.cta-band p { margin-bottom: 0; }
-.cta-band .btn--primary { background: var(--on-brand); color: var(--brand); border: 1px solid var(--on-brand); }
-.cta-band .btn--ghost { color: var(--on-brand); border: 1px solid var(--on-brand); background: transparent; }
+/* ================================================================== 6 · said plainly */
+
+.marks { display: grid; gap: var(--sp-4); }
+@media (min-width: 820px) { .marks { grid-template-columns: repeat(3, 1fr); gap: clamp(1.75rem, 4vw, 3rem); } }
+.marks > div { border-top: 1px solid var(--hair-brass); padding-top: var(--sp-3); }
+.marks p { font-family: var(--font-display); font-size: clamp(1.15rem, 1.02rem + 0.6vw, 1.5rem); line-height: 1.25; margin: 0 0 var(--sp-2); }
+.marks span { display: block; color: var(--muted); font-size: var(--fs-sm); }
+
+/* ================================================================== 7 · the other pages */
+
+.doors { display: grid; gap: var(--sp-4); }
+@media (min-width: 780px) { .doors { grid-template-columns: 1fr 1fr; gap: clamp(1.75rem, 4vw, 3rem); } }
+.door {
+  display: block; text-decoration: none; color: inherit;
+  border-top: 1px solid var(--hair-brass); padding-top: var(--sp-3);
+  transition: border-color var(--dur) var(--ease);
+}
+.door:hover { border-top-color: var(--brass-lift); }
+.door h3 { margin: 0 0 0.4rem; font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.55rem); }
+.door p { color: var(--muted); margin: 0 0 var(--sp-3); font-size: var(--fs-sm); max-width: 40ch; }
+.door__go { display: inline-flex; align-items: center; gap: 0.4rem; font-size: var(--fs-xs); font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--brass); }
+.door:hover .arw { transform: translateX(3px); }
+
+/* ================================================================== 8 · subpages */
+
+.plate { border-bottom: 1px solid var(--hair-brass); padding-block: clamp(2.75rem, 6vw, 4.5rem) clamp(2.25rem, 4.5vw, 3.5rem); }
+.plate h1 { max-width: 16ch; margin-bottom: var(--sp-3); }
+.plate h1 em { color: var(--brass); }
+.plate .lead { max-width: 46ch; margin-bottom: 0; }
+
+.storycopy p { font-size: 1.06rem; }
+.storycopy p + p { margin-top: var(--sp-3); }
+.pullnote { margin-top: var(--sp-4); padding-left: var(--sp-3); border-left: 2px solid var(--brass); }
+.pullnote p { font-family: var(--font-display); font-style: italic; font-size: var(--fs-2); line-height: 1.3; color: var(--ink); margin: 0; max-width: 26ch; }
+
+.shelf figcaption { margin-top: 0.8rem; font-size: var(--fs-xs); font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--muted); }
+
+/* ================================================================== 9 · reservations */
+
+.reserve__grid { display: grid; gap: var(--sp-5); }
+@media (min-width: 960px) {
+  .reserve__grid { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2.5rem, 6vw, 4.5rem); align-items: start; }
+}
+.reserve__facts { display: grid; gap: var(--sp-2); margin-top: var(--sp-4); }
+.reserve__facts li { position: relative; padding-left: 1.6rem; color: var(--muted); font-size: var(--fs-sm); }
+.reserve__facts li::before { content: ""; position: absolute; left: 0; top: 0.85em; width: 0.85rem; height: 1px; background: var(--hair-brass); }
+
+/* <address> is italic by UA default, which turned the phone number and the
+   opening hours into pull quotes. */
+.contact { display: grid; margin-top: var(--sp-4); font-style: normal; }
+.contact > div { display: grid; gap: 0.15rem; padding-block: var(--sp-2); border-top: 1px solid var(--hair-soft); }
+.contact .k { font-size: var(--fs-xs); font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--brass); }
+.contact a, .contact .v { color: var(--ink); font-size: 1rem; }
+.contact a { text-decoration: none; border-bottom: 1px solid var(--hair); justify-self: start; }
+.contact a:hover { border-bottom-color: var(--brass); }
+
+.rform, .rform__done { max-width: none; }
+.rform__legend {
+  font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.2;
+  margin: 0 0 var(--sp-4); padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--hair-candle); max-width: none; color: var(--candle-ink);
+}
+.rform__grid { display: grid; gap: var(--sp-3); }
+@media (min-width: 620px) {
+  .rform__grid { grid-template-columns: 1fr 1fr; gap: var(--sp-3) var(--sp-4); }
+  .rform__field--wide { grid-column: 1 / -1; }
+}
+.rform__field { margin: 0; display: grid; gap: 0.4rem; max-width: none; }
+.rform__field > label {
+  font-size: var(--fs-xs); font-weight: 600; letter-spacing: var(--track-label);
+  text-transform: uppercase; color: var(--candle-ink);
+}
+.rform .opt { font-weight: 500; letter-spacing: 0.02em; text-transform: none; color: var(--candle-muted); }
+.rform input, .rform select, .rform textarea {
+  width: 100%; background: #FFFFFF;
+  border: 1px solid rgba(42, 15, 49, 0.28); border-radius: var(--r);
+  padding: 0.8rem 0.9rem; font-size: 1rem; font-family: var(--font-body); color: var(--candle-ink);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.rform textarea { resize: vertical; min-height: 6rem; line-height: 1.55; }
+.rform input:focus, .rform select:focus, .rform textarea:focus {
+  border-color: var(--brass-ink); outline: none; box-shadow: 0 0 0 3px rgba(138, 90, 24, 0.18);
+}
+.rform :focus-visible { outline: 2px solid var(--brass-ink); outline-offset: 1px; }
+.rform__hint { font-size: var(--fs-xs); color: var(--candle-muted); letter-spacing: 0; text-transform: none; font-weight: 400; line-height: 1.45; }
+.rform__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+/* The card is candlelight, so the page's brass button would sit light-on-light.
+   Plum fill, candle text: 15.2:1 either way round. */
+.rform .btn--primary {
+  width: 100%; margin-top: var(--sp-4);
+  background: var(--plum-ink); color: var(--candle); border-color: var(--plum-ink);
+}
+.rform .btn--primary:hover, .rform .btn--primary:focus-visible { background: var(--brass-ink); border-color: var(--brass-ink); color: var(--candle); }
+.rform__small { margin-top: var(--sp-3); font-size: var(--fs-sm); color: var(--candle-muted); max-width: none; }
+.rform__small a { color: var(--brass-ink); text-decoration: none; border-bottom: 1px solid currentColor; }
+
+.rform__done h3 { font-family: var(--font-display); font-size: var(--fs-2); margin: 0 0 var(--sp-3); color: var(--candle-ink); }
+.rform__done p { color: var(--candle-muted); }
+.rform__done p + p { margin-top: var(--sp-3); }
+.rform__done a { color: var(--brass-ink); text-decoration: none; border-bottom: 1px solid currentColor; }
 
 /* ---------- Duna Marketing sample-site bar ---------- */
 /* Frosted glass: the page shows through a dark-grey translucent bar, so it belongs to every

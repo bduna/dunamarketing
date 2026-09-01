@@ -1,65 +1,94 @@
-/* tokens.css — Velvet Fig.
-   Palette is brief.assigned.palette, copied VERBATIM (11 tokens, exact hex). Family: dark saturated.
-   Derived additions are grouped at the bottom and marked; no assigned value is altered. */
-:root {
-  /* ---- ASSIGNED PALETTE (verbatim) ---- */
-  --bg: #3C0F3E;            /* 60: deep plum page base */
-  --bg-alt: #4C154E;        /* tinted band */
-  --surface: #4C154E;       /* cards */
-  --ink: #F1EEF1;           /* body — 14.21:1 on --bg */
-  --ink-muted: #AB95AC;     /* secondary — 5.33:1 on --bg, 4.70:1 on --bg-alt */
-  --line: #69386B;          /* assigned hairline */
-  --brand: #CB902A;         /* 30: brass */
-  --on-brand: #3C0F3E;      /* plum ink on brass — 4.66:1 */
-  --accent: #CB902A;        /* 10: the one accent */
-  --accent-hover: #B07C21;
-  --on-accent: #3C0F3E;     /* 4.66:1 on --accent */
+/* tokens.css — Velvet Fig
+   ---------------------------------------------------------------------------
+   The brief names three colours: deep plum, brass, and candlelight. All three
+   now do a job. Plum is the room. Brass is the light on the bottles — a hairline
+   and a small-caps label colour, dark enough to be TEXT on plum, not a slab.
+   Candlelight is a warm cream surface used exactly twice per page: the review
+   card and the reservation card, so the two things you are meant to read on a
+   dark page are the two things that glow.
 
-  /* ---- DERIVED (site-specific additions, see direction.md §2) ---- */
-  /* --accent is 4.11:1 on --bg-alt, which fails for 12-14px text. Lighter brass step for small type. */
-  --accent-ink: #CB902A;    /* 6.99:1 on --bg · 6.16:1 on --bg-alt */
-  --accent-lift: #E68B3F;   /* button hover on a dark page brightens; keeps plum ink at 6.33:1 */
-  /* --line is 1.27:1 against the base (invisible), so visible hairlines are derived instead. */
-  --hair: rgba(241, 238, 241, 0.14);
-  --hair-soft: rgba(241, 238, 241, 0.08);
-  --hair-brass: rgba(212, 108, 43, 0.50);
-  --hair-btn: rgba(241, 238, 241, 0.38);   /* ghost-button edge — 3.12:1 against the base */
-  --candle: #F6EFE6;        /* the "candlelight" surface — light card on photos */
+   Measured on the plum base (#37103A):
+     --ink        14.5:1
+     --muted       6.4:1
+     --brass       6.4:1   labels, rules, links, the primary fill
+     --candle-ink on --candle   15.2:1
+     --candle-muted on --candle  7.1:1
+     --brass-ink  on --candle    5.2:1
+     --plum-ink   on --brass     6.9:1   (the primary button)
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* The room */
+  --plum: #37103A;
+  --plum-2: #46164A;
+  --plum-3: #260A29;
+  --surface: #46164A;
+
+  /* Ink on plum */
+  --ink: #F3EFF2;
+  --muted: #B29CB3;
+
+  /* Brass */
+  --brass: #CE9A3B;
+  --brass-lift: #E4B155;
+  --brass-ink: #8A5A18;      /* brass dark enough for text on candlelight */
+  --plum-ink: #2A0F31;       /* ink on a brass fill */
+
+  /* Candlelight */
+  --candle: #F6EFE6;
+  --candle-2: #EDE3D6;
   --candle-ink: #2A0F31;
   --candle-muted: #5C4A62;
-  --candle-brass: #8A3E10;
 
-  /* Type — brief.assigned.fonts: Playfair Display + Inter */
-  --font-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
-  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Hairlines — the assigned --line is 1.3:1 on the base, i.e. invisible, so
+     every rule on this site is derived from ink or brass instead. */
+  --hair: rgba(243, 239, 242, 0.16);
+  --hair-soft: rgba(243, 239, 242, 0.09);
+  --hair-brass: rgba(206, 154, 59, 0.55);
+  --hair-btn: rgba(243, 239, 242, 0.40);
+  --hair-candle: rgba(42, 15, 49, 0.16);
+
+  /* Type */
+  --font-display: "Playfair Display", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --fs-xs: 0.72rem;
+  --fs-sm: 0.92rem;
   --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
-  --fs-1: clamp(1.1rem, 1rem + 0.5vw, 1.3rem);
-  --fs-2: clamp(1.35rem, 1.15rem + 0.9vw, 1.8rem);
-  --fs-3: clamp(1.75rem, 1.35rem + 1.9vw, 2.55rem);
-  --fs-4: clamp(2.3rem, 1.5rem + 4.2vw, 4.2rem);
-  --lh-body: 1.65;
+  --fs-1: clamp(1.12rem, 1.02rem + 0.48vw, 1.34rem);
+  --fs-2: clamp(1.38rem, 1.18rem + 0.92vw, 1.85rem);
+  --fs-3: clamp(1.85rem, 1.4rem + 2.1vw, 2.9rem);
+  --fs-4: clamp(2.4rem, 1.55rem + 4.3vw, 4.4rem);
+  --fs-price: clamp(1.2rem, 1.05rem + 0.7vw, 1.6rem);
+  --fs-quote: clamp(1.3rem, 1.05rem + 1.3vw, 2rem);
+
+  --lh-body: 1.66;
   --lh-head: 1.08;
-  --track-label: 0.18em;
+  --track-label: 0.2em;
+  --measure: 60ch;
 
-  /* Shape & depth — warmth axis is "sleek": near-sharp corners, hairlines instead of shadows.
-     Shadows are reserved for the two cards that sit on a photograph. */
-  --radius: 2px;
-  --radius-sm: 2px;
-  --shadow: 0 30px 70px rgba(0, 0, 0, 0.60);
-  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+  /* Space */
+  --sp-1: 0.35rem;
+  --sp-2: 0.7rem;
+  --sp-3: 1.15rem;
+  --sp-4: 1.9rem;
+  --sp-5: 3rem;
+  --sp-6: 4.5rem;
+  --section-y: clamp(3.75rem, 7.5vw, 7.25rem);
+  --gutter: clamp(1.25rem, 4.5vw, 2.5rem);
+  --maxw: 1160px;
 
-  /* Space — density axis is "rich" */
-  --space-1: 0.5rem;
-  --space-2: 1rem;
-  --space-3: 1.5rem;
-  --space-4: 2.5rem;
-  --space-5: 4rem;
-  --section-y: clamp(3.25rem, 5.5vw, 5.75rem);
-  --measure: 62ch;
-  --container: 1140px;
-  --gutter: clamp(1.15rem, 4vw, 2rem);
+  /* Shape — square, like a shelf label */
+  --r: 2px;
+  --r-lg: 3px;
 
-  /* Motion — tone axis is middle: fade/rise only */
-  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --dur: 200ms;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.25), 0 30px 60px -28px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.68, 0.28, 1);
+  --dur: 240ms;
+
+  /* Fixed chrome */
+  --header-h: 72px;
 }
