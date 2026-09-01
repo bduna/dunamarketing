@@ -5,8 +5,41 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .eyebrow { color: var(--accent); font-weight: 700; }
 .brand { letter-spacing: 0.01em; }
 
-/* Uppercase gunmetal band uses bright blue eyebrow for contrast */
-.section--brand .eyebrow { color: var(--accent-bright); }
+/* The accent blue is a FILL colour. As small label text it measured 2.63:1 on the gunmetal
+   sections — every dark context needs the bright step instead, not just the brand band. */
+.section--brand .eyebrow, .page-hero .eyebrow, .spotlight .eyebrow { color: var(--accent-bright); }
+/* --ink-muted is tuned for the near-white page; on gunmetal it fell to 2.25:1. */
+.spotlight .quote footer { color: var(--brand-muted); }
+/* A filled accent button on gunmetal sits at 2.63:1 against the band — under the 3:1 WCAG 1.4.11
+   asks of a control's boundary. A hairline in the band's own text colour restores the edge. */
+.section--brand .btn--primary, .spotlight .btn--primary { border: 1px solid rgba(244, 246, 249, 0.7); }
+
+/* --- Skip link --- */
+.skip-link { position: absolute; left: -9999px; top: 0; z-index: 100; background: var(--surface); color: var(--ink); padding: 0.75rem 1.25rem; font-weight: 700; text-decoration: none; box-shadow: var(--shadow); }
+.skip-link:focus { left: 0; }
+
+/* --- Inline tick list --- */
+.checks { list-style: none; padding: 0; margin: var(--space-3) 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+.checks li { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 0.95rem; }
+.checks li::before { content: ""; width: 8px; height: 8px; flex: none; background: var(--accent); transform: rotate(45deg); }
+
+/* --- Numbered process steps --- */
+.steps { list-style: none; counter-reset: step; margin: var(--space-4) 0 0; padding: 0; display: grid; gap: var(--space-4); }
+@media (min-width: 820px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+.steps li { counter-increment: step; border-top: 2px solid var(--accent); padding-top: var(--space-3); }
+.steps li::before { content: "0" counter(step); display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-2); color: var(--accent); margin-bottom: var(--space-1); }
+.steps h3 { font-size: var(--fs-2); margin-bottom: 0.4rem; }
+.steps p { margin: 0; color: var(--ink-muted); }
+
+/* --- FAQ --- */
+.faq { max-width: 62rem; margin-top: var(--space-4); border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); padding: 1.15rem 0; font-family: var(--font-display); font-weight: 600; font-size: var(--fs-1); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--accent); font-weight: 700; font-size: 1.5rem; line-height: 1; flex: none; }
+.faq details[open] summary::after { content: "\2013"; }
+.faq details > p { margin: 0 0 1.25rem; color: var(--ink-muted); max-width: 68ch; }
+.faq a { color: var(--accent); font-weight: 600; }
 
 /* --- Buttons: keep sharp, add a solid-on-dark option --- */
 .btn { border-radius: var(--radius-sm); letter-spacing: 0.01em; }
@@ -70,7 +103,11 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 /* --- Before/after band --- */
 .band { min-height: clamp(300px, 52vw, 560px); }
 .band img { object-position: center 60%; }
-.band__scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,18,24,0.82) 0%, rgba(15,18,24,0.35) 55%, rgba(15,18,24,0.1) 100%); }
+/* The caption sits bottom-left, so the scrim has to darken in both directions — a horizontal-only
+   wash left white text on the bright half of a foam-covered panel at ~2:1. */
+.band__scrim { position: absolute; inset: 0; background:
+  linear-gradient(90deg, rgba(15,18,24,0.86) 0%, rgba(15,18,24,0.42) 55%, rgba(15,18,24,0.12) 100%),
+  linear-gradient(0deg, rgba(15,18,24,0.72) 0%, rgba(15,18,24,0) 62%); }
 .band__caption { position: absolute; inset: 0; display: flex; align-items: flex-end; }
 .band__caption > div { position: relative; z-index: 2; color: #fff; padding-block: var(--space-4); max-width: 40rem; }
 .band__caption .eyebrow { color: var(--accent-bright); }
