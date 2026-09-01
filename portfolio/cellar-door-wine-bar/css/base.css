@@ -55,7 +55,7 @@ button, input, textarea, select { font: inherit; }
 .brand { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; text-decoration: none; color: var(--ink); } /* brand name in ink by default; the logo carries the color */
 .brand img { height: 36px; width: auto; }
 .nav { display: flex; gap: var(--space-3); align-items: center; }
-.nav a:not(.btn) { text-decoration: none; font-weight: 600; }
+.nav a:not(.btn) { text-decoration: none; font-weight: 700; }
 .nav a:not(.btn):hover { color: var(--accent); }
 .nav a[aria-current="page"] { color: var(--brand); text-decoration: underline; text-underline-offset: 6px; }
 /* Rule: never style `.nav a` color without :not(.btn) — it silently recolors the header CTA (lesson 2026-08-15) */

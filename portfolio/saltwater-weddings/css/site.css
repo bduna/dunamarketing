@@ -4,8 +4,8 @@
    No photo on this site is darkened to carry text (treatment T4 is used zero times). */
 
 /* ---------- type ---------- */
-h1, h2, h3 { font-weight: 500; letter-spacing: -0.02em; }
-h1 { font-weight: 500; }
+h1, h2, h3 { font-weight: 400; letter-spacing: -0.02em; }
+h1 { font-weight: 400; }
 h3 { font-size: var(--fs-2); }
 .lead { line-height: 1.55; }
 .eyebrow { font-family: var(--font-body); font-weight: 700; font-size: 0.74rem; }
@@ -19,10 +19,10 @@ strong, b { font-weight: 700; }
 
 /* ---------- header ---------- */
 .site-header { background: color-mix(in srgb, var(--bg) 94%, transparent); }
-.brand { font-weight: 500; font-size: 1.22rem; letter-spacing: 0.01em; gap: 0.55rem; }
+.brand { font-weight: 400; font-size: 1.22rem; letter-spacing: 0.01em; gap: 0.55rem; }
 .brand__mark { width: 26px; height: 26px; flex: 0 0 26px; }
 .nav { gap: var(--space-3); }
-.nav a:not(.btn) { font-family: var(--font-body); font-size: 0.86rem; font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; }
+.nav a:not(.btn) { font-family: var(--font-body); font-size: 0.86rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; }
 .nav a[aria-current="page"] { color: var(--brand); text-decoration-color: var(--gold); text-decoration-thickness: 2px; }
 @media (max-width: 720px) {
   .nav a:not(.btn) { font-size: 0.95rem; }
@@ -53,7 +53,7 @@ strong, b { font-weight: 700; }
 .facts ul { display: grid; gap: var(--space-2) var(--space-4); grid-template-columns: 1fr; list-style: none; margin: 0; padding: 0; }
 .facts li { display: flex; flex-direction: column; gap: 0.15rem; padding-left: var(--space-2); border-left: 2px solid var(--tint-deep); }
 .facts span { font-size: 0.72rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-muted); }
-.facts b { font-family: var(--font-display); font-weight: 500; font-size: 1.15rem; letter-spacing: -0.01em; }
+.facts b { font-family: var(--font-display); font-weight: 400; font-size: 1.15rem; letter-spacing: -0.01em; }
 @media (min-width: 700px) { .facts ul { grid-template-columns: repeat(3, 1fr); } }
 
 /* ---------- gallery (asymmetric; captions BELOW the photo, never over it) ---------- */
