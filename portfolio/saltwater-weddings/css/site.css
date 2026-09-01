@@ -185,3 +185,30 @@ main p a:not(.btn):hover, .section__aside a:hover { color: var(--accent-hover); 
 .cta-band p { margin-bottom: 0; }
 .cta-band .btn--primary { background: var(--on-brand); color: var(--brand); border: 1px solid var(--on-brand); }
 .cta-band .btn--ghost { color: var(--on-brand); border: 1px solid var(--on-brand); background: transparent; }
+
+
+/* ---------- Duna Marketing sample-site bar ---------- */
+:root { --duna-h: 48px; }
+.duna-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
+  box-sizing: border-box; min-height: var(--duna-h);
+  display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;
+  padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom));
+  background: #003087; color: #FFFFFF;
+  font-family: var(--font-body); font-size: 0.85rem; line-height: 1.3; text-align: center;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.18);
+}
+.duna-bar__btn {
+  background: #C8102E; color: #FFFFFF; border: 1px solid #FFFFFF;
+  border-radius: 6px; padding: 0.4rem 0.95rem; font-weight: 700; font-size: 0.85rem;
+  text-decoration: none; white-space: nowrap;
+}
+.duna-bar__btn:hover, .duna-bar__btn:focus-visible { background: #A50D25; }
+body { padding-bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
+@media (max-width: 720px) {
+  .cta-bar { bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
+  body.has-cta-bar { padding-bottom: calc(84px + var(--duna-h)); }
+}
+
+/* Subpage headline needs air under the sticky header. */
+.page-hero { padding-top: 25px; }
