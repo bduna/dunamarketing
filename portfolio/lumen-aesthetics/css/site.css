@@ -84,9 +84,13 @@ p { margin: 0 0 var(--space-2); }
 .story__grid { display: grid; gap: clamp(2rem, 4vw, 3.5rem); }
 @media (min-width: 900px) { .story__grid { grid-template-columns: 1fr 0.85fr; align-items: start; } }
 /* The procedures headline is short, so its figure gets a narrower column and a shorter crop. */
-@media (min-width: 900px) { .story__grid--intro { grid-template-columns: 1fr 0.5fr; } }
+@media (min-width: 900px) { .story__grid--intro { grid-template-columns: 1fr 0.5fr; align-items: center; } }
 .story__grid--intro .hero__figure { max-width: 20rem; margin-inline: auto; }
 .story__grid--intro .hero__figure img { aspect-ratio: 4 / 5; }
+.story__grid--intro .lead { margin-bottom: 0; }
+/* The intro and the price list are one idea; don't stack two section paddings between them. */
+.section--tight { padding-bottom: var(--space-4); }
+.section--tight + .section { padding-top: 0; }
 .story p { font-size: 1.1rem; }
 .pullquote { margin: 0; padding-left: var(--space-3); border-left: 1px solid var(--hairline-strong); }
 .pullquote p { font-family: var(--font-display); font-style: italic; font-size: var(--fs-2); line-height: 1.35; color: var(--ink); margin-bottom: var(--space-2); }
