@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://dunamarketing.com/portfolio/maple-street-cleaners/assets/web/photo-01-close-up-of-hands-placing-fresh-laundry-on-a-dryin.jpg">
 </head>
 <body>
-<a class="skip" href="about.html#prices">Skip to the price list</a>
+<a class="skip" href="#main">Skip to the main content</a>
 <header class="site-header">
   <div class="container">
     <a class="brand" href="index.html" aria-label="Maple Street Cleaners — home">
@@ -30,14 +30,15 @@
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
     <nav class="nav" id="nav" aria-label="Primary">
-      <a href="index.html">Home</a>
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="menu.html">Prices</a>
       <a href="about.html">About</a>
 <a class="btn btn--primary" href="tel:+15135550801">Call <span class="header-phone">(513) 555-0801</span></a>
 </nav>
   </div>
 </header>
 
-<main><section class="hero" id="top">
+<main id="main"><section class="hero" id="top">
     <div class="container hero__grid">
       <div class="hero__inner">
         <p class="eyebrow">Dry cleaners &middot; Cincinnati, Ohio</p>
@@ -47,7 +48,7 @@
           <a class="btn btn--primary btn--lg" href="tel:+15135550801">Call (513) 555-0801</a>
           <a class="btn btn--ghost btn--lg" href="menu.html">See the full price list &rarr;</a>
         </div>
-        <p class="hero__hours"><span><b>Mon&ndash;Fri 7am&ndash;7pm</b></span><span>Sat 8am&ndash;4pm</span><span>Cincinnati, Ohio</span></p>
+        <p class="hero__hours"><span><b>Mon&ndash;Fri 7am&ndash;7pm</b></span><span>Sat 8am&ndash;4pm</span><span>Same-day, usually, if it&rsquo;s in before 10</span><span>Cincinnati, Ohio</span></p>
       </div>
 
       <div class="teaser num">
@@ -58,10 +59,44 @@
       </div>
     </div>
   </section>
+
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">What we do</p>
+        <h2>Four things, and what each one costs.</h2>
+        <p class="lead">Everything is priced per piece, not per bag, so the number you hear at the counter is the number on the ticket when you pick it up. If your piece isn&rsquo;t obviously one of these four, call and describe it &mdash; we&rsquo;ll tell you which line it falls on.</p>
+      </div>
+      <div class="grid svc-grid">
+        <article class="card">
+          <h3>Shirts, laundered</h3>
+          <p class="svc__price num">$3.25 <small>a shirt</small></p>
+          <p>Washed, pressed and back on a hanger &mdash; folded instead if you say so when you drop them off. Ten shirts is roughly where an order clears $30, which is where pickup and delivery stop costing anything.</p>
+        </article>
+        <article class="card">
+          <h3>Dry cleaning</h3>
+          <p class="svc__price num">from $8.50 <small>a piece</small></p>
+          <p>Suits, dresses, coats and ties. Point out the stain when you hand it over and tell us what caused it if you know &mdash; that is the difference between a guess and a plan, and it costs you nothing to say.</p>
+        </article>
+        <article class="card">
+          <h3>Alterations</h3>
+          <p class="svc__price num">from $18</p>
+          <p>Hems, waists, sleeves and zippers. Bring the shoes you&rsquo;ll wear with the trousers and we&rsquo;ll pin the hem to those instead of guessing at it. If it needs cleaning too, we clean it first &mdash; it&rsquo;s one trip either way.</p>
+        </article>
+        <article class="card">
+          <h3>Wedding gown preservation</h3>
+          <p class="svc__price num">$310</p>
+          <p>Cleaned and boxed so it keeps. One flat price whatever the dress, and we&rsquo;ll walk you through what the box protects against and what it doesn&rsquo;t before you leave it with us.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 <section class="section section--alt" id="reviews">
     <div class="container">
-      <p class="eyebrow">What people tell us</p>
-      <h2 class="h-sm">Two of the nicer ones.</h2>
+      <div class="section__head">
+        <p class="eyebrow">What people tell us</p>
+        <h2 class="h-sm">Two of the nicer ones.</h2>
+      </div>
       <div class="quotes">
         <blockquote class="quote reveal">
           <p>&ldquo;Red wine on a cream dress. Gone. I have no idea how.&rdquo;</p>
@@ -74,39 +109,70 @@
       </div>
     </div>
   </section>
-  <section class="section">
-    <div class="container">
-      <div class="section__head"><h2>Have a look around</h2></div>
-      <div class="teasers">
-    <article class="teaser">
-      <h3>Forty years on the same corner.</h3>
-      <p>What it costs</p>
-      <p><a class="teaser__link" href="about.html">About &rarr;</a></p>
-    </article>
-      </div>
-    </div>
-  </section>
 <section class="photostage photostage--offer" id="delivery">
     <img class="photostage__img" src="assets/web/photo-04-a-vibrant-row-of-various-colored-t-shirts-neatly-a.jpg" alt="A packed rail of pressed shirts on matching hangers, in slate blue, grey and red, seen along the rod" width="867" height="1300" loading="lazy">
     <div class="container photostage__inner photostage__inner--end">
       <div class="pcard pcard--light">
         <p class="eyebrow">Free over $30</p>
         <h2>We&rsquo;ll come get it.</h2>
-        <p>Pickup and delivery are free on orders over $30 &mdash; which is most of a week&rsquo;s shirts. Under $30, drop it by the shop instead.</p>
-        <p class="muted">Call and tell us when you&rsquo;re home.</p>
+        <p>Pickup and delivery are free on any order over $30 &mdash; about ten shirts, or a suit and a couple of pieces. Under $30, drop it by the shop and collect it the same way.</p>
+        <p class="muted">Call and tell us the day and the window when someone&rsquo;s home. Most people put it on the same day each week and stop thinking about it.</p>
         <div class="pcard__actions">
           <a class="btn btn--primary" href="tel:+15135550801">Call (513) 555-0801</a>
+          <a class="btn btn--ghost" href="menu.html">See the prices &rarr;</a>
         </div>
       </div>
     </div>
   </section>
-  <section class="cta-band">
+
+  <section class="section" id="questions">
     <div class="container">
-      <h2>Come in, or call us.</h2>
-      <p><a class="btn btn--primary btn--lg" href="tel:+15135550801">Call us</a> </p>
+      <div class="section__head">
+        <p class="eyebrow">Before you drop off</p>
+        <h2>What people ask at the counter.</h2>
+        <p class="lead">Four things worth knowing before you hand anything over. Anything else, the phone is quicker than this page.</p>
+      </div>
+      <div class="qa-grid">
+        <div class="qa">
+          <h3>How fast can I have it back?</h3>
+          <p>Same-day is usually possible on anything in before ten in the morning. After that, tell us the day you need it and we&rsquo;ll say straight away whether it&rsquo;s doable rather than promising and calling you later.</p>
+        </div>
+        <div class="qa">
+          <h3>What if the stain doesn&rsquo;t come out?</h3>
+          <p>We&rsquo;ll say so before we start if we don&rsquo;t like its chances, and again afterwards if it didn&rsquo;t lift. Nobody enjoys hearing it, but it beats paying to be disappointed twice.</p>
+        </div>
+        <div class="qa">
+          <h3>Hangers or folded?</h3>
+          <p>Shirts come back on hangers unless you ask for them folded. Say which when you drop them off and it goes on your ticket, so you only have to say it once.</p>
+        </div>
+        <div class="qa">
+          <h3>Do I need an appointment for alterations?</h3>
+          <p>No &mdash; walk in during opening hours and we&rsquo;ll look at it with you on the counter. Bring the shoes you&rsquo;ll wear with the trousers so the hem gets pinned to those.</p>
+        </div>
+      </div>
     </div>
   </section>
-</main>
+
+  <section class="section section--alt" id="more">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Two more pages</p>
+        <h2>Have a look around.</h2>
+      </div>
+      <div class="teasers">
+        <article class="teaser">
+          <h3>The whole price list</h3>
+          <p>Five lines, five numbers, and a note under each one saying exactly what it covers &mdash; including what &ldquo;from&rdquo; means before you have to ask.</p>
+          <p><a class="teaser__link" href="menu.html">See the prices &rarr;</a></p>
+        </article>
+        <article class="teaser">
+          <h3>On the same corner since 1994</h3>
+          <p>Who runs the shop, what changed when it passed from one generation to the next, and why the price list has no asterisks on it.</p>
+          <p><a class="teaser__link" href="about.html">About the shop &rarr;</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
 
 <!-- 7 · closing — T2, the one saturated brand band -->
 <section class="section section--brand closing" id="visit">
@@ -114,8 +180,11 @@
     <div class="stack">
       <p class="eyebrow">Drop off or pick up</p>
       <h2>When do you need it back?</h2>
-      <p class="lead">Same-day is usually possible if it is in before ten. Pickup and delivery is free over $30, anywhere in the neighbourhood.</p>
-      <p><a class="btn btn--primary btn--lg" href="tel:+15135550801">Call us now</a></p>
+      <p class="lead">Same-day is usually possible if it&rsquo;s in before ten. Pickup and delivery is free over $30, anywhere in the neighbourhood &mdash; and if you&rsquo;re not sure what your piece costs, describe it on the phone and we&rsquo;ll price it before you come in.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary btn--lg" href="tel:+15135550801">Call us now</a>
+        <a class="btn btn--ghost btn--lg" href="menu.html">See the price list</a>
+      </div>
     </div>
     <address class="contact-list">
       <div><span class="eyebrow">Phone</span><a href="tel:+15135550801">(513) 555-0801</a></div>
@@ -125,6 +194,7 @@
     </address>
   </div>
 </section>
+</main>
 
 <footer class="site-footer">
   <div class="container">
@@ -137,7 +207,7 @@
       <p>Mon&ndash;Fri 7am&ndash;7pm &middot; Sat 8am&ndash;4pm</p>
     </div>
     <div>
-      <p><a href="index.html#prices">Prices</a> &middot; <a href="menu.html">Full price list</a> &middot; <a href="index.html#about">About</a> &middot; <a href="index.html#visit">Hours</a></p>
+      <p><a href="menu.html">Full price list</a> &middot; <a href="about.html">About the shop</a> &middot; <a href="index.html#questions">Common questions</a> &middot; <a href="#visit">Hours &amp; contact</a></p>
       <p>&copy; <span data-year>2026</span> Maple Street Cleaners</p>
     </div>
     <p class="demo">Sample site &mdash; demo business, built by Duna Marketing to show what a real interview turns into. Photos via Pexels: Ron Lach, Will Chen, Jonathan Borba, kaboompics.</p>

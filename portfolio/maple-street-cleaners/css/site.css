@@ -17,6 +17,12 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
 .lead { line-height: 1.55; }
 .rule-top { border-top: 2px solid var(--ink); padding-top: var(--space-2); }
 
+/* Section intros — headline plus one explanatory line, on one measure, with the same
+   gap under every one of them. Was an unstyled div, so heads sat 1rem off their grid. */
+.section__head { max-width: 46rem; margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem); }
+.section__head > :last-child { margin-bottom: 0; }
+.section__head .lead { margin-top: var(--space-2); }
+
 /* Prices line up on the decimal or they are not a price list. */
 .num { font-variant-numeric: tabular-nums lining-nums; font-feature-settings: "tnum" 1; }
 
@@ -149,6 +155,26 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
    content section on it, so the masthead, the ticket and the closing band share a left edge. */
 .container.narrow { --container: 980px; }
 
+/* --- the four services, priced. Same price treatment as the ticket rows, so the
+   number reads the same wherever it appears on the site. --- */
+.svc-grid { grid-template-columns: 1fr; }
+@media (min-width: 820px) { .svc-grid { grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-3); } }
+.svc-grid .card { display: flex; flex-direction: column; }
+.svc-grid .card h3 { margin-bottom: 0.2rem; }
+.svc-grid .card p:last-child { margin-bottom: 0; }
+.svc__price {
+  font-family: var(--font-display); font-weight: 700; color: var(--accent-ink);
+  font-size: 1.05rem; margin: 0 0 0.6rem;
+}
+.svc__price small { font-size: 0.78em; font-weight: 600; color: var(--ink-muted); }
+
+/* --- questions: dotted rule above each one, the same dotted line the ticket uses --- */
+.qa-grid { display: grid; gap: var(--space-3) clamp(2rem, 5vw, 3.5rem); grid-template-columns: 1fr; }
+@media (min-width: 820px) { .qa-grid { grid-template-columns: 1fr 1fr; } }
+.qa { border-top: 1px dotted var(--line-strong); padding-top: var(--space-2); }
+.qa h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+.qa p { margin: 0; color: var(--ink-muted); max-width: 46ch; }
+
 /* ---------------------------------------------------------------- 4. pickup band (T5) */
 
 .photostage--offer { min-height: clamp(400px, 52vw, 560px); }
@@ -222,12 +248,16 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
 }
 .skip:focus { left: 0; }
 
-/* --- multipage front door: teaser cards that link to the real pages --- */
-.teasers { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
-.teaser { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: var(--space-3); display: flex; flex-direction: column; gap: 0.5rem; box-shadow: var(--shadow-sm); }
-.teaser h3 { margin: 0; font-size: var(--fs-2); }
-.teaser p { margin: 0; color: var(--ink-muted); }
+/* --- multipage front door: teaser cards that link to the real pages ---
+   Scoped to .teasers on purpose: the hero price strip is also a .teaser, and an
+   unscoped rule here overrode its grid with display:flex, which killed the
+   two-column strip at 760px and stacked the four prices in one tall column. */
+.teasers { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.teasers .teaser { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: clamp(1.25rem, 3vw, 1.75rem); display: flex; flex-direction: column; gap: 0.6rem; box-shadow: var(--shadow-sm); max-width: none; margin-top: 0; }
+.teasers .teaser h3 { margin: 0; font-size: var(--fs-2); }
+.teasers .teaser p { margin: 0; color: var(--ink-muted); }
+.teasers .teaser p:last-child { margin-top: auto; padding-top: 0.35rem; }
 /* --ink is the one colour guaranteed to be legible on --surface on every palette. The accent is
    a FILL and measured 2.7:1 as link text on dark cards. Underline carries the affordance. */
 .teaser__link { font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
@@ -269,5 +299,11 @@ body { padding-bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
   body.has-cta-bar { padding-bottom: calc(84px + var(--duna-h)); }
 }
 
-/* Subpage headline needs air under the sticky header. */
-.page-hero { padding-top: 25px; }
+/* Subpage headline needs air under the sticky header — and the same tinted band and
+   vertical rhythm as the masthead on the price-list page, so subpages open alike. */
+.page-hero {
+  background: var(--bg-alt); border-bottom: 1px solid var(--line);
+  padding-block: clamp(2.25rem, 4.5vw, 3.5rem);
+}
+.page-hero h1 { max-width: 20ch; text-wrap: balance; }
+.page-hero .lead { max-width: 46ch; margin-bottom: 0; }
