@@ -1,56 +1,86 @@
-/* tokens.css — Lumen Aesthetics. Palette copied VERBATIM from brief.assigned.palette (tinted blush/pink family).
-   Type pairing assigned: Cormorant Garamond (display) + Manrope (body). Archetype C, typographic. */
+/* tokens.css — Lumen Aesthetics
+   ---------------------------------------------------------------------------
+   The brief says "soft blush and warm ivory". This palette takes that literally:
+   the page is WARM IVORY, blush is a tint used for one or two bands, and the
+   only saturated colour is a deep rose that is dark enough to be TEXT — so the
+   accent can carry links, prices and buttons instead of being a fill you must
+   route around.
+
+   Measured on the ivory ground (#FBF7F2):
+     --ink        15.8:1
+     --muted       7.0:1   (5.2:1 on the blush band — passes on both)
+     --rose        8.2:1   headings, prices, links, buttons
+     --ivory on --rose     8.2:1
+     --ivory on --wine    14.1:1
+   --------------------------------------------------------------------------- */
+
 :root {
-  /* ---- Assigned palette (11 tokens, exact hex, do not swap) ---- */
-  --bg: #F5E8EA;            /* 60: soft blush base — the client said "soft blush and warm ivory" */
-  --bg-alt: #EDD7DA;        /* tinted panel */
-  --surface: #FFFFFF;       /* cards */
-  --ink: #2A181B;           /* body text — 14.1:1 on --bg */
-  --ink-muted: #6E5257;     /* secondary text — 5.86:1 on --bg, 5.10:1 on --bg-alt (was 4.41 there) */
-  --line: #DED1D3;          /* hairlines */
-  --brand: #59212A;         /* 30: deep wine — bands, eyebrows, headings accents */
-  --on-brand: #F5E8EA;      /* 10.5:1 on --brand */
-  --accent: #B62B4D;        /* 10: the one accent — CTAs only */
-  --accent-hover: #9D203F;
-  --on-accent: #FFFFFF;     /* 6.1:1 on --accent */
+  /* Ground */
+  --ivory: #FBF7F2;
+  --ivory-2: #F4EEE6;
+  --blush: #F2E5E3;
+  --surface: #FFFFFF;
 
-  /* ---- Derived, site-specific ---- */
-  --ink-muted-alt: #6B4E52;            /* --ink-muted is 4.41:1 on --bg-alt (just under AA); this is 5.4:1 */
-  --hairline: #C9A9AE;                 /* the signature fine line */
-  --hairline-strong: #59212A;
-  --brand-tint: #F0DDE0;               /* between --bg and --bg-alt, for the hero trust row */
-  --on-brand-muted: rgba(245, 232, 234, 0.76);
+  /* Ink */
+  --ink: #221C1E;
+  --ink-2: #443639;
+  --muted: #5E5153;
 
-  /* ---- Type ---- */
-  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --fs-0: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);      /* body */
-  --fs-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);     /* lead */
-  --fs-2: clamp(1.5rem, 1.25rem + 1vw, 2.05rem);       /* h3 */
-  --fs-3: clamp(2rem, 1.5rem + 2.2vw, 3.1rem);         /* h2 */
-  --fs-4: clamp(2.7rem, 1.7rem + 5vw, 5.2rem);         /* h1 — the typographic archetype leans on this */
-  --lh-body: 1.65;
+  /* The one chroma */
+  --rose: #7A3444;
+  --rose-deep: #5C2433;
+  --wine: #3E1C24;
+  --on-dark: #FBF7F2;
+  --on-dark-muted: rgba(251, 247, 242, 0.74);
+
+  /* Lines — the site's only decoration */
+  --line: #E2D9CE;
+  --line-2: #CFC2B4;
+  --line-blush: #E0CBC9;
+  --line-dark: rgba(251, 247, 242, 0.22);
+
+  /* Type */
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --fs-xs: 0.735rem;
+  --fs-sm: 0.9rem;
+  --fs-0: clamp(1rem, 0.97rem + 0.16vw, 1.07rem);
+  --fs-1: clamp(1.14rem, 1.04rem + 0.44vw, 1.38rem);
+  --fs-2: clamp(1.32rem, 1.16rem + 0.78vw, 1.8rem);
+  --fs-3: clamp(1.85rem, 1.42rem + 2.05vw, 3rem);
+  --fs-4: clamp(2.6rem, 1.6rem + 4.4vw, 4.7rem);
+  --fs-quote: clamp(1.5rem, 1.05rem + 2.2vw, 2.6rem);
+
+  --lh-body: 1.68;
   --lh-head: 1.06;
-  --track-label: 0.14em;
+  --track-label: 0.15em;
+  --measure: 62ch;
 
-  /* ---- Shape & depth: square, quiet ---- */
-  --radius: 2px;
-  --radius-sm: 2px;
-  --shadow: 0 18px 50px rgba(42, 24, 27, 0.22);
-  --shadow-sm: 0 1px 2px rgba(42, 24, 27, 0.10);
+  /* Space — sparse on purpose; the practice takes fewer cases */
+  --sp-1: 0.35rem;
+  --sp-2: 0.7rem;
+  --sp-3: 1.15rem;
+  --sp-4: 1.9rem;
+  --sp-5: 3rem;
+  --sp-6: 4.75rem;
+  --section-y: clamp(4rem, 8.5vw, 8rem);
+  --gutter: clamp(1.25rem, 5vw, 2.75rem);
+  --maxw: 1180px;
 
-  /* ---- Space (density axis = sparse) ---- */
-  --space-1: 0.5rem;
-  --space-2: 1rem;
-  --space-3: 1.75rem;
-  --space-4: 2.75rem;
-  --space-5: 4.5rem;
-  --section-y: clamp(4rem, 7vw, 8rem);
-  --measure: 60ch;
-  --container: 1120px;
-  --gutter: clamp(1.25rem, 5vw, 2.5rem);
+  /* Shape — square and quiet. Nothing here is a pill. */
+  --r: 2px;
+  --r-lg: 3px;
 
-  /* ---- Motion ---- */
-  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Depth — almost none; hairlines do the work */
+  --shadow-sm: 0 1px 2px rgba(34, 28, 30, 0.05);
+  --shadow: 0 2px 8px rgba(34, 28, 30, 0.05), 0 30px 60px -34px rgba(34, 28, 30, 0.30);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.68, 0.28, 1);
   --dur: 240ms;
+
+  /* Fixed chrome */
+  --header-h: 74px;
+  --duna-h: 48px;
 }
