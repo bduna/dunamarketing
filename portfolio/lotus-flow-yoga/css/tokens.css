@@ -1,17 +1,17 @@
-/* tokens.css — Lotus Flow Yoga: dusty lavender + terracotta. Calm · Warm · Modern */
+/* tokens.css — Lotus Flow Yoga: muted sage + terracotta on warm white (the client's own words). Calm · Warm · Modern */
 :root {
-  --bg: #F0ECF5;            /* dusty lavender */
-  --bg-alt: #E4DCEE;        /* deeper lavender panel */
+  --bg: #FAF8F2;            /* warm white */
+  --bg-alt: #EEF0E3;        /* pale sage panel */
   --surface: #FFFFFF;
-  --ink: #241C2E;           /* plum near-black (14:1 on bg) */
-  --ink-muted: #5E5470;
-  --line: #D3C9E1;
-  --brand: #3A2E4D;         /* deep plum — bands */
-  --brand-deep: #2B2139;
-  --on-brand: #F0ECF5;
-  --lavender-soft: #D8CEE8;
-  --accent: #A8543A;        /* terracotta — CTAs (white text 5.2:1) */
-  --accent-hover: #8C4530;
+  --ink: #272B22;           /* deep green-ink (≈13.6:1 on bg) */
+  --ink-muted: #5A6051;     /* 6.1:1 on bg, 5.6:1 on the sage panel */
+  --line: #DDDDCE;
+  --brand: #55634A;         /* muted sage — bands (on-brand text 5.9:1) */
+  --brand-deep: #46523D;
+  --on-brand: #F5F7EE;
+  --sage-soft: #DFE4D2;
+  --accent: #A85238;        /* terracotta — CTAs (white 5.3:1; as text on bg 5.0:1) */
+  --accent-hover: #8A4128;  /* darker step: 6.3:1 as text on the pale sage panel */
   --on-accent: #FFFFFF;
 
   --font-display: "DM Serif Display", Georgia, serif;
@@ -27,8 +27,8 @@
 
   --radius: 18px;
   --radius-sm: 12px;
-  --shadow: 0 20px 50px rgba(48, 38, 66, 0.14);
-  --shadow-sm: 0 4px 14px rgba(48, 38, 66, 0.10);
+  --shadow: 0 20px 50px rgba(52, 58, 44, 0.14);
+  --shadow-sm: 0 4px 14px rgba(52, 58, 44, 0.10);
 
   --space-1: 0.5rem; --space-2: 1rem; --space-3: 1.5rem; --space-4: 2.5rem; --space-5: 4rem;
   --section-y: clamp(4rem, 8vw, 7.5rem);   /* airy, minimal density */

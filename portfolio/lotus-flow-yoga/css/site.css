@@ -1,11 +1,15 @@
-/* Lotus Flow Yoga — site-specific. Calm · Warm · Modern. */
+/* Lotus Flow Yoga — site-specific. Muted sage · terracotta · warm white. Calm · Warm · Modern. */
 h1, h2, h3 { font-weight: 400; letter-spacing: 0; }
 .lead { line-height: 1.55; }
+
+/* Skip link (keyboard users land here first) */
+.skip-link { position: absolute; left: -9999px; top: 0; z-index: 100; background: var(--surface); color: var(--ink); padding: 0.75rem 1.25rem; border-radius: 0 0 var(--radius-sm) 0; box-shadow: var(--shadow-sm); text-decoration: none; font-weight: 700; }
+.skip-link:focus { left: 0; }
 
 /* Eyebrow: quiet terracotta with a small dot */
 .eyebrow { color: var(--accent); }
 .eyebrow::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-right: 8px; vertical-align: middle; }
-/* on the deeper lavender panel the terracotta needs a darker step to clear 4.5:1 */
+/* on the pale sage panel the terracotta needs a darker step to clear 4.5:1 */
 .section--alt .eyebrow, .pagehead .eyebrow, .site-footer .eyebrow { color: var(--accent-hover); }
 .section--alt .eyebrow::before, .pagehead .eyebrow::before, .site-footer .eyebrow::before { background: var(--accent-hover); }
 
@@ -22,18 +26,20 @@ h1, h2, h3 { font-weight: 400; letter-spacing: 0; }
 .hero { position: relative; min-height: clamp(560px, 82vh, 780px); display: flex; align-items: center; overflow: hidden; isolation: isolate; }
 .hero__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 55% 45%; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(105deg, rgba(30,22,42,0.70) 0%, rgba(30,22,42,0.42) 46%, rgba(30,22,42,0.10) 100%); }
+  background: linear-gradient(105deg, rgba(33,36,26,0.84) 0%, rgba(33,36,26,0.58) 48%, rgba(33,36,26,0.14) 100%); }
+/* The terracotta fill can sit under 3:1 against the darkened photo — a light rim keeps the control's boundary visible */
+.hero .btn--primary { border: 1px solid rgba(255,255,255,0.8); }
 .hero .container { padding-block: var(--space-5); }
 .hero__inner { max-width: 40rem; color: #fff; }
 .hero__inner .eyebrow { color: #fff; }
 .hero__inner .eyebrow::before { background: #fff; }
-.hero h1 { color: #fff; margin-bottom: var(--space-3); text-shadow: 0 2px 18px rgba(24,16,34,0.40); }
-.hero__lede { color: rgba(255,255,255,0.94); font-size: var(--fs-1); max-width: 34ch; text-shadow: 0 1px 12px rgba(24,16,34,0.40); }
+.hero h1 { color: #fff; margin-bottom: var(--space-3); text-shadow: 0 2px 18px rgba(20,24,14,0.42); }
+.hero__lede { color: #fff; font-size: var(--fs-1); max-width: 36ch; text-shadow: 0 1px 12px rgba(20,24,14,0.42); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
 .hero__phone { margin-top: var(--space-3); color: rgba(255,255,255,0.92); font-weight: 500; }
 .hero__phone a { color: #fff; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(255,255,255,0.55); }
 
-/* Compact page hero (services / about tops) */
+/* Compact page hero (inner-page tops) */
 .pagehead { background: var(--bg-alt); padding-block: clamp(3rem, 6vw, 5rem); }
 .pagehead .lead { color: var(--ink-muted); }
 
@@ -41,46 +47,80 @@ h1, h2, h3 { font-weight: 400; letter-spacing: 0; }
 .trust { background: var(--brand); color: var(--on-brand); }
 .trust .container { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); justify-content: center; align-items: center; padding-block: var(--space-3); text-align: center; }
 .trust span { display: inline-flex; align-items: center; gap: 0.55rem; font-weight: 500; font-size: 1.02rem; }
-.trust span + span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: rgba(240,236,245,0.5); margin-right: 0.55rem; }
+.trust span + span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: rgba(245,247,238,0.5); margin-right: 0.55rem; }
+
+/* Numbered steps — editorial columns, not cards */
+.steps { list-style: none; counter-reset: step; margin: var(--space-4) 0 0; padding: 0; display: grid; gap: var(--space-4); }
+@media (min-width: 820px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+.steps li { counter-increment: step; border-top: 2px solid var(--line); padding-top: var(--space-3); }
+.steps li::before { content: "0" counter(step); display: block; font-family: var(--font-display); font-size: var(--fs-2); color: var(--accent-hover); margin-bottom: var(--space-1); }
+.steps h3 { font-size: var(--fs-2); margin-bottom: var(--space-1); }
+.steps p { margin: 0; color: var(--ink-muted); }
 
 /* Pricing list */
 .pricelist { margin: var(--space-3) 0 0; max-width: 760px; }
 .pricelist__row { display: flex; align-items: baseline; gap: 0.9rem; padding: 1.15rem 0; border-bottom: 1px solid var(--line); }
 .pricelist__row dt { flex: 1; font-family: var(--font-display); font-weight: 400; font-size: var(--fs-2); }
 .pricelist__row dt small { display: block; font-family: var(--font-body); font-size: 0.98rem; color: var(--ink-muted); margin-top: 0.2rem; }
-.pricelist__row dd { margin: 0; font-weight: 700; white-space: nowrap; color: var(--accent); font-size: var(--fs-1); }
+.pricelist__row dd { margin: 0; font-weight: 700; white-space: nowrap; color: var(--accent-hover); font-size: var(--fs-1); }
 .price-note { margin-top: var(--space-3); color: var(--ink-muted); }
 
-/* Lavender "breathe" photo band */
+/* "Which one is right for you" cards — pin to 2-up so four cards never orphan into 3+1 */
+.choose { margin-top: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+.choose .card h3 { font-size: 1.4rem; margin-bottom: 0.4rem; }
+.choose .card p:last-child { margin-bottom: 0; color: var(--ink-muted); }
+.choose .card .eyebrow { margin-bottom: 0.4rem; }
+
+/* Sage "breathe" photo band */
 .band { min-height: clamp(320px, 52vw, 560px); }
 .band img { object-position: center 40%; }
 .band__caption { position: relative; z-index: 1; min-height: inherit; display: flex; align-items: center; padding-block: var(--space-5); color: #fff; }
 .band .container { position: relative; }
 .band .container::before { content: ""; position: absolute; left: -100vw; right: -100vw; top: 0; bottom: 0;
-  background: linear-gradient(180deg, rgba(30,22,42,0.20) 0%, rgba(30,22,42,0.60) 100%); z-index: 0; }
+  background: linear-gradient(180deg, rgba(26,29,20,0.24) 0%, rgba(26,29,20,0.62) 100%); z-index: 0; }
 .band .container > * { position: relative; z-index: 1; }
-.band__caption p { font-family: var(--font-display); font-size: var(--fs-3); margin: 0; max-width: 22ch; line-height: 1.15; text-shadow: 0 2px 16px rgba(20,13,30,0.45); }
+/* The photos behind the bands have genuinely bright regions (white hammocks, sunlit walls); no
+   tasteful full-band scrim reaches 4.5:1 there, so the caption carries its own deep-sage plate. */
+.band__caption p { font-family: var(--font-display); font-size: var(--fs-3); margin: 0; max-width: 22ch; line-height: 1.2; width: fit-content;
+  background: rgba(58,68,50,0.93); padding: 1rem 1.5rem; border-radius: var(--radius-sm); }
 
-/* Welcome / about split */
+/* Welcome / about splits */
 .welcome .media img, .about-hero .media img { object-position: center; }
 .about-hero { padding-top: clamp(3rem, 6vw, 5rem); }
+
+/* About: three commitments — hairline columns, not cards */
+.values { display: grid; gap: var(--space-4); margin-top: var(--space-4); }
+@media (min-width: 820px) { .values { grid-template-columns: repeat(3, 1fr); } }
+.values > div { border-top: 2px solid var(--brand); padding-top: var(--space-3); }
+.values h3 { font-size: 1.4rem; margin-bottom: 0.4rem; }
+.values p { margin: 0; color: var(--ink-muted); }
+
+/* FAQ — quiet accordion */
+.faq { max-width: 760px; margin-top: var(--space-4); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); padding: 1.1rem 0; font-family: var(--font-display); font-size: var(--fs-1); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--font-body); color: var(--accent-hover); font-weight: 700; font-size: 1.5rem; line-height: 1; flex-shrink: 0; }
+.faq details[open] summary::after { content: "\2013"; }
+.faq details > p { color: var(--ink-muted); margin: 0 0 1.2rem; max-width: 60ch; }
+.faq a { color: inherit; font-weight: 600; }
 
 /* Testimonials */
 .quotes { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); margin-top: var(--space-3); }
 .quote { margin: 0; padding: var(--space-4); background: var(--surface); border-radius: var(--radius); border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
 .quote p { font-family: var(--font-display); font-size: var(--fs-1); line-height: 1.35; margin-bottom: var(--space-2); }
-.quote footer { color: var(--accent); font-weight: 600; }
+.quote footer { color: var(--accent-hover); font-weight: 600; }
 
-/* Signup close (plum brand section) */
-.section--brand .eyebrow, .section--brand .lead { color: rgba(240,236,245,0.85); }
-.section--brand .eyebrow::before { background: rgba(240,236,245,0.85); }
+/* Signup close (sage brand section) */
+.section--brand .eyebrow, .section--brand .lead { color: rgba(245,247,238,0.88); }
+.section--brand .eyebrow::before { background: rgba(245,247,238,0.88); }
 .btn--warm { background: var(--bg); color: var(--ink); border: 0; box-shadow: var(--shadow-sm); }
 .btn--warm:hover, .btn--warm:focus-visible { background: #fff; transform: translateY(-1px); }
 .contact-list { font-style: normal; display: grid; gap: var(--space-3); }
 .contact-list div { display: flex; flex-direction: column; gap: 0.15rem; }
 .contact-list a { color: inherit; font-weight: 700; text-decoration: none; }
 .contact-list a:hover { text-decoration: underline; }
-.contact-list .eyebrow { color: rgba(240,236,245,0.78); }
+.contact-list .eyebrow { color: rgba(245,247,238,0.82); }
 .contact-list .eyebrow::before { display: none; }
 .close-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
 
@@ -90,29 +130,6 @@ h1, h2, h3 { font-weight: 400; letter-spacing: 0; }
 
 /* Sticky signup bar (mobile) */
 .cta-bar .btn { background: var(--accent); color: var(--on-accent); }
-
-/* --- multipage front door: teaser cards that link to the real pages --- */
-.teasers { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
-.teaser { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: var(--space-3); display: flex; flex-direction: column; gap: 0.5rem; box-shadow: var(--shadow-sm); }
-.teaser h3 { margin: 0; font-size: var(--fs-2); }
-.teaser p { margin: 0; color: var(--ink-muted); }
-/* --ink is the one colour guaranteed to be legible on --surface on every palette. The accent is
-   a FILL and measured 2.7:1 as link text on dark cards. Underline carries the affordance. */
-.teaser__link { font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
-.teaser__link:hover { text-decoration: underline; }
-
-/* On a saturated brand band an accent-filled button can sit under 2:1 against the band and read as
-   a coloured block rather than a control (WCAG 1.4.11 wants 3:1). A rim in the band's own text
-   colour guarantees the boundary whatever the two fills happen to be. */
-/* Self-contained closing CTA. The first version reused .section--brand and assumed it paints a
-   --brand background; on sites where that class means something else, --on-brand text landed on the
-   page colour at 1.18:1. Setting both sides here guarantees the pair always matches. */
-.cta-band { background: var(--brand); color: var(--on-brand); padding-block: var(--section-y); }
-.cta-band h2 { color: var(--on-brand); margin-top: 0; }
-.cta-band p { margin-bottom: 0; }
-.cta-band .btn--primary { background: var(--on-brand); color: var(--brand); border: 1px solid var(--on-brand); }
-.cta-band .btn--ghost { color: var(--on-brand); border: 1px solid var(--on-brand); background: transparent; }
 
 
 /* ---------- Duna Marketing sample-site bar ---------- */
