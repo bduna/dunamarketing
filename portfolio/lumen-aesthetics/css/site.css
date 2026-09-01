@@ -68,19 +68,18 @@ p { margin: 0 0 var(--space-2); }
 /* Home preview: name and price only — the notes live on the procedures page */
 @media (min-width: 760px) { .plist--compact .plist__row { grid-template-columns: 1fr auto; } }
 
-/* ---------- Photo bands (T5: photo stays bright, the card carries contrast) ---------- */
-.photostage::after { background: linear-gradient(90deg, rgba(42, 24, 27, 0.20), rgba(42, 24, 27, 0) 62%); }
-.photostage--band { min-height: clamp(360px, 52vw, 560px); }
-.photostage--surgeon .photostage__img { object-position: 50% 38%; }
-.pcard { border-radius: var(--radius); max-width: 32rem; }
-.pcard--light { background: var(--surface); color: var(--ink); border-top: 2px solid var(--brand); }
-.pcard--light .lead, .pcard--light .muted, .pcard--light footer { color: var(--ink-muted); }
-.pcard--dark { background: rgba(38, 16, 20, 0.93); color: var(--on-brand); border-top: 2px solid var(--accent); }
-.pcard--dark .lead, .pcard--dark .muted, .pcard--dark footer { color: var(--on-brand-muted); }
-.pcard h2, .pcard p:last-child { margin-bottom: 0; }
-.pcard__quote { font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.3; font-style: italic; margin: 0 0 var(--space-2); }
-.pcard blockquote { margin: 0; }
-.pcard footer { font-family: var(--font-body); font-size: 0.8rem; letter-spacing: var(--track-label); text-transform: uppercase; }
+/* ---------- Statement band (T2) — a typographic set piece in place of a photo band ---------- */
+.statement { position: relative; overflow: hidden; color: var(--on-brand); padding-block: clamp(4rem, 8vw, 7rem); border-block: 1px solid var(--gold);
+  background: linear-gradient(135deg, var(--wine-3) 0%, var(--brand) 45%, var(--wine-2) 100%); }
+.statement::after { content: ""; position: absolute; right: -6vw; top: 10%; width: clamp(220px, 32vw, 460px); aspect-ratio: 1 / 1.6; border-radius: 999px 999px 0 0; border: 1px solid rgba(227, 207, 168, 0.45); background: rgba(245, 232, 234, 0.06); pointer-events: none; }
+.statement__inner { position: relative; max-width: 40rem; }
+.statement__mark { position: absolute; left: -0.1em; top: -0.55em; font-family: var(--font-display); font-style: italic; font-size: clamp(10rem, 24vw, 20rem); line-height: 1; color: rgba(245, 232, 234, 0.06); pointer-events: none; user-select: none; }
+.statement .eyebrow { color: var(--gold-soft); position: relative; }
+.statement .eyebrow::before { background: var(--gold-soft); }
+.statement h2 { color: var(--on-brand); font-size: var(--fs-3); margin-bottom: var(--space-2); position: relative; }
+.statement h2 em { color: var(--gold-soft); }
+.statement p { color: var(--on-brand); position: relative; max-width: 36rem; }
+.statement__meta { color: var(--on-brand-muted); font-family: var(--font-body); font-size: 0.8rem; letter-spacing: var(--track-label); text-transform: uppercase; margin: var(--space-3) 0 0; }
 
 /* ---------- About / story (T1 tinted) ---------- */
 .story__grid { display: grid; gap: clamp(2rem, 4vw, 3.5rem); }
@@ -180,6 +179,51 @@ p { margin: 0 0 var(--space-2); }
 .cta-band .btn--primary { background: var(--on-brand); color: var(--brand); border: 1px solid var(--on-brand); }
 .cta-band .btn--ghost { color: var(--on-brand); border: 1px solid var(--on-brand); background: transparent; }
 
+
+/* ---------- Personality layer: champagne hairlines, arches, faint monograms ----------
+   Gold is decoration only on the light base (1.9:1 as text — never used for words there); as text it
+   appears only on the wine bands, where --gold-soft reads at 8.3:1. */
+:root { --gold: #C4A06A; --gold-soft: #E3CFA8; --wine-2: #6E2A35; --wine-3: #4A1A22; }
+body { background:
+  radial-gradient(55% 40% at 100% 0%, rgba(222, 185, 191, 0.55), transparent 62%),
+  radial-gradient(45% 35% at 0% 100%, rgba(222, 185, 191, 0.35), transparent 60%),
+  var(--bg); }
+.site-header .brand::before { content: ""; display: inline-block; width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); margin-right: 0.7rem; vertical-align: middle; }
+.eyebrow::before { content: ""; display: inline-block; width: 1.6rem; height: 1px; background: var(--gold); margin-right: 0.65rem; vertical-align: middle; }
+.rule { background: var(--gold); }
+h1 em, h2 em { color: var(--brand); }
+
+/* hero: faint monogram behind the words, arched figure with an offset champagne frame */
+.hero__grid > div:first-child { position: relative; }
+.hero__grid > div:first-child::before { content: "L"; position: absolute; left: -0.08em; top: -0.42em; font-family: var(--font-display); font-style: italic; font-size: clamp(12rem, 28vw, 24rem); line-height: 1; color: rgba(89, 33, 42, 0.06); pointer-events: none; }
+.hero__grid > div:first-child > * { position: relative; }
+.hero__figure img { border-radius: 999px 999px 0 0; }
+.hero__figure::before { content: ""; position: absolute; inset: 0 0 2.4rem 0; transform: translate(-14px, -14px); border: 1px solid var(--gold); border-radius: 999px 999px 0 0; pointer-events: none; z-index: 1; }
+.hero__figure figcaption::before { content: "\25C6"; color: var(--gold); font-size: 0.55em; margin-right: 0.6rem; vertical-align: middle; }
+
+/* surfaces and rules */
+.section--alt { background: linear-gradient(180deg, var(--bg-alt) 0%, #F0DDE0 100%); }
+.plist { border-top-color: var(--gold); }
+.plist dt { font-style: italic; }
+.steps li { border-top-color: var(--gold); position: relative; }
+.steps li::before { font-size: clamp(4rem, 8vw, 6.5rem); font-style: italic; color: rgba(89, 33, 42, 0.14); margin-bottom: -0.5em; }
+.steps h3, .steps p { position: relative; }
+.teaser { border: 0; border-top: 2px solid var(--gold); background: linear-gradient(180deg, #FFFFFF, #FBF3F4); transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.teaser:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.pullquote { position: relative; border-left: 2px solid var(--gold); padding-left: var(--space-4); }
+.pullquote::before { content: "\201C"; position: absolute; left: -0.12em; top: -0.6em; font-family: var(--font-display); font-size: 11rem; line-height: 1; color: rgba(182, 43, 77, 0.12); pointer-events: none; }
+.forwho h3 { border-top-color: var(--gold); font-style: italic; }
+.forwho li::before { background: var(--gold); }
+.faq { border-top-color: var(--gold); }
+.quotes blockquote { border-top-color: var(--gold); }
+
+/* consultation band: soft highlight and a faint monogram */
+.consult { position: relative; overflow: hidden; background: radial-gradient(70% 90% at 92% 8%, rgba(255, 255, 255, 0.07), transparent 60%), var(--brand); }
+.consult::before { content: "L"; position: absolute; right: -0.05em; bottom: -0.38em; font-family: var(--font-display); font-style: italic; font-size: clamp(12rem, 26vw, 22rem); line-height: 1; color: rgba(245, 232, 234, 0.05); pointer-events: none; }
+.consult .consult__grid { position: relative; }
+.consult .rule, .consult .eyebrow::before { background: var(--gold-soft); }
+.contact-list > div { border-top-color: rgba(227, 207, 168, 0.35); }
+.site-footer { border-top-color: var(--gold); }
 
 /* ---------- Duna Marketing sample-site bar ---------- */
 /* Duna Marketing navy on every sample site so it is unmistakably ours. White text on navy is
