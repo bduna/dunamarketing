@@ -92,7 +92,9 @@
    All three source photos are landscape, so the earlier tall-spanning-cell layout (built for a
    portrait photo) forced a short image to stretch across two grid-auto-rows and collapsed the
    sibling figure's caption to zero height. Plain equal-height cards fit the photos we actually have. */
-.gallery-grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.gallery-grid { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 560px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
 .gallery-grid figure { margin: 0; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); background: var(--surface); }
 .gallery-grid .media-ratio { aspect-ratio: 4 / 3; overflow: hidden; }
 .gallery-grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
