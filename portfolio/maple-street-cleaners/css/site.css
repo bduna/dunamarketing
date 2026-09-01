@@ -1,309 +1,367 @@
-/* site.css — everything specific to maple-street-cleaners. Tokens live in tokens.css.
-   Signature element: the shop ticket — ruled header, dotted leaders, price right-aligned in slate blue. */
+/* site.css — Maple Street Cleaners: the sections.
+   ---------------------------------------------------------------------------
+   Signature: the shop ticket. A ruled head, dotted leaders, the price set right
+   in slate. Its dotted rule is reused as every divider on the site, so the price
+   list and the page it sits on are visibly the same object.
+   Rhythm: paper → ruled rail → paper → linen → photography → paper → slate →
+   paper → linen → deep slate. No two consecutive sections share a treatment.
+   --------------------------------------------------------------------------- */
 
-/* ---------------------------------------------------------------- foundations */
-
-body { font-feature-settings: "cv05" 1; }
-h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
-.h-sm { font-size: var(--fs-2); }
-
-/* --accent is 3.12:1 on the cream base — it is a FILL colour, never a text colour.
-   base.css sets .eyebrow to --accent; this is the override that keeps every small
-   label at 4.67:1 or better. Do not remove. */
-.eyebrow { color: var(--accent-ink); font-family: var(--font-body); font-size: 0.78rem; }
-.section--brand .eyebrow { color: var(--on-brand); opacity: 0.9; }
-.pcard .eyebrow { color: var(--accent-ink); }
-
-.lead { line-height: 1.55; }
-.rule-top { border-top: 2px solid var(--ink); padding-top: var(--space-2); }
-
-/* Section intros — headline plus one explanatory line, on one measure, with the same
-   gap under every one of them. Was an unstyled div, so heads sat 1rem off their grid. */
-.section__head { max-width: 46rem; margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem); }
-.section__head > :last-child { margin-bottom: 0; }
-.section__head .lead { margin-top: var(--space-2); }
-
-/* Prices line up on the decimal or they are not a price list. */
-.num { font-variant-numeric: tabular-nums lining-nums; font-feature-settings: "tnum" 1; }
-
-/* ---------------------------------------------------------------- header */
-
-/* 44px tap targets in the header: the wordmark, the burger and the nav links all
-   measured 25-42px before this. */
-.site-header .brand { letter-spacing: -0.02em; padding-block: 0.45rem; }
-.nav-toggle { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
-@media (min-width: 721px) { .nav a:not(.btn) { padding-block: 0.65rem; } }
-.brand__mark {
-  display: inline-grid; place-items: center; width: 30px; height: 30px;
-  border-radius: 7px; background: var(--brand); color: var(--on-brand);
-  font-size: 0.95rem; font-weight: 700; letter-spacing: 0;
-}
-.nav a:not(.btn) { font-size: 0.96rem; }
-.nav a[aria-current="page"] { color: var(--accent-ink); }
-.header-phone { display: none; }
-@media (min-width: 1000px) { .header-phone { display: inline; } }
-
-/* A filled accent chip at 2.95:1 against cream is a coloured block, not a control.
-   base.css gives it a 1px --accent-ink edge (4.67:1 on the tinted base) — keep it,
-   and swap that edge to cream inside the olive band where --accent-ink disappears. */
-.section--brand .btn--primary { border-color: var(--on-brand); }
-
-/* ---------------------------------------------------------------- 1. hero (T1) */
-
-.hero {
-  background: var(--bg-alt);
-  border-bottom: 1px solid var(--line);
-  padding-block: clamp(2.5rem, 5.5vw, 4.75rem);
-}
-.hero__inner { max-width: 46rem; }
-/* Wide screens: the ticket teaser moves to the right of the headline so the hero
-   is a two-column T1 block instead of a left-aligned column with dead space. */
-@media (min-width: 1060px) {
-  .hero__grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(310px, 0.9fr); gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
-  .hero__grid .teaser { margin-top: 0.35rem; grid-template-columns: 1fr; }
-  .hero__grid .teaser .teaser__item:nth-last-child(2) { border-bottom: 1px dotted var(--line-strong); }
-}
-.hero h1 { margin-bottom: var(--space-2); text-wrap: balance; }
-.hero h1 .said { display: block; color: var(--ink); }
-.hero__lede { max-width: 40rem; margin-bottom: var(--space-3); }
-.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
-.hero__hours {
-  margin: var(--space-3) 0 0; font-size: 0.95rem; color: var(--ink-muted);
-  display: flex; flex-wrap: wrap; gap: 0.35rem 1rem;
-}
-.hero__hours b { color: var(--ink); font-weight: 600; }
-
-/* the ticket teaser — the price list, compressed to one strip */
-.teaser {
-  margin-top: clamp(1.75rem, 4vw, 2.75rem);
-  border: 1px solid var(--line); border-radius: var(--radius);
-  background: var(--surface); box-shadow: var(--shadow-sm);
-  padding: 0.35rem clamp(0.9rem, 2.5vw, 1.4rem);
-  display: grid; grid-template-columns: 1fr; max-width: 46rem;
-}
-.teaser__item {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
-  padding: 0.7rem 0; border-bottom: 1px dotted var(--line-strong);
-  font-size: 0.98rem;
-}
-.teaser__item:last-child { border-bottom: 0; }
-.teaser__item b { color: var(--accent-ink); font-weight: 700; white-space: nowrap; }
-@media (min-width: 760px) {
-  .teaser { grid-template-columns: 1fr 1fr; column-gap: clamp(1.5rem, 4vw, 3rem); }
-  .teaser__item:nth-last-child(2) { border-bottom: 0; }
-}
-
-/* ---------------------------------------------------------------- 2. photo band (T6) */
-
-.photoband { position: relative; }
-.photoband__img {
-  width: 100%; height: clamp(280px, 36vw, 520px); object-fit: cover;
-  object-position: 50% 60%; display: block;
-}
-.photoband--menu .photoband__img { height: clamp(260px, 32vw, 460px); object-position: 50% 62%; }
-.photoband figcaption {
-  padding: 0.85rem var(--gutter); font-size: 0.9rem; color: var(--ink-muted);
-  border-bottom: 1px solid var(--line); background: var(--bg);
-}
-.photoband figcaption span { color: var(--ink); font-weight: 600; }
-
-/* ---------------------------------------------------------------- 3. the ticket (T1) */
+/* ================================================================== the ticket */
 
 .ticket {
-  background: var(--surface); border: 1px solid var(--line);
-  border-radius: var(--radius); box-shadow: var(--shadow-sm);
-  padding: clamp(1.15rem, 3.2vw, 2.4rem);
-  max-width: 46rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: clamp(1.15rem, 2.6vw, 1.85rem);
+  box-shadow: var(--shadow);
 }
 .ticket__head {
-  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
-  gap: 0.35rem 1rem; padding-bottom: 0.75rem; margin-bottom: 0.25rem;
-  border-bottom: 2px solid var(--ink);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 0.75rem; padding-bottom: 0.7rem; border-bottom: 2px solid var(--ink);
 }
-.ticket__head .eyebrow { margin: 0; }
-.ticket__head span:last-child { font-size: 0.85rem; color: var(--ink-muted); }
-.ticket__list { list-style: none; margin: 0; padding: 0; }
-.ticket__list > li { padding: clamp(0.95rem, 2.4vw, 1.35rem) 0; border-bottom: 1px dotted var(--line-strong); }
-.ticket__list > li:last-child { border-bottom: 0; padding-bottom: 0.25rem; }
-.row { display: flex; align-items: baseline; gap: 0.55rem; }
-.row h2, .row h3 { margin: 0; font-size: clamp(1.05rem, 0.98rem + 0.45vw, 1.25rem); }
-.row .leader {
-  flex: 1 1 1.5rem; min-width: 1.25rem; align-self: center;
-  border-bottom: 2px dotted var(--line-strong); transform: translateY(0.15em);
+.ticket__title {
+  font-family: var(--font-body); font-size: var(--fs-xs); font-weight: 600;
+  letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink);
+  margin: 0;
 }
-.row .price {
-  font-family: var(--font-display); font-weight: 700; white-space: nowrap;
-  color: var(--accent-ink); font-size: clamp(1.05rem, 0.98rem + 0.45vw, 1.25rem);
+.ticket__stamp {
+  font-family: var(--font-body); font-size: 0.66rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass);
+  border: 1px solid currentColor; border-radius: 2px; padding: 0.2rem 0.42rem;
+  white-space: nowrap;
 }
-.row .price small { font-size: 0.72em; font-weight: 600; color: var(--ink-muted); }
-.ticket__note { margin: 0.45rem 0 0; color: var(--ink-muted); font-size: 0.96rem; max-width: 44ch; }
-.ticket__list li.is-free { background: var(--bg-alt); border-radius: var(--radius-sm); padding-inline: clamp(0.75rem, 2vw, 1.1rem); }
-.ticket__list li.is-free .price { color: var(--accent-ink); }
-.ticket__foot { margin: var(--space-3) 0 0; font-size: 0.92rem; color: var(--ink-muted); }
+.ticket__list > li { padding: 0.8rem 0; border-bottom: 1px dotted var(--line-2); }
+.ticket__list > li:last-child { border-bottom: 0; padding-bottom: 0.15rem; }
 
-.prices-aside { align-self: start; }
-.prices-aside .callout {
-  border-left: 3px solid var(--accent); padding-left: var(--space-2);
-  margin-bottom: var(--space-3);
+.tline { display: flex; align-items: baseline; gap: 0.5rem; margin: 0; max-width: none; }
+.tline__name {
+  font-family: var(--font-display); font-weight: 600; letter-spacing: -0.015em;
+  font-size: 1.02rem; margin: 0; line-height: 1.25;
 }
-.prices-aside .callout p { margin-bottom: 0; }
-@media (min-width: 940px) {
-  .prices-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
-  .prices-aside { position: sticky; top: 88px; }
+.tline__leader {
+  flex: 1 1 1rem; min-width: 0.9rem;
+  border-bottom: 1px dotted var(--line-2); transform: translateY(-0.28em);
 }
-/* The price-list page is a document, not a landing page: one narrower measure for every
-   content section on it, so the masthead, the ticket and the closing band share a left edge. */
-.container.narrow { --container: 980px; }
-
-/* --- the four services, priced. Same price treatment as the ticket rows, so the
-   number reads the same wherever it appears on the site. --- */
-.svc-grid { grid-template-columns: 1fr; }
-@media (min-width: 820px) { .svc-grid { grid-template-columns: 1fr 1fr; gap: var(--space-4) var(--space-3); } }
-.svc-grid .card { display: flex; flex-direction: column; }
-.svc-grid .card h3 { margin-bottom: 0.2rem; }
-.svc-grid .card p:last-child { margin-bottom: 0; }
-.svc__price {
-  font-family: var(--font-display); font-weight: 700; color: var(--accent-ink);
-  font-size: 1.05rem; margin: 0 0 0.6rem;
+.tline__price {
+  font-family: var(--font-display); font-weight: 700; color: var(--slate);
+  font-size: 1.06rem; white-space: nowrap; letter-spacing: -0.01em;
 }
-.svc__price small { font-size: 0.78em; font-weight: 600; color: var(--ink-muted); }
-
-/* --- questions: dotted rule above each one, the same dotted line the ticket uses --- */
-.qa-grid { display: grid; gap: var(--space-3) clamp(2rem, 5vw, 3.5rem); grid-template-columns: 1fr; }
-@media (min-width: 820px) { .qa-grid { grid-template-columns: 1fr 1fr; } }
-.qa { border-top: 1px dotted var(--line-strong); padding-top: var(--space-2); }
-.qa h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
-.qa p { margin: 0; color: var(--ink-muted); max-width: 46ch; }
-
-/* ---------------------------------------------------------------- 4. pickup band (T5) */
-
-.photostage--offer { min-height: clamp(400px, 52vw, 560px); }
-/* On a phone the card is full width, so the photo only survives if it is given room
-   above it — otherwise the whole band reads as a plain white box. */
-@media (max-width: 700px) {
-  .photostage--offer .photostage__inner { padding-block: 11rem 1.75rem; }
+.tline__price small { font-family: var(--font-body); font-size: 0.7em; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+.ticket__note { margin: 0.35rem 0 0; font-size: 0.885rem; line-height: 1.5; color: var(--muted); max-width: 48ch; }
+.ticket__foot {
+  margin: var(--sp-3) 0 0; padding-top: var(--sp-3);
+  border-top: 1px dotted var(--line-2); font-size: 0.86rem; color: var(--muted); max-width: none;
 }
-.photostage--offer .pcard { border: 1px solid var(--line); }
-.pcard h2 { margin-bottom: var(--space-2); }
-.pcard p:last-of-type { margin-bottom: 0; }
+.ticket__list li.is-free .tline__price { color: var(--brass); }
 
-/* ---------------------------------------------------------------- 5. about (T3) */
+/* Compact variant used inside the hero photograph. */
+.ticket--hero { max-width: 23rem; }
+.ticket--hero .ticket__list > li { padding: 0.62rem 0; }
+.ticket--hero .tline__name { font-size: 0.98rem; }
+.ticket--hero .ticket__foot { font-size: 0.8rem; }
 
-.about blockquote { margin: 0; }
-.about .media { box-shadow: var(--shadow-sm); }
-.sign { font-size: 0.92rem; color: var(--ink-muted); margin-top: var(--space-2); }
-
-/* ---------------------------------------------------------------- 6. quotes (T1 tinted) */
-
-.quotes { display: grid; gap: var(--space-3); }
-@media (min-width: 780px) { .quotes { grid-template-columns: 1fr 1fr; gap: var(--space-4); } }
-.quote {
-  margin: 0; background: var(--surface); border: 1px solid var(--line);
-  border-radius: var(--radius); padding: clamp(1.2rem, 3vw, 1.8rem);
-  box-shadow: var(--shadow-sm);
+/* Full variant: the price-list page, where the ticket IS the page. */
+.ticket--full { padding: clamp(1.4rem, 3.4vw, 2.6rem); max-width: 44rem; }
+.ticket--full .ticket__list > li { padding: clamp(1.05rem, 2.4vw, 1.5rem) 0; }
+.ticket--full .tline__name { font-size: clamp(1.1rem, 1rem + 0.45vw, 1.35rem); }
+.ticket--full .tline__price { font-size: clamp(1.2rem, 1.05rem + 0.6vw, 1.55rem); }
+.ticket--full .ticket__list li.is-free {
+  background: var(--paper-2); border-radius: var(--r);
+  padding-inline: clamp(0.8rem, 2vw, 1.15rem);
+  margin-block: 0.35rem;
 }
+
+/* ================================================================== 1 · hero */
+
+.hero { padding-block: clamp(2.75rem, 6vw, 5.25rem) clamp(3rem, 6vw, 5.5rem); }
+.hero__grid { display: grid; gap: clamp(2.5rem, 6vw, 4rem); align-items: center; }
+
+.hero h1 { margin-bottom: var(--sp-4); }
+.hero h1 .said { display: block; color: var(--slate-soft); font-size: 0.545em; letter-spacing: -0.022em; margin-top: 0.28em; }
+.hero__lede { font-size: var(--fs-1); line-height: 1.55; color: var(--muted); max-width: 40ch; }
+.hero__note {
+  margin-top: var(--sp-4); padding-top: var(--sp-3);
+  border-top: 1px dotted var(--line-2);
+  font-size: var(--fs-sm); color: var(--muted); max-width: 44ch;
+}
+.hero__note b { color: var(--ink); }
+
+.hero__media { position: relative; }
+.hero__figure { border-radius: var(--r-lg); overflow: hidden; background: var(--paper-3); box-shadow: var(--shadow-lg); }
+.hero__figure img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 5; }
+/* Between phone and desktop the column is wide, so a 4:5 crop would run past the
+   fold on its own. Landscape it until the two-column hero takes over. */
+@media (min-width: 601px) and (max-width: 1039px) { .hero__figure img { aspect-ratio: 3 / 2; } }
+.hero .ticket--hero { margin-top: calc(-1 * var(--sp-5)); margin-inline: auto; position: relative; z-index: 2; width: min(100%, 26rem); }
+
+@media (min-width: 1040px) {
+  .hero__grid { grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr); align-items: center; }
+  .hero__media { padding-left: 3.25rem; }
+  .hero__figure img { aspect-ratio: 4 / 5; }
+  .hero .ticket--hero {
+    position: absolute; left: 0; bottom: 2rem; margin: 0;
+    width: min(22.5rem, 100%);
+  }
+}
+@media (min-width: 1240px) {
+  .hero__media { padding-left: 4.5rem; }
+  .hero .ticket--hero { width: 23.5rem; }
+}
+
+/* ================================================================== 2 · fact rail */
+
+.rail { background: var(--paper-2); border-block: 1px solid var(--line); }
+.rail__grid { display: grid; grid-template-columns: 1fr 1fr; }
+.rail__item { padding: clamp(1.4rem, 3vw, 2.05rem) clamp(1rem, 2.4vw, 1.75rem); border-left: 1px dotted var(--line-2); }
+.rail__item:nth-child(odd) { border-left: 0; padding-left: 0; }
+.rail__item:nth-child(n + 3) { border-top: 1px dotted var(--line-2); }
+.rail__v {
+  display: block; font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.55rem, 1.25rem + 1.15vw, 2.15rem); line-height: 1;
+  letter-spacing: -0.03em; color: var(--slate); margin-bottom: 0.45rem;
+}
+.rail__k { display: block; font-size: var(--fs-sm); line-height: 1.45; color: var(--muted); max-width: 26ch; }
+@media (min-width: 900px) {
+  .rail__grid { grid-template-columns: repeat(4, 1fr); }
+  /* :nth-child(odd) above is (0,2,0); a bare `.rail__item` here loses to it and
+     leaves columns 1 and 3 with no rule and no padding. Match the specificity. */
+  .rail__item, .rail__item:nth-child(odd) { border-left: 1px dotted var(--line-2); padding-left: clamp(1rem, 2.4vw, 1.75rem); }
+  .rail__item:first-child { border-left: 0; padding-left: 0; }
+  .rail__item:nth-child(n + 3) { border-top: 0; }
+}
+
+/* ================================================================== 3 · the two calls */
+
+.pair { display: grid; gap: var(--sp-5); }
+@media (min-width: 900px) { .pair { grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 5.5vw, 4.5rem); } }
+.pair__item { border-top: 2px solid var(--ink); padding-top: var(--sp-3); }
+.pair__no {
+  font-family: var(--font-body); font-size: var(--fs-xs); font-weight: 600;
+  letter-spacing: var(--track-label); text-transform: uppercase; color: var(--brass);
+  margin: 0 0 var(--sp-3);
+}
+.pair__item h3 { font-size: clamp(1.3rem, 1.1rem + 0.9vw, 1.85rem); margin-bottom: var(--sp-3); max-width: 20ch; }
+.pair__item > p:not([class]) { color: var(--muted); max-width: 44ch; }
+.pair__ans {
+  margin-top: var(--sp-3); padding-top: var(--sp-3);
+  border-top: 1px dotted var(--line-2); font-size: var(--fs-sm); color: var(--muted); max-width: 46ch;
+}
+.pair__ans b { color: var(--slate); }
+
+/* ================================================================== 4 · services, priced */
+
+.spec { display: grid; gap: var(--sp-5); }
+.spec__head { margin-bottom: 0; }
+@media (min-width: 980px) {
+  .spec { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(3rem, 6vw, 5.5rem); align-items: start; }
+  .spec__head { position: sticky; top: calc(var(--header-h) + 2.25rem); }
+}
+.spec__head .btn-row { margin-top: var(--sp-4); }
+.spec__list { border-top: 2px solid var(--ink); }
+.spec__row {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: clamp(1rem, 3vw, 2.25rem);
+  padding: clamp(1.3rem, 3vw, 1.85rem) 0;
+  border-bottom: 1px dotted var(--line-2);
+}
+.spec__row h3 { grid-column: 1; grid-row: 1; margin: 0 0 0.45rem; font-size: clamp(1.12rem, 1.02rem + 0.45vw, 1.4rem); }
+.spec__price {
+  grid-column: 2; grid-row: 1; margin: 0; text-align: right; align-self: start;
+  font-family: var(--font-display); font-weight: 700; letter-spacing: -0.015em;
+  font-size: clamp(1.18rem, 1.05rem + 0.6vw, 1.55rem); color: var(--slate); white-space: nowrap;
+}
+.spec__price small {
+  display: block; font-family: var(--font-body); font-size: 0.58em; font-weight: 500;
+  letter-spacing: 0.01em; color: var(--muted); margin-top: 0.2rem; white-space: nowrap;
+}
+/* :not() matters — the price is also a <p>, and a bare `.spec__row p` would drag it
+   out of its column. */
+.spec__row p:not(.spec__price) { grid-column: 1 / -1; grid-row: 2; margin: 0; color: var(--muted); max-width: 54ch; }
+@media (min-width: 620px) { .spec__row p:not(.spec__price) { grid-column: 1; } }
+.spec__row.is-free .spec__price { color: var(--brass); }
+
+/* ================================================================== 5 · in the shop */
+
+.strip__grid { display: grid; gap: var(--sp-5); }
+@media (min-width: 820px) {
+  .strip__grid { grid-template-columns: repeat(3, 1fr); gap: clamp(1.25rem, 3vw, 2.25rem); align-items: start; }
+  .strip__fig:nth-child(2) { margin-top: clamp(1.75rem, 4.5vw, 3.75rem); }
+}
+.strip__fig .media { box-shadow: var(--shadow-sm); }
+.strip__fig .media img { transition: transform 800ms var(--ease); }
+.strip__fig:hover .media img { transform: scale(1.04); }
+.strip__fig figcaption { margin-top: var(--sp-3); font-size: var(--fs-sm); line-height: 1.5; color: var(--muted); max-width: 34ch; }
+.strip__fig figcaption b {
+  display: block; font-family: var(--font-display); font-weight: 600;
+  font-size: 1.05rem; letter-spacing: -0.015em; color: var(--ink); margin-bottom: 0.2rem;
+}
+
+/* ================================================================== 6 · pickup & delivery
+   The one section that breaks the container: the photograph runs to the edge of
+   the screen so the page has a genuine change of gear before the reviews. */
+
+.bleed { display: grid; border-top: 1px solid var(--line); background: var(--paper); }
+.bleed__media { background: var(--paper-3); }
+.bleed__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; aspect-ratio: 4 / 3; }
+.bleed__body { padding: var(--section-y) var(--gutter); }
+.bleed__inner { max-width: 36rem; margin-inline: auto; }
+@media (min-width: 960px) {
+  .bleed { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: stretch; border-top: 0; }
+  .bleed__media { position: relative; min-height: 620px; }
+  .bleed__media img { position: absolute; inset: 0; aspect-ratio: auto; }
+  .bleed__body { display: flex; align-items: center; padding: var(--section-y) clamp(2.5rem, 5.5vw, 5rem); }
+  .bleed__inner { margin-inline: 0; }
+}
+
+.steps { display: grid; gap: var(--sp-4); margin-top: var(--sp-4); }
+.steps > li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--sp-3); align-items: start; }
+.steps__n {
+  display: grid; place-items: center; width: 36px; height: 36px; flex: 0 0 36px;
+  border-radius: 50%; border: 1px solid var(--slate); color: var(--slate);
+  font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; line-height: 1;
+}
+.steps h3 { font-size: 1.08rem; margin: 0.25rem 0 0.25rem; letter-spacing: -0.015em; }
+.steps p { margin: 0; color: var(--muted); font-size: var(--fs-sm); max-width: 44ch; }
+.delivery__flag {
+  display: inline-flex; align-items: baseline; gap: 0.5rem; margin-bottom: var(--sp-3);
+  font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em;
+  font-size: clamp(1.05rem, 1rem + 0.35vw, 1.25rem); color: var(--brass);
+}
+.delivery__note {
+  margin-top: var(--sp-4); padding-top: var(--sp-3); border-top: 1px dotted var(--line-2);
+  font-size: var(--fs-sm); color: var(--muted); max-width: 46ch;
+}
+
+/* ================================================================== 7 · reviews */
+
+.quotes { display: grid; gap: var(--sp-5); }
+@media (min-width: 860px) { .quotes { grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 5rem); } }
+.quote { border-top: 1px solid var(--line-slate); padding-top: var(--sp-4); }
 .quote p {
-  margin: 0 0 var(--space-2); font-family: var(--font-display); font-weight: 600;
-  font-size: var(--fs-2); line-height: 1.35; letter-spacing: -0.015em;
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.42rem, 1.1rem + 1.35vw, 2.15rem); line-height: 1.26;
+  letter-spacing: -0.025em; color: var(--on-slate); margin: 0 0 var(--sp-4); max-width: 22ch;
 }
-.quote footer { color: var(--ink-muted); font-size: 0.92rem; }
-
-/* ---------------------------------------------------------------- 7. closing band (T2) */
-
-.closing { border-top: 1px solid var(--line); }
-.closing h2 { margin-bottom: var(--space-2); }
-.closing .lead { color: var(--on-brand); opacity: 0.92; }
-.contact-list { font-style: normal; display: grid; gap: var(--space-2); align-self: start; }
-.contact-list > div {
-  display: grid; gap: 0.15rem; padding-block: 0.7rem;
-  border-top: 1px solid var(--brand-line);
-}
-.contact-list > div:first-child { border-top: 0; padding-top: 0; }
-.contact-list a { text-decoration: underline; text-underline-offset: 3px; }
-.contact-list .eyebrow { margin-bottom: 0; }
-
-/* ---------------------------------------------------------------- footer + sticky bar */
-
-.site-footer .brand { font-size: 1.05rem; margin-bottom: 0.4rem; }
-.site-footer p { max-width: 42ch; }
-.site-footer .demo { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: var(--space-2); font-size: 0.85rem; margin: 0; max-width: none; }
-.cta-bar .btn { font-size: 1.02rem; }
-@media (max-width: 720px) { body.has-cta-bar { padding-bottom: 108px; } }
-.cta-bar__hours { display: block; text-align: center; font-size: 0.78rem; color: var(--ink-muted); margin-top: 0.3rem; }
-
-/* ---------------------------------------------------------------- menu page */
-
-.masthead { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding-block: clamp(2.25rem, 4.5vw, 3.5rem); }
-.masthead h1 { max-width: 22ch; text-wrap: balance; }
-.masthead p { max-width: 46ch; }
-.pagenote { max-width: 46ch; }
-
-/* ---------------------------------------------------------------- skip link */
-
-.skip {
-  position: absolute; left: -9999px; top: 0; z-index: 100;
-  background: var(--surface); color: var(--ink);
-  padding: 0.75rem 1.1rem; border: 2px solid var(--accent-ink);
-  border-radius: 0 0 var(--radius-sm) 0; font-weight: 600; text-decoration: none;
-}
-.skip:focus { left: 0; }
-
-/* --- multipage front door: teaser cards that link to the real pages ---
-   Scoped to .teasers on purpose: the hero price strip is also a .teaser, and an
-   unscoped rule here overrode its grid with display:flex, which killed the
-   two-column strip at 760px and stacked the four prices in one tall column. */
-.teasers { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
-.teasers .teaser { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: clamp(1.25rem, 3vw, 1.75rem); display: flex; flex-direction: column; gap: 0.6rem; box-shadow: var(--shadow-sm); max-width: none; margin-top: 0; }
-.teasers .teaser h3 { margin: 0; font-size: var(--fs-2); }
-.teasers .teaser p { margin: 0; color: var(--ink-muted); }
-.teasers .teaser p:last-child { margin-top: auto; padding-top: 0.35rem; }
-/* --ink is the one colour guaranteed to be legible on --surface on every palette. The accent is
-   a FILL and measured 2.7:1 as link text on dark cards. Underline carries the affordance. */
-.teaser__link { font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
-.teaser__link:hover { text-decoration: underline; }
-
-/* On a saturated brand band an accent-filled button can sit under 2:1 against the band and read as
-   a coloured block rather than a control (WCAG 1.4.11 wants 3:1). A rim in the band's own text
-   colour guarantees the boundary whatever the two fills happen to be. */
-/* Self-contained closing CTA. The first version reused .section--brand and assumed it paints a
-   --brand background; on sites where that class means something else, --on-brand text landed on the
-   page colour at 1.18:1. Setting both sides here guarantees the pair always matches. */
-.cta-band { background: var(--brand); color: var(--on-brand); padding-block: var(--section-y); }
-.cta-band h2 { color: var(--on-brand); margin-top: 0; }
-.cta-band p { margin-bottom: 0; }
-.cta-band .btn--primary { background: var(--on-brand); color: var(--brand); border: 1px solid var(--on-brand); }
-.cta-band .btn--ghost { color: var(--on-brand); border: 1px solid var(--on-brand); background: transparent; }
-
-
-/* ---------- Duna Marketing sample-site bar ---------- */
-:root { --duna-h: 48px; }
-.duna-bar {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
-  box-sizing: border-box; min-height: var(--duna-h);
-  display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap;
-  padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom));
-  background: #003087; color: #FFFFFF;
-  font-family: var(--font-body); font-size: 0.85rem; line-height: 1.3; text-align: center;
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.18);
-}
-.duna-bar__btn {
-  background: #C8102E; color: #FFFFFF; border: 1px solid #FFFFFF;
-  border-radius: 6px; padding: 0.4rem 0.95rem; font-weight: 700; font-size: 0.85rem;
-  text-decoration: none; white-space: nowrap;
-}
-.duna-bar__btn:hover, .duna-bar__btn:focus-visible { background: #A50D25; }
-body { padding-bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
-@media (max-width: 720px) {
-  .cta-bar { bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
-  body.has-cta-bar { padding-bottom: calc(84px + var(--duna-h)); }
+.quote footer {
+  font-family: var(--font-body); font-size: var(--fs-xs); font-weight: 600;
+  letter-spacing: var(--track-label); text-transform: uppercase; color: rgba(247, 244, 237, 0.66);
 }
 
-/* Subpage headline needs air under the sticky header — and the same tinted band and
-   vertical rhythm as the masthead on the price-list page, so subpages open alike. */
-.page-hero {
-  background: var(--bg-alt); border-bottom: 1px solid var(--line);
-  padding-block: clamp(2.25rem, 4.5vw, 3.5rem);
+/* ================================================================== 8 · questions */
+
+.faq { border-top: 2px solid var(--ink); }
+.faq__item { padding: clamp(1.35rem, 3vw, 1.95rem) 0; border-bottom: 1px dotted var(--line-2); display: grid; gap: 0.5rem; }
+@media (min-width: 820px) {
+  .faq__item { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
 }
-.page-hero h1 { max-width: 20ch; text-wrap: balance; }
-.page-hero .lead { max-width: 46ch; margin-bottom: 0; }
+.faq__item h3 { margin: 0; font-size: clamp(1.08rem, 1rem + 0.35vw, 1.28rem); max-width: 26ch; }
+.faq__item p { margin: 0; color: var(--muted); max-width: 56ch; }
+
+/* ================================================================== 9 · the other pages */
+
+.doors { display: grid; gap: var(--sp-4); }
+@media (min-width: 780px) { .doors { grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 2.75rem); } }
+.door {
+  display: block; text-decoration: none; color: inherit; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.door:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--line-2); }
+.door .media { border-radius: 0; }
+.door .media img { transition: transform 800ms var(--ease); }
+.door:hover .media img { transform: scale(1.045); }
+.door__body { padding: clamp(1.25rem, 3vw, 1.85rem); }
+.door h3 { margin: 0 0 0.5rem; }
+.door p { color: var(--muted); margin: 0 0 var(--sp-3); }
+.door__go { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; color: var(--slate); }
+.door:hover .arw { transform: translateX(3px); }
+.arw { display: inline-block; transition: transform var(--dur) var(--ease); }
+
+/* ================================================================== 10 · closing */
+
+.closing__grid { display: grid; gap: var(--sp-5); align-items: start; }
+@media (min-width: 900px) { .closing__grid { grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr); gap: clamp(2.5rem, 6vw, 5rem); } }
+.contact { font-style: normal; display: grid; }
+.contact > div { display: grid; gap: 0.15rem; padding-block: var(--sp-3); border-top: 1px solid var(--line-slate); }
+.contact > div:first-child { border-top: 0; padding-top: 0; }
+.contact .eyebrow { margin-bottom: 0.2rem; }
+.contact a, .contact span:not(.eyebrow) { font-size: 1.05rem; color: var(--on-slate); }
+.contact a { text-decoration: none; border-bottom: 1px solid rgba(247, 244, 237, 0.35); width: fit-content; }
+.contact a:hover { border-bottom-color: var(--on-slate); }
+
+/* ================================================================== subpages */
+
+.phero {
+  background: var(--paper-2); border-bottom: 1px solid var(--line);
+  padding-block: clamp(2.75rem, 5.5vw, 4.5rem) clamp(2.5rem, 5vw, 3.75rem);
+}
+.phero h1 { max-width: 17ch; }
+.phero .lead { max-width: 52ch; margin-bottom: 0; }
+.phero__meta {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin-top: var(--sp-4);
+  padding-top: var(--sp-3); border-top: 1px dotted var(--line-2);
+  font-size: var(--fs-sm); color: var(--muted);
+}
+.phero__meta b { color: var(--ink); }
+
+/* Full-width photograph with a ruled caption under it — the page's one image
+   that is allowed to touch both edges of the screen. */
+.photoband { background: var(--paper-3); }
+.photoband__img { width: 100%; height: clamp(240px, 32vw, 440px); object-fit: cover; object-position: 50% 60%; }
+.photoband figcaption {
+  background: var(--paper); border-bottom: 1px solid var(--line);
+  padding-block: var(--sp-3); font-size: var(--fs-sm); color: var(--muted);
+}
+.photoband figcaption .container { display: block; }
+.photoband figcaption b { font-family: var(--font-display); font-weight: 600; font-size: 1.02rem; color: var(--ink); }
+
+/* Price-list page: the ticket, with a column of notes beside it. */
+.prices { display: grid; gap: var(--sp-5); align-items: start; }
+@media (min-width: 980px) {
+  .prices { grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr); gap: clamp(2.5rem, 6vw, 4.5rem); }
+  .prices__aside { position: sticky; top: calc(var(--header-h) + 2.25rem); }
+}
+.prices__aside .callout {
+  border-left: 2px solid var(--brass); padding-left: var(--sp-3); margin-bottom: var(--sp-4);
+}
+.prices__aside .callout .eyebrow { color: var(--brass); }
+.prices__aside .callout p:not(.eyebrow) { margin: 0; color: var(--muted); }
+.prices__aside .btn { width: 100%; }
+
+/* Three notes / three years — a shared ruled triptych. */
+.triptych { display: grid; gap: var(--sp-4); border-top: 2px solid var(--ink); padding-top: var(--sp-4); }
+@media (min-width: 820px) { .triptych { grid-template-columns: repeat(3, 1fr); gap: clamp(1.75rem, 4vw, 3rem); } }
+.tri__k {
+  font-family: var(--font-body); font-size: var(--fs-xs); font-weight: 600;
+  letter-spacing: var(--track-label); text-transform: uppercase; color: var(--brass); margin: 0 0 var(--sp-2);
+}
+.tri__n {
+  font-family: var(--font-display); font-weight: 600; font-size: var(--fs-num); line-height: 1;
+  letter-spacing: -0.035em; color: var(--slate); margin: 0 0 var(--sp-3);
+}
+.triptych h3 { font-size: 1.12rem; margin: 0 0 0.35rem; }
+/* Only the unclassed body paragraph — `.triptych p` on its own outranks .tri__n
+   and .tri__k and flattens both of them to body copy. */
+.triptych p:not([class]) { margin: 0; color: var(--muted); font-size: var(--fs-sm); max-width: 40ch; }
+
+/* The promise, set as the page's largest line. */
+.promise p {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(1.6rem, 1.05rem + 2.4vw, 3rem); line-height: 1.18;
+  letter-spacing: -0.03em; color: var(--ink); margin: 0; max-width: 19ch;
+}
+.promise .cite {
+  margin-top: var(--sp-4); font-family: var(--font-body); font-size: var(--fs-xs);
+  font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--muted);
+}
+.sign { font-size: var(--fs-sm); color: var(--muted); margin-top: var(--sp-4); }
+
+/* Story column on the about page. */
+.story p + p:not([class]) { margin-top: var(--sp-3); }
+.story .pull {
+  margin: var(--sp-4) 0; padding-left: var(--sp-3); border-left: 2px solid var(--brass);
+  font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.3;
+  letter-spacing: -0.02em; color: var(--ink); max-width: 26ch;
+}
