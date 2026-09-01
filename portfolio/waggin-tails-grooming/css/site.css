@@ -1,5 +1,10 @@
 /* site.css — everything specific to Waggin' Tails Grooming. Tokens live in tokens.css. */
 
+/* The base --accent green clears 4.5:1 against pure white but falls to ~4.2:1 on this site's
+   sky-tinted panels (--bg / --bg-alt), which is where most eyebrows actually sit. Use the darker
+   hover step for eyebrow text specifically; buttons keep the brighter --accent. */
+.eyebrow { color: var(--accent-hover); }
+
 /* --- Header brand mark --- */
 .brand__dot { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--brand); color: var(--on-brand); font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; }
 .site-header .brand { font-weight: 600; }
@@ -16,13 +21,15 @@
 .hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 32%; }
 .hero::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(8,24,36,0.20) 0%, rgba(8,24,36,0.38) 45%, rgba(8,24,36,0.82) 100%);
+  background: linear-gradient(180deg, rgba(8,24,36,0.42) 0%, rgba(8,24,36,0.58) 45%, rgba(8,24,36,0.90) 100%);
 }
+.hero .btn--primary { border: 1px solid rgba(255,255,255,0.8); }
 .hero .container { position: relative; z-index: 1; padding-block: clamp(2.5rem, 6vw, 4.5rem); }
 .hero__inner { max-width: 40rem; }
 .hero h1 { color: #fff; margin-bottom: var(--space-2); }
 .hero .lead { color: rgba(255,255,255,0.94); max-width: 34ch; }
-.hero__eyebrow { color: #fff; background: rgba(255,255,255,0.16); padding: 0.35rem 0.75rem; border-radius: 999px; backdrop-filter: blur(2px); }
+/* The photo's walls run light behind this pill; a darker fill keeps the white label at 4.5:1. */
+.hero__eyebrow { color: #fff; background: rgba(8,24,36,0.55); padding: 0.35rem 0.75rem; border-radius: 999px; backdrop-filter: blur(2px); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-top: var(--space-3); }
 .hero__actions .btn--ghost { color: #fff; border-color: rgba(255,255,255,0.75); }
 .hero__actions .btn--ghost:hover { background: rgba(255,255,255,0.15); }
@@ -81,18 +88,20 @@
 .contact-list .eyebrow { color: rgba(255,255,255,0.8); margin: 0; }
 .contact-list a { color: var(--on-brand); font-weight: 700; }
 
-/* --- Gallery --- */
-.gallery-grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(2, 1fr); }
+/* --- Gallery ---
+   All three source photos are landscape, so the earlier tall-spanning-cell layout (built for a
+   portrait photo) forced a short image to stretch across two grid-auto-rows and collapsed the
+   sibling figure's caption to zero height. Plain equal-height cards fit the photos we actually have. */
+.gallery-grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
 .gallery-grid figure { margin: 0; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); background: var(--surface); }
+.gallery-grid .media-ratio { aspect-ratio: 4 / 3; overflow: hidden; }
 .gallery-grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.gallery-grid .g-tall { grid-row: span 2; }
 .gallery-grid figcaption { padding: 0.7rem 0.9rem; color: var(--ink-muted); font-size: 0.95rem; }
-@media (max-width: 620px) { .gallery-grid { grid-template-columns: 1fr; } .gallery-grid .g-tall { grid-row: auto; } }
 
 /* --- Page hero (services / gallery) --- */
 .pagehead { background: var(--bg-sky); border-bottom: 1px solid var(--line); }
 .pagehead .container { padding-block: clamp(2.5rem, 5vw, 4rem); }
-.pagehead .eyebrow { color: var(--accent); }
+.pagehead .eyebrow { color: var(--accent-hover); }
 
 /* --- Hours pill --- */
 .hours-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--bg-sky); color: var(--brand-deep); font-weight: 700; padding: 0.5rem 0.9rem; border-radius: 999px; }
