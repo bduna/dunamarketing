@@ -50,6 +50,9 @@ p { max-width: var(--measure); }
 .btn--primary:hover, .btn--primary:focus-visible { background: var(--accent-hover); }
 .btn--ghost { border-width: 2px; }
 
+/* Subpage headline sits flush under the sticky header otherwise. */
+.page-hero { padding-top: 25px; }
+
 /* ---------- hero (T5 — bright photo, near-black contained card) ---------- */
 .hero.photostage { min-height: clamp(520px, 76vh, 700px); }
 .hero .photostage__img { object-position: 50% 70%; }
