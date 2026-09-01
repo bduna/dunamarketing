@@ -134,7 +134,6 @@ a.duna-bar, a.duna-bar:visited {
   cursor: pointer; transition: background 0.15s ease;
 }
 a.duna-bar:hover, a.duna-bar:focus-visible { background: rgba(25, 28, 35, 0.84); }
-.duna-bar__txt b { text-decoration: underline; text-underline-offset: 3px; }
 .duna-bar__copy {
   justify-self: start; font-size: 0.76rem; letter-spacing: 0.01em;
   color: rgba(255, 255, 255, 0.85);   /* 5.42:1 on the bar over even a white page */
@@ -156,11 +155,15 @@ a.duna-bar:hover, a.duna-bar:focus-visible { background: rgba(25, 28, 35, 0.84);
   transition: background 0.15s ease, color 0.15s ease;
 }
 a.duna-bar:hover .duna-bar__btn { background: #FFFFFF; color: #14171E; }
+/* Mobile: the button is the only thing that matters — drop the copyright and the tagline so
+   the bar is one unambiguous tap target. */
+@media (max-width: 720px) { .duna-bar__copy, .duna-bar__note { display: none; } }
+
 body { padding-bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
 /* Mobile: the button is the only thing that matters — drop the copyright and the tagline so
    the bar is one unambiguous tap target. 720px is the same breakpoint at which each site's
    own .cta-bar appears, so 'mobile' means one thing across the whole bar. */
-@media (max-width: 720px) { .duna-bar__copy, .duna-bar__note { display: none; } }
+
 @media (max-width: 720px) {
   .cta-bar { bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
   body.has-cta-bar { padding-bottom: calc(84px + var(--duna-h)); }
