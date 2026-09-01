@@ -37,11 +37,6 @@ fbq('track', 'PageView');
     --red:#C8102E; --red-dark:#a50d25; --bg:#f7f8fa; --card:#ffffff;
   }
   * { box-sizing:border-box; }
-  /* The centered content is already dead-center relative to the document, but on a desktop browser
-     with a classic (non-overlay) scrollbar, the scrollbar eats space from the right edge only —
-     shifting everything centered visibly left by half its width. Reserving equal gutters on both
-     sides makes the page truly centered in the full window, scrollbar or not. */
-  html { scrollbar-gutter: stable both-edges; }
   html,body { margin:0; height:100%; }
   body {
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
