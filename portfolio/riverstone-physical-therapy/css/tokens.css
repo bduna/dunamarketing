@@ -5,18 +5,18 @@
    --accent is 2.92:1 on --bg: fills only, never small text. Small text uses --accent-ink.
    --on-accent is deliberately DARK on the rust fill. Not inverted. */
 :root {
-  --bg: #E8F5F0;
-  --bg-alt: #D7EDE5;
+  --bg: #EFEDF6;
+  --bg-alt: #DFDCEE;
   --surface: #FFFFFF;
-  --ink: #182A24;
-  --ink-muted: #4E675E;
-  --line: #D1DED9;
-  --brand: #1E523F;
-  --on-brand: #E8F5F0;
+  --ink: #1D1B2B;
+  --ink-muted: #565173;
+  --line: #D6D2E4;
+  --brand: #2E2A55;
+  --on-brand: #EFEDF6;
   --accent: #E46B25;
-  --accent-hover: #EA7D3E;
-  --on-accent: #182A24;
-  --accent-ink: #A54D1B;
+  --accent-hover: #C9581A;
+  --on-accent: #FFFFFF;
+  --accent-ink: #8F4216;
 
   /* derived (site-specific, not from the assignment) */
   --brand-deep: #143528;                       /* footer/edge tint of --brand */
