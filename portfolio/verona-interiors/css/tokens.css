@@ -2,14 +2,14 @@
    Palette: brief.assigned.palette, copied verbatim (family: tinted lavender). Do not re-derive. */
 :root {
   /* --- assigned palette, copied verbatim, exact hex --- */
-  --bg: #F4F1E8;               /* 60: tinted lavender base */
-  --bg-alt: #E9E4D4;           /* tinted panel */
+  --bg: #F8EBDA;               /* 60: tinted lavender base */
+  --bg-alt: #F1DEC2;           /* tinted panel */
   --surface: #FFFFFF;          /* cards, price panel */
-  --ink: #1E2A22;              /* body text */
-  --ink-muted: #55645A;        /* secondary text */
-  --line: #DCD6C2;             /* hairlines */
-  --brand: #24422F;            /* 30: plum band, wordmark mark */
-  --on-brand: #F4F1E8;         /* on the plum band */
+  --ink: #2C2019;              /* body text */
+  --ink-muted: #6B5646;        /* secondary text */
+  --line: #E5D3B8;             /* hairlines */
+  --brand: #8F4025;            /* 30: plum band, wordmark mark */
+  --on-brand: #F8EBDA;         /* on the plum band */
   --accent: #B05C3A;           /* 10: the one accent — antique brass. Buttons only. */
   --accent-hover: #96482C;     /* lighter brass on hover; on-accent ink still 8.37:1 */
   --on-accent: #FFFFFF;        /* dark ink on brass — 7.48:1. The accent is BRIGHT; never invert this. */
