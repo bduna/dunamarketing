@@ -2,6 +2,11 @@
    Signature: "the rack" — short vertical accent ticks, taken from the hero photograph of skis
    standing end-on in a shop rack. It appears at three scales and nowhere else does decoration. */
 
+/* Subpage headline: 25px of air under the header, and the section beneath it pulled
+   20px closer (the h1's own 16px margin carries the rest of the gap). */
+.page-hero { padding-top: 25px; }
+.page-hero + .section { padding-top: 35px; }
+
 /* ---------- global tuning ---------- */
 h1, h2, h3 { letter-spacing: -0.025em; font-weight: 700; }
 h1 { letter-spacing: -0.035em; }
