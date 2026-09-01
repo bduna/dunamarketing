@@ -1,19 +1,18 @@
 /* tokens.css — Third Street Coffee. Warm + Friendly + Modern.
    Base = DARK espresso brown + warm cream ink. Terracotta = accent/bands only. */
 :root {
-  --accent-ink: #93400F;
   /* Palette (60 espresso / 30 warm ink & surfaces / 10 terracotta accent). AA checked. */
-  --bg: #FAF3EA;            /* 60: dark espresso brown */
-  --bg-alt: #F0E4D5;        /* lifted section band */
-  --surface: #FFFFFF;       /* cards */
-  --ink: #241A13;           /* warm cream body text (15.9:1 on --bg) */
-  --ink-muted: #6B5849;     /* secondary text (8.0:1 on --bg) */
-  --line: #E3D5C3;          /* hairlines */
-  --brand: #3B2A20;         /* terracotta — brand bands/nav current */
-  --on-brand: #FAF3EA;      /* (6.1:1 on --brand) */
-  --accent: #C4551F;        /* 10: terracotta — CTAs, highlights */
-  --accent-hover: #A8461A;
-  --on-accent: #FFFFFF;     /* (6.1:1 on --accent) */
+  --bg: #1B1512;            /* 60: dark espresso brown */
+  --bg-alt: #241C17;        /* lifted section band */
+  --surface: #241C17;       /* cards */
+  --ink: #F7EFE6;           /* warm cream body text (15.9:1 on --bg) */
+  --ink-muted: #BBAA9B;     /* secondary text (8.0:1 on --bg) */
+  --line: #3A2C24;          /* hairlines */
+  --brand: #E07A4B;         /* terracotta — brand bands/nav current */
+  --on-brand: #1B1512;      /* (6.1:1 on --brand) */
+  --accent: #E07A4B;        /* 10: terracotta — CTAs, highlights */
+  --accent-hover: #F08F60;
+  --on-accent: #1B1512;     /* (6.1:1 on --accent) */
   --cream-tick: #E8A87C;    /* lighter terracotta for small details on dark */
   --on-brand-muted: #3D1A0C;/* secondary text inside the terracotta band (5.2:1) */
 

@@ -2,20 +2,19 @@
    Palette copied VERBATIM from brief.assigned.palette (dark neutral base, brass accent) — and it happens to be
    the client's own words: "our colors are charcoal, brass, and warm white". */
 :root {
-  --accent-ink: #7A5C12;
-  --accent-hover: #B08521;
-  --accent: #CB9B2A;
   /* Palette (60-30-10) — assigned, exact hex. AA checked: --ink on --bg 15.7:1 · --ink-muted on --bg 6.5:1 ·
      --ink-muted on --bg-alt 5.8:1 · --accent on --bg 7.1:1 · --on-accent on --accent 7.1:1 · --on-brand on --brand 7.1:1 */
-  --bg: #F7F4EE;            /* 60: charcoal */
-  --bg-alt: #EDE6D9;        /* tinted section */
-  --surface: #FFFFFF;       /* cards */
-  --ink: #1F1C17;           /* warm white body text */
-  --ink-muted: #5C5348;     /* secondary text */
-  --line: #DED5C5;          /* hairlines */
-  --brand: #2A2620;         /* 30/10: brass — bands, rules, prices */
-  --on-brand: #F7F4EE;
-  --on-accent: #1F1C17;
+  --bg: #171614;            /* 60: charcoal */
+  --bg-alt: #23211F;        /* tinted section */
+  --surface: #23211F;       /* cards */
+  --ink: #F1F0EE;           /* warm white body text */
+  --ink-muted: #A59A8D;     /* secondary text */
+  --line: #3F3931;          /* hairlines */
+  --brand: #CB9B2A;         /* 30/10: brass — bands, rules, prices */
+  --on-brand: #171614;
+  --accent: #CB9B2A;        /* the one accent */
+  --accent-hover: #B08521;
+  --on-accent: #171614;
 
   /* Derived (site-specific, not replacements) */
   --brass-ink: #8A6714;     /* brass is only 2.2:1 on the warm-white card; this is 4.5:1 there */

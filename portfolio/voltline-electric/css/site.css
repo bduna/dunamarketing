@@ -7,8 +7,8 @@
 /* --- Hero: charcoal photo band, text overlaid, call-first --- */
 .hero {
   position: relative;
-  background: var(--bg);
-  color: var(--ink);
+  background: var(--brand);
+  color: var(--on-brand);
   overflow: hidden;
 }
 .hero__media { position: absolute; inset: 0; }
@@ -16,13 +16,13 @@
 .hero__scrim {
   position: absolute; inset: 0;
   background:
-    linear-gradient(90deg, rgba(251,251,252,0.95) 0%, rgba(251,251,252,0.88) 46%, rgba(251,251,252,0.50) 100%),
-    linear-gradient(0deg, rgba(251,251,252,0.72) 0%, rgba(251,251,252,0) 55%);
+    linear-gradient(90deg, rgba(20,22,27,0.94) 0%, rgba(20,22,27,0.82) 46%, rgba(20,22,27,0.42) 100%),
+    linear-gradient(0deg, rgba(20,22,27,0.65) 0%, rgba(20,22,27,0) 55%);
 }
 .hero .container { position: relative; z-index: 1; }
 .hero__inner { max-width: 40rem; padding-block: clamp(3.5rem, 8vw, 7rem); }
 .hero h1 { margin-bottom: var(--space-3); text-wrap: balance; }
-.hero .lead { color: var(--ink-muted); }
+.hero .lead { color: rgba(255,255,255,0.86); }
 .hero__actions {
   display: flex; flex-wrap: wrap; gap: var(--space-2);
   align-items: center; margin-top: var(--space-3);
@@ -30,7 +30,7 @@
 .hero__hours {
   display: inline-flex; align-items: center; gap: 0.5rem;
   margin-top: var(--space-3); font-size: 0.95rem;
-  color: var(--ink-muted); font-weight: 600;
+  color: rgba(255,255,255,0.82); font-weight: 600;
 }
 .hero__hours .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
 
