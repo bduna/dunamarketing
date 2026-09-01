@@ -1,17 +1,18 @@
 /* tokens.css — Anchor Realty Co. — brass on deep navy. Sleek · Serious · Classic. */
 :root {
+  --accent-ink: #7C6222;
   /* Palette (60-30-10). AA checked: --ink on --bg ~15:1; --ink-muted on --bg ~7.4:1; --on-accent on --accent ~6.9:1 */
-  --bg: #0e1c2c;            /* 60: deep navy base */
-  --bg-alt: #142536;        /* tinted section background */
-  --surface: #142536;       /* cards / raised panels */
-  --ink: #eff3f8;           /* body text — near-white, cool */
-  --ink-muted: #9fb0c1;     /* secondary text */
-  --line: #22394f;          /* hairlines */
-  --brand: #c0a062;         /* 30: brass — bands, page heroes */
-  --on-brand: #0e1c2c;
-  --accent: #c0a062;        /* 10: brass — CTAs, rules, labels */
-  --accent-hover: #d6b87c;
-  --on-accent: #0e1c2c;     /* deep navy text on brass buttons */
+  --bg: #F4F7FA;            /* 60: deep navy base */
+  --bg-alt: #E5ECF3;        /* tinted section background */
+  --surface: #FFFFFF;       /* cards / raised panels */
+  --ink: #12212F;           /* body text — near-white, cool */
+  --ink-muted: #4E6070;     /* secondary text */
+  --line: #D4DEE8;          /* hairlines */
+  --brand: #0E1C2C;         /* 30: brass — bands, page heroes */
+  --on-brand: #F4F7FA;
+  --accent: #8A6E28;        /* 10: brass — CTAs, rules, labels */
+  --accent-hover: #705A1F;
+  --on-accent: #FFFFFF;     /* deep navy text on brass buttons */
 
   /* Type — Cormorant Garamond (display) + Inter (body), loaded in <head> */
   --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;

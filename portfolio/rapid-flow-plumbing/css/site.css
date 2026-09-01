@@ -12,7 +12,7 @@
 /* ---------- Hero: full-bleed pipe photo, navy overlay, white text ---------- */
 .hero {
   position: relative;
-  color: #fff;
+  color: var(--ink);
   isolation: isolate;
   min-height: clamp(460px, 68vh, 640px);
   display: flex;
@@ -32,13 +32,13 @@
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(90deg, rgba(9, 32, 51, 0.94) 0%, rgba(9, 32, 51, 0.82) 46%, rgba(9, 32, 51, 0.45) 100%),
-    linear-gradient(0deg, rgba(9, 32, 51, 0.75) 0%, rgba(9, 32, 51, 0.1) 55%);
+    linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.88) 46%, rgba(255, 255, 255, 0.55) 100%),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.15) 55%);
 }
 .hero .container { padding-block: var(--space-5); }
 .hero__inner { max-width: 42rem; }
-.hero h1 { color: #fff; margin-bottom: var(--space-3); }
-.hero__lede { color: #e7eef4; font-size: var(--fs-1); max-width: 40ch; }
+.hero h1 { color: var(--ink); margin-bottom: var(--space-3); }
+.hero__lede { color: var(--ink-muted); font-size: var(--fs-1); max-width: 40ch; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); align-items: center; }
 .hero__hours {
   margin-top: var(--space-3);

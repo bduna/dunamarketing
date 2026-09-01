@@ -18,7 +18,7 @@ strong, b { font-weight: 600; }
 .hours::before { content: ""; width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; background: var(--brand); }
 
 /* ── Header ─────────────────────────────────────────────────────────────── */
-.site-header { background: rgba(23, 22, 20, 0.93); border-bottom: 1px solid var(--line); }
+.site-header { background: rgba(247, 244, 238, 0.94); border-bottom: 1px solid var(--line); }
 .brand { color: var(--ink); font-weight: 600; font-size: 1.06rem; letter-spacing: 0.06em; text-transform: uppercase; gap: 0.55rem; }
 .brand__mark { width: 32px; height: 32px; flex: 0 0 auto; }
 .nav { gap: var(--space-3); }

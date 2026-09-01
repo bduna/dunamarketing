@@ -1,17 +1,18 @@
 /* tokens.css — North Light Photography. Sleek · Calm · Modern. Editorial black + warm ivory. */
 :root {
+  --accent-ink: #7A5F28;
   /* Palette (60-30-10). ink on bg ≈ 16:1, ink-muted on bg ≈ 7.2:1, on-brand on brand ≈ 16:1, on-accent on accent ≈ 7.4:1 */
-  --bg: #131417;            /* 60: editorial black */
-  --bg-alt: #1A1C20;        /* raised band */
-  --surface: #1A1C20;       /* cards / raised */
-  --ink: #F2F0EB;           /* warm ivory body text */
-  --ink-muted: #A5A29B;     /* secondary text */
-  --line: #2C2F34;          /* hairline */
-  --brand: #F2F0EB;         /* 30: ivory — a LIGHT band on the dark page */
-  --on-brand: #131417;
-  --accent: #C2A15C;        /* 10: muted brass — eyebrows, details, focus */
-  --accent-hover: #D8B978;
-  --on-accent: #131417;
+  --bg: #F8F8F7;            /* 60: editorial black */
+  --bg-alt: #ECECEA;        /* raised band */
+  --surface: #FFFFFF;       /* cards / raised */
+  --ink: #17181A;           /* warm ivory body text */
+  --ink-muted: #55575B;     /* secondary text */
+  --line: #DEDEDC;          /* hairline */
+  --brand: #17181A;         /* 30: ivory — a LIGHT band on the dark page */
+  --on-brand: #F8F8F7;
+  --accent: #8A6D2E;        /* 10: muted brass — eyebrows, details, focus */
+  --accent-hover: #705823;
+  --on-accent: #FFFFFF;
 
   /* Type — Cormorant Garamond (display) + Inter (body/labels) */
   --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;

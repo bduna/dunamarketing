@@ -25,16 +25,16 @@ h2 { margin-bottom: var(--space-2); }
 .hero::after {
   content: ""; position: absolute; inset: 0; z-index: -1;
   background:
-    linear-gradient(105deg, rgba(5,12,20,0.94) 0%, rgba(5,12,20,0.86) 46%, rgba(5,12,20,0.52) 100%),
-    linear-gradient(0deg, rgba(5,12,20,0.72), rgba(5,12,20,0.30));
+    linear-gradient(105deg, rgba(244,247,250,0.95) 0%, rgba(244,247,250,0.88) 46%, rgba(244,247,250,0.55) 100%),
+    linear-gradient(0deg, rgba(244,247,250,0.72), rgba(244,247,250,0.32));
 }
 .hero .container { padding-block: clamp(4.5rem, 12vw, 9rem); }
 .hero__inner { max-width: 40rem; }
-.hero .eyebrow { color: var(--accent); }
-.hero h1 { color: #ffffff; margin-bottom: var(--space-3); }
-.hero__lede { color: #d5dfea; font-size: var(--fs-1); max-width: 34rem; }
+.hero .eyebrow { color: var(--accent-ink); }
+.hero h1 { color: var(--ink); margin-bottom: var(--space-3); }
+.hero__lede { color: var(--ink-muted); font-size: var(--fs-1); max-width: 34rem; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); align-items: center; }
-.hero .btn--ghost { color: #ffffff; border-color: rgba(255,255,255,0.62); }
+.hero .btn--ghost { color: var(--ink); border-color: rgba(18,33,47,0.45); }
 /* dark base: the shared ghost hover (a 5% black wash) is invisible — lighten it instead */
 .btn--ghost:hover, .btn--ghost:focus-visible { background: rgba(255,255,255,0.12); }
 
