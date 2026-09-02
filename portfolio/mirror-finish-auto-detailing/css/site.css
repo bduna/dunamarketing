@@ -133,10 +133,12 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 @media (max-width: 720px) {
   /* A phone-width band cropped the photo to a sliver and then covered it with the card. Stack
      instead: the whole frame, then the same words on the brand band underneath. */
-  .band { min-height: 0; }
-  .band img { position: static; width: 100%; height: auto; }
-  .band__scrim { display: none; }
-  .band__caption { position: static; width: 100%; max-width: none; padding-inline: var(--gutter); background: var(--brand); }
+  /* Image and scrim share one grid cell, so the tint covers the photo exactly and stops where it
+     ends — the caption sits in the row beneath, untinted. */
+  .band { min-height: 0; display: grid; grid-template-rows: auto auto; }
+  .band img { grid-area: 1 / 1; position: static; width: 100%; height: auto; }
+  .band__scrim { grid-area: 1 / 1; position: static; }
+  .band__caption { grid-area: 2 / 1; position: static; width: 100%; max-width: none; padding-inline: var(--gutter); background: var(--brand); }
   .band__caption > div { padding-block: var(--space-3); max-width: none; }
   .band .pcard { background: transparent; border: 0; box-shadow: none; padding-inline: 0; }
 }
