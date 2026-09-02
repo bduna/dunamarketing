@@ -114,7 +114,15 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 /* T5, not T4: the band photo stays bright and the words sit in a contained card. Darkening the whole
    frame is the habit mappings/section-treatments.md caps at 1-2 sections a site, and the hero already
    spends that budget. The card also holds its own contrast over a foam-covered panel. */
-.band__scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,18,24,0.30), rgba(15,18,24,0) 62%); }
+/* Same tint as the hero: a deep navy diagonal wash, a vertical darkener, and the blue glow —
+   a shade lighter here so the bumper still reads through it. */
+.band__scrim {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(closest-side at 84% 38%, rgba(46,155,255,0.30), transparent 72%),
+    linear-gradient(100deg, rgba(15,18,24,0.88) 0%, rgba(18,22,30,0.64) 46%, rgba(18,22,30,0.26) 100%),
+    linear-gradient(0deg, rgba(12,15,20,0.55), rgba(12,15,20,0.15));
+}
 .pcard { background: rgba(18,22,28,0.90); border: 1px solid rgba(244,246,249,0.16); box-shadow: var(--shadow); padding-inline: var(--space-4); }
 .pcard .eyebrow { color: var(--accent-bright); }
 .pcard small { color: var(--brand-muted); }
