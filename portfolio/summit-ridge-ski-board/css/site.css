@@ -6,6 +6,8 @@
    20px closer (the h1's own 16px margin carries the rest of the gap). */
 .page-hero { padding-top: 25px; }
 .page-hero + .section { padding-top: 35px; }
+.page-hero h1 { margin-bottom: 0.75rem; }
+.page-hero .lead { max-width: 42rem; margin: 0; }
 
 /* ---------- global tuning ---------- */
 h1, h2, h3 { letter-spacing: -0.025em; font-weight: 700; }
@@ -280,12 +282,14 @@ strong { font-weight: 700; }
 }
 .ratesgroup > h2::before { content: ""; width: 3px; height: 0.95em; background: var(--accent); flex: none; }
 
-/* notes list */
+/* notes list — and the four-up variant the homepage rate glance uses */
 .notes { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-3); }
 @media (min-width: 780px) { .notes { grid-template-columns: repeat(2, 1fr); } }
 .notes li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3); }
 .notes b { font-family: var(--font-display); display: block; font-size: 1.1rem; margin-bottom: 0.3rem; }
 .notes span { color: var(--ink-muted); }
+@media (min-width: 1020px) { .notes--4 { grid-template-columns: repeat(4, 1fr); } }
+.glance .notes b { font-size: var(--fs-2); color: var(--accent-ink); font-variant-numeric: tabular-nums; }
 
 /* tap targets ≥ 44px */
 .nav-toggle { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
@@ -316,6 +320,9 @@ strong { font-weight: 700; }
 .cta-band p { margin-bottom: 0; }
 .cta-band .btn--primary { background: var(--on-brand); color: var(--brand); border: 1px solid var(--on-brand); }
 .cta-band .btn--ghost { color: var(--on-brand); border: 1px solid var(--on-brand); background: transparent; }
+.cta-band .cta-band__lead { max-width: 40rem; margin: 0 0 var(--space-3); color: var(--on-brand-muted); }
+.cta-band .cta-band__lead a { color: var(--on-brand); }
+.cta-band .cta-band__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 
 /* ---------- Duna Marketing sample-site bar ---------- */
 /* Frosted glass: the page shows through a dark-grey translucent bar, so it belongs to every
