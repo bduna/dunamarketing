@@ -137,7 +137,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
    backdrop blur is decoration on top of that, never load-bearing. On phones the site's own
    .cta-bar lifts above it. */
 :root { --duna-h: 54px; }
-a.duna-bar, a.duna-bar:visited {
+.duna-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
   box-sizing: border-box; min-height: var(--duna-h);
   /* Three columns so the button stays optically centred no matter how wide the copyright is. */
@@ -150,7 +150,9 @@ a.duna-bar, a.duna-bar:visited {
   font-family: var(--font-body); font-size: 0.92rem; line-height: 1.3; text-align: center;
   cursor: pointer; transition: background 0.15s ease;
 }
-a.duna-bar:hover, a.duna-bar:focus-visible { background: rgba(25, 28, 35, 0.84); }
+/* No colour here: `.duna-bar a` (0,1,1) would outrank .duna-bar__btn--text (0,1,0) and paint
+   the text button white on white. The button classes own their colours. */
+.duna-bar a { text-decoration: none; }
 .duna-bar__copy {
   justify-self: start; font-size: 0.76rem; letter-spacing: 0.01em;
   color: rgba(255, 255, 255, 0.85);   /* 5.42:1 on the bar over even a white page */
@@ -161,8 +163,9 @@ a.duna-bar:hover, a.duna-bar:focus-visible { background: rgba(25, 28, 35, 0.84);
   color: rgba(255, 255, 255, 0.85);   /* same 5.42:1 as the copyright */
   white-space: nowrap;
 }
+/* Two buttons now, side by side and optically centred in the middle column. */
+.duna-bar__actions { grid-column: 2; justify-self: center; display: inline-flex; align-items: center; gap: 0.5rem; }
 .duna-bar__btn {
-  grid-column: 2;
   /* Own dark fill over the bar's glass: transparent let each site's palette bleed through and
      muddied the white text. Black at 45% takes it from 6.7:1 to 12.7:1 in the worst case
      (a pure-white page behind the bar) while staying translucent. */
@@ -171,10 +174,23 @@ a.duna-bar:hover, a.duna-bar:focus-visible { background: rgba(25, 28, 35, 0.84);
   padding: 0.45rem 1.1rem; font-weight: 700; font-size: 0.9rem; white-space: nowrap;
   transition: background 0.15s ease, color 0.15s ease;
 }
-a.duna-bar:hover .duna-bar__btn { background: #FFFFFF; color: #14171E; }
+.duna-bar__btn:hover, .duna-bar__btn:focus-visible { background: #FFFFFF; color: #14171E; }
+/* "Text me" is the offer on this bar, so it leads: white fill and dark label, the reverse of the
+   home button, and it inverts on hover the same way. */
+.duna-bar__btn--text { background: #FFFFFF; color: #14171E; }
+.duna-bar__btn--text:hover, .duna-bar__btn--text:focus-visible { background: rgba(0, 0, 0, 0.45); color: #FFFFFF; }
 /* Mobile: the button is the only thing that matters — drop the copyright and the tagline so
    the bar is one unambiguous tap target. */
-@media (max-width: 720px) { .duna-bar__copy, .duna-bar__note { display: none; } }
+@media (max-width: 720px) {
+  /* Phone: the copyright and tagline go, the home button loses "Marketing", and the padding
+     tightens — two buttons have to sit side by side inside 390px. */
+  .duna-bar__copy, .duna-bar__note, .duna-bar .long { display: none; }
+  .duna-bar { gap: 0.5rem; padding-inline: 0.75rem; }
+  .duna-bar__btn { padding: 0.45rem 0.9rem; }
+  /* With the copyright and tagline gone the three-column track no longer balances, so the pair
+     spans the bar and centres itself. */
+  .duna-bar__actions { grid-column: 1 / -1; }
+}
 
 body { padding-bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
 @media (max-width: 720px) {

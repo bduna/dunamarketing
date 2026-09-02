@@ -187,7 +187,7 @@ h2 { max-width: 20ch; }
 
 /* ---------- Duna Marketing sample-site bar ---------- */
 :root { --duna-h: 54px; }
-a.duna-bar, a.duna-bar:visited {
+.duna-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
   box-sizing: border-box; min-height: var(--duna-h);
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.75rem;
@@ -199,12 +199,29 @@ a.duna-bar, a.duna-bar:visited {
   font-family: var(--font-body); font-size: 0.92rem; line-height: 1.3; text-align: center;
   cursor: pointer; transition: background 0.15s ease;
 }
-a.duna-bar:hover, a.duna-bar:focus-visible { background: rgba(25, 28, 35, 0.84); }
+/* No colour here: `.duna-bar a` (0,1,1) would outrank .duna-bar__btn--text (0,1,0) and paint
+   the text button white on white. The button classes own their colours. */
+.duna-bar a { text-decoration: none; }
 .duna-bar__copy { justify-self: start; font-size: 0.76rem; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.85); white-space: nowrap; }
 .duna-bar__note { grid-column: 3; justify-self: end; font-size: 0.76rem; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.85); white-space: nowrap; }
-.duna-bar__btn { grid-column: 2; display: inline-block; background: rgba(0, 0, 0, 0.45); color: #FFFFFF; border: 1.5px solid #FFFFFF; border-radius: 4px; padding: 0.45rem 1.1rem; font-weight: 700; font-size: 0.9rem; white-space: nowrap; transition: background 0.15s ease, color 0.15s ease; }
-a.duna-bar:hover .duna-bar__btn { background: #FFFFFF; color: #14171E; }
-@media (max-width: 720px) { .duna-bar__copy, .duna-bar__note { display: none; } }
+/* Two buttons now, side by side and optically centred in the middle column. */
+.duna-bar__actions { grid-column: 2; justify-self: center; display: inline-flex; align-items: center; gap: 0.5rem; }
+.duna-bar__btn { display: inline-block; background: rgba(0, 0, 0, 0.45); color: #FFFFFF; border: 1.5px solid #FFFFFF; border-radius: 4px; padding: 0.45rem 1.1rem; font-weight: 700; font-size: 0.9rem; white-space: nowrap; transition: background 0.15s ease, color 0.15s ease; }
+.duna-bar__btn:hover, .duna-bar__btn:focus-visible { background: #FFFFFF; color: #14171E; }
+/* "Text me" is the offer on this bar, so it leads: white fill and dark label, the reverse of the
+   home button, and it inverts on hover the same way. */
+.duna-bar__btn--text { background: #FFFFFF; color: #14171E; }
+.duna-bar__btn--text:hover, .duna-bar__btn--text:focus-visible { background: rgba(0, 0, 0, 0.45); color: #FFFFFF; }
+@media (max-width: 720px) {
+  /* Phone: the copyright and tagline go, the home button loses "Marketing", and the padding
+     tightens — two buttons have to sit side by side inside 390px. */
+  .duna-bar__copy, .duna-bar__note, .duna-bar .long { display: none; }
+  .duna-bar { gap: 0.5rem; padding-inline: 0.75rem; }
+  .duna-bar__btn { padding: 0.45rem 0.9rem; }
+  /* With the copyright and tagline gone the three-column track no longer balances, so the pair
+     spans the bar and centres itself. */
+  .duna-bar__actions { grid-column: 1 / -1; }
+}
 body { padding-bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
 @media (max-width: 720px) {
   .cta-bar { bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
