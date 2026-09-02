@@ -97,6 +97,14 @@
 .menu-note svg { flex: none; margin-top: 0.2rem; color: var(--olive); }
 .menu-note a { color: var(--terracotta); text-decoration: none; border-bottom: 1px solid currentColor; }
 
+/* ================================================================== 3b · the band */
+
+/* A photograph run to both edges of the screen, used to break a long stretch of
+   reading. It earns its place on a phone above all, where a text-only run can
+   otherwise go eight or nine screens without a picture. */
+.band { margin: 0; }
+.band img { width: 100%; height: clamp(260px, 34vw, 460px); object-fit: cover; display: block; }
+
 /* ================================================================== 4 · how it works */
 
 .steps { display: grid; gap: var(--sp-5); counter-reset: s; }
