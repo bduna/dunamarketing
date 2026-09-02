@@ -120,8 +120,10 @@
 /* ================================================================== 5 · a breath */
 
 .breath img { width: 100%; height: clamp(220px, 32vw, 440px); object-fit: cover; }
-/* the corner shot sits low in its frame — the chairs and the table, not the window */
-.breath--low img { object-position: center 78%; }
+
+/* where two sections meet with no picture between them, the two full paddings
+   stack into a dead run of colour — trim the upper one back. */
+.section--trim-b { padding-bottom: calc(var(--section-y) * 0.42); }
 
 /* ================================================================== 6 · said plainly */
 
