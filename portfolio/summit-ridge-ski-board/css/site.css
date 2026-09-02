@@ -312,6 +312,7 @@ strong { font-weight: 700; }
   margin: calc(-1 * var(--space-3)) 0 0.5rem calc(-1 * var(--space-3));
   aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--radius) var(--radius) 0 0; border-bottom: 1px solid var(--line); }
 .teaser p { margin: 0; color: var(--ink-muted); }
+.teaser p:last-child { margin-top: auto; padding-top: 0.5rem; }
 /* --ink is the one colour guaranteed to be legible on --surface on every palette. The accent is
    a FILL and measured 2.7:1 as link text on dark cards. Underline carries the affordance. */
 .teaser__link { font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
