@@ -90,6 +90,12 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 /* --- Section head --- */
 .section__head { max-width: 46rem; margin-bottom: var(--space-4); }
 
+/* Two stacked sections on the SAME page colour add their paddings and read as a ~180px hole
+   (measured between the reviews and "Have a look around"). When neither section paints its own
+   band, the seam is carried by the first section's bottom padding alone. */
+.section:not(.section--alt):not(.section--brand):not(.spotlight)
+  + .section:not(.section--alt):not(.section--brand):not(.spotlight) { padding-top: 0; }
+
 /* --- Price list --- */
 .pricelist { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--line); }
 .pricelist__row { display: grid; grid-template-columns: 1fr auto; gap: var(--space-2) var(--space-3); align-items: start; padding: var(--space-3) 0; border-bottom: 1px solid var(--line); }
