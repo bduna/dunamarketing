@@ -211,6 +211,8 @@ strong { font-weight: 700; }
 .story__grid { display: grid; gap: clamp(1.75rem, 4vw, 3rem); align-items: center; grid-template-columns: 1fr; }
 @media (min-width: 900px) { .story__grid { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); } }
 .story__media img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 45% 62%; border-radius: var(--radius); box-shadow: 0 1px 0 0 var(--line); }
+.story__grid--top { align-items: start; }
+.story__grid .notes--stack { grid-template-columns: 1fr; }
 .knownfor { list-style: none; padding: 0; margin: var(--space-3) 0 0; display: grid; gap: var(--space-2); }
 .knownfor li { padding-left: var(--space-2); border-left: 3px solid var(--accent); font-size: 1.02rem; }
 .knownfor li b { font-family: var(--font-display); display: block; }
@@ -305,6 +307,10 @@ strong { font-weight: 700; }
 .teaser { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
   padding: var(--space-3); display: flex; flex-direction: column; gap: 0.5rem; box-shadow: var(--shadow-sm); }
 .teaser h3 { margin: 0; font-size: var(--fs-2); }
+/* card photo: bleeds to the card edge over the padding, sits under the same hairline as the rate panel */
+.teaser__img { display: block; width: calc(100% + 2 * var(--space-3)); max-width: none;
+  margin: calc(-1 * var(--space-3)) 0 0.5rem calc(-1 * var(--space-3));
+  aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--radius) var(--radius) 0 0; border-bottom: 1px solid var(--line); }
 .teaser p { margin: 0; color: var(--ink-muted); }
 /* --ink is the one colour guaranteed to be legible on --surface on every palette. The accent is
    a FILL and measured 2.7:1 as link text on dark cards. Underline carries the affordance. */
