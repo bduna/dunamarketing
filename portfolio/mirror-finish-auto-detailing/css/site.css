@@ -139,10 +139,10 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   .band img { grid-area: 1 / 1; position: static; width: 100%; height: auto; }
   .band__scrim { grid-area: 1 / 1; position: static; }
   .band__caption { grid-area: 2 / 1; position: static; width: 100%; max-width: none; padding-inline: var(--gutter); background: var(--brand); }
-  .band__caption > div { padding-block: var(--space-3) var(--space-2); max-width: none; }
+  .band__caption > div { padding-block: var(--space-3) var(--space-1); max-width: none; }
   /* The caption band and the closing CTA are both --brand on a phone, so their paddings stacked
      into ~120px of empty navy. One modest gap instead. */
-  .section--after-band { padding-top: var(--space-3); }
+  .section--after-band { padding-top: var(--space-2); }
   .band .pcard { background: transparent; border: 0; box-shadow: none; padding-inline: 0; }
 }
 
