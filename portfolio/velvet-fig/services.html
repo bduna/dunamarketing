@@ -108,78 +108,66 @@
     </div>
   </section>
 
-  <!-- reservations — the whole point of the site -->
+  <!-- how the private room is booked -->
+  <section class="section section--ruled" id="how">
+    <div class="container">
+      <div class="sec-head">
+        <p class="label"><span>Booking the room</span></p>
+        <h2>Three messages, start to finish.</h2>
+        <p class="lead">There is no deposit to pay before we have agreed what the evening is.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Send the date and the headcount</h3>
+          <p>And how long you want the door closed. That is everything we need to know what the evening costs.</p>
+        </li>
+        <li>
+          <h3>We quote it</h3>
+          <p>A number for the evening rather than a price per head, so it does not change if two people drop out on the day.</p>
+        </li>
+        <li>
+          <h3>The door closes</h3>
+          <p>Same cocktails, same bartenders, no one else in the room. Bar snacks come through the same as they do outside.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- how to reserve -->
   <section class="section section--deep reserve" id="reserve">
     <div class="container reserve__grid">
       <div>
         <p class="label"><span>Reservations</span></p>
         <h2>Six or more? Tell us when.</h2>
-        <p class="lead">We hold tables for parties of six or more, and the private room is quoted to your evening. Send the date and the headcount and the bar will write back.</p>
+        <p class="lead">We hold tables for parties of six or more, and the private room is quoted to your evening. Call the bar, or send the date and the headcount by email.</p>
         <ul class="reserve__facts">
           <li>Fewer than six &mdash; just walk in. There is usually room at the bar.</li>
           <li>The private room is by quote, not per head.</li>
           <li>The bar answers Wednesday to Sunday, from five.</li>
         </ul>
+        <div class="btn-row">
+          <a class="btn btn--primary btn--lg" href="tel:+15045550901">Call (504) 555-0901</a>
+          <a class="btn btn--ghost btn--lg" href="mailto:reserve@velvetfig.com?subject=Reservation%20request">Email the bar</a>
+        </div>
         <address class="contact">
           <div><span class="k">Phone</span><a href="tel:+15045550901">(504) 555-0901</a></div>
           <div><span class="k">Email</span><a href="mailto:reserve@velvetfig.com">reserve@velvetfig.com</a></div>
-          <div><span class="k">Hours</span><span class="v">Wed&ndash;Sun, 5pm&ndash;2am</span></div>
           <div><span class="k">Where</span><span class="v">New Orleans, Louisiana</span></div>
         </address>
       </div>
 
       <div>
-        <form class="rform card-candle" id="reserve-form" data-mailto="reserve@velvetfig.com" data-done="reserve-done"
-              action="mailto:reserve@velvetfig.com" method="post" enctype="text/plain">
-          <p class="rform__legend">Request a table</p>
-          <div class="rform__grid">
-            <p class="rform__field">
-              <label for="rf-name">Your name</label>
-              <input id="rf-name" name="fullname" type="text" autocomplete="name" required>
-            </p>
-            <p class="rform__field">
-              <label for="rf-email">Email</label>
-              <input id="rf-email" name="email" type="email" autocomplete="email" required>
-            </p>
-            <p class="rform__field">
-              <label for="rf-phone">Phone <span class="opt">(optional)</span></label>
-              <input id="rf-phone" name="phone" type="tel" autocomplete="tel">
-            </p>
-            <p class="rform__field">
-              <label for="rf-for">What for</label>
-              <select id="rf-for" name="occasion">
-                <option>A table, six or more</option>
-                <option>The private room</option>
-                <option>Something else</option>
-              </select>
-            </p>
-            <p class="rform__field">
-              <label for="rf-date">Date</label>
-              <input id="rf-date" name="resdate" type="date">
-            </p>
-            <p class="rform__field">
-              <label for="rf-time">Time</label>
-              <input id="rf-time" name="restime" type="time">
-            </p>
-            <p class="rform__field">
-              <label for="rf-party">How many</label>
-              <input id="rf-party" name="party" type="number" min="1" inputmode="numeric">
-            </p>
-            <p class="rform__field rform__field--wide">
-              <label for="rf-msg">Anything we should know <span class="opt">(optional)</span></label>
-              <textarea id="rf-msg" name="message" rows="3"></textarea>
-              <span class="rform__hint">A birthday, someone who does not drink, a corner you liked last time.</span>
-            </p>
-          </div>
-          <p class="rform__trap" aria-hidden="true"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label></p>
-          <button class="btn btn--primary btn--lg" type="submit">Send the request</button>
-          <p class="rform__small">This opens your email app with the details filled in &mdash; nothing is held until the bar replies. Would rather talk? Call <a href="tel:+15045550901">(504) 555-0901</a>.</p>
-        </form>
-
-        <div class="rform__done card-candle" id="reserve-done" hidden>
-          <h3>Your email is ready to send.</h3>
-          <p>Your mail app should have opened with the date, the time and the party size already written in &mdash; press send, and the bar will confirm from Wednesday onwards.</p>
-          <p>If nothing opened, write to <a href="mailto:reserve@velvetfig.com">reserve@velvetfig.com</a> or call <a href="tel:+15045550901">(504) 555-0901</a>.</p>
+        <div class="card-candle hours">
+          <p class="label"><span>The week</span></p>
+          <h3>Open five nights.</h3>
+          <ul class="hours__list">
+            <li><span>Wednesday</span><span>5pm &ndash; 2am</span></li>
+            <li><span>Thursday</span><span>5pm &ndash; 2am</span></li>
+            <li><span>Friday</span><span>5pm &ndash; 2am</span></li>
+            <li><span>Saturday</span><span>5pm &ndash; 2am</span></li>
+            <li><span>Sunday</span><span>5pm &ndash; 2am</span></li>
+          </ul>
+          <p class="hours__note">Cocktails $15&ndash;18 &middot; spirit-free $12 &middot; bar snacks from $9. The private room is by quote.</p>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 // main.js — Velvet Fig. Mobile nav · header rule on scroll · scroll reveal ·
-// offset anchors · the reservation request · footer year.
+// offset anchors · footer year.
 (function () {
   "use strict";
 
@@ -65,55 +65,6 @@
         top: target.getBoundingClientRect().top + window.pageYOffset - offset,
         behavior: "smooth"
       });
-      var first = target.querySelector("input, select, textarea");
-      if (first && target.classList.contains("reserve")) {
-        window.setTimeout(function () { first.focus({ preventScroll: true }); }, 450);
-      }
-    });
-  });
-
-  /* ---- the reservation request --------------------------------------------
-     Static host, no server. The form is real: it validates, it rejects bots,
-     and on submit it hands the visitor a pre-addressed email with the date, the
-     time and the party size already written into it. The note under the button
-     says so, so nobody is told a table is booked when it isn't. With JS off the
-     form still posts to the same mailto: address. */
-  document.querySelectorAll("form[data-mailto]").forEach(function (form) {
-    var done = document.getElementById(form.getAttribute("data-done"));
-
-    form.addEventListener("submit", function (e) {
-      if (!form.checkValidity()) return;        // let the browser do the telling
-      e.preventDefault();
-
-      var el = form.elements;
-      if (el["website"] && el["website"].value) return;   // honeypot: silently drop
-
-      var val = function (n) { return el[n] && el[n].value ? el[n].value.trim() : ""; };
-      var name = val("fullname");
-      var body = [
-        "Name: " + name,
-        "Email: " + val("email"),
-        "Phone: " + (val("phone") || "—"),
-        "For: " + val("occasion"),
-        "Date: " + (val("resdate") || "not set yet"),
-        "Time: " + (val("restime") || "not set yet"),
-        "Party size: " + (val("party") || "not sure yet"),
-        "",
-        val("message") || "(no message)",
-        "",
-        "— sent from velvetfig.com"
-      ].join("\n");
-
-      window.location.href = "mailto:" + form.getAttribute("data-mailto") +
-        "?subject=" + encodeURIComponent("Reservation request — " + (name || "website")) +
-        "&body=" + encodeURIComponent(body);
-
-      if (done) {
-        form.hidden = true;
-        done.hidden = false;
-        done.setAttribute("tabindex", "-1");
-        done.focus({ preventScroll: true });
-      }
     });
   });
 

@@ -4,9 +4,9 @@
    hairline running out beside it — the apothecary label the room was built out
    of, since the bar is a former pharmacy and the cabinets are the originals.
    Candlelight (a warm cream card) is spent exactly twice a page: the reviews and
-   the reservation form, so the two things worth reading on a dark page glow.
+   the opening-hours card, so the two things worth reading on a dark page glow.
    Rhythm: photograph → plum plate → ruled rail → plum → candlelit stage →
-   plum → deep plum with the reservation card.
+   plum → deep plum with the hours and how to reserve.
    --------------------------------------------------------------------------- */
 
 /* ================================================================== 1 · hero */
@@ -123,6 +123,29 @@
 .marks p { font-family: var(--font-display); font-size: clamp(1.15rem, 1.02rem + 0.6vw, 1.5rem); line-height: 1.25; margin: 0 0 var(--sp-2); }
 .marks span { display: block; color: var(--muted); font-size: var(--fs-sm); }
 
+/* ================================================================== 6b · questions */
+
+.faq { border-top: 1px solid var(--hair-brass); max-width: 56rem; }
+.faq details { border-bottom: 1px solid var(--hair-soft); }
+.faq summary {
+  cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-4);
+  padding: clamp(1rem, 2.4vw, 1.4rem) 0;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.08rem, 1rem + 0.45vw, 1.35rem); line-height: 1.25; color: var(--ink);
+  transition: color var(--dur) var(--ease);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+"; flex: none; font-family: var(--font-body); font-weight: 400;
+  font-size: 1.4rem; line-height: 1; color: var(--brass);
+  transition: transform var(--dur) var(--ease);
+}
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq summary:hover { color: var(--brass); }
+.faq details > p { margin: 0 0 clamp(1rem, 2.4vw, 1.4rem); color: var(--muted); max-width: 64ch; }
+.faq a { color: var(--brass); text-decoration: none; border-bottom: 1px solid currentColor; }
+
 /* ================================================================== 7 · the other pages */
 
 .doors { display: grid; gap: var(--sp-4); }
@@ -171,50 +194,20 @@
 .contact a { text-decoration: none; border-bottom: 1px solid var(--hair); justify-self: start; }
 .contact a:hover { border-bottom-color: var(--brass); }
 
-.rform, .rform__done { max-width: none; }
-.rform__legend {
-  font-family: var(--font-display); font-size: var(--fs-2); line-height: 1.2;
-  margin: 0 0 var(--sp-4); padding-bottom: var(--sp-3);
-  border-bottom: 1px solid var(--hair-candle); max-width: none; color: var(--candle-ink);
+.hours h3 { font-family: var(--font-display); font-size: var(--fs-2); margin: 0 0 var(--sp-2); color: var(--candle-ink); }
+.hours__list { display: grid; margin-top: var(--sp-3); }
+.hours__list li {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  padding-block: 0.65rem; border-top: 1px solid var(--hair-candle);
 }
-.rform__grid { display: grid; gap: var(--sp-3); }
-@media (min-width: 620px) {
-  .rform__grid { grid-template-columns: 1fr 1fr; gap: var(--sp-3) var(--sp-4); }
-  .rform__field--wide { grid-column: 1 / -1; }
+.hours__list li:first-child { border-top: 0; }
+.hours__list li span:first-child { font-weight: 600; color: var(--candle-ink); }
+.hours__list li span:last-child { font-family: var(--font-display); font-size: 1.08rem; color: var(--brass-ink); white-space: nowrap; }
+.hours__note {
+  margin-top: var(--sp-3); padding-top: var(--sp-3);
+  border-top: 1px solid var(--hair-candle);
+  font-size: var(--fs-sm); color: var(--candle-muted); max-width: none;
 }
-.rform__field { margin: 0; display: grid; gap: 0.4rem; max-width: none; }
-.rform__field > label {
-  font-size: var(--fs-xs); font-weight: 600; letter-spacing: var(--track-label);
-  text-transform: uppercase; color: var(--candle-ink);
-}
-.rform .opt { font-weight: 500; letter-spacing: 0.02em; text-transform: none; color: var(--candle-muted); }
-.rform input, .rform select, .rform textarea {
-  width: 100%; background: #FFFFFF;
-  border: 1px solid rgba(42, 15, 49, 0.28); border-radius: var(--r);
-  padding: 0.8rem 0.9rem; font-size: 1rem; font-family: var(--font-body); color: var(--candle-ink);
-  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-}
-.rform textarea { resize: vertical; min-height: 6rem; line-height: 1.55; }
-.rform input:focus, .rform select:focus, .rform textarea:focus {
-  border-color: var(--brass-ink); outline: none; box-shadow: 0 0 0 3px rgba(138, 90, 24, 0.18);
-}
-.rform :focus-visible { outline: 2px solid var(--brass-ink); outline-offset: 1px; }
-.rform__hint { font-size: var(--fs-xs); color: var(--candle-muted); letter-spacing: 0; text-transform: none; font-weight: 400; line-height: 1.45; }
-.rform__trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-/* The card is candlelight, so the page's brass button would sit light-on-light.
-   Plum fill, candle text: 15.2:1 either way round. */
-.rform .btn--primary {
-  width: 100%; margin-top: var(--sp-4);
-  background: var(--plum-ink); color: var(--candle); border-color: var(--plum-ink);
-}
-.rform .btn--primary:hover, .rform .btn--primary:focus-visible { background: var(--brass-ink); border-color: var(--brass-ink); color: var(--candle); }
-.rform__small { margin-top: var(--sp-3); font-size: var(--fs-sm); color: var(--candle-muted); max-width: none; }
-.rform__small a { color: var(--brass-ink); text-decoration: none; border-bottom: 1px solid currentColor; }
-
-.rform__done h3 { font-family: var(--font-display); font-size: var(--fs-2); margin: 0 0 var(--sp-3); color: var(--candle-ink); }
-.rform__done p { color: var(--candle-muted); }
-.rform__done p + p { margin-top: var(--sp-3); }
-.rform__done a { color: var(--brass-ink); text-decoration: none; border-bottom: 1px solid currentColor; }
 
 /* ---------- Duna Marketing sample-site bar ---------- */
 /* Frosted glass: the page shows through a dark-grey translucent bar, so it belongs to every
