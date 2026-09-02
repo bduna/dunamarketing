@@ -120,6 +120,8 @@
 /* ================================================================== 5 · a breath */
 
 .breath img { width: 100%; height: clamp(220px, 32vw, 440px); object-fit: cover; }
+/* the corner shot sits low in its frame — the chairs and the table, not the window */
+.breath--low img { object-position: center 78%; }
 
 /* ================================================================== 6 · said plainly */
 
