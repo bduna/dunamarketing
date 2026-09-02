@@ -192,7 +192,14 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .gallery__cap { margin: var(--space-2) 0 0; color: var(--ink-muted); font-size: 0.95rem; }
 
 /* --- About --- */
-.about-figure { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.about-figure { position: relative; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+/* Same navy veil as the In-the-bay band, so the two photographs on the site read as one treatment. */
+.about-figure::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(closest-side at 84% 38%, rgba(46,155,255,0.26), transparent 74%),
+    linear-gradient(0deg, rgba(13,42,80,0.58), rgba(13,42,80,0.58));
+}
 
 /* --- Contact close --- */
 .contact-list { display: grid; gap: var(--space-3); font-style: normal; }
