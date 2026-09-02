@@ -112,6 +112,11 @@
   font-weight: 600; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--candle-muted);
 }
 
+/* A photograph run to both edges of the screen. On a phone these are what stop a
+   section of prose running for two screens without a picture. */
+.band { margin: 0; }
+.band img { width: 100%; height: clamp(240px, 32vw, 420px); object-fit: cover; display: block; }
+
 /* ================================================================== 5 · a breath */
 
 .breath img { width: 100%; height: clamp(220px, 32vw, 440px); object-fit: cover; }
@@ -120,6 +125,9 @@
 
 .marks { display: grid; gap: var(--sp-4); }
 @media (min-width: 820px) { .marks { grid-template-columns: repeat(3, 1fr); gap: clamp(1.75rem, 4vw, 3rem); } }
+/* Same specificity, declared after: three columns inside half a split would be
+   too narrow to read. */
+@media (min-width: 820px) { .marks--stacked { grid-template-columns: 1fr; gap: var(--sp-4); } }
 .marks > div { border-top: 1px solid var(--hair-brass); padding-top: var(--sp-3); }
 .marks p { font-family: var(--font-display); font-size: clamp(1.15rem, 1.02rem + 0.6vw, 1.5rem); line-height: 1.25; margin: 0 0 var(--sp-2); }
 .marks span { display: block; color: var(--muted); font-size: var(--fs-sm); }
