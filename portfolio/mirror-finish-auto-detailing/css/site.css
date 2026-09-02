@@ -27,7 +27,7 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 /* The prices section's bottom padding and this band's top padding stacked to ~220px above the
    "How it works" heading. Trimming the band's own top padding moves the head AND the steps up
    together, since both sit inside it. */
-#how { padding-top: var(--space-4); }
+#how { padding-top: calc(var(--space-4) + var(--space-2)); }
 /* …and the white section above it does not need a full --section-y of run-out under its CTA. */
 .section--runout { padding-bottom: var(--space-4); }
 
