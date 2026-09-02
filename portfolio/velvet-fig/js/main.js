@@ -38,8 +38,6 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
-  if (document.querySelector(".cta-bar")) document.body.classList.add("has-cta-bar");
-
   /* ---- scroll reveal ---- */
   var reveals = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window && reveals.length) {

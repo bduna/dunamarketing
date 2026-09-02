@@ -241,22 +241,6 @@ b, strong { font-weight: 600; }
   padding-top: var(--sp-3); margin: var(--sp-2) 0 0; max-width: none; font-size: 0.76rem;
 }
 
-/* ------------------------------------------------------------------ sticky bar (mobile) */
-
-/* Sits above the Duna bar. The 720px breakpoint matches the one the shared Duna
-   block uses, so `bottom`, `display` and the body reserve all switch together —
-   body padding is left to that block, which is the single source of truth. */
-.cta-bar {
-  position: fixed; left: 0; right: 0; z-index: 60; display: none;
-  bottom: calc(var(--duna-h) + env(safe-area-inset-bottom));
-  padding: 0.6rem var(--gutter) 0.7rem;
-  background: var(--plum-3); border-top: 1px solid var(--hair-brass);
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
-}
-.cta-bar .btn { width: 100%; }
-.cta-bar__note { display: block; text-align: center; font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; }
-@media (max-width: 720px) { .cta-bar { display: block; } }
-
 /* ------------------------------------------------------------------ reveal */
 
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity 700ms var(--ease), transform 700ms var(--ease); }
