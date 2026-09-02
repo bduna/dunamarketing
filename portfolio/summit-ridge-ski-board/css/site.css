@@ -6,8 +6,10 @@
    20px closer (the h1's own 16px margin carries the rest of the gap). */
 .page-hero { padding-top: 25px; }
 .page-hero + .section { padding-top: 35px; }
-.page-hero h1 { margin-bottom: 0.75rem; }
+.page-hero h1 { margin-bottom: var(--space-3); }
 .page-hero .lead { max-width: 42rem; margin: 0; }
+/* When a brand band follows the page head (What we do), the lead needs air before the dark edge. */
+.page-hero + .section--brand { margin-top: clamp(2rem, 4vw, 3rem); }
 
 /* ---------- global tuning ---------- */
 h1, h2, h3 { letter-spacing: -0.025em; font-weight: 700; }
