@@ -225,8 +225,8 @@ h3 { font-weight: 700; letter-spacing: -0.01em; }
 .duna-bar__btn:hover, .duna-bar__btn:focus-visible { background: #FFFFFF; color: #14171E; }
 /* "Text me" is the offer on this bar, so it leads: white fill and dark label, the reverse of the
    home button, and it inverts on hover the same way. */
-.duna-bar__btn--text { background: #FFFFFF; color: #14171E; }
-.duna-bar__btn--text:hover, .duna-bar__btn--text:focus-visible { background: rgba(0, 0, 0, 0.45); color: #FFFFFF; }
+.duna-bar__btn--text { margin-left: 0.6rem; background: #F7C948; color: #14171E; border-color: #F7C948; }
+.duna-bar__btn--text:hover, .duna-bar__btn--text:focus-visible { background: #E3B23A; border-color: #E3B23A; color: #14171E; }
 /* Mobile: the button is the only thing that matters — drop the copyright and the tagline so
    the bar is one unambiguous tap target. */
 @media (max-width: 720px) {
@@ -234,7 +234,8 @@ h3 { font-weight: 700; letter-spacing: -0.01em; }
      tightens — two buttons have to sit side by side inside 390px. */
   .duna-bar__copy, .duna-bar__note, .duna-bar .long { display: none; }
   .duna-bar { gap: 0.5rem; padding-inline: 0.75rem; }
-  .duna-bar__btn { padding: 0.45rem 0.9rem; }
+  .duna-bar__btn { padding: 0.45rem 0.7rem; font-size: 0.82rem; }
+  .duna-bar__btn--text { margin-left: 0.35rem; }
   /* With the copyright and tagline gone the three-column track no longer balances, so the pair
      spans the bar and centres itself. */
   .duna-bar__actions { grid-column: 1 / -1; }
