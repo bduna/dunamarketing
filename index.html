@@ -51,6 +51,16 @@ fbq('track', 'PageView');
     box-shadow:0 2px 12px rgba(0,29,82,.35); }
   .topbar img { height:32px; width:auto; display:block; background:#fff; border-radius:6px; padding:3px; }
   .topbar .name { font-weight:800; font-size:1.05rem; color:#fff; }
+  .topbar__cta { margin-left:auto; margin-right:6px; display:inline-flex; align-items:center; gap:8px;
+    background:var(--red); color:#fff; text-decoration:none; font-weight:800; font-size:.92rem;
+    line-height:1; white-space:nowrap; padding:10px 16px; border-radius:10px;
+    box-shadow:0 4px 14px rgba(200,16,46,.32); transition:background .15s, box-shadow .15s, transform .08s; }
+  .topbar__cta:hover, .topbar__cta:focus-visible { background:var(--red-dark); box-shadow:0 6px 18px rgba(200,16,46,.42); }
+  .topbar__cta:active { transform:translateY(1px); }
+  .topbar__cta svg { width:17px; height:17px; flex:0 0 auto; }
+  @media (max-width:560px) { .topbar__cta { font-size:.85rem; padding:9px 13px; margin-right:2px; } }
+  /* below this the logo carries the brand: the name and the button together need ~390px */
+  @media (max-width:440px) { .topbar .name { display:none; } }
 
   main { display:flex; flex-direction:column; align-items:center; width:100%;
     padding:16px 14px calc(20px + env(safe-area-inset-bottom)); }
@@ -126,6 +136,10 @@ fbq('track', 'PageView');
 <header class="topbar">
   <img src="duna_marketing_logo.png" alt="">
   <span class="name">Duna Marketing</span>
+  <a class="topbar__cta" href="sms:+17073855673" aria-label="Text Duna Marketing on (707) 385-5673 to get started">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    Text to Get Started
+  </a>
 </header>
 
 <main>
