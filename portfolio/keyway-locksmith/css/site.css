@@ -104,6 +104,9 @@ h2 { max-width: 22ch; }
 .media img { width: 100%; height: 100%; object-fit: cover; }
 .media--tall { aspect-ratio: 4 / 5; }
 .media--wide { aspect-ratio: 4 / 3; }
+/* A photo that wants a little more air between itself and the copy beside it (desktop only). */
+.media--inset { margin: 0; }
+@media (min-width: 900px) { .media--inset { margin-right: clamp(1.25rem, 3vw, 2.5rem); } }
 
 /* ---------- the three promises ---------- */
 .promises { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
