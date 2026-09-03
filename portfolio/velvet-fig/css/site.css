@@ -266,7 +266,9 @@
 /* "Text me" is the offer on this bar, so it leads: white fill and dark label, the reverse of the
    home button, and it inverts on hover the same way. */
 .duna-bar__btn--text { margin-left: 0.6rem; background: #C8102E; color: #FFFFFF; border-color: #C8102E;
-  border-radius: 10px; box-shadow: 0 4px 14px rgba(200, 16, 46, 0.32); }
+  border-radius: 10px; box-shadow: 0 4px 14px rgba(200, 16, 46, 0.32);
+  display: inline-flex; align-items: center; gap: 0.45rem; }
+.duna-bar__btn--text svg { width: 15px; height: 15px; flex: none; }
 .duna-bar__btn--text:hover, .duna-bar__btn--text:focus-visible { background: #A50D25; border-color: #A50D25;
   color: #FFFFFF; box-shadow: 0 6px 18px rgba(200, 16, 46, 0.42); }
 /* Mobile: the button is the only thing that matters — drop the copyright and the tagline so
