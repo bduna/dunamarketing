@@ -1,259 +1,223 @@
-/* site.css — everything specific to keyway-locksmith. Tokens live in tokens.css.
-   Base = midnight navy (dark). Brass = numerals, chips, rules, the closing band and every CTA.
-   Treatments used: T1 solid/tinted · T2 brass band · T3 split photo+text · T5 bright photo + light card ·
-   T6 full-bleed photo, no text.  T4 (photo + dark scrim + inverted text) is used ZERO times by design —
-   the page base is already dark, so darkening a photograph buys nothing and costs the picture. */
+/* site.css — Keyway Locksmith (2026 redesign). Tokens in tokens.css (assigned navy + brass, verbatim);
+   base.css is shared. The reader is standing next to a locked car in a parking garage. Everything
+   on the page is in service of one phone call: the number, the price, the time. Brass is the
+   accent — buttons, numerals, rules, the closing band. Navy is the ground. */
 
-/* ── Type ─────────────────────────────────────────────────────────────────────────────── */
-h1, h2, h3 { font-weight: 700; letter-spacing: -0.022em; }
-h1 { text-wrap: balance; }
-.eyebrow { color: var(--accent); font-weight: 700; }
-.lead { max-width: 46ch; }
-b, strong { font-weight: 700; }
-.num { font-variant-numeric: tabular-nums; }
+/* ---------- type ---------- */
+h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
+h1 { letter-spacing: -0.03em; }
+h2 { max-width: 22ch; }
+.lead { line-height: 1.55; }
+.eyebrow { color: var(--accent); font-weight: 700; display: inline-flex; align-items: center; gap: 0.6rem; }
+.eyebrow::before { content: ""; width: 22px; height: 3px; background: var(--accent); flex: none; }
+.section-head { max-width: 46rem; margin-bottom: var(--space-4); }
+.section-head p { color: var(--ink-muted); font-size: var(--fs-1); }
+.section-head p:last-child { margin-bottom: 0; }
+.measure p { max-width: 56ch; }
+.num { font-family: var(--font-display); font-variant-numeric: tabular-nums; }
 
-/* ── Header ───────────────────────────────────────────────────────────────────────────── */
+/* ---------- header ---------- */
 .site-header { background: rgba(16, 22, 38, 0.92); border-bottom: 1px solid var(--line); }
-.brand { color: var(--ink); font-weight: 700; font-size: 1.18rem; letter-spacing: -0.02em; }
-.brand__mark { width: 32px; height: 32px; flex: 0 0 auto; border-radius: var(--radius-sm); }
-.nav a:not(.btn) { color: var(--ink); font-weight: 600; font-size: 0.97rem; }
+.brand { font-weight: 700; font-size: 1.15rem; min-height: 44px; gap: 0.6rem; }
+.brand__mark { width: 34px; height: 34px; flex: none; }
+.nav a:not(.btn) { color: var(--ink); font-size: 0.96rem; }
 .nav a:not(.btn):hover { color: var(--accent); }
-.nav a[aria-current="page"] { color: var(--accent); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 7px; }
-.nav .btn--primary { font-size: 0.95rem; padding: 0.6rem 1.05rem; min-height: 42px; }
-@media (max-width: 720px) { .nav { background: var(--bg); } .nav .btn--primary { min-height: 48px; } }
+.nav a[aria-current="page"] { color: var(--accent); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.nav .btn--primary { min-height: 44px; padding: 0.55rem 1.05rem; font-size: 0.95rem; }
+.nav-toggle { min-width: 44px; min-height: 44px; align-items: center; justify-content: center; color: var(--ink); }
+@media (max-width: 720px) { .nav a:not(.btn) { display: flex; align-items: center; min-height: 46px; padding: 0.5rem 0; } }
+.skip-link { position: absolute; left: -9999px; top: 0; background: var(--accent); color: var(--on-accent); padding: 0.75rem 1rem; z-index: 100; }
+.skip-link:focus { left: 0; }
 
-/* ── Buttons ──────────────────────────────────────────────────────────────────────────── */
-.btn { border-radius: var(--radius-sm); letter-spacing: 0.005em; }
+/* ---------- buttons: the call button carries a sub-line ---------- */
+.btn { border-radius: var(--radius-sm); }
 .btn--primary { color: var(--on-accent); }
-.btn--ghost { color: var(--ink); border-color: var(--hairline-strong); }
-.btn--ghost:hover, .btn--ghost:focus-visible { background: rgba(238, 239, 241, 0.08); border-color: var(--accent); color: var(--ink); }
-.btn__sub { display: block; font-weight: 600; font-size: 0.78rem; letter-spacing: var(--track-label); text-transform: uppercase; opacity: 0.72; margin-top: 1px; }
-.btn--primary .btn__sub { color: var(--on-accent); }
-.btn--call { flex-direction: column; align-items: flex-start; gap: 0; text-align: left; }
+.btn--ghost { border-color: rgba(238, 239, 241, 0.5); color: var(--ink); }
+.btn--ghost:hover, .btn--ghost:focus-visible { background: rgba(238, 239, 241, 0.08); border-color: var(--ink); }
+.btn--call { flex-direction: column; align-items: flex-start; line-height: 1.1; padding: 0.9rem 1.6rem; gap: 0.2rem; }
+.btn--call .btn__sub { display: block; font-family: var(--font-body); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.02em; opacity: 0.85; }
 
-/* Sticky mobile call bar */
-.cta-bar { background: var(--bg-alt); border-top: 1px solid var(--hairline-strong); box-shadow: 0 -8px 26px rgba(0, 0, 0, 0.5); }
-.cta-bar .btn { background: var(--accent); color: var(--on-accent); border: 0; font-size: 1.05rem; }
-.cta-bar .btn:hover, .cta-bar .btn:focus-visible { background: var(--accent-hover); }
-
-/* ── Shared: the brass hours/status pill (one short line only) ────────────────────────── */
-.pill { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--brand-tint-strong); background: var(--brand-tint); border-radius: 999px; padding: 0.4rem 0.9rem; font-size: 0.92rem; font-weight: 600; color: var(--ink); margin-bottom: 0; max-width: none; }
-.pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: 0 0 auto; }
-
-/* Hairline price strip — three headline prices under the hero copy, on the solid surface. Wraps at 390. */
-.pricebar { list-style: none; margin: 0; padding: var(--space-2) 0 0; display: flex; flex-wrap: wrap; gap: 0.45rem 1.2rem; border-top: 1px solid var(--line); }
-.pricebar li { font-size: 0.93rem; color: var(--ink-muted); }
-.pricebar b { color: var(--accent); font-weight: 700; }
-
-/* ── 1. HERO — T3: photo beside text, no overlay ─────────────────────────────────────── */
-.hero { padding-block: clamp(2.25rem, 4.5vw, 4.25rem) clamp(2.75rem, 5vw, 4.75rem); background: var(--bg); border-bottom: 1px solid var(--line); }
-.hero .container { display: grid; gap: clamp(2rem, 4vw, 3.5rem); grid-template-columns: 1fr; align-items: center; }
-@media (min-width: 900px) { .hero .container { grid-template-columns: 1.08fr 0.92fr; } }
-.hero h1 { margin-bottom: var(--space-2); }
+/* ---------- hero: the whole page in one screen ---------- */
+.hero { padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(2.5rem, 5vw, 4.5rem); overflow: hidden; border-bottom: 1px solid var(--line); }
+.hero__grid { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .hero__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); } }
+.hero h1 { margin-bottom: var(--space-3); max-width: 14ch; }
 .hero h1 em { font-style: normal; color: var(--accent); }
-.hero__lede { font-size: var(--fs-1); color: var(--ink-muted); max-width: 44ch; }
-.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-3) 0 var(--space-3); }
+.hero .lead { max-width: 36rem; color: var(--ink); margin-bottom: var(--space-3); }
+.hero__actions, .actions { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: stretch; }
+.pricebar { list-style: none; margin: var(--space-3) 0 0; padding: var(--space-3) 0 0; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; color: var(--ink-muted); font-size: 0.98rem; max-width: 36rem; }
+.pricebar b { color: var(--accent); font-family: var(--font-display); margin-left: 0.35rem; }
+.hero__figure { position: relative; margin: 0; width: min(100%, 440px); justify-self: center; }
+@media (min-width: 900px) { .hero__figure { justify-self: end; } }
+.hero__frame { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 4 / 5; border: 1px solid var(--line); }
+.hero__frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.hero__plate { position: absolute; left: -0.75rem; bottom: 1.25rem; background: var(--accent); color: var(--on-accent); padding: 0.7rem 1rem; border-radius: var(--radius-sm); box-shadow: var(--shadow-sm); max-width: 18rem; font-size: 0.92rem; line-height: 1.35; }
+.hero__plate b { display: block; font-family: var(--font-display); font-size: 1.02rem; }
 
-/* The key-board photo: tall panel, brass hairline, navy caption plate. Warm tan against the navy is
-   the intended counterpoint — it is framed, not blended. */
-.hero__photo { position: relative; }
-.hero__photo .media { aspect-ratio: 4 / 5; border: 1px solid var(--hairline-strong); border-top: 3px solid var(--accent); box-shadow: var(--shadow); }
-.hero__photo .media img { object-position: 50% 34%; }
-.hero__plate { position: absolute; left: 0; bottom: 0; right: 18%; background: rgba(16, 22, 38, 0.93); border-top: 1px solid var(--brand-tint-strong); border-right: 1px solid var(--brand-tint-strong); padding: 0.8rem 1rem; }
-.hero__plate p { margin: 0; font-size: 0.88rem; color: var(--ink-muted); max-width: none; }
-.hero__plate b { color: var(--ink); display: block; font-family: var(--font-display); font-size: 1rem; }
-@media (max-width: 899px) { .hero__photo .media { aspect-ratio: 5 / 4; } .hero__photo .media img { object-position: 50% 26%; } .hero__plate { right: 0; } }
-
-/* ── 2. TRUST STRIP — T1 tinted ──────────────────────────────────────────────────────── */
-.trust { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding-block: clamp(1.5rem, 3vw, 2.25rem); }
-.trust__grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
-.trust__item { display: flex; gap: 0.9rem; align-items: flex-start; }
-.trust__item + .trust__item { border-top: 1px solid var(--line); padding-top: var(--space-3); }
-@media (min-width: 760px) { .trust__item + .trust__item { border-top: 0; padding-top: 0; border-left: 1px solid var(--line); padding-left: var(--space-3); } }
-.trust__item svg { flex: 0 0 auto; color: var(--accent); margin-top: 2px; }
-.trust__item b { display: block; font-family: var(--font-display); font-size: 1.16rem; letter-spacing: -0.015em; }
-.trust__item span { color: var(--ink-muted); font-size: 0.94rem; }
-
-/* ── 3. SERVICES LEDGER — T1 solid. The signature: the numbered key board, as a price list ──
-   Derived from the starred photo, where every hook has a number pencilled beside it. */
-.ledger-wrap { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; }
-@media (min-width: 960px) { .ledger-wrap { grid-template-columns: 1.62fr 1fr; } }
-.ledger { border: 1px solid var(--hairline-strong); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
-.ledger__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); flex-wrap: wrap; padding: 1rem var(--space-3); background: var(--bg); border-bottom: 1px solid var(--hairline-strong); }
-.ledger__head h2, .ledger__head h3 { margin: 0; font-size: 1.1rem; }
-.ledger__head span { font-size: 0.78rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); }
-.ledger dl { margin: 0; padding: 0; }
-.ledger__row { display: grid; grid-template-columns: 2.4rem 1fr auto; gap: 0 0.9rem; align-items: baseline; padding: 1.05rem var(--space-3); border-bottom: 1px solid var(--line); }
-.ledger__row:last-child { border-bottom: 0; }
-.ledger__n { font-family: var(--font-body); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 0.86rem; color: var(--accent); background: var(--brand-tint); border-radius: var(--radius-sm); padding: 0.2rem 0; text-align: center; align-self: start; }
-.ledger__row dt { grid-column: 2; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; letter-spacing: -0.015em; }
-.ledger__row dt small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 0.93rem; line-height: 1.5; color: var(--ink-muted); margin-top: 3px; max-width: 46ch; }
-.ledger__row dd { grid-column: 3; margin: 0; }
-.chip { display: inline-block; font-family: var(--font-body); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1rem; white-space: nowrap; background: var(--accent); color: var(--on-accent); border-radius: var(--radius-sm); padding: 0.3rem 0.65rem; }
-.chip--quote { background: transparent; color: var(--accent); border: 1px solid var(--accent); font-weight: 700; font-size: 0.92rem; }
-@media (max-width: 560px) {
-  .ledger__row { grid-template-columns: 2.4rem 1fr; }
-  .ledger__row dd { grid-column: 2; margin-top: 0.6rem; }
+/* ---------- trust strip (brass) ---------- */
+.trust { background: var(--brand); color: var(--on-brand); }
+.trust ul { list-style: none; margin: 0; padding: clamp(0.9rem, 2.2vw, 1.3rem) 0; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2) var(--space-4); font-weight: 700; font-size: 0.98rem; }
+.trust li { display: flex; align-items: center; gap: 0.55rem; }
+.trust li::before { content: ""; width: 8px; height: 8px; background: var(--on-brand); flex: none; transform: rotate(45deg); }
+@media (max-width: 720px) {
+  .trust ul { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem 1rem; padding-block: 1rem; }
+  .trust li { align-items: flex-start; font-size: 0.92rem; line-height: 1.3; }
+  .trust li::before { margin-top: 0.45em; }
 }
-.ledger__foot { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.95rem var(--space-3); background: var(--bg); border-top: 1px solid var(--hairline-strong); color: var(--ink-muted); font-size: 0.92rem; }
-.ledger__foot svg { flex: 0 0 auto; color: var(--accent); margin-top: 2px; }
-.ledger__foot p { margin: 0; max-width: none; }
 
-/* Call aside beside the ledger */
-.callbox { border: 1px solid var(--hairline-strong); border-top: 3px solid var(--accent); border-radius: var(--radius); background: var(--bg-alt); padding: var(--space-3); position: relative; }
-.callbox h3 { font-size: var(--fs-2); }
-.callbox p { color: var(--ink-muted); }
-.callbox .btn { width: 100%; margin-top: var(--space-1); }
-.callbox__meta { display: grid; gap: 0.55rem; margin-top: var(--space-3); padding-top: var(--space-3); border-top: 1px solid var(--line); }
-.callbox__meta div { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); font-size: 0.93rem; flex-wrap: wrap; }
-.callbox__meta dt { color: var(--ink-muted); }
-.callbox__meta dd { margin: 0; text-align: right; }
-.callbox__meta b { font-weight: 700; }
-.callbox__meta a { color: var(--accent); text-decoration: none; font-weight: 700; }
-.callbox__meta a:hover { text-decoration: underline; }
+/* ---------- right now: numbered steps beside the car photo ---------- */
+.now__grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 960px) { .now__grid { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); } }
+.now__media { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line); aspect-ratio: 16 / 10; }
+@media (min-width: 960px) { .now__media { position: sticky; top: 88px; aspect-ratio: 4 / 5; } }
+.now__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); counter-reset: st; }
+.steps li { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3) var(--space-3) var(--space-3) calc(var(--space-3) + 3rem); }
+.steps li::before { counter-increment: st; content: "0" counter(st); position: absolute; left: var(--space-3); top: calc(var(--space-3) + 0.15rem); font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; color: var(--accent); letter-spacing: 0.04em; }
+.steps h3 { font-size: var(--fs-2); margin-bottom: 0.45rem; line-height: 1.15; }
+.steps p { margin: 0; color: var(--ink-muted); max-width: 56ch; }
+.steps .btn { margin-top: var(--space-2); }
 
-/* ── 4. PROMISE BAND — T5: bright photo + contained LIGHT card ───────────────────────── */
-.photostage { min-height: clamp(400px, 52vw, 560px); }
-.photostage__img { object-position: 50% 50%; }
-/* NOT a scrim (T4): a whisper of shade on the card side only so the card edge reads. The photo stays bright. */
-.photostage::after { background: linear-gradient(270deg, rgba(16, 22, 38, 0.30) 0%, rgba(16, 22, 38, 0) 62%); }
-.photostage--left::after { background: linear-gradient(90deg, rgba(16, 22, 38, 0.30) 0%, rgba(16, 22, 38, 0) 62%); }
-/* Per-photo focal points, checked against the actual crop at 1440 and at 390 */
-.photostage--left .photostage__img { object-position: 50% 42%; }   /* keeps the lever handle clear of the card */
-.photostage--car .photostage__img { object-position: 50% 60%; }    /* the car's door crease + handle, not just sky-blue paint */
-.photostage__inner { z-index: 1; padding-block: clamp(2rem, 5vw, 3.5rem); }
-.pcard { max-width: 35rem; border-radius: var(--radius); }
-/* Real separation from the photo: brass top rule + hairline + deep shadow. It never floats. */
-.pcard--light { background: var(--card); color: var(--on-card); border: 1px solid rgba(16, 22, 38, 0.16); border-top: 4px solid var(--accent); box-shadow: var(--shadow); }
-.pcard--light h2, .pcard--light h1 { color: var(--on-card); }
-.pcard--light .lead, .pcard--light .muted, .pcard--light footer { color: var(--card-muted); }
-.pcard--light .eyebrow { color: #7E620E; }  /* brass is 1.7:1 on the light card — darkened to 5.3:1 for the label only */
-.pcard--light .pill { border-color: rgba(16, 22, 38, 0.18); background: rgba(203, 163, 42, 0.22); color: var(--on-card); }
-.pcard--light .btn--ghost { color: var(--on-card); border-color: rgba(16, 22, 38, 0.34); }
-.pcard--light .btn--ghost:hover, .pcard--light .btn--ghost:focus-visible { background: rgba(16, 22, 38, 0.07); border-color: var(--on-card); color: var(--on-card); }
-.pcard--light :focus-visible { outline-color: var(--on-card); }
-.pcard--light .quotemark { color: var(--accent); }
-@media (max-width: 760px) {
-  /* A full-width card over a full-height photo would leave only wood grain visible, so the photo
-     becomes a real band and the card rides up over its bottom edge. Still T5 — and no scrim at all. */
-  .photostage { display: block; min-height: 0; }
-  .photostage__img { position: static; inset: auto; height: clamp(200px, 52vw, 280px); }
-  .photostage::after, .photostage--left::after { display: none; }
-  .photostage__inner, .photostage__inner--end { justify-content: flex-start; padding-block: 0 var(--space-4); margin-top: calc(-1 * var(--space-4)); }
+/* ---------- the ledger (prices) ---------- */
+.prices__grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 900px) { .prices__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(2.5rem, 5vw, 4rem); } }
+.ledger { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.ledger__row { display: grid; grid-template-columns: 2.4rem 1fr auto; column-gap: var(--space-2); align-items: baseline; padding: clamp(0.9rem, 1.8vw, 1.2rem) var(--space-3); border-top: 1px solid var(--line); }
+.ledger__row:first-child { border-top: 0; }
+.ledger__n { font-family: var(--font-display); font-weight: 700; color: var(--accent); font-size: 0.85rem; letter-spacing: 0.04em; }
+.ledger__row dt { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-1); }
+.ledger__row dt small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 0.96rem; color: var(--ink-muted); margin-top: 0.3rem; max-width: 52ch; }
+.ledger__row dd { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-1); color: var(--accent); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ledger__row dd.is-quote { font-family: var(--font-body); font-size: 0.76rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; background: var(--brand-tint-strong); color: var(--accent); padding: 0.4rem 0.7rem; border-radius: 999px; align-self: center; }
+.ledger--full .ledger__row dt { font-size: var(--fs-2); }
+.ledger--full .ledger__row { padding-block: clamp(1.2rem, 2.4vw, 1.7rem); }
+.ledger--full .ledger__row dt small { max-width: 60ch; }
+/* Phone: a long price ("from $25 per lock") beside the name squeezed the description to a word a
+   line. Below 600px the price drops under the name instead. */
+@media (max-width: 600px) {
+  .ledger__row { grid-template-columns: 2.4rem 1fr; row-gap: 0.4rem; }
+  .ledger__row dd { grid-column: 2; justify-self: start; white-space: normal; }
+}
+.ledger__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin-top: var(--space-3); color: var(--ink-muted); }
+.ledger__foot p { margin: 0; max-width: 60ch; }
+.media { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line); }
+.media img { width: 100%; height: 100%; object-fit: cover; }
+.media--tall { aspect-ratio: 4 / 5; }
+.media--wide { aspect-ratio: 4 / 3; }
+
+/* ---------- the three promises ---------- */
+.promises { display: grid; gap: var(--space-3); grid-template-columns: 1fr; }
+@media (min-width: 800px) { .promises { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); } }
+.promise { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3); position: relative; }
+.promise::before { content: ""; position: absolute; left: var(--space-3); top: 0; width: 3rem; height: 3px; background: var(--accent); }
+.promise__n { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-3); color: var(--accent); line-height: 1; margin: 0.4rem 0 0.6rem; }
+.promise h3 { font-size: var(--fs-2); margin-bottom: 0.45rem; }
+.promise p { margin: 0; color: var(--ink-muted); max-width: 34ch; }
+
+/* ---------- photo band with a light card (photo stays bright) ---------- */
+.photostage { position: relative; display: grid; align-items: center; min-height: clamp(400px, 52vw, 560px); overflow: hidden; }
+.photostage__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; z-index: 0; }
+.photostage::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(16, 22, 38, 0.55), rgba(16, 22, 38, 0) 62%); }
+.photostage__inner { position: relative; z-index: 2; display: flex; padding-block: clamp(2rem, 5vw, 3.5rem); }
+.pcard { max-width: 32rem; padding: clamp(1.4rem, 3.2vw, 2.2rem); border-radius: var(--radius); margin: 0; background: var(--card); color: var(--on-card); border-top: 5px solid var(--accent); box-shadow: var(--shadow); }
+.pcard p { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-2); line-height: 1.25; margin: 0 0 var(--space-2); max-width: none; color: var(--on-card); }
+.pcard footer { color: var(--card-muted); font-weight: 700; }
+@media (max-width: 860px) {
+  .photostage { min-height: 0; grid-template-rows: auto auto; }
+  .photostage__img { grid-area: 1 / 1; position: static; height: clamp(230px, 56vw, 340px); }
+  .photostage::after { display: none; }
+  .photostage__inner { grid-area: 2 / 1; padding-block: 0 var(--space-3); margin-top: -2.5rem; }
   .pcard { max-width: none; }
 }
 
-/* ── 5. ABOUT — T3 split, flipped. Square crop keeps third-party shop signage out of frame. ── */
-.about { background: var(--bg); }
-.about .media { aspect-ratio: 1 / 1; border: 1px solid var(--hairline-strong); box-shadow: var(--shadow); }
-.about .media img { object-position: 63% 58%; }
-.about blockquote { margin: 0; }
-/* gap + per-tile borders (not the 1px-gap trick) so a leftover empty grid cell at 390 stays invisible */
-.facts { display: grid; gap: var(--space-2); margin-top: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 148px), 1fr)); }
-.fact { background: var(--bg-alt); border: 1px solid var(--line); border-top: 2px solid var(--accent); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-2); }
-.fact b { display: block; font-family: var(--font-display); font-size: 1.42rem; color: var(--accent); letter-spacing: -0.02em; }
-.fact span { display: block; color: var(--ink-muted); font-size: 0.9rem; margin-top: 2px; }
+/* ---------- interior pages ---------- */
+.pagehead { background: var(--bg-alt); border-bottom: 1px solid var(--line); padding-block: clamp(2.5rem, 5vw, 4.25rem); }
+.pagehead h1 { max-width: 18ch; margin-bottom: var(--space-2); }
+.pagehead .lead { max-width: 56ch; margin-bottom: 0; }
+.pagehead__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
+.split-2 { display: grid; gap: clamp(1.75rem, 4vw, 3rem); align-items: center; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .split-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .split-2--flip > :first-child { order: 2; } }
+.split-2--top { align-items: start; }
+@media (min-width: 900px) { .split-2--top .media { position: sticky; top: 88px; } }
+.ticks { list-style: none; margin: var(--space-3) 0 0; padding: 0; display: grid; gap: 0.75rem; }
+.ticks li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 0.6rem; align-items: start; }
+.ticks li::before { content: ""; width: 0.55rem; height: 0.55rem; margin-top: 0.5em; background: var(--accent); transform: rotate(45deg); }
+.ticks b { color: var(--ink); }
+.facts { display: grid; gap: var(--space-2); grid-template-columns: 1fr 1fr; }
+@media (min-width: 860px) { .facts { grid-template-columns: repeat(4, 1fr); gap: var(--space-3); } }
+.fact { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3); }
+.fact b { display: block; font-family: var(--font-display); font-size: var(--fs-2); color: var(--accent); line-height: 1.1; margin-bottom: 0.3rem; }
+.fact span { color: var(--ink-muted); font-size: 0.95rem; }
+.fact__label { font-size: 0.76rem; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--accent); font-weight: 700; margin: 0 0 0.6rem; }
+.fact p { margin: 0 0 0.35rem; font-size: 1.05rem; font-weight: 600; }
+.fact p:last-child { margin-bottom: 0; }
+.fact .muted { font-size: 0.95rem; font-weight: 400; color: var(--ink-muted); }
+.fact a { text-decoration: none; border-bottom: 1px solid var(--line); }
+.fact a:hover { border-bottom-color: var(--accent); color: var(--accent); }
+.quote { margin: var(--space-3) 0 0; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: var(--space-3); }
+.quote p { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-1); line-height: 1.35; margin: 0 0 0.5rem; max-width: none; }
+.quote footer { color: var(--ink-muted); font-weight: 700; }
+.band-figure { margin: 0; }
+.band { position: relative; height: clamp(240px, 36vw, 440px); overflow: hidden; background: var(--bg-alt); min-height: 0; }
+.band img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.band__caption { padding: 0.85rem 0 0; font-size: 0.95rem; color: var(--ink-muted); display: flex; gap: 0.6rem; align-items: center; }
+.band__caption::before { content: ""; width: 22px; height: 3px; background: var(--accent); flex: none; }
+.notes { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-3); }
+.notes li { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3); }
+.notes b { font-family: var(--font-display); display: block; font-size: 1.08rem; margin-bottom: 0.35rem; }
+.notes span { color: var(--ink-muted); }
+.faq { border-top: 2px solid var(--accent); max-width: 54rem; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: var(--space-2); align-items: center; padding: clamp(1rem, 2vw, 1.3rem) 0; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-1); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--hairline-strong); color: var(--accent); font-family: var(--font-body); font-weight: 700; flex: none; }
+.faq details[open] summary::after { content: "\2013"; background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.faq .answer { padding: 0 0 clamp(1.1rem, 2vw, 1.5rem); max-width: 60ch; color: var(--ink-muted); }
+.faq .answer p { margin-bottom: var(--space-2); }
+.faq .answer p:last-child { margin-bottom: 0; }
+.faq .answer a { color: var(--accent); font-weight: 700; }
 
-/* ── 6. T6 — full-bleed photo, no text on it. A breath. ─────────────────────────────── */
-.breath { background: var(--bg); }
-.breath__img { width: 100%; height: clamp(220px, 32vw, 400px); object-fit: cover; object-position: 50% 56%; }
-.breath figcaption { border-top: 1px solid var(--line); }
-.breath figcaption .container { padding-block: 0.85rem; display: flex; gap: 0.6rem; align-items: baseline; justify-content: center; flex-wrap: wrap; text-align: center; }
-.breath figcaption p { margin: 0; font-size: 0.92rem; color: var(--ink-muted); max-width: none; }
-.breath figcaption b { color: var(--accent); font-family: var(--font-display); }
-.breath figure { margin: 0; }
+/* ---------- closing band (brass, inverted) ---------- */
+.close { background: var(--brand); color: var(--on-brand); }
+.close h2, .close p, .close li, .close span { color: var(--on-brand); }
+.close .eyebrow { color: var(--on-brand); }
+.close .eyebrow::before { background: var(--on-brand); }
+.close .lead { color: var(--on-brand-muted); max-width: 34rem; }
+.close__grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; align-items: end; }
+@media (min-width: 860px) { .close__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); } }
+.close .btn--primary { background: var(--bg); color: var(--ink); border: 1px solid var(--bg); }
+.close .btn--primary:hover, .close .btn--primary:focus-visible { background: var(--bg-alt); color: var(--ink); }
+.close .btn--primary .btn__sub { color: var(--ink-muted); }
+.close .btn--ghost { color: var(--on-brand); border: 2px solid rgba(16, 22, 38, 0.55); }
+.close .btn--ghost:hover { background: rgba(16, 22, 38, 0.1); color: var(--on-brand); }
+.contact-list { font-style: normal; display: grid; gap: 0.7rem; margin: 0; }
+.contact-list div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.75rem; align-items: baseline; padding-bottom: 0.7rem; border-bottom: 1px solid rgba(16, 22, 38, 0.25); }
+.contact-list .label { font-size: 0.76rem; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--on-brand-muted); font-weight: 700; }
+.contact-list a, .contact-list span:not(.label) { color: var(--on-brand); font-weight: 700; text-decoration: none; overflow-wrap: anywhere; }
+.contact-list a { border-bottom: 1px solid rgba(16, 22, 38, 0.4); }
+.contact-list a:hover { border-bottom-color: var(--on-brand); }
+@media (max-width: 520px) { .contact-list div { grid-template-columns: 1fr; gap: 0.15rem; } }
 
-/* ── 7. REVIEWS — T1 tinted ─────────────────────────────────────────────────────────── */
-.reviews { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.quote { margin: 0; background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius-sm); padding: var(--space-3); }
-.quote p { font-family: var(--font-display); font-size: var(--fs-1); font-weight: 600; line-height: 1.35; margin-bottom: 0.75rem; color: var(--ink); }
-.quote footer { color: var(--ink-muted); font-weight: 700; font-size: 0.93rem; letter-spacing: 0.02em; }
-.quotemark { display: block; font-family: var(--font-display); font-size: 2rem; line-height: 0.6; color: var(--accent); margin-bottom: 0.4rem; }
+/* ---------- footer ---------- */
+.site-footer { background: var(--bg-alt); border-top: 1px solid var(--line); padding-block: var(--space-4) var(--space-3); }
+.site-footer h2 { font-size: 0.8rem; letter-spacing: var(--track-label); text-transform: uppercase; margin-bottom: 0.6rem; font-family: var(--font-body); color: var(--ink); }
+.site-footer p { margin-bottom: 0.35rem; max-width: 34ch; }
+.site-footer a { text-decoration: none; border-bottom: 1px solid var(--line); }
+.site-footer a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.site-footer__legal { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: var(--space-2); font-size: 0.85rem; display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; }
+.site-footer__legal p { max-width: none; margin: 0; }
 
-/* ── 8. CLOSE — T2 brass band, inverted ─────────────────────────────────────────────── */
-.section--brand { background: var(--brand); color: var(--on-brand); }
-.section--brand h2, .section--brand h3 { color: var(--on-brand); }
-.section--brand p { color: var(--on-brand-muted); }
-.section--brand .eyebrow { color: var(--on-brand-muted); }
-.section--brand .lead { color: var(--on-brand-muted); }
-.section--brand :focus-visible { outline-color: var(--on-brand); }
-/* The brass CTA cannot sit on the brass band — it becomes the navy button (7.5:1). */
-.section--brand .btn--primary { background: var(--on-brand); color: var(--brand); box-shadow: none; }
-.section--brand .btn--primary:hover, .section--brand .btn--primary:focus-visible { background: #05080F; color: var(--brand); }
-.section--brand .btn--primary .btn__sub { color: var(--brand); }
-.contact-list { font-style: normal; display: grid; gap: 1px; background: rgba(16, 22, 38, 0.22); border: 1px solid rgba(16, 22, 38, 0.22); border-radius: var(--radius); overflow: hidden; }
-.contact-list > div { background: var(--brand); padding: 0.85rem var(--space-3); display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); flex-wrap: wrap; }
-.contact-list dt, .contact-list .k { font-size: 0.78rem; font-weight: 700; letter-spacing: var(--track-label); text-transform: uppercase; color: var(--on-brand-muted); }
-.contact-list .v, .contact-list dd { margin: 0; font-weight: 700; color: var(--on-brand); text-align: right; }
-.contact-list a { color: var(--on-brand); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; font-weight: 700; }
-.contact-list a:hover { text-decoration-thickness: 3px; }
-
-/* ── Services page ──────────────────────────────────────────────────────────────────── */
-.page-hero { background: var(--bg-alt); border-bottom: 1px solid var(--line); }
-.page-hero .container { padding-block: clamp(2.25rem, 5vw, 3.75rem); }
-.page-hero .lead { max-width: 52ch; }
-.page-hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
-.crumb { font-size: 0.88rem; color: var(--ink-muted); margin-bottom: var(--space-2); }
-.crumb a { color: var(--ink-muted); text-decoration: none; }
-.crumb a:hover { color: var(--accent); text-decoration: underline; }
-
-.feature { border-top: 1px solid var(--line); }
-.feature .media { aspect-ratio: 4 / 3; border: 1px solid var(--hairline-strong); box-shadow: var(--shadow); }
-.feature .media img { object-position: 52% 50%; }
-.ticks { list-style: none; padding: 0; margin: var(--space-2) 0 0; display: grid; gap: 0.6rem; }
-.ticks li { display: flex; gap: 0.65rem; align-items: flex-start; color: var(--ink); }
-.ticks svg { flex: 0 0 auto; color: var(--accent); margin-top: 4px; }
-.ticks b { font-weight: 700; }
-.ticks span { color: var(--ink-muted); }
-
-.steps { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); counter-reset: step; }
-.step { border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: var(--radius); background: var(--bg-alt); padding: var(--space-3); }
-.step__n { display: inline-block; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 0.86rem; color: var(--accent); background: var(--brand-tint); border-radius: var(--radius-sm); padding: 0.2rem 0.55rem; margin-bottom: 0.7rem; }
-.step h3 { font-size: 1.14rem; margin-bottom: 0.45rem; }
-.step p { color: var(--ink-muted); margin: 0; font-size: 0.96rem; }
-
-/* ── Footer ─────────────────────────────────────────────────────────────────────────── */
-.site-footer { background: var(--bg-alt); border-top: 1px solid var(--hairline-strong); }
-.site-footer .brand { color: var(--ink); font-size: 1.05rem; }
-.site-footer p { max-width: 34ch; }
-.site-footer a { color: var(--ink); text-decoration: none; }
-.site-footer a:hover { color: var(--accent); text-decoration: underline; }
-.site-footer .demo { grid-column: 1 / -1; max-width: none; font-size: 0.82rem; color: var(--ink-muted); border-top: 1px solid var(--line); padding-top: var(--space-2); margin: 0; }
-
-/* --- multipage front door: teaser cards that link to the real pages --- */
-.teasers { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
-.teaser { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: var(--space-3); display: flex; flex-direction: column; gap: 0.5rem; box-shadow: var(--shadow-sm); }
-.teaser h3 { margin: 0; font-size: var(--fs-2); }
-.teaser p { margin: 0; color: var(--ink-muted); }
-/* --ink is the one colour guaranteed to be legible on --surface on every palette. The accent is
-   a FILL and measured 2.7:1 as link text on dark cards. Underline carries the affordance. */
-.teaser__link { font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
-.teaser__link:hover { text-decoration: underline; }
-
-/* On a saturated brand band an accent-filled button can sit under 2:1 against the band and read as
-   a coloured block rather than a control (WCAG 1.4.11 wants 3:1). A rim in the band's own text
-   colour guarantees the boundary whatever the two fills happen to be. */
-/* Self-contained closing CTA. The first version reused .section--brand and assumed it paints a
-   --brand background; on sites where that class means something else, --on-brand text landed on the
-   page colour at 1.18:1. Setting both sides here guarantees the pair always matches. */
-.cta-band { background: var(--brand); color: var(--on-brand); padding-block: var(--section-y); }
-.cta-band h2 { color: var(--on-brand); margin-top: 0; }
-.cta-band p { margin-bottom: 0; }
-.cta-band .btn--primary { background: var(--on-brand); color: var(--brand); border: 1px solid var(--on-brand); }
-.cta-band .btn--ghost { color: var(--on-brand); border: 1px solid var(--on-brand); background: transparent; }
+/* ---------- sticky mobile CTA ---------- */
+.cta-bar { background: var(--surface); border-top: 1px solid var(--line); }
+.cta-bar__inner { display: flex; align-items: center; gap: var(--space-2); }
+.cta-bar__inner .btn { flex: 1; }
+.cta-bar__hours { font-size: 0.78rem; color: var(--ink-muted); line-height: 1.2; max-width: 8rem; }
 
 /* ---------- Duna Marketing sample-site bar ---------- */
-/* Frosted glass: the page shows through a dark-grey translucent bar, so it belongs to every
-   palette while still reading as a control. The whole bar is one link back to dunamarketing.com.
-   rgba(25,28,35,.72) composited over even a pure-white page keeps white text at 6.7:1; the
-   backdrop blur is decoration on top of that, never load-bearing. On phones the site's own
-   .cta-bar lifts above it. */
 :root { --duna-h: 54px; }
 .duna-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
   box-sizing: border-box; min-height: var(--duna-h);
-  /* Three columns so the button stays optically centred no matter how wide the copyright is. */
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.75rem;
   padding: 0.55rem 1rem calc(0.55rem + env(safe-area-inset-bottom));
   background: rgba(25, 28, 35, 0.72);
@@ -263,49 +227,21 @@ b, strong { font-weight: 700; }
   font-family: var(--font-body); font-size: 0.92rem; line-height: 1.3; text-align: center;
   cursor: pointer; transition: background 0.15s ease;
 }
-/* No colour here: `.duna-bar a` (0,1,1) would outrank .duna-bar__btn--text (0,1,0) and paint
-   the text button white on white. The button classes own their colours. */
 .duna-bar a { text-decoration: none; }
-.duna-bar__copy {
-  justify-self: start; font-size: 0.76rem; letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.85);   /* 5.42:1 on the bar over even a white page */
-  white-space: nowrap;
-}
-.duna-bar__note {
-  grid-column: 3; justify-self: end; font-size: 0.76rem; letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.85);   /* same 5.42:1 as the copyright */
-  white-space: nowrap;
-}
-/* Two buttons now, side by side and optically centred in the middle column. */
+.duna-bar__copy { justify-self: start; font-size: 0.76rem; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.85); white-space: nowrap; }
+.duna-bar__note { grid-column: 3; justify-self: end; font-size: 0.76rem; letter-spacing: 0.01em; color: rgba(255, 255, 255, 0.85); white-space: nowrap; }
 .duna-bar__actions { grid-column: 2; justify-self: center; display: inline-flex; align-items: center; gap: 0.5rem; }
-.duna-bar__btn {
-  /* Own dark fill over the bar's glass: transparent let each site's palette bleed through and
-     muddied the white text. Black at 45% takes it from 6.7:1 to 12.7:1 in the worst case
-     (a pure-white page behind the bar) while staying translucent. */
-  display: inline-block; background: rgba(0, 0, 0, 0.45); color: #FFFFFF;
-  border: 1.5px solid #FFFFFF; border-radius: 4px;
-  padding: 0.45rem 1.1rem; font-weight: 700; font-size: 0.9rem; white-space: nowrap;
-  transition: background 0.15s ease, color 0.15s ease;
-}
+.duna-bar__btn { display: inline-block; background: rgba(0, 0, 0, 0.45); color: #FFFFFF; border: 1.5px solid #FFFFFF; border-radius: 4px; padding: 0.45rem 1.1rem; font-weight: 700; font-size: 0.9rem; white-space: nowrap; transition: background 0.15s ease, color 0.15s ease; }
 .duna-bar__btn:hover, .duna-bar__btn:focus-visible { background: #FFFFFF; color: #14171E; }
-/* "Text me" is the offer on this bar, so it leads: white fill and dark label, the reverse of the
-   home button, and it inverts on hover the same way. */
 .duna-bar__btn--text { margin-left: 0.6rem; background: #F7C948; color: #14171E; border-color: #F7C948; }
 .duna-bar__btn--text:hover, .duna-bar__btn--text:focus-visible { background: #E3B23A; border-color: #E3B23A; color: #14171E; }
-/* Mobile: the button is the only thing that matters — drop the copyright and the tagline so
-   the bar is one unambiguous tap target. */
 @media (max-width: 720px) {
-  /* Phone: the copyright and tagline go, the home button loses "Marketing", and the padding
-     tightens — two buttons have to sit side by side inside 390px. */
   .duna-bar__copy, .duna-bar__note, .duna-bar .long { display: none; }
   .duna-bar { gap: 0.5rem; padding-inline: 0.75rem; }
   .duna-bar__btn { padding: 0.45rem 0.7rem; font-size: 0.82rem; }
   .duna-bar__btn--text { margin-left: 0.35rem; }
-  /* With the copyright and tagline gone the three-column track no longer balances, so the pair
-     spans the bar and centres itself. */
   .duna-bar__actions { grid-column: 1 / -1; }
 }
-
 body { padding-bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
 @media (max-width: 720px) {
   .cta-bar { bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
