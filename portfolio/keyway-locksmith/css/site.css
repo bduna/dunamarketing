@@ -225,6 +225,17 @@ h2 { max-width: 22ch; }
 .cta-bar__inner .btn { flex: 1; }
 .cta-bar__hours { font-size: 0.78rem; color: var(--ink-muted); line-height: 1.2; max-width: 8rem; }
 
+/* contact page reach block: the email address is one unbreakable 233px word, so
+   1fr columns cannot shrink below it and the 2-up grid overflowed the phone screen */
+#reach .facts { grid-template-columns: 1fr; }
+#reach .fact { min-width: 0; }
+#reach .fact p, #reach .fact a { overflow-wrap: anywhere; }
+#reach .fact a { display: inline-block; padding-block: 0.25rem; }
+@media (min-width: 640px) { #reach .facts { grid-template-columns: 1fr 1fr; } }
+/* 4-up only once every value fits on one line; columns sized to what each value needs
+   (phone 180px, email 283px, hours 247px, where 258px, including card padding) */
+@media (min-width: 1160px) { #reach .facts { grid-template-columns: 0.78fr 1.16fr 1fr 1.06fr; } }
+
 /* ---------- Duna Marketing sample-site bar ---------- */
 :root { --duna-h: 54px; }
 .duna-bar {
