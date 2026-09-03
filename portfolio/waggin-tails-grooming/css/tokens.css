@@ -1,19 +1,28 @@
-/* tokens.css — Waggin' Tails Grooming. Playful · Friendly · Warm. Sky-blue base, deep-blue brand, grass-green accent. */
+/* tokens.css — Waggin' Tails Grooming. Playful · Friendly · Warm. White page, sky-blue accent, deep-blue brand (recoloured 2026-09-03 at the owner's request: no green, no tan, more white). */
 :root {
-  /* Palette (60-30-10). AA checked: ink/sky 14.1:1, muted/sky 5.8:1, on-brand/brand 6.4:1, white/accent 5.4:1 */
-  --bg: #E7F2FB;            /* 60: soft sky blue */
-  --bg-alt: #D3E7F7;        /* deeper sky tint panel */
-  --bg-sky: #D3E7F7;        /* legacy alias — same sky tint */
+  /* Palette (2026 recolour): white page, one blue family. Sky-blue accent for the thing to press,
+     deep blue for headings and the closing band, the palest blue for panels and pills.
+     AA checked: ink/white 15.6:1, muted/white 5.9:1, white/accent 4.9:1, white/brand 10.9:1 */
+  --bg: #FFFFFF;            /* the page */
+  --bg-alt: #F2F7FC;        /* alternating sections — the faintest sky */
+  --bg-sky: #F2F7FC;        /* legacy alias */
   --surface: #FFFFFF;
-  --ink: #12222E;
-  --ink-muted: #4A5F70;
-  --line: #BCD8EC;
-  --brand: #185B87;         /* 30: deep sky blue — band, labels, heading accents */
-  --brand-deep: #103F5F;
-  --on-brand: #E7F2FB;
-  --accent: #277A45;        /* 10: grass green — the Book CTA (nudged darker for 4.5:1 on white) */
-  --accent-hover: #1D5C33;
+  --ink: #14202B;
+  --ink-muted: #5B6B7B;
+  --line: #DCE6EF;
+  --brand: #143F6B;         /* deep blue — headings, emphasis, the closing band */
+  --brand-deep: #0F2F50;
+  --on-brand: #FFFFFF;
+  --accent: #1B75C4;        /* sky blue — the Call button, paw prints, step numbers */
+  --accent-hover: #155E9E;
   --on-accent: #FFFFFF;
+
+  /* Derived — the pale tint that carries panels, pills and the photo "stickers" */
+  --tint: #EAF3FB;
+  --tint-deep: #D6E7F5;
+  --tint-line: #C6DAEB;
+  --accent-ink: #155E9E;   /* accent blue for small text on white and tint (6.2:1 / 5.6:1) */
+  --brand-tint: rgba(27, 117, 196, 0.10);
 
   /* Type — Fredoka (display) + Nunito Sans (body), loaded in <head> */
   --font-display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
@@ -43,14 +52,6 @@
   --measure: 60ch;
   --container: 1140px;
   --gutter: clamp(1rem, 4vw, 2rem);
-
-  /* Derived (2026 redesign) — the client's third colour. Cream carries the warm panels:
-     reviews, FAQ, first-visit tips. Identity tokens above are untouched. */
-  --cream: #FFF6E4;
-  --cream-deep: #F6E8C9;
-  --cream-line: #E8D5AC;
-  --accent-ink: #1F6338;   /* green for small text on white and cream (5.9:1 / 5.5:1) */
-  --brand-tint: rgba(24, 91, 135, 0.10);
 
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --dur: 220ms;
