@@ -44,6 +44,14 @@
   --container: 1140px;
   --gutter: clamp(1rem, 4vw, 2rem);
 
+  /* Derived (2026 redesign) — the client's third colour. Cream carries the warm panels:
+     reviews, FAQ, first-visit tips. Identity tokens above are untouched. */
+  --cream: #FFF6E4;
+  --cream-deep: #F6E8C9;
+  --cream-line: #E8D5AC;
+  --accent-ink: #1F6338;   /* green for small text on white and cream (5.9:1 / 5.5:1) */
+  --brand-tint: rgba(24, 91, 135, 0.10);
+
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --dur: 220ms;
 }
