@@ -214,6 +214,8 @@ h2 { max-width: 20ch; }
   border-radius: 10px; box-shadow: 0 4px 14px rgba(200, 16, 46, 0.32);
   display: inline-flex; align-items: center; gap: 0.45rem; }
 .duna-bar__btn--text svg { width: 15px; height: 15px; flex: none; }
+.duna-bar__btn--call { margin-left: 0.6rem; border-radius: 10px; display: inline-flex; align-items: center; gap: 0.45rem; }
+.duna-bar__btn--call svg { width: 15px; height: 15px; flex: none; }
 .duna-bar__btn--text:hover, .duna-bar__btn--text:focus-visible { background: #A50D25; border-color: #A50D25;
   color: #FFFFFF; box-shadow: 0 6px 18px rgba(200, 16, 46, 0.42); }
 @media (max-width: 720px) {
@@ -223,6 +225,7 @@ h2 { max-width: 20ch; }
   .duna-bar { gap: 0.5rem; padding-inline: 0.75rem; }
   .duna-bar__btn { padding: 0.45rem 0.7rem; font-size: 0.82rem; }
   .duna-bar__btn--text { margin-left: 0.35rem; }
+  .duna-bar__btn--call { margin-left: 0.35rem; }
   /* With the copyright and tagline gone the three-column track no longer balances, so the pair
      spans the bar and centres itself. */
   .duna-bar__actions { grid-column: 1 / -1; }

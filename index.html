@@ -51,13 +51,17 @@ fbq('track', 'PageView');
     box-shadow:0 2px 12px rgba(0,29,82,.35); }
   .topbar img { height:32px; width:auto; display:block; background:#fff; border-radius:6px; padding:3px; }
   .topbar .name { font-weight:800; font-size:1.05rem; color:#fff; }
-  .topbar__cta { margin-left:auto; margin-right:6px; display:inline-flex; align-items:center; gap:8px;
+  .topbar__cta { margin-right:6px; display:inline-flex; align-items:center; gap:8px;
     background:var(--red); color:#fff; text-decoration:none; font-weight:800; font-size:.92rem;
     line-height:1; white-space:nowrap; padding:10px 16px; border-radius:10px;
     box-shadow:0 4px 14px rgba(200,16,46,.32); transition:background .15s, box-shadow .15s, transform .08s; }
   .topbar__cta:hover, .topbar__cta:focus-visible { background:var(--red-dark); box-shadow:0 6px 18px rgba(200,16,46,.42); }
   .topbar__cta:active { transform:translateY(1px); }
   .topbar__cta svg { width:17px; height:17px; flex:0 0 auto; }
+  .topbar__cta--call { margin-left:auto; background:rgba(255,255,255,.12); border:1.5px solid #fff; box-shadow:none; }
+  .topbar__cta--call:hover, .topbar__cta--call:focus-visible { background:#fff; color:var(--navy); box-shadow:none; }
+  .topbar__cta--text { margin-left:8px; }
+  @media (max-width:720px) { .topbar__cta--call { display:none; } .topbar__cta--text { margin-left:auto; } }
   @media (max-width:560px) { .topbar__cta { font-size:.85rem; padding:9px 13px; margin-right:2px; } }
   /* below this the logo carries the brand: the name and the button together need ~410px */
   @media (max-width:460px) { .topbar .name { display:none; } }
@@ -76,6 +80,8 @@ fbq('track', 'PageView');
     letter-spacing:-.02em; color:var(--navy); text-align:center; margin:48px 0 25px; text-wrap:balance; }
   .cta-stack { display:flex; flex-direction:column; gap:10px; align-items:stretch;
     margin:0 auto; max-width:420px; width:100%; }
+  .cta-pair { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:0 auto; max-width:560px; }
+  .cta-pair .btn { flex:1 1 220px; }
   .btn { display:flex; align-items:center; justify-content:center; gap:10px; padding:16px 20px;
     border-radius:12px; font-weight:800; font-size:1.12rem; text-decoration:none;
     letter-spacing:.01em; transition:transform .08s, background .15s, box-shadow .15s; }
@@ -83,8 +89,7 @@ fbq('track', 'PageView');
   .btn-text { background:var(--red); color:#fff; box-shadow:0 8px 20px rgba(200,16,46,.3); }
   .btn-text:hover, .btn-text:focus-visible { background:var(--red-dark);
     box-shadow:0 10px 24px rgba(200,16,46,.38); }
-  .btn-call { background:#fff; color:var(--navy); border:2px solid var(--navy);
-    font-size:1rem; padding:12px 20px; }
+  .btn-call { background:#fff; color:var(--navy); border:2px solid var(--navy); padding:14px 20px; }
   .btn-call:hover, .btn-call:focus-visible { background:var(--navy-soft); }
   .btn svg { width:22px; height:22px; flex:0 0 auto; }
   .reply-note { text-align:center; margin:12px 0 0; font-size:.9rem; color:var(--muted); }
@@ -136,7 +141,11 @@ fbq('track', 'PageView');
 <header class="topbar">
   <img src="duna_marketing_logo.png" alt="">
   <span class="name">Duna Marketing</span>
-  <a class="topbar__cta" href="sms:+17073855673" aria-label="Text Duna Marketing on (707) 385-5673 to get started">
+  <a class="topbar__cta topbar__cta--call" href="tel:+17073855673" aria-label="Call Duna Marketing on (707) 385-5673 to get started">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Call me to get started
+  </a>
+  <a class="topbar__cta topbar__cta--text" href="sms:+17073855673" aria-label="Text Duna Marketing on (707) 385-5673 to get started">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
     Text me to get started
   </a>
@@ -148,6 +157,16 @@ fbq('track', 'PageView');
       <p class="kicker">Bespoke, high&#8209;quality web solutions</p>
       <h1>Big&#8209;Agency Websites. Small&#8209;Business Prices.</h1>
       <p>Custom-built for your business, at a price that will surprise you. Explore the sample portfolio below then text me to speak about your new website idea.</p>
+      <div class="cta-pair">
+        <a class="btn btn-text" href="sms:+17073855673">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Text me to get started
+        </a>
+        <a class="btn btn-call" href="tel:+17073855673">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call me to get started
+        </a>
+      </div>
     </div>
 
     <section class="proof" id="proof">
@@ -193,6 +212,10 @@ fbq('track', 'PageView');
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Text me to get started
       </a>
+      <a class="btn btn-call" href="tel:+17073855673">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call me to get started
+      </a>
     </div>
     <p class="reply-note">I nearly always reply <b>right away</b>, otherwise, I&rsquo;ll get back to you as soon as possible.</p>
 
@@ -221,11 +244,14 @@ fbq('track', 'PageView');
   } catch (e) {}
   var body = "Hi Barrett \u2014 I\u2019d like a website" + (biz ? " for " + biz : " for my business") + ".";
 
-  var t = document.getElementById("text-btn");
-  if (t) t.href = "sms:" + PHONE + "?&body=" + encodeURIComponent(body);
-
   function track(name) { try { if (window.fbq) fbq("track", "Contact", { content_name: name }); } catch (e) {} }
-  if (t) t.addEventListener("click", function () { track("text"); });
+  document.querySelectorAll('a[href^="sms:"]').forEach(function (a) {
+    a.href = "sms:" + PHONE + "?&body=" + encodeURIComponent(body);
+    a.addEventListener("click", function () { track("text"); });
+  });
+  document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
+    a.addEventListener("click", function () { track("call"); });
+  });
 
   var top = document.getElementById("totop");
   if (top) top.addEventListener("click", function () {
