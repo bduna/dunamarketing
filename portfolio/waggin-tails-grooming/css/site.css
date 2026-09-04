@@ -252,3 +252,8 @@ body { padding-bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
   .cta-bar { bottom: calc(var(--duna-h) + env(safe-area-inset-bottom)); }
   body.has-cta-bar { padding-bottom: calc(84px + var(--duna-h)); }
 }
+
+/* Uniform legal block shared by every Duna sample site. */
+.site-footer .duna-legal { grid-column: 1 / -1; margin-top: 0.25rem; padding-top: 1.25rem; border-top: 1px solid var(--line, rgba(127, 127, 127, 0.35)); font-size: 0.85rem; line-height: 1.55; }
+.site-footer .duna-legal p { margin: 0 0 0.3rem; max-width: none; }
+.site-footer .duna-legal p:last-child { margin-bottom: 0; }
