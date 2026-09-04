@@ -186,7 +186,6 @@
 .strip__grid { display: grid; gap: var(--sp-5); }
 @media (min-width: 820px) {
   .strip__grid { grid-template-columns: repeat(3, 1fr); gap: clamp(1.25rem, 3vw, 2.25rem); align-items: start; }
-  .strip__fig:nth-child(2) { margin-top: clamp(1.75rem, 4.5vw, 3.75rem); }
 }
 .strip__fig .media { box-shadow: var(--shadow-sm); }
 .strip__fig .media img { transition: transform 800ms var(--ease); }
