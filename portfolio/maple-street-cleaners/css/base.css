@@ -353,14 +353,20 @@ b, strong { font-weight: 600; color: var(--ink); }
 /* Mobile: the button is the only thing that matters — drop the copyright and the tagline so
    the bar is one unambiguous tap target. */
 @media (max-width: 720px) {
-  /* Phone: the copyright and tagline go, the home button loses "Marketing", and the padding
-     tightens — two buttons have to sit side by side inside 390px. */
+  /* Phones (all ad traffic): a small home link on top, then two full-width, full-label
+     text and call buttons. The bar grows to 96px, and --duna-h grows with it so the page
+     and any site call bar keep clearing it. */
+  :root { --duna-h: 96px; }
   .duna-bar__copy, .duna-bar__note, .duna-bar .long { display: none; }
-  .duna-bar { gap: 0.5rem; padding-inline: 0.75rem; }
-  .duna-bar__btn { padding: 0.45rem 0.7rem; font-size: 0.82rem; }
-  .duna-bar__btn--text { margin-left: 0.35rem; }
-  .duna-bar__btn--call { margin-left: 0.35rem; }
-  /* With the copyright and tagline gone the three-column track no longer balances, so the pair
-     spans the bar and centres itself. */
-  .duna-bar__actions { grid-column: 1 / -1; }
+  .duna-bar { grid-template-columns: 1fr; gap: 0; padding: 0.4rem 0.6rem calc(0.5rem + env(safe-area-inset-bottom)); }
+  .duna-bar__actions { grid-column: 1 / -1; justify-self: stretch; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 0.5rem; }
+  .duna-bar__btn { grid-column: 1 / -1; justify-self: center; background: none; border: 0; padding: 0.1rem 0 0.15rem;
+    font-size: 0.74rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; opacity: 0.9; }
+  .duna-bar__btn--text, .duna-bar__btn--call { grid-column: auto; justify-self: stretch; justify-content: center; text-align: center;
+    margin-left: 0; min-height: 46px; padding: 0.4rem 0.45rem; font-size: 0.82rem; font-weight: 700; line-height: 1.15;
+    white-space: normal; text-decoration: none; opacity: 1; border-radius: 10px; }
+  .duna-bar__btn--text { background: #C8102E; border: 1.5px solid #C8102E; }
+  .duna-bar__btn--call { background: rgba(0, 0, 0, 0.45); border: 1.5px solid #FFFFFF; }
+  .duna-bar__btn--text .long, .duna-bar__btn--call .long { display: inline; }
+  .duna-bar__btn--text svg, .duna-bar__btn--call svg { width: 16px; height: 16px; }
 }
