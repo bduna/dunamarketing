@@ -73,7 +73,7 @@ fbq('track', 'PageView');
     padding:16px 14px calc(20px + env(safe-area-inset-bottom)); }
   .wrap { width:100%; max-width:680px; display:flex; flex-direction:column; }
 
-  .intro { text-align:center; margin-bottom:14px; }
+  .intro { text-align:center; margin-bottom:2px; }
   .intro h1 { font-size:clamp(1.5rem,5.5vw,2.1rem); line-height:1.1; margin:0 0 6px;
     letter-spacing:-.02em; color:var(--navy); }
   .intro p { margin:0; color:var(--muted); font-size:.95rem; }
@@ -100,7 +100,7 @@ fbq('track', 'PageView');
        The clearance has to sit on the flow content instead. */
     main { padding-bottom:calc(96px + env(safe-area-inset-bottom)); }
     .intro .kicker { margin-top:12px; }
-    .intro h1 + p { margin-bottom:14px; }
+    .intro h1 + p { margin-bottom:12px; }
   }
   .btn { display:flex; align-items:center; justify-content:center; gap:10px; padding:16px 20px;
     border-radius:12px; font-weight:800; font-size:1.12rem; text-decoration:none;
@@ -128,12 +128,12 @@ fbq('track', 'PageView');
     letter-spacing:-.03em; color:var(--navy); text-wrap:balance; }
   .intro p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
   /* Space under the subline so the first question does not sit on top of the pitch. */
-  .intro h1 + p { margin-bottom:clamp(18px, 4vw, 30px); }
+  .intro h1 + p { margin-bottom:clamp(14px, 2.2vw, 24px); }
 
   /* ---- proof strip: the six sample sites ---- */
   /* The subline hands straight off to the samples ("click around the portfolio below"), so the
      hero's own bottom margin carries nearly all of the gap — the two read as one pitch. */
-  .proof { margin:6px 0 0; }
+  .proof { margin:0; }
   .proof h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
     letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
   .proof p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 20px; max-width:44ch; }
