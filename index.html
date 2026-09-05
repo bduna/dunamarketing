@@ -95,7 +95,9 @@ fbq('track', 'PageView');
     .mcta__btn--text:active { background:var(--red-dark); }
     .mcta__btn--call { background:var(--navy); color:#fff; box-shadow:0 6px 16px rgba(0,48,135,.28); font-size:1rem; min-height:54px; }
     .mcta__btn--call:active { background:var(--navy-deep); }
-    body { padding-bottom:calc(82px + env(safe-area-inset-bottom)); }
+    /* body is height:100% + border-box, so padding there never extends the scroll.
+       The clearance has to sit on the flow content instead. */
+    main { padding-bottom:calc(96px + env(safe-area-inset-bottom)); }
     .intro .kicker { margin-top:12px; }
     .intro h1 + p { margin-bottom:14px; }
     .cta-pair { gap:8px; }
@@ -174,7 +176,7 @@ fbq('track', 'PageView');
     <div class="intro" id="intro">
       <p class="kicker">Bespoke, high&#8209;quality web solutions</p>
       <h1>Big&#8209;Agency Websites. Small&#8209;Business Prices.</h1>
-      <p>Custom-built for your business, at a price that will surprise you. Explore the sample portfolio below then text me to speak about your new website idea.</p>
+      <p>Custom-built for your business, at a price that will surprise you. Explore the sample portfolio below then text or call me to speak about your new website idea.</p>
       <div class="cta-pair">
         <a class="btn btn-call" href="tel:+17073855673">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
