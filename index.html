@@ -60,6 +60,10 @@ fbq('track', 'PageView');
     box-shadow:0 4px 14px rgba(200,16,46,.32); transition:background .15s, box-shadow .15s, transform .08s; }
   .topbar__cta:hover, .topbar__cta:focus-visible { background:var(--red-dark); box-shadow:0 6px 18px rgba(200,16,46,.42); }
   .topbar__cta:active { transform:translateY(1px); }
+  /* When the bottom CTA block is on screen the sticky calls to action stand down:
+     the whole bottom bar leaves, the header keeps its logo but drops its button. */
+  .topbar__cta { transition:background .15s, box-shadow .15s, transform .08s, opacity .18s ease, visibility .18s; }
+  body.cta-visible .topbar__cta { opacity:0; visibility:hidden; transform:translateY(-6px); pointer-events:none; }
   .topbar__cta svg { width:17px; height:17px; flex:0 0 auto; }
   .topbar__cta--call { margin-left:auto; background:rgba(255,255,255,.12); border:1.5px solid #fff; box-shadow:none; }
   .topbar__cta--call:hover, .topbar__cta--call:focus-visible { background:#fff; color:var(--navy); box-shadow:none; }
@@ -96,6 +100,8 @@ fbq('track', 'PageView');
     .mcta__btn--text:active { background:var(--red-dark); }
     .mcta__btn--call { background:var(--navy); color:#fff; box-shadow:0 6px 16px rgba(0,48,135,.28); font-size:1rem; min-height:54px; }
     .mcta__btn--call:active { background:var(--navy-deep); }
+    .mcta { transition:transform .2s ease, opacity .2s ease; }
+    body.cta-visible .mcta { transform:translateY(110%); opacity:0; pointer-events:none; }
     /* body is height:100% + border-box, so padding there never extends the scroll.
        The clearance has to sit on the flow content instead. */
     main { padding-bottom:calc(96px + env(safe-area-inset-bottom)); }
@@ -154,7 +160,7 @@ fbq('track', 'PageView');
   @media (hover:hover) and (pointer:fine) { .totop:hover { color:var(--red); } .totop:hover svg { transform:translateY(-3px); } }
   .totop:active { color:var(--red); }
   .totop:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
-  @media (prefers-reduced-motion:reduce) { .totop svg { transition:none; } }
+  @media (prefers-reduced-motion:reduce) { .totop svg, .mcta, .topbar__cta { transition:none; } }
 </style>
 </head>
 <body>
@@ -266,6 +272,14 @@ fbq('track', 'PageView');
   document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
     a.addEventListener("click", function () { track("call"); });
   });
+
+  // The bottom CTA block and the sticky bars say the same thing, so only one shows at a time.
+  var endCta = document.querySelector(".cta-stack");
+  if (endCta && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      document.body.classList.toggle("cta-visible", entries[0].isIntersecting);
+    }, { rootMargin: "0px 0px -60px 0px", threshold: 0 }).observe(endCta);
+  }
 
   var top = document.getElementById("totop");
   if (top) top.addEventListener("click", function () {
