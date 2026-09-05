@@ -70,8 +70,18 @@ fbq('track', 'PageView');
   .topbar__cta--text { margin-left:8px; }
   @media (max-width:720px) { .topbar__cta--call { display:none; } .topbar__cta--text { margin-left:auto; } }
   @media (max-width:560px) { .topbar__cta { font-size:.85rem; padding:9px 13px; margin-right:2px; } }
-  /* below this the logo carries the brand: the name and the button together need ~410px */
-  @media (max-width:460px) { .topbar .name { display:none; } }
+  /* The name stays at every width. Below 560px the bar tightens and the type steps down
+     to make room; below 400px the button drops its tail to "Text me". */
+  @media (max-width:560px) {
+    .topbar { padding:9px 10px; gap:8px; }
+    .topbar img { height:30px; }
+    .topbar .name { font-size:.95rem; letter-spacing:-.01em; }
+  }
+  @media (max-width:400px) {
+    .topbar .name { font-size:.9rem; }
+    .topbar__cta .tail { display:none; }
+    .topbar__cta { padding:9px 11px; gap:6px; }
+  }
 
   main { display:flex; flex-direction:column; align-items:center; width:100%;
     padding:16px 14px calc(20px + env(safe-area-inset-bottom)); }
@@ -174,11 +184,11 @@ fbq('track', 'PageView');
   <span class="name">Duna Marketing</span>
   <a class="topbar__cta topbar__cta--call" href="tel:+17073855673" aria-label="Call Duna Marketing on (707) 385-5673 to get started">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    Call me to get started
+    <span>Call me<span class="tail"> to get started</span></span>
   </a>
   <a class="topbar__cta topbar__cta--text" href="sms:+17073855673" aria-label="Text Duna Marketing on (707) 385-5673 to get started">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    Text me to get started
+    <span>Text me<span class="tail"> to get started</span></span>
   </a>
 </header>
 
