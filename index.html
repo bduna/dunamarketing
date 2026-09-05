@@ -85,7 +85,7 @@ fbq('track', 'PageView');
   /* Phones: a fixed text + call bar. Ad traffic is mobile, so the two ways to reach me never scroll away. */
   .mcta { display:none; }
   @media (max-width:720px) {
-    .mcta { position:fixed; left:0; right:0; bottom:0; z-index:80; display:grid; grid-template-columns:1fr 1fr; gap:8px;
+    .mcta { position:fixed; left:0; right:0; bottom:0; z-index:80; display:grid; grid-template-columns:1fr; gap:8px;
       padding:8px 10px calc(8px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.96);
       border-top:1px solid var(--line); box-shadow:0 -4px 16px rgba(0,0,0,.08); backdrop-filter:saturate(150%) blur(8px); }
     .mcta__btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:50px; padding:8px 8px;
@@ -93,9 +93,9 @@ fbq('track', 'PageView');
     .mcta__btn svg { width:18px; height:18px; flex:0 0 auto; }
     .mcta__btn--text { background:var(--red); color:#fff; box-shadow:0 6px 16px rgba(200,16,46,.28); }
     .mcta__btn--text:active { background:var(--red-dark); }
-    .mcta__btn--call { background:#fff; color:var(--navy); border:2px solid var(--navy); }
-    .mcta__btn--call:active { background:var(--navy-soft); }
-    body { padding-bottom:calc(78px + env(safe-area-inset-bottom)); }
+    .mcta__btn--call { background:var(--navy); color:#fff; box-shadow:0 6px 16px rgba(0,48,135,.28); font-size:1rem; min-height:54px; }
+    .mcta__btn--call:active { background:var(--navy-deep); }
+    body { padding-bottom:calc(82px + env(safe-area-inset-bottom)); }
     .intro .kicker { margin-top:12px; }
     .intro h1 + p { margin-bottom:14px; }
     .cta-pair { gap:8px; }
@@ -246,7 +246,6 @@ fbq('track', 'PageView');
 </main>
 
 <div class="mcta" aria-label="Get started">
-  <a class="mcta__btn mcta__btn--text" href="sms:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span>Text me to get started</span></a>
   <a class="mcta__btn mcta__btn--call" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Call me to get started</span></a>
 </div>
 
