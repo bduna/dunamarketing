@@ -233,19 +233,18 @@ h2 { max-width: 22ch; }
 .duna-bar__actions { grid-column: 2; justify-self: center; display: inline-flex; align-items: center; gap: 0.5rem; }
 .duna-bar__btn { display: inline-block; background: rgba(0, 0, 0, 0.45); color: #FFFFFF; border: 1.5px solid #FFFFFF; border-radius: 4px; padding: 0.45rem 1.1rem; font-weight: 700; font-size: 0.9rem; white-space: nowrap; transition: background 0.15s ease, color 0.15s ease; }
 .duna-bar__btn:hover, .duna-bar__btn:focus-visible { background: #FFFFFF; color: #14171E; }
-.duna-bar__btn--text { margin-left: 0.6rem; background: #C8102E; color: #FFFFFF; border-color: #C8102E;
-  border-radius: 10px; box-shadow: 0 4px 14px rgba(200, 16, 46, 0.32);
+.duna-bar__btn--text { margin-left: 0.6rem; background: #003087; color: #FFFFFF; border-color: #003087;
+  border-radius: 10px; box-shadow: 0 4px 14px rgba(0, 48, 135, 0.34);
   display: inline-flex; align-items: center; gap: 0.45rem; }
 .duna-bar__btn--text svg { width: 15px; height: 15px; flex: none; }
 .duna-bar__btn--call { margin-left: 0.6rem; border-radius: 10px; display: inline-flex; align-items: center; gap: 0.45rem; }
 .duna-bar__btn--call svg { width: 15px; height: 15px; flex: none; }
-.duna-bar__btn--text:hover, .duna-bar__btn--text:focus-visible { background: #A50D25; border-color: #A50D25;
-  color: #FFFFFF; box-shadow: 0 6px 18px rgba(200, 16, 46, 0.42); }
+.duna-bar__btn--text:hover, .duna-bar__btn--text:focus-visible { background: #001D52; border-color: #001D52;
+  color: #FFFFFF; box-shadow: 0 6px 18px rgba(0, 48, 135, 0.44); }
 @media (max-width: 720px) {
-  /* Phones (all ad traffic): a small home link on top, then two full-width, full-label
-     text and call buttons. The bar grows to 96px, and --duna-h grows with it so the page
-     and any site call bar keep clearing it. */
-  :root { --duna-h: 96px; }
+  /* Phones (all ad traffic): two full-width, full-label text and call buttons on one row.
+     --duna-h tracks the taller bar so pages keep clearing it. */
+  :root { --duna-h: 66px; }
   .duna-bar__copy, .duna-bar__note, .duna-bar .long { display: none; }
   .duna-bar { grid-template-columns: 1fr; gap: 0; padding: 0.4rem 0.6rem calc(0.5rem + env(safe-area-inset-bottom)); }
   .duna-bar__actions { grid-column: 1 / -1; justify-self: stretch; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 0.5rem; }
@@ -254,7 +253,7 @@ h2 { max-width: 22ch; }
   .duna-bar__btn--text, .duna-bar__btn--call { grid-column: auto; justify-self: stretch; justify-content: center; text-align: center;
     margin-left: 0; min-height: 46px; padding: 0.4rem 0.45rem; font-size: 0.82rem; font-weight: 700; line-height: 1.15;
     white-space: normal; text-decoration: none; opacity: 1; border-radius: 10px; }
-  .duna-bar__btn--text { background: #C8102E; border: 1.5px solid #C8102E; }
+  .duna-bar__btn--text { background: #003087; border: 1.5px solid #003087; }
   .duna-bar__btn--call { background: rgba(0, 0, 0, 0.45); border: 1.5px solid #FFFFFF; }
   .duna-bar__btn--text .long, .duna-bar__btn--call .long { display: inline; }
   .duna-bar__btn--text svg, .duna-bar__btn--call svg { width: 16px; height: 16px; }
