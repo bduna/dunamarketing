@@ -146,7 +146,6 @@
 @media (min-width: 700px) { .gal { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 1020px) {
   .gal { grid-template-columns: repeat(3, 1fr); align-items: start; }
-  .gal > figure:nth-child(3n + 2) { margin-top: clamp(1.5rem, 4vw, 3rem); }
 }
 .gal figure { margin: 0; }
 .gal .media img { transition: transform 800ms var(--ease); }
