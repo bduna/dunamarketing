@@ -103,8 +103,9 @@ fbq('track', 'PageView');
     .mcta { transition:transform .2s ease, opacity .2s ease; }
     body.cta-visible .mcta { transform:translateY(110%); opacity:0; pointer-events:none; }
     /* body is height:100% + border-box, so padding there never extends the scroll.
-       The clearance has to sit on the flow content instead. */
-    main { padding-bottom:calc(96px + env(safe-area-inset-bottom)); }
+       The clearance has to sit on the flow content instead. The call bar is always
+       hidden by then (the CTA block is in view), so this only has to clear the slide-out. */
+    main { padding-bottom:calc(28px + env(safe-area-inset-bottom)); }
     .intro .kicker { margin-top:12px; }
     .intro h1 + p { margin-bottom:12px; }
   }
@@ -152,7 +153,7 @@ fbq('track', 'PageView');
   @media (max-width:560px) { .proof-grid { grid-template-columns:repeat(2,1fr); gap:10px; } }
 
   /* ---- back to the top: in the flow, so you only meet it by having scrolled ---- */
-  .totop { display:flex; flex-direction:column; align-items:center; gap:6px; margin:30px auto 8px;
+  .totop { display:flex; flex-direction:column; align-items:center; gap:6px; margin:16px auto 4px;
     background:none; border:0; padding:8px 12px; cursor:pointer; color:var(--navy); font:inherit; border-radius:10px; }
   .totop svg { width:44px; height:44px; display:block; transition:transform .15s ease; }
   .totop span { font-size:.8rem; font-weight:700; }
@@ -162,6 +163,10 @@ fbq('track', 'PageView');
   .totop:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
   @media (prefers-reduced-motion:reduce) { .totop svg, .mcta, .topbar { transition:none; } }
 </style>
+<noscript><style>
+  /* Without JS the call bar never hides, so the page keeps its full clearance. */
+  @media (max-width:720px) { main { padding-bottom:calc(96px + env(safe-area-inset-bottom)); } }
+</style></noscript>
 </head>
 <body>
 <header class="topbar">
