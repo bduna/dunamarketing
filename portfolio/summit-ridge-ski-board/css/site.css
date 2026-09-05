@@ -380,14 +380,18 @@ strong { font-weight: 700; }
 .duna-bar__btn:hover, .duna-bar__btn:focus-visible { background: #FFFFFF; color: #14171E; }
 /* "Text me" is the offer on this bar, so it leads: white fill and dark label, the reverse of the
    home button, and it inverts on hover the same way. */
-.duna-bar__btn--text { margin-left: 0.6rem; background: #003087; color: #FFFFFF; border-color: #003087;
-  border-radius: 10px; box-shadow: 0 4px 14px rgba(0, 48, 135, 0.34);
+.duna-bar__btn--text { margin-left: 0.6rem; background: #C8102E; color: #FFFFFF; border-color: #C8102E;
+  border-radius: 10px; box-shadow: 0 4px 14px rgba(200, 16, 46, 0.32);
   display: inline-flex; align-items: center; gap: 0.45rem; }
 .duna-bar__btn--text svg { width: 15px; height: 15px; flex: none; }
-.duna-bar__btn--call { margin-left: 0.6rem; border-radius: 10px; display: inline-flex; align-items: center; gap: 0.45rem; }
-.duna-bar__btn--call svg { width: 15px; height: 15px; flex: none; }
-.duna-bar__btn--text:hover, .duna-bar__btn--text:focus-visible { background: #001D52; border-color: #001D52;
+.duna-bar__btn--call { margin-left: 0.6rem; background: #003087; color: #FFFFFF; border-color: #003087;
+  border-radius: 10px; box-shadow: 0 4px 14px rgba(0, 48, 135, 0.34);
+  display: inline-flex; align-items: center; gap: 0.45rem; }
+.duna-bar__btn--call:hover, .duna-bar__btn--call:focus-visible { background: #001D52; border-color: #001D52;
   color: #FFFFFF; box-shadow: 0 6px 18px rgba(0, 48, 135, 0.44); }
+.duna-bar__btn--call svg { width: 15px; height: 15px; flex: none; }
+.duna-bar__btn--text:hover, .duna-bar__btn--text:focus-visible { background: #A50D25; border-color: #A50D25;
+  color: #FFFFFF; box-shadow: 0 6px 18px rgba(200, 16, 46, 0.42); }
 /* Mobile: the button is the only thing that matters — drop the copyright and the tagline so
    the bar is one unambiguous tap target. */
 @media (max-width: 720px) {
@@ -402,8 +406,8 @@ strong { font-weight: 700; }
   .duna-bar__btn--text, .duna-bar__btn--call { grid-column: auto; justify-self: stretch; justify-content: center; text-align: center;
     margin-left: 0; min-height: 46px; padding: 0.4rem 0.45rem; font-size: 0.82rem; font-weight: 700; line-height: 1.15;
     white-space: normal; text-decoration: none; opacity: 1; border-radius: 10px; }
-  .duna-bar__btn--text { background: #003087; border: 1.5px solid #003087; }
-  .duna-bar__btn--call { background: rgba(0, 0, 0, 0.45); border: 1.5px solid #FFFFFF; }
+  .duna-bar__btn--text { background: #C8102E; border: 1.5px solid #C8102E; }
+  .duna-bar__btn--call { background: #003087; border: 1.5px solid #003087; }
   .duna-bar__btn--text .long, .duna-bar__btn--call .long { display: inline; }
   .duna-bar__btn--text svg, .duna-bar__btn--call svg { width: 16px; height: 16px; }
 }
