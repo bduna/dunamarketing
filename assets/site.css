@@ -49,8 +49,8 @@ p:last-child{margin-bottom:0}
 .s--navy{background:var(--navy);color:#fff}
 .s--navy h1,.s--navy h2,.s--navy h3{color:#fff}
 .s--navy .lead,.s--navy p{color:rgba(255,255,255,.82)}
-.s--navy .eyebrow{color:#FF9BAB}
-.s--navy .eyebrow::before{background:#FF9BAB}
+.s--navy .eyebrow{color:#fff}
+.s--navy .eyebrow::before{background:rgba(255,255,255,.7)}
 .s--deep{background:var(--navy-deep);color:#fff}
 .rule{height:1px;background:var(--line);border:0;margin:0}
 .s--navy .rule,.s--deep .rule{background:rgba(255,255,255,.18)}
@@ -82,7 +82,7 @@ p:last-child{margin-bottom:0}
   text-decoration:none;box-shadow:inset 0 -2px 0 var(--red);padding:10px 0 8px;transition:gap .15s ease}
 .link svg{width:17px;height:17px}
 .link:hover{gap:12px}
-.s--navy .link,.s--deep .link{color:#fff;border-color:#FF9BAB}
+.s--navy .link,.s--deep .link{color:#fff;box-shadow:inset 0 -2px 0 rgba(255,255,255,.85)}
 
 /* ---------- header ---------- */
 .hdr{position:sticky;top:0;z-index:60;background:rgba(250,248,245,.92);backdrop-filter:saturate(1.4) blur(10px);
@@ -201,7 +201,7 @@ body.keep-hdr.cta-visible .hdr{transform:none;opacity:1;pointer-events:auto}
   display:grid;gap:6px 22px;grid-template-columns:auto 1fr}
 .steps li:last-child{border-bottom:1px solid rgba(255,255,255,.2)}
 .steps li::before{content:"0" counter(st);font:800 clamp(1.5rem,3vw,2rem)/1 var(--display);
-  letter-spacing:-.04em;color:#FF9BAB;grid-row:span 2}
+  letter-spacing:-.04em;color:#fff;grid-row:span 2}
 .steps--light li{border-top-color:var(--line)}
 .steps--light li:last-child{border-bottom-color:var(--line)}
 .steps--light li::before{color:var(--red)}
@@ -231,7 +231,7 @@ body.keep-hdr.cta-visible .hdr{transform:none;opacity:1;pointer-events:auto}
 .checks b{display:block;font-weight:600;letter-spacing:-.01em}
 .checks span{color:var(--muted);font-size:.95rem}
 .s--navy .checks li{border-color:rgba(255,255,255,.2)}
-.s--navy .checks svg{color:#FF9BAB}
+.s--navy .checks svg{color:#fff}
 .s--navy .checks span{color:rgba(255,255,255,.78)}
 
 /* comparison */
@@ -365,7 +365,7 @@ body.cta-visible .mcta{transform:translateY(115%);opacity:0;pointer-events:none}
 .foot li a{display:inline-flex;align-items:center;min-height:38px}
 .foot a{color:rgba(255,255,255,.86);text-decoration:none}
 .foot a:hover{color:#fff}
-.foot a[aria-current=page]{color:#FF9BAB}
+.foot a[aria-current=page]{color:#fff;text-decoration:underline;text-underline-offset:5px}
 .foot__tel{font:800 1.3rem/1 var(--display);color:#fff;letter-spacing:-.03em}
 .foot__bar{margin-top:34px;padding-top:20px;border-top:1px solid rgba(255,255,255,.16);
   display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.85rem;color:rgba(255,255,255,.6)}
