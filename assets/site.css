@@ -245,6 +245,13 @@ body.keep-hdr.cta-visible .hdr{transform:none;opacity:1;pointer-events:auto}
 .cmp__c--me{background:rgba(0,48,135,.06);border-radius:10px;padding:9px 12px;margin-top:3px}
 .cmp__c--me p{color:var(--navy);font-weight:600}
 .cmp__c--me .cmp__k{color:var(--navy)}
+.s--navy .cmp__r{border-top-color:rgba(255,255,255,.22)}
+.s--navy .cmp__k{color:rgba(255,255,255,.62)}
+.s--navy .cmp__c p{color:rgba(255,255,255,.8)}
+.s--navy .cmp__c--me{background:rgba(255,255,255,.14)}
+.s--navy .cmp__c--me p,.s--navy .cmp__c--me .cmp__k{color:#fff}
+.s--navy .cmp__head div{color:rgba(255,255,255,.62)}
+.s--navy .cmp__head .is-me{color:#fff}
 @media(min-width:880px){
   .cmp__head,.cmp__r{display:grid;grid-template-columns:minmax(0,1.05fr) repeat(3,minmax(0,1fr));
     gap:clamp(14px,2vw,26px);align-items:start}
