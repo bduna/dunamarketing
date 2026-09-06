@@ -239,10 +239,10 @@ body.keep-hdr.cta-visible .hdr{transform:none;opacity:1;pointer-events:auto}
 .cmp__head{display:none}
 .cmp__r{padding:20px 0;border-top:1px solid var(--line)}
 .cmp__q{font-size:1.05rem;margin:0 0 12px}
-.cmp__c{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;padding:7px 0;font-size:.96rem;align-items:baseline}
-.cmp__k{color:var(--muted);font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;min-width:11ch}
+.cmp__c{display:grid;grid-template-columns:5.6rem 1fr;gap:6px 12px;padding:7px 0;font-size:.96rem;align-items:baseline}
+.cmp__k{color:var(--muted);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
 .cmp__c p{margin:0;color:var(--muted)}
-.cmp__c--me{background:rgba(0,48,135,.06);border-radius:10px;padding:9px 12px;margin-top:3px}
+.cmp__c--me{background:rgba(0,48,135,.06);border-radius:10px;padding:9px 12px;margin:3px -12px 0}
 .cmp__c--me p{color:var(--navy);font-weight:600}
 .cmp__c--me .cmp__k{color:var(--navy)}
 .s--navy .cmp__r{border-top-color:rgba(255,255,255,.22)}
