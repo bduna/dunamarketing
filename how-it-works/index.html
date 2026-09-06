@@ -3,147 +3,143 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
-<title>How It Works — Duna Marketing</title>
+<title>The Process — Duna Marketing</title>
 <meta name="description" content="From a text to a live website in four steps: text me, answer a 20-minute questionnaire, get a preview in under 24 hours, approve it and go live on your own domain.">
 <link rel="canonical" href="https://dunamarketing.com/how-it-works/">
-<meta property="og:title" content="How It Works — Duna Marketing">
+<meta property="og:title" content="The Process — Duna Marketing">
 <meta property="og:description" content="From a text to a live website in four steps: text me, answer a 20-minute questionnaire, get a preview in under 24 hours, approve it and go live on your own domain.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dunamarketing.com/how-it-works/">
 <meta property="og:image" content="https://dunamarketing.com/duna_marketing_logo.png">
-<meta name="theme-color" content="#003087">
+<meta name="theme-color" content="#FAF8F5">
 <link rel="icon" href="/duna_marketing_logo.png">
+<script>document.documentElement.className+=" js";</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://connect.facebook.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Schibsted+Grotesk:wght@700;800&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
 <script>
-// Same kill switch as the rest of the site: ?metrics=off keeps owner testing out of the ad data.
 (function () {
   try {
     var m = location.search.match(/[?&]metrics=(on|off)\b/);
     if (m) { if (m[1] === "off") localStorage.setItem("duna_notrack", "1"); else localStorage.removeItem("duna_notrack"); }
     if (localStorage.getItem("duna_notrack") === "1") { console.log("[duna] metrics OFF on this browser"); return; }
   } catch (e) {}
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '949809188409734');
-fbq('track', 'PageView');
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '949809188409734');
+  fbq('track', 'PageView');
 })();
 </script>
-<link rel="stylesheet" href="/assets/duna.css">
-<noscript><style>
-  /* Without JS the call bar never hides, so the footer keeps its full clearance. */
-  @media (max-width:720px) { .foot { padding-bottom:calc(96px + env(safe-area-inset-bottom)); } }
-</style></noscript>
 </head>
 <body>
-<header class="topbar">
-  <a class="brand" href="/" aria-label="Duna Marketing home"><img src="/duna_marketing_logo.png" alt=""><span class="name">Duna Marketing</span></a>
-  <nav class="menu" aria-label="Site"><a href="/">Home</a><a href="/how-it-works/" aria-current="page">How it works</a><a href="/pricing/">Pricing</a><a href="/samples/">Samples</a><a href="/about/">About</a><a href="/faq/">FAQ</a><a href="/contact/">Contact</a></nav>
-  <a class="topbar__cta topbar__cta--call" href="tel:+17073855673" aria-label="Call Duna Marketing on (707) 385-5673 to get started">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    <span>Call me<span class="tail"> to get started</span></span>
-  </a>
-  <a class="topbar__cta topbar__cta--text" href="sms:+17073855673" aria-label="Text Duna Marketing on (707) 385-5673 to get started">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <span>Text me<span class="tail"> to get started</span></span>
-  </a>
-  <button type="button" class="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-  <nav class="menu-panel" id="menu-panel" aria-label="Site"><a href="/">Home</a><a href="/how-it-works/" aria-current="page">How it works</a><a href="/pricing/">Pricing</a><a href="/samples/">Samples</a><a href="/about/">About</a><a href="/faq/">FAQ</a><a href="/contact/">Contact</a></nav>
+<header class="hdr">
+  <div class="hdr__in wrap">
+    <a class="brand" href="/" aria-label="Duna Marketing home"><img src="/duna_marketing_logo.png" alt="" width="30" height="31"><span>Duna Marketing</span></a>
+    <nav class="nav" aria-label="Site"><a href="/">Home</a><a href="/samples/">The Work</a><a href="/how-it-works/" aria-current="page">The Process</a><a href="/pricing/">Pricing</a><a href="/about/">About Barrett</a><a href="/contact/">Contact</a></nav>
+    <div class="hdr__cta">
+      <a class="hdr__btn hdr__btn--call" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me</a>
+      <a class="hdr__btn hdr__btn--text" href="sms:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text me</a>
+      <button type="button" class="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="panel" id="menu" aria-label="Site"><a href="/">Home</a><a href="/samples/">The Work</a><a href="/how-it-works/" aria-current="page">The Process</a><a href="/pricing/">Pricing</a><a href="/about/">About Barrett</a><a href="/contact/">Contact</a></nav>
 </header>
-
 <main>
-  <section class="page-hero">
-    <div class="wrap wrap--wide">
-      <span class="eyebrow">How it works</span>
-      <h1>From a text to a live site in four steps.</h1>
-      <p>No sales call, no proposal, nothing to prepare. Here&rsquo;s exactly what happens after you text me.</p>
-    </div>
-  </section>
 
-  <section class="sec">
-    <div class="wrap wrap--wide">
-      <ol class="steps steps--page"><li><figure class="steps__img"><img src="/assets/photos/step-text.jpg" alt="A shop owner making a call from behind the counter" width="760" height="428" loading="lazy" decoding="async"></figure><div class="steps__body"><h3>Text or call me</h3><p>One tap from any page. I&rsquo;ll answer your questions, tell you the price, and send you the questionnaire. Half the price is due to start the build.</p></div></li><li><figure class="steps__img"><img src="/assets/photos/step-voice.jpg" alt="Someone answering questions out loud into their phone" width="760" height="428" loading="lazy" decoding="async"></figure><div class="steps__body"><h3>Answer the questionnaire</h3><p>About 20 minutes on your phone. It asks about your business in plain English: what you do, who you serve, what things cost, the story behind it. Tap the microphone and talk if typing is a pain.</p></div></li><li><figure class="steps__img"><img src="/portfolio/thumbs/marden-estate-law.jpg" alt="A finished sample site, the kind of preview link you get" width="640" height="400" loading="lazy" decoding="async"></figure><div class="steps__body"><h3>I build it, you get a preview link</h3><p>Within 24 hours of your answers coming in, you get a link to your site. Every word on it comes from what you told me. Two rounds of changes are included.</p></div></li><li><figure class="steps__img"><img src="/assets/photos/step-live.jpg" alt="A shop&rsquo;s open sign hanging in the window" width="760" height="428" loading="lazy" decoding="async"></figure><div class="steps__body"><h3>You approve, it goes live</h3><p>When you say yes, the second half is due and I put the site on your domain. Hosting is included, with no monthly fee.</p></div></li></ol>
+<section class="s s--tight" style="padding-top:clamp(30px,5vw,56px)">
+  <div class="wrap">
+    <div class="head head--wide">
+      <p class="eyebrow">The process</p>
+      <h1 style="font-size:clamp(2.1rem,6vw,3.6rem)">From a text to a live site in four steps.</h1>
+      <p class="lead">No sales call, no proposal, nothing to prepare. Here is exactly what happens after you text me, and what I need from you at each point.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="sec sec--card">
-    <div class="wrap wrap--wide">
-      <div class="split">
-        <div>
-          <span class="eyebrow">What I&rsquo;ll need from you</span>
-          <h2>Four things. Two are optional.</h2>
-          <ul class="gets gets--one">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Your questionnaire answers</b><span>About 20 minutes. This is what your site gets written from.</span></div></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Photos, if you have them</b><span>Optional. If you don&rsquo;t, I&rsquo;ll source them.</span></div></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Your logo, if you have one</b><span>Optional. I&rsquo;ll work without one.</span></div></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Access to your domain at launch</b><span>If you already have a domain, I&rsquo;ll need to get into where it&rsquo;s registered to point it at the site. If you don&rsquo;t, buying one takes a few minutes and I&rsquo;ll walk you through it.</span></div></li>
-      </ul>
-        </div>
-        <div>
-          <span class="eyebrow">What you won&rsquo;t need</span>
-          <h2>Nothing else.</h2>
-          <ul class="gets gets--one">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>A designer or a copywriter</b><span>The design and every word on the site are part of the build.</span></div></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>A hosting plan</b><span>Hosting is included. There&rsquo;s no monthly fee.</span></div></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Any tech skills</b><span>You answer questions. I put it online.</span></div></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>A meeting</b><span>Everything happens by text, with a call if you&rsquo;d rather talk.</span></div></li>
-      </ul>
-        </div>
+<section class="s" style="padding-top:clamp(20px,3vw,30px)">
+  <div class="wrap">
+    <ol class="flow">
+      <li class="flow__row reveal"><figure class="flow__media"><img src="/assets/photos/step-text.jpg" alt="A shop owner taking a call from behind the counter" width="760" height="428" loading="lazy" decoding="async"><span class="flow__n">01</span></figure><div class="flow__body"><h3>Text or call me</h3><p>One tap from any page on this site. I answer your questions, tell you the price, and send you the questionnaire. Half the price starts the build.</p></div></li>
+      <li class="flow__row reveal"><figure class="flow__media"><img src="/assets/photos/step-voice.jpg" alt="Someone answering questions out loud into their phone" width="760" height="428" loading="lazy" decoding="async"><span class="flow__n">02</span></figure><div class="flow__body"><h3>Answer the questionnaire</h3><p>About 20 minutes on your phone. It asks about your business in plain English: what you do, who you serve, what things cost, the story behind it. Tap the microphone and talk if typing is a pain.</p></div></li>
+      <li class="flow__row reveal"><figure class="flow__media"><img src="/assets/photos/step-build.jpg" alt="Hands building a website on a laptop" width="760" height="428" loading="lazy" decoding="async"><span class="flow__n">03</span></figure><div class="flow__body"><h3>I build it, you get a preview link</h3><p>Within 24 hours of your answers coming in, a link lands in your phone. Every word on it comes from what you told me. Two rounds of changes are included.</p></div></li>
+      <li class="flow__row reveal"><figure class="flow__media"><img src="/assets/photos/step-live.jpg" alt="A shop&rsquo;s open sign hanging in the window" width="760" height="428" loading="lazy" decoding="async"><span class="flow__n">04</span></figure><div class="flow__body"><h3>You approve, it goes live</h3><p>When you say yes, the second half is due and I put the site on your domain. Hosting is included, with no monthly fee.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="s s--sand">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <p class="eyebrow">What I need from you</p>
+        <h2>Four things. Two are optional.</h2>
+        <ul class="checks checks--one"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Your questionnaire answers</b><span>About 20 minutes. This is what your site gets written from.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Photos, if you have them</b><span>Optional. If you don&rsquo;t, I&rsquo;ll source them.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Your logo, if you have one</b><span>Optional. I&rsquo;ll work without one.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Access to your domain at launch</b><span>So I can point it at the finished site. No domain yet? Buying one takes a few minutes and I&rsquo;ll walk you through it.</span></div></li></ul>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">What you won&rsquo;t need</p>
+        <h2>Nothing else.</h2>
+        <ul class="checks checks--one"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>A designer or a copywriter</b><span>The design and every word on the site are part of the build.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>A hosting plan</b><span>Hosting is included. There is no monthly fee.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Any tech skills</b><span>You answer questions. I put it online.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>A meeting</b><span>Everything happens by text, with a call if you would rather talk.</span></div></li></ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="sec">
-    <div class="wrap wrap--wide">
-      <span class="eyebrow">What you end up with</span>
-      <h2>Pages that do a job, not filler.</h2>
-      <p class="sub">Every page has to earn its place out of your answers: a price list because you told me what things cost, a gallery because you sent photos, a contact page because someone needs to reach you. Here is one sample, front to back.</p>
-      <div class="pages"><figure><a href="/portfolio/long-table-catering/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering sample website, home page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Home</figcaption></figure><figure><a href="/portfolio/long-table-catering/services.html" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-services.jpg" alt="Long Table Catering sample website, What we do page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>What we do</figcaption></figure><figure><a href="/portfolio/long-table-catering/menu.html" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-menu.jpg" alt="Long Table Catering sample website, Menu page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Menu</figcaption></figure><figure><a href="/portfolio/long-table-catering/gallery.html" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-gallery.jpg" alt="Long Table Catering sample website, Gallery page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Gallery</figcaption></figure><figure><a href="/portfolio/long-table-catering/about.html" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-about.jpg" alt="Long Table Catering sample website, About page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>About</figcaption></figure></div>
-      <p class="figcap">Long Table Catering, a sample site. Tap any page to open it.</p>
-      <div class="phones"><a class="phone" href="/portfolio/marden-estate-law/" target="_blank" rel="noopener"><img src="/assets/shots/marden-estate-law-phone.jpg" alt="Marden Estate Law sample website on a phone" width="360" height="720" loading="lazy" decoding="async"></a><a class="phone" href="/portfolio/maple-street-cleaners/" target="_blank" rel="noopener"><img src="/assets/shots/maple-street-cleaners-phone.jpg" alt="Maple Street Cleaners sample website on a phone" width="360" height="720" loading="lazy" decoding="async"></a><a class="phone" href="/portfolio/keyway-locksmith/" target="_blank" rel="noopener"><img src="/assets/shots/keyway-locksmith-phone.jpg" alt="Keyway Locksmith sample website on a phone" width="360" height="720" loading="lazy" decoding="async"></a></div>
-      <p class="figcap" style="text-align:center">The same sites on a phone, where most of your customers will see them.</p>
+<section class="s s--white">
+  <div class="wrap">
+    <div class="split split--flip">
+      <div class="reveal"><figure class="figure"><img src="/assets/photos/on-the-job.jpg" alt="A tradesperson answering a text from the driver&rsquo;s seat of a work van" width="900" height="506" loading="lazy" decoding="async"></figure></div>
+      <div class="reveal">
+        <p class="eyebrow">While you are working</p>
+        <h2>You never have to sit down for this.</h2>
+        <p class="lead">Everything happens by text, between jobs, on the phone in your pocket. The questionnaire can be answered out loud. The preview arrives as a link. Approving it is a reply.</p>
+        <p style="margin-top:20px"><a class="link" href="/samples/">See what you end up with <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="sec close" id="start">
-    <div class="wrap">
-      <h2 class="cta-heading">Get an affordable website in less than 24 hours only requiring a 20 min. questionnaire.</h2>
-      <div class="cta-stack">
-      <a class="btn btn-text" id="text-btn" href="sms:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Text me to get started
-      </a>
-      <a class="btn btn-call" href="tel:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Call me to get started
-      </a>
-    </div>
-      <p class="reply-note">I nearly always answer or reply <b>right away</b>, otherwise, I&rsquo;ll get back to you as soon as possible.</p>
-      <button type="button" class="totop" id="totop" aria-label="Back to the top">
-      <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
-        <circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
-        <path d="M22 30V15M22 15l-6.5 6.5M22 15l6.5 6.5" fill="none" stroke="currentColor"
-              stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Back to the top</span>
-    </button>
-    </div>
-  </section>
+<section class="s s--navy" id="start">
+  <div class="wrap wrap--mid center">
+    <h2 class="reveal">Get an affordable website in less than 24 hours only requiring a 20 min. questionnaire.</h2>
+    <div class="reveal" style="margin-top:26px"><div class="cta-stack cta-stack--end">
+      <a class="btn btn--primary" href="sms:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text me to get started</a>
+      <a class="btn btn--white" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me to get started</a>
+    </div></div>
+    <p class="small reveal" style="color:rgba(255,255,255,.78);margin-top:16px">I nearly always answer or reply <b>right away</b>, otherwise, I&rsquo;ll get back to you as soon as possible.</p>
+    <button type="button" class="totop" id="totop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Back to the top</button>
+  </div>
+</section>
+
 </main>
-
 <footer class="foot">
   <div class="wrap">
-    <nav class="foot__nav" aria-label="Pages"><a href="/">Home</a><a href="/how-it-works/" aria-current="page">How it works</a><a href="/pricing/">Pricing</a><a href="/samples/">Samples</a><a href="/about/">About</a><a href="/faq/">FAQ</a><a href="/contact/">Contact</a></nav>
-    <p>&copy; <span data-year>2026</span> Duna Marketing &middot; <a href="tel:+17073855673">(707) 385-5673</a></p>
+    <div class="foot__top">
+      <div>
+        <a class="foot__brand" href="/"><img src="/duna_marketing_logo.png" alt="" width="28" height="29"><span>Duna Marketing</span></a>
+        <p style="margin-top:14px;max-width:34ch">Custom websites for small businesses, built from a questionnaire you answer on your phone.</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <ul><li><a href="/">Home</a></li><li><a href="/samples/">The Work</a></li><li><a href="/how-it-works/" aria-current="page">The Process</a></li><li><a href="/pricing/">Pricing</a></li></ul>
+      </div>
+      <div>
+        <h4>Start here</h4>
+        <ul><li><a href="/about/">About Barrett</a></li><li><a href="/contact/">Contact</a></li><li><a href="/faq/">Questions</a></li></ul>
+        <p style="margin-top:16px"><a class="foot__tel" href="tel:+17073855673">(707) 385-5673</a></p>
+      </div>
+    </div>
+    <div class="foot__bar">
+      <span>&copy; <span data-year>2026</span> Duna Marketing. All rights reserved.</span>
+      <span>Sample sites are mock businesses, labelled as such.</span>
+    </div>
   </div>
 </footer>
-
-<div class="mcta" aria-label="Get started">
-  <a class="mcta__btn mcta__btn--call" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Call me to get started</span></a>
-</div>
-
-<script src="/assets/duna.js"></script>
+<div class="mcta"><a class="btn btn--ghost" href="tel:+17073855673" style="background:var(--navy);border-color:var(--navy);color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me to get started</a></div>
+<script src="/assets/site.js"></script>
 </body>
 </html>

@@ -11,17 +11,6 @@
   ]
  },
  {
-  "name": "step-voice",
-  "id": 7120139,
-  "photographer": "cottonbro studio",
-  "alt": "African American woman smiling while using a smartphone indoors for communication.",
-  "size": 37418,
-  "px": [
-   760,
-   428
-  ]
- },
- {
   "name": "step-live",
   "id": 3345876,
   "photographer": "Tim Mossholder",
@@ -121,28 +110,6 @@
   ]
  },
  {
-  "name": "grow-lights",
-  "id": 5831012,
-  "photographer": "Anna Shvets",
-  "alt": "Vibrant green plants thriving in a hydroponic greenhouse. Ideal for sustainable agriculture concepts.",
-  "size": 75031,
-  "px": [
-   760,
-   507
-  ]
- },
- {
-  "name": "texting",
-  "id": 8554277,
-  "photographer": "https://kaboompics.com/",
-  "alt": "Focused woman in yellow blazer texting on smartphone at the office table.",
-  "size": 49016,
-  "px": [
-   960,
-   540
-  ]
- },
- {
   "name": "owner-door",
   "id": 4473399,
   "photographer": "Ketut Subiyanto",
@@ -151,6 +118,116 @@
   "px": [
    700,
    467
+  ]
+ },
+ {
+  "name": "faq-owner",
+  "id": 8441251,
+  "photographer": "Ron Lach",
+  "alt": "A barista stands at a caf\u00e9 counter surrounded by pastries and coffee machines.",
+  "size": 85958,
+  "px": [
+   960,
+   540
+  ]
+ },
+ {
+  "name": "owner-portrait",
+  "id": 6684767,
+  "photographer": "Kampus Production",
+  "alt": "Confident barista standing in a modern caf\u00e9 surrounded by coffee equipment.",
+  "size": 48369,
+  "px": [
+   760,
+   507
+  ]
+ },
+ {
+  "name": "on-the-job",
+  "id": 7362889,
+  "photographer": "RDNE Stock project",
+  "alt": "Female courier using smartphone while holding a parcel inside a car. Efficient delivery service in action.",
+  "size": 61193,
+  "px": [
+   900,
+   506
+  ]
+ },
+ {
+  "name": "storefront-sign",
+  "id": 10175387,
+  "photographer": "Jonathan Cooper",
+  "alt": "Close-up of a retro 'Downtown Comics' sign on a building facade.",
+  "size": 77606,
+  "px": [
+   1100,
+   471
+  ]
+ },
+ {
+  "name": "hero-owner",
+  "id": 13737055,
+  "photographer": "Mizuno K",
+  "alt": "Barista with apron and beanie smiling as he takes an order from a customer in a cozy caf\u00e9 setting.",
+  "size": 99885,
+  "px": [
+   900,
+   1125
+  ]
+ },
+ {
+  "name": "pain-quotes",
+  "id": 8278847,
+  "photographer": "ANTONI SHKRABA production",
+  "alt": "An office worker showing frustration while sitting at a cluttered desk with a laptop.",
+  "size": 59648,
+  "px": [
+   760,
+   507
+  ]
+ },
+ {
+  "name": "pain-diy",
+  "id": 6615044,
+  "photographer": "Tima Miroshnichenko",
+  "alt": "An architect working late at night in an office, using a laptop and surrounded by building models.",
+  "size": 45523,
+  "px": [
+   760,
+   507
+  ]
+ },
+ {
+  "name": "step-voice",
+  "id": 7120139,
+  "photographer": "cottonbro studio",
+  "alt": "African American woman smiling while using a smartphone indoors for communication.",
+  "size": 37418,
+  "px": [
+   760,
+   428
+  ]
+ },
+ {
+  "name": "step-build",
+  "id": 1181449,
+  "photographer": "Christina Morillo",
+  "alt": "Businesswoman working on laptop with Android 6.0 Marshmallow webpage open.",
+  "size": 40319,
+  "px": [
+   760,
+   428
+  ]
+ },
+ {
+  "name": "texting",
+  "id": 8554277,
+  "photographer": "https://kaboompics.com/",
+  "alt": "Focused woman in yellow blazer texting on smartphone at the office table.",
+  "size": 50607,
+  "px": [
+   900,
+   600
   ]
  },
  {
@@ -165,14 +242,25 @@
   ]
  },
  {
-  "name": "faq-owner",
-  "id": 8441251,
-  "photographer": "Ron Lach",
-  "alt": "A barista stands at a caf\u00e9 counter surrounded by pastries and coffee machines.",
-  "size": 85958,
+  "name": "grow-lights",
+  "id": 5831012,
+  "photographer": "Anna Shvets",
+  "alt": "Vibrant green plants thriving in a hydroponic greenhouse. Ideal for sustainable agriculture concepts.",
+  "size": 75031,
   "px": [
-   960,
-   540
+   760,
+   507
+  ]
+ },
+ {
+  "name": "phone-look",
+  "id": 5410100,
+  "photographer": "Amina Filkins",
+  "alt": "Crop anonymous florist in apron browsing mobile phone while working in cozy floral shop",
+  "size": 56890,
+  "px": [
+   900,
+   506
   ]
  }
 ]

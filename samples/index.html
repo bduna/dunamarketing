@@ -3,197 +3,143 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
-<title>Samples — Duna Marketing</title>
-<meta name="description" content="Ten sample websites built the same way yours will be, page by page and on a phone, plus a site that is live for a client.">
+<title>The Work — Duna Marketing</title>
+<meta name="description" content="Ten sample websites and 43 pages built the same way yours will be, page by page, plus a site that is live for a client.">
 <link rel="canonical" href="https://dunamarketing.com/samples/">
-<meta property="og:title" content="Samples — Duna Marketing">
-<meta property="og:description" content="Ten sample websites built the same way yours will be, page by page and on a phone, plus a site that is live for a client.">
+<meta property="og:title" content="The Work — Duna Marketing">
+<meta property="og:description" content="Ten sample websites and 43 pages built the same way yours will be, page by page, plus a site that is live for a client.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dunamarketing.com/samples/">
 <meta property="og:image" content="https://dunamarketing.com/duna_marketing_logo.png">
-<meta name="theme-color" content="#003087">
+<meta name="theme-color" content="#FAF8F5">
 <link rel="icon" href="/duna_marketing_logo.png">
+<script>document.documentElement.className+=" js";</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://connect.facebook.net">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Schibsted+Grotesk:wght@700;800&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
 <script>
-// Same kill switch as the rest of the site: ?metrics=off keeps owner testing out of the ad data.
 (function () {
   try {
     var m = location.search.match(/[?&]metrics=(on|off)\b/);
     if (m) { if (m[1] === "off") localStorage.setItem("duna_notrack", "1"); else localStorage.removeItem("duna_notrack"); }
     if (localStorage.getItem("duna_notrack") === "1") { console.log("[duna] metrics OFF on this browser"); return; }
   } catch (e) {}
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '949809188409734');
-fbq('track', 'PageView');
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '949809188409734');
+  fbq('track', 'PageView');
 })();
 </script>
-<link rel="stylesheet" href="/assets/duna.css">
-<noscript><style>
-  /* Without JS the call bar never hides, so the footer keeps its full clearance. */
-  @media (max-width:720px) { .foot { padding-bottom:calc(96px + env(safe-area-inset-bottom)); } }
-</style></noscript>
 </head>
 <body>
-<header class="topbar">
-  <a class="brand" href="/" aria-label="Duna Marketing home"><img src="/duna_marketing_logo.png" alt=""><span class="name">Duna Marketing</span></a>
-  <nav class="menu" aria-label="Site"><a href="/">Home</a><a href="/how-it-works/">How it works</a><a href="/pricing/">Pricing</a><a href="/samples/" aria-current="page">Samples</a><a href="/about/">About</a><a href="/faq/">FAQ</a><a href="/contact/">Contact</a></nav>
-  <a class="topbar__cta topbar__cta--call" href="tel:+17073855673" aria-label="Call Duna Marketing on (707) 385-5673 to get started">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    <span>Call me<span class="tail"> to get started</span></span>
-  </a>
-  <a class="topbar__cta topbar__cta--text" href="sms:+17073855673" aria-label="Text Duna Marketing on (707) 385-5673 to get started">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <span>Text me<span class="tail"> to get started</span></span>
-  </a>
-  <button type="button" class="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-  <nav class="menu-panel" id="menu-panel" aria-label="Site"><a href="/">Home</a><a href="/how-it-works/">How it works</a><a href="/pricing/">Pricing</a><a href="/samples/" aria-current="page">Samples</a><a href="/about/">About</a><a href="/faq/">FAQ</a><a href="/contact/">Contact</a></nav>
+<header class="hdr">
+  <div class="hdr__in wrap">
+    <a class="brand" href="/" aria-label="Duna Marketing home"><img src="/duna_marketing_logo.png" alt="" width="30" height="31"><span>Duna Marketing</span></a>
+    <nav class="nav" aria-label="Site"><a href="/">Home</a><a href="/samples/" aria-current="page">The Work</a><a href="/how-it-works/">The Process</a><a href="/pricing/">Pricing</a><a href="/about/">About Barrett</a><a href="/contact/">Contact</a></nav>
+    <div class="hdr__cta">
+      <a class="hdr__btn hdr__btn--call" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me</a>
+      <a class="hdr__btn hdr__btn--text" href="sms:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text me</a>
+      <button type="button" class="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="panel" id="menu" aria-label="Site"><a href="/">Home</a><a href="/samples/" aria-current="page">The Work</a><a href="/how-it-works/">The Process</a><a href="/pricing/">Pricing</a><a href="/about/">About Barrett</a><a href="/contact/">Contact</a></nav>
 </header>
-
 <main>
-  <section class="page-hero">
-    <div class="wrap wrap--wide">
-      <span class="eyebrow">Samples</span>
-      <h1>Ten sample sites, built the way yours will be.</h1>
-      <p>Every one of these came from a questionnaire like the one you&rsquo;ll answer. They&rsquo;re mock businesses, so you can see the design without anyone&rsquo;s real details. Tap one and look around.</p>
-    </div>
-  </section>
 
-  <section class="sec">
-    <div class="wrap wrap--wide center">
-      <div class="proof-grid">
-        <a href="/portfolio/long-table-catering/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering website" width="640" height="400" loading="lazy">
-          <b>Long Table Catering</b><span>Catering</span></a>
-        <a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/marden-estate-law.jpg" alt="Marden Estate Law website" width="640" height="400" loading="lazy">
-          <b>Marden Estate Law</b><span>Estate planning</span></a>
-        <a href="/portfolio/velvet-fig/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/velvet-fig.jpg" alt="Velvet Fig website" width="640" height="400" loading="lazy">
-          <b>Velvet Fig</b><span>Cocktail bar</span></a>
-        <a href="/portfolio/maple-street-cleaners/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/maple-street-cleaners.jpg" alt="Maple Street Cleaners website" width="640" height="400" loading="lazy">
-          <b>Maple Street Cleaners</b><span>Dry cleaner</span></a>
-        <a href="/portfolio/mirror-finish-auto-detailing/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/mirror-finish-auto-detailing.jpg" alt="Mirror Finish Auto Detailing website" width="640" height="400" loading="lazy">
-          <b>Mirror Finish Detailing</b><span>Auto detailing</span></a>
-        <a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy">
-          <b>Golden Crumb Bakery</b><span>Bakery</span></a>
-        <a href="/portfolio/bright-beginnings-preschool/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/bright-beginnings-preschool.jpg" alt="Bright Beginnings Preschool website" width="640" height="400" loading="lazy">
-          <b>Bright Beginnings</b><span>Preschool</span></a>
-        <a href="/portfolio/waggin-tails-grooming/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/waggin-tails-grooming.jpg" alt="Waggin Tails Grooming website" width="640" height="400" loading="lazy">
-          <b>Waggin&rsquo; Tails Grooming</b><span>Dog grooming</span></a>
-        <a href="/portfolio/keyway-locksmith/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/keyway-locksmith.jpg" alt="Keyway Locksmith website" width="640" height="400" loading="lazy">
-          <b>Keyway Locksmith</b><span>Locksmith</span></a>
-        <a href="/portfolio/summit-ridge-ski-board/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/summit-ridge-ski-board.jpg" alt="Summit Ridge Ski and Board website" width="640" height="400" loading="lazy">
-          <b>Summit Ridge Ski &amp; Board</b><span>Ski &amp; snowboard shop</span></a>
+<section class="s s--tight" style="padding-top:clamp(30px,5vw,56px)">
+  <div class="wrap">
+    <div class="head head--wide">
+      <p class="eyebrow">The work</p>
+      <h1 style="font-size:clamp(2.1rem,6vw,3.6rem)">Ten sample sites. Forty-three pages. Every one built from answers.</h1>
+      <p class="lead">These are mock businesses, so you can judge the design without anyone&rsquo;s real details in the way. Every one came from a questionnaire like the one you will answer. Tap any of them and look around.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s" style="padding-top:clamp(24px,3vw,32px)">
+  <div class="wrap"><div class="reveal"><div class="work"><a href="/portfolio/long-table-catering/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering sample website" width="640" height="400" loading="lazy" decoding="async"><b>Long Table Catering</b><span>Catering</span></a><a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/marden-estate-law.jpg" alt="Marden Estate Law sample website" width="640" height="400" loading="lazy" decoding="async"><b>Marden Estate Law</b><span>Estate planning</span></a><a href="/portfolio/velvet-fig/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/velvet-fig.jpg" alt="Velvet Fig sample website" width="640" height="400" loading="lazy" decoding="async"><b>Velvet Fig</b><span>Cocktail bar</span></a><a href="/portfolio/maple-street-cleaners/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/maple-street-cleaners.jpg" alt="Maple Street Cleaners sample website" width="640" height="400" loading="lazy" decoding="async"><b>Maple Street Cleaners</b><span>Dry cleaner</span></a><a href="/portfolio/mirror-finish-auto-detailing/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/mirror-finish-auto-detailing.jpg" alt="Mirror Finish Detailing sample website" width="640" height="400" loading="lazy" decoding="async"><b>Mirror Finish Detailing</b><span>Auto detailing</span></a><a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery sample website" width="640" height="400" loading="lazy" decoding="async"><b>Golden Crumb Bakery</b><span>Bakery</span></a><a href="/portfolio/bright-beginnings-preschool/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/bright-beginnings-preschool.jpg" alt="Bright Beginnings sample website" width="640" height="400" loading="lazy" decoding="async"><b>Bright Beginnings</b><span>Preschool</span></a><a href="/portfolio/waggin-tails-grooming/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/waggin-tails-grooming.jpg" alt="Waggin' Tails Grooming sample website" width="640" height="400" loading="lazy" decoding="async"><b>Waggin&rsquo; Tails Grooming</b><span>Dog grooming</span></a><a href="/portfolio/keyway-locksmith/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/keyway-locksmith.jpg" alt="Keyway Locksmith sample website" width="640" height="400" loading="lazy" decoding="async"><b>Keyway Locksmith</b><span>Locksmith</span></a><a href="/portfolio/summit-ridge-ski-board/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/summit-ridge-ski-board.jpg" alt="Summit Ridge Ski and Board sample website" width="640" height="400" loading="lazy" decoding="async"><b>Summit Ridge Ski & Board</b><span>Ski & snowboard shop</span></a></div></div></div>
+</section>
+
+<section class="s s--sand">
+  <div class="wrap">
+    <div class="split split--flip">
+      <div class="reveal"><figure class="figure"><img src="/assets/photos/phone-look.jpg" alt="A shop owner checking a website on her phone" width="900" height="506" loading="lazy" decoding="async"></figure></div>
+      <div class="reveal">
+        <p class="eyebrow">On a phone</p>
+        <h2>Built for the screen your customers actually use.</h2>
+        <p class="lead">Phone first, then desktop. Open any of these on the phone in your hand and it behaves the way it should: type you can read, buttons you can hit, the phone number one tap away.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="sec sec--card">
-    <div class="wrap wrap--wide center">
-      <span class="eyebrow">On a phone</span>
-      <h2>Built for the screen your customers use.</h2>
-      <p class="sub">The same sites, as most people will actually see them.</p>
-      <div class="phones"><a class="phone" href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener"><img src="/assets/shots/golden-crumb-bakery-phone.jpg" alt="Golden Crumb Bakery sample website on a phone" width="360" height="720" loading="lazy" decoding="async"></a><a class="phone" href="/portfolio/marden-estate-law/" target="_blank" rel="noopener"><img src="/assets/shots/marden-estate-law-phone.jpg" alt="Marden Estate Law sample website on a phone" width="360" height="720" loading="lazy" decoding="async"></a><a class="phone" href="/portfolio/long-table-catering/" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-phone.jpg" alt="Long Table Catering sample website on a phone" width="360" height="720" loading="lazy" decoding="async"></a></div>
-    </div>
-  </section>
-
-  <section class="sec" id="inside">
-    <div class="wrap wrap--wide">
-      <span class="eyebrow">Look inside</span>
+<section class="s" id="inside">
+  <div class="wrap">
+    <div class="head head--wide reveal">
+      <p class="eyebrow">Look inside</p>
       <h2>Anyone can make one good homepage.</h2>
-      <p class="sub">The rest of the site is where you can tell. Most cheap websites are one long page with a menu bolted on top, so there is nothing behind the front door. These are the five strongest sites in the set, and here is every page of each one, the way a customer would find them. Tap any page to open it.</p>
-      <div class="inside">
-      <div class="inside__row">
-        <h3>Marden Estate Law<span>Estate planning &middot; 5 pages</span></h3>
-        <p class="inside__why">Every fee printed on its own page, the three meetings laid out in order, and a contact page that tells you who picks up.</p>
-        <div class="pages"><figure><a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/marden-estate-law.jpg" alt="Marden Estate Law sample website, home page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Home</figcaption></figure><figure><a href="/portfolio/marden-estate-law/services.html" target="_blank" rel="noopener"><img src="/assets/shots/marden-estate-law-services.jpg" alt="Marden Estate Law sample website, Fees page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Fees</figcaption></figure><figure><a href="/portfolio/marden-estate-law/process.html" target="_blank" rel="noopener"><img src="/assets/shots/marden-estate-law-process.jpg" alt="Marden Estate Law sample website, How it works page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>How it works</figcaption></figure><figure><a href="/portfolio/marden-estate-law/about.html" target="_blank" rel="noopener"><img src="/assets/shots/marden-estate-law-about.jpg" alt="Marden Estate Law sample website, About page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>About</figcaption></figure><figure><a href="/portfolio/marden-estate-law/contact.html" target="_blank" rel="noopener"><img src="/assets/shots/marden-estate-law-contact.jpg" alt="Marden Estate Law sample website, Contact page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Contact</figcaption></figure></div>
-      </div>
-<div class="inside__row">
-        <h3>Long Table Catering<span>Catering &middot; 5 pages</span></h3>
-        <p class="inside__why">What they cook, what it costs per head, a gallery from real events, and the story of the kitchen behind it.</p>
-        <div class="pages"><figure><a href="/portfolio/long-table-catering/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering sample website, home page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Home</figcaption></figure><figure><a href="/portfolio/long-table-catering/services.html" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-services.jpg" alt="Long Table Catering sample website, What we do page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>What we do</figcaption></figure><figure><a href="/portfolio/long-table-catering/menu.html" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-menu.jpg" alt="Long Table Catering sample website, Menu page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Menu</figcaption></figure><figure><a href="/portfolio/long-table-catering/gallery.html" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-gallery.jpg" alt="Long Table Catering sample website, Gallery page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Gallery</figcaption></figure><figure><a href="/portfolio/long-table-catering/about.html" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-about.jpg" alt="Long Table Catering sample website, About page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>About</figcaption></figure></div>
-      </div>
-<div class="inside__row">
-        <h3>Golden Crumb Bakery<span>Bakery &middot; 4 pages</span></h3>
-        <p class="inside__why">A menu that changes with what got baked that morning, a page of cakes with photos, and how the bakery started.</p>
-        <div class="pages"><figure><a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery sample website, home page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Home</figcaption></figure><figure><a href="/portfolio/golden-crumb-bakery/services.html" target="_blank" rel="noopener"><img src="/assets/shots/golden-crumb-bakery-services.jpg" alt="Golden Crumb Bakery sample website, Menu page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Menu</figcaption></figure><figure><a href="/portfolio/golden-crumb-bakery/gallery.html" target="_blank" rel="noopener"><img src="/assets/shots/golden-crumb-bakery-gallery.jpg" alt="Golden Crumb Bakery sample website, Cakes and photos page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Cakes & photos</figcaption></figure><figure><a href="/portfolio/golden-crumb-bakery/about.html" target="_blank" rel="noopener"><img src="/assets/shots/golden-crumb-bakery-about.jpg" alt="Golden Crumb Bakery sample website, About page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>About</figcaption></figure></div>
-      </div>
-<div class="inside__row">
-        <h3>Maple Street Cleaners<span>Dry cleaner &middot; 3 pages</span></h3>
-        <p class="inside__why">Every price on one page, laid out like a printed ticket, and two generations of shop behind the counter.</p>
-        <div class="pages"><figure><a href="/portfolio/maple-street-cleaners/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/maple-street-cleaners.jpg" alt="Maple Street Cleaners sample website, home page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Home</figcaption></figure><figure><a href="/portfolio/maple-street-cleaners/menu.html" target="_blank" rel="noopener"><img src="/assets/shots/maple-street-cleaners-menu.jpg" alt="Maple Street Cleaners sample website, Prices page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Prices</figcaption></figure><figure><a href="/portfolio/maple-street-cleaners/about.html" target="_blank" rel="noopener"><img src="/assets/shots/maple-street-cleaners-about.jpg" alt="Maple Street Cleaners sample website, The shop page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>The shop</figcaption></figure></div>
-      </div>
-<div class="inside__row">
-        <h3>Velvet Fig<span>Cocktail bar &middot; 4 pages</span></h3>
-        <p class="inside__why">A drinks list with the price beside every line, a page about the room itself, and eight years on the same street.</p>
-        <div class="pages"><figure><a href="/portfolio/velvet-fig/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/velvet-fig.jpg" alt="Velvet Fig sample website, home page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Home</figcaption></figure><figure><a href="/portfolio/velvet-fig/menu.html" target="_blank" rel="noopener"><img src="/assets/shots/velvet-fig-menu.jpg" alt="Velvet Fig sample website, Menu page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Menu</figcaption></figure><figure><a href="/portfolio/velvet-fig/services.html" target="_blank" rel="noopener"><img src="/assets/shots/velvet-fig-services.jpg" alt="Velvet Fig sample website, The room page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>The room</figcaption></figure><figure><a href="/portfolio/velvet-fig/about.html" target="_blank" rel="noopener"><img src="/assets/shots/velvet-fig-about.jpg" alt="Velvet Fig sample website, About page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>About</figcaption></figure></div>
-      </div>
-      </div>
+      <p class="lead">The rest of the site is where you can tell. Most cheap websites are one long page with a menu bolted on top, so there is nothing behind the front door. These are the five strongest sites in the set, and here is every page behind each of them. Tap any page to open it.</p>
     </div>
-  </section>
+    <div style="margin-top:clamp(28px,4vw,44px)"><div class="inside__row reveal"><h3>Marden Estate Law<span>Estate planning &middot; 5 pages</span></h3><p class="inside__why">Every fee printed on its own page, the three meetings laid out in order, and a contact page that tells you who picks up.</p><div class="pages"><figure><a href="/portfolio/marden-estate-law/services.html" target="_blank" rel="noopener"><img src="/assets/shots/marden-estate-law-services.jpg" alt="Marden Estate Law sample website, Fees page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Fees</figcaption></figure><figure><a href="/portfolio/marden-estate-law/process.html" target="_blank" rel="noopener"><img src="/assets/shots/marden-estate-law-process.jpg" alt="Marden Estate Law sample website, How it works page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>How it works</figcaption></figure><figure><a href="/portfolio/marden-estate-law/about.html" target="_blank" rel="noopener"><img src="/assets/shots/marden-estate-law-about.jpg" alt="Marden Estate Law sample website, About page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>About</figcaption></figure><figure><a href="/portfolio/marden-estate-law/contact.html" target="_blank" rel="noopener"><img src="/assets/shots/marden-estate-law-contact.jpg" alt="Marden Estate Law sample website, Contact page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Contact</figcaption></figure></div></div><div class="inside__row reveal"><h3>Long Table Catering<span>Catering &middot; 5 pages</span></h3><p class="inside__why">What they cook, what it costs per head, a gallery from real events, and the story of the kitchen behind it.</p><div class="pages"><figure><a href="/portfolio/long-table-catering/services.html" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-services.jpg" alt="Long Table Catering sample website, What we do page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>What we do</figcaption></figure><figure><a href="/portfolio/long-table-catering/menu.html" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-menu.jpg" alt="Long Table Catering sample website, Menu page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Menu</figcaption></figure><figure><a href="/portfolio/long-table-catering/gallery.html" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-gallery.jpg" alt="Long Table Catering sample website, Gallery page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Gallery</figcaption></figure><figure><a href="/portfolio/long-table-catering/about.html" target="_blank" rel="noopener"><img src="/assets/shots/long-table-catering-about.jpg" alt="Long Table Catering sample website, About page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>About</figcaption></figure></div></div><div class="inside__row reveal"><h3>Golden Crumb Bakery<span>Bakery &middot; 4 pages</span></h3><p class="inside__why">A menu that changes with what got baked that morning, a page of cakes with photos, and how the bakery started.</p><div class="pages"><figure><a href="/portfolio/golden-crumb-bakery/services.html" target="_blank" rel="noopener"><img src="/assets/shots/golden-crumb-bakery-services.jpg" alt="Golden Crumb Bakery sample website, Menu page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Menu</figcaption></figure><figure><a href="/portfolio/golden-crumb-bakery/gallery.html" target="_blank" rel="noopener"><img src="/assets/shots/golden-crumb-bakery-gallery.jpg" alt="Golden Crumb Bakery sample website, Cakes and photos page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Cakes & photos</figcaption></figure><figure><a href="/portfolio/golden-crumb-bakery/about.html" target="_blank" rel="noopener"><img src="/assets/shots/golden-crumb-bakery-about.jpg" alt="Golden Crumb Bakery sample website, About page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>About</figcaption></figure></div></div><div class="inside__row reveal"><h3>Maple Street Cleaners<span>Dry cleaner &middot; 3 pages</span></h3><p class="inside__why">Every price on one page, laid out like a printed ticket, and two generations of shop behind the counter.</p><div class="pages"><figure><a href="/portfolio/maple-street-cleaners/menu.html" target="_blank" rel="noopener"><img src="/assets/shots/maple-street-cleaners-menu.jpg" alt="Maple Street Cleaners sample website, Prices page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Prices</figcaption></figure><figure><a href="/portfolio/maple-street-cleaners/about.html" target="_blank" rel="noopener"><img src="/assets/shots/maple-street-cleaners-about.jpg" alt="Maple Street Cleaners sample website, The shop page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>The shop</figcaption></figure></div></div><div class="inside__row reveal"><h3>Velvet Fig<span>Cocktail bar &middot; 4 pages</span></h3><p class="inside__why">A drinks list with the price beside every line, a page about the room itself, and eight years on the same street.</p><div class="pages"><figure><a href="/portfolio/velvet-fig/menu.html" target="_blank" rel="noopener"><img src="/assets/shots/velvet-fig-menu.jpg" alt="Velvet Fig sample website, Menu page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>Menu</figcaption></figure><figure><a href="/portfolio/velvet-fig/services.html" target="_blank" rel="noopener"><img src="/assets/shots/velvet-fig-services.jpg" alt="Velvet Fig sample website, The room page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>The room</figcaption></figure><figure><a href="/portfolio/velvet-fig/about.html" target="_blank" rel="noopener"><img src="/assets/shots/velvet-fig-about.jpg" alt="Velvet Fig sample website, About page" width="520" height="325" loading="lazy" decoding="async"></a><figcaption>About</figcaption></figure></div></div></div>
+  </div>
+</section>
 
-  <section class="sec sec--card" id="live">
-    <div class="wrap wrap--wide">
-      <div class="spot">
-        <figure class=""><img src="/assets/photos/grow-lights.jpg" alt="Seedlings growing under indoor grow lights" width="760" height="507" loading="lazy" decoding="async"></figure>
-        <div>
-          <span class="eyebrow">Live for a client</span>
-          <h2>Deep Roots Hydroponics</h2>
-          <p>An independent grow shop in Sebastopol, CA. Built from the questionnaire, live today at deeproots707.com.</p>
-          <a class="btn btn-white" href="https://deeproots707.com/" target="_blank" rel="noopener">Visit the live site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
+<section class="s s--navy" id="live">
+  <div class="wrap">
+    <div class="spot reveal">
+      <figure class=""><img src="/assets/photos/grow-lights.jpg" alt="Seedlings growing under indoor grow lights" width="760" height="507" loading="lazy" decoding="async"></figure>
+      <div>
+        <p class="eyebrow">Live for a client</p>
+        <h2>Deep Roots Hydroponics</h2>
+        <p class="lead">An independent grow shop in Sebastopol, California. Built from the questionnaire, live today at deeproots707.com.</p>
+        <p style="margin-top:22px"><a class="btn btn--white" href="https://deeproots707.com/" target="_blank" rel="noopener">Visit the live site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="sec close" id="start">
-    <div class="wrap">
-      <h2 class="cta-heading">Get an affordable website in less than 24 hours only requiring a 20 min. questionnaire.</h2>
-      <div class="cta-stack">
-      <a class="btn btn-text" id="text-btn" href="sms:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Text me to get started
-      </a>
-      <a class="btn btn-call" href="tel:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Call me to get started
-      </a>
-    </div>
-      <p class="reply-note">I nearly always answer or reply <b>right away</b>, otherwise, I&rsquo;ll get back to you as soon as possible.</p>
-      <button type="button" class="totop" id="totop" aria-label="Back to the top">
-      <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
-        <circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
-        <path d="M22 30V15M22 15l-6.5 6.5M22 15l6.5 6.5" fill="none" stroke="currentColor"
-              stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Back to the top</span>
-    </button>
-    </div>
-  </section>
+<section class="s s--navy" id="start">
+  <div class="wrap wrap--mid center">
+    <h2 class="reveal">Get an affordable website in less than 24 hours only requiring a 20 min. questionnaire.</h2>
+    <div class="reveal" style="margin-top:26px"><div class="cta-stack cta-stack--end">
+      <a class="btn btn--primary" href="sms:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text me to get started</a>
+      <a class="btn btn--white" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me to get started</a>
+    </div></div>
+    <p class="small reveal" style="color:rgba(255,255,255,.78);margin-top:16px">I nearly always answer or reply <b>right away</b>, otherwise, I&rsquo;ll get back to you as soon as possible.</p>
+    <button type="button" class="totop" id="totop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Back to the top</button>
+  </div>
+</section>
+
 </main>
-
 <footer class="foot">
   <div class="wrap">
-    <nav class="foot__nav" aria-label="Pages"><a href="/">Home</a><a href="/how-it-works/">How it works</a><a href="/pricing/">Pricing</a><a href="/samples/" aria-current="page">Samples</a><a href="/about/">About</a><a href="/faq/">FAQ</a><a href="/contact/">Contact</a></nav>
-    <p>&copy; <span data-year>2026</span> Duna Marketing &middot; <a href="tel:+17073855673">(707) 385-5673</a></p>
+    <div class="foot__top">
+      <div>
+        <a class="foot__brand" href="/"><img src="/duna_marketing_logo.png" alt="" width="28" height="29"><span>Duna Marketing</span></a>
+        <p style="margin-top:14px;max-width:34ch">Custom websites for small businesses, built from a questionnaire you answer on your phone.</p>
+      </div>
+      <div>
+        <h4>Pages</h4>
+        <ul><li><a href="/">Home</a></li><li><a href="/samples/" aria-current="page">The Work</a></li><li><a href="/how-it-works/">The Process</a></li><li><a href="/pricing/">Pricing</a></li></ul>
+      </div>
+      <div>
+        <h4>Start here</h4>
+        <ul><li><a href="/about/">About Barrett</a></li><li><a href="/contact/">Contact</a></li><li><a href="/faq/">Questions</a></li></ul>
+        <p style="margin-top:16px"><a class="foot__tel" href="tel:+17073855673">(707) 385-5673</a></p>
+      </div>
+    </div>
+    <div class="foot__bar">
+      <span>&copy; <span data-year>2026</span> Duna Marketing. All rights reserved.</span>
+      <span>Sample sites are mock businesses, labelled as such.</span>
+    </div>
   </div>
 </footer>
-
-<div class="mcta" aria-label="Get started">
-  <a class="mcta__btn mcta__btn--call" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Call me to get started</span></a>
-</div>
-
-<script src="/assets/duna.js"></script>
+<div class="mcta"><a class="btn btn--ghost" href="tel:+17073855673" style="background:var(--navy);border-color:var(--navy);color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me to get started</a></div>
+<script src="/assets/site.js"></script>
 </body>
 </html>
