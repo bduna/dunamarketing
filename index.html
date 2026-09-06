@@ -32,13 +32,12 @@ fbq('track', 'PageView');
 </script>
 <style>
   :root {
-    --ink:#1a1d24; --muted:#5a6070; --line:#e2e5ea; --input-line:#8c9098;   /* 3.01:1 on --bg — the lightest this can go and still read as an edge (WCAG 1.4.11) */
+    --ink:#1a1d24; --muted:#5a6070; --line:#e2e5ea; --input-line:#8c9098;
     --navy:#003087; --navy-deep:#001d52; --navy-soft:#eaf0fb;
     --red:#C8102E; --red-dark:#a50d25; --bg:#f7f8fa; --card:#ffffff;
   }
   * { box-sizing:border-box; }
-    /* body must grow with its content: a sticky header only sticks inside its containing
-     block, so a fixed 100% height stopped .topbar after one viewport. */
+  /* body must grow with its content: a sticky header only sticks inside its containing block. */
   html { height:100%; }
   body { margin:0; min-height:100%; }
   body {
@@ -84,20 +83,72 @@ fbq('track', 'PageView');
     .topbar__cta { padding:9px 11px; gap:6px; font-size:.9rem; }
   }
 
-  main { display:flex; flex-direction:column; align-items:center; width:100%;
-    padding:16px 14px calc(20px + env(safe-area-inset-bottom)); }
-  .wrap { width:100%; max-width:680px; display:flex; flex-direction:column; }
+  main { display:flex; flex-direction:column; align-items:center; width:100%; padding:0 0 calc(20px + env(safe-area-inset-bottom)); }
+  .wrap { width:100%; max-width:720px; padding:0 16px; margin:0 auto; }
+  .wrap--wide { max-width:980px; }
+  .sec { width:100%; padding:clamp(28px,5vw,48px) 0; }
+  .sec--band { background:var(--navy); color:#fff; }
+  .sec--card { background:var(--card); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .eyebrow { display:block; margin:0 0 8px; color:var(--red); font-weight:800; font-size:clamp(.72rem,2.4vw,.82rem); letter-spacing:.08em; text-transform:uppercase; }
+  .sec--band .eyebrow { color:#ffb3bf; }
+  h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800; letter-spacing:-.02em; color:var(--navy); margin:0 0 10px; text-wrap:balance; }
+  .sec--band h2 { color:#fff; }
+  .sub { margin:0 0 20px; color:var(--muted); font-size:1rem; max-width:52ch; }
+  .sec--band .sub { color:rgba(255,255,255,.82); }
+  .center { text-align:center; }
+  .center .sub, .center h2 { margin-left:auto; margin-right:auto; }
 
-  .intro { text-align:center; margin-bottom:2px; }
-  .intro h1 { font-size:clamp(1.5rem,5.5vw,2.1rem); line-height:1.1; margin:0 0 6px;
-    letter-spacing:-.02em; color:var(--navy); }
-  .intro p { margin:0; color:var(--muted); font-size:.95rem; }
+  /* ---- hero ---- */
+  .hero { text-align:center; padding:clamp(22px,5vw,44px) 0 clamp(18px,3vw,26px); }
+  .hero .eyebrow { text-align:center; margin-bottom:10px; }
+  .hero h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 10px; letter-spacing:-.03em; color:var(--navy); text-wrap:balance; }
+  .hero p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
+  .facts { list-style:none; margin:18px auto 0; padding:0; display:flex; flex-wrap:wrap; justify-content:center; gap:8px; max-width:560px; }
+  .facts li { display:inline-flex; align-items:center; gap:7px; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:7px 12px 7px 9px; font-size:.84rem; font-weight:700; color:var(--navy); }
+  .facts svg { width:16px; height:16px; color:var(--red); flex:0 0 auto; }
 
-  /* ---- hero CTA: one tap to a written text, same pattern the thank-you page uses ---- */
-  .cta-heading { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
-    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:48px 0 25px; text-wrap:balance; }
-  .cta-stack { display:flex; flex-direction:column; gap:10px; align-items:stretch;
-    margin:0 auto; max-width:420px; width:100%; }
+  /* ---- samples ---- */
+  .proof { padding-top:clamp(8px,2vw,16px); }
+  .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .proof-grid a { display:block; text-decoration:none; color:inherit; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--card); box-shadow:0 1px 3px rgba(20,30,50,.06); transition:transform .15s ease, box-shadow .15s ease; }
+  @media (hover:hover) and (pointer:fine) { .proof-grid a:hover { transform:translateY(-3px); box-shadow:0 10px 24px rgba(0,29,82,.14); } }
+  .proof-grid img { display:block; width:100%; height:auto; border-bottom:1px solid var(--line); }
+  .proof-grid b { display:block; font-size:.8rem; font-weight:700; padding:9px 11px 2px; line-height:1.25; }
+  .proof-grid span { display:block; font-size:.72rem; color:var(--muted); padding:0 11px 10px; }
+  @media (max-width:560px) { .proof-grid { grid-template-columns:repeat(2,1fr); gap:10px; } }
+  @media (min-width:900px) { .proof-grid { grid-template-columns:repeat(5,1fr); gap:12px; } }
+
+  /* ---- how it works ---- */
+  .steps { list-style:none; margin:0; padding:0; display:grid; gap:14px; counter-reset:step; }
+  @media (min-width:700px) { .steps { grid-template-columns:repeat(3,1fr); gap:18px; } }
+  .steps li { position:relative; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16); border-radius:14px; padding:18px 18px 18px 62px; }
+  .steps li::before { counter-increment:step; content:counter(step); position:absolute; left:16px; top:16px; width:34px; height:34px; border-radius:50%; background:var(--red); color:#fff; font-weight:800; display:grid; place-items:center; font-size:1rem; }
+  .steps h3 { margin:0 0 4px; font-size:1.05rem; line-height:1.25; color:#fff; }
+  .steps p { margin:0; font-size:.93rem; color:rgba(255,255,255,.82); }
+
+  /* ---- what you get ---- */
+  .gets { list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+  @media (min-width:700px) { .gets { grid-template-columns:1fr 1fr; gap:12px 20px; } }
+  .gets li { display:grid; grid-template-columns:auto 1fr; gap:10px; align-items:start; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; }
+  .gets svg { width:20px; height:20px; margin-top:2px; color:var(--red); flex:0 0 auto; }
+  .gets b { display:block; font-size:.98rem; color:var(--navy); margin-bottom:1px; }
+  .gets span { font-size:.9rem; color:var(--muted); }
+
+  /* ---- questions ---- */
+  .faq { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:0 16px; }
+  .faq details { border-top:1px solid var(--line); }
+  .faq details:first-child { border-top:0; }
+  .faq summary { list-style:none; cursor:pointer; display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center; padding:14px 0; font-weight:700; font-size:1rem; color:var(--navy); }
+  .faq summary::-webkit-details-marker { display:none; }
+  .faq summary::after { content:"+"; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; background:var(--navy-soft); color:var(--navy); font-weight:800; flex:none; }
+  .faq details[open] summary::after { content:"\2013"; background:var(--navy); color:#fff; }
+  .faq .a { padding:0 0 14px; color:var(--muted); font-size:.95rem; max-width:60ch; }
+  .faq .a p { margin:0 0 8px; } .faq .a p:last-child { margin:0; }
+
+  /* ---- closing CTA (owner copy, kept) ---- */
+  .close { padding-top:clamp(28px,5vw,44px); padding-bottom:8px; }
+  .cta-heading { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800; letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 22px; text-wrap:balance; }
+  .cta-stack { display:flex; flex-direction:column; gap:10px; align-items:stretch; margin:0 auto; max-width:420px; width:100%; }
   /* Phones: a fixed text + call bar. Ad traffic is mobile, so the two ways to reach me never scroll away. */
   .mcta { display:none; }
   @media (max-width:720px) {
@@ -133,36 +184,10 @@ fbq('track', 'PageView');
   .reply-note { text-align:center; margin:12px 0 0; font-size:.9rem; color:var(--muted); }
   .reply-note b { color:var(--ink); }
 
-  /* ---- homepage hero ---- */
-  /* Was an SVG stretched to the full width, which is why it could never line up with anything.
-     Plain text now, and JS nudges it to start exactly where the centred headline's first line starts.
-     Left-aligned at the column edge is the fallback if that measurement never runs. */
-  /* max-width:none so `.intro p { max-width:46ch }` cannot box it into a narrower column than the
-     headline — otherwise "centred" would mean centred on a different axis. */
-  .intro .kicker { margin:clamp(18px, 5vw, 40px) 0 10px; max-width:none; text-align:center; color:var(--red);
-    font-weight:800; font-size:clamp(.74rem, 2.5vw, .88rem); letter-spacing:.07em;
-    text-transform:uppercase; }
-  .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 10px;
-    letter-spacing:-.03em; color:var(--navy); text-wrap:balance; }
-  .intro p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
-  /* Space under the subline so the first question does not sit on top of the pitch. */
-  .intro h1 + p { margin-bottom:clamp(14px, 2.2vw, 24px); }
-
-  /* ---- proof strip: the six sample sites ---- */
-  /* The subline hands straight off to the samples ("click around the portfolio below"), so the
-     hero's own bottom margin carries nearly all of the gap — the two read as one pitch. */
-  .proof { margin:0; }
-  .proof h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
-    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
-  .proof p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 20px; max-width:44ch; }
-  .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
-  .proof-grid a { display:block; text-decoration:none; color:inherit; border:1px solid var(--line);
-    border-radius:10px; overflow:hidden; background:var(--card); }
-  .proof-grid img { display:block; width:100%; height:auto; border-bottom:1px solid var(--line); }
-  .proof-grid b { display:block; font-size:.78rem; font-weight:700; padding:8px 10px 2px; line-height:1.25; }
-  .proof-grid span { display:block; font-size:.72rem; color:var(--muted); padding:0 10px 9px; }
-  @media (max-width:560px) { .proof-grid { grid-template-columns:repeat(2,1fr); gap:10px; } }
-
+  .reply-note { text-align:center; margin:12px 0 0; font-size:.9rem; color:var(--muted); }
+  .reply-note b { color:var(--ink); }
+  .foot { text-align:center; font-size:.82rem; color:var(--muted); margin:22px 0 0; }
+  .foot a { color:var(--navy); font-weight:700; text-decoration:none; }
   /* ---- back to the top: in the flow, so you only meet it by having scrolled ---- */
   .totop { display:flex; flex-direction:column; align-items:center; gap:6px; margin:16px auto 4px;
     background:none; border:0; padding:8px 12px; cursor:pointer; color:var(--navy); font:inherit; border-radius:10px; }
@@ -172,7 +197,7 @@ fbq('track', 'PageView');
   @media (hover:hover) and (pointer:fine) { .totop:hover { color:var(--red); } .totop:hover svg { transform:translateY(-3px); } }
   .totop:active { color:var(--red); }
   .totop:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
-  @media (prefers-reduced-motion:reduce) { .totop svg, .mcta, .topbar { transition:none; } }
+  @media (prefers-reduced-motion:reduce) { .totop svg, .mcta, .topbar, .proof-grid a { transition:none; } }
 </style>
 <noscript><style>
   /* Without JS the call bar never hides, so the page keeps its full clearance. */
@@ -194,14 +219,21 @@ fbq('track', 'PageView');
 </header>
 
 <main>
-  <div class="wrap">
-    <div class="intro" id="intro">
-      <p class="kicker">Bespoke, high&#8209;quality web solutions</p>
+  <section class="hero" id="intro">
+    <div class="wrap">
+      <span class="eyebrow">Bespoke, high&#8209;quality web solutions</span>
       <h1>Big&#8209;Agency Websites. Small&#8209;Business Prices.</h1>
       <p>Custom-built for your business, at a price that will surprise you. Explore the sample portfolio below then text or call me to speak about your new website idea.</p>
+      <ul class="facts" aria-label="At a glance">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Under 24 hours</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>A 20&#8209;minute questionnaire</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>You approve before it goes live</li>
+      </ul>
     </div>
+  </section>
 
-    <section class="proof" id="proof">
+  <section class="sec proof" id="proof">
+    <div class="wrap wrap--wide center">
       <h2>See Our Samples</h2>
       <p class="sub">Sample sites, built the same way yours will be. Tap one and look around it.</p>
       <div class="proof-grid">
@@ -236,10 +268,75 @@ fbq('track', 'PageView');
           <img src="/portfolio/thumbs/summit-ridge-ski-board.jpg" alt="Summit Ridge Ski and Board website" width="640" height="400" loading="lazy">
           <b>Summit Ridge Ski &amp; Board</b><span>Ski &amp; snowboard shop</span></a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <h2 class="cta-heading">Get an affordable website in less than 24 hours only requiring a 20 min. questionnaire.</h2>
-    <div class="cta-stack">
+  <section class="sec sec--band" id="how">
+    <div class="wrap wrap--wide">
+      <span class="eyebrow">How it works</span>
+      <h2>Three steps. One of them is a text.</h2>
+      <p class="sub">No sales call, no proposal, nothing to prepare.</p>
+      <ol class="steps">
+        <li><h3>Text or call me</h3><p>One tap and you&rsquo;re talking to me, not a sales team. I&rsquo;ll answer your questions and get you the questionnaire.</p></li>
+        <li><h3>Answer the questionnaire</h3><p>About 20 minutes, on your phone, out loud if you like. It asks about your business in plain English. No tech skills needed.</p></li>
+        <li><h3>Get your preview in under 24 hours</h3><p>I build the site from your own answers and photos and send you a link. Two rounds of changes are included, and nothing goes live until you say yes.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="what">
+    <div class="wrap wrap--wide">
+      <span class="eyebrow">What you get</span>
+      <h2>A real site, not a template.</h2>
+      <p class="sub">An agency hands you a proposal. A page builder hands you a blank template and your weekends. This is the third option.</p>
+      <ul class="gets">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Custom-built for your business</b><span>Designed around what you do, not dropped into a theme.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Written from your own answers</b><span>Every word on the site comes from what you tell me about the business.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Design, words, photos and setup handled</b><span>You answer questions. I take it from there, including putting it online.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Built for a phone first</b><span>That&rsquo;s where your customers are looking you up.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>A full site with real pages</b><span>Like the samples above: home, services, about, contact, not one long scroll.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>One person, start to finish</b><span>You deal with me, Barrett. Text me directly at any point.</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec sec--card" id="faq">
+    <div class="wrap">
+      <span class="eyebrow">Questions</span>
+      <h2>Before you text.</h2>
+      <div class="faq">
+        <details open>
+          <summary>How much does it cost?</summary>
+          <div class="a"><p>Less than you&rsquo;re expecting. I keep the price on a text rather than a page so I can give you the real number for your site straight away.</p></div>
+        </details>
+        <details>
+          <summary>How fast is &ldquo;under 24 hours&rdquo;?</summary>
+          <div class="a"><p>The clock starts when your questionnaire comes in. Your preview link arrives within 24 hours of that.</p></div>
+        </details>
+        <details>
+          <summary>What do I need to prepare?</summary>
+          <div class="a"><p>Nothing. The questionnaire asks about your business in plain English, and you can answer by talking into your phone. If you have photos, send them. If not, I&rsquo;ll handle it.</p></div>
+        </details>
+        <details>
+          <summary>Do I need to know anything technical?</summary>
+          <div class="a"><p>No. You answer questions. I do the rest, including putting the site online.</p></div>
+        </details>
+        <details>
+          <summary>What if I want changes?</summary>
+          <div class="a"><p>You see a preview first. Two rounds of changes are included, and nothing goes live until you approve it.</p></div>
+        </details>
+        <details>
+          <summary>Can I see what you&rsquo;ve built?</summary>
+          <div class="a"><p>The ten samples above. Tap any of them and look around. Yours is built the same way.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec close" id="start">
+    <div class="wrap">
+      <h2 class="cta-heading">Get an affordable website in less than 24 hours only requiring a 20 min. questionnaire.</h2>
+      <div class="cta-stack">
       <a class="btn btn-text" id="text-btn" href="sms:+17073855673">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Text me to get started
@@ -249,10 +346,9 @@ fbq('track', 'PageView');
         Call me to get started
       </a>
     </div>
-    <p class="reply-note">I nearly always answer or reply <b>right away</b>, otherwise, I&rsquo;ll get back to you as soon as possible.</p>
-
-
-    <button type="button" class="totop" id="totop" aria-label="Back to the top">
+      <p class="reply-note">I nearly always answer or reply <b>right away</b>, otherwise, I&rsquo;ll get back to you as soon as possible.</p>
+      <p class="foot">&copy; <span data-year>2026</span> Duna Marketing &middot; <a href="tel:+17073855673">(707) 385-5673</a></p>
+      <button type="button" class="totop" id="totop" aria-label="Back to the top">
       <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
         <circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
         <path d="M22 30V15M22 15l-6.5 6.5M22 15l6.5 6.5" fill="none" stroke="currentColor"
@@ -260,7 +356,8 @@ fbq('track', 'PageView');
       </svg>
       <span>Back to the top</span>
     </button>
-  </div>
+    </div>
+  </section>
 </main>
 
 <div class="mcta" aria-label="Get started">
@@ -296,6 +393,8 @@ fbq('track', 'PageView');
       document.body.classList.toggle("cta-visible", entries[0].isIntersecting);
     }, { rootMargin: "0px 0px -60px 0px", threshold: 0 }).observe(endCta);
   }
+
+  var y = document.querySelector("[data-year]"); if (y) y.textContent = new Date().getFullYear();
 
   var top = document.getElementById("totop");
   if (top) top.addEventListener("click", function () {
