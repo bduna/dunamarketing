@@ -152,7 +152,7 @@ body.keep-hdr.cta-visible .hdr{transform:none;opacity:1;pointer-events:auto}
 /* hero art */
 .hero__art{margin:0}
 .hero__art img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:18px;border:1px solid var(--line)}
-@media(max-width:959px){.hero__art img{aspect-ratio:16/10}}
+@media(max-width:959px){.hero__art img{aspect-ratio:16/10;object-position:center 28%}}
 /* device composition */
 .compose{position:relative;padding:0 clamp(26px,7vw,44px) clamp(26px,5vw,40px) 0}
 .browser{border:1px solid var(--line-2);border-radius:14px;overflow:hidden;background:#fff;
