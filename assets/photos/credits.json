@@ -22,94 +22,6 @@
   ]
  },
  {
-  "name": "trade-bakery",
-  "id": 7447275,
-  "photographer": "Gustavo Fring",
-  "alt": "A cheerful baker in a bakery showcases fresh pastries behind a glass display case.",
-  "size": 41636,
-  "px": [
-   620,
-   413
-  ]
- },
- {
-  "name": "trade-barber",
-  "id": 7697287,
-  "photographer": "RDNE Stock project",
-  "alt": "Barber providing a beard trim to a customer in a modern and stylish shop setting.",
-  "size": 39315,
-  "px": [
-   620,
-   413
-  ]
- },
- {
-  "name": "trade-groomer",
-  "id": 19145898,
-  "photographer": "Goochie Poochie Grooming",
-  "alt": "A woman expertly grooms a Shih Tzu using scissors in a pet grooming salon.",
-  "size": 49041,
-  "px": [
-   620,
-   413
-  ]
- },
- {
-  "name": "trade-florist",
-  "id": 5410081,
-  "photographer": "Amina Filkins",
-  "alt": "Concentrated female florist with dark hair standing in floral shop with tablet near flowers in wrapper while checking or",
-  "size": 46832,
-  "px": [
-   620,
-   413
-  ]
- },
- {
-  "name": "trade-auto",
-  "id": 8986132,
-  "photographer": "Artem Podrez",
-  "alt": "Mechanic evaluating a car on a lift for maintenance in an auto workshop.",
-  "size": 39469,
-  "px": [
-   620,
-   413
-  ]
- },
- {
-  "name": "trade-cafe",
-  "id": 8475204,
-  "photographer": "Kampus Production",
-  "alt": "Two happy store owners smiling while wearing aprons in a local grocery store.",
-  "size": 42782,
-  "px": [
-   620,
-   413
-  ]
- },
- {
-  "name": "trade-shop",
-  "id": 3853199,
-  "photographer": "Andrea Piacquadio",
-  "alt": "Concentrated senior male master in apron standing near table and buffing wooden surface while creating guitar in light w",
-  "size": 52484,
-  "px": [
-   620,
-   413
-  ]
- },
- {
-  "name": "trade-open",
-  "id": 1376412,
-  "photographer": "Kevin Bidwell",
-  "alt": "Retro blue open sign on a shop glass door inviting customers in.",
-  "size": 45771,
-  "px": [
-   620,
-   413
-  ]
- },
- {
   "name": "owner-door",
   "id": 4473399,
   "photographer": "Ketut Subiyanto",
@@ -154,44 +66,11 @@
   ]
  },
  {
-  "name": "storefront-sign",
-  "id": 10175387,
-  "photographer": "Jonathan Cooper",
-  "alt": "Close-up of a retro 'Downtown Comics' sign on a building facade.",
-  "size": 77606,
-  "px": [
-   1100,
-   471
-  ]
- },
- {
-  "name": "hero-owner",
-  "id": 13737055,
-  "photographer": "Mizuno K",
-  "alt": "Barista with apron and beanie smiling as he takes an order from a customer in a cozy caf\u00e9 setting.",
-  "size": 99885,
-  "px": [
-   900,
-   1125
-  ]
- },
- {
   "name": "pain-quotes",
   "id": 8278847,
   "photographer": "ANTONI SHKRABA production",
   "alt": "An office worker showing frustration while sitting at a cluttered desk with a laptop.",
   "size": 59648,
-  "px": [
-   760,
-   507
-  ]
- },
- {
-  "name": "pain-diy",
-  "id": 6615044,
-  "photographer": "Tima Miroshnichenko",
-  "alt": "An architect working late at night in an office, using a laptop and surrounded by building models.",
-  "size": 45523,
   "px": [
    760,
    507
@@ -261,6 +140,28 @@
   "px": [
    900,
    506
+  ]
+ },
+ {
+  "name": "option-diy",
+  "id": 3853199,
+  "photographer": "Andrea Piacquadio",
+  "alt": "Concentrated senior male master in apron standing near table and buffing wooden surface while creating guitar in light w",
+  "size": 74998,
+  "px": [
+   760,
+   507
+  ]
+ },
+ {
+  "name": "hero-owners",
+  "id": 8475204,
+  "photographer": "Kampus Production",
+  "alt": "Two shop owners in aprons behind the counter",
+  "size": 109234,
+  "px": [
+   900,
+   1125
   ]
  }
 ]
