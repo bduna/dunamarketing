@@ -183,6 +183,8 @@ body.keep-hdr.cta-visible .hdr{transform:none;opacity:1;pointer-events:auto}
   .split--flip>*:first-child{order:2}}
 .figure{margin:0}
 .figure img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line)}
+.figure--me img{max-width:460px;aspect-ratio:1/1;object-fit:cover}
+@media(max-width:899px){.figure--me img{max-width:300px}}
 .figure figcaption{margin-top:10px;font-size:.85rem;color:var(--muted)}
 .s--navy .figure img{border-color:rgba(255,255,255,.22)}
 .s--navy .figure figcaption{color:rgba(255,255,255,.72)}
