@@ -1,229 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
-<title>Duna Marketing — Big-Agency Websites. Small-Business Prices.</title>
-<meta name="description" content="Custom-built websites for small businesses, at a price that will surprise you. Answer a 20-minute questionnaire and get a preview in under 24 hours.">
-<link rel="canonical" href="https://dunamarketing.com/">
-<meta property="og:title" content="Duna Marketing — Big-Agency Websites. Small-Business Prices.">
-<meta property="og:description" content="Custom-built websites for small businesses, at a price that will surprise you. Answer a 20-minute questionnaire and get a preview in under 24 hours.">
+<title>Duna Marketing &mdash; Big-Agency Websites. Small-Business Prices.</title>
+<meta name="description" content="Custom-built websites for small businesses, at a price that will surprise you. Tell me about your business in a two-minute chat and I'll build it from your own words.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://dunamarketing.com/">
-<meta property="og:image" content="https://dunamarketing.com/assets/og.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#FAF8F5">
-<link rel="icon" href="/duna_marketing_logo.png">
-<link rel="apple-touch-icon" href="/assets/icon-180.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Duna Marketing","url":"https://dunamarketing.com/","telephone":"+1-707-385-5673","founder":{"@type":"Person","name":"Barrett Duna"},"description":"Custom-built websites for small businesses, written from a questionnaire you fill in, with a preview in under 24 hours.","areaServed":"US","address":{"@type":"PostalAddress","addressRegion":"CA","addressCountry":"US"},"image":"https://dunamarketing.com/assets/og.jpg"}</script>
-<script>document.documentElement.className+=" js";</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta property="og:site_name" content="Duna Marketing">
+<meta property="og:title" content="Your new website starts here — Duna Marketing">
+<meta property="og:description" content="Nothing to prepare, no tech skills needed. Answer a few questions out loud and we build the rest.">
+<meta name="theme-color" content="#003087">
+<link rel="icon" type="image/png" href="duna_marketing_logo.png">
+<link rel="apple-touch-icon" href="duna_marketing_logo.png">
 <link rel="preconnect" href="https://connect.facebook.net">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Schibsted+Grotesk:wght@700;800&display=swap">
-<link rel="stylesheet" href="/assets/site.css">
 <script>
+// Same kill switch as the rest of the site: ?metrics=off keeps owner testing out of the ad data.
 (function () {
   try {
     var m = location.search.match(/[?&]metrics=(on|off)\b/);
     if (m) { if (m[1] === "off") localStorage.setItem("duna_notrack", "1"); else localStorage.removeItem("duna_notrack"); }
     if (localStorage.getItem("duna_notrack") === "1") { console.log("[duna] metrics OFF on this browser"); return; }
   } catch (e) {}
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '949809188409734');
-  fbq('track', 'PageView');
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '949809188409734');
+fbq('track', 'PageView');
 })();
 </script>
+<style>
+  :root {
+    --ink:#1a1d24; --muted:#5a6070; --line:#e2e5ea; --input-line:#8c9098;   /* 3.01:1 on --bg — the lightest this can go and still read as an edge (WCAG 1.4.11) */
+    --navy:#003087; --navy-deep:#001d52; --navy-soft:#eaf0fb;
+    --red:#C8102E; --red-dark:#a50d25; --bg:#f7f8fa; --card:#ffffff;
+  }
+  * { box-sizing:border-box; }
+    /* body must grow with its content: a sticky header only sticks inside its containing
+     block, so a fixed 100% height stopped .topbar after one viewport. */
+  html { height:100%; }
+  body { margin:0; min-height:100%; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background-color:var(--bg);
+    background-image:linear-gradient(to right,rgba(60,66,80,.06) 1px,transparent 1px),
+                     linear-gradient(to bottom,rgba(60,66,80,.06) 1px,transparent 1px);
+    background-size:20px 20px; background-position:-1px -1px;
+    color:var(--ink); line-height:1.5; display:flex; flex-direction:column; min-height:100dvh;
+  }
+  .topbar { position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:12px;
+    padding:10px 18px; background:var(--navy); border-bottom:3px solid var(--red);
+    box-shadow:0 2px 12px rgba(0,29,82,.35); }
+  .topbar img { height:32px; width:auto; display:block; background:#fff; border-radius:6px; padding:3px; }
+  .topbar .name { font-weight:800; font-size:1.05rem; color:#fff; }
+  .topbar__cta { margin-right:6px; display:inline-flex; align-items:center; gap:8px;
+    background:var(--red); color:#fff; text-decoration:none; font-weight:800; font-size:.92rem;
+    line-height:1; white-space:nowrap; padding:10px 16px; border-radius:10px;
+    box-shadow:0 4px 14px rgba(200,16,46,.32); transition:background .15s, box-shadow .15s, transform .08s; }
+  .topbar__cta:hover, .topbar__cta:focus-visible { background:var(--red-dark); box-shadow:0 6px 18px rgba(200,16,46,.42); }
+  .topbar__cta:active { transform:translateY(1px); }
+  /* When the bottom CTA block is on screen both sticky bars stand down, so the same
+     call to action never appears twice. */
+  .topbar { transition:transform .2s ease, opacity .2s ease; }
+  body.cta-visible .topbar { transform:translateY(-110%); opacity:0; pointer-events:none; }
+  .topbar__cta svg { width:17px; height:17px; flex:0 0 auto; }
+  .topbar__cta--call { margin-left:auto; background:rgba(255,255,255,.12); border:1.5px solid #fff; box-shadow:none; }
+  .topbar__cta--call:hover, .topbar__cta--call:focus-visible { background:#fff; color:var(--navy); box-shadow:none; }
+  .topbar__cta--text { margin-left:8px; }
+  @media (max-width:720px) { .topbar__cta--call { display:none; } .topbar__cta--text { margin-left:auto; } }
+  @media (max-width:560px) { .topbar__cta { font-size:.85rem; padding:9px 13px; margin-right:2px; } }
+  /* The name stays at every width. Below 560px the bar tightens and the type steps down
+     to make room; below 430px the button drops its tail to "Text me". */
+  @media (max-width:560px) {
+    .topbar { padding:9px 10px 9px 14px; gap:12px; }
+    .topbar img { height:30px; }
+    .topbar .name { font-size:1.02rem; letter-spacing:-.01em; }
+  }
+  @media (max-width:430px) {
+    .topbar { padding-left:12px; gap:10px; }
+    .topbar .name { font-size:1rem; }
+    .topbar__cta .tail { display:none; }
+    .topbar__cta { padding:9px 11px; gap:6px; font-size:.9rem; }
+  }
+
+  main { display:flex; flex-direction:column; align-items:center; width:100%;
+    padding:16px 14px calc(20px + env(safe-area-inset-bottom)); }
+  .wrap { width:100%; max-width:680px; display:flex; flex-direction:column; }
+
+  .intro { text-align:center; margin-bottom:2px; }
+  .intro h1 { font-size:clamp(1.5rem,5.5vw,2.1rem); line-height:1.1; margin:0 0 6px;
+    letter-spacing:-.02em; color:var(--navy); }
+  .intro p { margin:0; color:var(--muted); font-size:.95rem; }
+
+  /* ---- hero CTA: one tap to a written text, same pattern the thank-you page uses ---- */
+  .cta-heading { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
+    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:48px 0 25px; text-wrap:balance; }
+  .cta-stack { display:flex; flex-direction:column; gap:10px; align-items:stretch;
+    margin:0 auto; max-width:420px; width:100%; }
+  /* Phones: a fixed text + call bar. Ad traffic is mobile, so the two ways to reach me never scroll away. */
+  .mcta { display:none; }
+  @media (max-width:720px) {
+    .mcta { position:fixed; left:0; right:0; bottom:0; z-index:80; display:grid; grid-template-columns:1fr; gap:8px;
+      padding:8px 10px calc(8px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.96);
+      border-top:1px solid var(--line); box-shadow:0 -4px 16px rgba(0,0,0,.08); backdrop-filter:saturate(150%) blur(8px); }
+    .mcta__btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:50px; padding:8px 8px;
+      border-radius:12px; font-weight:800; font-size:.86rem; line-height:1.15; text-align:center; text-decoration:none; }
+    .mcta__btn svg { width:18px; height:18px; flex:0 0 auto; }
+    .mcta__btn--text { background:var(--red); color:#fff; box-shadow:0 6px 16px rgba(200,16,46,.28); }
+    .mcta__btn--text:active { background:var(--red-dark); }
+    .mcta__btn--call { background:var(--navy); color:#fff; box-shadow:0 6px 16px rgba(0,48,135,.28); font-size:1rem; min-height:54px; }
+    .mcta__btn--call:active { background:var(--navy-deep); }
+    .mcta { transition:transform .2s ease, opacity .2s ease; }
+    body.cta-visible .mcta { transform:translateY(110%); opacity:0; pointer-events:none; }
+    /* body is height:100% + border-box, so padding there never extends the scroll.
+       The clearance has to sit on the flow content instead. The call bar is always
+       hidden by then (the CTA block is in view), so this only has to clear the slide-out. */
+    main { padding-bottom:calc(28px + env(safe-area-inset-bottom)); }
+    .intro .kicker { margin-top:12px; }
+    .intro h1 + p { margin-bottom:12px; }
+  }
+  .btn { display:flex; align-items:center; justify-content:center; gap:10px; padding:16px 20px;
+    border-radius:12px; font-weight:800; font-size:1.12rem; text-decoration:none;
+    letter-spacing:.01em; transition:transform .08s, background .15s, box-shadow .15s; }
+  .btn:active { transform:translateY(1px); }
+  .btn-text { background:var(--red); color:#fff; box-shadow:0 8px 20px rgba(200,16,46,.3); }
+  .btn-text:hover, .btn-text:focus-visible { background:var(--red-dark);
+    box-shadow:0 10px 24px rgba(200,16,46,.38); }
+  .btn-call { background:#fff; color:var(--navy); border:2px solid var(--navy); padding:14px 20px; }
+  .btn-call:hover, .btn-call:focus-visible { background:var(--navy-soft); }
+  .btn svg { width:22px; height:22px; flex:0 0 auto; }
+  .reply-note { text-align:center; margin:12px 0 0; font-size:.9rem; color:var(--muted); }
+  .reply-note b { color:var(--ink); }
+
+  /* ---- homepage hero ---- */
+  /* Was an SVG stretched to the full width, which is why it could never line up with anything.
+     Plain text now, and JS nudges it to start exactly where the centred headline's first line starts.
+     Left-aligned at the column edge is the fallback if that measurement never runs. */
+  /* max-width:none so `.intro p { max-width:46ch }` cannot box it into a narrower column than the
+     headline — otherwise "centred" would mean centred on a different axis. */
+  .intro .kicker { margin:clamp(18px, 5vw, 40px) 0 10px; max-width:none; text-align:center; color:var(--red);
+    font-weight:800; font-size:clamp(.74rem, 2.5vw, .88rem); letter-spacing:.07em;
+    text-transform:uppercase; }
+  .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 10px;
+    letter-spacing:-.03em; color:var(--navy); text-wrap:balance; }
+  .intro p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
+  /* Space under the subline so the first question does not sit on top of the pitch. */
+  .intro h1 + p { margin-bottom:clamp(14px, 2.2vw, 24px); }
+
+  /* ---- proof strip: the six sample sites ---- */
+  /* The subline hands straight off to the samples ("click around the portfolio below"), so the
+     hero's own bottom margin carries nearly all of the gap — the two read as one pitch. */
+  .proof { margin:0; }
+  .proof h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
+    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
+  .proof p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 20px; max-width:44ch; }
+  .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .proof-grid a { display:block; text-decoration:none; color:inherit; border:1px solid var(--line);
+    border-radius:10px; overflow:hidden; background:var(--card); }
+  .proof-grid img { display:block; width:100%; height:auto; border-bottom:1px solid var(--line); }
+  .proof-grid b { display:block; font-size:.78rem; font-weight:700; padding:8px 10px 2px; line-height:1.25; }
+  .proof-grid span { display:block; font-size:.72rem; color:var(--muted); padding:0 10px 9px; }
+  @media (max-width:560px) { .proof-grid { grid-template-columns:repeat(2,1fr); gap:10px; } }
+
+  /* ---- back to the top: in the flow, so you only meet it by having scrolled ---- */
+  .totop { display:flex; flex-direction:column; align-items:center; gap:6px; margin:16px auto 4px;
+    background:none; border:0; padding:8px 12px; cursor:pointer; color:var(--navy); font:inherit; border-radius:10px; }
+  .totop svg { width:44px; height:44px; display:block; transition:transform .15s ease; }
+  .totop span { font-size:.8rem; font-weight:700; }
+  /* Hover only where a real pointer exists — on a touchscreen :hover sticks red after a tap. */
+  @media (hover:hover) and (pointer:fine) { .totop:hover { color:var(--red); } .totop:hover svg { transform:translateY(-3px); } }
+  .totop:active { color:var(--red); }
+  .totop:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
+  @media (prefers-reduced-motion:reduce) { .totop svg, .mcta, .topbar { transition:none; } }
+</style>
+<noscript><style>
+  /* Without JS the call bar never hides, so the page keeps its full clearance. */
+  @media (max-width:720px) { main { padding-bottom:calc(96px + env(safe-area-inset-bottom)); } }
+</style></noscript>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="hdr">
-  <div class="hdr__in wrap">
-    <a class="brand" href="/" aria-label="Duna Marketing home"><img src="/duna_marketing_logo.png" alt="" width="30" height="31"><span>Duna Marketing</span></a>
-    <nav class="nav" aria-label="Site"><a href="/" aria-current="page">Home</a><a href="/samples/">The Work</a><a href="/how-it-works/">The Process</a><a href="/pricing/">Pricing</a><a href="/about/">About Barrett</a><a href="/contact/">Contact</a></nav>
-    <div class="hdr__cta">
-      <a class="hdr__btn hdr__btn--call" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me</a>
-      <a class="hdr__btn hdr__btn--text" href="sms:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text me</a>
-      <button type="button" class="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-    </div>
-  </div>
-  <nav class="panel" id="menu" aria-label="Site"><a href="/" aria-current="page">Home</a><a href="/samples/">The Work</a><a href="/how-it-works/">The Process</a><a href="/pricing/">Pricing</a><a href="/about/">About Barrett</a><a href="/contact/">Contact</a></nav>
+<header class="topbar">
+  <img src="duna_marketing_logo.png" alt="">
+  <span class="name">Duna Marketing</span>
+  <a class="topbar__cta topbar__cta--call" href="tel:+17073855673" aria-label="Call Duna Marketing on (707) 385-5673 to get started">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    <span>Call me<span class="tail"> to get started</span></span>
+  </a>
+  <a class="topbar__cta topbar__cta--text" href="sms:+17073855673" aria-label="Text Duna Marketing on (707) 385-5673 to get started">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span>Text me<span class="tail"> to get started</span></span>
+  </a>
 </header>
-<main id="main">
 
-<section class="hero">
+<main>
   <div class="wrap">
-    <div class="hero__grid">
-      <div>
-        <p class="eyebrow">Bespoke, high&#8209;quality web solutions</p>
-        <h1>Big&#8209;Agency Websites. Small&#8209;Business Prices.</h1>
-        <p class="lead">Custom-built for your business, at a price that will surprise you. Explore the sample portfolio below then text or call me to speak about your new website idea.</p>
-        <div class="hero__cta"><div class="cta-stack">
-      <a class="btn btn--primary" href="sms:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text me to get started</a>
-      <a class="btn btn--ghost" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me to get started</a>
-    </div></div>
-        <p class="hero__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Preview in under 24 hours. Nothing goes live until you approve it.</p>
+    <div class="intro" id="intro">
+      <p class="kicker">Bespoke, high&#8209;quality web solutions</p>
+      <h1>Big&#8209;Agency Websites. Small&#8209;Business Prices.</h1>
+      <p>Custom-built for your business, at a price that will surprise you. Explore the sample portfolio below then text or call me to speak about your new website idea.</p>
+    </div>
+
+    <section class="proof" id="proof">
+      <h2>See Our Samples</h2>
+      <p class="sub">Sample sites, built the same way yours will be. Tap one and look around it.</p>
+      <div class="proof-grid">
+        <a href="/portfolio/long-table-catering/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering website" width="640" height="400" loading="lazy">
+          <b>Long Table Catering</b><span>Catering</span></a>
+        <a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/marden-estate-law.jpg" alt="Marden Estate Law website" width="640" height="400" loading="lazy">
+          <b>Marden Estate Law</b><span>Estate planning</span></a>
+        <a href="/portfolio/velvet-fig/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/velvet-fig.jpg" alt="Velvet Fig website" width="640" height="400" loading="lazy">
+          <b>Velvet Fig</b><span>Cocktail bar</span></a>
+        <a href="/portfolio/maple-street-cleaners/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/maple-street-cleaners.jpg" alt="Maple Street Cleaners website" width="640" height="400" loading="lazy">
+          <b>Maple Street Cleaners</b><span>Dry cleaner</span></a>
+        <a href="/portfolio/mirror-finish-auto-detailing/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/mirror-finish-auto-detailing.jpg" alt="Mirror Finish Auto Detailing website" width="640" height="400" loading="lazy">
+          <b>Mirror Finish Detailing</b><span>Auto detailing</span></a>
+        <a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy">
+          <b>Golden Crumb Bakery</b><span>Bakery</span></a>
+        <a href="/portfolio/bright-beginnings-preschool/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/bright-beginnings-preschool.jpg" alt="Bright Beginnings Preschool website" width="640" height="400" loading="lazy">
+          <b>Bright Beginnings</b><span>Preschool</span></a>
+        <a href="/portfolio/waggin-tails-grooming/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/waggin-tails-grooming.jpg" alt="Waggin Tails Grooming website" width="640" height="400" loading="lazy">
+          <b>Waggin&rsquo; Tails Grooming</b><span>Dog grooming</span></a>
+        <a href="/portfolio/keyway-locksmith/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/keyway-locksmith.jpg" alt="Keyway Locksmith website" width="640" height="400" loading="lazy">
+          <b>Keyway Locksmith</b><span>Locksmith</span></a>
+        <a href="/portfolio/summit-ridge-ski-board/" target="_blank" rel="noopener">
+          <img src="/portfolio/thumbs/summit-ridge-ski-board.jpg" alt="Summit Ridge Ski and Board website" width="640" height="400" loading="lazy">
+          <b>Summit Ridge Ski &amp; Board</b><span>Ski &amp; snowboard shop</span></a>
       </div>
-      <figure class="hero__art">
-        <img src="/assets/photos/hero-cafe-owner.jpg" alt="A bakery owner in her apron holding a box of cupcakes she has just decorated" width="900" height="1125" loading="eager" decoding="async" fetchpriority="high">
-      </figure>
+    </section>
+
+    <h2 class="cta-heading">Get an affordable website in less than 24 hours only requiring a 20 min. questionnaire.</h2>
+    <div class="cta-stack">
+      <a class="btn btn-text" id="text-btn" href="sms:+17073855673">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Text me to get started
+      </a>
+      <a class="btn btn-call" href="tel:+17073855673">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call me to get started
+      </a>
     </div>
-  </div>
-</section>
+    <p class="reply-note">I nearly always answer or reply <b>right away</b>, otherwise, I&rsquo;ll get back to you as soon as possible.</p>
 
-<section class="s--tight" style="padding-top:0">
-  <div class="wrap">
-    <div class="facts">
-      <div><b>10</b><span>sample sites you can click through, start to finish</span></div>
-      <div><b>43</b><span>pages across them, each written from a questionnaire</span></div>
-      <div><b>24h</b><span>from your answers to a preview link in your hand</span></div>
-    </div>
-  </div>
-</section>
 
-<section class="s s--navy" id="compare">
-  <div class="wrap">
-    <div class="head head--wide reveal">
-      <p class="eyebrow">The difference</p>
-      <h2>Three ways to get the same website.</h2>
-    </div>
-    <div class="reveal"><div class="cmp"><div class="cmp__head"><div></div><div>An agency</div><div>A page builder</div><div class="is-me">Duna Marketing</div></div><div class="cmp__r"><h3 class="cmp__q">Getting started</h3><div class="cmp__c"><span class="cmp__k">Agency</span><p>A discovery call and a proposal</p></div><div class="cmp__c"><span class="cmp__k">Builder</span><p>A blank template and a login</p></div><div class="cmp__c cmp__c--me"><span class="cmp__k">Duna</span><p>One text or call</p></div></div><div class="cmp__r"><h3 class="cmp__q">Who writes it</h3><div class="cmp__c"><span class="cmp__k">Agency</span><p>A copywriter, after a brief</p></div><div class="cmp__c"><span class="cmp__k">Builder</span><p>You do, at night</p></div><div class="cmp__c cmp__c--me"><span class="cmp__k">Duna</span><p>Your questionnaire answers</p></div></div><div class="cmp__r"><h3 class="cmp__q">Time to a preview</h3><div class="cmp__c"><span class="cmp__k">Agency</span><p>Weeks</p></div><div class="cmp__c"><span class="cmp__k">Builder</span><p>Your evenings and weekends</p></div><div class="cmp__c cmp__c--me"><span class="cmp__k">Duna</span><p>Under 24 hours</p></div></div><div class="cmp__r"><h3 class="cmp__q">Looking after it</h3><div class="cmp__c"><span class="cmp__k">Agency</span><p>A retainer, or a support ticket</p></div><div class="cmp__c"><span class="cmp__k">Builder</span><p>Yours to keep running</p></div><div class="cmp__c cmp__c--me"><span class="cmp__k">Duna</span><p>I look after it</p></div></div><div class="cmp__r"><h3 class="cmp__q">Who you talk to</h3><div class="cmp__c"><span class="cmp__k">Agency</span><p>An account manager</p></div><div class="cmp__c"><span class="cmp__k">Builder</span><p>A help center</p></div><div class="cmp__c cmp__c--me"><span class="cmp__k">Duna</span><p>Me, by text or phone</p></div></div></div></div>
+    <button type="button" class="totop" id="totop" aria-label="Back to the top">
+      <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
+        <circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+        <path d="M22 30V15M22 15l-6.5 6.5M22 15l6.5 6.5" fill="none" stroke="currentColor"
+              stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Back to the top</span>
+    </button>
   </div>
-</section>
-
-<section class="s s--white">
-  <div class="wrap">
-    <div class="head head--wide reveal">
-      <p class="eyebrow">Where most owners get stuck</p>
-      <h2>The usual two options, up close.</h2>
-      <p class="lead">Almost every small business ends up choosing between an agency and a page builder. Here is what each one really asks of you.</p>
-    </div>
-    <div class="probs">
-      <div class="prob reveal">
-        <figure class="prob__img"><img src="/assets/photos/pain-quotes.jpg" alt="A small-business owner going through paperwork at a desk" width="760" height="507" loading="lazy" decoding="async"></figure>
-        <span class="prob__k">Option one</span>
-        <h3>Hire an agency</h3>
-        <p>A discovery call, a proposal to read, and weeks of waiting, with an account manager standing between you and whoever is actually building the thing.</p>
-      </div>
-      <div class="prob reveal">
-        <figure class="prob__img"><img src="/assets/photos/option-diy.jpg" alt="A craftsman working by hand at the bench in his workshop" width="760" height="507" loading="lazy" decoding="async"></figure>
-        <span class="prob__k">Option two</span>
-        <h3>Build it yourself</h3>
-        <p>A blank template and a login. Three weekends later the homepage is nearly right, the other pages are still empty, and you are no closer to a site you would send a customer to.</p>
-      </div>
-    </div>
-    <div class="turn reveal"><p>There is a third option, and it starts with <em>a text or a call.</em></p></div>
-  </div>
-</section>
-
-<section class="s s--sand">
-  <div class="wrap">
-    <div class="head reveal">
-      <p class="eyebrow">How it works</p>
-      <h2>You answer questions. I build the site.</h2>
-      <p class="lead">No sales call, no proposal, nothing to prepare.</p>
-    </div>
-    <ol class="steps steps--light reveal" style="margin-top:clamp(26px,4vw,40px)">
-      <li><h3>Text or call me</h3><p>One tap and you are talking to me, Barrett, not a sales team. I answer your questions and send you the questionnaire.</p></li>
-      <li><h3>Answer the questionnaire</h3><p>A document you fill in, about 20 minutes of your time. It asks about your business in plain English. No tech skills needed.</p></li>
-      <li><h3>Approve your preview</h3><p>A link lands within 24 hours. Two rounds of changes are included, and nothing goes live until you say yes. Then it goes on your own domain.</p></li>
-    </ol>
-    <div class="reveal" style="margin-top:clamp(26px,4vw,38px)"><a class="link" href="/how-it-works/">The full process, including payment and your domain <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-  </div>
-</section>
-
-<section class="s">
-  <div class="wrap">
-    <div class="head head--wide reveal">
-      <p class="eyebrow">The work</p>
-      <h2>Ten sample sites, built the way yours will be.</h2>
-      <p class="lead">Mock businesses, so you can judge the design without anyone&rsquo;s real details in the way. Tap one and look around it.</p>
-    </div>
-    <div class="reveal" style="margin-top:clamp(24px,3.5vw,36px)"><div class="work"><a href="/portfolio/long-table-catering/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering sample website" width="640" height="400" loading="lazy" decoding="async"><b>Long Table Catering</b><span>Catering</span></a><a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/marden-estate-law.jpg" alt="Marden Estate Law sample website" width="640" height="400" loading="lazy" decoding="async"><b>Marden Estate Law</b><span>Estate planning</span></a><a href="/portfolio/velvet-fig/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/velvet-fig.jpg" alt="Velvet Fig sample website" width="640" height="400" loading="lazy" decoding="async"><b>Velvet Fig</b><span>Cocktail bar</span></a><a href="/portfolio/maple-street-cleaners/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/maple-street-cleaners.jpg" alt="Maple Street Cleaners sample website" width="640" height="400" loading="lazy" decoding="async"><b>Maple Street Cleaners</b><span>Dry cleaner</span></a><a href="/portfolio/mirror-finish-auto-detailing/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/mirror-finish-auto-detailing.jpg" alt="Mirror Finish Detailing sample website" width="640" height="400" loading="lazy" decoding="async"><b>Mirror Finish Detailing</b><span>Auto detailing</span></a><a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery sample website" width="640" height="400" loading="lazy" decoding="async"><b>Golden Crumb Bakery</b><span>Bakery</span></a><a href="/portfolio/bright-beginnings-preschool/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/bright-beginnings-preschool.jpg" alt="Bright Beginnings sample website" width="640" height="400" loading="lazy" decoding="async"><b>Bright Beginnings</b><span>Preschool</span></a><a href="/portfolio/waggin-tails-grooming/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/waggin-tails-grooming.jpg" alt="Waggin' Tails Grooming sample website" width="640" height="400" loading="lazy" decoding="async"><b>Waggin&rsquo; Tails Grooming</b><span>Dog grooming</span></a><a href="/portfolio/keyway-locksmith/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/keyway-locksmith.jpg" alt="Keyway Locksmith sample website" width="640" height="400" loading="lazy" decoding="async"><b>Keyway Locksmith</b><span>Locksmith</span></a><a href="/portfolio/summit-ridge-ski-board/" target="_blank" rel="noopener"><img src="/portfolio/thumbs/summit-ridge-ski-board.jpg" alt="Summit Ridge Ski and Board sample website" width="640" height="400" loading="lazy" decoding="async"><b>Summit Ridge Ski & Board</b><span>Ski & snowboard shop</span></a></div></div>
-    <div class="reveal" style="margin-top:26px"><a class="link" href="/samples/">Look inside my five strongest, page by page <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-  </div>
-</section>
-
-<section class="s s--white">
-  <div class="wrap">
-    <div class="head head--wide reveal">
-      <p class="eyebrow">What you get</p>
-      <h2>A real site, not a template.</h2>
-      <p class="lead">Everything below comes with the build, and one person to text or call about any of it.</p>
-    </div>
-    <div class="reveal" style="margin-top:clamp(20px,3vw,30px)"><ul class="checks"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>A custom-built, multi-page site</b><span>Home, services, about, contact and whatever else your business needs.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Written from your own answers</b><span>Every word comes from what you tell me about the business.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Design, words and photos handled</b><span>Photos sourced if you don&rsquo;t have your own.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>A contact form or booking link</b><span>So customers can reach you from the site, not only by phone.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Hosting handled</b><span>Your site stays online and I look after it. Nothing for you to set up.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Built for a phone first</b><span>Then desktop. That is where your customers are looking you up.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>A preview and two rounds of changes</b><span>Nothing goes live until you approve it.</span></div></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div><b>Live on your own domain</b><span>I connect the site to it at launch.</span></div></li></ul></div>
-  </div>
-</section>
-
-<section class="s s--white">
-  <div class="wrap">
-    <div class="split">
-      <div class="reveal">
-        <p class="eyebrow">One person</p>
-        <h2>You deal with me, start to finish.</h2>
-        <p class="lead">I&rsquo;m Barrett, and the person who answers your text or your call is the one who builds your site and puts it live. No account manager, no hand-off, no queue. Reach me whenever something needs changing.</p>
-        <p style="margin-top:20px"><a class="link" href="/pricing/">What is included in a build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
-      </div>
-      <div class="reveal">
-        <figure class="figure figure--me" data-optional>
-          <img src="/assets/barrett.jpg" alt="Barrett Duna of Duna Marketing" width="640" height="640" loading="lazy" decoding="async">
-        </figure>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="s">
-  <div class="wrap wrap--narrow">
-    <div class="head head--wide reveal"><p class="eyebrow">Questions</p><h2>Before you get in touch.</h2></div>
-    <div class="reveal" style="margin-top:22px"><div class="faq"><details open><summary>How much does it cost?</summary><div class="a"><p>Text or call me and I&rsquo;ll tell you straight away, along with answers to anything else you want to know. Whatever your site needs is in one quote: design, words, photos, a contact form and hosting.</p></div></details><details><summary>How fast is &ldquo;under 24 hours&rdquo;?</summary><div class="a"><p>The clock starts when your questionnaire comes in. Your preview link arrives within 24 hours of that.</p></div></details><details><summary>What do I need to prepare?</summary><div class="a"><p>Nothing before you get in touch. The questionnaire is a document you fill in, and it takes about 20 minutes. If you have photos or a logo, send them along. If you don&rsquo;t, I&rsquo;ll source the photos.</p></div></details><details><summary>Do I need to know anything technical?</summary><div class="a"><p>No. You answer questions. I do the rest, including putting the site online.</p></div></details><details><summary>What if I want changes?</summary><div class="a"><p>You see a preview first. Two rounds of changes are included, and nothing goes live until you approve it.</p></div></details><details><summary>Can I see what you&rsquo;ve built?</summary><div class="a"><p>The ten samples above, plus a site that is live for a client on the <a href="/samples/">work page</a>. Yours is built the same way.</p></div></details></div></div>
-    <div class="reveal" style="margin-top:24px"><a class="link" href="/faq/">More questions, answered <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-  </div>
-</section>
-
-<section class="s s--navy" id="start">
-  <div class="wrap wrap--mid center">
-    <h2 class="reveal">Get an affordable website in less than 24 hours only requiring a 20 min. questionnaire.</h2>
-    <div class="reveal" style="margin-top:26px"><div class="cta-stack cta-stack--end">
-      <a class="btn btn--primary" href="sms:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text me to get started</a>
-      <a class="btn btn--white" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me to get started</a>
-    </div></div>
-    <p class="small reveal" style="color:rgba(255,255,255,.78);margin-top:16px">I nearly always answer or reply <b>right away</b>, otherwise, I&rsquo;ll get back to you as soon as possible.</p>
-    <button type="button" class="totop" id="totop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Back to the top</button>
-  </div>
-</section>
-
 </main>
-<footer class="foot">
-  <div class="wrap">
-    <div class="foot__top">
-      <div>
-        <a class="foot__brand" href="/"><img src="/duna_marketing_logo.png" alt="" width="28" height="29"><span>Duna Marketing</span></a>
-        <p style="margin-top:14px;max-width:34ch">I&rsquo;m Barrett. I build custom websites for small businesses from the answers you give me.</p>
-      </div>
-      <div>
-        <h4>Pages</h4>
-        <ul><li><a href="/" aria-current="page">Home</a></li><li><a href="/samples/">The Work</a></li><li><a href="/how-it-works/">The Process</a></li><li><a href="/pricing/">Pricing</a></li></ul>
-      </div>
-      <div>
-        <h4>Start here</h4>
-        <ul><li><a href="/about/">About Barrett</a></li><li><a href="/contact/">Contact</a></li><li><a href="/faq/">Questions</a></li></ul>
-        <p style="margin-top:16px"><a class="foot__tel" href="tel:+17073855673">(707) 385-5673</a></p>
-      </div>
-    </div>
-    <div class="foot__bar">
-      <span>&copy; <span data-year>2026</span> Duna Marketing. All rights reserved.</span>
-      <span>Sample sites are mock businesses, labeled as such.</span>
-    </div>
-  </div>
-</footer>
-<div class="mcta"><a class="btn btn--ghost" href="tel:+17073855673" style="background:var(--navy);border-color:var(--navy);color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me to get started</a></div>
-<script src="/assets/site.js"></script>
+
+<div class="mcta" aria-label="Get started">
+  <a class="mcta__btn mcta__btn--call" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Call me to get started</span></a>
+</div>
+
+<script>
+(function () {
+  var PHONE = "+17073855673";
+
+  // A returning visitor who once started the chat intake still has a saved business name —
+  // use it so the prefilled text arrives already knowing who they are.
+  var biz = "";
+  try {
+    var chat = JSON.parse(localStorage.getItem("duna_chat") || "null");
+    if (chat && chat.a) biz = (chat.a.business_name || "").trim();
+  } catch (e) {}
+  var body = "Hi Barrett \u2014 I\u2019d like a website" + (biz ? " for " + biz : " for my business") + ".";
+
+  function track(name) { try { if (window.fbq) fbq("track", "Contact", { content_name: name }); } catch (e) {} }
+  document.querySelectorAll('a[href^="sms:"]').forEach(function (a) {
+    a.href = "sms:" + PHONE + "?&body=" + encodeURIComponent(body);
+    a.addEventListener("click", function () { track("text"); });
+  });
+  document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
+    a.addEventListener("click", function () { track("call"); });
+  });
+
+  // The bottom CTA block and the sticky bars say the same thing, so only one shows at a time.
+  var endCta = document.querySelector(".cta-stack");
+  if (endCta && "IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) {
+      document.body.classList.toggle("cta-visible", entries[0].isIntersecting);
+    }, { rootMargin: "0px 0px -60px 0px", threshold: 0 }).observe(endCta);
+  }
+
+  var top = document.getElementById("totop");
+  if (top) top.addEventListener("click", function () {
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    try { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }
+    catch (e) { window.scrollTo(0, 0); }   // older Safari has no options object
+  });
+})();
+</script>
 </body>
 </html>
