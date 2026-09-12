@@ -63,7 +63,6 @@ fbq('track', 'PageView');
   /* When the bottom CTA block is on screen both sticky bars stand down, so the same
      call to action never appears twice. */
   .topbar { transition:transform .2s ease, opacity .2s ease; }
-  body.cta-visible .topbar { transform:translateY(-110%); opacity:0; pointer-events:none; }
   .topbar__cta svg { width:17px; height:17px; flex:0 0 auto; }
   .topbar__cta--call { margin-left:auto; background:rgba(255,255,255,.12); border:1.5px solid #fff; box-shadow:none; }
   .topbar__cta--call:hover, .topbar__cta--call:focus-visible { background:#fff; color:var(--navy); box-shadow:none; }
