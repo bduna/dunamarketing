@@ -173,6 +173,19 @@ fbq('track', 'PageView');
   .totop:active { color:var(--red); }
   .totop:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
   @media (prefers-reduced-motion:reduce) { .totop svg, .mcta, .topbar { transition:none; } }
+
+  /* How it works: four numbered steps under the closing CTA */
+  .how { margin:56px 0 8px; }
+  .how h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
+    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
+  .how p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 22px; max-width:44ch; }
+  .how ol { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; counter-reset:step; }
+  .how li { display:grid; grid-template-columns:40px 1fr; gap:14px; align-items:start;
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
+  .how li::before { counter-increment:step; content:counter(step); width:40px; height:40px; border-radius:50%;
+    background:var(--navy); color:#fff; font-weight:800; font-size:1.05rem; display:flex; align-items:center; justify-content:center; }
+  .how li b { display:block; color:var(--ink); font-weight:800; font-size:1.05rem; line-height:1.25; margin:8px 0 4px; }
+  .how li p { margin:0; color:var(--muted); font-size:.95rem; line-height:1.5; }
 </style>
 <noscript><style>
   /* Without JS the call bar never hides, so the page keeps its full clearance. */
@@ -251,6 +264,18 @@ fbq('track', 'PageView');
     </div>
     <p class="reply-note">Text or call with what you charge for a site and how many you sell a month, and I&rsquo;ll quote you. I nearly always answer or reply <b>right away</b>; otherwise I&rsquo;ll get back to you as soon as I can.</p>
 
+
+
+    <section class="how" id="how">
+      <h2>How it works</h2>
+      <p class="sub">Four steps from your text or call to a live site.</p>
+      <ol role="list">
+        <li><b>Text or call me with the job.</b><p>Tell me what kind of business it is, and I&rsquo;ll quote the job.</p></li>
+        <li><b>Your client answers a questionnaire.</b><p>I send you a link to pass along. It takes your client about 20 minutes, asks what a good copywriter would ask, and every answer ends up on the site in their own words.</p></li>
+        <li><b>You get a preview within 24 hours.</b><p>A complete multipage site, written from those answers, with real photography and a contact form or booking link, built for phones first. I go through every page before it reaches you.</p></li>
+        <li><b>You approve it. It goes live under your name.</b><p>Show your client, send me their changes, and sign off. Then it goes live on their domain with your name on it and mine nowhere. Plain files, hosted by me or handed to you.</p></li>
+      </ol>
+    </section>
 
     <button type="button" class="totop" id="totop" aria-label="Back to the top">
       <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
