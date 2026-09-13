@@ -203,6 +203,16 @@ fbq('track', 'PageView');
   .spot li p { margin:0; color:var(--muted); font-size:.95rem; line-height:1.5; }
   .spot .spot__link { display:block; text-align:center; margin:18px 0 0; font-weight:700; color:var(--navy); }
   @media (min-width:600px) { .spot ul { grid-template-columns:1fr 1fr; } .spot li:last-child:nth-child(odd) { grid-column:1 / -1; } }
+  /* Bio: who they'd be working with */
+  .bio { margin:56px 0 8px; }
+  .bio h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
+    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 22px; text-wrap:balance; }
+  .bio__card { display:grid; grid-template-columns:1fr; gap:18px; align-items:start;
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; }
+  .bio__photo { width:150px; height:150px; border-radius:50%; object-fit:cover; display:block; margin:0 auto; }
+  .bio__text p { margin:0 0 12px; color:var(--ink); font-size:1rem; line-height:1.55; }
+  .bio__text p:last-child { margin-bottom:0; }
+  @media (min-width:600px) { .bio__card { grid-template-columns:160px 1fr; gap:22px; } .bio__photo { width:160px; height:160px; margin:0; } }
 </style>
 <noscript><style>
   /* Without JS the call bar never hides, so the page keeps its full clearance. */
@@ -304,6 +314,18 @@ fbq('track', 'PageView');
       </a>
     </div>
 
+
+
+    <section class="bio" id="about">
+      <h2>Who you&rsquo;d be working with.</h2>
+      <div class="bio__card">
+        <img class="bio__photo" src="/assets/barrett-headshot.jpg" alt="Barrett Duna" width="480" height="480" loading="lazy" decoding="async">
+        <div class="bio__text">
+          <p>I&rsquo;m Barrett Duna. I studied mathematics and economics at UCLA, added three of its PhD courses in statistics and pattern recognition, then took Stanford&rsquo;s course on computer science algorithms. At UCLA&rsquo;s business school I spent two years turning a thirty-page academic paper on ticket markets into a working simulation, and Live Nation hired me on the strength of it to analyze millions of ticket transactions: which seats resold for what, how to forecast a sellout, how brokers game a market.</p>
+          <p>Since then I&rsquo;ve written up a classification algorithm built on Newton&rsquo;s laws of gravity and a mathematical treatment of RFM analysis, a customer-value model used in ecommerce. Duna Marketing is where that lands for you: sites planned by someone who thinks in numbers, built around what makes a visitor act rather than what looks good in a mockup, and handed over finished.</p>
+        </div>
+      </div>
+    </section>
 
     <section class="spot" id="spotlight">
       <h2>One sample, taken apart.</h2>
