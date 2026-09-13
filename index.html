@@ -186,7 +186,7 @@ fbq('track', 'PageView');
   .how li b { display:block; color:var(--ink); font-weight:800; font-size:1.05rem; line-height:1.25; margin:8px 0 4px; }
   .how li p { margin:0; color:var(--muted); font-size:.95rem; line-height:1.5; }
   .how li > div { min-width:0; }
-  .how + .cta-stack { margin-top:28px; }
+  .how + .cta-stack, .spot + .cta-stack { margin-top:28px; }
   /* Sample spotlight: one portfolio site taken apart for someone who sells websites */
   .spot { margin:56px 0 8px; }
   .spot h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
@@ -350,6 +350,17 @@ fbq('track', 'PageView');
       </ul>
       <a class="spot__link" href="/portfolio/long-table-catering/" target="_blank" rel="noopener">Open the Long Table Catering sample</a>
     </section>
+
+    <div class="cta-stack">
+      <a class="btn btn-text" href="sms:+17073855673">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Text me to learn more
+      </a>
+      <a class="btn btn-call" href="tel:+17073855673">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call me to learn more
+      </a>
+    </div>
 
     <button type="button" class="totop" id="totop" aria-label="Back to the top">
       <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
