@@ -233,6 +233,19 @@ fbq('track', 'PageView');
   .price__free b { font-size:1.25rem; font-weight:800; color:#fff; }
   .price__free span { font-size:.95rem; color:#ffe4e8; line-height:1.45; }
   @media (min-width:640px) { .price__card { grid-template-columns:1fr 1.15fr; padding:30px 32px; align-items:center; } }
+  /* FAQ */
+  .faq { margin:56px 0 8px; }
+  .faq h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
+    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 22px; text-wrap:balance; }
+  .faq details { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:0 18px; margin:0 0 10px; }
+  .faq summary { list-style:none; cursor:pointer; padding:15px 32px 15px 0; font-weight:800; color:var(--ink); font-size:1.02rem; line-height:1.3; position:relative; }
+  .faq summary::-webkit-details-marker { display:none; }
+  .faq summary::after { content:"+"; position:absolute; right:0; top:50%; transform:translateY(-50%); width:24px; height:24px; border-radius:50%;
+    background:var(--navy); color:#fff; font-weight:800; font-size:1rem; line-height:24px; text-align:center; }
+  .faq details[open] summary::after { content:"\2013"; }
+  .faq summary:focus-visible { outline:3px solid var(--navy); outline-offset:2px; border-radius:8px; }
+  .faq details p { margin:0 0 16px; color:var(--muted); font-size:.95rem; line-height:1.5; }
+  .faq + .cta-stack { margin-top:28px; }
 </style>
 <noscript><style>
   /* Without JS the call bar never hides, so the page keeps its full clearance. */
@@ -258,7 +271,7 @@ fbq('track', 'PageView');
     <div class="intro" id="intro">
       <p class="kicker">White-label website production for agencies</p>
       <h1>Every website your agency sells: completely custom, built fast.</h1>
-      <p>No templates, no page builder. Every page is written from your client&rsquo;s questionnaire answers and previewed in under 24 hours. Your name on it, mine nowhere. Text or call me for a quote.</p>
+      <p>No templates, no page builder. Every page is written from your client&rsquo;s questionnaire answers and previewed in under 24 hours. Your name on it, mine nowhere. Your first site is free, so text or call me.</p>
     </div>
 
     <section class="proof" id="proof">
@@ -298,6 +311,17 @@ fbq('track', 'PageView');
       </div>
     </section>
 
+    <section class="how" id="how">
+      <h2>How it works</h2>
+      <p class="sub">Four steps from your text or call to a live site.</p>
+      <ol role="list">
+        <li><div><b>Text or call me with the job.</b><p>Tell me what kind of business it is, and I generate the questionnaire based off business type.</p></div></li>
+        <li><div><b>Your client answers a questionnaire and sends their photos.</b><p>I send you the questionnaire document to pass along to your client. It takes about 20 minutes and asks what a good copywriter would ask. Your client returns it along with their photos. Every page is then written fresh from that, not pasted from their answers.</p></div></li>
+        <li><div><b>You get the finished site to review within 24 hours.</b><p>Not a wireframe or a homepage draft: a complete multipage site with copy written from the questionnaire and their photos in place, built mobile-first and checked page by page.</p></div></li>
+        <li><div><b>Your client approves. You sign off. I transfer you the website.</b><p>You send me the changes, I make them, your client approves. After that I transfer the website to you and I&rsquo;m out of the picture.</p></div></li>
+      </ol>
+    </section>
+
     <section class="price" id="pricing">
       <h2>One number, and the first one&rsquo;s on me.</h2>
       <p class="sub">No tiers, no per-page add-ons, no &ldquo;starting at.&rdquo;</p>
@@ -317,7 +341,6 @@ fbq('track', 'PageView');
       </div>
     </section>
 
-    <h2 class="cta-heading">Send your next website job my way. Your first website is free so there&rsquo;s literally zero risk to try!</h2>
     <div class="cta-stack">
       <a class="btn btn-text" id="text-btn" href="sms:+17073855673">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -328,20 +351,6 @@ fbq('track', 'PageView');
         Call me to learn more
       </a>
     </div>
-
-
-
-    <section class="how" id="how">
-      <h2>How it works</h2>
-      <p class="sub">Four steps from your text or call to a live site.</p>
-      <ol role="list">
-        <li><div><b>Text or call me with the job.</b><p>Tell me what kind of business it is, and I generate the questionnaire based off business type.</p></div></li>
-        <li><div><b>Your client answers a questionnaire and sends their photos.</b><p>I send you the questionnaire document to pass along to your client. It takes about 20 minutes and asks what a good copywriter would ask. Your client returns it along with their photos. Every page is then written fresh from that, not pasted from their answers.</p></div></li>
-        <li><div><b>You get the finished site to review within 24 hours.</b><p>Not a wireframe or a homepage draft: a complete multipage site with copy written from the questionnaire and their photos in place, built mobile-first and checked page by page.</p></div></li>
-        <li><div><b>Your client approves. You sign off. I transfer you the website.</b><p>You send me the changes, I make them, your client approves. After that I transfer the website to you and I&rsquo;m out of the picture.</p></div></li>
-      </ol>
-    </section>
-
 
     <section class="bio" id="about">
       <h2>About Me</h2>
@@ -355,16 +364,6 @@ fbq('track', 'PageView');
       </div>
     </section>
 
-    <div class="cta-stack">
-      <a class="btn btn-text" href="sms:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Text me to learn more
-      </a>
-      <a class="btn btn-call" href="tel:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Call me to learn more
-      </a>
-    </div>
 
     <section class="spot" id="spotlight">
       <h2>A closer look at Marden Estate Law.</h2>
@@ -422,6 +421,36 @@ fbq('track', 'PageView');
         <li><b>Nothing to update, nothing to break.</b><p>Plain HTML and CSS with a few kilobytes of script: no plugins to update, no database, no login to protect, no software that goes out of date. Once it is live it stays exactly as approved, and it will work the same in five years without anyone touching it.</p></li>
       </ul>
       <a class="spot__link" href="/portfolio/long-table-catering/" target="_blank" rel="noopener">Open the Long Table Catering sample</a>
+    </section>
+
+    <section class="spot" id="spotlight-3">
+      <h2>Live for a client: Deep Roots Hydro.</h2>
+      <p class="sub">A Sebastopol grow shop, on its own domain, with no trace of me on it.</p>
+      <figure>
+        <a href="https://deeproots707.com/" target="_blank" rel="noopener">
+          <img src="/assets/spotlight/deep-roots-home.jpg" alt="Deep Roots Hydro homepage: the headline &lsquo;The grow shop that actually knows the answer.&rsquo;, Get directions and See what we stock buttons, a live hours badge, and a photo of the shop&rsquo;s shelves" width="1600" height="860" loading="lazy" decoding="async">
+        </a>
+        <figcaption>Above the fold on desktop of the home page. Open the site by clicking the above image to see the rest.</figcaption>
+      </figure>
+      <ul>
+        <li><b>Built for a shop you walk into.</b><p>Two buttons above the fold, Get directions and See what we stock, the phone number in the header, and eleven click-to-call links down the page. For a store the conversions are a visit and a call, and the page is built around both.</p></li>
+        <li><b>Hours that know what time it is.</b><p>The hero carries a live open-or-closed badge with the day&rsquo;s hours, and the hours and address are also written into the page as structured data, so Google can show them next to the listing.</p></li>
+        <li><b>The case for coming in.</b><p>&ldquo;A cart can&rsquo;t look at your leaves&rdquo;: the copy makes the argument for a real grow shop over ordering online, backs it with thirty years in the industry and twenty behind this counter, and closes with a seven-question FAQ taken from what people ask on the phone.</p></li>
+        <li><b>The shop&rsquo;s own shelves.</b><p>The hero is a photograph of the actual inventory, and there are twenty images down the page, each sized so nothing shifts while it loads. No builder credit anywhere: the only name on the site is the shop&rsquo;s.</p></li>
+      </ul>
+      <a class="spot__link" href="https://deeproots707.com/" target="_blank" rel="noopener">Open the Deep Roots Hydro site</a>
+    </section>
+
+    <section class="faq" id="faq">
+      <h2>Questions agencies ask.</h2>
+      <details><summary>Will my client know you exist?</summary><p>No. Your name goes on the site, mine appears nowhere on it, and I never contact your client. Everything runs through you.</p></details>
+      <details><summary>Who owns the finished site?</summary><p>You do. Once your client approves, I transfer the website to you: plain HTML, CSS and a few kilobytes of script, with no subscription and nothing tied to me.</p></details>
+      <details><summary>What if my client wants changes?</summary><p>Before approval, send them to me and I make them. After the transfer the site is yours, and because it is plain files any developer can edit it.</p></details>
+      <details><summary>What do you actually need from me?</summary><p>The kind of business, so I can generate the questionnaire. Then the completed questionnaire and your client&rsquo;s photos. That is the whole list.</p></details>
+      <details><summary>How fast is it, really?</summary><p>You have a preview within 24 hours of the finished questionnaire coming back to me.</p></details>
+      <details><summary>What kinds of businesses?</summary><p>Local and small businesses of any kind. The ten samples cover a preschool, a bakery, a locksmith, a caterer, a law practice, an auto detailer, a ski shop, a dry cleaner, a cocktail bar and a dog groomer. A shopping cart or a web app is not what I build.</p></details>
+      <details><summary>Do you host it?</summary><p>No. I hand you the finished site and you host it wherever you like.</p></details>
+      <details><summary>What does it cost?</summary><p>$950 per website, and your first one is free.</p></details>
     </section>
 
     <div class="cta-stack">
