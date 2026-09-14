@@ -247,6 +247,37 @@ fbq('track', 'PageView');
   .faq details p { margin:0 0 16px; color:var(--muted); font-size:.95rem; line-height:1.5; }
   .faq + .cta-stack { margin-top:28px; }
   .cta-stack + .faq { margin-top:48px; }
+  /* On devices with a mouse, tel: and sms: links do nothing useful: show the number instead, and copy it on click */
+  .topbar__num, .num-block { display:none; }
+  @media (hover:hover) and (pointer:fine) {
+    .topbar__cta { display:none !important; }
+    .topbar__num { display:inline-flex; align-items:center; gap:10px; margin-left:auto; padding:7px 16px 7px 9px; border-radius:999px;
+      background:rgba(255,255,255,.10); border:1.5px solid #fff; color:#fff; font:inherit; cursor:pointer; text-align:left;
+      transition:background .15s ease, color .15s ease; }
+    .topbar__num:hover, .topbar__num:focus-visible { background:#fff; color:var(--navy); }
+    .topbar__num:focus-visible { outline:3px solid var(--red); outline-offset:2px; }
+    .topbar__num-ic { width:30px; height:30px; border-radius:50%; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+    .topbar__num-ic svg { width:15px; height:15px; }
+    .topbar__num-txt { display:flex; flex-direction:column; line-height:1.1; }
+    .topbar__num b { font-size:1.08rem; font-weight:800; letter-spacing:.01em; }
+    .topbar__num small { font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; opacity:.8; margin-top:3px; }
+    .topbar__num .cap-done { display:none; }
+    .topbar__num.is-copied .cap { display:none; }
+    .topbar__num.is-copied .cap-done { display:block; opacity:1; }
+    .cta-stack .btn { display:none; }
+    .num-block { display:flex; flex-direction:column; align-items:center; gap:8px; align-self:center; margin:0; padding:20px 34px;
+      border-radius:18px; background:var(--card); border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,29,82,.10);
+      color:var(--navy); font:inherit; cursor:pointer; transition:border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+    .num-block:hover { border-color:var(--navy); box-shadow:0 12px 30px rgba(0,29,82,.16); transform:translateY(-1px); }
+    .num-block:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
+    .num-block b { display:flex; align-items:center; gap:14px; font-size:clamp(1.7rem,3.4vw,2.4rem); font-weight:800; letter-spacing:-.02em; line-height:1; }
+    .num-block__ic { width:40px; height:40px; border-radius:50%; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; flex:0 0 auto; box-shadow:0 6px 16px rgba(200,16,46,.3); }
+    .num-block__ic svg { width:20px; height:20px; }
+    .num-block .cap { font-size:.88rem; color:var(--muted); }
+    .num-block .cap-done { display:none; font-size:.88rem; color:var(--red); font-weight:800; }
+    .num-block.is-copied .cap { display:none; }
+    .num-block.is-copied .cap-done { display:block; }
+  }
 </style>
 <noscript><style>
   /* Without JS the call bar never hides, so the page keeps its full clearance. */
@@ -265,6 +296,10 @@ fbq('track', 'PageView');
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
     <span>Text me<span class="tail"> to learn more</span></span>
   </a>
+  <button type="button" class="topbar__num js-copy" data-num="(707) 385-5673" aria-label="Copy the phone number (707) 385-5673">
+    <span class="topbar__num-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+    <span class="topbar__num-txt"><b>(707) 385-5673</b><small class="cap">Text or call</small><small class="cap-done">Copied</small></span>
+  </button>
 </header>
 
 <main>
@@ -351,6 +386,10 @@ fbq('track', 'PageView');
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         Call me to learn more
       </a>
+      <button type="button" class="num-block js-copy" data-num="(707) 385-5673" aria-label="Copy the phone number (707) 385-5673">
+        <b><span class="num-block__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>(707) 385-5673</b>
+        <span class="cap">Text or call from your phone</span><span class="cap-done">Copied to your clipboard</span>
+      </button>
     </div>
 
     <section class="faq" id="faq">
@@ -385,6 +424,10 @@ fbq('track', 'PageView');
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         Call me to learn more
       </a>
+      <button type="button" class="num-block js-copy" data-num="(707) 385-5673" aria-label="Copy the phone number (707) 385-5673">
+        <b><span class="num-block__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>(707) 385-5673</b>
+        <span class="cap">Text or call from your phone</span><span class="cap-done">Copied to your clipboard</span>
+      </button>
     </div>
 
 
@@ -419,6 +462,10 @@ fbq('track', 'PageView');
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         Call me to learn more
       </a>
+      <button type="button" class="num-block js-copy" data-num="(707) 385-5673" aria-label="Copy the phone number (707) 385-5673">
+        <b><span class="num-block__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>(707) 385-5673</b>
+        <span class="cap">Text or call from your phone</span><span class="cap-done">Copied to your clipboard</span>
+      </button>
     </div>
 
 
@@ -473,6 +520,10 @@ fbq('track', 'PageView');
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         Call me to learn more
       </a>
+      <button type="button" class="num-block js-copy" data-num="(707) 385-5673" aria-label="Copy the phone number (707) 385-5673">
+        <b><span class="num-block__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>(707) 385-5673</b>
+        <span class="cap">Text or call from your phone</span><span class="cap-done">Copied to your clipboard</span>
+      </button>
     </div>
 
     <button type="button" class="totop" id="totop" aria-label="Back to the top">
@@ -520,6 +571,15 @@ fbq('track', 'PageView');
     catch (e) { window.scrollTo(0, 0); }   // older Safari has no options object
   });
 })();
+
+  // Desktop: clicking the number copies it, since a mouse can't place a call
+  document.querySelectorAll(".js-copy").forEach(function (el) {
+    el.addEventListener("click", function () {
+      var num = el.getAttribute("data-num");
+      var done = function () { el.classList.add("is-copied"); setTimeout(function () { el.classList.remove("is-copied"); }, 2200); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(num).then(done, done); } else { done(); }
+    });
+  });
 </script>
 </body>
 </html>
