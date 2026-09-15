@@ -462,30 +462,6 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
   .compare .me::before { color: var(--navy); }
 }
 
-/* ---------- home: proof ---------- */
-
-.proof-grid { display: grid; gap: 20px; }
-.proof-card {
-  display: grid; grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr); gap: 22px; align-items: start;
-  padding: clamp(18px, 2.4vw, 28px);
-  border: 1px solid var(--line); border-radius: var(--radius-lg); background: #fff;
-}
-.proof-card .phone { border-radius: 26px; padding: 5px; }
-.proof-card .phone img { border-radius: 21px; }
-.proof-card h3 { margin-top: 10px; font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem); }
-.proof-card__kicker { font-size: 0.76rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); }
-.proof-card .text-link { margin-top: 10px; }
-.points { display: grid; gap: 14px; margin-top: 16px; padding: 0; list-style: none; }
-.points li { position: relative; padding-left: 20px; }
-.points li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 10px; height: 2px; background: var(--red); }
-.points b { display: block; color: var(--ink); font-weight: 700; line-height: 1.35; }
-.points span { display: block; margin-top: 2px; color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
-@media (max-width: 519px) {
-  .proof-card { grid-template-columns: 1fr; }
-  .proof-card .phone { width: 62%; max-width: 230px; }
-}
-@media (min-width: 980px) { .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; } }
-
 /* ---------- home: about ---------- */
 
 .about { display: grid; gap: 44px 72px; align-items: center; }
@@ -519,6 +495,8 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
   background: var(--mist) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 3v10M3 8h10' stroke='%230b1733' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center / 14px no-repeat;
   transition: transform 0.25s var(--ease), background-color 0.2s ease;
 }
+/* On a gray band the icon circle needs its own white so it doesn't vanish into the background. */
+.band--mist .faq-list summary::after { background-color: #fff; }
 .faq-list summary:hover::after { background-color: var(--sky); }
 .faq-list details[open] summary::after { transform: rotate(45deg); background-color: var(--sky); }
 .faq-list details p { padding: 0 48px 22px 0; color: var(--muted); }
