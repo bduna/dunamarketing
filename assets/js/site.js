@@ -107,6 +107,36 @@
     update();
   });
 
+  // About is a section of the home page, not a page of its own: while it's the part being read,
+  // the nav highlights About instead of Home.
+  safely(function () {
+    var about = document.getElementById("about");
+    var home = document.querySelector('.site-nav > a[href="/"]');
+    var aboutLink = document.querySelector('.site-nav > a[href="/#about"]');
+    if (!about || !home || !aboutLink) return;
+    var header = document.querySelector(".site-header");
+    var ticking = false;
+    var update = function () {
+      ticking = false;
+      var top = header ? header.getBoundingClientRect().bottom : 0;
+      var line = top + (window.innerHeight - top) * 0.35;
+      var box = about.getBoundingClientRect();
+      if (box.top <= line && box.bottom > line) {
+        home.removeAttribute("aria-current");
+        aboutLink.setAttribute("aria-current", "location");
+      } else {
+        aboutLink.removeAttribute("aria-current");
+        home.setAttribute("aria-current", "page");
+      }
+    };
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener("hashchange", update);
+    window.addEventListener("load", update);
+    update();
+  });
+
   // Sections ease in as they arrive. Content is only hidden once this has actually started,
   // so a script failure or an old browser shows everything immediately.
   safely(function () {

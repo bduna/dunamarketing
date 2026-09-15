@@ -225,13 +225,16 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
 .nav-open .nav-toggle .i-close { display: block; }
 
 .site-nav { display: none; }
-.nav-open, .nav-open body { overflow: hidden; }
+/* Lock the page behind the open menu on the root element only. Locking body as well turns body
+   into its own scroll container: the header (and its close button) scrolls away, and closing
+   the menu drops the reader back at the top of the page. */
+.nav-open { overflow: hidden; }
 .nav-open .site-nav {
   position: fixed; inset: var(--header-h) 0 0 0; z-index: 55;
   display: flex; flex-direction: column;
   padding: 12px var(--gutter) 120px;
   background: var(--paper); border-top: 1px solid var(--line);
-  overflow-y: auto;
+  overflow-y: auto; overscroll-behavior: contain;
 }
 .site-nav > a {
   display: block; padding: 16px 2px;
@@ -240,7 +243,7 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
   font-family: var(--font-display); font-stretch: var(--stretch);
   font-size: 1.55rem; font-weight: 800; letter-spacing: -0.015em;
 }
-.site-nav > a[aria-current="page"] { color: var(--navy); }
+.site-nav > a[aria-current] { color: var(--navy); }
 .site-nav__contact { margin-top: 28px; }
 
 .header-actions { display: none; }
@@ -266,13 +269,13 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
     position: static; display: flex; flex-direction: row; align-items: center; gap: 2px;
     margin-right: 10px; padding: 0; background: none; border: 0; overflow: visible;
   }
-  .nav-open, .nav-open body { overflow: visible; }
+  .nav-open { overflow: visible; }
   .site-nav > a {
     padding: 10px 14px; border: 0; border-radius: 8px;
     font-family: var(--font-text); font-stretch: 100%; font-size: 0.95rem; font-weight: 600; letter-spacing: 0;
   }
   .site-nav > a:hover { background: var(--mist); color: var(--ink); }
-  .site-nav > a[aria-current="page"] { background: var(--sky); color: var(--navy); }
+  .site-nav > a[aria-current] { background: var(--sky); color: var(--navy); }
   .site-nav__contact { display: none; }
   .header-actions { display: flex; align-items: center; gap: 8px; }
   .header-actions .num-pill { display: none; }
