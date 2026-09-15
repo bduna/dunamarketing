@@ -6,7 +6,7 @@
 
   var root = document.documentElement;
   var PHONE = "+17073855673";
-  var SMS_BODY = "Hi Barrett, I run an agency and I’d like to talk about white-label websites.";
+  var SMS_BODY = "Hi Barrett, I run an agency and I\u2019d like to try the first website free.";
 
   function safely(fn) {
     try { fn(); } catch (e) { if (window.console) console.error(e); }

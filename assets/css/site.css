@@ -234,7 +234,7 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
 .nav-open .site-nav {
   position: fixed; inset: var(--header-h) 0 0 0; z-index: 55;
   display: flex; flex-direction: column;
-  padding: 12px var(--gutter) 120px;
+  padding: 12px var(--gutter) 140px;
   background: var(--paper); border-top: 1px solid var(--line);
   overflow-y: auto; overscroll-behavior: contain;
 }
@@ -361,6 +361,29 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
 @media (max-width: 479px) {
   .stage__tag { font-size: 0.7rem; padding: 6px 10px; }
 }
+
+/* ---------- the free first website ---------- */
+
+.offer {
+  display: flex; align-items: center; gap: 14px;
+  max-width: 34rem; margin-top: 26px; padding: 12px 18px 12px 12px;
+  border: 1px solid var(--line); border-radius: 12px;
+  background: #fff; box-shadow: 0 12px 26px -22px rgba(7, 19, 45, 0.5);
+}
+.offer__icon { display: grid; place-items: center; flex: none; width: 42px; height: 42px; border-radius: 10px; background: var(--red); color: #fff; }
+.offer__icon svg { width: 21px; height: 21px; }
+.offer p { color: var(--text); font-size: 0.96rem; line-height: 1.45; }
+.offer strong {
+  display: block; margin-bottom: 1px; color: var(--ink);
+  font-family: var(--font-display); font-stretch: var(--stretch); font-size: 1.1rem; font-weight: 800; letter-spacing: -0.01em;
+}
+.page-hero .offer { margin-top: 24px; }
+
+.band--navy { background: var(--navy); color: #d6e0f3; }
+.band--navy h2, .band--navy .eyebrow { color: #fff; }
+.band--navy .cta-band__copy > p:not(.eyebrow), .band--navy .contact__note { color: #d6e0f3; }
+.band--navy .btn--line { color: #fff; border-color: rgba(255, 255, 255, 0.72); }
+.band--navy .btn--line:hover { background: #fff; color: var(--navy); border-color: #fff; }
 
 /* ---------- home: samples rail ---------- */
 
@@ -549,7 +572,7 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
 @media (max-width: 899px) and (pointer: coarse) {
   .callbar {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px;
     padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
     background: rgba(255, 255, 255, 0.96);
     -webkit-backdrop-filter: saturate(160%) blur(12px);
@@ -558,9 +581,11 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
     box-shadow: 0 -12px 30px -22px rgba(7, 19, 45, 0.5);
   }
   .callbar .btn { min-height: 50px; padding: 0 12px; box-shadow: none; }
+  .callbar__offer { grid-column: 1 / -1; margin: 0; text-align: center; font-size: 0.8rem; font-weight: 700; line-height: 1.2; color: var(--ink); }
+  .callbar__offer::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: var(--red); vertical-align: 0.08em; }
   /* The bar never hides, so the end of every page must be able to scroll clear of it. */
-  body { padding-bottom: calc(90px + env(safe-area-inset-bottom)); }
-  .site-footer { margin-bottom: calc(-90px - env(safe-area-inset-bottom)); padding-bottom: calc(90px + env(safe-area-inset-bottom)); }
+  body { padding-bottom: calc(112px + env(safe-area-inset-bottom)); }
+  .site-footer { margin-bottom: calc(-112px - env(safe-area-inset-bottom)); padding-bottom: calc(112px + env(safe-area-inset-bottom)); }
 }
 
 /* ---------- inner pages ---------- */
