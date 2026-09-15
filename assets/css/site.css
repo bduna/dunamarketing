@@ -274,11 +274,20 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
   .nav-open body { position: static; }
   .nav-open .site-header { position: sticky; }
   .site-nav > a {
-    padding: 10px 14px; border: 0; border-radius: 8px;
+    position: relative; padding: 10px 14px; border: 0;
     font-family: var(--font-text); font-stretch: 100%; font-size: 0.95rem; font-weight: 600; letter-spacing: 0;
+    color: var(--muted); transition: color 0.2s ease;
   }
-  .site-nav > a:hover { background: var(--mist); color: var(--ink); }
-  .site-nav > a[aria-current] { background: var(--sky); color: var(--navy); }
+  /* The current page gets a short red rule under its label; hovering draws a faint one. */
+  .site-nav > a::after {
+    content: ""; position: absolute; left: 14px; right: 14px; bottom: 3px; height: 2px; border-radius: 2px;
+    background: rgba(11, 23, 51, 0.2); transform: scaleX(0); transform-origin: left center;
+    transition: transform 0.25s var(--ease), background-color 0.2s ease;
+  }
+  .site-nav > a:hover { color: var(--ink); }
+  .site-nav > a:hover::after { transform: scaleX(1); }
+  .site-nav > a[aria-current] { color: var(--ink); }
+  .site-nav > a[aria-current]::after { transform: scaleX(1); background: var(--red); }
   .site-nav__contact { display: none; }
   .header-actions { display: flex; align-items: center; gap: 8px; }
   .header-actions .num-pill { display: none; }
