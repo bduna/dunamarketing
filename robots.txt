@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dunamarketing.com/sitemap.xml

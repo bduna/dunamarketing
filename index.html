@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
-<title>White-Label Websites for Agencies &mdash; Duna Marketing</title>
-<meta name="description" content="You sell the website, I build it: a custom multipage site written from your client's own answers, previewed in under 24 hours, with your name on it.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>White-Label Websites for Agencies | Duna Marketing</title>
+<meta name="description" content="White-label websites for agencies: complete, custom multipage sites under your name, ready to review within 24 hours of the client's questionnaire. First one free.">
+<link rel="canonical" href="https://dunamarketing.com/">
+<meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Duna Marketing">
-<meta property="og:title" content="Every website your agency sells: completely custom, built fast.">
-<meta property="og:description" content="White-label website production for agencies. A custom multipage site from your client's own answers, previewed in under 24 hours. Your name on it.">
-<meta name="theme-color" content="#003087">
-<link rel="icon" type="image/png" href="duna_marketing_logo.png">
-<link rel="apple-touch-icon" href="duna_marketing_logo.png">
+<meta property="og:url" content="https://dunamarketing.com/">
+<meta property="og:title" content="You sell the website. I build it under your agency&rsquo;s name.">
+<meta property="og:description" content="Complete, custom multipage websites under your agency's name, ready to review within 24 hours of the client's questionnaire. Your first site is free.">
+<meta property="og:image" content="https://dunamarketing.com/assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/icon-32.png">
+<link rel="apple-touch-icon" href="/assets/img/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,700..800&family=Inter:wght@400..700&display=swap">
+<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="preload" as="image" href="/assets/img/hero-long-table-gallery-1280.webp" imagesrcset="/assets/img/hero-long-table-gallery-720.webp 720w, /assets/img/hero-long-table-gallery-1280.webp 1280w" imagesizes="(min-width: 980px) 560px, 88vw">
 <link rel="preconnect" href="https://connect.facebook.net">
 <script>
-// Same kill switch as the rest of the site: ?metrics=off keeps owner testing out of the ad data.
+// ?metrics=off keeps owner testing out of the ad data.
 (function () {
   try {
     var m = location.search.match(/[?&]metrics=(on|off)\b/);
@@ -30,531 +41,338 @@ fbq('init', '949809188409734');
 fbq('track', 'PageView');
 })();
 </script>
-<style>
-  :root {
-    --ink:#1a1d24; --muted:#5a6070; --line:#e2e5ea; --input-line:#8c9098;   /* 3.01:1 on --bg — the lightest this can go and still read as an edge (WCAG 1.4.11) */
-    --navy:#003087; --navy-deep:#001d52; --navy-soft:#eaf0fb;
-    --red:#C8102E; --red-dark:#a50d25; --bg:#f7f8fa; --card:#ffffff;
-  }
-  * { box-sizing:border-box; }
-    /* body must grow with its content: a sticky header only sticks inside its containing
-     block, so a fixed 100% height stopped .topbar after one viewport. */
-  html { height:100%; }
-  body { margin:0; min-height:100%; }
-  body {
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background-color:var(--bg);
-    background-image:linear-gradient(to right,rgba(60,66,80,.06) 1px,transparent 1px),
-                     linear-gradient(to bottom,rgba(60,66,80,.06) 1px,transparent 1px);
-    background-size:20px 20px; background-position:-1px -1px;
-    color:var(--ink); line-height:1.5; display:flex; flex-direction:column; min-height:100dvh;
-  }
-  .topbar { position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:12px;
-    padding:10px 18px; background:var(--navy); border-bottom:3px solid var(--red);
-    box-shadow:0 2px 12px rgba(0,29,82,.35); }
-  .topbar img { height:32px; width:auto; display:block; background:#fff; border-radius:6px; padding:3px; }
-  .topbar .name { font-weight:800; font-size:1.05rem; color:#fff; }
-  .topbar__cta { margin-right:6px; display:inline-flex; align-items:center; gap:8px;
-    background:var(--red); color:#fff; text-decoration:none; font-weight:800; font-size:.92rem;
-    line-height:1; white-space:nowrap; padding:10px 16px; border-radius:10px;
-    box-shadow:0 4px 14px rgba(200,16,46,.32); transition:background .15s, box-shadow .15s, transform .08s; }
-  .topbar__cta:hover, .topbar__cta:focus-visible { background:var(--red-dark); box-shadow:0 6px 18px rgba(200,16,46,.42); }
-  .topbar__cta:active { transform:translateY(1px); }
-  /* When the bottom CTA block is on screen both sticky bars stand down, so the same
-     call to action never appears twice. */
-  .topbar { transition:transform .2s ease, opacity .2s ease; }
-  .topbar__cta svg { width:17px; height:17px; flex:0 0 auto; }
-  .topbar__cta--call { margin-left:auto; background:rgba(255,255,255,.12); border:1.5px solid #fff; box-shadow:none; }
-  .topbar__cta--call:hover, .topbar__cta--call:focus-visible { background:#fff; color:var(--navy); box-shadow:none; }
-  .topbar__cta--text { margin-left:8px; }
-  @media (max-width:720px) { .topbar__cta--call { display:none; } .topbar__cta--text { margin-left:auto; } }
-  @media (max-width:560px) { .topbar__cta { font-size:.85rem; padding:9px 13px; margin-right:2px; } }
-  /* The name stays at every width. Below 560px the bar tightens and the type steps down
-     to make room; below 430px the button drops its tail to "Text me". */
-  @media (max-width:560px) {
-    .topbar { padding:9px 10px 9px 14px; gap:12px; }
-    .topbar img { height:30px; }
-    .topbar .name { font-size:1.02rem; letter-spacing:-.01em; }
-  }
-  @media (max-width:430px) {
-    .topbar { padding-left:12px; gap:10px; }
-    .topbar .name { font-size:1rem; }
-    .topbar__cta .tail { display:none; }
-    .topbar__cta { padding:9px 11px; gap:6px; font-size:.9rem; }
-  }
-
-  main { display:flex; flex-direction:column; align-items:center; width:100%;
-    padding:16px 14px calc(20px + env(safe-area-inset-bottom)); }
-  .wrap { width:100%; max-width:680px; display:flex; flex-direction:column; }
-
-  .intro { text-align:center; margin-bottom:2px; }
-  .intro h1 { font-size:clamp(1.5rem,5.5vw,2.1rem); line-height:1.1; margin:0 0 6px;
-    letter-spacing:-.02em; color:var(--navy); }
-  .intro p { margin:0; color:var(--muted); font-size:.95rem; }
-
-  /* ---- hero CTA: one tap to a written text, same pattern the thank-you page uses ---- */
-  .cta-heading { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
-    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:48px 0 25px; text-wrap:balance; }
-  .cta-stack { display:flex; flex-direction:column; gap:10px; align-items:stretch;
-    margin:0 auto; max-width:420px; width:100%; }
-  /* Phones: a fixed text + call bar. Ad traffic is mobile, so the two ways to reach me never scroll away. */
-  .mcta { display:none; }
-  @media (max-width:720px) {
-    .mcta { position:fixed; left:0; right:0; bottom:0; z-index:80; display:grid; grid-template-columns:1fr; gap:8px;
-      padding:8px 10px calc(8px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.96);
-      border-top:1px solid var(--line); box-shadow:0 -4px 16px rgba(0,0,0,.08); backdrop-filter:saturate(150%) blur(8px); }
-    .mcta__btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:50px; padding:8px 8px;
-      border-radius:12px; font-weight:800; font-size:.86rem; line-height:1.15; text-align:center; text-decoration:none; }
-    .mcta__btn svg { width:18px; height:18px; flex:0 0 auto; }
-    .mcta__btn--text { background:var(--red); color:#fff; box-shadow:0 6px 16px rgba(200,16,46,.28); }
-    .mcta__btn--text:active { background:var(--red-dark); }
-    .mcta__btn--call { background:var(--navy); color:#fff; box-shadow:0 6px 16px rgba(0,48,135,.28); font-size:1rem; min-height:54px; }
-    .mcta__btn--call:active { background:var(--navy-deep); }
-    .mcta { transition:transform .2s ease, opacity .2s ease; }
-    /* body is height:100% + border-box, so padding there never extends the scroll.
-       The clearance has to sit on the flow content instead. The call bar never hides,
-       so this lifts Back to the top fully clear of it (the bar is about 71px tall). */
-    main { padding-bottom:calc(96px + env(safe-area-inset-bottom)); }
-    .intro .kicker { margin-top:12px; }
-    .intro h1 + p { margin-bottom:12px; }
-  }
-  .btn { display:flex; align-items:center; justify-content:center; gap:10px; padding:16px 20px;
-    border-radius:12px; font-weight:800; font-size:1.12rem; text-decoration:none;
-    letter-spacing:.01em; transition:transform .08s, background .15s, box-shadow .15s; }
-  .btn:active { transform:translateY(1px); }
-  .btn-text { background:var(--red); color:#fff; box-shadow:0 8px 20px rgba(200,16,46,.3); }
-  .btn-text:hover, .btn-text:focus-visible { background:var(--red-dark);
-    box-shadow:0 10px 24px rgba(200,16,46,.38); }
-  .btn-call { background:#fff; color:var(--navy); border:2px solid var(--navy); padding:14px 20px; }
-  .btn-call:hover, .btn-call:focus-visible { background:var(--navy-soft); }
-  .btn svg { width:22px; height:22px; flex:0 0 auto; }
-  .reply-note { text-align:center; margin:12px 0 0; font-size:.9rem; color:var(--muted); }
-  .reply-note b { color:var(--ink); }
-
-  /* ---- homepage hero ---- */
-  /* Was an SVG stretched to the full width, which is why it could never line up with anything.
-     Plain text now, and JS nudges it to start exactly where the centred headline's first line starts.
-     Left-aligned at the column edge is the fallback if that measurement never runs. */
-  /* max-width:none so `.intro p { max-width:46ch }` cannot box it into a narrower column than the
-     headline — otherwise "centred" would mean centred on a different axis. */
-  .intro .kicker { margin:clamp(18px, 5vw, 40px) 0 10px; max-width:none; text-align:center; color:var(--red);
-    font-weight:800; font-size:clamp(.74rem, 2.5vw, .88rem); letter-spacing:.07em;
-    text-transform:uppercase; }
-  .intro h1 { font-size:clamp(2.1rem,7.5vw,3.2rem); line-height:1.05; margin:0 0 10px;
-    letter-spacing:-.03em; color:var(--navy); text-wrap:balance; }
-  .intro p { margin:0 auto; color:var(--muted); max-width:46ch; font-size:1rem; }
-  /* Space under the subline so the first question does not sit on top of the pitch. */
-  .intro h1 + p { margin-bottom:clamp(14px, 2.2vw, 24px); }
-
-  /* ---- proof strip: the six sample sites ---- */
-  /* The subline hands straight off to the samples ("click around the portfolio below"), so the
-     hero's own bottom margin carries nearly all of the gap — the two read as one pitch. */
-  .proof { margin:0; }
-  .proof h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
-    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
-  .proof p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 20px; max-width:44ch; }
-  .proof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
-  .proof-grid a { display:block; text-decoration:none; color:inherit; border:1px solid var(--line);
-    border-radius:10px; overflow:hidden; background:var(--card); }
-  .proof-grid img { display:block; width:100%; height:auto; border-bottom:1px solid var(--line); }
-  .proof-grid b { display:block; font-size:.78rem; font-weight:700; padding:8px 10px 2px; line-height:1.25; }
-  .proof-grid span { display:block; font-size:.72rem; color:var(--muted); padding:0 10px 9px; }
-  @media (max-width:560px) { .proof-grid { grid-template-columns:repeat(2,1fr); gap:10px; } }
-
-  /* ---- back to the top: in the flow, so you only meet it by having scrolled ---- */
-  .totop { display:flex; flex-direction:column; align-items:center; gap:6px; margin:16px auto 4px;
-    background:none; border:0; padding:8px 12px; cursor:pointer; color:var(--navy); font:inherit; border-radius:10px; }
-  .totop svg { width:44px; height:44px; display:block; transition:transform .15s ease; }
-  .totop span { font-size:.8rem; font-weight:700; }
-  /* Hover only where a real pointer exists — on a touchscreen :hover sticks red after a tap. */
-  @media (hover:hover) and (pointer:fine) { .totop:hover { color:var(--red); } .totop:hover svg { transform:translateY(-3px); } }
-  .totop:active { color:var(--red); }
-  .totop:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
-  @media (prefers-reduced-motion:reduce) { .totop svg, .mcta, .topbar { transition:none; } }
-
-  /* How it works: four numbered steps under the closing CTA */
-  .how { margin:56px 0 8px; }
-  .how h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
-    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
-  .how p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 22px; max-width:44ch; }
-  .how ol { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px; counter-reset:step; }
-  .how li { display:grid; grid-template-columns:40px 1fr; gap:14px; align-items:start;
-    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
-  .how li::before { counter-increment:step; content:counter(step); width:40px; height:40px; border-radius:50%;
-    background:var(--navy); color:#fff; font-weight:800; font-size:1.05rem; display:flex; align-items:center; justify-content:center; }
-  .how li b { display:block; color:var(--ink); font-weight:800; font-size:1.05rem; line-height:1.25; margin:8px 0 4px; }
-  .how li p { margin:0; color:var(--muted); font-size:.95rem; line-height:1.5; }
-  .how li > div { min-width:0; }
-  .how + .cta-stack, .spot + .cta-stack, .bio + .cta-stack { margin-top:28px; }
-  /* Sample spotlight: one portfolio site taken apart for someone who sells websites */
-  .spot { margin:56px 0 8px; }
-  .spot h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
-    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 8px; text-wrap:balance; }
-  .spot p.sub { text-align:center; font-size:.95rem; color:var(--muted); margin:0 auto 22px; max-width:44ch; }
-  .spot figure { margin:0 0 18px; }
-  .spot figure a { display:block; border:1px solid var(--line); border-radius:14px; overflow:hidden;
-    background:var(--card); box-shadow:0 8px 24px rgba(0,29,82,.10); }
-  .spot figure a:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
-  .spot figure img { display:block; width:100%; height:auto; }
-  .spot figcaption { text-align:center; font-size:.85rem; color:var(--muted); margin-top:10px; }
-  .spot ul { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr; gap:12px; }
-  .spot li { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; min-width:0; }
-  .spot li b { display:block; color:var(--ink); font-weight:800; font-size:1.02rem; line-height:1.25; margin:0 0 6px; }
-  .spot li p { margin:0; color:var(--muted); font-size:.95rem; line-height:1.5; }
-  .spot .spot__link { display:block; text-align:center; margin:18px 0 0; font-weight:700; color:var(--navy); }
-  @media (min-width:600px) { .spot ul { grid-template-columns:1fr 1fr; } .spot li:last-child:nth-child(odd) { grid-column:1 / -1; } }
-  /* Bio: who they'd be working with */
-  .bio { margin:56px 0 8px; }
-  .bio h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
-    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 22px; text-wrap:balance; }
-  .bio__card { display:grid; grid-template-columns:1fr; gap:18px; align-items:start;
-    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; }
-  .bio__photo { width:150px; height:150px; border-radius:50%; object-fit:cover; display:block; margin:0 auto; }
-  .bio__text p { margin:0 0 12px; color:var(--ink); font-size:1rem; line-height:1.55; }
-  .bio__text p:last-child { margin-bottom:0; }
-  @media (min-width:600px) { .bio__card { grid-template-columns:160px 1fr; gap:22px; } .bio__photo { width:160px; height:160px; margin:0; } }
-  /* FAQ */
-  .faq { margin:56px 0 8px; }
-  .faq h2 { font-size:clamp(1.5rem,5.5vw,2.15rem); line-height:1.1; font-weight:800;
-    letter-spacing:-.02em; color:var(--navy); text-align:center; margin:0 0 22px; text-wrap:balance; }
-  .faq details { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:0 18px; margin:0 0 10px; }
-  .faq summary { list-style:none; cursor:pointer; padding:15px 32px 15px 0; font-weight:800; color:var(--ink); font-size:1.02rem; line-height:1.3; position:relative; }
-  .faq summary::-webkit-details-marker { display:none; }
-  .faq summary::after { content:"+"; position:absolute; right:0; top:50%; transform:translateY(-50%); width:24px; height:24px; border-radius:50%;
-    background:var(--navy); color:#fff; font-weight:800; font-size:1rem; line-height:24px; text-align:center; }
-  .faq details[open] summary::after { content:"\2013"; }
-  .faq summary:focus-visible { outline:3px solid var(--navy); outline-offset:2px; border-radius:8px; }
-  .faq details p { margin:0 0 16px; color:var(--muted); font-size:.95rem; line-height:1.5; }
-  .faq + .cta-stack { margin-top:28px; }
-  .cta-stack + .faq { margin-top:48px; }
-  /* On devices with a mouse, tel: and sms: links do nothing useful: show the number instead, and copy it on click */
-  .topbar__num, .num-block { display:none; }
-  @media (hover:hover) and (pointer:fine) {
-    .topbar__cta { display:none !important; }
-    .topbar__num { display:inline-flex; align-items:center; gap:10px; margin-left:auto; padding:7px 18px 7px 9px; border-radius:999px;
-      background:var(--red); border:1.5px solid var(--red); color:#fff; font:inherit; cursor:pointer; text-align:left;
-      box-shadow:0 6px 18px rgba(200,16,46,.45); transition:background .15s ease, transform .15s ease, box-shadow .15s ease; }
-    .topbar__num:hover, .topbar__num:focus-visible { background:var(--red-dark); border-color:var(--red-dark); transform:translateY(-1px); box-shadow:0 10px 24px rgba(200,16,46,.5); }
-    .topbar__num:focus-visible { outline:3px solid #fff; outline-offset:2px; }
-    .topbar__num-ic { width:32px; height:32px; border-radius:50%; background:#fff; color:var(--red); display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
-    .topbar__num-ic svg { width:15px; height:15px; }
-    .topbar__num-txt { display:flex; flex-direction:column; line-height:1.1; }
-    .topbar__num b { font-size:1.08rem; font-weight:800; letter-spacing:.01em; }
-    .topbar__num small { font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; opacity:.8; margin-top:3px; }
-    .topbar__num .cap-done { display:none; }
-    .topbar__num.is-copied .cap { display:none; }
-    .topbar__num.is-copied .cap-done { display:block; opacity:1; }
-    .cta-stack .btn { display:none; }
-    .num-block { display:flex; flex-direction:column; align-items:center; gap:8px; align-self:center; margin:0; padding:22px 30px; max-width:100%;
-      border-radius:20px; background:linear-gradient(135deg,var(--red) 0%,var(--red-dark) 100%); border:0; box-shadow:0 14px 34px rgba(200,16,46,.42);
-      color:#fff; font:inherit; cursor:pointer; transition:box-shadow .15s ease, transform .15s ease; }
-    .num-block:hover { box-shadow:0 18px 40px rgba(200,16,46,.5); transform:translateY(-2px); }
-    .num-block:focus-visible { outline:3px solid var(--navy); outline-offset:3px; }
-    .num-block b { display:flex; align-items:center; gap:14px; font-size:clamp(1.8rem,3.2vw,2.3rem); font-weight:800; letter-spacing:-.02em; line-height:1; color:#fff; white-space:nowrap; }
-    .num-block__ic { width:46px; height:46px; border-radius:50%; background:#fff; color:var(--red); display:flex; align-items:center; justify-content:center; flex:0 0 auto;
-      animation:num-ring 3.2s ease-out infinite; }
-    .num-block__ic svg { width:22px; height:22px; }
-    .num-block .cap { font-size:.95rem; font-weight:600; color:#ffe4e8; }
-    .num-block .cap-done { display:none; font-size:.95rem; color:#fff; font-weight:800; }
-    @keyframes num-ring { 0% { box-shadow:0 0 0 0 rgba(255,255,255,.3); } 70% { box-shadow:0 0 0 8px rgba(255,255,255,0); } 100% { box-shadow:0 0 0 0 rgba(255,255,255,0); } }
-    @media (prefers-reduced-motion:reduce) { .num-block__ic { animation:none; } }
-    .num-block.is-copied .cap { display:none; }
-    .num-block.is-copied .cap-done { display:block; }
-  }
-</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Duna Marketing",
+  "url": "https://dunamarketing.com/",
+  "telephone": "+1-707-385-5673",
+  "description": "White-label website production for agencies: complete, custom multipage websites built under the agency's name.",
+  "image": "https://dunamarketing.com/assets/img/og.jpg",
+  "founder": { "@type": "Person", "name": "Barrett Duna", "url": "https://www.barrettduna.com/" }
+}
+</script>
 </head>
 <body>
-<header class="topbar">
-  <img src="duna_marketing_logo.png" alt="">
-  <span class="name">Duna Marketing</span>
-  <a class="topbar__cta topbar__cta--call" href="tel:+17073855673" aria-label="Call Duna Marketing on (707) 385-5673 to learn more">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    <span>Call me<span class="tail"> to learn more</span></span>
-  </a>
-  <a class="topbar__cta topbar__cta--text" href="sms:+17073855673" aria-label="Text Duna Marketing on (707) 385-5673 to learn more">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <span>Text me<span class="tail"> to learn more</span></span>
-  </a>
-  <button type="button" class="topbar__num js-copy" data-num="(707) 385-5673" aria-label="Copy the phone number (707) 385-5673">
-    <span class="topbar__num-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
-    <span class="topbar__num-txt"><b>(707) 385-5673</b><small class="cap">Text or call</small><small class="cap-done">Copied</small></span>
-  </button>
-</header>
+<a class="skip" href="#main">Skip to content</a>
 
-<main>
-  <div class="wrap">
-    <div class="intro" id="intro">
-      <p class="kicker">White-label website production for agencies</p>
-      <h1>Every website your agency sells: completely custom, built fast.</h1>
-      <p>No templates, no page builder. Every page is written from your client&rsquo;s questionnaire answers and previewed in under 24 hours. Your name on it, mine nowhere. <b>Your first site is free, so text or call me.</b></p>
-    </div>
-
-    <section class="proof" id="proof">
-      <h2>What &ldquo;completely custom&rdquo; looks like.</h2>
-      <p class="sub">Ten complete sites for ten sample businesses. Open any of them.</p>
-      <div class="proof-grid">
-        <a href="/portfolio/long-table-catering/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/long-table-catering.jpg" alt="Long Table Catering website" width="640" height="400" loading="lazy">
-          <b>Long Table Catering</b><span>Catering</span></a>
-        <a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/marden-estate-law.jpg" alt="Marden Estate Law website" width="640" height="400" loading="lazy">
-          <b>Marden Estate Law</b><span>Estate planning</span></a>
-        <a href="/portfolio/velvet-fig/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/velvet-fig.jpg" alt="Velvet Fig website" width="640" height="400" loading="lazy">
-          <b>Velvet Fig</b><span>Cocktail bar</span></a>
-        <a href="/portfolio/maple-street-cleaners/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/maple-street-cleaners.jpg" alt="Maple Street Cleaners website" width="640" height="400" loading="lazy">
-          <b>Maple Street Cleaners</b><span>Dry cleaner</span></a>
-        <a href="/portfolio/mirror-finish-auto-detailing/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/mirror-finish-auto-detailing.jpg" alt="Mirror Finish Auto Detailing website" width="640" height="400" loading="lazy">
-          <b>Mirror Finish Detailing</b><span>Auto detailing</span></a>
-        <a href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/golden-crumb-bakery.jpg" alt="Golden Crumb Bakery website" width="640" height="400" loading="lazy">
-          <b>Golden Crumb Bakery</b><span>Bakery</span></a>
-        <a href="/portfolio/bright-beginnings-preschool/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/bright-beginnings-preschool.jpg" alt="Bright Beginnings Preschool website" width="640" height="400" loading="lazy">
-          <b>Bright Beginnings</b><span>Preschool</span></a>
-        <a href="/portfolio/waggin-tails-grooming/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/waggin-tails-grooming.jpg" alt="Waggin Tails Grooming website" width="640" height="400" loading="lazy">
-          <b>Waggin&rsquo; Tails Grooming</b><span>Dog grooming</span></a>
-        <a href="/portfolio/keyway-locksmith/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/keyway-locksmith.jpg" alt="Keyway Locksmith website" width="640" height="400" loading="lazy">
-          <b>Keyway Locksmith</b><span>Locksmith</span></a>
-        <a href="/portfolio/summit-ridge-ski-board/" target="_blank" rel="noopener">
-          <img src="/portfolio/thumbs/summit-ridge-ski-board.jpg" alt="Summit Ridge Ski and Board website" width="640" height="400" loading="lazy">
-          <b>Summit Ridge Ski &amp; Board</b><span>Ski &amp; snowboard shop</span></a>
-      </div>
-    </section>
-
-    <section class="how" id="how">
-      <h2>How it works</h2>
-      <p class="sub">Four steps from your text or call to a live site.</p>
-      <ol role="list">
-        <li><div><b>Text or call me with the job.</b><p>Tell me what kind of business it is, and I generate the questionnaire based off business type.</p></div></li>
-        <li><div><b>Your client answers a questionnaire and sends their photos.</b><p>I send you the questionnaire document to pass along to your client. It takes about 20 minutes and asks what a good copywriter would ask. Your client returns it along with their photos. Every page is then written fresh from that, not pasted from their answers.</p></div></li>
-        <li><div><b>You get the finished site to review within 24 hours.</b><p>Not a wireframe or a homepage draft: a complete multipage site with copy written from the questionnaire and their photos in place, built mobile-first and checked page by page.</p></div></li>
-        <li><div><b>Your client approves. You sign off. I transfer you the website.</b><p>You send me the changes, I make them, your client approves. After that I transfer the website to you and I&rsquo;m out of the picture.</p></div></li>
-      </ol>
-    </section>
-
-    <div class="cta-stack">
-      <a class="btn btn-text" id="text-btn" href="sms:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Text me to learn more
-      </a>
-      <a class="btn btn-call" href="tel:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Call me to learn more
-      </a>
-      <button type="button" class="num-block js-copy" data-num="(707) 385-5673" aria-label="Copy the phone number (707) 385-5673">
-        <b><span class="num-block__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>(707) 385-5673</b>
-        <span class="cap">Text or call me to get started</span><span class="cap-done">Copied to your clipboard</span>
-      </button>
-    </div>
-
-    <section class="faq" id="faq">
-      <h2>Questions agencies ask.</h2>
-      <details><summary>Will my client know you exist?</summary><p>No. Your name goes on the site, mine appears nowhere on it, and I never contact your client. Everything runs through you.</p></details>
-      <details><summary>Who owns the finished site?</summary><p>You do. Once your client approves, I transfer the website to you: plain HTML, CSS and a few kilobytes of script, with no subscription and nothing tied to me.</p></details>
-      <details><summary>What if my client wants changes?</summary><p>Before approval, send them to me and I make them. After the transfer the site is yours, and because it is plain files any developer can edit it.</p></details>
-      <details><summary>What do you actually need from me?</summary><p>The kind of business, so I can generate the questionnaire. Then the completed questionnaire and your client&rsquo;s photos. That is the whole list.</p></details>
-      <details><summary>How fast is it, really?</summary><p>You have a preview within 24 hours of the finished questionnaire coming back to me.</p></details>
-      <details><summary>What kinds of businesses?</summary><p>Local and small businesses of any kind. The ten samples cover a preschool, a bakery, a locksmith, a caterer, a law practice, an auto detailer, a ski shop, a dry cleaner, a cocktail bar and a dog groomer. A shopping cart or a web app is not what I build.</p></details>
-      <details><summary>Do you host it?</summary><p>No. I hand you the finished site and you host it wherever you like.</p></details>
-    </section>
-
-    <section class="bio" id="about">
-      <h2>About Me</h2>
-      <div class="bio__card">
-        <img class="bio__photo" src="/assets/barrett-headshot.jpg" alt="Barrett Duna" width="480" height="480" loading="lazy" decoding="async">
-        <div class="bio__text">
-          <p>Hi, I&rsquo;m Barrett. I&rsquo;ve been building websites since 2010 (16 years). I&rsquo;ve built a lot of WordPress sites, some coded from scratch and some on page builders, and a good number of web applications in Python using Django for when a site needed to do more than sit there. So I know what a site costs to build the old way, in hours and in patience, because I&rsquo;ve paid it.</p>
-          <p>That&rsquo;s why I built my own system. It&rsquo;s powered by an LLM, but it is shaped by years of knowing what a small business site has to do, and it does the heavy lifting of a build in hours instead of weeks. After I build, I go through every page myself before you see it, and I keep making it better. If you have a client waiting, text or call and we can chat about my service.</p>
-          <p>For a view of my analytical side, see <a href="https://www.barrettduna.com/" target="_blank" rel="noopener">www.BarrettDuna.com</a>.</p>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/"><img src="/duna_marketing_logo.png" alt="" width="28" height="29">Duna Marketing</a>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="/work/">The work</a>
+      <a href="/how-it-works/">How it works</a>
+      <a href="/#about">About</a>
+      <div class="site-nav__contact contact">
+        <div class="contact__touch">
+          <a class="btn btn--red" href="sms:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text me</a>
+          <a class="btn btn--line" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me</a>
         </div>
+        <button type="button" class="contact__num js-copy" data-num="(707) 385-5673" aria-label="Copy Barrett's phone number, (707) 385-5673">
+          <span class="contact__num-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          <span class="contact__num-text"><b>(707) 385-5673</b><small><span class="cap">Text or call me, Barrett. Click to copy.</span><span class="cap-done">Copied to your clipboard.</span></small></span>
+        </button>
       </div>
-    </section>
-
-    <div class="cta-stack">
-      <a class="btn btn-text" href="sms:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Text me to learn more
-      </a>
-      <a class="btn btn-call" href="tel:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Call me to learn more
-      </a>
-      <button type="button" class="num-block js-copy" data-num="(707) 385-5673" aria-label="Copy the phone number (707) 385-5673">
-        <b><span class="num-block__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>(707) 385-5673</b>
-        <span class="cap">Text or call me to get started</span><span class="cap-done">Copied to your clipboard</span>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn--red btn--sm" href="sms:+17073855673">Text me</a>
+      <button type="button" class="num-pill js-copy" data-num="(707) 385-5673" aria-label="Copy Barrett's phone number, (707) 385-5673">
+        <span class="num-pill__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+        <span class="num-pill__text"><b>(707) 385-5673</b><small><span class="cap">Text or call</span><span class="cap-done">Copied</span></small></span>
       </button>
     </div>
-
-
-    <section class="spot" id="spotlight">
-      <h2>A closer look at Marden Estate Law.</h2>
-      <p class="sub">Marden Estate Law, and what makes it worth selling.</p>
-      <figure>
-        <a href="/portfolio/marden-estate-law/" target="_blank" rel="noopener">
-          <img src="/assets/spotlight/marden-estate-law-home.jpg" alt="Marden Estate Law homepage: the headline &lsquo;The will you&rsquo;ve been meaning to write. Three meetings, and it&rsquo;s done.&rsquo;, a call button, a See the fees button and three printed prices beside a photo of a study lined with bookshelves" width="1600" height="718" loading="lazy" decoding="async">
-        </a>
-        <figcaption>Above the fold on desktop of the home page. Open the site by clicking the above image to see the rest.</figcaption>
-      </figure>
-      <ul>
-        <li><b>Above the fold, the whole decision.</b><p>The first screen shows everything a prospect needs to decide: the headline names the service and promises three meetings, one button places the call, the other opens the fees, and the three main prices are printed right under the buttons. Nobody has to scroll.</p></li>
-        <li><b>Click-to-call, on every page.</b><p>The header carries a call button with the number on all five pages, the hero button repeats it with &ldquo;flat fees, printed&rdquo; underneath, and every page closes with its own call-or-email section. On a phone each of those is a single tap, so a prospect is never more than one screen from a call.</p></li>
-        <li><b>Every fee printed.</b><p>The fee ledger sits on the home page and again on its own page: the will package for one person or a couple, the trust package, a plan review, and powers of attorney and healthcare directives included. It answers the question prospects most want answered and are least likely to ask, before they have to.</p></li>
-        <li><b>Six objections handled before the call.</b><p>A FAQ on the home page opens with &ldquo;Do I need a will or a trust?&rdquo; and works through &ldquo;What&rsquo;s actually in the will package?&rdquo;, &ldquo;How long does it take?&rdquo; and &ldquo;I already have a will from years ago.&rdquo; Each one is a reason not to call, answered.</p></li>
-        <li><b>A process that lowers the stakes.</b><p>Three meetings, usually inside three weeks, and nothing to sign until every page has been read. The how-it-works page gives each meeting its own photograph. Prospects know what happens next before they commit.</p></li>
-        <li><b>Local intent in every page title.</b><p>San Diego is in the title of all five pages, in every meta description, and in the eyebrow above the headline. The site is built to be found by the person searching for a will in that city, not a will in general.</p></li>
-        <li><b>Typography that does the persuading.</b><p>Cormorant Garamond for the headline, with an italic second line for the promise, Inter for everything meant to be read fast, and the fees set in gold serif numerals. Deep green on warm paper, hairlines instead of boxes.</p></li>
-        <li><b>Fast, accessible, and nothing to patch.</b><p>Static pages, about two kilobytes of script, no plugins or CMS. A skip link, alt text on all sixteen images, an accessible menu button, and a unique title and description on every page. Nothing to slow it down, nothing for you to maintain.</p></li>
-      </ul>
-      <a class="spot__link" href="/portfolio/marden-estate-law/" target="_blank" rel="noopener">Open the Marden Estate Law sample</a>
-    </section>
-
-    <div class="cta-stack">
-      <a class="btn btn-text" href="sms:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Text me to learn more
-      </a>
-      <a class="btn btn-call" href="tel:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Call me to learn more
-      </a>
-      <button type="button" class="num-block js-copy" data-num="(707) 385-5673" aria-label="Copy the phone number (707) 385-5673">
-        <b><span class="num-block__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>(707) 385-5673</b>
-        <span class="cap">Text or call me to get started</span><span class="cap-done">Copied to your clipboard</span>
-      </button>
-    </div>
-
-
-    <section class="spot" id="spotlight-2">
-      <h2>A closer look at Long Table Catering.</h2>
-      <p class="sub">Long Table Catering, built to turn a visit into a quote request.</p>
-      <figure>
-        <a href="/portfolio/long-table-catering/" target="_blank" rel="noopener">
-          <img src="/assets/spotlight/long-table-catering-home.jpg" alt="Long Table Catering homepage: the headline &lsquo;Restaurant food, at your long table.&rsquo;, a Request a quote button, a See the menu and prices button, and a photo of an outdoor table set with bruschetta, figs and candles" width="1600" height="716" loading="lazy" decoding="async">
-        </a>
-        <figcaption>Above the fold on desktop of the home page. Open the site by clicking the above image to see the rest.</figcaption>
-      </figure>
-      <ul>
-        <li><b>One conversion goal, repeated everywhere.</b><p>The header button, the hero button, and the closing section of all five pages point at the same thing: a quote request that asks for the date, the headcount, and the kind of event. The visitor is never left wondering what to do next.</p></li>
-        <li><b>A first step that costs a meal, not a contract.</b><p>The process is three steps on the home page: send the date and the headcount, taste it before you sign, then they cook and you sit. The tasting is $75 and credited to the booking, so the first commitment a prospect makes is dinner.</p></li>
-        <li><b>Starting prices, and what moves them.</b><p>Weddings from $95 a head, corporate lunches from $28, family-style from $60, bar service by quote, printed on the home page and the menu page. Then the menu page names the three things that move the number: headcount, service style, and the market that week. Anchored, and honest about it.</p></li>
-        <li><b>A point of view, not a list of services.</b><p>The site explains why the food tastes the way it does: cooked on site over the kitchen&rsquo;s own fire, from menus written around what is in season that week, with the parts that suffer from sitting finished last. A prospect walks away with a reason to choose, not just a price.</p></li>
-        <li><b>Photography that sells the dinner.</b><p>A full-bleed table shot in the hero, twenty-five photographs across the site and none used twice: food on the pass, a long table in a garden, wine being poured. The gallery captions them as real jobs: &ldquo;These were all somebody&rsquo;s date in a calendar.&rdquo;</p></li>
-        <li><b>Pages in the order people decide.</b><p>What we do, then the menu and prices, then the gallery, then about, with a quote button in the header the whole way. That is the order a person books catering in: what you do, what it costs, proof it&rsquo;s good, who you are, then ask.</p></li>
-        <li><b>A brand, not a theme.</b><p>EB Garamond with true italics over Manrope, olive and terracotta on cream, an LT monogram in the header, an eyebrow set in letterspaced terracotta capitals, and terracotta buttons that are the only loud thing. It looks like it belongs to this kitchen and no one else&rsquo;s.</p></li>
-        <li><b>Mobile-first, and it shows in the code.</b><p>The stylesheet is written for phones first and widened for desktops, the menu collapses behind an accessible button, and every page carries a skip link and a canonical tag. It reads well on the phone someone is holding at 11pm.</p></li>
-        <li><b>Fast, and it does not jump around.</b><p>Every image carries its width and height so nothing shifts while the page loads, the images below the first screen load lazily, the fonts swap in without blanking the text, and there is no framework to download. Those are the things page-speed tools mark a site down for, and none of them are here.</p></li>
-        <li><b>Nothing to update, nothing to break.</b><p>Plain HTML and CSS with a few kilobytes of script: no plugins to update, no database, no login to protect, no software that goes out of date. Once it is live it stays exactly as approved, and it will work the same in five years without anyone touching it.</p></li>
-      </ul>
-      <a class="spot__link" href="/portfolio/long-table-catering/" target="_blank" rel="noopener">Open the Long Table Catering sample</a>
-    </section>
-
-    <div class="cta-stack">
-      <a class="btn btn-text" href="sms:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Text me to learn more
-      </a>
-      <a class="btn btn-call" href="tel:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Call me to learn more
-      </a>
-      <button type="button" class="num-block js-copy" data-num="(707) 385-5673" aria-label="Copy the phone number (707) 385-5673">
-        <b><span class="num-block__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>(707) 385-5673</b>
-        <span class="cap">Text or call me to get started</span><span class="cap-done">Copied to your clipboard</span>
-      </button>
-    </div>
-
-    <section class="spot" id="spotlight-3">
-      <h2>Live for a client: Deep Roots Hydro.</h2>
-      <p class="sub">A Sebastopol grow shop, on its own domain, with no trace of me on it.</p>
-      <figure>
-        <a href="https://deeproots707.com/" target="_blank" rel="noopener">
-          <img src="/assets/spotlight/deep-roots-home.jpg" alt="Deep Roots Hydro homepage: the headline &lsquo;The grow shop that actually knows the answer.&rsquo;, Get directions and See what we stock buttons, a live hours badge, and a photo of the shop&rsquo;s shelves" width="1600" height="860" loading="lazy" decoding="async">
-        </a>
-        <figcaption>Above the fold on desktop of the home page. Open the site by clicking the above image to see the rest.</figcaption>
-      </figure>
-      <ul>
-        <li><b>Built for a shop you walk into.</b><p>Two buttons above the fold, Get directions and See what we stock, the phone number in the header, and eleven click-to-call links down the page. For a store the conversions are a visit and a call, and the page is built around both.</p></li>
-        <li><b>Hours that know what time it is.</b><p>The hero carries a live open-or-closed badge with the day&rsquo;s hours, and the hours and address are also written into the page as structured data, so Google can show them next to the listing.</p></li>
-        <li><b>The case for coming in.</b><p>&ldquo;A cart can&rsquo;t look at your leaves&rdquo;: the copy makes the argument for a real grow shop over ordering online, backs it with thirty years in the industry and twenty behind this counter, and closes with a seven-question FAQ taken from what people ask on the phone.</p></li>
-        <li><b>The shop&rsquo;s own shelves.</b><p>The hero is a photograph of the actual inventory, and there are twenty images down the page, each sized so nothing shifts while it loads. No builder credit anywhere: the only name on the site is the shop&rsquo;s.</p></li>
-      </ul>
-      <a class="spot__link" href="https://deeproots707.com/" target="_blank" rel="noopener">Open the Deep Roots Hydro site</a>
-    </section>
-
-    <div class="cta-stack">
-      <a class="btn btn-text" href="sms:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Text me to learn more
-      </a>
-      <a class="btn btn-call" href="tel:+17073855673">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Call me to learn more
-      </a>
-      <button type="button" class="num-block js-copy" data-num="(707) 385-5673" aria-label="Copy the phone number (707) 385-5673">
-        <b><span class="num-block__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>(707) 385-5673</b>
-        <span class="cap">Text or call me to get started</span><span class="cap-done">Copied to your clipboard</span>
-      </button>
-    </div>
-
-    <button type="button" class="totop" id="totop" aria-label="Back to the top">
-      <svg viewBox="0 0 44 44" aria-hidden="true" focusable="false">
-        <circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
-        <path d="M22 30V15M22 15l-6.5 6.5M22 15l6.5 6.5" fill="none" stroke="currentColor"
-              stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>Back to the top</span>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <svg class="i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg class="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
   </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow">White-label websites for agencies</p>
+        <h1 id="hero-title">You sell the website. I build it under your agency&rsquo;s name.</h1>
+        <p class="lede">Every job you sell becomes a complete, custom multipage site, written for your client&rsquo;s business and ready for your review within 24 hours of their questionnaire coming back. No templates, no page builders. Your name on it, mine nowhere.</p>
+        <div class="contact">
+          <div class="contact__touch">
+            <a class="btn btn--red" href="sms:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text me</a>
+            <a class="btn btn--line" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me</a>
+          </div>
+          <button type="button" class="contact__num js-copy" data-num="(707) 385-5673" aria-label="Copy Barrett's phone number, (707) 385-5673">
+            <span class="contact__num-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+            <span class="contact__num-text"><b>(707) 385-5673</b><small><span class="cap">Text or call me, Barrett. Click to copy.</span><span class="cap-done">Copied to your clipboard.</span></small></span>
+          </button>
+          <p class="contact__note">That&rsquo;s me, Barrett, at (707) 385-5673.</p>
+        </div>
+        <ul class="hero__facts" role="list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Your first site is free</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>24 hours from questionnaire to review</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Plain files you own</li>
+        </ul>
+      </div>
+
+      <div class="stage">
+        <figure class="browser">
+          <div class="browser__bar"><i></i><i></i><i></i><span>Long Table Catering &middot; Gallery</span></div>
+          <img src="/assets/img/hero-long-table-gallery-1280.webp" srcset="/assets/img/hero-long-table-gallery-720.webp 720w, /assets/img/hero-long-table-gallery-1280.webp 1280w" sizes="(min-width: 980px) 560px, 88vw" width="1280" height="800" fetchpriority="high" alt="The gallery page of the Long Table Catering sample: the headline &lsquo;Food, prep, and the table itself&rsquo; above photographs of passed bites, a long outdoor table and bruschetta">
+        </figure>
+        <figure class="phone">
+          <img src="/assets/img/hero-velvet-fig-phone-600.webp" srcset="/assets/img/hero-velvet-fig-phone-300.webp 300w, /assets/img/hero-velvet-fig-phone-600.webp 600w" sizes="(min-width: 980px) 190px, 30vw" width="600" height="1298" alt="The Velvet Fig sample on a phone: a backlit shelf of bottles above the headline &lsquo;A sazerac people argue about&rsquo;">
+        </figure>
+        <p class="stage__tag"><i></i>Two of the ten sample sites</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--mist" id="samples" aria-labelledby="samples-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">The work</p>
+        <h2 id="samples-title">Ten sample sites. Ten kinds of business.</h2>
+        <p>Each one is a complete multipage site for a sample business. Open one and click around the way your client&rsquo;s customers would.</p>
+      </div>
+      <ul class="samples reveal" role="list">
+        <li><a class="sample" href="/portfolio/long-table-catering/" target="_blank" rel="noopener">
+          <span class="sample__screen"><img src="/assets/img/rail-long-table-catering-520.webp" srcset="/assets/img/rail-long-table-catering-260.webp 260w, /assets/img/rail-long-table-catering-520.webp 520w" sizes="(min-width: 900px) 216px, (min-width: 560px) 36vw, 58vw" width="520" height="853" loading="lazy" decoding="async" alt="Phone view: &lsquo;Restaurant food, at your long table&rsquo; with a Request a quote button"></span>
+          <span class="sample__name">Long Table Catering</span><span class="sample__meta">Catering &middot; 5 pages</span></a></li>
+        <li><a class="sample" href="/portfolio/keyway-locksmith/" target="_blank" rel="noopener">
+          <span class="sample__screen"><img src="/assets/img/rail-keyway-locksmith-520.webp" srcset="/assets/img/rail-keyway-locksmith-260.webp 260w, /assets/img/rail-keyway-locksmith-520.webp 520w" sizes="(min-width: 900px) 216px, (min-width: 560px) 36vw, 58vw" width="520" height="853" loading="lazy" decoding="async" alt="Phone view: &lsquo;Locked out? Call me. Under thirty minutes&rsquo; with a call button"></span>
+          <span class="sample__name">Keyway Locksmith</span><span class="sample__meta">Locksmith &middot; 4 pages</span></a></li>
+        <li><a class="sample" href="/portfolio/marden-estate-law/" target="_blank" rel="noopener">
+          <span class="sample__screen"><img src="/assets/img/rail-marden-estate-law-520.webp" srcset="/assets/img/rail-marden-estate-law-260.webp 260w, /assets/img/rail-marden-estate-law-520.webp 520w" sizes="(min-width: 900px) 216px, (min-width: 560px) 36vw, 58vw" width="520" height="853" loading="lazy" decoding="async" alt="Phone view: &lsquo;The will you&rsquo;ve been meaning to write. Three meetings, and it&rsquo;s done&rsquo;"></span>
+          <span class="sample__name">Marden Estate Law</span><span class="sample__meta">Estate planning &middot; 5 pages</span></a></li>
+        <li><a class="sample" href="/portfolio/velvet-fig/" target="_blank" rel="noopener">
+          <span class="sample__screen"><img src="/assets/img/rail-velvet-fig-520.webp" srcset="/assets/img/rail-velvet-fig-260.webp 260w, /assets/img/rail-velvet-fig-520.webp 520w" sizes="(min-width: 900px) 216px, (min-width: 560px) 36vw, 58vw" width="520" height="853" loading="lazy" decoding="async" alt="Phone view of the menu page: &lsquo;What things cost&rsquo;"></span>
+          <span class="sample__name">Velvet Fig</span><span class="sample__meta">Cocktail bar &middot; 4 pages</span></a></li>
+        <li><a class="sample" href="/portfolio/bright-beginnings-preschool/" target="_blank" rel="noopener">
+          <span class="sample__screen"><img src="/assets/img/rail-bright-beginnings-preschool-520.webp" srcset="/assets/img/rail-bright-beginnings-preschool-260.webp 260w, /assets/img/rail-bright-beginnings-preschool-520.webp 520w" sizes="(min-width: 900px) 216px, (min-width: 560px) 36vw, 58vw" width="520" height="853" loading="lazy" decoding="async" alt="Phone view: &lsquo;Try a whole morning here before you decide&rsquo; with a Book a free tour button"></span>
+          <span class="sample__name">Bright Beginnings</span><span class="sample__meta">Preschool &middot; 4 pages</span></a></li>
+        <li><a class="sample" href="/portfolio/mirror-finish-auto-detailing/" target="_blank" rel="noopener">
+          <span class="sample__screen"><img src="/assets/img/rail-mirror-finish-auto-detailing-520.webp" srcset="/assets/img/rail-mirror-finish-auto-detailing-260.webp 260w, /assets/img/rail-mirror-finish-auto-detailing-520.webp 520w" sizes="(min-width: 900px) 216px, (min-width: 560px) 36vw, 58vw" width="520" height="853" loading="lazy" decoding="async" alt="Phone view: &lsquo;Showroom shine on every car we touch&rsquo; over a dark photo of a car"></span>
+          <span class="sample__name">Mirror Finish Detailing</span><span class="sample__meta">Auto detailing &middot; 4 pages</span></a></li>
+        <li><a class="sample" href="/portfolio/golden-crumb-bakery/" target="_blank" rel="noopener">
+          <span class="sample__screen"><img src="/assets/img/rail-golden-crumb-bakery-520.webp" srcset="/assets/img/rail-golden-crumb-bakery-260.webp 260w, /assets/img/rail-golden-crumb-bakery-520.webp 520w" sizes="(min-width: 900px) 216px, (min-width: 560px) 36vw, 58vw" width="520" height="853" loading="lazy" decoding="async" alt="Phone view: &lsquo;Sourdough at seven. Cakes by Saturday&rsquo;"></span>
+          <span class="sample__name">Golden Crumb Bakery</span><span class="sample__meta">Bakery &middot; 4 pages</span></a></li>
+        <li><a class="sample" href="/portfolio/summit-ridge-ski-board/" target="_blank" rel="noopener">
+          <span class="sample__screen"><img src="/assets/img/rail-summit-ridge-ski-board-520.webp" srcset="/assets/img/rail-summit-ridge-ski-board-260.webp 260w, /assets/img/rail-summit-ridge-ski-board-520.webp 520w" sizes="(min-width: 900px) 216px, (min-width: 560px) 36vw, 58vw" width="520" height="853" loading="lazy" decoding="async" alt="Phone view: &lsquo;Gear waiting, two blocks from the gondola&rsquo;"></span>
+          <span class="sample__name">Summit Ridge Ski &amp; Board</span><span class="sample__meta">Ski &amp; snowboard shop &middot; 5 pages</span></a></li>
+        <li><a class="sample" href="/portfolio/maple-street-cleaners/" target="_blank" rel="noopener">
+          <span class="sample__screen"><img src="/assets/img/rail-maple-street-cleaners-520.webp" srcset="/assets/img/rail-maple-street-cleaners-260.webp 260w, /assets/img/rail-maple-street-cleaners-520.webp 520w" sizes="(min-width: 900px) 216px, (min-width: 560px) 36vw, 58vw" width="520" height="853" loading="lazy" decoding="async" alt="Phone view: &lsquo;We actually get the stain out&rsquo;"></span>
+          <span class="sample__name">Maple Street Cleaners</span><span class="sample__meta">Dry cleaner &middot; 3 pages</span></a></li>
+        <li><a class="sample" href="/portfolio/waggin-tails-grooming/" target="_blank" rel="noopener">
+          <span class="sample__screen"><img src="/assets/img/rail-waggin-tails-grooming-520.webp" srcset="/assets/img/rail-waggin-tails-grooming-260.webp 260w, /assets/img/rail-waggin-tails-grooming-520.webp 520w" sizes="(min-width: 900px) 216px, (min-width: 560px) 36vw, 58vw" width="520" height="853" loading="lazy" decoding="async" alt="Phone view: a groomer at work above the headline &lsquo;A groomer your dog won&rsquo;t be scared of&rsquo;"></span>
+          <span class="sample__name">Waggin&rsquo; Tails Grooming</span><span class="sample__meta">Dog grooming &middot; 5 pages</span></a></li>
+      </ul>
+      <p class="after"><a class="text-link" href="/work/">See the samples up close<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+    </div>
+  </section>
+
+  <section class="band band--night" id="problem" aria-labelledby="problem-title">
+    <div class="wrap problem">
+      <div class="reveal">
+        <p class="eyebrow">The part after the sale</p>
+        <h2 id="problem-title">Selling the site is the easy part.</h2>
+      </div>
+      <div class="reveal" style="--d:1">
+        <p class="lede">Then somebody has to build it. Somebody chases the client for content, writes every page, designs something that doesn&rsquo;t look like a template and makes it work on a phone. That&rsquo;s where the hours go, and the margin on the job goes with them.</p>
+        <ul class="pains" role="list">
+          <li><h3>Copy nobody wants to write</h3><p>Clients promise the words and send them late, or never. Somebody on your side ends up writing them.</p></li>
+          <li><h3>Designs that look bought</h3><p>A theme with the client&rsquo;s logo dropped in, on a site that could belong to anyone.</p></li>
+          <li><h3>Builds that eat the calendar</h3><p>Every hour your team spends building a site is an hour it isn&rsquo;t selling the next one.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">How it works</p>
+        <h2 id="how-title">From your text to a finished site in four steps.</h2>
+        <p>You keep the client and the relationship. Everything runs through you.</p>
+      </div>
+      <ol class="steps" role="list">
+        <li class="step reveal"><h3>Send me the job.</h3><p>Text or call and tell me what kind of business it is. I create a questionnaire for that type of business.</p></li>
+        <li class="step reveal" style="--d:1"><h3>Your client answers the questionnaire.</h3><p>I send you the questionnaire document to pass along. It takes about 20 minutes, asks what a good copywriter would ask, and comes back with their photos.</p></li>
+        <li class="step reveal" style="--d:2"><h3>You review the finished site.</h3><p>Within 24 hours of the questionnaire coming back: every page written fresh from the answers, their photos in place, built mobile-first and checked page by page.</p></li>
+        <li class="step reveal" style="--d:3"><h3>Your client approves. I transfer the site.</h3><p>Send me any changes and I make them. Once your client approves and you sign off, I transfer the website to you and I&rsquo;m out of the picture.</p></li>
+      </ol>
+      <p class="after reveal"><a class="text-link" href="/how-it-works/">The full process, stage by stage<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
+    </div>
+  </section>
+
+  <section class="band band--mist" id="difference" aria-labelledby="difference-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">The difference</p>
+        <h2 id="difference-title">Not a template with your client&rsquo;s logo on it.</h2>
+        <p>What a client usually gets from a template build, next to what you&rsquo;d hand them from me.</p>
+      </div>
+      <div class="reveal">
+        <table class="compare">
+          <caption class="visually-hidden">A template site compared with a site built by Barrett</caption>
+          <thead>
+            <tr><th scope="col"><span class="visually-hidden">What you compare</span></th><th scope="col" class="them">Template site</th><th scope="col" class="me">Built by me</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Design</th>
+              <td class="them" data-label="Template site"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>A theme other businesses bought too, with this client&rsquo;s logo swapped in</span></td>
+              <td class="me" data-label="Built by me"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Designed for this one business, with no template and no page builder</span></td></tr>
+            <tr><th scope="row">Words</th>
+              <td class="them" data-label="Template site"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>Placeholder text until the client finally sends theirs</span></td>
+              <td class="me" data-label="Built by me"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Every page written for the business from its questionnaire answers</span></td></tr>
+            <tr><th scope="row">First look</th>
+              <td class="them" data-label="Template site"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>A homepage mockup, with the rest of the site still to come</span></td>
+              <td class="me" data-label="Built by me"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>The complete multipage site, within 24 hours of the questionnaire coming back</span></td></tr>
+            <tr><th scope="row">Phones</th>
+              <td class="them" data-label="Template site"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>Designed for a desktop, then squeezed onto a phone</span></td>
+              <td class="me" data-label="Built by me"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Built mobile-first and checked page by page</span></td></tr>
+            <tr><th scope="row">Handoff</th>
+              <td class="them" data-label="Template site"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>Plugins to update, a builder login and a subscription to renew</span></td>
+              <td class="me" data-label="Built by me"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Plain HTML, CSS and a few kilobytes of script, with nothing to renew</span></td></tr>
+            <tr><th scope="row">Credit</th>
+              <td class="them" data-label="Template site"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>The builder&rsquo;s name in the footer</span></td>
+              <td class="me" data-label="Built by me"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Your name on it, mine nowhere</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="proof" aria-labelledby="proof-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Proof</p>
+        <h2 id="proof-title">The details hold up past the homepage.</h2>
+        <p>One sample taken apart, and one site that&rsquo;s live for a client.</p>
+      </div>
+      <div class="proof-grid">
+        <article class="proof-card reveal">
+          <figure class="phone">
+            <img src="/assets/img/proof-marden-fees-600.webp" srcset="/assets/img/proof-marden-fees-300.webp 300w, /assets/img/proof-marden-fees-600.webp 600w" sizes="(min-width: 980px) 200px, (min-width: 520px) 30vw, 62vw" width="600" height="1169" loading="lazy" decoding="async" alt="The fees page of the Marden Estate Law sample on a phone, listing the will packages for one person and for couples with their prices">
+          </figure>
+          <div>
+            <p class="proof-card__kicker">Sample &middot; Estate planning</p>
+            <h3>Marden Estate Law</h3>
+            <ul class="points" role="list">
+              <li><b>Every fee printed.</b><span>The fee ledger sits on the home page and again on its own page. It answers the question prospects most want answered and are least likely to ask.</span></li>
+              <li><b>Six objections handled before the call.</b><span>A home-page FAQ opens with &ldquo;Do I need a will or a trust?&rdquo; Each question is a reason not to call, answered.</span></li>
+              <li><b>Local intent in every page title.</b><span>San Diego is in the title of all five pages, in every meta description and in the eyebrow above the headline.</span></li>
+            </ul>
+            <a class="text-link" href="/work/#marden">The full breakdown<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </article>
+        <article class="proof-card reveal" style="--d:1">
+          <figure class="phone">
+            <img src="/assets/img/proof-deep-roots-phone-600.webp" srcset="/assets/img/proof-deep-roots-phone-300.webp 300w, /assets/img/proof-deep-roots-phone-600.webp 600w" sizes="(min-width: 980px) 200px, (min-width: 520px) 30vw, 62vw" width="600" height="1298" loading="lazy" decoding="async" alt="Deep Roots Hydro&rsquo;s live site on a phone: &lsquo;The grow shop that actually knows the answer&rsquo; with Get directions and See what we stock buttons">
+          </figure>
+          <div>
+            <p class="proof-card__kicker">Live for a client &middot; Grow shop</p>
+            <h3>Deep Roots Hydro</h3>
+            <ul class="points" role="list">
+              <li><b>Built for a shop you walk into.</b><span>Get directions and See what we stock above the fold, the phone number in the header, and eleven click-to-call links down the page.</span></li>
+              <li><b>Hours that know what time it is.</b><span>A live open-or-closed badge with the day&rsquo;s hours, also written into the page as structured data so Google can show them.</span></li>
+              <li><b>No builder credit anywhere.</b><span>The only name on the site is the shop&rsquo;s.</span></li>
+            </ul>
+            <a class="text-link" href="https://deeproots707.com/" target="_blank" rel="noopener">Visit deeproots707.com<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--mist" id="about" aria-labelledby="about-title">
+    <div class="wrap about">
+      <figure class="about__photo reveal">
+        <img src="/assets/img/barrett-duna-720.webp" srcset="/assets/img/barrett-duna-360.webp 360w, /assets/img/barrett-duna-720.webp 720w" sizes="(min-width: 900px) 440px, 88vw" width="720" height="720" loading="lazy" decoding="async" alt="Barrett Duna">
+      </figure>
+      <div class="about__copy reveal" style="--d:1">
+        <p class="eyebrow">Who you&rsquo;d be working with</p>
+        <h2 id="about-title">Hi, I&rsquo;m Barrett.</h2>
+        <div class="prose">
+          <p>I&rsquo;ve been building websites since 2010. I&rsquo;ve built a lot of WordPress sites, some coded from scratch and some on page builders, and a good number of web applications in Python using Django, for when a site needed to do more than sit there. So I know what a site costs to build the old way, in hours and in patience, because I&rsquo;ve paid it.</p>
+          <p>That&rsquo;s why I built my own system. It&rsquo;s powered by an LLM, but it&rsquo;s shaped by years of knowing what a small business site has to do, and it does the heavy lifting of a build in hours instead of weeks. After I build, I go through every page myself before you see it, and I keep making it better.</p>
+        </div>
+        <p class="about__more">For a view of my analytical side, see <a href="https://www.barrettduna.com/" target="_blank" rel="noopener">BarrettDuna.com</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="section-head">
+        <p class="eyebrow">Questions</p>
+        <h2 id="faq-title">Questions agencies ask.</h2>
+        <p>Something else on your mind? Text or call me, Barrett, at <a href="tel:+17073855673">(707) 385-5673</a>.</p>
+      </div>
+      <div class="faq-list">
+        <details><summary>Will my client know you exist?</summary><p>No. Your name goes on the site, mine appears nowhere on it, and I never contact your client. Everything runs through you.</p></details>
+        <details><summary>Is the first site really free?</summary><p>Yes. Send me one job and see the whole process, start to finish, before you pay for anything.</p></details>
+        <details><summary>How fast is it, really?</summary><p>You have the finished site to review within 24 hours of the completed questionnaire coming back to me.</p></details>
+        <details><summary>What do you actually need from me?</summary><p>The kind of business, so I can create the questionnaire. Then the completed questionnaire and your client&rsquo;s photos. That&rsquo;s the whole list.</p></details>
+        <details><summary>What if my client wants changes?</summary><p>Before approval, send them to me and I make them. After the transfer the site is yours, and because it&rsquo;s plain files, any developer can edit it.</p></details>
+        <details><summary>Who owns the finished site?</summary><p>You do. Once your client approves, I transfer the website to you: plain HTML, CSS and a few kilobytes of script, with no subscription and nothing tied to me.</p></details>
+        <details><summary>Do you host it?</summary><p>No. I hand you the finished site and you host it wherever you like.</p></details>
+        <details><summary>What kinds of businesses?</summary><p>Local and small businesses of any kind. The ten samples cover a caterer, a law practice, a cocktail bar, a dry cleaner, an auto detailer, a bakery, a preschool, a dog groomer, a locksmith and a ski shop. A shopping cart or a web app isn&rsquo;t what I build.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--night cta-band" aria-labelledby="cta-title">
+    <div class="wrap cta-band__inner">
+      <div class="cta-band__copy reveal">
+        <p class="eyebrow">Your first site is free</p>
+        <h2 id="cta-title">Send me your next website job.</h2>
+        <p>Text or call me, Barrett, and tell me what kind of business it is. You&rsquo;ll see the whole process, start to finish, before you pay for anything.</p>
+      </div>
+      <div class="contact reveal" style="--d:1">
+        <div class="contact__touch">
+          <a class="btn btn--red" href="sms:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text me</a>
+          <a class="btn btn--line" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me</a>
+        </div>
+        <button type="button" class="contact__num js-copy" data-num="(707) 385-5673" aria-label="Copy Barrett's phone number, (707) 385-5673">
+          <span class="contact__num-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          <span class="contact__num-text"><b>(707) 385-5673</b><small><span class="cap">Text or call me, Barrett. Click to copy.</span><span class="cap-done">Copied to your clipboard.</span></small></span>
+        </button>
+        <p class="contact__note">That&rsquo;s me, Barrett, at (707) 385-5673.</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<div class="mcta" aria-label="Get started">
-  <a class="mcta__btn mcta__btn--call" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Call me to learn more</span></a>
-</div>
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-about">
+      <a class="brand" href="/"><img src="/duna_marketing_logo.png" alt="" width="28" height="29">Duna Marketing</a>
+      <p>Custom websites for agencies to sell under their own name, built by Barrett.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="/work/">The work</a>
+      <a href="/how-it-works/">How it works</a>
+      <a href="/#about">About</a>
+      <a href="/#faq">Questions</a>
+    </nav>
+    <div class="footer-contact">
+      <b>(707) 385-5673</b>
+      <p><a href="sms:+17073855673">Text</a> or <a href="tel:+17073855673">call</a> me, Barrett.</p>
+    </div>
+  </div>
+  <div class="wrap footer-base">
+    <p>&copy; <span class="js-year">2026</span> Duna Marketing</p>
+    <button type="button" class="to-top js-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Back to top</button>
+  </div>
+</footer>
 
-<script>
-(function () {
-  var PHONE = "+17073855673";
-
-  // A returning visitor who once started the chat intake still has a saved business name —
-  // use it so the prefilled text arrives already knowing who they are.
-  var biz = "";
-  try {
-    var chat = JSON.parse(localStorage.getItem("duna_chat") || "null");
-    if (chat && chat.a) biz = (chat.a.business_name || "").trim();
-  } catch (e) {}
-  var body = "Hi Barrett \u2014 I\u2019d like a website" + (biz ? " for " + biz : " for my business") + ".";
-
-  function track(name) { try { if (window.fbq) fbq("track", "Contact", { content_name: name }); } catch (e) {} }
-  document.querySelectorAll('a[href^="sms:"]').forEach(function (a) {
-    a.href = "sms:" + PHONE + "?&body=" + encodeURIComponent(body);
-    a.addEventListener("click", function () { track("text"); });
-  });
-  document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
-    a.addEventListener("click", function () { track("call"); });
-  });
-
-
-  var top = document.getElementById("totop");
-  if (top) top.addEventListener("click", function () {
-    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    try { window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }
-    catch (e) { window.scrollTo(0, 0); }   // older Safari has no options object
-  });
-})();
-
-  // Desktop: clicking the number copies it, since a mouse can't place a call
-  document.querySelectorAll(".js-copy").forEach(function (el) {
-    el.addEventListener("click", function () {
-      var num = el.getAttribute("data-num");
-      var done = function () { el.classList.add("is-copied"); setTimeout(function () { el.classList.remove("is-copied"); }, 2200); };
-      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(num).then(done, done); } else { done(); }
-    });
-  });
-</script>
+<aside class="callbar" aria-label="Text or call Barrett">
+  <a class="btn btn--red" href="sms:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text me</a>
+  <a class="btn btn--line" href="tel:+17073855673"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call me</a>
+</aside>
+<p id="copy-status" class="visually-hidden" aria-live="polite"></p>
+<script src="/assets/js/site.js" defer></script>
 </body>
 </html>
