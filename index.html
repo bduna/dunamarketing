@@ -112,9 +112,9 @@ fbq('track', 'PageView');
     .mcta__btn--call:active { background:var(--navy-deep); }
     .mcta { transition:transform .2s ease, opacity .2s ease; }
     /* body is height:100% + border-box, so padding there never extends the scroll.
-       The clearance has to sit on the flow content instead. The call bar is always
-       hidden by then (the CTA block is in view), so this only has to clear the slide-out. */
-    main { padding-bottom:calc(28px + env(safe-area-inset-bottom)); }
+       The clearance has to sit on the flow content instead. The call bar never hides,
+       so this lifts Back to the top fully clear of it (the bar is about 71px tall). */
+    main { padding-bottom:calc(96px + env(safe-area-inset-bottom)); }
     .intro .kicker { margin-top:12px; }
     .intro h1 + p { margin-bottom:12px; }
   }
@@ -262,10 +262,6 @@ fbq('track', 'PageView');
     .num-block.is-copied .cap-done { display:block; }
   }
 </style>
-<noscript><style>
-  /* Without JS the call bar never hides, so the page keeps its full clearance. */
-  @media (max-width:720px) { main { padding-bottom:calc(96px + env(safe-area-inset-bottom)); } }
-</style></noscript>
 </head>
 <body>
 <header class="topbar">
