@@ -241,11 +241,16 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
 .site-nav > a {
   display: block; padding: 16px 2px;
   border-bottom: 1px solid var(--line);
-  color: var(--ink); text-decoration: none;
+  color: var(--muted); text-decoration: none;
   font-family: var(--font-display); font-stretch: var(--stretch);
   font-size: 1.55rem; font-weight: 800; letter-spacing: -0.015em;
 }
-.site-nav > a[aria-current] { color: var(--navy); }
+/* Same language as the desktop nav: gray labels, and the current page in ink with a red rule under it. */
+.site-nav > a[aria-current] {
+  color: var(--ink);
+  text-decoration: underline; text-decoration-color: var(--red);
+  text-decoration-thickness: 3px; text-underline-offset: 10px;
+}
 .site-nav__contact { margin-top: 28px; }
 
 .header-actions { display: none; }
@@ -286,7 +291,7 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
   }
   .site-nav > a:hover { color: var(--ink); }
   .site-nav > a:hover::after { transform: scaleX(1); }
-  .site-nav > a[aria-current] { color: var(--ink); }
+  .site-nav > a[aria-current] { color: var(--ink); text-decoration: none; }
   .site-nav > a[aria-current]::after { transform: scaleX(1); background: var(--red); }
   .site-nav__contact { display: none; }
   .header-actions { display: flex; align-items: center; gap: 8px; }
