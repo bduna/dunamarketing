@@ -612,7 +612,12 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
 .case__head .btn { margin-top: 24px; }
 .case__body { display: grid; gap: 28px; min-width: 0; }
 .case__media { display: grid; gap: 18px; }
-.case__media--pair { grid-template-columns: minmax(0, 1fr) minmax(0, 0.42fr); align-items: end; }
+/* A desktop screenshot with the same page on a phone overlapping its lower-right corner. */
+.devices__stage { position: relative; padding-bottom: 10%; }
+.devices .browser { width: 84%; }
+.devices .phone { position: absolute; right: 0; bottom: 0; width: 26%; padding: 5px; border-radius: 26px; }
+.devices .phone img { border-radius: 21px; }
+.devices figcaption { margin-top: 14px; font-size: 0.88rem; color: var(--muted); }
 .case__media figcaption { margin-top: 10px; font-size: 0.88rem; color: var(--muted); }
 .case__points { margin: 0; padding: 0; list-style: none; counter-reset: point; border-top: 1px solid var(--line); }
 .case__points li { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
