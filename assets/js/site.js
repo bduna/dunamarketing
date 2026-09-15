@@ -1,4 +1,4 @@
-/* Duna Marketing: navigation, text/call links, copy-the-number, section reveals and
+/* Duna Marketing: navigation, text/call/email links, copy-the-number, section reveals and
    back-to-top. No dependencies. Every feature is wrapped so one failure can never take
    the others down, and nothing on the page depends on this file to be readable. */
 (function () {
@@ -6,7 +6,15 @@
 
   var root = document.documentElement;
   var PHONE = "+17073855673";
-  var SMS_BODY = "Hi Barrett, I run an agency and I\u2019d like to talk about white-label websites.";
+  var SMS_BODY = "Hello, I’d like to discuss a website production partnership with Duna Marketing.";
+  var EMAIL = "barrett@dunamarketing.com";
+  var EMAIL_SUBJECT = "Website production partnership";
+  var EMAIL_BODY = "Agency:\nWebsite:\nWebsites delivered per month:\nKinds of businesses:\nFormat (HTML or WordPress):\n";
+
+  // About used to be a section of the home page; old links to it land on the About page.
+  try {
+    if (location.pathname === "/" && location.hash === "#about") location.replace("/about/");
+  } catch (e) {}
 
   function safely(fn) {
     try { fn(); } catch (e) { if (window.console) console.error(e); }
@@ -20,7 +28,8 @@
     try { if (window.fbq) window.fbq("track", "Contact", { content_name: name }); } catch (e) {}
   }
 
-  // Text links arrive with the message already written; texts and calls both count as a Contact.
+  // Text links arrive with the message already written and email links with a subject and an
+  // outline to fill in. Texts, calls and emails all count as a Contact.
   safely(function () {
     document.querySelectorAll('a[href^="sms:"]').forEach(function (a) {
       a.href = "sms:" + PHONE + "?&body=" + encodeURIComponent(SMS_BODY);
@@ -29,9 +38,14 @@
     document.querySelectorAll('a[href^="tel:"]').forEach(function (a) {
       a.addEventListener("click", function () { track("call"); });
     });
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
+      a.href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent(EMAIL_SUBJECT) + "&body=" + encodeURIComponent(EMAIL_BODY);
+      a.addEventListener("click", function () { track("email"); });
+    });
   });
 
-  // A mouse can't place a call, so on those devices the number is a button that copies itself.
+  // A mouse can't send a text or place a call, so on those devices the number is a button that
+  // copies itself.
   safely(function () {
     var status = document.getElementById("copy-status");
 
@@ -101,7 +115,7 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && root.classList.contains("nav-open")) { setOpen(false); toggle.focus(); }
     });
-    var wide = window.matchMedia("(min-width: 900px)");
+    var wide = window.matchMedia("(min-width: 1080px)");
     var onChange = function () { if (wide.matches) setOpen(false); };
     if (wide.addEventListener) wide.addEventListener("change", onChange);
     else if (wide.addListener) wide.addListener(onChange);
@@ -119,36 +133,6 @@
     window.addEventListener("scroll", function () {
       if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
     }, { passive: true });
-    update();
-  });
-
-  // About is a section of the home page, not a page of its own: while it's the part being read,
-  // the nav highlights About instead of Home.
-  safely(function () {
-    var about = document.getElementById("about");
-    var home = document.querySelector('.site-nav > a[href="/"]');
-    var aboutLink = document.querySelector('.site-nav > a[href="/#about"]');
-    if (!about || !home || !aboutLink) return;
-    var header = document.querySelector(".site-header");
-    var ticking = false;
-    var update = function () {
-      ticking = false;
-      var top = header ? header.getBoundingClientRect().bottom : 0;
-      var line = top + (window.innerHeight - top) * 0.35;
-      var box = about.getBoundingClientRect();
-      if (box.top <= line && box.bottom > line) {
-        home.removeAttribute("aria-current");
-        aboutLink.setAttribute("aria-current", "location");
-      } else {
-        aboutLink.removeAttribute("aria-current");
-        home.setAttribute("aria-current", "page");
-      }
-    };
-    window.addEventListener("scroll", function () {
-      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
-    }, { passive: true });
-    window.addEventListener("hashchange", update);
-    window.addEventListener("load", update);
     update();
   });
 
