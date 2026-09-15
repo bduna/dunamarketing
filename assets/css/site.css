@@ -225,10 +225,12 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
 .nav-open .nav-toggle .i-close { display: block; }
 
 .site-nav { display: none; }
-/* Lock the page behind the open menu on the root element only. Locking body as well turns body
-   into its own scroll container: the header (and its close button) scrolls away, and closing
-   the menu drops the reader back at the top of the page. */
-.nav-open { overflow: hidden; }
+/* While the phone menu is open, site.js pins body at the current scroll offset (overflow: hidden
+   does not hold the page still on iOS, and on html + body it unsticks the header) and pads it by
+   the header's height; the header is fixed to the top meanwhile so its close button never
+   leaves the screen. Closing the menu restores the scroll position. */
+.nav-open body { position: fixed; left: 0; right: 0; }
+.nav-open .site-header { position: fixed; top: 0; left: 0; right: 0; }
 .nav-open .site-nav {
   position: fixed; inset: var(--header-h) 0 0 0; z-index: 55;
   display: flex; flex-direction: column;
@@ -269,7 +271,8 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
     position: static; display: flex; flex-direction: row; align-items: center; gap: 2px;
     margin-right: 10px; padding: 0; background: none; border: 0; overflow: visible;
   }
-  .nav-open { overflow: visible; }
+  .nav-open body { position: static; }
+  .nav-open .site-header { position: sticky; }
   .site-nav > a {
     padding: 10px 14px; border: 0; border-radius: 8px;
     font-family: var(--font-text); font-stretch: 100%; font-size: 0.95rem; font-weight: 600; letter-spacing: 0;

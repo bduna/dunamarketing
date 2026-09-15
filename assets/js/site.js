@@ -65,16 +65,31 @@
     });
   });
 
-  // Phone and tablet menu.
+  // Phone and tablet menu. While it's open the page behind is pinned exactly where it was (see the
+  // .nav-open rules in site.css), and closing it puts the reader back on the same spot.
   safely(function () {
     var toggle = document.querySelector(".nav-toggle");
     var nav = document.getElementById("site-nav");
+    var header = document.querySelector(".site-header");
     if (!toggle || !nav) return;
+    var savedY = 0;
 
     function setOpen(open) {
+      if (open === root.classList.contains("nav-open")) return;
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-      root.classList.toggle("nav-open", open);
+      var body = document.body;
+      if (open) {
+        savedY = window.scrollY;
+        body.style.top = -savedY + "px";
+        body.style.paddingTop = (header ? header.offsetHeight : 0) + "px";
+        root.classList.add("nav-open");
+      } else {
+        root.classList.remove("nav-open");
+        body.style.top = "";
+        body.style.paddingTop = "";
+        window.scrollTo(0, savedY);
+      }
     }
 
     toggle.addEventListener("click", function () {
