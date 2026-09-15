@@ -241,13 +241,12 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
 .site-nav > a {
   display: block; padding: 16px 2px;
   border-bottom: 1px solid var(--line);
-  color: var(--muted); text-decoration: none;
+  color: var(--ink); text-decoration: none;
   font-family: var(--font-display); font-stretch: var(--stretch);
   font-size: 1.55rem; font-weight: 800; letter-spacing: -0.015em;
 }
-/* Same language as the desktop nav: gray labels, and the current page in ink with a red rule under it. */
+/* Same language as the desktop nav: the current page gets a red rule under its label. */
 .site-nav > a[aria-current] {
-  color: var(--ink);
   text-decoration: underline; text-decoration-color: var(--red);
   text-decoration-thickness: 3px; text-underline-offset: 10px;
 }
@@ -281,7 +280,7 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
   .site-nav > a {
     position: relative; padding: 10px 14px; border: 0;
     font-family: var(--font-text); font-stretch: 100%; font-size: 0.95rem; font-weight: 600; letter-spacing: 0;
-    color: var(--muted); transition: color 0.2s ease;
+    color: var(--ink);
   }
   /* The current page gets a short red rule under its label; hovering draws a faint one. */
   .site-nav > a::after {
@@ -289,9 +288,8 @@ h3 { font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.28rem); font-weight: 700; line
     background: rgba(11, 23, 51, 0.2); transform: scaleX(0); transform-origin: left center;
     transition: transform 0.25s var(--ease), background-color 0.2s ease;
   }
-  .site-nav > a:hover { color: var(--ink); }
   .site-nav > a:hover::after { transform: scaleX(1); }
-  .site-nav > a[aria-current] { color: var(--ink); text-decoration: none; }
+  .site-nav > a[aria-current] { text-decoration: none; }
   .site-nav > a[aria-current]::after { transform: scaleX(1); background: var(--red); }
   .site-nav__contact { display: none; }
   .header-actions { display: flex; align-items: center; gap: 8px; }
