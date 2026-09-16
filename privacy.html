@@ -34,13 +34,13 @@ fbq('track', 'PageView');
   :root {
     --ground: #050a18;
     --band: #0b1329;
-    --paper: #f6f5f1;
+    --paper: #ffffff;
     --ink: #f3f5fa;
     --ink-dim: #b9c1d6;
     --navy: #0b1329;
     --navy-dim: #4a5470;
-    --gold: #ffd166;
-    --gold-hi: #ffdd8a;
+    --accent: #8fbcff;
+    --accent-deep: #1e40af;
     --veil: 5 10 24;
     --gutter: clamp(20px, 6vw, 104px);
     --ease-out: cubic-bezier(.16, .8, .2, 1);
@@ -70,9 +70,9 @@ fbq('track', 'PageView');
   .eyebrow {
     margin: 0 0 14px;
     font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--gold);
+    color: var(--accent);
   }
-  .band-light .eyebrow { color: #8a6a12; }
+  .band-light .eyebrow { color: var(--accent-deep); }
   h2 {
     margin: 0 0 18px;
     max-width: 18em;
@@ -87,13 +87,13 @@ fbq('track', 'PageView');
     display: inline-flex; align-items: center; justify-content: center; gap: 10px;
     min-height: 54px; padding: 0 26px;
     border: 0; border-radius: 8px;
-    background: var(--gold); color: var(--ground);
+    background: var(--accent); color: var(--ground);
     font: inherit; font-size: clamp(15px, .2vw + 14px, 17px); font-weight: 700; letter-spacing: -.004em; line-height: 1.1;
     text-decoration: none; cursor: pointer;
     box-shadow: 0 14px 34px rgb(var(--veil) / .45);
     transition: background-color .2s var(--ease-out), transform .15s var(--ease-out);
   }
-  .btn:hover { background: var(--gold-hi); }
+  .btn:hover { background: #e9edf5; }
   .btn:active { transform: translateY(1px); }
   .btn:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
   .band-light .btn:focus-visible { outline-color: var(--navy); }
@@ -112,7 +112,7 @@ fbq('track', 'PageView');
   footer strong { color: var(--ink); font-weight: 700; }
   footer a { text-decoration: none; }
   footer a:hover, footer a:focus-visible { text-decoration: underline; }
-  footer a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
   .page { min-height: 100svh; display: flex; flex-direction: column; }
   .page main { flex: 1; padding: clamp(40px, 8vh, 96px) var(--gutter); }
@@ -124,10 +124,10 @@ fbq('track', 'PageView');
   .stack h2 { font-size: 1.35rem; margin: 18px 0 0; }
   .stack p { margin: 0; color: var(--ink-dim); }
   .stack p strong { color: var(--ink); }
-  .stack a { color: var(--gold); }
+  .stack a { color: var(--accent); }
   .actions { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; margin-top: 30px; }
   .actions a.plain { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
-  .actions a.plain:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .actions a.plain:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 </style>
 </head>
 <body class="page">
