@@ -381,11 +381,13 @@ fbq('track', 'PageView');
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     const portrait = vh > vw;
-    // How long one screenshot takes to scroll and come back. A desktop holds many cards at the
-    // top of the page at once, so that opening beat reads longer there: 8s against a phone's 10s.
-    // The travel itself stays 10s on both — the cycle shortens, the motion does not. 1080 is still
-    // a whole number of cycles either way (54 x 20, 60 x 18), so the clock wrap never jumps.
-    const cycle = vw > 760 ? 18 : 20;
+    // How long one screenshot takes to scroll and come back. A desktop holds many cards on screen
+    // at once, so the beat at the top reads as the whole wall standing still: it waits 2.5s there
+    // against a phone's 10s. The travel itself stays 10s on both — the cycle shortens, the motion
+    // does not. uTime has to wrap on a whole number of cycles or the scroll jumps, and 12.5 does
+    // not divide the old fixed 1080, so the wrap is derived from the cycle instead. A phone still
+    // lands on exactly 1080.
+    const cycle = vw > 760 ? 12.5 : 20;
     // A phone sees only a couple of cards at once, so grow them as the viewport narrows (no change at >= 760px)
     const boost = 1 + 0.5 * Math.min(1, Math.max(0, (760 - vw) / 380));
     const W = Math.min(640, Math.max(200, (0.21 * vw + 0.16 * vh) * boost));
@@ -397,7 +399,7 @@ fbq('track', 'PageView');
       // travel reads slower there than on a phone; it gets a faster rate above 760px, the same
       // line the phone media query uses. Cards only — the page-scroll runs off uTime, untouched.
       speed: W * (vw > 760 ? 0.17 : 0.13),
-      cycle, hold: 1 - 10 / cycle,
+      cycle, hold: 1 - 10 / cycle, wrap: cycle * Math.round(1080 / cycle),
       P: 2.1 * vh + 0.7 * vw,
       origin: [vw * 0.5, vh * (portrait ? 0.42 : 0.38)],
       anchor: [vw * (portrait ? 0.56 : 0.6), vh * (portrait ? 0.64 : 0.6)],
@@ -448,7 +450,7 @@ fbq('track', 'PageView');
     gl.uniform4f(U.uGrid, L.pitch, L.rowPitch, L.span, L.uStart);
     gl.uniform1f(U.uP, L.P);
     gl.uniform1f(U.uDrift, (L.speed * clock) % L.span);
-    gl.uniform1f(U.uTime, clock % 1080);   // a whole number of scroll cycles, so the loop never jumps
+    gl.uniform1f(U.uTime, clock % L.wrap);   // a whole number of scroll cycles, so the loop never jumps
     gl.uniform1f(U.uCycle, L.cycle);
     gl.uniform1f(U.uHold, L.hold);
     gl.uniform1f(U.uLift, L.lift);
