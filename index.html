@@ -229,7 +229,7 @@ fbq('track', 'PageView');
   layout(location = 1) in vec4 aInst;              // row, slot, layer, seed
   uniform vec2 uView, uOrigin, uAnchor, uAng, uCard;
   uniform vec4 uGrid;                                // pitch, rowPitch, span, uStart
-  uniform float uP, uDrift, uTime, uLift, uFrac, uPass;
+  uniform float uP, uDrift, uTime, uLift, uFrac, uPass, uCycle, uHold;
   out vec2 vUv, vSize;
   out vec3 vTex;
   out float vBob;
@@ -255,9 +255,15 @@ fbq('track', 'PageView');
     vUv = aCorner + 0.5;
     vSize = size;
     vBob = bob;
-    float c = fract(uTime / 20.0 + seed);   // a beat on the hero, then near-continuous travel down and back
+    // A beat on the hero, then near-continuous travel down and back. uHold is where the beat
+    // ends; the rest of the window is measured as fractions of it so the return always lands on
+    // the end of the cycle — a flat tail there would just be more time spent at the top.
+    float c = fract(uTime / uCycle + seed);
+    float m = 1.0 - uHold;
     float scroll = (1.0 - uFrac) * 0.97 *
-      (0.45 * smoothstep(0.50, 0.63, c) + 0.55 * smoothstep(0.67, 0.80, c) - smoothstep(0.84, 1.0, c));
+      (0.45 * smoothstep(uHold, uHold + 0.26 * m, c)
+     + 0.55 * smoothstep(uHold + 0.34 * m, uHold + 0.60 * m, c)
+     -        smoothstep(uHold + 0.68 * m, uHold + m, c));
     vTex = vec3(vUv.x, scroll + vUv.y * uFrac, aInst.z);
   }`;
 
@@ -313,7 +319,7 @@ fbq('track', 'PageView');
     gl.linkProgram(prog);
     if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
     for (const name of ['uView', 'uOrigin', 'uAnchor', 'uAng', 'uCard', 'uGrid', 'uP', 'uDrift', 'uTime',
-      'uLift', 'uFrac', 'uPass', 'uTex', 'uAlpha', 'uRadius']) U[name] = gl.getUniformLocation(prog, name);
+      'uLift', 'uFrac', 'uPass', 'uTex', 'uAlpha', 'uRadius', 'uCycle', 'uHold']) U[name] = gl.getUniformLocation(prog, name);
 
     vao = gl.createVertexArray();
     gl.bindVertexArray(vao);
@@ -375,6 +381,11 @@ fbq('track', 'PageView');
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     const portrait = vh > vw;
+    // How long one screenshot takes to scroll and come back. A desktop holds many cards at the
+    // top of the page at once, so that opening beat reads longer there: 8s against a phone's 10s.
+    // The travel itself stays 10s on both — the cycle shortens, the motion does not. 1080 is still
+    // a whole number of cycles either way (54 x 20, 60 x 18), so the clock wrap never jumps.
+    const cycle = vw > 760 ? 18 : 20;
     // A phone sees only a couple of cards at once, so grow them as the viewport narrows (no change at >= 760px)
     const boost = 1 + 0.5 * Math.min(1, Math.max(0, (760 - vw) / 380));
     const W = Math.min(640, Math.max(200, (0.21 * vw + 0.16 * vh) * boost));
@@ -386,6 +397,7 @@ fbq('track', 'PageView');
       // travel reads slower there than on a phone; it gets a faster rate above 760px, the same
       // line the phone media query uses. Cards only — the page-scroll runs off uTime, untouched.
       speed: W * (vw > 760 ? 0.17 : 0.13),
+      cycle, hold: 1 - 10 / cycle,
       P: 2.1 * vh + 0.7 * vw,
       origin: [vw * 0.5, vh * (portrait ? 0.42 : 0.38)],
       anchor: [vw * (portrait ? 0.56 : 0.6), vh * (portrait ? 0.64 : 0.6)],
@@ -437,6 +449,8 @@ fbq('track', 'PageView');
     gl.uniform1f(U.uP, L.P);
     gl.uniform1f(U.uDrift, (L.speed * clock) % L.span);
     gl.uniform1f(U.uTime, clock % 1080);   // a whole number of scroll cycles, so the loop never jumps
+    gl.uniform1f(U.uCycle, L.cycle);
+    gl.uniform1f(U.uHold, L.hold);
     gl.uniform1f(U.uLift, L.lift);
     gl.uniform1f(U.uFrac, (L.H / L.W) * 0.4);   // card aspect x screenshot aspect (1440 / 3600)
     gl.uniform1f(U.uRadius, L.radius);
