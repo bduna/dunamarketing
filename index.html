@@ -146,9 +146,11 @@ fbq('track', 'PageView');
     box-shadow: 0 2vmax 4vmax rgb(0 0 0 / .5);
   }
 
-  /* Phones: tighter top block, and a headline sized to hold "Website Production" on one line */
+  /* Phones: tighter top block, and a headline sized to hold "Website Production" on one line.
+     The gap is the headline's air — the brand sits above it and the button below, so this one
+     value opens both sides. Desktop keeps its own clamp and is untouched. */
   @media (max-width: 760px) {
-    .copy { padding-top: calc(env(safe-area-inset-top, 0px) + 22px); gap: 20px; }
+    .copy { padding-top: calc(env(safe-area-inset-top, 0px) + 22px); gap: 30px; }
     .headline { font-size: min(8.5vw, 2.55rem); }
     .wide-only { display: none; }
   }
@@ -382,9 +384,9 @@ fbq('track', 'PageView');
       vw, vh, W, H, pitch: W + G, rowPitch: H + G,
       radius: W * 0.045, lift: W * 0.05,
       // Lateral drift of the cards. A desktop shows far more of the plane at once, so the same
-      // travel reads slower there than on a phone; it gets a faster rate above the 760px line
-      // used just above. Cards only — the page-scroll inside each screenshot runs off uTime.
-      speed: W * (vw >= 760 ? 0.2 : 0.13),
+      // travel reads slower there than on a phone; it gets a faster rate above 760px, the same
+      // line the phone media query uses. Cards only — the page-scroll runs off uTime, untouched.
+      speed: W * (vw > 760 ? 0.2 : 0.13),
       P: 2.1 * vh + 0.7 * vw,
       origin: [vw * 0.5, vh * (portrait ? 0.42 : 0.38)],
       anchor: [vw * (portrait ? 0.56 : 0.6), vh * (portrait ? 0.64 : 0.6)],
