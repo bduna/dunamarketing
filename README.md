@@ -26,6 +26,14 @@ The hero has one white "See my website" button that scrolls to the "see it befor
 also has copy buttons for the number and the email. To change the number or address, search the page for
 `7073855673` and `barrett@dunamarketing.com`.
 
+## The logo animation
+
+The mark beside the "No risk" text is an inline SVG rebuilt from the logo's geometry (a hexagon of diagonal stripes,
+with the mirrored family only in the upper-right face). Stripes slide into place when the section scrolls into view,
+then a faint gold sheen passes along them every eight seconds. Both stop for visitors who prefer reduced motion.
+The generator script is `build_mark.py` in the session notes; the geometry constants are the stripe pitch (16.15),
+thickness (7) and slope (0.68) measured from `assets/img/mark.png`.
+
 ## Tracking
 
 The Meta pixel is on both pages. `PageView` fires on load. A tap on any text, call, or email link fires the standard

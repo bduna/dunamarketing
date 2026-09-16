@@ -243,6 +243,30 @@ fbq('track', 'PageView');
   }
 
   /* ---------- Sections ---------- */
+  /* The mark beside the offer: stripes slide into place when the section scrolls in, then a faint
+     gold sheen passes along them now and then. Both stay off for readers who prefer reduced motion. */
+  .offer-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px 72px; align-items: center; }
+  @media (max-width: 860px) { .offer-grid { grid-template-columns: 1fr; } .mark-wrap { justify-self: center; } }
+  .mark-wrap { width: clamp(150px, 18vw, 260px); }
+  .mark-anim { display: block; width: 100%; height: auto; color: #fff; overflow: visible; }
+  .mk-l, .mk-r {
+    opacity: 0; transform: translate(var(--dx), var(--dy));
+    transition: opacity .7s var(--ease-out), transform .9s var(--ease-out);
+    transition-delay: calc(var(--i) * 60ms);
+  }
+  .mark-anim.in .mk-l, .mark-anim.in .mk-r { opacity: 1; transform: none; }
+  .mk-sheen rect { opacity: 0; transform: translateX(-40px); }
+  .mark-anim.in .mk-sheen rect { animation: mk-sheen 8s ease-in-out 1.6s infinite; }
+  @keyframes mk-sheen {
+    0%, 10% { opacity: 0; transform: translateX(-40px); }
+    18% { opacity: .85; }
+    42% { opacity: .85; }
+    50%, 100% { opacity: 0; transform: translateX(250px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mk-l, .mk-r { opacity: 1; transform: none; transition: none; }
+    .mark-anim.in .mk-sheen rect { animation: none; }
+  }
   .samples-grid {
     display: grid; gap: 18px;
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -360,10 +384,50 @@ fbq('track', 'PageView');
 </section>
 
 <section class="band band-dark" id="before-you-pay">
-  <div class="wrap">
-    <p class="eyebrow">No risk</p>
-    <h2>See your finished website before you pay a dollar.</h2>
-    <p class="lede">You fill in the questionnaire. We build the full website and send you a preview link within 24 hours. You pay only if you want to keep it. No deposit, no sales pitch.</p>
+  <div class="wrap offer-grid">
+    <div>
+      <p class="eyebrow">No risk</p>
+      <h2>See your finished website before you pay a dollar.</h2>
+      <p class="lede">You fill in the questionnaire. We build the full website and send you a preview link within 24 hours. You pay only if you want to keep it. No deposit, no sales pitch.</p>
+    </div>
+    <div class="mark-wrap" aria-hidden="true">
+    <svg class="mark-anim" viewBox="18 9 157 183" role="img" aria-label="Duna Marketing mark">
+    <defs>
+      <clipPath id="mk-left"><polygon points="96.5,17.0 96.5,88.7 166.0,136.0 96.5,184.0 26.0,136.0 26.0,65.0"/></clipPath>
+      <clipPath id="mk-right"><polygon points="96.5,17.0 166.0,65.0 166.0,136.0 96.5,88.7"/></clipPath>
+      <linearGradient id="mk-sheen" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#ffd166" stop-opacity="0"/><stop offset=".5" stop-color="#ffd166" stop-opacity=".9"/><stop offset="1" stop-color="#ffd166" stop-opacity="0"/>
+      </linearGradient>
+      <mask id="mk-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="198" height="204">
+        <g stroke="#fff" stroke-width="5.79" clip-path="url(#mk-left)"><line x1="-20.0" y1="99.2" x2="220.0" y2="-64.0"/><line x1="-20.0" y1="115.4" x2="220.0" y2="-47.8"/><line x1="-20.0" y1="131.5" x2="220.0" y2="-31.7"/><line x1="-20.0" y1="147.7" x2="220.0" y2="-15.5"/><line x1="-20.0" y1="163.8" x2="220.0" y2="0.6"/><line x1="-20.0" y1="180.0" x2="220.0" y2="16.8"/><line x1="-20.0" y1="196.1" x2="220.0" y2="32.9"/><line x1="-20.0" y1="212.3" x2="220.0" y2="49.1"/><line x1="-20.0" y1="228.4" x2="220.0" y2="65.2"/><line x1="-20.0" y1="244.6" x2="220.0" y2="81.4"/><line x1="-20.0" y1="260.7" x2="220.0" y2="97.5"/></g>
+        <g stroke="#fff" stroke-width="5.79" clip-path="url(#mk-right)"><line x1="-20.0" y1="-59.2" x2="220.0" y2="104.0"/><line x1="-20.0" y1="-43.1" x2="220.0" y2="120.1"/><line x1="-20.0" y1="-26.9" x2="220.0" y2="136.3"/><line x1="-20.0" y1="-10.8" x2="220.0" y2="152.4"/><line x1="-20.0" y1="5.4" x2="220.0" y2="168.6"/></g>
+      </mask>
+    </defs>
+    <g class="mk-stripes" stroke="currentColor" stroke-width="5.79" fill="none">
+      <g clip-path="url(#mk-left)">
+    <line class="mk-l" style="--i:0;--dx:-26px;--dy:18px" x1="-20.0" y1="99.2" x2="220.0" y2="-64.0"/>
+    <line class="mk-l" style="--i:1;--dx:-26px;--dy:18px" x1="-20.0" y1="115.4" x2="220.0" y2="-47.8"/>
+    <line class="mk-l" style="--i:2;--dx:-26px;--dy:18px" x1="-20.0" y1="131.5" x2="220.0" y2="-31.7"/>
+    <line class="mk-l" style="--i:3;--dx:-26px;--dy:18px" x1="-20.0" y1="147.7" x2="220.0" y2="-15.5"/>
+    <line class="mk-l" style="--i:4;--dx:-26px;--dy:18px" x1="-20.0" y1="163.8" x2="220.0" y2="0.6"/>
+    <line class="mk-l" style="--i:5;--dx:-26px;--dy:18px" x1="-20.0" y1="180.0" x2="220.0" y2="16.8"/>
+    <line class="mk-l" style="--i:6;--dx:-26px;--dy:18px" x1="-20.0" y1="196.1" x2="220.0" y2="32.9"/>
+    <line class="mk-l" style="--i:7;--dx:-26px;--dy:18px" x1="-20.0" y1="212.3" x2="220.0" y2="49.1"/>
+    <line class="mk-l" style="--i:8;--dx:-26px;--dy:18px" x1="-20.0" y1="228.4" x2="220.0" y2="65.2"/>
+    <line class="mk-l" style="--i:9;--dx:-26px;--dy:18px" x1="-20.0" y1="244.6" x2="220.0" y2="81.4"/>
+    <line class="mk-l" style="--i:10;--dx:-26px;--dy:18px" x1="-20.0" y1="260.7" x2="220.0" y2="97.5"/>
+      </g>
+      <g clip-path="url(#mk-right)">
+    <line class="mk-r" style="--i:0;--dx:26px;--dy:-18px" x1="-20.0" y1="-59.2" x2="220.0" y2="104.0"/>
+    <line class="mk-r" style="--i:1;--dx:26px;--dy:-18px" x1="-20.0" y1="-43.1" x2="220.0" y2="120.1"/>
+    <line class="mk-r" style="--i:2;--dx:26px;--dy:-18px" x1="-20.0" y1="-26.9" x2="220.0" y2="136.3"/>
+    <line class="mk-r" style="--i:3;--dx:26px;--dy:-18px" x1="-20.0" y1="-10.8" x2="220.0" y2="152.4"/>
+    <line class="mk-r" style="--i:4;--dx:26px;--dy:-18px" x1="-20.0" y1="5.4" x2="220.0" y2="168.6"/>
+      </g>
+    </g>
+    <g class="mk-sheen" mask="url(#mk-mask)"><rect x="-60" y="-10" width="80" height="224" fill="url(#mk-sheen)" transform="skewX(-34)"/></g>
+    </svg>
+    </div>
   </div>
 </section>
 
@@ -546,6 +610,11 @@ fbq('track', 'PageView');
 
 <script>
 (() => {
+  // The mark assembles when its section comes into view.
+  const mark = document.querySelector('.mark-anim');
+  if (mark && 'IntersectionObserver' in window) {
+    new IntersectionObserver((entries, obs) => { if (entries[0].isIntersecting) { mark.classList.add('in'); obs.disconnect(); } }, { threshold: 0.35 }).observe(mark);
+  } else if (mark) mark.classList.add('in');
   // A tap on text, call, or email is the conversion this page exists for.
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href^="sms:"], a[href^="tel:"], a[href^="mailto:"]');
