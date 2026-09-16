@@ -30,7 +30,7 @@ also has copy buttons for the number and the email. To change the number or addr
 
 The mark beside the "No risk" text is an inline SVG rebuilt from the logo's geometry (a hexagon of diagonal stripes,
 with the mirrored family only in the upper-right face). Once the section scrolls into view the stripes slide into place,
-hold, slide on out, and come back on a seven-second loop. It stays still for visitors who prefer reduced motion.
+hold for five seconds, slide on out, and come back on a ten-second loop. It stays still for visitors who prefer reduced motion.
 The generator script is `build_mark.py` in the session notes; the geometry constants are the stripe pitch (16.15),
 thickness (7) and slope (0.68) measured from `assets/img/mark.png`.
 

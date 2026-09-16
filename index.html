@@ -243,8 +243,8 @@ fbq('track', 'PageView');
   }
 
   /* ---------- Sections ---------- */
-  /* The mark beside the offer: once the section scrolls in, the stripes slide into place, hold, slide
-     on out, and come back, on a seven-second loop. It stays still for readers who prefer reduced motion. */
+  /* The mark beside the offer: once the section scrolls in, the stripes slide into place, hold for five seconds,
+     slide on out, and come back, on a ten-second loop. It stays still for readers who prefer reduced motion. */
   .offer-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px 72px; align-items: center; }
   @media (max-width: 860px) { .offer-grid { grid-template-columns: 1fr; } .mark-wrap { justify-self: center; } }
   .mark-wrap { width: clamp(150px, 18vw, 260px); }
@@ -255,25 +255,26 @@ fbq('track', 'PageView');
     letter-spacing: .16em; text-indent: .16em; line-height: 1; color: #fff; white-space: nowrap;
     opacity: 0; transform: translateY(6px);
   }
-  .mark-wrap.in .wordmark { animation: wm-cycle 7s infinite; }
+  .mark-wrap.in .wordmark { animation: wm-cycle 10s infinite; }
   /* fades in as the last stripes settle, holds with them, fades out as they leave, dark through the gap */
   @keyframes wm-cycle {
     0%, 16% { opacity: 0; transform: translateY(6px); animation-timing-function: var(--ease-out); }
-    27% { opacity: 1; transform: none; animation-timing-function: linear; }
-    66% { opacity: 1; transform: none; animation-timing-function: ease-in; }
-    78%, 100% { opacity: 0; transform: translateY(-4px); }
+    25% { opacity: 1; transform: none; animation-timing-function: linear; }
+    67.5% { opacity: 1; transform: none; animation-timing-function: ease-in; }
+    77.5%, 100% { opacity: 0; transform: translateY(-4px); }
   }
   .mk-l, .mk-r { opacity: 0; transform: translate(var(--dx), var(--dy)); }
   .mark-wrap.in .mk-l, .mark-wrap.in .mk-r {
-    animation: mk-cycle 7s infinite;
+    animation: mk-cycle 10s infinite;
     animation-delay: calc(var(--i) * 60ms);
   }
-  /* 0-20%: slide in. 20-65%: hold. 65-80%: keep moving the same way and fade out. 80-100%: dark, then again. */
+  /* Ten-second loop: 1.4 s slide in, five full seconds assembled (after the last stripe settles),
+     about a second to slide on out, then dark for a beat before it starts again. */
   @keyframes mk-cycle {
     0%   { opacity: 0; transform: translate(var(--dx), var(--dy)); animation-timing-function: var(--ease-out); }
-    20%  { opacity: 1; transform: none; animation-timing-function: linear; }
-    65%  { opacity: 1; transform: none; animation-timing-function: cubic-bezier(.5, 0, .85, .4); }
-    80%  { opacity: 0; transform: translate(calc(var(--dx) * -1), calc(var(--dy) * -1)); }
+    14%  { opacity: 1; transform: none; animation-timing-function: linear; }
+    67.5% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(.5, 0, .85, .4); }
+    78%  { opacity: 0; transform: translate(calc(var(--dx) * -1), calc(var(--dy) * -1)); }
     100% { opacity: 0; transform: translate(calc(var(--dx) * -1), calc(var(--dy) * -1)); }
   }
   @media (prefers-reduced-motion: reduce) {
