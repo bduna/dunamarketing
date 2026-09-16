@@ -249,8 +249,22 @@ fbq('track', 'PageView');
   @media (max-width: 860px) { .offer-grid { grid-template-columns: 1fr; } .mark-wrap { justify-self: center; } }
   .mark-wrap { width: clamp(150px, 18vw, 260px); }
   .mark-anim { display: block; width: 100%; height: auto; color: #fff; overflow: visible; }
+  .wordmark {
+    margin-top: clamp(10px, 1.4vw, 18px); text-align: center;
+    font-weight: 800; font-stretch: 108%; font-size: clamp(11px, 1.3vw, 19px);
+    letter-spacing: .16em; text-indent: .16em; line-height: 1; color: #fff; white-space: nowrap;
+    opacity: 0; transform: translateY(6px);
+  }
+  .mark-wrap.in .wordmark { animation: wm-cycle 7s infinite; }
+  /* fades in as the last stripes settle, holds with them, fades out as they leave, dark through the gap */
+  @keyframes wm-cycle {
+    0%, 16% { opacity: 0; transform: translateY(6px); animation-timing-function: var(--ease-out); }
+    27% { opacity: 1; transform: none; animation-timing-function: linear; }
+    66% { opacity: 1; transform: none; animation-timing-function: ease-in; }
+    78%, 100% { opacity: 0; transform: translateY(-4px); }
+  }
   .mk-l, .mk-r { opacity: 0; transform: translate(var(--dx), var(--dy)); }
-  .mark-anim.in .mk-l, .mark-anim.in .mk-r {
+  .mark-wrap.in .mk-l, .mark-wrap.in .mk-r {
     animation: mk-cycle 7s infinite;
     animation-delay: calc(var(--i) * 60ms);
   }
@@ -264,7 +278,7 @@ fbq('track', 'PageView');
   }
   @media (prefers-reduced-motion: reduce) {
     .mk-l, .mk-r { opacity: 1; transform: none; }
-    .mark-anim.in .mk-l, .mark-anim.in .mk-r { animation: none; }
+    .mark-wrap.in .mk-l, .mark-wrap.in .mk-r { animation: none; }
   }
   .samples-grid {
     display: grid; gap: 18px;
@@ -418,6 +432,7 @@ fbq('track', 'PageView');
       </g>
     </g>
     </svg>
+      <div class="wordmark">DUNA MARKETING</div>
     </div>
   </div>
 </section>
@@ -602,7 +617,7 @@ fbq('track', 'PageView');
 <script>
 (() => {
   // The mark assembles when its section comes into view.
-  const mark = document.querySelector('.mark-anim');
+  const mark = document.querySelector('.mark-wrap');
   if (mark && 'IntersectionObserver' in window) {
     new IntersectionObserver((entries, obs) => { if (entries[0].isIntersecting) { mark.classList.add('in'); obs.disconnect(); } }, { threshold: 0.35 }).observe(mark);
   } else if (mark) mark.classList.add('in');
