@@ -154,32 +154,35 @@ fbq('track', 'PageView');
   }
 
   /* The one way off the splash and into the site. .copy ignores the pointer, so this takes it back.
-     Solid fill on purpose: the wall behind it is photographic and moving, so anything that borrows
-     its contrast from the backdrop is legible in one frame and gone in the next. Same shape, weight,
-     hover and press as the primary button on the site's dark bands, so the two read as one family.
+     The wall behind it is photographic and moving, so the fill carries the contrast rather than the
+     backdrop: at 0.72 the ground still wins over the brightest card that can pass under it, which is
+     a near-white screenshot, and white text holds about 8:1 at that floor. The border is what makes
+     it a control; the shape, height, weight and press come from the site's own buttons.
      It stays under the headline in the only way that matters here, which is size. */
   .enter {
     pointer-events: auto;
     align-self: start;
+    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     gap: 10px;
     min-height: 52px;
     padding: 0 24px;
+    border: 1.5px solid rgb(255 255 255 / .9);
     border-radius: 6px;
-    background: #fff;
-    color: var(--ground);
+    background: rgb(var(--veil) / .72);
+    color: var(--ink);
     font-size: clamp(15px, .2vw + 14px, 17px);
     font-weight: 650;
     line-height: 1.1;
     letter-spacing: -.004em;
     text-decoration: none;
     box-shadow: 0 14px 34px rgb(var(--veil) / .55);
-    transition: background-color .2s var(--ease-out), transform .15s var(--ease-out);
+    transition: background-color .2s var(--ease-out), border-color .2s var(--ease-out), transform .15s var(--ease-out);
     animation: rise 1.2s var(--ease-out) .34s both;
   }
   .enter svg { width: 19px; height: 19px; flex: none; transition: transform .25s var(--ease-out); }
-  .enter:hover { background: #dfe6f3; }
+  .enter:hover { background: rgb(var(--veil) / .88); border-color: #fff; }
   .enter:hover svg, .enter:focus-visible svg { transform: translateX(.22em); }
   .enter:active { transform: translateY(1px); }
   .enter:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
