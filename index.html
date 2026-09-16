@@ -381,13 +381,12 @@ fbq('track', 'PageView');
     gl.viewport(0, 0, canvas.width, canvas.height);
 
     const portrait = vh > vw;
-    // How long one screenshot takes to scroll and come back. A desktop holds many cards on screen
-    // at once, so the beat at the top reads as the whole wall standing still: it waits 2.5s there
-    // against a phone's 10s. The travel itself stays 10s on both — the cycle shortens, the motion
-    // does not. uTime has to wrap on a whole number of cycles or the scroll jumps, and 12.5 does
-    // not divide the old fixed 1080, so the wrap is derived from the cycle instead. A phone still
-    // lands on exactly 1080.
-    const cycle = vw > 760 ? 12.5 : 20;
+    // How long one screenshot takes to scroll and come back: 2.5s held at the top, then 10s of
+    // travel down and back. The same on every screen — a phone used to wait 10s at the top, and
+    // matching desktop is what Barrett asked for. uTime has to wrap on a whole number of cycles
+    // or the scroll jumps, and 12.5 does not divide the 1080 that used to be hardcoded there, so
+    // the wrap is derived from the cycle: 86 x 12.5 = 1075.
+    const cycle = 12.5;
     // A phone sees only a couple of cards at once, so grow them as the viewport narrows (no change at >= 760px)
     const boost = 1 + 0.5 * Math.min(1, Math.max(0, (760 - vw) / 380));
     const W = Math.min(640, Math.max(200, (0.21 * vw + 0.16 * vh) * boost));
