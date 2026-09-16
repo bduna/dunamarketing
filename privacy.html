@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050a18">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/icon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/icon-32.png">
+<link rel="apple-touch-icon" href="assets/img/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap">
+<title>Privacy Policy | Duna Marketing</title>
+<meta name="description" content="What Duna Marketing collects on this site and how it is used.">
+<link rel="preconnect" href="https://connect.facebook.net">
+<script>
+// ?metrics=off keeps owner testing out of the ad data.
+(function () {
+  try {
+    var m = location.search.match(/[?&]metrics=(on|off)\b/);
+    if (m) { if (m[1] === "off") localStorage.setItem("duna_notrack", "1"); else localStorage.removeItem("duna_notrack"); }
+    if (localStorage.getItem("duna_notrack") === "1") { console.log("[duna] metrics OFF on this browser"); return; }
+  } catch (e) {}
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '949809188409734');
+fbq('track', 'PageView');
+})();
+</script>
+<style>
+  :root {
+    --ground: #050a18;
+    --band: #0b1329;
+    --paper: #f6f5f1;
+    --ink: #f3f5fa;
+    --ink-dim: #b9c1d6;
+    --navy: #0b1329;
+    --navy-dim: #4a5470;
+    --gold: #ffd166;
+    --gold-hi: #ffdd8a;
+    --veil: 5 10 24;
+    --gutter: clamp(20px, 6vw, 104px);
+    --ease-out: cubic-bezier(.16, .8, .2, 1);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+  }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  a { color: inherit; }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; }
+  .band { padding: clamp(56px, 9vw, 120px) var(--gutter); }
+  .band-dark { background: var(--band); color: var(--ink); }
+  .band-light { background: var(--paper); color: var(--navy); }
+  .band + .band-dark { border-top: 1px solid rgb(255 255 255 / .06); }
+  .eyebrow {
+    margin: 0 0 14px;
+    font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .band-light .eyebrow { color: #8a6a12; }
+  h2 {
+    margin: 0 0 18px;
+    max-width: 18em;
+    font-size: clamp(1.75rem, 2.4vw + .7rem, 3rem);
+    font-weight: 700; font-stretch: 105%;
+    line-height: 1.06; letter-spacing: -.025em;
+    text-wrap: balance;
+  }
+  .lede { margin: 0; max-width: 40em; font-size: clamp(1.05rem, .4vw + .95rem, 1.3rem); color: var(--ink-dim); }
+  .band-light .lede { color: var(--navy-dim); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 54px; padding: 0 26px;
+    border: 0; border-radius: 8px;
+    background: var(--gold); color: var(--ground);
+    font: inherit; font-size: clamp(15px, .2vw + 14px, 17px); font-weight: 700; letter-spacing: -.004em; line-height: 1.1;
+    text-decoration: none; cursor: pointer;
+    box-shadow: 0 14px 34px rgb(var(--veil) / .45);
+    transition: background-color .2s var(--ease-out), transform .15s var(--ease-out);
+  }
+  .btn:hover { background: var(--gold-hi); }
+  .btn:active { transform: translateY(1px); }
+  .btn:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+  .band-light .btn:focus-visible { outline-color: var(--navy); }
+  .btn-ghost {
+    background: transparent; color: inherit; box-shadow: none;
+    border: 1.5px solid currentColor;
+  }
+  .btn-ghost:hover { background: rgb(255 255 255 / .08); }
+  .band-light .btn-ghost:hover { background: rgb(11 19 41 / .06); }
+  footer {
+    padding: 36px var(--gutter) calc(36px + env(safe-area-inset-bottom, 0px));
+    background: var(--ground); color: var(--ink-dim);
+    font-size: 15px;
+  }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: center; }
+  footer strong { color: var(--ink); font-weight: 700; }
+  footer a { text-decoration: none; }
+  footer a:hover, footer a:focus-visible { text-decoration: underline; }
+  footer a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  .page { min-height: 100svh; display: flex; flex-direction: column; }
+  .page main { flex: 1; padding: clamp(40px, 8vh, 96px) var(--gutter); }
+  .brand { display: inline-flex; align-items: center; gap: .5em; font-size: clamp(19px, 1.1vw + 11px, 26px); font-weight: 800; letter-spacing: -.012em; text-decoration: none; margin-bottom: clamp(40px, 8vh, 80px); }
+  .brand img { width: 1.6em; height: auto; filter: invert(1); }
+  h1 { margin: 0 0 18px; max-width: 16em; font-size: clamp(2rem, 3vw + 1rem, 4rem); font-weight: 680; font-stretch: 106%; line-height: 1.02; letter-spacing: -.03em; text-wrap: balance; }
+  .lede { max-width: 36em; }
+  .stack { display: grid; gap: 22px; max-width: 40em; }
+  .stack h2 { font-size: 1.35rem; margin: 18px 0 0; }
+  .stack p { margin: 0; color: var(--ink-dim); }
+  .stack p strong { color: var(--ink); }
+  .stack a { color: var(--gold); }
+  .actions { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; margin-top: 30px; }
+  .actions a.plain { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+  .actions a.plain:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+</style>
+</head>
+<body class="page">
+<main>
+  <a class="brand" href="index.html"><img src="assets/img/mark.png" alt="" width="36" height="37"><span>Duna Marketing</span></a>
+  <h1>Privacy policy</h1>
+  <p class="lede">This page explains what this website collects and what we do with it. Effective September 15, 2026.</p>
+  <div class="stack">
+    <h2>When you text, call, or email us</h2>
+    <p>We receive whatever you send: your phone number or email address, your name if you give it, and what you tell us about your business. We use it to send you the questionnaire, to build and deliver your website, and to follow up about it. It's kept in our phone, email, and customer records.</p>
+    <h2>The Meta pixel</h2>
+    <p>This site uses the Meta (Facebook) pixel so we can tell whether our ads are working. It sets cookies and reports page views, and taps on the text, call, and email links, to Meta. You can limit this in your browser settings, through your Meta ad preferences, or with an ad blocker. We do not receive your name from the pixel.</p>
+    <h2>What we don't do</h2>
+    <p>We don't sell or rent your information, and we don't share it with anyone except the services we need to run this site and deliver your website.</p>
+    <h2>Your choices</h2>
+    <p>Email <a href="mailto:barrett@dunamarketing.com">barrett@dunamarketing.com</a> or text <a href="tel:+17073855673">(707) 385-5673</a> to see, correct, or delete what we have about you. We'll do it within a few business days.</p>
+    <h2>Contact</h2>
+    <p>Duna Marketing, Barrett Duna. <a href="mailto:barrett@dunamarketing.com">barrett@dunamarketing.com</a>, (707) 385-5673.</p>
+  </div>
+  <div class="actions">
+    <a class="plain" href="index.html">Back to the page</a>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <strong>Duna Marketing</strong>
+    <a href="tel:+17073855673">(707) 385-5673</a>
+    <a href="mailto:barrett@dunamarketing.com">barrett@dunamarketing.com</a>
+    <a href="privacy.html">Privacy</a>
+  </div>
+</footer>
+</body>
+</html>
