@@ -385,7 +385,7 @@ fbq('track', 'PageView');
     // and back. These are the two numbers to tune. uTime has to wrap on a whole number of cycles
     // or the scroll jumps, so the wrap is derived from the cycle rather than fixed — 12.5 did not
     // divide the 1080 that was once hardcoded there, and neither does this.
-    const PAUSE = 2.5, TRAVEL = 13;   // seconds
+    const PAUSE = 2.5, TRAVEL = 10;   // seconds
     const cycle = PAUSE + TRAVEL;
     // A phone sees only a couple of cards at once, so grow them as the viewport narrows (no change at >= 760px)
     const boost = 1 + 0.5 * Math.min(1, Math.max(0, (760 - vw) / 380));
