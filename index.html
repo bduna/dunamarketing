@@ -254,13 +254,13 @@ fbq('track', 'PageView');
     font-weight: 800; font-stretch: 108%; font-size: clamp(11px, 1.3vw, 19px);
     letter-spacing: .16em; text-indent: .16em; line-height: 1; color: #fff; white-space: nowrap;
     opacity: 0; transform: translateY(6px);
-    transition: opacity .7s var(--ease-out) 1.2s, transform .9s var(--ease-out) 1.2s;
+    transition: opacity 1s var(--ease-out) 1.9s, transform 1.2s var(--ease-out) 1.9s;
   }
   .mark-wrap.in .wordmark { opacity: 1; transform: none; }
   .mk-l, .mk-r {
     opacity: 0; transform: translate(var(--dx), var(--dy));
-    transition: opacity .7s var(--ease-out), transform .9s var(--ease-out);
-    transition-delay: calc(var(--i) * 60ms);
+    transition: opacity 1.1s var(--ease-out), transform 1.4s var(--ease-out);
+    transition-delay: calc(var(--i) * 95ms);
   }
   .mark-wrap.in .mk-l, .mark-wrap.in .mk-r { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
