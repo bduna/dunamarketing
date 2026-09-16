@@ -369,7 +369,11 @@ fbq('track', 'PageView');
     const H = W * 0.75, G = W * 0.075;
     L = {
       vw, vh, W, H, pitch: W + G, rowPitch: H + G,
-      radius: W * 0.045, lift: W * 0.05, speed: W * 0.13,
+      radius: W * 0.045, lift: W * 0.05,
+      // Lateral drift of the cards. A desktop shows far more of the plane at once, so the same
+      // travel reads slower there than on a phone; it gets a faster rate above the 760px line
+      // used just above. Cards only — the page-scroll inside each screenshot runs off uTime.
+      speed: W * (vw >= 760 ? 0.2 : 0.13),
       P: 2.1 * vh + 0.7 * vw,
       origin: [vw * 0.5, vh * (portrait ? 0.42 : 0.38)],
       anchor: [vw * (portrait ? 0.56 : 0.6), vh * (portrait ? 0.64 : 0.6)],
