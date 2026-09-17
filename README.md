@@ -15,7 +15,8 @@ Keep the `CNAME` file and the `portfolio/` folder: the sample cards on the landi
 
 ## Getting in touch
 
-There is no form. Every call to action is a text, a call, or an email:
+There is no form that visitors can see. (A questionnaire is being tested behind a link only we use; see "The
+questionnaire (test)" below. It sends nothing.) Every call to action is a text, a call, or an email:
 
 - Text: `sms:+17073855673` with a prefilled first line ("Hi Barrett, I'd like to start a website. My business: ").
 - Call: `tel:+17073855673`.
@@ -24,6 +25,30 @@ There is no form. Every call to action is a text, a call, or an email:
 The hero has one white "See my website" button that scrolls to the "see it before you pay" section. The contact section
 also has copy buttons for the number and the email. To change the number or address, search the page for
 `7073855673` and `barrett@dunamarketing.com`.
+
+## The questionnaire (test)
+
+A message-and-reply questionnaire sits between the questions and the contact section (`<section id="questionnaire">`).
+We send a message, the visitor types a reply, and it moves to the next one: full name, phone, email, then a line about
+the business, and a recap at the end. Test it at https://dunamarketing.com/?questionnaire=test#questionnaire
+
+- It is hidden from visitors. The section ships with the `hidden` attribute and nothing links to it; the script shows
+  it only when the address has `?questionnaire=test`. Someone who finished it would believe they had signed up, and
+  nothing would reach us, so it stays that way until it really sends. To make it public: delete `hidden` on the section
+  and replace the test on the `const showQuestionnaire = ...` line with `true` (look for "THE SWITCH" in the first script).
+- It sends nothing and stores nothing: no request, no localStorage, sessionStorage or cookie, no pixel event. The
+  answers live in memory and are gone on reload.
+- The questions are data, the `steps` list in that block. Each step has what we say (it can use earlier answers), which
+  input takes the reply, and `take()`, which accepts the reply or asks again in the thread. Adding the real
+  questionnaire means adding steps.
+- `onComplete(answers)` is the one place a finished questionnaire is handed over. For now it says the test is over and
+  shows the recap. When it is wired to the leads sheet, the existing rules apply: the two honeypots, the start and
+  complete stages, the Lead pixel event only when the server answers `lead_ok`, and no Apps Script edits.
+- Every reply field is a real input of its own (`#q-name`, `#q-tel`, `#q-email`, `#q-business`), so each question gets
+  the right phone keyboard and the browser's autofill. Focus moves to the next one inside the visitor's own tap or key
+  press, which is the only moment an iPhone allows it, so the keyboard stays up between questions. The input is never
+  focused for the visitor. On a touch keyboard Enter makes a new line in the long answer and the button sends; with a
+  mouse and keyboard Enter sends and Shift+Enter makes a new line.
 
 ## The logo animation
 

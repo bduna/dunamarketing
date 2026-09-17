@@ -442,6 +442,67 @@ fbq('track', 'PageView');
   .faq summary:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; border-radius: 4px; }
   .faq .a { margin: 0; padding: 0 0 20px; color: var(--navy-dim); max-width: 60ch; }
 
+  /* ---------- Questionnaire (in test): a message-and-reply thread. It borrows the look of the Care Plan demo's thread,
+     white bubbles for us on the left and blue for the visitor on the right, but under its own names, because the demo's
+     bubbles start invisible and are driven by the demo's animation. It is a panel, not a phone: a real conversation needs
+     the width. The section ships hidden; the script shows it only when the address has ?questionnaire=test. ---------- */
+  .ask [hidden] { display: none !important; }   /* the rules below set display, which would otherwise beat the hidden attribute */
+  .ask .wrap { display: grid; gap: 40px; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: start; }
+  @media (max-width: 860px) { .ask .wrap { grid-template-columns: 1fr; gap: 28px; } }
+  .q-note { margin: 18px 0 0; font-size: 14px; color: var(--ink-dim); }
+  .q-panel {
+    display: flex; flex-direction: column; overflow: hidden;
+    border-radius: 16px; background: #111a33;
+    border: 1px solid rgb(255 255 255 / .1);
+    box-shadow: 0 18px 40px rgb(0 0 0 / .45);
+  }
+  .q-head { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid rgb(255 255 255 / .1); }
+  .q-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: var(--ground); font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+  .q-head strong { display: block; font-size: 15px; line-height: 1.2; }
+  .q-head small { display: block; font-size: 12px; color: var(--ink-dim); letter-spacing: .04em; }
+  /* fixed height, scrolling inside itself, so the page never jumps as messages arrive; the first child's auto margin
+     keeps a short thread at the bottom without cutting off the top of a long one */
+  .q-thread { display: flex; flex-direction: column; gap: 8px; height: min(52svh, 400px); overflow-y: auto; overscroll-behavior: contain; scroll-behavior: auto; padding: 16px; }
+  .q-thread > :first-child { margin-top: auto; }
+  .q-thread:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .q-msg { margin: 0; max-width: 86%; padding: 9px 13px; border-radius: 18px; line-height: 1.35; overflow-wrap: anywhere; white-space: pre-wrap; animation: q-in .4s var(--ease-out) backwards; }
+  .q-duna { align-self: flex-start; background: #fff; color: var(--ground); border-bottom-left-radius: 6px; }
+  .q-you { align-self: flex-end; background: #2a3d78; color: #fff; border-bottom-right-radius: 6px; }
+  .q-typing { display: flex; gap: 5px; align-items: center; padding: 13px; }
+  .q-typing span { width: 7px; height: 7px; border-radius: 50%; background: #7f89a6; animation: dot .6s ease-in-out infinite; }
+  .q-typing span:nth-child(2) { animation-delay: .12s; }
+  .q-typing span:nth-child(3) { animation-delay: .24s; }
+  @keyframes q-in { from { opacity: 0; transform: translateY(10px); } }
+  .q-recap { align-self: stretch; max-width: none; margin: 4px 0 0; padding: 12px 14px; border-radius: 12px; border: 1px solid rgb(255 255 255 / .16); background: rgb(255 255 255 / .04); font-size: 14px; animation: q-in .4s var(--ease-out) backwards; }
+  .q-recap div { display: grid; grid-template-columns: 5.5em minmax(0, 1fr); gap: 10px; padding: 3px 0; }
+  .q-recap dt { color: var(--ink-dim); }
+  .q-recap dd { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+  .q-bar { display: flex; align-items: flex-end; gap: 10px; padding: 12px; border-top: 1px solid rgb(255 255 255 / .1); }
+  .q-input {
+    flex: 1; min-width: 0; display: block; resize: none;
+    font: inherit; font-size: 16px; line-height: 1.35; color: var(--ink);   /* 16px: anything smaller makes an iPhone zoom in on focus */
+    background: var(--band); border: 1.5px solid rgb(255 255 255 / .18); border-radius: 22px; padding: 11px 16px; max-height: 7.4em;
+  }
+  .q-input::placeholder { color: #8a94b0; }
+  .q-input:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgb(143 188 255 / .28); }   /* one soft ring; the border itself turns accent, so focus is still plain to see */
+  .q-send {
+    flex: none; width: 46px; height: 46px; border: 0; border-radius: 50%; padding: 0;
+    display: grid; place-items: center; cursor: pointer;
+    background: #fff; color: var(--ground);
+    transition: background-color .2s var(--ease-out), transform .15s var(--ease-out), opacity .2s var(--ease-out);
+  }
+  .q-send svg { width: 20px; height: 20px; }
+  .q-send:hover { background: #e9edf5; }
+  .q-send:active { transform: translateY(1px); }
+  .q-send:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .q-send:disabled { opacity: .35; cursor: default; }
+  .q-again { margin: 12px; align-self: flex-start; min-height: 46px; }
+  @media (prefers-reduced-motion: reduce) {
+    .q-msg, .q-recap { animation: none; }
+    .q-typing span { animation: none; }
+    .q-send { transition: none; }
+  }
+
   .start .wrap { display: grid; gap: 40px; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: start; }
   @media (max-width: 860px) { .start .wrap { grid-template-columns: 1fr; gap: 28px; } }
   .contact-grid { display: grid; gap: 14px; }
@@ -716,6 +777,32 @@ fbq('track', 'PageView');
   </div>
 </section>
 
+<!-- The questionnaire, in test. It ships hidden and nothing on the page links to it; the script shows it only when the
+     address has ?questionnaire=test. It sends nothing and stores nothing. Every reply field is a real input of its own,
+     so each question gets the right keyboard and the browser's autofill, and the script moves focus between them. -->
+<section class="band band-dark ask" id="questionnaire" hidden>
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Questionnaire</p>
+      <h2>Start your questionnaire right here.</h2>
+      <p class="lede">A few quick questions by message. It takes about a minute.</p>
+      <p class="q-note">This is a test. Nothing you type here is sent or saved.</p>
+    </div>
+    <div class="q-panel">
+      <div class="q-head" aria-hidden="true"><span class="q-avatar">D</span><span><strong>Duna Marketing</strong><small>Questionnaire</small></span></div>
+      <div class="q-thread" id="q-thread" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation with Duna Marketing" tabindex="0"></div>
+      <form class="q-bar" id="q-form" novalidate>
+        <label class="visually-hidden" id="q-label" for="q-name">Your full name</label>
+        <input class="q-input" id="q-name" name="name" type="text" autocomplete="name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="send" maxlength="80" placeholder="Your full name">
+        <input class="q-input" id="q-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="send" maxlength="20" placeholder="(555) 555-0123" hidden>
+        <input class="q-input" id="q-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="send" maxlength="120" placeholder="you@example.com" hidden>
+        <textarea class="q-input" id="q-business" name="business" rows="1" autocapitalize="sentences" maxlength="600" placeholder="What your business does" hidden></textarea>
+        <button class="q-send" id="q-send" type="submit" aria-label="Send" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
+      </form>
+    </div>
+  </div>
+</section>
+
 <section class="band band-dark start" id="start">
   <div class="wrap">
     <div>
@@ -932,6 +1019,168 @@ fbq('track', 'PageView');
       cards.forEach(c => rise.observe(c));
       grid.classList.add('ready');
     } catch (e) { grid.classList.remove('ready'); }
+  }
+  // The questionnaire, in test: a message-and-reply thread that asks for a name, a phone number, an email and a line
+  // about the business. It sends nothing and stores nothing: no request, no storage, no pixel event, and the answers
+  // are gone on reload. The questions are data, so the real questionnaire later means adding steps, not rewriting
+  // this. It sits last, in its own try, so nothing above depends on it.
+  const ask = document.getElementById('questionnaire');
+  // THE SWITCH. While this is a test the section stays hidden from visitors, because someone who finished it would
+  // believe they had signed up and nothing would reach us. To make it public: delete the hidden attribute on the
+  // section, and replace the test on the next line with true.
+  const showQuestionnaire = /[?&]questionnaire=test\b/.test(location.search);
+  if (ask && showQuestionnaire) {
+    try {
+      const thread = ask.querySelector('#q-thread'), form = ask.querySelector('#q-form'), send = ask.querySelector('#q-send'), label = ask.querySelector('#q-label');
+      const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const mouse = matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const firstName = a => (a.name || '').split(/\s+/)[0];
+
+      // Each step: what we say (it may use earlier answers), which input takes the reply, and take(), which either
+      // accepts the reply ({ value, show }) or asks again in the thread ({ say, memo }). memo carries what a second
+      // try needs to know.
+      const steps = [
+        { id: 'name', input: 'q-name', label: 'Your full name',
+          say: () => ['Hi, this is Duna Marketing.', "Let's start with the basics. What's your full name?"],
+          take: (v, memo) => {
+            if (memo.first) return { value: memo.first + ' ' + v };          // the second try is taken as it comes
+            if ((v.match(/\p{L}/gu) || []).length < 2) return { say: "Sorry, we didn't catch that. What's your full name?" };
+            return /\s/.test(v) ? { value: v } : { say: 'And your last name?', memo: { first: v } };
+          } },
+        { id: 'phone', input: 'q-tel', label: 'Your phone number',
+          say: a => ['Thanks, ' + firstName(a) + ". What's the best number to text you at?"],
+          take: v => {
+            let d = v.replace(/\D/g, '');
+            if (d.length === 11 && d[0] === '1') d = d.slice(1);
+            if (d.length !== 10) return { say: "That doesn't look like a full number. Can you type it again with the area code?" };
+            const shown = '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+            return { value: shown, show: shown };
+          } },
+        { id: 'email', input: 'q-email', label: 'Your email address',
+          say: () => ['Got it. And your email address?'],
+          take: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? { value: v } : { say: "That email doesn't look complete. Can you check it?" } },
+        { id: 'business', input: 'q-business', label: 'What your business does',
+          say: () => ['Last one for now. What does your business do? A sentence or two is plenty.'],
+          take: (v, memo) => v.split(/\s+/).length >= 4 || memo.nudged ? { value: v } : { say: 'Tell us a little more. What do you do, and who for?', memo: { nudged: true } } },
+      ];
+      const inputs = steps.map(s => ask.querySelector('#' + s.input));
+      let at = 0, memo = {}, answers = {}, busy = false, started = false, run = 0;
+
+      const field = () => inputs[at];
+      const refresh = () => { send.disabled = busy || at >= steps.length || !field().value.trim(); };
+      const bottom = () => { thread.scrollTop = thread.scrollHeight; };
+      const grow = el => { if (el.tagName !== 'TEXTAREA') return; el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight + 3, 120) + 'px'; };
+      const wait = ms => new Promise(r => setTimeout(r, ms));
+      const bubble = (who, text) => {
+        const p = document.createElement('p'), by = document.createElement('span');
+        p.className = 'q-msg ' + (who === 'duna' ? 'q-duna' : 'q-you');
+        by.className = 'visually-hidden'; by.textContent = who === 'duna' ? 'Duna Marketing: ' : 'You: ';
+        p.append(by, text);                                // as text, never as markup
+        thread.append(p); bottom();
+      };
+      // We "type" for a moment before each message, a little longer for a long one. A reply can be typed meanwhile,
+      // but not sent. Start over bumps run, which stops a conversation that was still arriving.
+      const say = async lines => {
+        const mine = run;
+        busy = true; refresh();
+        for (const line of lines) {
+          if (!calm) {
+            const dots = document.createElement('p');
+            dots.className = 'q-msg q-duna q-typing'; dots.setAttribute('aria-hidden', 'true');
+            dots.append(document.createElement('span'), document.createElement('span'), document.createElement('span'));
+            thread.append(dots); bottom();
+            await wait(Math.min(1200, 550 + line.length * 9));
+            dots.remove();
+            if (mine !== run) return;
+          }
+          bubble('duna', line);
+        }
+        busy = false; refresh();
+      };
+      const show = i => {                                  // make step i's input the live one; the caller decides about focus
+        inputs.forEach((el, n) => { el.hidden = n !== i; });
+        if (inputs[i]) { label.htmlFor = inputs[i].id; label.textContent = steps[i].label; }
+        refresh();
+      };
+
+      // The one place a finished questionnaire is handed over. For now it only says so and shows what was captured.
+      // A later session wires the submit here, and the existing lead rules apply then: the two honeypots, the start
+      // and complete stages, the Lead pixel event only when the server answers lead_ok, and no Apps Script edits.
+      const onComplete = async a => {
+        const mine = run;
+        await say(['Thanks, ' + firstName(a) + ". That's the end of this test. Nothing was sent or saved."]);
+        if (mine !== run) return;
+        const dl = document.createElement('dl');
+        dl.className = 'q-recap';
+        [['Name', a.name], ['Phone', a.phone], ['Email', a.email], ['Business', a.business]].forEach(([k, v]) => {
+          const row = document.createElement('div'), dt = document.createElement('dt'), dd = document.createElement('dd');
+          dt.textContent = k; dd.textContent = v; row.append(dt, dd); dl.append(row);
+        });
+        thread.append(dl); bottom();
+      };
+
+      const again = document.createElement('button');
+      again.type = 'button'; again.className = 'btn btn-ghost q-again'; again.textContent = 'Start over'; again.hidden = true;
+      form.after(again);
+      const reset = () => {
+        run++; at = 0; memo = {}; answers = {}; busy = false;
+        thread.textContent = '';
+        inputs.forEach(el => { el.value = ''; grow(el); });
+        again.hidden = true; form.hidden = false;
+        show(0); say(steps[0].say(answers));
+      };
+      again.addEventListener('click', () => { reset(); field().focus(); });
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        if (busy || at >= steps.length) return;
+        const step = steps[at], el = field(), v = el.value.trim();
+        if (!v) return;
+        const r = step.take(v, memo);
+        bubble('you', r.show || v);
+        el.value = ''; grow(el);
+        if (r.say) { memo = r.memo || memo; el.focus(); say([r.say]); return; }
+        answers[step.id] = r.value; memo = {}; at++;
+        if (at < steps.length) {
+          // Focus moves inside this tap or key press, the only moment an iPhone allows it, so the keyboard stays up
+          // and changes to the right one while we are still "typing" the next question.
+          show(at); field().focus(); say(steps[at].say(answers));
+        } else {
+          el.blur(); form.hidden = true;                   // keyboard down, so the recap can be seen
+          onComplete(answers).then(() => { if (at >= steps.length) again.hidden = false; });
+        }
+      });
+      inputs.forEach(el => {
+        el.addEventListener('input', () => { grow(el); refresh(); });
+        // With a mouse and keyboard, Enter sends the long answer and Shift+Enter makes a new line. On a touch keyboard
+        // Enter makes a new line and the button sends.
+        if (el.tagName === 'TEXTAREA') el.addEventListener('keydown', e => {
+          if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && mouse) { e.preventDefault(); if (form.requestSubmit) form.requestSubmit(); else send.click(); }
+        });
+      });
+      // Tapping send must not take focus from the input, or the phone's keyboard drops between questions.
+      ['pointerdown', 'mousedown'].forEach(t => send.addEventListener(t, e => e.preventDefault()));
+
+      // With the phone's keyboard open, keep the input, and so the newest message just above it, on screen. The page
+      // scrolls smoothly by default, so this adjustment is made instant.
+      const vv = window.visualViewport;
+      const keep = () => {
+        if (!form.contains(document.activeElement)) return;
+        const r = form.getBoundingClientRect(), floor = vv ? vv.offsetTop + vv.height : innerHeight;
+        if (r.bottom + 8 > floor) scrollBy({ top: r.bottom + 8 - floor, behavior: 'instant' });
+      };
+      if (vv) vv.addEventListener('resize', keep);
+      form.addEventListener('focusin', () => { begin(); setTimeout(keep, 350); });
+
+      // The conversation opens when the thread comes on screen, never before, and the input is never focused for the
+      // visitor: the keyboard comes up only when they tap it.
+      const begin = () => { if (started) return; started = true; say(steps[0].say(answers)); };
+      ask.hidden = false;
+      show(0);
+      if (location.hash === '#questionnaire') requestAnimationFrame(() => ask.scrollIntoView({ behavior: 'instant', block: 'start' }));
+      if ('IntersectionObserver' in window) new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); begin(); } }, { threshold: 0.25 }).observe(thread);
+      else begin();
+    } catch (e) { ask.hidden = true; }
   }
 })();
 </script>
