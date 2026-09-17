@@ -288,7 +288,7 @@ fbq('track', 'PageView');
   .card .meta strong { display: block; font-size: clamp(12px, .5vw + 7px, 14px); font-weight: 700; letter-spacing: -.01em; line-height: 1.25; }
   .card .meta span { display: block; margin-top: 3px; font-size: 12px; line-height: 1.35; color: var(--ink-dim); }
 
-  /* ---------- Care plan: the case for the monthly plan, with a text exchange that plays once ---------- */
+  /* ---------- Care plan: the case for the monthly plan, with a looping text exchange ---------- */
   .care-grid {
     display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "head demo" "body demo";
     gap: 8px 72px; align-items: center;
@@ -337,6 +337,8 @@ fbq('track', 'PageView');
   .thumb { width: 28px; height: 28px; border-radius: 6px; background: #d6b48c; color: #3b2a14; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; }
 
   .phone-caption { margin: 14px 0 0; text-align: center; font-size: 14px; color: var(--ink-dim); }
+  .thread { transition: opacity .4s ease; }
+  .fade .thread { opacity: 0; }
   @media (max-width: 700px) {
     .stage { flex-direction: column; align-items: center; gap: 16px; }
     .phone { font-size: 13px; }
@@ -346,7 +348,7 @@ fbq('track', 'PageView');
   .replay:hover { border-color: var(--accent); }
   .replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  /* the sequence: three exchanges, about twelve seconds, once */
+  /* the sequence: three exchanges, about twelve seconds; the script holds the finished thread, fades it and starts over */
   .play .m1 { animation: bubble-in .5s var(--ease-out) .3s forwards; }
   .play .t1 { animation: bubble-in .3s var(--ease-out) 1.5s forwards, bubble-out .2s ease 2.5s forwards; }
   .play .t1 span { animation: dot .6s ease-in-out 1.55s 2; }
@@ -740,16 +742,31 @@ fbq('track', 'PageView');
   if (mark && 'IntersectionObserver' in window) {
     new IntersectionObserver((entries, obs) => { if (entries[0].isIntersecting) { mark.classList.add('in'); obs.disconnect(); } }, { threshold: 0.35 }).observe(mark);
   } else if (mark) mark.classList.add('in');
-  // The text-exchange demo in the care plan section plays once, the first time it is well in view.
-  const care = document.querySelector('#care-plan'), stage = document.querySelector('#care-plan .stage');
-  if (care && stage) {
-    const play = () => { stage.classList.remove('play', 'done'); void stage.offsetWidth; stage.classList.add('play'); };
-    if ('IntersectionObserver' in window) {
-      // watch the phone itself: on a small screen the whole section is taller than the viewport and would never reach the threshold
-      new IntersectionObserver((entries, obs) => { if (entries[0].isIntersecting) { play(); obs.disconnect(); } }, { threshold: 0.6 }).observe(stage.querySelector('.phone'));
-    } else play();
+  // The text-exchange demo in the care plan section loops while the phone is on screen: the three exchanges play,
+  // the finished thread holds for a few seconds, fades, and starts again. It stops when the phone scrolls away.
+  const stage = document.querySelector('#care-plan .stage');
+  if (stage) {
+    const phone = stage.querySelector('.phone');
+    const still = matchMedia('(prefers-reduced-motion: reduce)');
+    const SEQUENCE = 12500, HOLD = 4000, FADE = 450;
+    let timer = 0, running = false;
+    const play = () => { stage.classList.remove('play', 'fade'); void stage.offsetWidth; stage.classList.add('play'); };
+    const stop = () => { clearTimeout(timer); running = false; };
+    const cycle = () => {
+      running = true; play();
+      timer = setTimeout(() => { stage.classList.add('fade'); timer = setTimeout(cycle, FADE); }, SEQUENCE + HOLD);
+    };
+    if (!still.matches) {
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(entries => {
+          const r = entries[0].intersectionRatio;
+          if (r >= 0.6 && !running) cycle();
+          else if (r === 0 && running) stop();
+        }, { threshold: [0, 0.6] }).observe(phone);
+      } else cycle();
+    }
     const replay = document.querySelector('#care-plan .replay');
-    if (replay) replay.addEventListener('click', play);
+    if (replay) replay.addEventListener('click', () => { stop(); cycle(); });
   }
   // A tap on text, call, or email is the conversion this page exists for.
   document.addEventListener('click', e => {
