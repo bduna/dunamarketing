@@ -291,12 +291,12 @@ fbq('track', 'PageView');
   /* ---------- Care plan: the case for the monthly plan, with a text exchange that plays once ---------- */
   .care-grid {
     display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "head demo" "body demo";
-    gap: 8px 56px; align-items: center;
+    gap: 8px 72px; align-items: center;
   }
   .care-head { grid-area: head; }
   .care-body { grid-area: body; }
   .demo { grid-area: demo; align-self: center; }
-  @media (max-width: 1100px) {
+  @media (max-width: 900px) {
     .care-grid { grid-template-columns: 1fr; grid-template-areas: "head" "demo" "body"; gap: 28px; }
     .demo { justify-self: center; }
   }
@@ -336,32 +336,9 @@ fbq('track', 'PageView');
   .attach { display: flex; align-items: center; gap: 8px; margin-top: 7px; padding: 6px 8px; background: rgb(255 255 255 / .12); border-radius: 10px; font-size: 12px; }
   .thumb { width: 28px; height: 28px; border-radius: 6px; background: #d6b48c; color: #3b2a14; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; }
 
-  .site {
-    width: 300px; max-width: 100%; flex: none;
-    background: #fff; color: var(--ground); border-radius: 12px; overflow: hidden;
-    box-shadow: 0 24px 60px rgb(0 0 0 / .45); font-size: 12px;
-  }
-  .site-bar { display: flex; align-items: center; gap: 5px; padding: 8px 10px; background: #e9edf5; }
-  .site-bar i { width: 8px; height: 8px; border-radius: 50%; background: #c3cadb; }
-  .site-bar span { margin-left: 6px; flex: 1; background: #fff; border-radius: 6px; padding: 3px 8px; color: #5a6480; font-size: 11px; }
-  .site-nav { display: flex; gap: 10px; padding: 10px 12px; font-weight: 600; color: var(--navy-dim); border-bottom: 1px solid #e6e9f0; font-size: 11px; flex-wrap: wrap; }
-  .site-nav .nav-new { display: none; color: var(--accent-deep); }
-  .site-hero { padding: 14px 12px 10px; }
-  .site-hero strong { display: block; font-size: 15px; letter-spacing: -.01em; }
-  .site-hero span { display: block; margin-top: 3px; color: var(--navy-dim); }
-  .site-block { padding: 9px 12px 11px; border-top: 1px solid #eef0f5; }
-  .site-block em { display: block; font-style: normal; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--navy-dim); margin-bottom: 4px; }
-  .site-block > span { display: block; }
-  .hours-old { font-weight: 600; }
-  .hours-new { display: none; margin-left: 5px; font-weight: 700; color: var(--accent-deep); }
-  .team { display: flex; gap: 6px; }
-  .team b { width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; background: #6b7a9c; }
-  .team b:nth-child(2) { background: #8a6f5a; } .team b:nth-child(3) { background: #5f8f7a; }
-  .team .team-new { display: none; background: #d6b48c; color: #3b2a14; }
   .phone-caption { margin: 14px 0 0; text-align: center; font-size: 14px; color: var(--ink-dim); }
   @media (max-width: 700px) {
     .stage { flex-direction: column; align-items: center; gap: 16px; }
-    .site { order: -1; }                       /* the website first, so its changes stay on screen above the thread */
     .phone { font-size: 13px; }
     .thread { height: 452px; }
   }
@@ -369,44 +346,28 @@ fbq('track', 'PageView');
   .replay:hover { border-color: var(--accent); }
   .replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  /* the sequence: three exchanges, each reply changes the website card; about thirteen seconds, once */
+  /* the sequence: three exchanges, about twelve seconds, once */
   .play .m1 { animation: bubble-in .5s var(--ease-out) .3s forwards; }
   .play .t1 { animation: bubble-in .3s var(--ease-out) 1.5s forwards, bubble-out .2s ease 2.5s forwards; }
   .play .t1 span { animation: dot .6s ease-in-out 1.55s 2; }
   .play .r1 { animation: bubble-in .5s var(--ease-out) 2.65s forwards; }
-  .play .hours-old { animation: strike .5s ease 2.9s forwards; }
-  .play .hours-new { animation: appear .5s var(--ease-out) 3.2s forwards; }
   .play .m2 { animation: bubble-in .5s var(--ease-out) 4.7s forwards; }
   .play .t2 { animation: bubble-in .3s var(--ease-out) 5.9s forwards, bubble-out .2s ease 6.9s forwards; }
   .play .t2 span { animation: dot .6s ease-in-out 5.95s 2; }
   .play .r2 { animation: bubble-in .5s var(--ease-out) 7.05s forwards; }
-  .play .team-new { animation: appear .5s var(--ease-out) 7.4s forwards; }
   .play .m3 { animation: bubble-in .5s var(--ease-out) 8.9s forwards; }
   .play .t3 { animation: bubble-in .3s var(--ease-out) 10.1s forwards, bubble-out .2s ease 11.2s forwards; }
   .play .t3 span { animation: dot .6s ease-in-out 10.15s 2; }
   .play .r3 { animation: bubble-in .5s var(--ease-out) 11.35s forwards; }
-  .play .nav-new { animation: appear .5s var(--ease-out) 11.7s forwards; }
   .play .t1 span:nth-child(2), .play .t2 span:nth-child(2), .play .t3 span:nth-child(2) { animation-delay: inherit; }
   @keyframes bubble-in { to { opacity: 1; transform: none; } }
   @keyframes bubble-out { to { opacity: 0; transform: none; } }
-  @keyframes appear { from { display: inline-flex; opacity: 0; transform: translateY(6px); } to { display: inline-flex; opacity: 1; transform: none; } }
-  @keyframes strike { to { text-decoration: line-through; color: #5a6480; font-weight: 500; } }
   @keyframes dot { 0%, 100% { transform: translateY(0); opacity: .45; } 50% { transform: translateY(-3px); opacity: 1; } }
-  .play .team-new, .play .nav-new { display: inline-flex; opacity: 0; }
-  .play .hours-new { display: inline; opacity: 0; }
-  .play .hours-new { animation-name: appear-inline; }
-  @keyframes appear-inline { from { opacity: 0; } to { opacity: 1; } }
   .done .bubble.from, .done .bubble.reply { opacity: 1; transform: none; }
   .done .bubble.typing { display: none; }
-  .done .hours-old { text-decoration: line-through; color: #5a6480; font-weight: 500; }
-  .done .hours-new { display: inline; opacity: 1; }
-  .done .team-new, .done .nav-new { display: inline-flex; opacity: 1; }
   @media (prefers-reduced-motion: reduce) {
     .demo .bubble.from, .demo .bubble.reply { opacity: 1; transform: none; animation: none; }
     .demo .bubble.typing { display: none; }
-    .demo .hours-old { text-decoration: line-through; color: #5a6480; font-weight: 500; animation: none; }
-    .demo .hours-new { display: inline; opacity: 1; animation: none; }
-    .demo .team-new, .demo .nav-new { display: inline-flex; opacity: 1; animation: none; }
     .replay { display: none; }
   }
   .plan { position: relative; }
@@ -644,19 +605,6 @@ fbq('track', 'PageView');
             <div class="slot s2"><p class="bubble typing t2"><span></span><span></span><span></span></p><p class="bubble reply r2">Added.<time>9:34 AM</time></p></div>
             <p class="bubble from m3">Can we get a page for the new snow removal service?</p>
             <div class="slot s3"><p class="bubble typing t3"><span></span><span></span><span></span></p><p class="bubble reply r3">Drafted. Check your email for the preview link.<time>9:48 AM</time></p></div>
-          </div>
-        </div>
-        <div class="site">
-          <div class="site-bar"><i></i><i></i><i></i><span>northlinelandscaping.com</span></div>
-          <div class="site-nav"><span>Home</span><span>Services</span><span>Team</span><span class="nav-new">Snow Removal</span><span>Contact</span></div>
-          <div class="site-hero"><strong>Northline Landscaping</strong><span>Lawn care, hardscape and seasonal cleanups.</span></div>
-          <div class="site-block">
-            <em>Hours</em>
-            <span>Mon&ndash;Fri 7&ndash;5 &middot; Sat <b class="hours-old">9&ndash;5</b><b class="hours-new">9&ndash;2</b></span>
-          </div>
-          <div class="site-block">
-            <em>Our team</em>
-            <span class="team"><b>M</b><b>R</b><b>D</b><b class="team-new">J</b></span>
           </div>
         </div>
       </div>
