@@ -320,7 +320,9 @@ fbq('track', 'PageView');
     .care-grid { grid-template-columns: 1fr; grid-template-areas: "head" "demo" "body"; gap: 28px; }
     .demo { justify-self: center; }
   }
+  .care-intro { margin: 28px 0 0; max-width: 40em; font-weight: 700; color: var(--ink); }   /* leads into the list, so it sits close above it */
   .care-list { margin: 28px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 40em; }
+  .care-intro + .care-list { margin-top: 14px; }
   .care-list li { position: relative; padding-left: 26px; color: var(--ink); }
   .care-list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
   .care-note { margin: 22px 0 0; max-width: 40em; color: var(--ink-dim); }
@@ -629,6 +631,7 @@ fbq('track', 'PageView');
       <p class="phone-caption">What changes look like on the plan.</p>
     </div>
     <div class="care-body">
+      <p class="care-intro">Here's what our Care Plan offers:</p>
       <ul class="care-list">
         <li>Unlimited small changes, done within one business day. Text, photos, hours, prices, staff, contact details.</li>
         <li>One new section or page each month.</li>
