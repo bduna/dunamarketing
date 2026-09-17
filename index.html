@@ -344,9 +344,6 @@ fbq('track', 'PageView');
     .phone { font-size: 13px; }
     .thread { height: 452px; }
   }
-  .replay { margin-left: 8px; font: inherit; font-size: 13px; font-weight: 600; color: var(--ink); background: transparent; border: 1.5px solid rgb(255 255 255 / .3); border-radius: 6px; padding: 3px 9px; cursor: pointer; }
-  .replay:hover { border-color: var(--accent); }
-  .replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   /* the sequence: three exchanges, about twelve seconds; the script holds the finished thread, fades it and starts over */
   .play .m1 { animation: bubble-in .5s var(--ease-out) .3s forwards; }
@@ -370,7 +367,6 @@ fbq('track', 'PageView');
   @media (prefers-reduced-motion: reduce) {
     .demo .bubble.from, .demo .bubble.reply { opacity: 1; transform: none; animation: none; }
     .demo .bubble.typing { display: none; }
-    .replay { display: none; }
   }
   .plan { position: relative; }
   .plan .tag {
@@ -610,7 +606,7 @@ fbq('track', 'PageView');
           </div>
         </div>
       </div>
-      <p class="phone-caption">What a change looks like on the plan. <button type="button" class="replay">Replay</button></p>
+      <p class="phone-caption">What changes look like on the plan.</p>
     </div>
     <div class="care-body">
       <ul class="care-list">
@@ -765,8 +761,6 @@ fbq('track', 'PageView');
         }, { threshold: [0, 0.6] }).observe(phone);
       } else cycle();
     }
-    const replay = document.querySelector('#care-plan .replay');
-    if (replay) replay.addEventListener('click', () => { stop(); cycle(); });
   }
   // A tap on text, call, or email is the conversion this page exists for.
   document.addEventListener('click', e => {
