@@ -288,6 +288,53 @@ fbq('track', 'PageView');
   .card .meta strong { display: block; font-size: clamp(12px, .5vw + 7px, 14px); font-weight: 700; letter-spacing: -.01em; line-height: 1.25; }
   .card .meta span { display: block; margin-top: 3px; font-size: 12px; line-height: 1.35; color: var(--ink-dim); }
 
+  /* ---------- Care plan: the case for the monthly plan, with a text exchange that plays once ---------- */
+  .care-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px 72px; align-items: center; }
+  @media (max-width: 860px) { .care-grid { grid-template-columns: 1fr; } .demo { justify-self: center; } }
+  .care-list { margin: 28px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 40em; }
+  .care-list li { position: relative; padding-left: 26px; color: var(--ink); }
+  .care-list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+  .care-note { margin: 22px 0 0; max-width: 40em; color: var(--ink-dim); }
+  .care-actions { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
+  .care-hint { margin: 0; font-size: 15px; color: var(--ink-dim); }
+  .demo { width: 300px; max-width: 100%; }
+  .phone {
+    background: #0f1730; border: 1.5px solid rgb(255 255 255 / .14); border-radius: 28px;
+    padding: 12px 14px 18px; box-shadow: 0 24px 60px rgb(0 0 0 / .45);
+  }
+  .phone-bar { display: flex; justify-content: center; padding: 4px 0 14px; }
+  .phone-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-dim); }
+  .thread { display: flex; flex-direction: column; gap: 10px; min-height: 176px; }   /* height reserved: nothing shifts while it plays */
+  .bubble { margin: 0; max-width: 84%; padding: 10px 14px; border-radius: 18px; font-size: 15px; line-height: 1.35; opacity: 0; transform: translateY(10px); }
+  .bubble.from { align-self: flex-end; background: #2a3d78; color: #fff; border-bottom-right-radius: 6px; }
+  .slot { position: relative; align-self: flex-start; max-width: 84%; }
+  .bubble.reply { max-width: none; background: #fff; color: var(--ground); border-bottom-left-radius: 6px; }
+  .bubble.typing { position: absolute; left: 0; top: 0; display: flex; gap: 5px; align-items: center; padding: 13px 14px; background: #fff; border-bottom-left-radius: 6px; }
+  .bubble.typing span { width: 7px; height: 7px; border-radius: 50%; background: #7f89a6; }
+  .stamp { margin: 0; font-size: 12px; color: var(--ink-dim); opacity: 0; }
+  .phone-caption { margin: 14px 0 0; text-align: center; font-size: 14px; color: var(--ink-dim); }
+  .phone.play .from { animation: bubble-in .5s var(--ease-out) .2s forwards; }
+  .phone.play .typing { animation: bubble-in .3s var(--ease-out) 1s forwards, bubble-out .2s ease 2.1s forwards; }
+  .phone.play .typing span { animation: dot .6s ease-in-out 1.05s 2; }
+  .phone.play .typing span:nth-child(2) { animation-delay: 1.2s; }
+  .phone.play .typing span:nth-child(3) { animation-delay: 1.35s; }
+  .phone.play .reply { animation: bubble-in .5s var(--ease-out) 2.25s forwards; }
+  .phone.play .stamp { animation: fade-in .4s ease 2.9s forwards; }
+  @keyframes bubble-in { to { opacity: 1; transform: none; } }
+  @keyframes bubble-out { to { opacity: 0; transform: none; } }
+  @keyframes fade-in { to { opacity: 1; } }
+  @keyframes dot { 0%, 100% { transform: translateY(0); opacity: .45; } 50% { transform: translateY(-3px); opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    .phone .from, .phone .reply, .phone .stamp { opacity: 1; transform: none; animation: none; }
+    .phone .typing { display: none; }
+    .phone.play .from, .phone.play .reply, .phone.play .stamp { animation: none; }
+  }
+  .plan { position: relative; }
+  .plan .tag {
+    position: absolute; top: -13px; right: 20px;
+    background: var(--accent-deep); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    padding: 5px 11px; border-radius: 999px;
+  }
   .steps { display: grid; gap: 28px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 40px; max-width: 1120px; }
   @media (max-width: 760px) { .steps { grid-template-columns: 1fr; gap: 22px; } }
   .step { position: relative; padding: 26px 24px 26px; border: 1px solid rgb(11 19 41 / .16); border-radius: 12px; background: #fff; box-shadow: 0 8px 24px rgb(11 19 41 / .06); }
@@ -498,12 +545,49 @@ fbq('track', 'PageView');
   </div>
 </section>
 
+<section class="band band-dark" id="care-plan">
+  <div class="wrap care-grid">
+    <div>
+      <p class="eyebrow">The Care Plan</p>
+      <h2>Your website is only right on the day it launches. We keep it right.</h2>
+      <p class="lede">Hours change. Prices go up. You add a service, hire someone, retire a photo, or move to a new number. Every owner has a website that says something that stopped being true months ago, and knows they are never going to sit down and fix it.</p>
+      <ul class="care-list">
+        <li>Unlimited small changes, done within one business day. Text, photos, hours, prices, staff, contact details.</li>
+        <li>One new section or page each month.</li>
+        <li>Hosting and security.</li>
+        <li>A short monthly report.</li>
+        <li>Text, call, or email. No login, nothing to learn.</li>
+      </ul>
+      <p class="care-note">You could make these changes yourself. The plan exists because nobody does, and the website quietly falls behind.</p>
+      <p class="care-note">Month to month. Cancel anytime, and the website is yours either way.</p>
+      <div class="care-actions">
+        <a class="btn btn-white" href="#pricing">Add the Care Plan when you approve</a>
+        <p class="care-hint">Just say so when you text us.</p>
+      </div>
+    </div>
+    <div class="demo" aria-hidden="true">
+      <div class="phone">
+        <div class="phone-bar"><span class="phone-label">Example</span></div>
+        <div class="thread">
+          <p class="bubble from">Can you change our Saturday hours to 9 to 2?</p>
+          <div class="slot">
+            <p class="bubble typing"><span></span><span></span><span></span></p>
+            <p class="bubble reply">Done. It&rsquo;s live now.</p>
+          </div>
+          <p class="stamp">11 minutes later</p>
+        </div>
+      </div>
+      <p class="phone-caption">What a change looks like on the plan.</p>
+    </div>
+  </div>
+</section>
+
 <section class="band band-light" id="pricing">
   <div class="wrap">
     <p class="eyebrow">Pricing</p>
     <h2>Two numbers. Nothing hidden.</h2>
     <div class="plans">
-      <div class="plan featured">
+      <div class="plan">
         <h3>Your website</h3>
         <p class="price"><strong>$500</strong><span>one time</span></p>
         <p class="terms">Paid only after you've seen the finished website.</p>
@@ -518,7 +602,8 @@ fbq('track', 'PageView');
           <li>You own the website outright</li>
         </ul>
       </div>
-      <div class="plan">
+      <div class="plan featured">
+        <span class="tag">Recommended</span>
         <h3>Care plan</h3>
         <p class="price"><strong>$149</strong><span>a month</span></p>
         <p class="terms">Month to month. Cancel anytime. For those that sign up, payments start when your website goes live.</p>
@@ -608,6 +693,13 @@ fbq('track', 'PageView');
   if (mark && 'IntersectionObserver' in window) {
     new IntersectionObserver((entries, obs) => { if (entries[0].isIntersecting) { mark.classList.add('in'); obs.disconnect(); } }, { threshold: 0.35 }).observe(mark);
   } else if (mark) mark.classList.add('in');
+  // The text-exchange demo in the care plan section plays once, the first time it is 40% in view.
+  const care = document.querySelector('#care-plan'), phone = document.querySelector('#care-plan .phone');
+  if (care && phone) {
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries, obs) => { if (entries[0].isIntersecting) { phone.classList.add('play'); obs.disconnect(); } }, { threshold: 0.4 }).observe(care);
+    } else phone.classList.add('play');
+  }
   // A tap on text, call, or email is the conversion this page exists for.
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href^="sms:"], a[href^="tel:"], a[href^="mailto:"]');
