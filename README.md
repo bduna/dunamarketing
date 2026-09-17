@@ -6,12 +6,11 @@ the size for the screen.
 
 ## Where it runs
 
-Preview: a separate GitHub Pages repo, `bduna/duna-landing`, at https://bduna.github.io/duna-landing/.
-Nothing here touches the live site until you copy the files into the `bduna/dunamarketing` repo.
+Live: this repo, `bduna/dunamarketing`, is served by GitHub Pages at https://dunamarketing.com/ from the root of `main`.
+Every push to `main` is live in about three minutes. There is no separate preview: the old preview repo,
+`bduna/duna-landing`, was retired and archived on 2026-09-17, and this repo is the only home of the page.
 
-To go live: copy `index.html`, `privacy.html`, `.nojekyll`, and everything under `assets/img/`
-(mark.png, the icons, og.jpg, samples/) into the root of the `dunamarketing` repo and push. Keep that repo's
-`CNAME` file and its `portfolio/` folder: the sample cards on the landing page link to
+Keep the `CNAME` file and the `portfolio/` folder: the sample cards on the landing page link to
 `dunamarketing.com/portfolio/<name>/`, so those pages must stay online.
 
 ## Getting in touch
