@@ -15,8 +15,9 @@ Keep the `CNAME` file and the `portfolio/` folder: the sample cards on the landi
 
 ## Getting in touch
 
-There is no form that visitors can see. (A questionnaire is being tested behind a link only we use; see "The
-questionnaire (test)" below. It sends nothing.) Every call to action is a text, a call, or an email:
+The ways to reach us are a text, a call, or an email. (A message-and-reply questionnaire is also on the page, in test;
+see "The questionnaire (test)" below. It sends nothing yet, and says so.) Every call to action is a text, a call, or
+an email:
 
 - Text: `sms:+17073855673` with a prefilled first line ("Hi Barrett, I'd like to start a website. My business: ").
 - Call: `tel:+17073855673`.
@@ -30,12 +31,15 @@ also has copy buttons for the number and the email. To change the number or addr
 
 A message-and-reply questionnaire sits between the questions and the contact section (`<section id="questionnaire">`).
 We send a message, the visitor types a reply, and it moves to the next one: full name, phone, email, then a line about
-the business, and a recap at the end. Test it at https://dunamarketing.com/?questionnaire=test#questionnaire
+the business, and a recap at the end. It is at https://dunamarketing.com/#questionnaire
 
-- It is hidden from visitors. The section ships with the `hidden` attribute and nothing links to it; the script shows
-  it only when the address has `?questionnaire=test`. Someone who finished it would believe they had signed up, and
-  nothing would reach us, so it stays that way until it really sends. To make it public: delete `hidden` on the section
-  and replace the test on the `const showQuestionnaire = ...` line with `true` (look for "THE SWITCH" in the first script).
+- It has been public since 2026-09-17: every visitor sees it. Because it still sends nothing, the section says "This is
+  a test. Nothing you type here is sent or saved." and the closing message says the same. Those two lines come out only
+  when `onComplete` really sends the answers somewhere.
+- The section keeps the `hidden` attribute in the HTML and the script shows it, so with JavaScript off, or if the script
+  fails, nobody is left looking at a panel that cannot answer. To hide it from visitors again, put the test back on
+  the `const showQuestionnaire = ...` line (look for "THE SWITCH" in the first script):
+  `/[?&]questionnaire=test\b/.test(location.search)`. Then it shows only at `?questionnaire=test`.
 - It sends nothing and stores nothing: no request, no localStorage, sessionStorage or cookie, no pixel event. The
   answers live in memory and are gone on reload.
 - The questions are data, the `steps` list in that block. Each step has what we say (it can use earlier answers), which

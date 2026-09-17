@@ -445,7 +445,7 @@ fbq('track', 'PageView');
   /* ---------- Questionnaire (in test): a message-and-reply thread. It borrows the look of the Care Plan demo's thread,
      white bubbles for us on the left and blue for the visitor on the right, but under its own names, because the demo's
      bubbles start invisible and are driven by the demo's animation. It is a panel, not a phone: a real conversation needs
-     the width. The section ships hidden; the script shows it only when the address has ?questionnaire=test. ---------- */
+     the width. The section is hidden in the HTML and the script shows it, so it never appears without its script. ---------- */
   .ask [hidden] { display: none !important; }   /* the rules below set display, which would otherwise beat the hidden attribute */
   .ask .wrap { display: grid; gap: 40px; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: start; }
   @media (max-width: 860px) { .ask .wrap { grid-template-columns: 1fr; gap: 28px; } }
@@ -777,9 +777,10 @@ fbq('track', 'PageView');
   </div>
 </section>
 
-<!-- The questionnaire, in test. It ships hidden and nothing on the page links to it; the script shows it only when the
-     address has ?questionnaire=test. It sends nothing and stores nothing. Every reply field is a real input of its own,
-     so each question gets the right keyboard and the browser's autofill, and the script moves focus between them. -->
+<!-- The questionnaire, in test and public. It is hidden here and shown by the script (look for THE SWITCH), so it never
+     appears without the script that runs it. It sends nothing and stores nothing, and says so. Every reply field is a
+     real input of its own, so each question gets the right keyboard and the browser's autofill, and the script moves
+     focus between them. -->
 <section class="band band-dark ask" id="questionnaire" hidden>
   <div class="wrap">
     <div>
@@ -1025,10 +1026,11 @@ fbq('track', 'PageView');
   // are gone on reload. The questions are data, so the real questionnaire later means adding steps, not rewriting
   // this. It sits last, in its own try, so nothing above depends on it.
   const ask = document.getElementById('questionnaire');
-  // THE SWITCH. While this is a test the section stays hidden from visitors, because someone who finished it would
-  // believe they had signed up and nothing would reach us. To make it public: delete the hidden attribute on the
-  // section, and replace the test on the next line with true.
-  const showQuestionnaire = /[?&]questionnaire=test\b/.test(location.search);
+  // THE SWITCH. Public since 2026-09-17: every visitor sees it. It still sends nothing, which is why the page and the
+  // closing message say plainly that it is a test. The section keeps its hidden attribute in the HTML and is shown from
+  // here, so with JavaScript off, or if this fails, nobody is left looking at a panel that cannot answer. To hide it
+  // from visitors again, put the test back: /[?&]questionnaire=test\b/.test(location.search)
+  const showQuestionnaire = true;
   if (ask && showQuestionnaire) {
     try {
       const thread = ask.querySelector('#q-thread'), form = ask.querySelector('#q-form'), send = ask.querySelector('#q-send'), label = ask.querySelector('#q-label');
