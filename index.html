@@ -257,6 +257,7 @@ fbq('track', 'PageView');
     transition: opacity 1s var(--ease-out) 1.9s, transform 1.2s var(--ease-out) 1.9s;
   }
   .mark-wrap.in .wordmark { opacity: 1; transform: none; }
+  @media (max-width: 760px) { .wordmark { font-size: 19px; } }   /* phones only: the wordmark reads larger under the small mark */
   .mk-l, .mk-r {
     opacity: 0; transform: translate(var(--dx), var(--dy));
     transition: opacity 1.1s var(--ease-out), transform 1.4s var(--ease-out);
