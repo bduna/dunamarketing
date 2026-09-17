@@ -289,45 +289,125 @@ fbq('track', 'PageView');
   .card .meta span { display: block; margin-top: 3px; font-size: 12px; line-height: 1.35; color: var(--ink-dim); }
 
   /* ---------- Care plan: the case for the monthly plan, with a text exchange that plays once ---------- */
-  .care-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px 72px; align-items: center; }
-  @media (max-width: 860px) { .care-grid { grid-template-columns: 1fr; } .demo { justify-self: center; } }
+  .care-grid {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "head demo" "body demo";
+    gap: 8px 56px; align-items: center;
+  }
+  .care-head { grid-area: head; }
+  .care-body { grid-area: body; }
+  .demo { grid-area: demo; align-self: center; }
+  @media (max-width: 1100px) {
+    .care-grid { grid-template-columns: 1fr; grid-template-areas: "head" "demo" "body"; gap: 28px; }
+    .demo { justify-self: center; }
+  }
   .care-list { margin: 28px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 40em; }
   .care-list li { position: relative; padding-left: 26px; color: var(--ink); }
   .care-list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
   .care-note { margin: 22px 0 0; max-width: 40em; color: var(--ink-dim); }
   .care-actions { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; }
   .care-hint { margin: 0; font-size: 15px; color: var(--ink-dim); }
-  .demo { width: 300px; max-width: 100%; }
+
+  .stage { display: flex; gap: 22px; align-items: flex-start; }
   .phone {
-    background: #0f1730; border: 1.5px solid rgb(255 255 255 / .14); border-radius: 28px;
-    padding: 12px 14px 18px; box-shadow: 0 24px 60px rgb(0 0 0 / .45);
+    width: 312px; max-width: 100%; flex: none;
+    background: #0f1730; border: 1.5px solid rgb(255 255 255 / .16); border-radius: 30px;
+    padding: 10px 12px 16px; box-shadow: 0 24px 60px rgb(0 0 0 / .45);
+    font-size: 14px;
   }
-  .phone-bar { display: flex; justify-content: center; padding: 4px 0 14px; }
-  .phone-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-dim); }
-  .thread { display: flex; flex-direction: column; gap: 10px; min-height: 176px; }   /* height reserved: nothing shifts while it plays */
-  .bubble { margin: 0; max-width: 84%; padding: 10px 14px; border-radius: 18px; font-size: 15px; line-height: 1.35; opacity: 0; transform: translateY(10px); }
+  .status { display: flex; align-items: center; gap: 6px; padding: 2px 8px 6px; font-size: 12px; font-weight: 700; color: var(--ink); }
+  .status .clock { margin-right: auto; }
+  .status .sig { display: inline-flex; align-items: flex-end; gap: 2px; }
+  .status .sig i { display: block; width: 3px; background: var(--ink); border-radius: 1px; }
+  .status .sig i:nth-child(1) { height: 4px; } .status .sig i:nth-child(2) { height: 6px; } .status .sig i:nth-child(3) { height: 8px; } .status .sig i:nth-child(4) { height: 10px; }
+  .status .batt { display: inline-block; width: 22px; height: 10px; border: 1.5px solid var(--ink); border-radius: 3px; padding: 1.5px; }
+  .status .batt i { display: block; width: 80%; height: 100%; background: var(--ink); border-radius: 1px; }
+  .contact { display: flex; align-items: center; gap: 10px; padding: 6px 6px 12px; border-bottom: 1px solid rgb(255 255 255 / .1); margin-bottom: 10px; }
+  .contact .avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: var(--ground); font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+  .contact strong { display: block; font-size: 14px; }
+  .contact small { display: block; font-size: 11px; color: var(--ink-dim); letter-spacing: .04em; }
+  .thread { display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; height: 452px; overflow: hidden; }   /* fixed: nothing shifts while it plays */
+  .bubble { margin: 0; max-width: 86%; padding: 9px 13px; border-radius: 18px; line-height: 1.35; opacity: 0; transform: translateY(10px); }
   .bubble.from { align-self: flex-end; background: #2a3d78; color: #fff; border-bottom-right-radius: 6px; }
-  .slot { position: relative; align-self: flex-start; max-width: 84%; }
+  .slot { position: relative; align-self: flex-start; max-width: 86%; }
   .bubble.reply { max-width: none; background: #fff; color: var(--ground); border-bottom-left-radius: 6px; }
-  .bubble.typing { position: absolute; left: 0; top: 0; display: flex; gap: 5px; align-items: center; padding: 13px 14px; background: #fff; border-bottom-left-radius: 6px; }
+  .bubble.reply time { display: block; margin-top: 3px; font-size: 11px; color: #5a6480; }
+  .bubble.typing { position: absolute; left: 0; top: 0; display: flex; gap: 5px; align-items: center; padding: 12px 13px; background: #fff; border-bottom-left-radius: 6px; }
   .bubble.typing span { width: 7px; height: 7px; border-radius: 50%; background: #7f89a6; }
-  .stamp { margin: 0; font-size: 12px; color: var(--ink-dim); opacity: 0; }
+  .attach { display: flex; align-items: center; gap: 8px; margin-top: 7px; padding: 6px 8px; background: rgb(255 255 255 / .12); border-radius: 10px; font-size: 12px; }
+  .thumb { width: 28px; height: 28px; border-radius: 6px; background: #d6b48c; color: #3b2a14; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; }
+
+  .site {
+    width: 300px; max-width: 100%; flex: none;
+    background: #fff; color: var(--ground); border-radius: 12px; overflow: hidden;
+    box-shadow: 0 24px 60px rgb(0 0 0 / .45); font-size: 12px;
+  }
+  .site-bar { display: flex; align-items: center; gap: 5px; padding: 8px 10px; background: #e9edf5; }
+  .site-bar i { width: 8px; height: 8px; border-radius: 50%; background: #c3cadb; }
+  .site-bar span { margin-left: 6px; flex: 1; background: #fff; border-radius: 6px; padding: 3px 8px; color: #5a6480; font-size: 11px; }
+  .site-nav { display: flex; gap: 10px; padding: 10px 12px; font-weight: 600; color: var(--navy-dim); border-bottom: 1px solid #e6e9f0; font-size: 11px; flex-wrap: wrap; }
+  .site-nav .nav-new { display: none; color: var(--accent-deep); }
+  .site-hero { padding: 14px 12px 10px; }
+  .site-hero strong { display: block; font-size: 15px; letter-spacing: -.01em; }
+  .site-hero span { display: block; margin-top: 3px; color: var(--navy-dim); }
+  .site-block { padding: 9px 12px 11px; border-top: 1px solid #eef0f5; }
+  .site-block em { display: block; font-style: normal; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--navy-dim); margin-bottom: 4px; }
+  .site-block > span { display: block; }
+  .hours-old { font-weight: 600; }
+  .hours-new { display: none; margin-left: 5px; font-weight: 700; color: var(--accent-deep); }
+  .team { display: flex; gap: 6px; }
+  .team b { width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; background: #6b7a9c; }
+  .team b:nth-child(2) { background: #8a6f5a; } .team b:nth-child(3) { background: #5f8f7a; }
+  .team .team-new { display: none; background: #d6b48c; color: #3b2a14; }
   .phone-caption { margin: 14px 0 0; text-align: center; font-size: 14px; color: var(--ink-dim); }
-  .phone.play .from { animation: bubble-in .5s var(--ease-out) .2s forwards; }
-  .phone.play .typing { animation: bubble-in .3s var(--ease-out) 1s forwards, bubble-out .2s ease 2.1s forwards; }
-  .phone.play .typing span { animation: dot .6s ease-in-out 1.05s 2; }
-  .phone.play .typing span:nth-child(2) { animation-delay: 1.2s; }
-  .phone.play .typing span:nth-child(3) { animation-delay: 1.35s; }
-  .phone.play .reply { animation: bubble-in .5s var(--ease-out) 2.25s forwards; }
-  .phone.play .stamp { animation: fade-in .4s ease 2.9s forwards; }
+  @media (max-width: 700px) {
+    .stage { flex-direction: column; align-items: center; gap: 16px; }
+    .site { order: -1; }                       /* the website first, so its changes stay on screen above the thread */
+    .phone { font-size: 13px; }
+    .thread { height: 452px; }
+  }
+  .replay { margin-left: 8px; font: inherit; font-size: 13px; font-weight: 600; color: var(--ink); background: transparent; border: 1.5px solid rgb(255 255 255 / .3); border-radius: 6px; padding: 3px 9px; cursor: pointer; }
+  .replay:hover { border-color: var(--accent); }
+  .replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* the sequence: three exchanges, each reply changes the website card; about thirteen seconds, once */
+  .play .m1 { animation: bubble-in .5s var(--ease-out) .3s forwards; }
+  .play .t1 { animation: bubble-in .3s var(--ease-out) 1.5s forwards, bubble-out .2s ease 2.5s forwards; }
+  .play .t1 span { animation: dot .6s ease-in-out 1.55s 2; }
+  .play .r1 { animation: bubble-in .5s var(--ease-out) 2.65s forwards; }
+  .play .hours-old { animation: strike .5s ease 2.9s forwards; }
+  .play .hours-new { animation: appear .5s var(--ease-out) 3.2s forwards; }
+  .play .m2 { animation: bubble-in .5s var(--ease-out) 4.7s forwards; }
+  .play .t2 { animation: bubble-in .3s var(--ease-out) 5.9s forwards, bubble-out .2s ease 6.9s forwards; }
+  .play .t2 span { animation: dot .6s ease-in-out 5.95s 2; }
+  .play .r2 { animation: bubble-in .5s var(--ease-out) 7.05s forwards; }
+  .play .team-new { animation: appear .5s var(--ease-out) 7.4s forwards; }
+  .play .m3 { animation: bubble-in .5s var(--ease-out) 8.9s forwards; }
+  .play .t3 { animation: bubble-in .3s var(--ease-out) 10.1s forwards, bubble-out .2s ease 11.2s forwards; }
+  .play .t3 span { animation: dot .6s ease-in-out 10.15s 2; }
+  .play .r3 { animation: bubble-in .5s var(--ease-out) 11.35s forwards; }
+  .play .nav-new { animation: appear .5s var(--ease-out) 11.7s forwards; }
+  .play .t1 span:nth-child(2), .play .t2 span:nth-child(2), .play .t3 span:nth-child(2) { animation-delay: inherit; }
   @keyframes bubble-in { to { opacity: 1; transform: none; } }
   @keyframes bubble-out { to { opacity: 0; transform: none; } }
-  @keyframes fade-in { to { opacity: 1; } }
+  @keyframes appear { from { display: inline-flex; opacity: 0; transform: translateY(6px); } to { display: inline-flex; opacity: 1; transform: none; } }
+  @keyframes strike { to { text-decoration: line-through; color: #5a6480; font-weight: 500; } }
   @keyframes dot { 0%, 100% { transform: translateY(0); opacity: .45; } 50% { transform: translateY(-3px); opacity: 1; } }
+  .play .team-new, .play .nav-new { display: inline-flex; opacity: 0; }
+  .play .hours-new { display: inline; opacity: 0; }
+  .play .hours-new { animation-name: appear-inline; }
+  @keyframes appear-inline { from { opacity: 0; } to { opacity: 1; } }
+  .done .bubble.from, .done .bubble.reply { opacity: 1; transform: none; }
+  .done .bubble.typing { display: none; }
+  .done .hours-old { text-decoration: line-through; color: #5a6480; font-weight: 500; }
+  .done .hours-new { display: inline; opacity: 1; }
+  .done .team-new, .done .nav-new { display: inline-flex; opacity: 1; }
   @media (prefers-reduced-motion: reduce) {
-    .phone .from, .phone .reply, .phone .stamp { opacity: 1; transform: none; animation: none; }
-    .phone .typing { display: none; }
-    .phone.play .from, .phone.play .reply, .phone.play .stamp { animation: none; }
+    .demo .bubble.from, .demo .bubble.reply { opacity: 1; transform: none; animation: none; }
+    .demo .bubble.typing { display: none; }
+    .demo .hours-old { text-decoration: line-through; color: #5a6480; font-weight: 500; animation: none; }
+    .demo .hours-new { display: inline; opacity: 1; animation: none; }
+    .demo .team-new, .demo .nav-new { display: inline-flex; opacity: 1; animation: none; }
+    .replay { display: none; }
   }
   .plan { position: relative; }
   .plan .tag {
@@ -547,10 +627,42 @@ fbq('track', 'PageView');
 
 <section class="band band-dark" id="care-plan">
   <div class="wrap care-grid">
-    <div>
+    <div class="care-head">
       <p class="eyebrow">The Care Plan</p>
       <h2>The Care Plan keeps your website up to date, secure and healthy.</h2>
       <p class="lede">Hours change. Prices go up. You add a service, hire someone, retire a photo, or move to a new number. Every owner has a website that says something that stopped being true months ago, and knows they are never going to sit down and fix it.</p>
+    </div>
+    <div class="demo" aria-hidden="true">
+      <div class="stage">
+        <div class="phone">
+          <div class="status"><span class="clock">9:14</span><span class="sig"><i></i><i></i><i></i><i></i></span><span class="batt"><i></i></span></div>
+          <div class="contact"><span class="avatar">D</span><span><strong>Duna Marketing</strong><small>Example text thread</small></span></div>
+          <div class="thread">
+            <p class="bubble from m1">Can you change our Saturday hours to 9 to 2?</p>
+            <div class="slot s1"><p class="bubble typing t1"><span></span><span></span><span></span></p><p class="bubble reply r1">Done. It&rsquo;s live now.<time>9:21 AM</time></p></div>
+            <p class="bubble from m2">Add Jenna to the team page, photo attached.<span class="attach"><span class="thumb">J</span>jenna.jpg</span></p>
+            <div class="slot s2"><p class="bubble typing t2"><span></span><span></span><span></span></p><p class="bubble reply r2">Added.<time>9:34 AM</time></p></div>
+            <p class="bubble from m3">Can we get a page for the new snow removal service?</p>
+            <div class="slot s3"><p class="bubble typing t3"><span></span><span></span><span></span></p><p class="bubble reply r3">Drafted. Check your email for the preview link.<time>9:48 AM</time></p></div>
+          </div>
+        </div>
+        <div class="site">
+          <div class="site-bar"><i></i><i></i><i></i><span>northlinelandscaping.com</span></div>
+          <div class="site-nav"><span>Home</span><span>Services</span><span>Team</span><span class="nav-new">Snow Removal</span><span>Contact</span></div>
+          <div class="site-hero"><strong>Northline Landscaping</strong><span>Lawn care, hardscape and seasonal cleanups.</span></div>
+          <div class="site-block">
+            <em>Hours</em>
+            <span>Mon&ndash;Fri 7&ndash;5 &middot; Sat <b class="hours-old">9&ndash;5</b><b class="hours-new">9&ndash;2</b></span>
+          </div>
+          <div class="site-block">
+            <em>Our team</em>
+            <span class="team"><b>M</b><b>R</b><b>D</b><b class="team-new">J</b></span>
+          </div>
+        </div>
+      </div>
+      <p class="phone-caption">What a change looks like on the plan. <button type="button" class="replay">Replay</button></p>
+    </div>
+    <div class="care-body">
       <ul class="care-list">
         <li>Unlimited small changes, done within one business day. Text, photos, hours, prices, staff, contact details.</li>
         <li>One new section or page each month.</li>
@@ -564,20 +676,6 @@ fbq('track', 'PageView');
       <div class="care-actions">
         <a class="btn btn-white" href="#pricing">See pricing</a>
       </div>
-    </div>
-    <div class="demo" aria-hidden="true">
-      <div class="phone">
-        <div class="phone-bar"><span class="phone-label">Example</span></div>
-        <div class="thread">
-          <p class="bubble from">Can you change our Saturday hours to 9 to 2?</p>
-          <div class="slot">
-            <p class="bubble typing"><span></span><span></span><span></span></p>
-            <p class="bubble reply">Done. It&rsquo;s live now.</p>
-          </div>
-          <p class="stamp">11 minutes later</p>
-        </div>
-      </div>
-      <p class="phone-caption">What a change looks like on the plan.</p>
     </div>
   </div>
 </section>
@@ -694,12 +792,16 @@ fbq('track', 'PageView');
   if (mark && 'IntersectionObserver' in window) {
     new IntersectionObserver((entries, obs) => { if (entries[0].isIntersecting) { mark.classList.add('in'); obs.disconnect(); } }, { threshold: 0.35 }).observe(mark);
   } else if (mark) mark.classList.add('in');
-  // The text-exchange demo in the care plan section plays once, the first time it is 40% in view.
-  const care = document.querySelector('#care-plan'), phone = document.querySelector('#care-plan .phone');
-  if (care && phone) {
+  // The text-exchange demo in the care plan section plays once, the first time it is well in view.
+  const care = document.querySelector('#care-plan'), stage = document.querySelector('#care-plan .stage');
+  if (care && stage) {
+    const play = () => { stage.classList.remove('play', 'done'); void stage.offsetWidth; stage.classList.add('play'); };
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver((entries, obs) => { if (entries[0].isIntersecting) { phone.classList.add('play'); obs.disconnect(); } }, { threshold: 0.4 }).observe(care);
-    } else phone.classList.add('play');
+      // watch the phone itself: on a small screen the whole section is taller than the viewport and would never reach the threshold
+      new IntersectionObserver((entries, obs) => { if (entries[0].isIntersecting) { play(); obs.disconnect(); } }, { threshold: 0.6 }).observe(stage.querySelector('.phone'));
+    } else play();
+    const replay = document.querySelector('#care-plan .replay');
+    if (replay) replay.addEventListener('click', play);
   }
   // A tap on text, call, or email is the conversion this page exists for.
   document.addEventListener('click', e => {
