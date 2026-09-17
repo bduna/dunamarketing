@@ -755,10 +755,14 @@ fbq('track', 'PageView');
     };
     if (!still.matches) {
       if ('IntersectionObserver' in window) {
+        // Phones start the moment the top of the phone frame comes on screen: the frame is nearly as tall as the screen there,
+        // so waiting for 60% of it meant scrolling half way down it. Larger screens still wait until most of it is in view.
+        const small = matchMedia('(max-width: 760px)');
         new IntersectionObserver(entries => {
-          const r = entries[0].intersectionRatio;
-          if (r >= 0.6 && !running) cycle();
-          else if (r === 0 && running) stop();
+          const e = entries[0];
+          const ready = small.matches ? e.isIntersecting : e.intersectionRatio >= 0.6;
+          if (ready && !running) cycle();
+          else if (!e.isIntersecting && running) stop();
         }, { threshold: [0, 0.6] }).observe(phone);
       } else cycle();
     }
