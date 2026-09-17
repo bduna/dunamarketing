@@ -792,10 +792,11 @@ fbq('track', 'PageView');
     try { await navigator.clipboard.writeText(b.dataset.copy); b.classList.add('done'); const t = b.textContent; b.textContent = 'Copied'; setTimeout(() => { b.textContent = t; b.classList.remove('done'); }, 1800); } catch (e) {}
   }));
   // The sample cards move the way the hero wall does. Each one rises into place once, the moment its top edge comes on
-  // screen. After that one card at a time travels slowly down its own page and back, on the tall captures the wall has
-  // already downloaded: the card under the pointer or the keyboard focus, or on a touch screen the card resting nearest
-  // the middle. The cards are hidden for their arrival only as the last step here, and any failure puts them straight
-  // back, because they are the page's proof and they are links. This sits last so that nothing above depends on it.
+  // screen. After that a card travels slowly down its own page and back, on the tall captures the wall has already
+  // downloaded. With a pointer it is one card at a time: the one under the pointer or the keyboard focus. On a touch
+  // screen there is nothing to point with, so every card on screen plays, the way the wall itself does. The cards are
+  // hidden for their arrival only as the last step here, and any failure puts them straight back, because they are the
+  // page's proof and they are links. This sits last so that nothing above depends on it.
   const grid = document.getElementById('samples-grid');
   if (grid && 'IntersectionObserver' in window && 'animate' in Element.prototype && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     try {
@@ -803,7 +804,8 @@ fbq('track', 'PageView');
       const BEAT = 400;                 // pointer: ms a card is pointed at before it moves, so a sweep across the grid sets nothing off
       const DOWN = 6000, HOLD = 1000;   // ms to travel to the bottom of the page, and to hold there; then the same trip back, a hold at the top, and again
       const HOME = 700;                 // ms to ease back to the top when the pointer leaves
-      const REST = 500;                 // touch: ms scrolling must rest before the card nearest the middle takes its turn
+      const PAUSE = 2500;               // touch: ms each card holds on its first screen between trips, as the wall's cards do
+      const SPREAD = 3000;              // touch: the cards start their first trip at different moments across this many ms, so no two move in step
       const FAR = 'translateY(-75%)';   // the capture is four windows tall, so three quarters of it is the whole trip
       const EASE = getComputedStyle(grid).getPropertyValue('--ease-out').trim() || 'ease-out';
       // the wall's own pick of size, so the capture comes from its download instead of a new one
@@ -819,7 +821,18 @@ fbq('track', 'PageView');
         if (!active || active.card !== e.target) return;
         if (e.isIntersecting) active.seen = true; else if (active.seen) stop();
       }));
-      const settle = a => {             // fade the tall capture out and let it go, so only one or two are ever held
+      const capture = card => {         // the tall capture for a card, loading but not yet in the page
+        const img = new Image();
+        img.className = 'tall'; img.alt = ''; img.decoding = 'async';
+        img.src = `assets/img/samples/${card.querySelector('.shot').getAttribute('src').split('/').pop().replace('.webp', '')}-${size}.webp`;
+        return img;
+      };
+      const show = (card, img) => {     // lay it over the first-screen image, which its top matches, and fade it in
+        card.querySelector('.view').appendChild(img);
+        img.style.willChange = 'transform';
+        void img.offsetWidth; img.classList.add('on');
+      };
+      const settle = a => {             // fade the tall capture out and let it go, so only the ones in use are ever held
         a.img.classList.remove('on');
         setTimeout(() => a.img.remove(), 350);
       };
@@ -833,25 +846,20 @@ fbq('track', 'PageView');
         home = a.img.animate([{ transform: at }, { transform: 'none' }], { duration: HOME, easing: EASE }).finished
           .then(() => settle(a), () => settle(a));
       };
-      const play = async (card, once) => {
+      const play = async card => {
         if (active && active.card === card) return;
         stop();
-        const img = new Image();
-        img.className = 'tall'; img.alt = ''; img.decoding = 'async';
-        img.src = `assets/img/samples/${card.querySelector('.shot').getAttribute('src').split('/').pop().replace('.webp', '')}-${size}.webp`;
+        const img = capture(card);
         const a = active = { card, img, run: null };
         watch.observe(card);
         // one at a time: the capture is decoded, and the last card is home, before this one leaves
         try { await Promise.all([img.decode(), home]); } catch (e) { if (active === a) { active = null; watch.unobserve(card); } return; }
         if (active !== a) return;                        // the pointer left while it was getting ready
-        card.querySelector('.view').appendChild(img);
-        img.style.willChange = 'transform';
-        void img.offsetWidth; img.classList.add('on');
+        show(card, img);
         a.run = img.animate([
           { transform: 'none', easing: 'ease-in-out' }, { transform: FAR, offset: DOWN / trip },
           { transform: FAR, offset: (DOWN + HOLD) / trip, easing: 'ease-in-out' }, { transform: 'none', offset: (2 * DOWN + HOLD) / trip },
-          { transform: 'none' }], { duration: trip, iterations: once ? 1 : Infinity });
-        if (once) a.run.finished.then(() => { if (active === a) { active = null; watch.unobserve(card); settle(a); } }, () => {});
+          { transform: 'none' }], { duration: trip, iterations: Infinity });
       };
       document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
 
@@ -866,27 +874,34 @@ fbq('track', 'PageView');
           card.addEventListener('blur', () => disarm(card));
         });
       } else {
-        // No pointer to follow, so the screen decides: when scrolling rests, the card nearest the middle takes one trip
-        // down and back. In a row of two the one that has not had a turn goes first. A tap is left alone and opens the sample.
-        const played = new WeakSet();
-        let rest = 0, last = null;
-        const turn = () => {
-          if (document.hidden) return;
-          const mid = innerHeight / 2;
-          const whole = cards.filter(c => c.classList.contains('in'))
-            .map(card => ({ card, r: card.querySelector('.view').getBoundingClientRect() }))
-            .filter(o => o.r.top >= 0 && o.r.bottom <= innerHeight);
-          if (active && whole.some(o => o.card === active.card)) return;   // a trip still in view is left to finish
-          const off = o => Math.round(Math.abs((o.r.top + o.r.bottom) / 2 - mid) / 24);   // in steps, so the cards of one row tie even while they are still rising
-          whole.sort((a, b) => off(a) - off(b) || played.has(a.card) - played.has(b.card) || (a.card === last) - (b.card === last) || a.r.left - b.r.left);
-          if (!whole.length) return;
-          last = whole[0].card; played.add(last); play(last, true);
+        // No pointer to follow, so the cards play the way the wall itself does: every card on screen holds on its first
+        // screen, travels down its page and back, and goes again. Each sets off on its own beat, so no two move in step,
+        // and the first trip leaves soon after a card appears so the grid is plainly alive. A card that leaves the screen
+        // lets its capture go and starts from the top when it comes back. A tap is left alone and opens the sample.
+        const cycle = PAUSE + 2 * DOWN + HOLD;
+        const loops = new Map();          // card -> its capture and its run, for the cards on screen
+        const begin = async card => {
+          const l = { img: capture(card), run: null };
+          loops.set(card, l);
+          try { await l.img.decode(); } catch (e) { if (loops.get(card) === l) loops.delete(card); return; }
+          if (loops.get(card) !== l) return;             // it left the screen while it was loading
+          show(card, l.img);
+          l.run = l.img.animate([
+            { transform: 'none' }, { transform: 'none', offset: PAUSE / cycle, easing: 'ease-in-out' },
+            { transform: FAR, offset: (PAUSE + DOWN) / cycle }, { transform: FAR, offset: (PAUSE + DOWN + HOLD) / cycle, easing: 'ease-in-out' },
+            { transform: 'none' }],
+            // the first pass skips most of the hold, so a card is on its way 0.6 s after its own beat
+            { duration: cycle, iterations: Infinity, iterationStart: Math.max(0, PAUSE - 600) / cycle, delay: (cards.indexOf(card) * 0.618 % 1) * SPREAD });
         };
-        const onScroll = () => { clearTimeout(rest); rest = setTimeout(turn, REST); };
-        new IntersectionObserver(es => {
-          if (es[0].isIntersecting) { addEventListener('scroll', onScroll, { passive: true }); onScroll(); }
-          else { removeEventListener('scroll', onScroll); clearTimeout(rest); stop(); }
-        }).observe(grid);
+        const end = card => {
+          const l = loops.get(card);
+          if (!l) return;
+          loops.delete(card);
+          if (l.run) l.run.cancel();
+          settle(l);
+        };
+        const seen = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) end(e.target); else if (!loops.has(e.target)) begin(e.target); }));
+        cards.forEach(c => seen.observe(c));
       }
 
       // Arrival. Cards that come on screen together land left to right, each row a beat behind the one above it.
