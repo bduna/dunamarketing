@@ -247,11 +247,11 @@ fbq('track', 'PageView');
      follows, then everything stays put. Readers who prefer reduced motion see it already in place. */
   .offer-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px 72px; align-items: center; }
   @media (max-width: 860px) { .offer-grid { grid-template-columns: 1fr; } .mark-wrap { justify-self: center; } }
-  .mark-wrap { width: clamp(150px, 18vw, 260px); }
-  .mark-anim { display: block; width: 100%; height: auto; color: #fff; overflow: visible; }
+  .mark-wrap { display: flex; flex-direction: column; align-items: center; }   /* the wordmark may run wider than the mark and stays centred under it */
+  .mark-anim { display: block; width: clamp(150px, 18vw, 260px); height: auto; color: #fff; overflow: visible; }
   .wordmark {
-    margin-top: clamp(10px, 1.4vw, 18px); text-align: center;
-    font-weight: 800; font-stretch: 108%; font-size: clamp(11px, 1.3vw, 19px);
+    margin-top: clamp(12px, 1.6vw, 22px); text-align: center;
+    font-weight: 800; font-stretch: 108%; font-size: clamp(15px, 1.75vw, 26px);
     letter-spacing: .16em; text-indent: .16em; line-height: 1; color: #fff; white-space: nowrap;
     opacity: 0; transform: translateY(6px);
     transition: opacity 1s var(--ease-out) 1.9s, transform 1.2s var(--ease-out) 1.9s;
