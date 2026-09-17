@@ -35,15 +35,22 @@ thickness (7) and slope (0.68) measured from `assets/img/mark.png`.
 
 ## The sample cards
 
-The ten cards in the Samples section move the way the hero wall does. Each card rises into place once, the moment its
-top edge comes on screen. After that a card travels slowly down its own page and back. With a mouse it is one card at
-a time: the card you point at or reach with the Tab key. On a touch screen there is nothing to point with, so every
-card on screen plays, the way the wall itself does: it holds on its first screen, travels down and back, and goes
-again, each card on its own beat so no two move in step. A card that scrolls off screen lets its capture go and starts
-from the top when it comes back. The tall captures are the ones the wall already downloaded
-(`assets/img/samples/<name>-640.webp` or `-960.webp`, the same size the wall picked), so a trip costs no new download,
-and the top of each one matches the card's first-screen image, so the swap cannot be seen. A tap or click still opens
-the sample straight away.
+The ten cards in the Samples section move the way the hero wall does, and what they do depends on whether there is
+a pointer.
+
+With a mouse, each card rises into place once, the moment its top edge comes on screen. After that the card you point
+at, or reach with the Tab key, travels slowly down its own page and back, one card at a time.
+
+On a touch screen there is nothing to point with, and cards that kept moving proved too much on a phone, so each card
+gets one entrance and then stays still. It starts in the wall's own pose, lying back on that tilted, turned plane, and
+settles upright into its place, the left card of a row and then the right. As it lands, its page glides from part-way
+down up to its first screen, the way a flicked page comes to rest at the top. It plays once per card; scrolling back
+replays nothing. The entrance waits until a card is a little way up the screen (8% of its height) so it is not wasted
+under the thumb, and a card whose capture is not decoded in time simply lands without the glide.
+
+The tall captures are the ones the wall already downloaded (`assets/img/samples/<name>-640.webp` or `-960.webp`, the
+same size the wall picked), so none of this costs a new download, and the top of each one matches the card's
+first-screen image, so the swap cannot be seen. A tap or click still opens the sample straight away.
 
 The cards are hidden for their arrival only after the script has set everything up, so with JavaScript off, with
 reduced motion, or if the script fails, they are simply there.
@@ -57,12 +64,14 @@ The numbers to tune are named constants at the top of the "sample cards" block i
   hold at the top, take the same. While the pointer stays, it repeats.
 - `HOME` (700): ms to ease back to the top when the pointer leaves. The next card waits for this to finish, so with
   a mouse only one capture is ever moving.
-- `PAUSE` (2500): touch screens only, ms each card holds on its first screen between trips, the same beat the wall
-  uses. Raise it for a calmer grid: at 2500 about three cards in four are moving at any moment. A card's very first
-  trip skips most of this hold and leaves 0.6 s after its own beat, so the grid is plainly alive as it comes on screen.
-- `SPREAD` (3000): touch screens only, the cards take their own beats across this many ms, so no two move in step.
-  To turn the touch-screen trips off and keep only the arrival, delete the `else` branch that starts "No pointer to
-  follow".
+- `DEAL` (140): touch screens only, ms between one card landing and the next in its row. The landing itself is the
+  `card-land` keyframe in the CSS: 1.3 s on `--ease-out`, from tilted back 42 degrees, turned 10 degrees, 48px low and
+  slightly large.
+- `DEEP` (`translateY(-34%)`): touch screens only, how far down its page a card is showing as it starts to land, about
+  a screen and a third.
+- `LEAD` (250) and `GLIDE` (1900): touch screens only, ms after a card starts to land that its page sets off for the
+  top, and how long the glide takes. To drop the glide and keep only the landing, delete the `glide = ...` assignment
+  in the `else` branch that starts "No pointer to follow".
 
 ## Tracking
 
