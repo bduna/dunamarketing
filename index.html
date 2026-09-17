@@ -90,7 +90,10 @@ fbq('track', 'PageView');
   .band-dark { background: var(--band); color: var(--ink); }
   .band-light { background: var(--paper); color: var(--navy); }
   .band + .band-dark { border-top: 1px solid rgb(255 255 255 / .06); }
-  .band-light + .band-light { padding-top: 0; }   /* two white bands in a row read as one sheet, so the gap between them is one band's padding, not two */
+  /* Pricing and the questions are two white bands in a row and read as one sheet, so they share one modest gap:
+     the second adds no top padding, and pricing ends on 40px on a phone rising to 80px on a desktop. */
+  .band-light + .band-light { padding-top: 0; }
+  #pricing { padding-bottom: clamp(40px, 5.56vw, 80px); }
   .eyebrow {
     margin: 0 0 14px;
     font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
