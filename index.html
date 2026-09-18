@@ -516,6 +516,10 @@ fbq('track', 'PageView');
      keeps a short thread at the bottom without cutting off the top of a long one */
   .q-thread { display: flex; flex-direction: column; gap: 8px; height: min(52svh, 400px); overflow-y: auto; overscroll-behavior: contain; scroll-behavior: auto; padding: 16px; }
   .q-thread > :first-child { margin-top: auto; }
+  /* A phone scrolls the page by swiping, and a thread that scrolls inside itself swallows the swipe, so the page would
+     not move with a finger on the panel. On a phone the thread grows with the conversation instead, and the page does
+     all the scrolling; the script keeps the input above the keyboard as the panel grows. */
+  @media (max-width: 760px) { .q-thread { height: auto; min-height: 240px; overflow: visible; overscroll-behavior: auto; } }
   .q-thread:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
   .q-msg { margin: 0; max-width: 86%; padding: 9px 13px; border-radius: 18px; line-height: 1.35; overflow-wrap: anywhere; white-space: pre-wrap; animation: q-in .4s var(--ease-out) backwards; }
   .q-duna { align-self: flex-start; background: #fff; color: var(--ground); border-bottom-left-radius: 6px; }
@@ -1149,7 +1153,9 @@ fbq('track', 'PageView');
 
       const field = () => inputs[at];
       const refresh = () => { send.disabled = busy || at >= steps.length || !field().value.trim(); };
-      const bottom = () => { thread.scrollTop = thread.scrollHeight; };
+      // newest message in view: the thread scrolls itself on a desktop; on a phone it grows, so the page is nudged
+      // instead, keeping the input above the keyboard (keep() is defined below and only acts while the input has focus)
+      const bottom = () => { thread.scrollTop = thread.scrollHeight; keep(); };
       const grow = el => { if (el.tagName !== 'TEXTAREA') return; el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight + 3, 120) + 'px'; };
       const wait = ms => new Promise(r => setTimeout(r, ms));
       const bubble = (who, text) => {

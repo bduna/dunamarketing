@@ -53,6 +53,10 @@ the business, and a recap at the end. It is at https://dunamarketing.com/#questi
   press, which is the only moment an iPhone allows it, so the keyboard stays up between questions. The input is never
   focused for the visitor. On a touch keyboard Enter makes a new line in the long answer and the button sends; with a
   mouse and keyboard Enter sends and Shift+Enter makes a new line.
+- On a desktop the thread has a fixed height and scrolls inside itself. On a phone (up to 760px wide) it grows with the
+  conversation and the page does the scrolling, because a thread that scrolls inside itself swallows the swipe and the
+  page would not move with a finger on the panel; the script nudges the page to keep the input above the keyboard as
+  the panel grows.
 
 ## The logo animation
 
