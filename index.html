@@ -272,9 +272,7 @@ fbq('track', 'PageView');
     .mk-l, .mk-r { opacity: 1; transform: none; transition: none; }
     .wordmark { opacity: 1; transform: none; transition: none; }
   }
-  .samples-cta { margin-top: 56px; display: flex; justify-content: center; }   /* the hero's Start questionnaire button again, under the samples */
-  #samples { padding-bottom: clamp(36px, 5vw, 72px); }                         /* less room under that button than a band normally keeps */
-  @media (max-width: 760px) { .samples-cta { margin-top: 40px; } }
+  .offer-cta { margin-top: 30px; }   /* the hero's Start questionnaire button again, under the No risk copy */
   .samples-grid {
     display: grid; gap: 18px;
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -637,6 +635,7 @@ fbq('track', 'PageView');
       <p class="eyebrow">No risk</p>
       <h2>See your finished website before you pay a dime.</h2>
       <p class="lede">You fill in the questionnaire below. We build your full website and send you a preview link within 24 hours. You pay only if you want to keep it. No deposit, no sales pitch.</p>
+      <div class="offer-cta"><a class="btn btn-white cta" href="#questionnaire">Start questionnaire<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a></div>
     </div>
     <div class="mark-wrap" aria-hidden="true">
     <svg class="mark-anim" viewBox="18 9 157 183" role="img" aria-label="Duna Marketing mark">
@@ -718,9 +717,6 @@ fbq('track', 'PageView');
         <span class="view"><img class="shot" src="assets/img/desktop/mirror-finish-auto-detailing.webp" alt="Mirror Finish Auto Detailing website, first screen on a desktop" width="960" height="600" loading="lazy" decoding="async"></span>
         <span class="meta"><strong>Mirror Finish Auto Detailing</strong><span>Auto detailing, Tampa, FL</span></span>
       </a>
-    </div>
-    <div class="samples-cta">
-      <a class="btn btn-white cta" href="#questionnaire">Start questionnaire<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a>
     </div>
   </div>
 </section>
