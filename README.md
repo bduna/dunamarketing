@@ -33,8 +33,8 @@ also has copy buttons for the number and the email. To change the number or addr
 360px copy for phones; the original is `public/headshot.png` in the project folder, 1024px) beside a bio. The bio's
 facts come from barrettduna.com (UCLA Mathematics and Economics 2013, the Stanford algorithms course, the ticket-market
 simulation at UCLA Anderson, the Live Nation analyst work, Jim Stein's testimonial) plus two Barrett gave directly:
-16 years of web design and development, and a decade of studying marketing. It is a white band like pricing above it,
-so the two share one modest gap (pricing's bottom padding is 40px on a phone up to 80px on a desktop).
+16 years of web design and development, and a decade of studying marketing. It is a navy band (Barrett's call over
+white), so the white-background headshot sits as a card with the sample cards' border and shadow.
 
 ## The questionnaire (test)
 
