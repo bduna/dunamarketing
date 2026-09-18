@@ -62,6 +62,25 @@ wordmark follows, then everything stays put. Visitors who prefer reduced motion 
 The generator script is `build_mark.py` in the session notes; the geometry constants are the stripe pitch (16.15),
 thickness (7) and slope (0.68) measured from `assets/img/mark.png`.
 
+## The How it works steps
+
+The three step cards arrive as one sequence, once, when the row is a little way up the screen (8% of it, the same
+rule the touch cards use): card 1 rises and its numbered disc fills, a thin line draws from its disc to the next
+card's disc, that disc fills and its card rises, and on to the third. Then nothing moves again. In a row the line runs
+at the discs' height, through the gap and into the next card; on a phone, where the cards stack, it is a short stroke
+in the gap beneath the disc. The script only marks the row ready and says go when it comes into view; the sequence is
+CSS. Without the script the cards are simply there, solid discs and no line, and under reduced motion the finished
+state shows at once.
+
+The timings are custom properties on `.steps`:
+
+- `--rise` (1.1s): a card's rise, the page's usual rise (18px up, fading in) on `--ease-out`.
+- `--line` (.45s): the line drawing from one disc to the next. It sets off so that it arrives as the next card starts.
+- `--fill` (.35s): a disc filling in. The number turns white half way through, once the circle is under it.
+- `--beat` (.7s): card to card. Card 2 starts one beat after card 1, card 3 one beat after that, so the whole thing is
+  over in about 2.5 s.
+- `--lag` (.15s): a disc fills this long after its card starts to rise.
+
 ## The sample cards
 
 The ten cards in the Samples section move the way the hero wall does, and what they do depends on whether there is
