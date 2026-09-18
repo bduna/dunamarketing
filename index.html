@@ -299,9 +299,9 @@ fbq('track', 'PageView');
   .card .tall.on { opacity: 1; }
   .samples-grid.ready .card { opacity: 0; }
   .samples-grid.ready .card.in { opacity: 1; animation: card-rise 1.1s var(--ease-out) backwards; }
-  .samples-grid.touch.ready .card.in { animation: card-land 1.3s var(--ease-out) backwards; }
+  .samples-grid.touch.ready .card.in { animation: card-land 2s var(--ease-out) backwards; }   /* slower than the desktop rise: Barrett found the quick landing flashy on his phone */
   @keyframes card-rise { from { opacity: 0; transform: translateY(18px); } }
-  @keyframes card-land { from { opacity: 0; transform: perspective(1100px) translate3d(0, 48px, 0) rotateX(42deg) rotateZ(10deg) scale(1.06); } }
+  @keyframes card-land { from { opacity: 0; transform: perspective(1100px) translate3d(0, 36px, 0) rotateX(30deg) rotateZ(7deg) scale(1.04); } }
   #samples { overflow-x: hidden; overflow-x: clip; }   /* a card still turned on the wall's plane must never widen the page */
   @media (prefers-reduced-motion: reduce) {
     .samples-grid .card { opacity: 1 !important; animation: none !important; }
@@ -980,9 +980,9 @@ fbq('track', 'PageView');
       const BEAT = 400;                 // pointer: ms a card is pointed at before it moves, so a sweep across the grid sets nothing off
       const DOWN = 6000, HOLD = 1000;   // ms to travel to the bottom of the page, and to hold there; then the same trip back, a hold at the top, and again
       const HOME = 700;                 // ms to ease back to the top when the pointer leaves
-      const DEAL = 140;                 // touch: ms between one card landing and the next in its row (the landing itself is card-land in the CSS)
-      const DEEP = 'translateY(-34%)';  // touch: how far down its page a card is showing as it starts to land, about a screen and a third
-      const LEAD = 250, GLIDE = 1900;   // touch: ms after a card starts to land that its page sets off for the top, and how long the glide takes
+      const DEAL = 220;                 // touch: ms between one card landing and the next in its row (the landing itself is card-land in the CSS)
+      const DEEP = 'translateY(-26%)';  // touch: how far down its page a card is showing as it starts to land, about one screen
+      const LEAD = 400, GLIDE = 2600;   // touch: ms after a card starts to land that its page sets off for the top, and how long the glide takes
       const FAR = 'translateY(-75%)';   // the capture is four windows tall, so three quarters of it is the whole trip
       const EASE = getComputedStyle(grid).getPropertyValue('--ease-out').trim() || 'ease-out';
       // the wall's own pick of size, so the capture comes from its download instead of a new one

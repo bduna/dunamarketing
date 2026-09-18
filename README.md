@@ -119,12 +119,12 @@ The numbers to tune are named constants at the top of the "sample cards" block i
   hold at the top, take the same. While the pointer stays, it repeats.
 - `HOME` (700): ms to ease back to the top when the pointer leaves. The next card waits for this to finish, so with
   a mouse only one capture is ever moving.
-- `DEAL` (140): touch screens only, ms between one card landing and the next in its row. The landing itself is the
-  `card-land` keyframe in the CSS: 1.3 s on `--ease-out`, from tilted back 42 degrees, turned 10 degrees, 48px low and
-  slightly large.
-- `DEEP` (`translateY(-34%)`): touch screens only, how far down its page a card is showing as it starts to land, about
-  a screen and a third.
-- `LEAD` (250) and `GLIDE` (1900): touch screens only, ms after a card starts to land that its page sets off for the
+- `DEAL` (220): touch screens only, ms between one card landing and the next in its row. The landing itself is the
+  `card-land` keyframe in the CSS: 2 s on `--ease-out`, from tilted back 30 degrees, turned 7 degrees, 36px low and
+  slightly large. It was quicker and steeper at first; Barrett found that flashy on his phone.
+- `DEEP` (`translateY(-26%)`): touch screens only, how far down its page a card is showing as it starts to land, about
+  one screen.
+- `LEAD` (400) and `GLIDE` (2600): touch screens only, ms after a card starts to land that its page sets off for the
   top, and how long the glide takes. To drop the glide and keep only the landing, delete the `glide = ...` assignment
   in the `else` branch that starts "No pointer to follow".
 
