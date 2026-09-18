@@ -64,13 +64,16 @@ thickness (7) and slope (0.68) measured from `assets/img/mark.png`.
 
 ## The How it works steps
 
-The three step cards arrive as one sequence, once, when the row is a little way up the screen (8% of it, the same
-rule the touch cards use): card 1 rises and its numbered disc fills, a thin line draws from its disc to the next
-card's disc, that disc fills and its card rises, and on to the third. Then nothing moves again. In a row the line runs
-at the discs' height, through the gap and into the next card; on a phone, where the cards stack, it is a short stroke
-in the gap beneath the disc. The script only marks the row ready and says go when it comes into view; the sequence is
-CSS. Without the script the cards are simply there, solid discs and no line, and under reduced motion the finished
-state shows at once.
+The three step cards arrive in order, joined by a line, once: card 1 rises and its numbered disc fills, a thin line
+draws from its disc to the next card's disc, that disc fills and its card rises, and on to the third. Then nothing
+moves again. Everything starts when it is a little way up the screen (8% of it, the same rule the touch cards use).
+
+In a row (wider than 760px) it is one chain from a single trigger, and the line runs at the discs' height, through the
+gap and into the next card. Stacked (phones and narrow windows) the cards run to about 710px, so one trigger played
+cards 2 and 3 below the fold, unseen; there each card goes on its own as it is scrolled to, the stroke in the gap above
+it drawing down first, then the card rising and its disc filling. Cards that come into view together still take turns.
+The script only marks the row ready and says go (per row, or per card); the sequence is CSS. Without the script the
+cards are simply there, solid discs and no line, and under reduced motion the finished state shows at once.
 
 The timings are custom properties on `.steps`:
 

@@ -443,6 +443,16 @@ fbq('track', 'PageView');
   @media (max-width: 760px) {
     .steps.ready .step::after { left: 43px; top: calc(100% + 1px); width: 2px; height: 22px; transform: scaleY(0); transform-origin: center top; }
   }
+  /* Stacked (phones and narrow windows), the three cards run to about 710px, so a single trigger at the top played
+     cards 2 and 3 below the fold, unseen. There each card plays as it comes into view: the line above it draws down
+     first, then the card rises and its disc fills. Cards that come into view together still take turns (--k is a
+     card's place in that batch, --kl the place of the card a line leads to). The script sets .each and the numbers. */
+  .steps.each .step.go { opacity: 1; animation: step-rise var(--rise) var(--ease-out) backwards; animation-delay: calc(var(--k) * var(--beat) + var(--line)); }
+  .steps.each .step.go .num::before { animation: disc-fill var(--fill) var(--ease-out) forwards; animation-delay: calc(var(--k) * var(--beat) + var(--line) + var(--lag)); }
+  .steps.each .step.go .num { animation: disc-ink calc(var(--fill) / 2) step-end forwards; animation-delay: calc(var(--k) * var(--beat) + var(--line) + var(--lag)); }
+  .steps.each .step:first-child.go { animation-delay: calc(var(--k) * var(--beat)); }   /* nothing leads to the first card, so it does not wait for a line */
+  .steps.each .step:first-child.go .num::before, .steps.each .step:first-child.go .num { animation-delay: calc(var(--k) * var(--beat) + var(--lag)); }
+  .steps.each .step.led::after { animation: line-draw var(--line) var(--ease-out) forwards; animation-delay: calc(var(--kl) * var(--beat)); }
   @media (prefers-reduced-motion: reduce) {
     .steps.ready .step, .steps.ready .step::after, .steps.ready .num, .steps.ready .num::before { animation: none !important; }
     .steps.ready .step { opacity: 1; }
@@ -919,14 +929,30 @@ fbq('track', 'PageView');
       } else cycle();
     }
   }
-  // How it works: the three steps arrive as one sequence, once, when the row is a little way up the screen (8% of it,
-  // so the entrance is not wasted under a thumb). The sequence itself is in the CSS; this marks the row ready, and says
-  // go when it comes into view. In its own guard, so a failure here touches nothing else. Under reduced motion the CSS
-  // shows the finished state without moving.
+  // How it works: the three steps arrive in order, joined by a line, once, when they are a little way up the screen (8%
+  // of it, so the entrance is not wasted under a thumb). The sequence itself is in the CSS. In a row this marks the row
+  // ready and says go when it comes into view. Stacked, the cards run past the fold, so each card goes on its own as it
+  // comes into view, and cards that arrive together are numbered so they take turns. In its own guard, so a failure
+  // here touches nothing else. Under reduced motion the CSS shows the finished state without moving.
   try {
     const steps = document.querySelector('#how .steps');
     if (steps && 'IntersectionObserver' in window) {
-      new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); steps.classList.add('go'); } }, { rootMargin: '0px 0px -8% 0px' }).observe(steps);
+      const edge = { rootMargin: '0px 0px -8% 0px' };
+      if (matchMedia('(max-width: 760px)').matches) {
+        steps.classList.add('each');
+        const each = new IntersectionObserver(es => {
+          const fresh = es.filter(e => e.isIntersecting && !e.target.classList.contains('go')).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+          fresh.forEach((e, k) => {
+            const card = e.target, above = card.previousElementSibling;
+            card.style.setProperty('--k', k); card.classList.add('go');
+            if (above) { above.style.setProperty('--kl', k); above.classList.add('led'); }   // the line above draws down to it first
+            each.unobserve(card);
+          });
+        }, edge);
+        steps.querySelectorAll('.step').forEach(c => each.observe(c));
+      } else {
+        new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); steps.classList.add('go'); } }, edge).observe(steps);
+      }
       steps.classList.add('ready');
     }
   } catch (e) { const s = document.querySelector('#how .steps'); if (s) s.classList.remove('ready'); }
