@@ -29,7 +29,7 @@ also has copy buttons for the number and the email. To change the number or addr
 
 ## Our founder
 
-`<section id="founder">`, between pricing and the questionnaire: the headshot (`assets/img/barrett-duna-720.webp`, with a
+`<section id="founder">`, between How it works and the Care Plan: the headshot (`assets/img/barrett-duna-720.webp`, with a
 360px copy for phones; the original is `public/headshot.png` in the project folder, 1024px) beside a bio. The bio's
 facts come from barrettduna.com (UCLA Mathematics and Economics 2013, the Stanford algorithms course, the ticket-market
 simulation at UCLA Anderson, the Live Nation analyst work, Jim Stein's testimonial) plus two Barrett gave directly:
@@ -38,7 +38,7 @@ white), so the white-background headshot sits as a card with the sample cards' b
 
 ## The questionnaire (test)
 
-A message-and-reply questionnaire sits between the founder section and the questions (`<section id="questionnaire">`).
+A message-and-reply questionnaire sits between pricing and the questions (`<section id="questionnaire">`).
 We send a message, the visitor types a reply, and it moves to the next one: full name, phone, email, then a line about
 the business, and a recap at the end. It is at https://dunamarketing.com/#questionnaire
 
