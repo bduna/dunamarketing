@@ -272,8 +272,9 @@ fbq('track', 'PageView');
     .mk-l, .mk-r { opacity: 1; transform: none; transition: none; }
     .wordmark { opacity: 1; transform: none; transition: none; }
   }
-  .samples-cta { margin-top: 36px; display: flex; justify-content: center; }   /* the hero's Start questionnaire button again, under the samples */
-  @media (max-width: 760px) { .samples-cta { margin-top: 28px; } }
+  .samples-cta { margin-top: 56px; display: flex; justify-content: center; }   /* the hero's Start questionnaire button again, under the samples */
+  #samples { padding-bottom: clamp(36px, 5vw, 72px); }                         /* less room under that button than a band normally keeps */
+  @media (max-width: 760px) { .samples-cta { margin-top: 40px; } }
   .samples-grid {
     display: grid; gap: 18px;
     grid-template-columns: repeat(5, minmax(0, 1fr));
