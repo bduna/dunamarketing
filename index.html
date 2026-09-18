@@ -272,6 +272,8 @@ fbq('track', 'PageView');
     .mk-l, .mk-r { opacity: 1; transform: none; transition: none; }
     .wordmark { opacity: 1; transform: none; transition: none; }
   }
+  .samples-cta { margin-top: 36px; display: flex; justify-content: center; }   /* the hero's Start questionnaire button again, under the samples */
+  @media (max-width: 760px) { .samples-cta { margin-top: 28px; } }
   .samples-grid {
     display: grid; gap: 18px;
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -715,6 +717,9 @@ fbq('track', 'PageView');
         <span class="view"><img class="shot" src="assets/img/desktop/mirror-finish-auto-detailing.webp" alt="Mirror Finish Auto Detailing website, first screen on a desktop" width="960" height="600" loading="lazy" decoding="async"></span>
         <span class="meta"><strong>Mirror Finish Auto Detailing</strong><span>Auto detailing, Tampa, FL</span></span>
       </a>
+    </div>
+    <div class="samples-cta">
+      <a class="btn btn-white cta" href="#questionnaire">Start questionnaire<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a>
     </div>
   </div>
 </section>
