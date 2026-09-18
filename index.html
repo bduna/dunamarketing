@@ -482,6 +482,23 @@ fbq('track', 'PageView');
   }
   .pay-later { margin: 28px 0 0; font-size: 1.15rem; font-weight: 600; }
 
+  /* ---------- Our founder: the headshot beside the bio. A white band, so the photo's white background is simply
+     the page. Pricing above it is white too, so the pair share one modest gap, the way pricing and the questions did. ---------- */
+  #pricing { padding-bottom: clamp(40px, 5.56vw, 80px); }
+  .founder { padding-top: 0; }
+  .founder .wrap { display: grid; gap: 48px; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); align-items: start; }
+  @media (max-width: 860px) { .founder .wrap { grid-template-columns: 1fr; gap: 28px; } }
+  .founder-photo { max-width: 380px; }
+  @media (max-width: 860px) { .founder-photo { max-width: 260px; } }
+  .founder-photo img { display: block; width: 100%; height: auto; border-radius: 16px; border: 1px solid rgb(11 19 41 / .16); box-shadow: 0 8px 24px rgb(11 19 41 / .06); }
+  .founder-name { margin: 14px 0 0; line-height: 1.3; }
+  .founder-name strong { display: block; font-size: 1.15rem; font-weight: 700; letter-spacing: -.01em; }
+  .founder-name span { display: block; font-size: 14px; color: var(--navy-dim); }
+  .founder-copy { margin: 18px 0 0; max-width: 40em; color: var(--navy-dim); }
+  .founder-quote { margin: 26px 0 0; max-width: 40em; padding: 0 0 0 18px; border-left: 3px solid var(--accent-deep); }
+  .founder-quote p { margin: 0; font-size: 1.1rem; font-weight: 500; letter-spacing: -.005em; }
+  .founder-quote .founder-cite { margin: 8px 0 0; font-size: 14px; font-weight: 400; color: var(--navy-dim); }   /* not a <footer>: the page's footer rules would paint it dark */
+
   .faq { margin-top: 32px; max-width: 760px; border-top: 1px solid rgb(11 19 41 / .14); }
   .faq details { border-bottom: 1px solid rgb(11 19 41 / .14); }
   .faq summary {
@@ -801,6 +818,25 @@ fbq('track', 'PageView');
       </div>
     </div>
     <p class="pay-later">You see the finished website before you pay anything.</p>
+  </div>
+</section>
+
+<section class="band band-light founder" id="founder">
+  <div class="wrap">
+    <div class="founder-photo">
+      <img src="assets/img/barrett-duna-720.webp" srcset="assets/img/barrett-duna-360.webp 360w, assets/img/barrett-duna-720.webp 720w" sizes="(max-width: 860px) 260px, 380px" width="720" height="720" alt="Barrett Duna, founder and CEO of Duna Marketing" loading="lazy" decoding="async">
+      <p class="founder-name"><strong>Barrett Duna</strong><span>Founder &amp; CEO</span></p>
+    </div>
+    <div>
+      <p class="eyebrow">Our founder</p>
+      <h2>16 years of building websites, and a decade of studying what makes them work.</h2>
+      <p class="lede">Barrett Duna has designed and developed websites for 16 years, and has studied marketing extensively over the last decade. Duna Marketing is where the two meet: websites built to bring in calls, not just to look good.</p>
+      <p class="founder-copy">He graduated from UCLA in 2013 with a degree in Mathematics and Economics, with coursework focused on data analytics and AI, and went on to a Stanford course in computer science algorithms. At UCLA&rsquo;s Anderson School of Management he spent two years turning a dense academic paper on ticket markets into a working simulation. At Live Nation Entertainment he analyzed millions of ticket transactions to forecast sales and understand pricing.</p>
+      <blockquote class="founder-quote">
+        <p>&ldquo;Barrett is a very bright, competent entrepreneur with a big vision for his future. He&rsquo;s easy to get along with and knows his stuff when it comes to anything data.&rdquo;</p>
+        <p class="founder-cite">Jim Stein, Founder and Chief of Strategy, Diamond Certified</p>
+      </blockquote>
+    </div>
   </div>
 </section>
 

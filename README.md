@@ -27,9 +27,18 @@ The hero has one white "See my website" button that scrolls to the "see it befor
 also has copy buttons for the number and the email. To change the number or address, search the page for
 `7073855673` and `barrett@dunamarketing.com`.
 
+## Our founder
+
+`<section id="founder">`, between pricing and the questionnaire: the headshot (`assets/img/barrett-duna-720.webp`, with a
+360px copy for phones; the original is `public/headshot.png` in the project folder, 1024px) beside a bio. The bio's
+facts come from barrettduna.com (UCLA Mathematics and Economics 2013, the Stanford algorithms course, the ticket-market
+simulation at UCLA Anderson, the Live Nation analyst work, Jim Stein's testimonial) plus two Barrett gave directly:
+16 years of web design and development, and a decade of studying marketing. It is a white band like pricing above it,
+so the two share one modest gap (pricing's bottom padding is 40px on a phone up to 80px on a desktop).
+
 ## The questionnaire (test)
 
-A message-and-reply questionnaire sits between pricing and the questions (`<section id="questionnaire">`).
+A message-and-reply questionnaire sits between the founder section and the questions (`<section id="questionnaire">`).
 We send a message, the visitor types a reply, and it moves to the next one: full name, phone, email, then a line about
 the business, and a recap at the end. It is at https://dunamarketing.com/#questionnaire
 
