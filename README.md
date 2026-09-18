@@ -29,7 +29,7 @@ also has copy buttons for the number and the email. To change the number or addr
 
 ## The questionnaire (test)
 
-A message-and-reply questionnaire sits between the questions and the contact section (`<section id="questionnaire">`).
+A message-and-reply questionnaire sits between pricing and the questions (`<section id="questionnaire">`).
 We send a message, the visitor types a reply, and it moves to the next one: full name, phone, email, then a line about
 the business, and a recap at the end. It is at https://dunamarketing.com/#questionnaire
 

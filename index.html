@@ -90,10 +90,6 @@ fbq('track', 'PageView');
   .band-dark { background: var(--band); color: var(--ink); }
   .band-light { background: var(--paper); color: var(--navy); }
   .band + .band-dark { border-top: 1px solid rgb(255 255 255 / .06); }
-  /* Pricing and the questions are two white bands in a row and read as one sheet, so they share one modest gap:
-     the second adds no top padding, and pricing ends on 40px on a phone rising to 80px on a desktop. */
-  .band-light + .band-light { padding-top: 0; }
-  #pricing { padding-bottom: clamp(40px, 5.56vw, 80px); }
   .eyebrow {
     margin: 0 0 14px;
     font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
@@ -752,6 +748,33 @@ fbq('track', 'PageView');
   </div>
 </section>
 
+<!-- The questionnaire, in test and public. It is hidden here and shown by the script (look for THE SWITCH), so it never
+     appears without the script that runs it. It sends nothing and stores nothing, and says so. Every reply field is a
+     real input of its own, so each question gets the right keyboard and the browser's autofill, and the script moves
+     focus between them. -->
+<section class="band band-dark ask" id="questionnaire" hidden>
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Questionnaire</p>
+      <h2>Start your questionnaire right here.</h2>
+      <p class="lede">A few quick questions by message. It takes about a minute.</p>
+      <p class="q-note">This is a test. Nothing you type here is sent or saved.</p>
+    </div>
+    <div class="q-panel">
+      <div class="q-head" aria-hidden="true"><span class="q-avatar">D</span><span><strong>Duna Marketing</strong><small>Questionnaire</small></span></div>
+      <div class="q-thread" id="q-thread" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation with Duna Marketing" tabindex="0"></div>
+      <form class="q-bar" id="q-form" novalidate>
+        <label class="visually-hidden" id="q-label" for="q-name">Your full name</label>
+        <input class="q-input" id="q-name" name="name" type="text" autocomplete="name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="send" maxlength="80" placeholder="Your full name">
+        <input class="q-input" id="q-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="send" maxlength="20" placeholder="(555) 555-0123" hidden>
+        <input class="q-input" id="q-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="send" maxlength="120" placeholder="you@example.com" hidden>
+        <textarea class="q-input" id="q-business" name="business" rows="1" autocapitalize="sentences" maxlength="600" placeholder="What your business does" hidden></textarea>
+        <button class="q-send" id="q-send" type="submit" aria-label="Send" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
+      </form>
+    </div>
+  </div>
+</section>
+
 <section class="band band-light" id="questions">
   <div class="wrap">
     <p class="eyebrow">Questions</p>
@@ -777,33 +800,6 @@ fbq('track', 'PageView');
         <summary>What happens after I text you?</summary>
         <p class="a">Tell us in a line what your business does. Within the hour we text you back a questionnaire written for that kind of business. It takes about 20 minutes on your computer, and you can send photos along with it. Within 24 hours of your answers you get a link to your finished website. If you love it, you pay and it goes live. If not, you owe nothing.</p>
       </details>
-    </div>
-  </div>
-</section>
-
-<!-- The questionnaire, in test and public. It is hidden here and shown by the script (look for THE SWITCH), so it never
-     appears without the script that runs it. It sends nothing and stores nothing, and says so. Every reply field is a
-     real input of its own, so each question gets the right keyboard and the browser's autofill, and the script moves
-     focus between them. -->
-<section class="band band-dark ask" id="questionnaire" hidden>
-  <div class="wrap">
-    <div>
-      <p class="eyebrow">Questionnaire</p>
-      <h2>Start your questionnaire right here.</h2>
-      <p class="lede">A few quick questions by message. It takes about a minute.</p>
-      <p class="q-note">This is a test. Nothing you type here is sent or saved.</p>
-    </div>
-    <div class="q-panel">
-      <div class="q-head" aria-hidden="true"><span class="q-avatar">D</span><span><strong>Duna Marketing</strong><small>Questionnaire</small></span></div>
-      <div class="q-thread" id="q-thread" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation with Duna Marketing" tabindex="0"></div>
-      <form class="q-bar" id="q-form" novalidate>
-        <label class="visually-hidden" id="q-label" for="q-name">Your full name</label>
-        <input class="q-input" id="q-name" name="name" type="text" autocomplete="name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="send" maxlength="80" placeholder="Your full name">
-        <input class="q-input" id="q-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="send" maxlength="20" placeholder="(555) 555-0123" hidden>
-        <input class="q-input" id="q-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="send" maxlength="120" placeholder="you@example.com" hidden>
-        <textarea class="q-input" id="q-business" name="business" rows="1" autocapitalize="sentences" maxlength="600" placeholder="What your business does" hidden></textarea>
-        <button class="q-send" id="q-send" type="submit" aria-label="Send" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
-      </form>
     </div>
   </div>
 </section>
