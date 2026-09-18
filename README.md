@@ -15,17 +15,14 @@ Keep the `CNAME` file and the `portfolio/` folder: the sample cards on the landi
 
 ## Getting in touch
 
-The ways to reach us are a text, a call, or an email. (A message-and-reply questionnaire is also on the page, in test;
-see "The questionnaire (test)" below. It sends nothing yet, and says so.) Every call to action is a text, a call, or
-an email:
+The contact section at the end (`<section id="start">`, headed "Contact") offers email only, as of 2026-09-18:
+`mailto:barrett@dunamarketing.com` with a prefilled subject and first line, plus a copy-the-email button on computers.
+The text and call tiles that used to sit beside it are gone; the phone number remains only in the footer. The
+questionnaire (see "The questionnaire (test)" below) is the way the page invites people to start; it sends nothing
+yet, and says so.
 
-- Text: `sms:+17073855673` with a prefilled first line ("Hi Barrett, I'd like to start a website. My business: ").
-- Call: `tel:+17073855673`.
-- Email: `mailto:barrett@dunamarketing.com` with a prefilled subject and first line.
-
-The hero has one white "See my website" button that scrolls to the "see it before you pay" section. The contact section
-also has copy buttons for the number and the email. To change the number or address, search the page for
-`7073855673` and `barrett@dunamarketing.com`.
+The hero has one white "See my website" button that scrolls to the "see it before you pay" section. To change the
+number or address, search the page for `7073855673` and `barrett@dunamarketing.com`.
 
 ## Our founder
 
