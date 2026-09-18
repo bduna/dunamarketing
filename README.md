@@ -21,8 +21,9 @@ The text and call tiles that used to sit beside it are gone; the phone number re
 questionnaire (see "The questionnaire (test)" below) is the way the page invites people to start; it sends nothing
 yet, and says so.
 
-The hero has one white "See my website" button that scrolls to the "see it before you pay" section. To change the
-number or address, search the page for `7073855673` and `barrett@dunamarketing.com`.
+The hero has two buttons: a white "Start questionnaire" pill with the arrow disc that scrolls to the questionnaire (the
+primary action, first), and a quieter "Learn more" pill, dark translucent with a white border, that scrolls to the
+"see it before you pay" section. To change the address, search the page for `barrett@dunamarketing.com`.
 
 ## Our founder
 

@@ -202,6 +202,10 @@ fbq('track', 'PageView');
   /* A dark edge so the control keeps a boundary when a near-white card drifts under it */
   .cta { min-height: 62px; padding: 0 10px 0 32px; gap: 18px; font-size: clamp(18px, .3vw + 17px, 21px); border-radius: 999px; border: 1.5px solid rgb(5 10 24 / .9); box-shadow: 0 14px 34px rgb(var(--veil) / .55); }
   .cta .badge { width: 42px; height: 42px; }
+  /* The second, quieter button. Not a bare outline: the wall behind it is photographic and moving, and a dark
+     translucent fill is what holds the contrast (the same fill the page's first way in used). */
+  .cta-quiet { padding: 0 30px; background: rgb(var(--veil) / .72); color: #fff; border-color: rgb(255 255 255 / .85); }
+  .cta-quiet:hover { background: rgb(var(--veil) / .86); }
   .btn-white { background: #fff; color: var(--ground); }
   .btn-white:hover { background: #e9edf5; }
   /* The arrow sits in its own dark disc at the end of the pill */
@@ -617,7 +621,8 @@ fbq('track', 'PageView');
       <p class="sub">Answer one questionnaire. See your finished website tomorrow. Pay only if you love it.</p>
     </div>
     <div class="actions">
-      <a class="btn btn-white cta" id="hero-cta" href="#before-you-pay">See my website<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a>
+      <a class="btn btn-white cta" id="hero-cta" href="#questionnaire">Start questionnaire<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a>
+      <a class="btn cta cta-quiet" href="#before-you-pay">Learn more</a>
     </div>
     <p class="visually-hidden" id="sites"></p>
   </div>
