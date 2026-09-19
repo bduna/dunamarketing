@@ -540,7 +540,7 @@ fbq('track', 'PageView');
     box-shadow: 0 18px 40px rgb(0 0 0 / .45);
   }
   .q-head { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid rgb(255 255 255 / .1); }
-  .q-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: var(--ground); font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+  .q-avatar { flex: none; width: 40px; height: auto; filter: invert(1); }   /* the logo mark, white, as in the hero (the file has padding, so 40px reads like the old 34px circle) */
   .q-head strong { display: block; font-size: 15px; line-height: 1.2; }
   .q-head small { display: block; font-size: 12px; color: var(--ink-dim); letter-spacing: .04em; }
   .q-points { margin-left: auto; display: grid; justify-items: end; gap: 2px; text-align: right; }   /* total points so far, top right of the panel */
@@ -887,7 +887,7 @@ fbq('track', 'PageView');
       </ul>
     </div>
     <div class="q-panel">
-      <div class="q-head"><span class="q-avatar" aria-hidden="true">D</span><span aria-hidden="true"><strong>Duna Marketing</strong><small>Questionnaire</small></span><div class="q-points" aria-live="polite" aria-atomic="true"><span class="q-stat-label">Total points</span><span class="q-points-value" id="q-points">0 pts</span></div></div>
+      <div class="q-head"><img class="q-avatar" src="assets/img/mark.png" alt="" width="36" height="37"><span aria-hidden="true"><strong>Duna Marketing</strong><small>Questionnaire</small></span><div class="q-points" aria-live="polite" aria-atomic="true"><span class="q-stat-label">Total points</span><span class="q-points-value" id="q-points">0 pts</span></div></div>
       <div class="q-thread" id="q-thread" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation with Duna Marketing" tabindex="0"></div>
       <div class="q-stats">
         <div class="q-stat"><span class="q-stat-label">Time left</span><span class="q-stat-value" id="q-time" role="timer">20:00</span></div>
