@@ -522,6 +522,7 @@ fbq('track', 'PageView');
   .ask .wrap { display: grid; gap: 40px; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: start; }
   @media (max-width: 860px) { .ask .wrap { grid-template-columns: 1fr; gap: 28px; } }
   .ask .lede + .lede { margin-top: .8em; }   /* the intro is two short paragraphs */
+  .q-offer { margin: 26px 0 0; max-width: 20em; font-size: clamp(1.25rem, .6vw + 1rem, 1.6rem); font-weight: 700; letter-spacing: -.015em; line-height: 1.2; color: var(--ink); text-wrap: balance; }
   .q-note { margin: 18px 0 0; font-size: 14px; color: var(--ink-dim); }
   .q-panel {
     display: flex; flex-direction: column; overflow: hidden;
@@ -857,6 +858,7 @@ fbq('track', 'PageView');
       <h2>Start your questionnaire right here.</h2>
       <p class="lede">We can't build a fully immersive website without knowing as much as possible about you and your business. The questionnaire takes approximately 20 minutes.</p>
       <p class="lede">After that, you never have to put in effort again. Your new website will be available by tomorrow if you complete the questionnaire today.</p>
+      <h3 class="q-offer">Earn big discounts on your website for good answers</h3>
       <p class="q-note">Remember, you don't pay a dime unless you approve of the website we create for you which is based on your answers to this questionnaire.</p>
     </div>
     <div class="q-panel">
