@@ -124,6 +124,27 @@ The timings are custom properties on `.steps`:
   over in about 2.5 s.
 - `--lag` (.15s): a disc fills this long after its card starts to rise.
 
+## The How it works demo
+
+Beside the three step cards (to their right at 1100px and wider, under them otherwise), a navy card labelled "Example"
+shows the section's promise happening, in three acts that light up the matching card and fill a three-part marker:
+
+1. Answer: our question "What does your business do?", then a caterer's answer types out (15 words), with
+   "3 photos attached" and "+125 pts" (the questionnaire's real rule: 50 + 5 a word).
+2. Built within 24 hours: a browser at dunamarketing.com/preview renders the Long Table Catering sample's first screen
+   (`assets/img/desktop/long-table-catering.webp`, already loaded by the Samples cards), "Built in under 24 hours", and
+   the headline is outlined: "Written from your answers".
+3. Approve, and it goes live: "Your preview is ready", a pointer taps Approve, and the address becomes
+   yourbusiness.com with a lock and a Live pill.
+
+With a mouse it loops while on screen (the finished website holds 4 s, then it fades and starts again) and stops off
+screen. On a touch screen it plays once and rests on the live website. With reduced motion, or without JavaScript, it
+is the still finished picture. The timings are constants in its script block: `ACTS` (4400, 4800, 3600 ms), `HOLD`
+(4000 ms), `TYPE` (16 ms a character). The picture is aria-hidden; a visually hidden sentence describes it.
+
+At 1100px and wider the cards stack in the left column, so their own arrival sequence draws its connector vertically
+and plays card by card as they are scrolled to, the way it does on phones.
+
 ## The sample cards
 
 The ten cards in the Samples section move the way the hero wall does, and what they do depends on whether there is

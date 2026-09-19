@@ -407,6 +407,114 @@ fbq('track', 'PageView');
   }
   .step h3 { margin: 0 0 8px; font-size: 1.25rem; font-weight: 700; letter-spacing: -.015em; line-height: 1.2; }
   .step p { margin: 0; color: var(--navy-dim); }
+
+  /* ---------- How it works, the demo beside the steps. One owner's answer becomes their website and goes live, in three
+     acts that light up the matching card. Without JavaScript, or with reduced motion, it is the finished picture. ---------- */
+  .how-grid { display: grid; gap: 28px; margin-top: 40px; }
+  .how-grid .steps { margin-top: 0; }
+  @media (min-width: 1100px) {
+    .how-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 48px; align-items: center; }
+    .how-grid .steps { grid-template-columns: 1fr; gap: 22px; max-width: none; }
+  }
+  @media (max-width: 1099px) { .how-demo { max-width: 720px; } }
+  .step { transition: border-color .4s var(--ease-out), box-shadow .4s var(--ease-out); }
+  .step.is-now { border-color: var(--accent-deep); box-shadow: 0 0 0 1px var(--accent-deep), 0 12px 28px rgb(11 19 41 / .1); }
+  .hd { container-type: inline-size; padding: 18px 18px 16px; border-radius: 16px; background: var(--band); color: var(--ink); box-shadow: 0 18px 40px rgb(11 19 41 / .22); }
+  .hd.hd-still, .hd.hd-still *, .hd.hd-still *::before, .hd.hd-still *::after { transition: none !important; }   /* resets happen out of sight, without animating */
+  .hd-tag { margin: 0 0 12px; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+  .hd-stage { position: relative; transition: opacity .5s var(--ease-out); }
+  .hd-browser { border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 10px 30px rgb(0 0 0 / .35); transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
+  .hd-bar { display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 10px; background: #eef1f6; border-bottom: 1px solid #dde2ec; color: #3b4660; font-size: clamp(11px, 2cqi, 13px); }
+  .hd-dots { display: flex; gap: 5px; flex: none; }
+  .hd-dots i { width: 9px; height: 9px; border-radius: 50%; background: #c9d0de; }
+  .hd-url { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; height: 22px; padding: 0 10px; border-radius: 999px; background: #fff; border: 1px solid #dde2ec; }
+  .hd-lock { flex: none; width: 12px; height: 12px; color: var(--accent-deep); transition: opacity .4s var(--ease-out); }
+  .hd-url-text { display: grid; min-width: 0; }
+  .hd-url-text > span { grid-area: 1 / 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: opacity .4s var(--ease-out); }
+  .hd-url-preview { opacity: 0; }
+  .hd-live { flex: none; padding: 3px 9px; border-radius: 999px; background: var(--accent-deep); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; transition: opacity .4s var(--ease-out), transform .4s var(--ease-out); }
+  .hd-view { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #fbf8f1; }
+  .hd-skel { position: absolute; inset: 0; opacity: 0; transition: opacity .6s var(--ease-out); }
+  .hd-skel i { position: absolute; display: block; border-radius: 5px; background: #ebe4d4; }
+  .hd-skel .k1 { left: 0; top: 0; width: 100%; height: 8.3%; border-radius: 0; }
+  .hd-skel .k2 { left: 9%; top: 26%; width: 21%; height: 6.5%; }
+  .hd-skel .k3 { left: 9%; top: 35%; width: 24%; height: 6.5%; }
+  .hd-skel .k4 { left: 9%; top: 44%; width: 18%; height: 6.5%; }
+  .hd-skel .k5 { left: 9%; top: 55%; width: 32%; height: 2.6%; }
+  .hd-skel .k6 { left: 9%; top: 59%; width: 33%; height: 2.6%; }
+  .hd-skel .k7 { left: 9%; top: 63%; width: 24%; height: 2.6%; }
+  .hd-skel .k8 { left: 9%; top: 69%; width: 14%; height: 7%; }
+  .hd-skel .k9 { left: 50%; top: 8.3%; width: 50%; height: 91.7%; border-radius: 0; }
+  .hd-shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; clip-path: inset(0); transition: clip-path 1.6s var(--ease-out); }
+  .hd-mark { position: absolute; left: 7.8%; top: 23.5%; width: 27.5%; height: 29.5%; border: 2px solid var(--accent-deep); border-radius: 8px; box-shadow: 0 0 0 4px rgb(30 64 175 / .15); transition: opacity .5s var(--ease-out), transform .5s var(--ease-out); }
+  .hd-note { position: absolute; left: 7.8%; top: 23.5%; transform: translateY(calc(-100% - 6px)); padding: 4px 9px; border-radius: 999px; background: var(--accent-deep); color: #fff; font-size: clamp(10px, 1.9cqi, 12.5px); font-weight: 700; white-space: nowrap; transition: opacity .5s var(--ease-out); }
+  .hd-approve { position: absolute; left: 4%; right: 4%; bottom: 4%; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 8px 8px 14px; border-radius: 12px; background: var(--band); color: #fff; box-shadow: 0 10px 28px rgb(0 0 0 / .35); font-size: clamp(11px, 2.1cqi, 14px); font-weight: 600; transition: opacity .5s var(--ease-out), transform .5s var(--ease-out); }
+  .hd:not(.run) .hd-approve { display: none; }
+  .hd-btn { position: relative; display: grid; padding: 7px 14px; border-radius: 8px; background: #fff; color: var(--ground); font-weight: 700; transition: background-color .3s var(--ease-out); }
+  .hd-btn > span { grid-area: 1 / 1; text-align: center; transition: opacity .3s var(--ease-out); }
+  .hd-btn-b { opacity: 0; }
+  .hd-cursor { position: absolute; left: 58%; top: 52%; width: 22px; height: 22px; fill: #fff; stroke: var(--ground); stroke-width: 1.5; stroke-linejoin: round; filter: drop-shadow(0 2px 4px rgb(0 0 0 / .4)); opacity: 0; transition: transform .8s var(--ease-out), opacity .4s var(--ease-out); }
+  .hd-clock { position: absolute; right: 3%; top: calc(34px + 3%); display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: var(--band); color: var(--accent); font-size: clamp(10px, 1.9cqi, 12.5px); font-weight: 700; box-shadow: 0 6px 18px rgb(0 0 0 / .3); transition: opacity .5s var(--ease-out), transform .5s var(--ease-out); }
+  .hd-clock svg, .hd-photos svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .hd-chat { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 3% 2%; font-size: clamp(12px, 2.7cqi, 17px); transition: opacity .5s var(--ease-out), transform .5s var(--ease-out); }
+  .hd:not(.run) .hd-chat { display: none; }
+  .hd-msg { margin: 0; max-width: 84%; padding: 9px 13px; border-radius: 18px; line-height: 1.35; transition: opacity .4s var(--ease-out), transform .4s var(--ease-out); }
+  .hd-duna { align-self: flex-start; background: #fff; color: var(--ground); border-bottom-left-radius: 6px; }
+  .hd-you { align-self: flex-end; background: #2a3d78; color: #fff; border-bottom-right-radius: 6px; }
+  .hd-typing-dots { display: none; align-self: flex-start; gap: 5px; padding: 12px 13px; background: #fff; border-bottom-left-radius: 6px; }
+  .hd-typing-dots span { width: 7px; height: 7px; border-radius: 50%; background: #7f89a6; animation: dot .6s ease-in-out infinite; }
+  .hd-typing-dots span:nth-child(2) { animation-delay: .12s; }
+  .hd-typing-dots span:nth-child(3) { animation-delay: .24s; }
+  .hd-caret { display: inline-block; width: 2px; height: 1.1em; margin-left: 2px; vertical-align: -.15em; background: #fff; }
+  .hd-meta { align-self: flex-end; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; transition: opacity .4s var(--ease-out), transform .4s var(--ease-out); }
+  .hd-photos { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: rgb(255 255 255 / .08); border: 1px solid rgb(255 255 255 / .16); font-size: .85em; color: var(--ink-dim); }
+  .hd-pts { padding: 5px 10px; border-radius: 999px; background: var(--accent); color: var(--ground); font-size: .85em; font-weight: 800; }
+  .hd-steps { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .hd-steps li { position: relative; display: flex; align-items: center; gap: 7px; padding-top: 10px; font-size: 13px; font-weight: 600; color: var(--ink-dim); transition: color .3s var(--ease-out); }
+  .hd-steps b { display: inline-grid; place-items: center; flex: none; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; background: rgb(255 255 255 / .12); color: var(--ink); transition: background-color .3s var(--ease-out), color .3s var(--ease-out); }
+  .hd-steps li::before, .hd-steps li::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; border-radius: 3px; background: rgb(255 255 255 / .14); }
+  .hd-steps li::after { background: var(--accent); transform: scaleX(0); transform-origin: left center; }
+  .hd-steps li.is-on::after { transform: scaleX(1); transition: transform var(--dur, 4s) linear; }
+  .hd-steps li.is-done::after { transform: scaleX(1); }
+  .hd-steps li.is-on, .hd-steps li.is-done { color: #fff; }
+  .hd-steps li.is-on b, .hd-steps li.is-done b { background: var(--accent); color: var(--ground); }
+  /* the acts, when the script runs it: each phase class shows the next thing */
+  .hd.run .hd-browser { opacity: 0; transform: translateY(14px) scale(.98); }
+  .hd.run.p-build .hd-browser { opacity: 1; transform: none; }
+  .hd.run.p-build .hd-chat { opacity: 0; transform: translateX(-18px); }
+  .hd.run .hd-duna, .hd.run .hd-you, .hd.run .hd-meta { opacity: 0; transform: translateY(10px); }
+  .hd.run.p-q .hd-duna { opacity: 1; transform: none; }
+  .hd.run.p-dots .hd-typing-dots { display: flex; }
+  .hd.run.p-typing .hd-typing-dots { display: none; }
+  .hd.run.p-typing .hd-you { opacity: 1; transform: none; }
+  .hd.run.p-typed .hd-caret { display: none; }
+  .hd.run.p-meta .hd-meta { opacity: 1; transform: none; }
+  .hd.run .hd-skel { opacity: 1; }
+  .hd.run.p-render .hd-skel { opacity: 0; transition-delay: 1s; }
+  .hd.run .hd-shot { clip-path: inset(0 0 100% 0); }
+  .hd.run.p-render .hd-shot { clip-path: inset(0); }
+  .hd.run .hd-clock { opacity: 0; transform: translateY(-6px); }
+  .hd.run.p-clock .hd-clock { opacity: 1; transform: none; }
+  .hd.run .hd-mark { opacity: 0; transform: scale(1.04); }
+  .hd.run .hd-note { opacity: 0; }
+  .hd.run.p-mark .hd-mark { opacity: 1; transform: none; }
+  .hd.run.p-mark .hd-note { opacity: 1; }
+  .hd.run .hd-approve { opacity: 0; transform: translateY(24px); }
+  .hd.run.p-approve .hd-approve { opacity: 1; transform: none; }
+  .hd.run .hd-cursor { transform: translate(70px, 60px); }
+  .hd.run.p-cursor .hd-cursor { opacity: 1; transform: none; }
+  .hd.run.p-approved .hd-btn { background: var(--accent); }
+  .hd.run.p-approved .hd-btn-a { opacity: 0; }
+  .hd.run.p-approved .hd-btn-b { opacity: 1; }
+  .hd.run.p-live .hd-cursor { opacity: 0; }
+  .hd.run .hd-url-preview { opacity: 1; }
+  .hd.run .hd-url-live, .hd.run .hd-lock { opacity: 0; }
+  .hd.run.p-live .hd-url-preview { opacity: 0; }
+  .hd.run.p-live .hd-url-live, .hd.run.p-live .hd-lock { opacity: 1; }
+  .hd.run .hd-live { opacity: 0; transform: scale(.7); }
+  .hd.run.p-live .hd-live { opacity: 1; transform: none; }
+  .hd.run.p-done .hd-approve { opacity: 0; transform: translateY(24px); }
+  .hd.run.p-out .hd-stage { opacity: 0; }
   /* The three steps arrive as one sequence, once, when the row is a little way up the screen: card 1 rises and its
      disc fills, a line draws from its disc to the next, that disc fills and its card rises, and on to the third. Then
      nothing moves again. The script only marks the row ready and, when it comes into view, says go; these timings do
@@ -440,7 +548,7 @@ fbq('track', 'PageView');
   .steps.ready .step:last-child::after { display: none; }
   .steps.go .step::after { animation: line-draw var(--line) var(--ease-out) forwards; animation-delay: calc(var(--i) * var(--beat) + var(--beat) - var(--line)); }
   @keyframes line-draw { to { transform: scale(1); } }
-  @media (max-width: 760px) {
+  @media (max-width: 760px), (min-width: 1100px) {   /* the cards are stacked here: on phones, and beside the demo on wide screens */
     .steps.ready .step::after { left: 43px; top: calc(100% + 1px); width: 2px; height: 22px; transform: scaleY(0); transform-origin: center top; }
   }
   /* Stacked (phones and narrow windows), the three cards run to about 710px, so a single trigger at the top played
@@ -787,6 +895,7 @@ fbq('track', 'PageView');
   <div class="wrap">
     <p class="eyebrow">How it works</p>
     <h2>Three steps from questionnaire to live website.</h2>
+    <div class="how-grid">
     <div class="steps">
       <div class="step">
         <span class="num" aria-hidden="true">1</span>
@@ -803,6 +912,37 @@ fbq('track', 'PageView');
         <h3>Approve it, and it goes live.</h3>
         <p>We put it on your domain, host it, and keep it updated for you.</p>
       </div>
+    </div>
+    <div class="how-demo">
+      <p class="visually-hidden">Example: a caterer answers what their business does and sends three photos. Within 24 hours the website is built from those words. They approve the preview, and it goes live on their own domain.</p>
+      <div class="hd" aria-hidden="true">
+        <p class="hd-tag">Example</p>
+        <div class="hd-stage">
+          <div class="hd-browser">
+            <div class="hd-bar">
+              <span class="hd-dots"><i></i><i></i><i></i></span>
+              <span class="hd-url"><svg class="hd-lock" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="7.5" rx="1.5" fill="currentColor"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span class="hd-url-text"><span class="hd-url-preview">dunamarketing.com/preview</span><span class="hd-url-live">yourbusiness.com</span></span></span>
+              <span class="hd-live">Live</span>
+            </div>
+            <div class="hd-view">
+              <div class="hd-skel"><i class="k1"></i><i class="k2"></i><i class="k3"></i><i class="k4"></i><i class="k5"></i><i class="k6"></i><i class="k7"></i><i class="k8"></i><i class="k9"></i></div>
+              <img class="hd-shot" src="assets/img/desktop/long-table-catering.webp" alt="" width="960" height="600" loading="lazy" decoding="async">
+              <span class="hd-mark"></span>
+              <span class="hd-note">Written from your answers</span>
+              <div class="hd-approve"><span>Your preview is ready</span><span class="hd-btn"><span class="hd-btn-a">Approve</span><span class="hd-btn-b">Approved</span><svg class="hd-cursor" viewBox="0 0 24 24"><path d="M4 2l14.5 9.8-6.3 1.2L9 19.6z"/></svg></span></div>
+            </div>
+          </div>
+          <span class="hd-clock"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.3"/><path d="M8 4.6V8l2.4 1.5"/></svg>Built in under 24 hours</span>
+          <div class="hd-chat">
+            <p class="hd-msg hd-duna">What does your business do?</p>
+            <p class="hd-msg hd-typing-dots"><span></span><span></span><span></span></p>
+            <p class="hd-msg hd-you"><span class="hd-typed" data-text="We cater weddings, corporate lunches and family-style dinners around Sonoma, cooked like a restaurant would."></span><span class="hd-caret"></span></p>
+            <div class="hd-meta"><span class="hd-photos"><svg viewBox="0 0 16 16"><rect x="1.5" y="3" width="13" height="10" rx="1.6"/><path d="M3.5 11l3-3 2.4 2.4 1.6-1.6 2 2.2"/></svg>3 photos attached</span><span class="hd-pts">+125 pts</span></div>
+          </div>
+        </div>
+        <ol class="hd-steps"><li class="is-done"><b>1</b>Answer</li><li class="is-done"><b>2</b>Build</li><li class="is-done"><b>3</b>Go live</li></ol>
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -1166,7 +1306,7 @@ fbq('track', 'PageView');
     const steps = document.querySelector('#how .steps');
     if (steps && 'IntersectionObserver' in window) {
       const edge = { rootMargin: '0px 0px -8% 0px' };
-      if (matchMedia('(max-width: 760px)').matches) {
+      if (matchMedia('(max-width: 760px), (min-width: 1100px)').matches) {   // stacked: phones, and beside the demo on wide screens
         steps.classList.add('each');
         const each = new IntersectionObserver(es => {
           const fresh = es.filter(e => e.isIntersecting && !e.target.classList.contains('go')).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
@@ -1184,6 +1324,67 @@ fbq('track', 'PageView');
       steps.classList.add('ready');
     }
   } catch (e) { const s = document.querySelector('#how .steps'); if (s) s.classList.remove('ready'); }
+  // How it works, the demo beside the steps: one owner's answer becomes their website and goes live, in three acts that
+  // light up the matching card. With a mouse it loops while it is on screen; on a touch screen it plays once and rests on
+  // the live website; with reduced motion, or without this script, it stays the finished picture. Its own guard.
+  try {
+    const hd = document.querySelector('#how .hd');
+    if (hd && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const ACTS = [4400, 4800, 3600];   // ms: answer, build, go live
+      const HOLD = 4000;                 // ms the finished website holds before a loop starts again
+      const TYPE = 16;                   // ms a character while the answer types out
+      const PHASES = ['p-chat', 'p-q', 'p-dots', 'p-typing', 'p-typed', 'p-meta', 'p-build', 'p-render', 'p-clock', 'p-mark', 'p-approve', 'p-cursor', 'p-approved', 'p-live', 'p-done', 'p-out'];
+      const cards = [...document.querySelectorAll('#how .step')], marks = [...hd.querySelectorAll('.hd-steps li')];
+      const typed = hd.querySelector('.hd-typed'), TEXT = typed.dataset.text;
+      const loop = matchMedia('(hover: hover) and (pointer: fine)').matches;
+      let timers = [], playing = false, played = false, inView = false;
+      const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+      const on = (...c) => hd.classList.add(...c);
+      // k = 1-3 lights card k and its marker, 4 marks all three done, 0 clears
+      const mark = k => {
+        cards.forEach((c, i) => c.classList.toggle('is-now', i === k - 1));
+        marks.forEach((m, i) => { m.style.setProperty('--dur', ACTS[i] + 'ms'); m.classList.toggle('is-on', i === k - 1); m.classList.toggle('is-done', k === 4 || i < k - 1); });
+      };
+      const quiet = fn => { hd.classList.add('hd-still'); fn(); void hd.offsetWidth; hd.classList.remove('hd-still'); };
+      const ready = hidden => quiet(() => { hd.classList.remove(...PHASES); typed.textContent = ''; on('run', 'p-chat', 'p-q'); if (hidden) on('p-out'); mark(0); });
+      const stop = () => { timers.forEach(clearTimeout); timers = []; playing = false; };
+      const play = () => {
+        stop(); playing = true; played = true;
+        const a1 = ACTS[0], a2 = a1 + ACTS[1], end = a2 + ACTS[2];
+        at(0, () => { mark(1); on('p-dots'); });
+        at(800, () => on('p-typing'));
+        for (let i = 1; i <= TEXT.length; i++) at(800 + i * TYPE, () => { typed.textContent = TEXT.slice(0, i); });
+        at(900 + TEXT.length * TYPE, () => on('p-typed'));
+        at(900 + TEXT.length * TYPE + 300, () => on('p-meta'));
+        at(a1, () => { mark(2); on('p-build'); });
+        at(a1 + 700, () => on('p-render'));
+        at(a1 + 1000, () => on('p-clock'));
+        at(a1 + 2800, () => on('p-mark'));
+        at(a2, () => { mark(3); on('p-approve'); });
+        at(a2 + 800, () => on('p-cursor'));
+        at(a2 + 1700, () => on('p-approved'));
+        at(a2 + 2200, () => on('p-live'));
+        at(end, () => { mark(4); on('p-done'); if (!loop) stop(); });
+        if (loop) {
+          at(end + HOLD, () => on('p-out'));
+          at(end + HOLD + 550, () => ready(true));
+          at(end + HOLD + 600, () => hd.classList.remove('p-out'));
+          at(end + HOLD + 1200, () => { if (inView && !document.hidden) play(); else playing = false; });
+        }
+      };
+      new IntersectionObserver(es => {
+        const r = es[0].intersectionRatio;
+        inView = r >= 0.5;
+        if (inView && !playing && (loop || !played)) play();
+        else if (r === 0 && loop && playing) { stop(); ready(); }   // off screen: stop, and wait at the start
+      }, { threshold: [0, 0.5] }).observe(hd.querySelector('.hd-stage'));
+      document.addEventListener('visibilitychange', () => {
+        if (!loop) return;
+        if (document.hidden) { stop(); ready(); } else if (inView && !playing) play();
+      });
+      ready();
+    }
+  } catch (e) { const h = document.querySelector('#how .hd'); if (h) h.className = 'hd'; }
   // The ROI calculator in the pricing section. Two sliders (customers a month, revenue per customer) drive two
   // projections: the first month (the website plus the first Care Plan payment) and every month after (the Care Plan),
   // then break even, payback and year one. The prices are read from the plan boxes, so changing a price there changes
