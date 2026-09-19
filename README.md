@@ -43,10 +43,18 @@ To the right (under the offer on phones) plays an example: `assets/video/securit
 `security_animation.mp4` in the project folder (2400x1800). Only the illustration is kept: the platform whose layers lift
 to show the gears, the server stack, the charts. The crop covers the whole drawing, not just the pixels that move,
 because the server stack is still and a tighter crop would cut its top off. The source's background is pure white like
-the band, and the video's edges fade out so the drawing's grid runs into the page. To recut it:
+the band, and the video's edges fade out so the drawing's grid runs into the page.
 
-    ffmpeg -i security_animation.mp4 -vf "crop=1152:1004:1064:470" -an -c:v libx264 -preset slow -crf 26 -pix_fmt yuv420p -movflags +faststart assets/video/security-animation.mp4
-    ffmpeg -i assets/video/security-animation.mp4 -frames:v 1 -c:v libwebp -quality 82 assets/video/security-animation-poster.webp
+The dashboard's "A" card shows a bar chart instead (Barrett's call): four bars rising on an L-shaped axis, drawn flat in
+the card's isometric plane in the A's black. The card holds still except for two short dips, and the chart follows them
+frame by frame. `security_animation_bar_chart.py` in the project folder does the crop and the chart in one pass. It needs
+ffmpeg, numpy, scipy and Pillow, and the chart's shapes are the `SHAPES` list at its top. To recut it, from the project
+folder:
+
+    python3 security_animation_bar_chart.py security_animation.mp4 dunamarketing/assets/video/security-animation.mp4
+    ffmpeg -i dunamarketing/assets/video/security-animation.mp4 -frames:v 1 -c:v libwebp -quality 82 dunamarketing/assets/video/security-animation-poster.webp
+
+Then bump the `?v=` on the video's `src` and `poster` so browsers drop their cached copy.
 
 It is 6 seconds, silent, and about 650 KB; the page asks only for its metadata until it comes into view. With a mouse it
 loops while in view and pauses when scrolled away. On touch screens it plays once and rests on its last frame. With
