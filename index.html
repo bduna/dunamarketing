@@ -649,6 +649,22 @@ fbq('track', 'PageView');
   .founder-quote p { margin: 0; font-size: 1.1rem; font-weight: 500; letter-spacing: -.005em; }
   .founder-quote .founder-cite { margin: 8px 0 0; font-size: 14px; font-weight: 400; color: var(--ink-dim); }   /* not a <footer>: the page's footer rules would paint it dark */
 
+  /* ---------- Animations: an add-on at $100 each. The proof is this page, so each idea points at where it moves. ---------- */
+  .anim .wrap { display: grid; gap: 40px; }
+  @media (min-width: 1000px) { .anim .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; } }
+  .anim-price { margin-top: 28px; max-width: 30em; padding: 26px 26px 24px; border-radius: 14px; background: #fff; border: 2px solid var(--accent-deep); box-shadow: 0 8px 24px rgb(11 19 41 / .06); }
+  .anim-price .price { margin: 0; }
+  .anim-note { margin: 6px 0 20px; color: var(--navy-dim); font-size: 15px; }
+  .anim .btn { background: var(--accent-deep); color: #fff; box-shadow: none; }
+  .anim .btn:hover { background: #17338c; }
+  .anim-ideas-title { margin: 0 0 14px; font-size: 1.05rem; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; color: var(--navy-dim); }
+  .anim-ideas { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .anim-ideas li { padding: 18px 20px; border-radius: 12px; border: 1px solid rgb(11 19 41 / .16); background: #fff; box-shadow: 0 8px 24px rgb(11 19 41 / .06); }
+  .anim-ideas strong { display: block; font-size: 1.1rem; letter-spacing: -.01em; }
+  .anim-ideas span { display: block; margin-top: 4px; color: var(--navy-dim); font-size: 15px; }
+  .anim-ideas a { color: var(--accent-deep); font-weight: 600; }
+  .anim-ideas a:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; border-radius: 3px; }
+
   .faq { margin-top: 32px; max-width: 760px; border-top: 1px solid rgb(11 19 41 / .14); }
   .faq details { border-bottom: 1px solid rgb(11 19 41 / .14); }
   .faq summary {
@@ -958,6 +974,30 @@ fbq('track', 'PageView');
         <p>&ldquo;Barrett is a very bright, competent entrepreneur with a big vision for his future. He&rsquo;s easy to get along with and knows his stuff when it comes to anything technology.&rdquo;</p>
         <p class="founder-cite">Jim Stein, Founder and Chief of Strategy, Diamond Certified</p>
       </blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="band band-light anim" id="animations">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Animations</p>
+      <h2>Make your website move. $100 an animation.</h2>
+      <p class="lede">Everything that moves on this page, we made: the wall of websites at the top, our logo assembling itself, the caterer's answer typing out in How it works. A still page asks people to read. A moving one shows them.</p>
+      <div class="anim-price">
+        <p class="price"><strong>$100</strong><span>per animation</span></p>
+        <p class="anim-note">Made for your business and added to your website by us.</p>
+        <a class="btn" href="mailto:barrett@dunamarketing.com?subject=An%20animation%20for%20my%20website&amp;body=Hi%20Barrett%2C%20I%27d%20like%20an%20animation%20for%20my%20website.%20Here%27s%20what%20I%20have%20in%20mind%3A%20">Ask for an animation</a>
+      </div>
+    </div>
+    <div>
+      <p class="anim-ideas-title">A few ideas</p>
+      <ul class="anim-ideas">
+        <li><strong>Your logo, assembling itself</strong><span>Like our logo in the <a href="#before-you-pay">No risk</a> section.</span></li>
+        <li><strong>Your work, drifting across your homepage</strong><span>Like the wall of websites at <a href="#top">the top of this page</a>.</span></li>
+        <li><strong>How you work, played out step by step</strong><span>Like the caterer's answer becoming a website in <a href="#how">How it works</a>.</span></li>
+        <li><strong>A conversation with a customer</strong><span>Like the text thread in <a href="#care-plan">The Care Plan</a>, just below.</span></li>
+      </ul>
     </div>
   </div>
 </section>

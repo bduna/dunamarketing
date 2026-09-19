@@ -33,6 +33,13 @@ simulation at UCLA Anderson, the Live Nation analyst work, Jim Stein's testimoni
 16 years of web design and development, and a decade of studying marketing. It is a navy band (Barrett's call over
 white), so the white-background headshot sits as a card with the sample cards' border and shadow.
 
+## Animations
+
+`<section id="animations">`, a white band between Our founder and The Care Plan, sells animations for a client's website
+at $100 each. The proof is this page: each idea links to where something like it moves here (the logo in No risk, the
+wall at the top, the How it works demo, the Care Plan's text thread). The button emails barrett@dunamarketing.com with a
+prefilled subject and first line, so it fires the page's Contact event like every other email link.
+
 ## The ROI calculator
 
 In the Pricing section, to the right of the two plan boxes at 1200px and wider (3:2, and the row stretches so the
