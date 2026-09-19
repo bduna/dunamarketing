@@ -21,9 +21,8 @@ The text and call tiles that used to sit beside it are gone, and the footer no l
 questionnaire (see "The questionnaire (test)" below) is the way the page invites people to start; it sends nothing
 yet, and says so.
 
-The hero has two buttons: a white "Start questionnaire" pill with the arrow disc that scrolls to the questionnaire (the
-primary action, first), and a quieter "Learn more" pill, dark translucent with a white border, that scrolls to the
-"see it before you pay" section. To change the address, search the page for `barrett@dunamarketing.com`.
+The hero has one button, "Learn more": the white pill with the arrow disc, scrolling to the "see it before you pay"
+section. (The "Start questionnaire" buttons in the hero and the No risk section were removed on 2026-09-19.) To change the address, search the page for `barrett@dunamarketing.com`.
 
 ## Our founder
 
