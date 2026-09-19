@@ -56,8 +56,10 @@ the business, and a recap at the end. It is at https://dunamarketing.com/#questi
 - A strip right above the input shows a 20-minute clock and a discount. The clock starts on the visitor's first
   keystroke (never on its own), stops when the questionnaire is finished, and stays at 00:00 if time runs out; the chat
   keeps working either way. It counts from a fixed deadline, so a phone that puts the page to sleep gains no time. The
-  discount starts at $0.00. What each accepted answer takes off is `earn()` in the questionnaire block; it returns 0 for
-  every answer until Barrett sets the amounts. Start over resets both.
+  discount starts at $0.00 and follows Barrett's points rule, which the copy under "Earn big discounts on your website"
+  states: yes/no and choice questions earn 10 points, open-ended ones 100 plus 1 per word in the answer, contact details
+  nothing, and every full 100 points takes a dollar off. `earn()` in the questionnaire block holds the rule; each step
+  says which kind it is (`kind: 'choice'` or `kind: 'open'`; the business question is `open`). Start over resets both.
 - `onComplete(answers)` is the one place a finished questionnaire is handed over. For now it says the test is over and
   shows the recap. When it is wired to the leads sheet, the existing rules apply: the two honeypots, the start and
   complete stages, the Lead pixel event only when the server answers `lead_ok`, and no Apps Script edits.

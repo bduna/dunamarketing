@@ -523,6 +523,7 @@ fbq('track', 'PageView');
   @media (max-width: 860px) { .ask .wrap { grid-template-columns: 1fr; gap: 28px; } }
   .ask .lede + .lede { margin-top: .8em; }   /* the intro is two short paragraphs */
   .q-offer { margin: 26px 0 0; max-width: 20em; font-size: clamp(1.25rem, .6vw + 1rem, 1.6rem); font-weight: 700; letter-spacing: -.015em; line-height: 1.2; color: var(--ink); text-wrap: balance; }
+  .q-offer-rules { margin: 10px 0 0; max-width: 40em; font-size: 15px; color: var(--ink-dim); }
   .q-note { margin: 18px 0 0; font-size: 14px; color: var(--ink-dim); }
   .q-panel {
     display: flex; flex-direction: column; overflow: hidden;
@@ -868,6 +869,7 @@ fbq('track', 'PageView');
       <p class="lede">After that, you never have to put in effort again. Your new website will be available by tomorrow if you complete the questionnaire today.</p>
       <p class="q-note">Remember, you don't pay a dime unless you approve of the website we create for you which is based on your answers to this questionnaire.</p>
       <h3 class="q-offer">Earn big discounts on your website</h3>
+      <p class="q-offer-rules">Yes/No and Choice are 10 pts. Open-ended questions are 100 pts plus 1 pts per answered word. Every 100 points you earn, you get a dollar discount off your website.</p>
     </div>
     <div class="q-panel">
       <div class="q-head" aria-hidden="true"><span class="q-avatar">D</span><span><strong>Duna Marketing</strong><small>Questionnaire</small></span></div>
@@ -1186,7 +1188,7 @@ fbq('track', 'PageView');
         { id: 'email', input: 'q-email', label: 'Your email address',
           say: () => ['Got it. And your email address?'],
           take: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? { value: v } : { say: "That email doesn't look complete. Can you check it?" } },
-        { id: 'business', input: 'q-business', label: 'What your business does',
+        { id: 'business', input: 'q-business', label: 'What your business does', kind: 'open',
           say: () => ['Last one for now. What does your business do? A sentence or two is plenty.'],
           take: (v, memo) => v.split(/\s+/).length >= 4 || memo.nudged ? { value: v } : { say: 'Tell us a little more. What do you do, and who for?', memo: { nudged: true } } },
       ];
@@ -1199,7 +1201,7 @@ fbq('track', 'PageView');
       // not gain time. Start over puts both back.
       const LIMIT = 20 * 60 * 1000;
       const clock = ask.querySelector('#q-time'), money = ask.querySelector('#q-discount');
-      let deadline = 0, tick = 0, discount = 0;
+      let deadline = 0, tick = 0, points = 0;
       const showTime = ms => { const s = Math.ceil(ms / 1000); clock.textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); };
       const stopClock = () => { clearInterval(tick); tick = 0; };
       const startClock = () => {
@@ -1211,10 +1213,11 @@ fbq('track', 'PageView');
           if (!left) { stopClock(); clock.classList.add('q-out'); }
         }, 250);
       };
-      const showDiscount = () => { money.textContent = discount.toLocaleString('en-US', { style: 'currency', currency: 'USD' }); };
-      // What an accepted answer takes off the price of the website, in dollars. The amounts are Barrett's to set; until
-      // he does, every answer earns nothing and the discount stays at $0.00. This is the one place to change.
-      const earn = (step, value) => 0;
+      // Points, as the copy beside the chat explains them (Barrett's rule, 2026-09-18): a yes/no or choice question earns
+      // 10, an open-ended one 100 plus 1 per word in the answer, and contact details earn nothing. Every full 100 points
+      // takes a dollar off the website, so the discount moves in whole dollars. A step says which it is with kind.
+      const earn = (step, value) => step.kind === 'choice' ? 10 : step.kind === 'open' ? 100 + value.split(/\s+/).filter(Boolean).length : 0;
+      const showDiscount = () => { money.textContent = Math.floor(points / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' }); };
 
       const field = () => inputs[at];
       const refresh = () => { send.disabled = busy || at >= steps.length || !field().value.trim(); };
@@ -1276,7 +1279,7 @@ fbq('track', 'PageView');
       form.after(again);
       const reset = () => {
         run++; at = 0; memo = {}; answers = {}; busy = false;
-        stopClock(); deadline = 0; clock.classList.remove('q-out'); showTime(LIMIT); discount = 0; showDiscount();
+        stopClock(); deadline = 0; clock.classList.remove('q-out'); showTime(LIMIT); points = 0; showDiscount();
         thread.textContent = '';
         inputs.forEach(el => { el.value = ''; grow(el); });
         again.hidden = true; form.hidden = false;
@@ -1293,7 +1296,7 @@ fbq('track', 'PageView');
         bubble('you', r.show || v);
         el.value = ''; grow(el);
         if (r.say) { memo = r.memo || memo; el.focus(); say([r.say]); return; }
-        answers[step.id] = r.value; memo = {}; discount += earn(step, r.value); showDiscount(); at++;
+        answers[step.id] = r.value; memo = {}; points += earn(step, r.value); showDiscount(); at++;
         if (at < steps.length) {
           // Focus moves inside this tap or key press, the only moment an iPhone allows it, so the keyboard stays up
           // and changes to the right one while we are still "typing" the next question.
