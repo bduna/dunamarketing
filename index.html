@@ -543,6 +543,8 @@ fbq('track', 'PageView');
   .q-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: var(--ground); font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
   .q-head strong { display: block; font-size: 15px; line-height: 1.2; }
   .q-head small { display: block; font-size: 12px; color: var(--ink-dim); letter-spacing: .04em; }
+  .q-points { margin-left: auto; display: grid; justify-items: end; gap: 2px; text-align: right; }   /* total points so far, top right of the panel */
+  .q-points-value { font-size: 20px; font-weight: 800; letter-spacing: -.01em; line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--accent); }
   /* fixed height, scrolling inside itself, so the page never jumps as messages arrive; the first child's auto margin
      keeps a short thread at the bottom without cutting off the top of a long one */
   .q-thread { display: flex; flex-direction: column; gap: 8px; height: min(52svh, 400px); overflow-y: auto; overscroll-behavior: contain; scroll-behavior: auto; padding: 16px; }
@@ -885,7 +887,7 @@ fbq('track', 'PageView');
       </ul>
     </div>
     <div class="q-panel">
-      <div class="q-head" aria-hidden="true"><span class="q-avatar">D</span><span><strong>Duna Marketing</strong><small>Questionnaire</small></span></div>
+      <div class="q-head"><span class="q-avatar" aria-hidden="true">D</span><span aria-hidden="true"><strong>Duna Marketing</strong><small>Questionnaire</small></span><div class="q-points" aria-live="polite" aria-atomic="true"><span class="q-stat-label">Total points</span><span class="q-points-value" id="q-points">0 pts</span></div></div>
       <div class="q-thread" id="q-thread" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation with Duna Marketing" tabindex="0"></div>
       <div class="q-stats">
         <div class="q-stat"><span class="q-stat-label">Time left</span><span class="q-stat-value" id="q-time" role="timer">20:00</span></div>
@@ -1213,7 +1215,7 @@ fbq('track', 'PageView');
       // the chat keeps working either way. It counts from a fixed deadline, so a phone that puts the page to sleep does
       // not gain time. Start over puts both back.
       const LIMIT = 20 * 60 * 1000;
-      const clock = ask.querySelector('#q-time'), money = ask.querySelector('#q-discount');
+      const clock = ask.querySelector('#q-time'), money = ask.querySelector('#q-discount'), tally = ask.querySelector('#q-points');
       let deadline = 0, tick = 0, points = 0;
       const showTime = ms => { const s = Math.ceil(ms / 1000); clock.textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); };
       const stopClock = () => { clearInterval(tick); tick = 0; };
@@ -1231,7 +1233,10 @@ fbq('track', 'PageView');
       // every question earns something). Every full 100 points takes a dollar off the website, so the discount moves in
       // whole dollars. A step says which it is with kind.
       const earn = (step, value) => step.kind === 'choice' || step.kind === 'contact' ? 10 : step.kind === 'open' ? 50 + value.split(/\s+/).filter(Boolean).length : 0;
-      const showDiscount = () => { money.textContent = Math.floor(points / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' }); };
+      const showScore = () => {
+        tally.textContent = points.toLocaleString('en-US') + ' pts';
+        money.textContent = Math.floor(points / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+      };
 
       const field = () => inputs[at];
       const refresh = () => { send.disabled = busy || at >= steps.length || !field().value.trim(); };
@@ -1293,7 +1298,7 @@ fbq('track', 'PageView');
       form.after(again);
       const reset = () => {
         run++; at = 0; memo = {}; answers = {}; busy = false;
-        stopClock(); deadline = 0; clock.classList.remove('q-out'); showTime(LIMIT); points = 0; showDiscount();
+        stopClock(); deadline = 0; clock.classList.remove('q-out'); showTime(LIMIT); points = 0; showScore();
         thread.textContent = '';
         inputs.forEach(el => { el.value = ''; grow(el); });
         again.hidden = true; form.hidden = false;
@@ -1310,7 +1315,7 @@ fbq('track', 'PageView');
         bubble('you', r.show || v);
         el.value = ''; grow(el);
         if (r.say) { memo = r.memo || memo; el.focus(); say([r.say]); return; }
-        answers[step.id] = r.value; memo = {}; points += earn(step, r.value); showDiscount(); at++;
+        answers[step.id] = r.value; memo = {}; points += earn(step, r.value); showScore(); at++;
         if (at < steps.length) {
           // Focus moves inside this tap or key press, the only moment an iPhone allows it, so the keyboard stays up
           // and changes to the right one while we are still "typing" the next question.

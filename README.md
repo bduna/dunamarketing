@@ -60,7 +60,8 @@ the business, and a recap at the end. It is at https://dunamarketing.com/#questi
   states: yes/no and choice questions earn 10 points, open-ended ones 50 plus 1 per word in the answer, each contact
   detail 10, and every full 100 points takes a dollar off. `earn()` in the questionnaire block holds the rule; each step
   says which kind it is (`kind: 'choice'`, `'open'` or `'contact'`; name, phone and email are `contact`, the business
-  question is `open`). Start over resets both.
+  question is `open`). The panel's header shows the total points so far in its top right corner, from 0 pts. Start
+  over resets all three.
 - `onComplete(answers)` is the one place a finished questionnaire is handed over. For now it says the test is over and
   shows the recap. When it is wired to the leads sheet, the existing rules apply: the two honeypots, the start and
   complete stages, the Lead pixel event only when the server answers `lead_ok`, and no Apps Script edits.
