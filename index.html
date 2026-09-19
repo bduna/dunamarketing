@@ -649,14 +649,52 @@ fbq('track', 'PageView');
   .founder-quote p { margin: 0; font-size: 1.1rem; font-weight: 500; letter-spacing: -.005em; }
   .founder-quote .founder-cite { margin: 8px 0 0; font-size: 14px; font-weight: 400; color: var(--ink-dim); }   /* not a <footer>: the page's footer rules would paint it dark */
 
-  /* ---------- Animations: an add-on at $100 each, with an example animation playing beside the offer. ---------- */
+  /* ---------- Animations: an add-on at $250 each, with an example animation playing beside the offer. The offer is a navy
+     card, the page's colour for a thing to look at twice (the ROI calculator is one too), with the plan boxes' check discs
+     and a faint isometric grid that echoes the example's drawing. It sells motion, so it moves: when it comes on screen it
+     rises, the price rises, and each check disc fills the way the How it works numbers do, then it holds still. Slower on
+     touch screens. The script adds .ready only when it runs and motion is welcome; otherwise the card is simply there. */
   .anim .wrap { display: grid; gap: 40px; }
   @media (min-width: 1000px) { .anim .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; } }
-  .anim-price { margin-top: 28px; max-width: 30em; padding: 26px 26px 24px; border-radius: 14px; background: #fff; border: 2px solid var(--accent-deep); box-shadow: 0 8px 24px rgb(11 19 41 / .06); }
-  .anim-price .price { margin: 0; }
-  .anim-note { margin: 6px 0 20px; color: var(--navy-dim); font-size: 15px; }
-  .anim .btn { background: var(--accent-deep); color: #fff; box-shadow: none; }
-  .anim .btn:hover { background: #17338c; }
+  .anim-offer {
+    --pace: 1;
+    position: relative; isolation: isolate; overflow: hidden;
+    margin-top: 32px; max-width: 30em; padding: 30px 28px 32px;
+    border-radius: 14px; background: var(--band); color: var(--ink);
+    box-shadow: 0 18px 40px rgb(11 19 41 / .18);
+  }
+  .anim-offer::before {   /* the grid, strongest at the right edge and gone before the text */
+    content: ""; position: absolute; inset: -40px; z-index: -1;
+    background:
+      repeating-linear-gradient(150deg, rgb(143 188 255 / .16) 0 1px, transparent 1.5px 26px),
+      repeating-linear-gradient(210deg, rgb(143 188 255 / .16) 0 1px, transparent 1.5px 26px);
+    -webkit-mask-image: linear-gradient(to left, #000 12%, transparent 72%);
+    mask-image: linear-gradient(to left, #000 12%, transparent 72%);
+  }
+  .anim-offer .price { margin: 0; }
+  .anim-offer .price span { color: var(--ink-dim); }
+  .anim-points { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+  .anim-points li { position: relative; padding-left: 32px; font-size: 1.05rem; font-weight: 600; }
+  .anim-points li::before { content: ""; position: absolute; left: 0; top: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); }
+  .anim-points li::after {
+    content: ""; position: absolute; left: 5.5px; top: 9px; width: 9px; height: 5px;
+    border-left: 2px solid var(--band); border-bottom: 2px solid var(--band); transform: rotate(-45deg);
+  }
+  .anim-offer.touch { --pace: 1.7; }
+  .anim-offer.ready { opacity: 0; }
+  .anim-offer.go { opacity: 1; animation: offer-rise calc(1s * var(--pace)) var(--ease-out) backwards; }
+  .anim-offer.go::before { animation: grid-settle calc(1.8s * var(--pace)) var(--ease-out) calc(.1s * var(--pace)) backwards; }
+  .anim-offer.go .price > * { animation: rise calc(1s * var(--pace)) var(--ease-out) calc(.25s * var(--pace)) backwards; }
+  .anim-offer.go .price span { animation-delay: calc(.35s * var(--pace)); }
+  .anim-points li:nth-child(2) { --n: 1; }
+  .anim-offer.go .anim-points li { animation: point-in calc(.7s * var(--pace)) var(--ease-out) calc((.55s + var(--n, 0) * .2s) * var(--pace)) backwards; }
+  .anim-offer.go .anim-points li::before { animation: disc-grow calc(.6s * var(--pace)) var(--ease-out) calc((.6s + var(--n, 0) * .2s) * var(--pace)) backwards; }
+  .anim-offer.go .anim-points li::after { animation: check-draw calc(.35s * var(--pace)) var(--ease-out) calc((.95s + var(--n, 0) * .2s) * var(--pace)) backwards; }
+  @keyframes offer-rise { 0% { opacity: 0; transform: translateY(24px); } 30% { opacity: 1; } }   /* solid early: a half-faded navy card reads gray */
+  @keyframes grid-settle { from { opacity: 0; transform: translate(-45px, 26px); } }   /* in along the grid's own 30-degree line */
+  @keyframes point-in { from { opacity: 0; transform: translateX(-10px); } }
+  @keyframes check-draw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+  @keyframes disc-grow { from { transform: scale(0); } }
   /* the example video: cropped to the illustration, on the same pure white as the band, its edges faded so the drawing's
      grid runs out into the page instead of stopping at a box */
   .anim-media { align-self: center; }
@@ -987,10 +1025,12 @@ fbq('track', 'PageView');
       <p class="eyebrow">Animations</p>
       <h2>People stop for things that move.</h2>
       <p class="lede">Everything that moves on this page, we made: the wall of websites at the top, our logo assembling itself, the caterer's answer typing out in How it works. A still page asks people to read. A moving one shows them.</p>
-      <div class="anim-price">
-        <p class="price"><strong>$100</strong><span>per animation</span></p>
-        <p class="anim-note">Made for your business and added to your website by us.</p>
-        <a class="btn" href="mailto:barrett@dunamarketing.com?subject=An%20animation%20for%20my%20website&amp;body=Hi%20Barrett%2C%20I%27d%20like%20an%20animation%20for%20my%20website.%20Here%27s%20what%20I%20have%20in%20mind%3A%20">Ask for an animation</a>
+      <div class="anim-offer">
+        <p class="price"><strong>$250</strong><span>per animation</span></p>
+        <ul class="anim-points">
+          <li>Made for your business</li>
+          <li>Added to your website by us</li>
+        </ul>
       </div>
     </div>
     <div class="anim-media">
@@ -1459,6 +1499,17 @@ fbq('track', 'PageView');
       }
     }
   } catch (e) {}
+  // Animations: the offer card assembles itself once, when it comes on screen (see .anim-offer in the CSS), more slowly on
+  // a touch screen. Without the script, or with reduced motion, it is simply there. Its own guard.
+  try {
+    const offer = document.querySelector('#animations .anim-offer');
+    if (offer && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (!matchMedia('(hover: hover) and (pointer: fine)').matches) offer.classList.add('touch');
+      offer.classList.add('ready');
+      new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); offer.classList.add('go'); } },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.25 }).observe(offer);
+    }
+  } catch (e) { const o = document.querySelector('#animations .anim-offer'); if (o) o.classList.remove('ready'); }
   // The ROI calculator in the pricing section. Two sliders (customers a month, revenue per customer) drive two
   // projections: the first month (the website plus the first Care Plan payment) and every month after (the Care Plan),
   // then break even, payback and year one. The prices are read from the plan boxes, so changing a price there changes

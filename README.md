@@ -36,8 +36,12 @@ white), so the white-background headshot sits as a card with the sample cards' b
 ## Animations
 
 `<section id="animations">`, a white band between Our founder and The Care Plan, sells animations for a client's website
-at $100 each. The button emails barrett@dunamarketing.com with a prefilled subject and first line, so it fires the page's
-Contact event like every other email link.
+at $250 each ($100 until 2026-09-19). It has no button (Barrett took it out). The offer is a navy card: the price, then
+two check items in the plan boxes' style ("Made for your business", "Added to your website by us"), over a faint
+isometric grid that echoes the example video's drawing. The card sells motion, so it moves once: when it comes on
+screen it rises, the price rises, and each check disc fills and ticks, about 1.5 seconds with a mouse and 1.7 times
+slower on touch screens, then it holds still. The script adds `.ready` only when it runs and motion is welcome; with
+reduced motion or without the script the card is simply there. Check: `~/.cache/duna-site-tests/anim_offer_shot.js`.
 
 To the right (under the offer on phones) plays an example: `assets/video/security-animation.mp4`, cut from
 `security_animation.mp4` in the project folder (2400x1800). Only the illustration is kept: the platform whose layers lift
