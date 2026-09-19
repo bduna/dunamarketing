@@ -523,7 +523,15 @@ fbq('track', 'PageView');
   @media (max-width: 860px) { .ask .wrap { grid-template-columns: 1fr; gap: 28px; } }
   .ask .lede + .lede { margin-top: .8em; }   /* the intro is two short paragraphs */
   .q-offer { margin: 26px 0 0; max-width: 20em; font-size: clamp(1.25rem, .6vw + 1rem, 1.6rem); font-weight: 700; letter-spacing: -.015em; line-height: 1.2; color: var(--ink); text-wrap: balance; }
-  .q-offer-rules { margin: 10px 0 0; max-width: 40em; font-size: 15px; color: var(--ink-dim); }
+  /* the points rules as an offer card: one rule a line, the Care Plan's blue dots, and the numbers picked out in the accent */
+  .q-offer-rules {
+    list-style: none; margin: 14px 0 0; padding: 18px 20px; max-width: 34em; display: grid; gap: 10px;
+    border-radius: 12px; background: rgb(143 188 255 / .08); border: 1.5px solid rgb(143 188 255 / .45);
+    font-size: clamp(15px, .3vw + 14px, 17px); line-height: 1.45; color: var(--ink);
+  }
+  .q-offer-rules li { position: relative; padding-left: 22px; }
+  .q-offer-rules li::before { content: ""; position: absolute; left: 0; top: .5em; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+  .q-offer-rules strong { color: var(--accent); font-weight: 700; }
   .q-note { margin: 18px 0 0; font-size: 14px; color: var(--ink-dim); }
   .q-panel {
     display: flex; flex-direction: column; overflow: hidden;
@@ -869,7 +877,11 @@ fbq('track', 'PageView');
       <p class="lede">After that, you never have to put in effort again. Your new website will be available by tomorrow if you complete the questionnaire today.</p>
       <p class="q-note">Remember, you don't pay a dime unless you approve of the website we create for you which is based on your answers to this questionnaire.</p>
       <h3 class="q-offer">Earn big discounts on your website</h3>
-      <p class="q-offer-rules">Yes/No and choice questions are 10 pts per question. Open-ended questions are 50 pts plus 1 pt per answered word. Every 100 points you earn, you get a dollar discount off your website.</p>
+      <ul class="q-offer-rules">
+        <li>Yes/No and choice questions are <strong>10 pts</strong> per question.</li>
+        <li>Open-ended questions are <strong>50 pts</strong> plus <strong>1 pt</strong> per answered word.</li>
+        <li>Every <strong>100 points</strong> you earn, you get <strong>a dollar discount</strong> off your website.</li>
+      </ul>
     </div>
     <div class="q-panel">
       <div class="q-head" aria-hidden="true"><span class="q-avatar">D</span><span><strong>Duna Marketing</strong><small>Questionnaire</small></span></div>
