@@ -591,7 +591,13 @@ fbq('track', 'PageView');
      next to the two white plan cards. The script shows it; without the script it stays hidden. ---------- */
   .pricing-grid { display: grid; gap: 24px; margin-top: 40px; }
   .pricing-grid .plans { margin-top: 0; max-width: none; }
-  @media (min-width: 1200px) { .pricing-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); } }   /* items stretch, so the plan boxes end flush with the calculator */
+  @media (min-width: 1200px) {
+    /* the four boxes join the calculator's own grid, so the calculator can stretch to the first row alone: website and
+       care plan beside it and flush with it, animations and micro-apps in the row underneath */
+    .pricing-grid { grid-template-columns: repeat(2, minmax(0, 3fr)) minmax(0, 4fr); }
+    .pricing-grid .plans { display: contents; }
+    .pricing-grid > .roi { grid-column: 3; grid-row: 1; }
+  }
   @media (max-width: 1199px) { .pricing-grid > * { max-width: 1040px; } }
   .roi[hidden] { display: none !important; }
   .roi {
@@ -1085,7 +1091,7 @@ fbq('track', 'PageView');
 <section class="band band-light" id="pricing">
   <div class="wrap">
     <p class="eyebrow">Pricing</p>
-    <h2>Two numbers. Nothing hidden.</h2>
+    <h2>Four numbers. Nothing hidden.</h2>
     <div class="pricing-grid">
     <div class="plans">
       <div class="plan">
@@ -1125,6 +1131,31 @@ fbq('track', 'PageView');
           <li>The website stays yours if you cancel</li>
           <li>Kept up to date, secure and healthy</li>
           <li>Your website never quietly falls behind</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <h3>Animations</h3>
+        <p class="price"><strong>$250</strong><span>per animation</span></p>
+        <p class="terms">A piece of motion made for one spot on your website. The moving wall of websites at the top of this page is one.</p>
+        <ul>
+          <li>Completely custom animation</li>
+          <li>Designed by Duna Marketing for you</li>
+          <li>Added to your website by us</li>
+          <li>Looks right on phones</li>
+          <li>Add one whenever you like</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <h3>Micro-Apps</h3>
+        <p class="price"><strong>$500</strong><span>per micro-app</span></p>
+        <p class="terms">A small tool that does one job on your website. The ROI calculator in this section is one.</p>
+        <ul>
+          <li>Calculators and estimators</li>
+          <li>Booking and availability tools</li>
+          <li>Quizzes and finders</li>
+          <li>Quote builders and order forms</li>
+          <li>Completely custom, designed by Duna Marketing for you</li>
+          <li>Added to your website by us</li>
         </ul>
       </div>
     </div>

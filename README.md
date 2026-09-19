@@ -67,12 +67,17 @@ reduced motion it never plays: it loads and shows the frame 2 seconds in, with t
 
 ## The ROI calculator
 
-In the Pricing section, to the right of the two plan boxes at 1200px and wider (3:2, and the row stretches so the
-boxes end flush with the card), under them otherwise (`<aside id="roi">`,
-inside `.pricing-grid`). A navy card with two sliders and two projections. It ships hidden and the script shows it, so
-without JavaScript nobody sees dead sliders.
+In the Pricing section, to the right of the first two plan boxes at 1200px and wider, under them otherwise
+(`<aside id="roi">`, inside `.pricing-grid`). A navy card with two sliders and two projections. It ships hidden and the
+script shows it, so without JavaScript nobody sees dead sliders.
 
-- Prices are read from the plan boxes (the website's `.price strong` and the featured Care Plan's), falling back to
+At 1200px and wider `.plans` is `display: contents`, so the four boxes and the calculator share one 3:3:4 grid: Your
+website and Care plan in row one beside the calculator, which stretches to that row and so ends flush with them, and
+Animations and Micro-apps in row two under them. Narrower, the boxes are a 2-up (then 1-up) grid with the calculator
+underneath.
+
+- Prices are read from the plan boxes (the website's `.price strong` and the featured Care Plan's — `querySelector`
+  takes the first of each, so the Animations and Micro-apps boxes added later don't disturb it), falling back to
   $500 and $149, so changing a price there changes the calculator. First month = website + first Care Plan payment
   ($649); every month after = the Care Plan ($149).
 - Sliders step through fixed lists (`CUSTOMERS` and `REVENUE` in the script): customers 1-20, then 25, 30, 35, 40, 50,
