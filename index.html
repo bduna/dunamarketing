@@ -461,11 +461,10 @@ fbq('track', 'PageView');
   .hd-msg { margin: 0; max-width: 84%; padding: 9px 13px; border-radius: 18px; line-height: 1.35; transition: opacity .4s var(--ease-out), transform .4s var(--ease-out); }
   .hd-duna { align-self: flex-start; background: #fff; color: var(--ground); border-bottom-left-radius: 6px; }
   .hd-you { align-self: flex-end; background: #2a3d78; color: #fff; border-bottom-right-radius: 6px; }
-  .hd-typing-dots { display: none; align-self: flex-start; gap: 5px; padding: 12px 13px; background: #fff; border-bottom-left-radius: 6px; }
-  .hd-typing-dots span { width: 7px; height: 7px; border-radius: 50%; background: #7f89a6; animation: dot .6s ease-in-out infinite; }
-  .hd-typing-dots span:nth-child(2) { animation-delay: .12s; }
-  .hd-typing-dots span:nth-child(3) { animation-delay: .24s; }
-  .hd-caret { display: inline-block; width: 2px; height: 1.1em; margin-left: 2px; vertical-align: -.15em; background: #fff; }
+  /* the answer's bubble keeps its final size from the start: the text not yet typed is there, but invisible, so each
+     letter appears in place and nothing grows, wraps or re-centres while it types */
+  .hd-rest { color: transparent; }
+  .hd-caret { display: inline-block; width: 2px; height: 1.1em; margin-right: -2px; vertical-align: -.15em; background: #fff; }   /* no width of its own, so it never moves a word to the next line */
   .hd-meta { align-self: flex-end; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; transition: opacity .4s var(--ease-out), transform .4s var(--ease-out); }
   .hd-photos { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: rgb(255 255 255 / .08); border: 1px solid rgb(255 255 255 / .16); font-size: .85em; color: var(--ink-dim); }
   .hd-pts { padding: 5px 10px; border-radius: 999px; background: var(--accent); color: var(--ground); font-size: .85em; font-weight: 800; }
@@ -484,9 +483,7 @@ fbq('track', 'PageView');
   .hd.run.p-build .hd-chat { opacity: 0; transform: translateX(-18px); }
   .hd.run .hd-duna, .hd.run .hd-you, .hd.run .hd-meta { opacity: 0; transform: translateY(10px); }
   .hd.run.p-q .hd-duna { opacity: 1; transform: none; }
-  .hd.run.p-dots .hd-typing-dots { display: flex; }
-  .hd.run.p-typing .hd-typing-dots { display: none; }
-  .hd.run.p-typing .hd-you { opacity: 1; transform: none; }
+  .hd.run.p-dots .hd-you { opacity: 1; transform: none; }   /* the reply appears first, empty but for the caret, then the typing starts */
   .hd.run.p-typed .hd-caret { display: none; }
   .hd.run.p-meta .hd-meta { opacity: 1; transform: none; }
   .hd.run .hd-skel { opacity: 1; }
@@ -935,8 +932,7 @@ fbq('track', 'PageView');
           <span class="hd-clock"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.3"/><path d="M8 4.6V8l2.4 1.5"/></svg>Built in under 24 hours</span>
           <div class="hd-chat">
             <p class="hd-msg hd-duna">What does your business do?</p>
-            <p class="hd-msg hd-typing-dots"><span></span><span></span><span></span></p>
-            <p class="hd-msg hd-you"><span class="hd-typed" data-text="We cater weddings, corporate lunches and family-style dinners around Sonoma, cooked like a restaurant would."></span><span class="hd-caret"></span></p>
+            <p class="hd-msg hd-you"><span class="hd-typed" data-text="We cater weddings, corporate lunches and family-style dinners around Sonoma, cooked like a restaurant would."></span><span class="hd-caret"></span><span class="hd-rest"></span></p>
             <div class="hd-meta"><span class="hd-photos"><svg viewBox="0 0 16 16"><rect x="1.5" y="3" width="13" height="10" rx="1.6"/><path d="M3.5 11l3-3 2.4 2.4 1.6-1.6 2 2.2"/></svg>3 photos attached</span><span class="hd-pts">+125 pts</span></div>
           </div>
         </div>
@@ -1334,22 +1330,23 @@ fbq('track', 'PageView');
       const HOLD = 4000;                 // ms the finished website holds before a loop starts again
       const PACE = 1.8;                  // stretches the paced steps evenly: 1 is the first cut, higher is slower (Barrett asked for slower twice)
       const READ = 1800;                 // ms to read the finished answer, photos and points before the build starts
-      // The answer types the way a person types, about 85 words a minute: 60-110 ms a key in an uneven but repeatable rhythm, a breath after a comma,
-      // now and then a beat between words, and a moment to think before "cooked". It is a person's speed, so PACE leaves
-      // it alone, and act 1 lasts as long as the typing needs.
+      // The answer types the way a person types, about 90 words a minute: a steady 78-102 ms a key (barely uneven, so it
+      // reads as smooth, not stuttering), a breath after each comma and before "cooked". It is a person's speed, so PACE
+      // leaves it alone, and act 1 lasts as long as the typing needs.
       const keys = text => {
         const out = []; let t = 0;
         for (let i = 0; i < text.length; i++) {
-          let d = 60 + (i * 37 % 11) * 5;
-          if (text[i - 1] === ',') d += 300; else if (text[i - 1] === ' ' && i % 5 === 0) d += 150;
-          if (text.startsWith('cooked', i)) d += 500;
+          let d = 78 + (i * 37 % 7) * 4;
+          if (text[i - 1] === ',') d += 220;
+          if (text.startsWith('cooked', i)) d += 260;
           out.push(t += d);
         }
         return out;
       };
       const PHASES = ['p-chat', 'p-q', 'p-dots', 'p-typing', 'p-typed', 'p-meta', 'p-build', 'p-render', 'p-clock', 'p-mark', 'p-approve', 'p-cursor', 'p-approved', 'p-live', 'p-done', 'p-out'];
       const cards = [...document.querySelectorAll('#how .step')], marks = [...hd.querySelectorAll('.hd-steps li')];
-      const typed = hd.querySelector('.hd-typed'), TEXT = typed.dataset.text;
+      const typed = hd.querySelector('.hd-typed'), rest = hd.querySelector('.hd-rest'), TEXT = typed.dataset.text;
+      const upTo = n => { typed.textContent = TEXT.slice(0, n); rest.textContent = TEXT.slice(n); };
       const loop = matchMedia('(hover: hover) and (pointer: fine)').matches;
       let timers = [], playing = false, played = false, inView = false, durs = ACTS.map(a => a * PACE);
       const at = (ms, fn) => timers.push(setTimeout(fn, ms));
@@ -1360,7 +1357,7 @@ fbq('track', 'PageView');
         marks.forEach((m, i) => { m.style.setProperty('--dur', durs[i] + 'ms'); m.classList.toggle('is-on', i === k - 1); m.classList.toggle('is-done', k === 4 || i < k - 1); });
       };
       const quiet = fn => { hd.classList.add('hd-still'); fn(); void hd.offsetWidth; hd.classList.remove('hd-still'); };
-      const ready = hidden => quiet(() => { hd.classList.remove(...PHASES); typed.textContent = ''; on('run', 'p-chat', 'p-q'); if (hidden) on('p-out'); mark(0); });
+      const ready = hidden => quiet(() => { hd.classList.remove(...PHASES); upTo(0); on('run', 'p-chat', 'p-q'); if (hidden) on('p-out'); mark(0); });
       const stop = () => { timers.forEach(clearTimeout); timers = []; playing = false; };
       const play = () => {
         stop(); playing = true; played = true;
@@ -1369,7 +1366,7 @@ fbq('track', 'PageView');
         durs = [a1, ACTS[1] * PACE, ACTS[2] * PACE];
         at(0, () => { mark(1); on('p-dots'); });
         at(start, () => on('p-typing'));
-        keyAt.forEach((k, i) => at(start + k, () => { typed.textContent = TEXT.slice(0, i + 1); }));
+        keyAt.forEach((k, i) => at(start + k, () => upTo(i + 1)));
         at(typedAt + 100, () => on('p-typed'));
         at(typedAt + 400, () => on('p-meta'));
         at(a1, () => { mark(2); on('p-build'); });

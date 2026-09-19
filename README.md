@@ -141,8 +141,10 @@ With a mouse it loops while on screen (the finished website holds 4 s, then it f
 screen. On a touch screen it plays once and rests on the live website. With reduced motion, or without JavaScript, it
 is the still finished picture. The timings are constants in its script block: `ACTS` (4400 at least, 4800, 3600 ms) and `HOLD`
 (4000 ms), stretched by `PACE` (1.8). The answer types at a person's speed, which `PACE` leaves alone: `keys()`
-gives an uneven but repeatable rhythm of about 85 words a minute (10 s), with a breath after each comma and a beat
-before "cooked", and act 1 lasts as long as the typing needs plus `READ` (1.8 s). One cycle is about 29 s, then a 7 s hold. The picture is aria-hidden; a visually hidden sentence describes it.
+gives a steady rhythm of about 86 words a minute (78-102 ms a key, 10 s in all), with a breath after each comma and
+before "cooked", and act 1 lasts as long as the typing needs plus `READ` (1.8 s). The reply bubble holds its final size
+from the start (the untyped words are there, transparent, in `.hd-rest`), so nothing grows, wraps or moves while it
+types; the caret takes no width of its own. One cycle is about 29 s, then a 7 s hold. The picture is aria-hidden; a visually hidden sentence describes it.
 
 At 1100px and wider the cards stack in the left column, so their own arrival sequence draws its connector vertically
 and plays card by card as they are scrolled to, the way it does on phones.
