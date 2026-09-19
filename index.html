@@ -521,7 +521,8 @@ fbq('track', 'PageView');
   .ask [hidden] { display: none !important; }   /* the rules below set display, which would otherwise beat the hidden attribute */
   .ask .wrap { display: grid; gap: 40px; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: start; }
   @media (max-width: 860px) { .ask .wrap { grid-template-columns: 1fr; gap: 28px; } }
-  .ask .lede + .lede { margin-top: .8em; }   /* the intro is two short paragraphs */
+  .q-intro { margin: 0; max-width: 40em; color: var(--ink-dim); }   /* normal paragraph size, like the founder bio, not the larger lede */
+  .q-intro + .q-intro { margin-top: .9em; }
   .q-offer { margin: 26px 0 0; max-width: 20em; font-size: clamp(1.25rem, .6vw + 1rem, 1.6rem); font-weight: 700; letter-spacing: -.015em; line-height: 1.2; color: var(--ink); text-wrap: balance; }
   /* the points rules as an offer card: one rule a line, the Care Plan's blue dots, and the numbers picked out in the accent */
   .q-offer-rules {
@@ -875,8 +876,8 @@ fbq('track', 'PageView');
     <div>
       <p class="eyebrow">Questionnaire</p>
       <h2>Start your questionnaire right here.</h2>
-      <p class="lede">We know you're busy as a small business owner. Our questionnaire takes 20 minutes which seems long, but we have a perk.</p>
-      <p class="lede">With every question you submit, you earn points which discount your website. There's no discount limit and they add up fast. At the end of the 20 minutes, you'll be begging for 20 more.</p>
+      <p class="q-intro">We know you're busy as a small business owner. Our questionnaire takes 20 minutes which seems long, but we have a perk.</p>
+      <p class="q-intro">With every question you submit, you earn points which discount your website. There's no discount limit and they add up fast. At the end of the 20 minutes, you'll be begging for 20 more.</p>
       <p class="q-note">Remember, you don't pay a dime unless you approve of the website we create for you which is based on your answers to this questionnaire.</p>
       <h3 class="q-offer">Earn big discounts on your website</h3>
       <ul class="q-offer-rules">
