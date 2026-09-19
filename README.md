@@ -57,7 +57,7 @@ the business, and a recap at the end. It is at https://dunamarketing.com/#questi
   keystroke (never on its own), stops when the questionnaire is finished, and stays at 00:00 if time runs out; the chat
   keeps working either way. It counts from a fixed deadline, so a phone that puts the page to sleep gains no time. The
   discount starts at $0.00 and follows Barrett's points rule, which the copy under "Earn big discounts on your website"
-  states: yes/no and choice questions earn 10 points, open-ended ones 50 plus 1 per word in the answer, each contact
+  states: yes/no and choice questions earn 15 points, open-ended ones 50 plus 1 per word in the answer, each contact
   detail 10, and every full 100 points takes a dollar off. `earn()` in the questionnaire block holds the rule; each step
   says which kind it is (`kind: 'choice'`, `'open'` or `'contact'`; name, phone and email are `contact`, the business
   question is `open`). The panel's header shows the total points so far in its top right corner, from 0 pts. Start
