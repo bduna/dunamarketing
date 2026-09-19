@@ -1181,14 +1181,14 @@ fbq('track', 'PageView');
       // accepts the reply ({ value, show }) or asks again in the thread ({ say, memo }). memo carries what a second
       // try needs to know.
       const steps = [
-        { id: 'name', input: 'q-name', label: 'Your full name',
+        { id: 'name', input: 'q-name', label: 'Your full name', kind: 'contact',
           say: () => ['Hi, this is Duna Marketing.', "Let's start with the basics. What's your full name?"],
           take: (v, memo) => {
             if (memo.first) return { value: memo.first + ' ' + v };          // the second try is taken as it comes
             if ((v.match(/\p{L}/gu) || []).length < 2) return { say: "Sorry, we didn't catch that. What's your full name?" };
             return /\s/.test(v) ? { value: v } : { say: 'And your last name?', memo: { first: v } };
           } },
-        { id: 'phone', input: 'q-tel', label: 'Your phone number',
+        { id: 'phone', input: 'q-tel', label: 'Your phone number', kind: 'contact',
           say: a => ['Thanks, ' + firstName(a) + ". What's the best number to text you at?"],
           take: v => {
             let d = v.replace(/\D/g, '');
@@ -1197,7 +1197,7 @@ fbq('track', 'PageView');
             const shown = '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
             return { value: shown, show: shown };
           } },
-        { id: 'email', input: 'q-email', label: 'Your email address',
+        { id: 'email', input: 'q-email', label: 'Your email address', kind: 'contact',
           say: () => ['Got it. And your email address?'],
           take: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? { value: v } : { say: "That email doesn't look complete. Can you check it?" } },
         { id: 'business', input: 'q-business', label: 'What your business does', kind: 'open',
@@ -1226,9 +1226,10 @@ fbq('track', 'PageView');
         }, 250);
       };
       // Points, as the copy beside the chat explains them (Barrett's rule, 2026-09-18): a yes/no or choice question earns
-      // 10, an open-ended one 50 plus 1 per word in the answer, and contact details earn nothing. Every full 100 points
-      // takes a dollar off the website, so the discount moves in whole dollars. A step says which it is with kind.
-      const earn = (step, value) => step.kind === 'choice' ? 10 : step.kind === 'open' ? 50 + value.split(/\s+/).filter(Boolean).length : 0;
+      // 10, an open-ended one 50 plus 1 per word in the answer, and each contact detail 10 (Barrett, 2026-09-19, so that
+      // every question earns something). Every full 100 points takes a dollar off the website, so the discount moves in
+      // whole dollars. A step says which it is with kind.
+      const earn = (step, value) => step.kind === 'choice' || step.kind === 'contact' ? 10 : step.kind === 'open' ? 50 + value.split(/\s+/).filter(Boolean).length : 0;
       const showDiscount = () => { money.textContent = Math.floor(points / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' }); };
 
       const field = () => inputs[at];
