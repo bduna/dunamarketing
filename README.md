@@ -37,7 +37,7 @@ white), so the white-background headshot sits as a card with the sample cards' b
 
 `<section id="animations">`, a white band between Our founder and The Care Plan, sells animations for a client's website
 at $250 each ($100 until 2026-09-19). It has no button (Barrett took it out). The offer is a navy card: the price, then
-two check items in the plan boxes' style ("Made for your business", "Added to your website by us"), over a faint
+two check items in the plan boxes' style ("Completely custom animation", "Designed by Duna Marketing for you"), over a faint
 isometric grid that echoes the example video's drawing. The card sells motion, so it moves once: when it comes on
 screen it rises, the price rises, and each check disc fills and ticks, about 1.5 seconds with a mouse and 1.7 times
 slower on touch screens, then it holds still. The script adds `.ready` only when it runs and motion is welcome; with
