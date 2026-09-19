@@ -35,7 +35,8 @@ white), so the white-background headshot sits as a card with the sample cards' b
 
 ## The ROI calculator
 
-In the Pricing section, to the right of the two plan boxes at 1200px and wider, under them otherwise (`<aside id="roi">`,
+In the Pricing section, to the right of the two plan boxes at 1200px and wider (3:2, and the row stretches so the
+boxes end flush with the card), under them otherwise (`<aside id="roi">`,
 inside `.pricing-grid`). A navy card with two sliders and two projections. It ships hidden and the script shows it, so
 without JavaScript nobody sees dead sliders.
 

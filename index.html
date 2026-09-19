@@ -486,7 +486,7 @@ fbq('track', 'PageView');
      next to the two white plan cards. The script shows it; without the script it stays hidden. ---------- */
   .pricing-grid { display: grid; gap: 24px; margin-top: 40px; }
   .pricing-grid .plans { margin-top: 0; max-width: none; }
-  @media (min-width: 1200px) { .pricing-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1.12fr); align-items: start; } }
+  @media (min-width: 1200px) { .pricing-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); } }   /* items stretch, so the plan boxes end flush with the calculator */
   @media (max-width: 1199px) { .pricing-grid > * { max-width: 1040px; } }
   .roi[hidden] { display: none !important; }
   .roi {
@@ -513,7 +513,7 @@ fbq('track', 'PageView');
   .roi input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid var(--accent); box-shadow: 0 3px 10px rgb(0 0 0 / .4); }
   .roi input[type="range"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 8px; }
   .roi-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  @container (max-width: 379px) { .roi-cols { grid-template-columns: 1fr; } }
+  @container (max-width: 349px) { .roi-cols { grid-template-columns: 1fr; } }
   .roi-col { min-width: 0; padding: 14px 14px 12px; border-radius: 12px; background: rgb(255 255 255 / .05); border: 1px solid rgb(255 255 255 / .1); }
   .roi-col-head { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-dim); }
   .roi-fees { display: block; margin-top: 2px; font-size: 13px; font-weight: 500; letter-spacing: 0; text-transform: none; }
@@ -888,6 +888,11 @@ fbq('track', 'PageView');
           <li>A contact form that works</li>
           <li>Launch on your domain</li>
           <li>You own the website outright</li>
+          <li>Ready to review within 24 hours</li>
+          <li>No deposit, no sales pitch</li>
+          <li>One more direction if the first isn't right</li>
+          <li>Discounts for detailed questionnaire answers</li>
+          <li>Built on 16 years of web design experience</li>
         </ul>
       </div>
       <div class="plan featured">
@@ -901,6 +906,12 @@ fbq('track', 'PageView');
           <li>Backups of every website change</li>
           <li>Unlimited small changes, done within one business day</li>
           <li>One new section or page each month</li>
+          <li>Changes by text or email, no login</li>
+          <li>Hours, prices, photos and staff kept current</li>
+          <li>No contract</li>
+          <li>The website stays yours if you cancel</li>
+          <li>Kept up to date, secure and healthy</li>
+          <li>Your website never quietly falls behind</li>
         </ul>
       </div>
     </div>
