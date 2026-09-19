@@ -869,7 +869,7 @@ fbq('track', 'PageView');
       <p class="lede">After that, you never have to put in effort again. Your new website will be available by tomorrow if you complete the questionnaire today.</p>
       <p class="q-note">Remember, you don't pay a dime unless you approve of the website we create for you which is based on your answers to this questionnaire.</p>
       <h3 class="q-offer">Earn big discounts on your website</h3>
-      <p class="q-offer-rules">Yes/No and Choice are 10 pts. Open-ended questions are 100 pts plus 1 pts per answered word. Every 100 points you earn, you get a dollar discount off your website.</p>
+      <p class="q-offer-rules">Yes/No and choice questions are 10 pts per question. Open-ended questions are 50 pts plus 1 pt per answered word. Every 100 points you earn, you get a dollar discount off your website.</p>
     </div>
     <div class="q-panel">
       <div class="q-head" aria-hidden="true"><span class="q-avatar">D</span><span><strong>Duna Marketing</strong><small>Questionnaire</small></span></div>
@@ -1214,9 +1214,9 @@ fbq('track', 'PageView');
         }, 250);
       };
       // Points, as the copy beside the chat explains them (Barrett's rule, 2026-09-18): a yes/no or choice question earns
-      // 10, an open-ended one 100 plus 1 per word in the answer, and contact details earn nothing. Every full 100 points
+      // 10, an open-ended one 50 plus 1 per word in the answer, and contact details earn nothing. Every full 100 points
       // takes a dollar off the website, so the discount moves in whole dollars. A step says which it is with kind.
-      const earn = (step, value) => step.kind === 'choice' ? 10 : step.kind === 'open' ? 100 + value.split(/\s+/).filter(Boolean).length : 0;
+      const earn = (step, value) => step.kind === 'choice' ? 10 : step.kind === 'open' ? 50 + value.split(/\s+/).filter(Boolean).length : 0;
       const showDiscount = () => { money.textContent = Math.floor(points / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' }); };
 
       const field = () => inputs[at];
