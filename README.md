@@ -33,6 +33,24 @@ simulation at UCLA Anderson, the Live Nation analyst work, Jim Stein's testimoni
 16 years of web design and development, and a decade of studying marketing. It is a navy band (Barrett's call over
 white), so the white-background headshot sits as a card with the sample cards' border and shadow.
 
+## The ROI calculator
+
+In the Pricing section, to the right of the two plan boxes at 1200px and wider, under them otherwise (`<aside id="roi">`,
+inside `.pricing-grid`). A navy card with two sliders and two projections. It ships hidden and the script shows it, so
+without JavaScript nobody sees dead sliders.
+
+- Prices are read from the plan boxes (the website's `.price strong` and the featured Care Plan's), falling back to
+  $500 and $149, so changing a price there changes the calculator. First month = website + first Care Plan payment
+  ($649); every month after = the Care Plan ($149).
+- Sliders step through fixed lists (`CUSTOMERS` and `REVENUE` in the script): customers 1-20, then 25, 30, 35, 40, 50,
+  60, 75, 100 (default 4); revenue per customer $10 to $5,000 in 29 steps (default $250).
+- With R = customers x revenue per customer, each projection shows revenue (R), net gain or loss (R - fees), ROI
+  (net / fees) and cost per customer (fees / customers). Below them: break even (customers needed, fees / revenue per
+  customer, rounded up), payback (the first month in which total revenue covers the website plus the Care Plan so far;
+  "doesn't cover the Care Plan yet" when R is $149 or less), and year one (12R against $500 + 12 x $149 = $2,288).
+- It says "net", not "profit": revenue from those customers minus our fees, before the owner's own costs, as the fine
+  print says. Losses show as losses, in a soft red.
+
 ## The questionnaire (test)
 
 A message-and-reply questionnaire sits between pricing and the questions (`<section id="questionnaire">`).

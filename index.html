@@ -482,6 +482,53 @@ fbq('track', 'PageView');
   }
   .pay-later { margin: 28px 0 0; font-size: 1.15rem; font-weight: 600; }
 
+  /* ---------- ROI calculator: beside the plans on wide screens, under them otherwise. A navy card, so it reads as a tool
+     next to the two white plan cards. The script shows it; without the script it stays hidden. ---------- */
+  .pricing-grid { display: grid; gap: 24px; margin-top: 40px; }
+  .pricing-grid .plans { margin-top: 0; max-width: none; }
+  @media (min-width: 1200px) { .pricing-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1.12fr); align-items: start; } }
+  @media (max-width: 1199px) { .pricing-grid > * { max-width: 1040px; } }
+  .roi[hidden] { display: none !important; }
+  .roi {
+    container-type: inline-size;
+    padding: 28px 26px 24px; border-radius: 14px;
+    background: var(--band); color: var(--ink);
+    box-shadow: 0 18px 40px rgb(11 19 41 / .22);
+  }
+  @media (max-width: 760px) { .roi { padding: 24px 20px 20px; } }
+  .roi-eyebrow { margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+  .roi-title { margin: 0 0 22px; font-size: clamp(1.3rem, .6vw + 1rem, 1.6rem); font-weight: 700; letter-spacing: -.015em; line-height: 1.2; color: #fff; }
+  .roi-body { display: grid; gap: 24px; }
+  @container (min-width: 640px) { .roi-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 32px; align-items: start; } }
+  .roi-inputs { display: grid; gap: 20px; }
+  .roi-label-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  .roi-label-row label { font-size: 15px; font-weight: 600; color: var(--ink); }
+  .roi-value { font-size: 17px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  /* the sliders: a filled track up to the thumb (the script sets --fill), and a thumb big enough for a thumb */
+  .roi input[type="range"] { --fill: 50%; -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 32px; margin: 0; background: transparent; cursor: pointer; }
+  .roi input[type="range"]::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: linear-gradient(to right, var(--accent) 0 var(--fill), rgb(255 255 255 / .18) var(--fill) 100%); }
+  .roi input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 26px; height: 26px; margin-top: -10px; border-radius: 50%; background: #fff; border: 4px solid var(--accent); box-shadow: 0 3px 10px rgb(0 0 0 / .4); }
+  .roi input[type="range"]::-moz-range-track { height: 6px; border-radius: 999px; background: rgb(255 255 255 / .18); }
+  .roi input[type="range"]::-moz-range-progress { height: 6px; border-radius: 999px; background: var(--accent); }
+  .roi input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid var(--accent); box-shadow: 0 3px 10px rgb(0 0 0 / .4); }
+  .roi input[type="range"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 8px; }
+  .roi-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @container (max-width: 379px) { .roi-cols { grid-template-columns: 1fr; } }
+  .roi-col { min-width: 0; padding: 14px 14px 12px; border-radius: 12px; background: rgb(255 255 255 / .05); border: 1px solid rgb(255 255 255 / .1); }
+  .roi-col-head { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-dim); }
+  .roi-fees { display: block; margin-top: 2px; font-size: 13px; font-weight: 500; letter-spacing: 0; text-transform: none; }
+  .roi-net-label { margin: 12px 0 0; font-size: 13px; color: var(--ink-dim); }
+  .roi-net { margin: 2px 0 0; font-size: clamp(1.45rem, 1vw + 1rem, 1.8rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; color: var(--accent); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .roi-rows { margin: 12px 0 0; display: grid; gap: 4px; font-size: 13.5px; }
+  .roi-rows div { display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: 8px; }
+  .roi-rows dt { color: var(--ink-dim); }
+  .roi-rows dd { margin: 0 0 0 auto; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .roi .loss { color: #ff9e9e; }   /* a loss is shown as one, in a soft red that reads on navy */
+  .roi-summary { margin-top: 16px; display: grid; gap: 6px; font-size: 14.5px; color: var(--ink); }
+  .roi-summary p { margin: 0; }
+  .roi-summary strong { color: var(--accent); font-variant-numeric: tabular-nums; }
+  .roi-fine { margin: 18px 0 0; font-size: 12.5px; color: var(--ink-dim); }
+
   /* ---------- Our founder: the headshot beside the bio, on the navy band (Barrett's call over white). The photo has a
      white background, so it sits as a card, like the sample cards, with the same border and shadow. ---------- */
   .founder .wrap { display: grid; gap: 48px; grid-template-columns: minmax(0, 380px) minmax(0, 1fr); align-items: start; }
@@ -826,6 +873,7 @@ fbq('track', 'PageView');
   <div class="wrap">
     <p class="eyebrow">Pricing</p>
     <h2>Two numbers. Nothing hidden.</h2>
+    <div class="pricing-grid">
     <div class="plans">
       <div class="plan">
         <h3>Your website</h3>
@@ -855,6 +903,53 @@ fbq('track', 'PageView');
           <li>One new section or page each month</li>
         </ul>
       </div>
+    </div>
+    <aside class="roi" id="roi" aria-labelledby="roi-title" hidden>
+      <p class="roi-eyebrow">ROI calculator</p>
+      <h3 class="roi-title" id="roi-title">What could your website bring in?</h3>
+      <div class="roi-body">
+        <div class="roi-inputs">
+          <div class="roi-field">
+            <div class="roi-label-row"><label for="roi-customers">Number of customers</label><span class="roi-value" data-out="customers"></span></div>
+            <input type="range" id="roi-customers" min="0" max="27" step="1" value="3">
+          </div>
+          <div class="roi-field">
+            <div class="roi-label-row"><label for="roi-revenue">Revenue per customer</label><span class="roi-value" data-out="revenue"></span></div>
+            <input type="range" id="roi-revenue" min="0" max="28" step="1" value="14">
+          </div>
+        </div>
+        <div class="roi-results">
+          <div class="roi-cols">
+              <div class="roi-col">
+                <p class="roi-col-head">First month<span class="roi-fees" data-out="fees1"></span></p>
+                <p class="roi-net-label" data-out="netlabel1">Net gain</p>
+                <p class="roi-net" data-out="net1"></p>
+                <dl class="roi-rows">
+                  <div><dt>Revenue</dt><dd data-out="rev1"></dd></div>
+                  <div><dt>ROI</dt><dd data-out="roi1"></dd></div>
+                  <div><dt>Cost per customer</dt><dd data-out="cpc1"></dd></div>
+                </dl>
+              </div>
+              <div class="roi-col">
+                <p class="roi-col-head">Every month after<span class="roi-fees" data-out="fees2"></span></p>
+                <p class="roi-net-label" data-out="netlabel2">Net gain</p>
+                <p class="roi-net" data-out="net2"></p>
+                <dl class="roi-rows">
+                  <div><dt>Revenue</dt><dd data-out="rev2"></dd></div>
+                  <div><dt>ROI</dt><dd data-out="roi2"></dd></div>
+                  <div><dt>Cost per customer</dt><dd data-out="cpc2"></dd></div>
+                </dl>
+              </div>
+          </div>
+          <div class="roi-summary" aria-live="polite">
+            <p data-out="breakeven"></p>
+            <p data-out="payback"></p>
+            <p data-out="year"></p>
+          </div>
+        </div>
+      </div>
+      <p class="roi-fine">Estimates from the numbers you choose. Net is the revenue from these customers minus our fees, before your own costs.</p>
+    </aside>
     </div>
     <p class="pay-later">You see the finished website before you pay anything.</p>
   </div>
@@ -1014,6 +1109,61 @@ fbq('track', 'PageView');
       steps.classList.add('ready');
     }
   } catch (e) { const s = document.querySelector('#how .steps'); if (s) s.classList.remove('ready'); }
+  // The ROI calculator in the pricing section. Two sliders (customers a month, revenue per customer) drive two
+  // projections: the first month (the website plus the first Care Plan payment) and every month after (the Care Plan),
+  // then break even, payback and year one. The prices are read from the plan boxes, so changing a price there changes
+  // the numbers here. It ships hidden and is shown from here, in its own guard, so a failure touches nothing else.
+  try {
+    const roi = document.getElementById('roi');
+    if (roi) {
+      const price = el => { const n = el ? parseInt(el.textContent.replace(/[^0-9]/g, ''), 10) : 0; return n > 0 ? n : 0; };
+      const SITE = price(document.querySelector('#pricing .plan:not(.featured) .price strong')) || 500;
+      const PLAN = price(document.querySelector('#pricing .plan.featured .price strong')) || 149;
+      // The sliders move through these lists, so a bakery and a law firm both get fine control.
+      const CUSTOMERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 30, 35, 40, 50, 60, 75, 100];
+      const REVENUE = [10, 15, 20, 25, 30, 40, 50, 60, 75, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600, 750, 1000, 1250, 1500, 2000, 2500, 3000, 4000, 5000];
+      const customers = roi.querySelector('#roi-customers'), revenue = roi.querySelector('#roi-revenue');
+      const out = name => roi.querySelector('[data-out="' + name + '"]');
+      const MINUS = '−';
+      const money = n => (Math.round(n) < 0 ? MINUS : '') + '$' + Math.abs(Math.round(n)).toLocaleString('en-US');
+      const signed = n => (Math.round(n) > 0 ? '+' : '') + money(n);
+      const cents = n => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const pct = n => { const p = Math.round(n * 100); return (p > 0 ? '+' : p < 0 ? MINUS : '') + Math.abs(p).toLocaleString('en-US') + '%'; };
+      const count = n => n + ' customer' + (n === 1 ? '' : 's');
+      // a sentence of text, with the figures in <strong>; built from nodes, never markup
+      const say = (el, parts) => { el.textContent = ''; parts.forEach((s, i) => { if (i % 2) { const b = document.createElement('strong'); b.textContent = s; el.append(b); } else el.append(s); }); };
+      const setup = (el, list, start) => { el.min = 0; el.max = list.length - 1; el.step = 1; el.value = Math.max(0, list.indexOf(start)); };
+      setup(customers, CUSTOMERS, 4); setup(revenue, REVENUE, 250);
+      const render = () => {
+        const n = CUSTOMERS[+customers.value], v = REVENUE[+revenue.value], R = n * v;
+        [customers, revenue].forEach(el => el.style.setProperty('--fill', (el.value / el.max * 100) + '%'));
+        out('customers').textContent = n + ' a month';
+        customers.setAttribute('aria-valuetext', count(n) + ' a month');
+        out('revenue').textContent = money(v);
+        revenue.setAttribute('aria-valuetext', money(v));
+        [[1, SITE + PLAN], [2, PLAN]].forEach(([k, fees]) => {
+          const net = R - fees, loss = Math.round(net) < 0;
+          out('fees' + k).textContent = money(fees) + ' in fees';
+          out('netlabel' + k).textContent = loss ? 'Net loss' : 'Net gain';
+          const big = out('net' + k); big.textContent = signed(net); big.classList.toggle('loss', loss);
+          out('rev' + k).textContent = money(R);
+          const r = out('roi' + k); r.textContent = pct(net / fees); r.classList.toggle('loss', loss);
+          out('cpc' + k).textContent = cents(fees / n);
+        });
+        const be1 = Math.ceil((SITE + PLAN) / v), be2 = Math.ceil(PLAN / v);
+        say(out('breakeven'), ['Break even: ', count(be1), ' the first month, then ', count(be2), ' a month after.']);
+        if (R >= SITE + PLAN) say(out('payback'), ['Pays for itself in ', 'the first month', '.']);
+        else if (R > PLAN) say(out('payback'), ['Pays for itself in ', 'month ' + Math.ceil(SITE / (R - PLAN)), '.']);
+        else say(out('payback'), ["At these numbers it doesn't cover the Care Plan yet: it needs more than ", money(PLAN) + ' a month', ' from these customers.']);
+        const yFees = SITE + 12 * PLAN, yNet = 12 * R - yFees;
+        say(out('year'), ['Year one: ', money(12 * R), ' in revenue for ', money(yFees), ' in fees, a net ' + (Math.round(yNet) < 0 ? 'loss' : 'gain') + ' of ', money(Math.abs(yNet)), ' (', pct(yNet / yFees), ').']);
+      };
+      customers.addEventListener('input', render);
+      revenue.addEventListener('input', render);
+      render();
+      roi.hidden = false;
+    }
+  } catch (e) { const r = document.getElementById('roi'); if (r) r.hidden = true; }
   // A tap on text, call, or email is the conversion this page exists for.
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href^="sms:"], a[href^="tel:"], a[href^="mailto:"]');
