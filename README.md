@@ -46,10 +46,11 @@ because the server stack is still and a tighter crop would cut its top off. The 
 the band, and the video's edges fade out so the drawing's grid runs into the page.
 
 The dashboard's "A" card shows a bar chart instead (Barrett's call): four bars rising on an L-shaped axis, drawn flat in
-the card's isometric plane in the A's black. The card holds still except for two short dips, and the chart follows them
-frame by frame. `security_animation_bar_chart.py` in the project folder does the crop and the chart in one pass. It needs
-ffmpeg, numpy, scipy and Pillow, and the chart's shapes are the `SHAPES` list at its top. To recut it, from the project
-folder:
+the card's isometric plane. The bars are the pie chart's gray (110 of 255, Barrett's call, so they blend in); the axis is
+the A's black. The card holds still except for two short dips, and the chart follows them frame by frame.
+`security_animation_bar_chart.py` in the project folder does the crop and the chart in one pass. It needs ffmpeg, numpy,
+scipy and Pillow; the chart's shapes are the `BARS` and `AXES` lists at its top, and their colors are `BAR_INK` and
+`AXIS_INK`. To recut it, from the project folder:
 
     python3 security_animation_bar_chart.py security_animation.mp4 dunamarketing/assets/video/security-animation.mp4
     ffmpeg -i dunamarketing/assets/video/security-animation.mp4 -frames:v 1 -c:v libwebp -quality 82 dunamarketing/assets/video/security-animation-poster.webp
