@@ -649,7 +649,7 @@ fbq('track', 'PageView');
   .founder-quote p { margin: 0; font-size: 1.1rem; font-weight: 500; letter-spacing: -.005em; }
   .founder-quote .founder-cite { margin: 8px 0 0; font-size: 14px; font-weight: 400; color: var(--ink-dim); }   /* not a <footer>: the page's footer rules would paint it dark */
 
-  /* ---------- Animations: an add-on at $100 each. The proof is this page, so each idea points at where it moves. ---------- */
+  /* ---------- Animations: an add-on at $100 each, with an example animation playing beside the offer. ---------- */
   .anim .wrap { display: grid; gap: 40px; }
   @media (min-width: 1000px) { .anim .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; } }
   .anim-price { margin-top: 28px; max-width: 30em; padding: 26px 26px 24px; border-radius: 14px; background: #fff; border: 2px solid var(--accent-deep); box-shadow: 0 8px 24px rgb(11 19 41 / .06); }
@@ -657,13 +657,16 @@ fbq('track', 'PageView');
   .anim-note { margin: 6px 0 20px; color: var(--navy-dim); font-size: 15px; }
   .anim .btn { background: var(--accent-deep); color: #fff; box-shadow: none; }
   .anim .btn:hover { background: #17338c; }
-  .anim-ideas-title { margin: 0 0 14px; font-size: 1.05rem; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; color: var(--navy-dim); }
-  .anim-ideas { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-  .anim-ideas li { padding: 18px 20px; border-radius: 12px; border: 1px solid rgb(11 19 41 / .16); background: #fff; box-shadow: 0 8px 24px rgb(11 19 41 / .06); }
-  .anim-ideas strong { display: block; font-size: 1.1rem; letter-spacing: -.01em; }
-  .anim-ideas span { display: block; margin-top: 4px; color: var(--navy-dim); font-size: 15px; }
-  .anim-ideas a { color: var(--accent-deep); font-weight: 600; }
-  .anim-ideas a:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; border-radius: 3px; }
+  /* the example video: cropped to the illustration, on the same pure white as the band, its edges faded so the drawing's
+     grid runs out into the page instead of stopping at a box */
+  .anim-media { align-self: center; }
+  .anim-video {
+    display: block; width: 100%; height: auto; aspect-ratio: 1152 / 1004; background: #fff;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent);
+    mask-composite: intersect;
+  }
 
   .faq { margin-top: 32px; max-width: 760px; border-top: 1px solid rgb(11 19 41 / .14); }
   .faq details { border-bottom: 1px solid rgb(11 19 41 / .14); }
@@ -990,14 +993,8 @@ fbq('track', 'PageView');
         <a class="btn" href="mailto:barrett@dunamarketing.com?subject=An%20animation%20for%20my%20website&amp;body=Hi%20Barrett%2C%20I%27d%20like%20an%20animation%20for%20my%20website.%20Here%27s%20what%20I%20have%20in%20mind%3A%20">Ask for an animation</a>
       </div>
     </div>
-    <div>
-      <p class="anim-ideas-title">A few ideas</p>
-      <ul class="anim-ideas">
-        <li><strong>Your logo, assembling itself</strong><span>Like our logo in the <a href="#before-you-pay">No risk</a> section.</span></li>
-        <li><strong>Your work, drifting across your homepage</strong><span>Like the wall of websites at <a href="#top">the top of this page</a>.</span></li>
-        <li><strong>How you work, played out step by step</strong><span>Like the caterer's answer becoming a website in <a href="#how">How it works</a>.</span></li>
-        <li><strong>A conversation with a customer</strong><span>Like the text thread in <a href="#care-plan">The Care Plan</a>, just below.</span></li>
-      </ul>
+    <div class="anim-media">
+      <video class="anim-video" src="assets/video/security-animation.mp4" poster="assets/video/security-animation-poster.webp" width="1152" height="1004" muted playsinline preload="metadata" aria-label="An example animation: a platform's layers lift apart to show the gears inside, beside a stack of servers and a dashboard of charts."></video>
     </div>
   </div>
 </section>
@@ -1439,6 +1436,29 @@ fbq('track', 'PageView');
       ready();
     }
   } catch (e) { const h = document.querySelector('#how .hd'); if (h) h.className = 'hd'; }
+  // Animations: the example video plays only while it is on screen. With a mouse it loops; on a touch screen it plays
+  // once and rests on its last frame; with reduced motion it stays still, on the frame where the gears show. Its own guard.
+  try {
+    const vid = document.querySelector('#animations .anim-video');
+    if (vid) {
+      const loop = matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // go to the gears frame, and keep trying as the file arrives: a server without partial downloads cannot seek
+        // until it has all of it, and the browser may have loaded the start before this script ran
+        const gears = () => { if (vid.readyState >= 1 && Math.abs(vid.currentTime - 2) > .05) vid.currentTime = 2; };
+        vid.preload = 'auto';
+        ['loadedmetadata', 'progress', 'canplaythrough'].forEach(e => vid.addEventListener(e, gears));
+        gears();
+      } else {
+        vid.loop = loop;
+        let ended = false;
+        vid.addEventListener('ended', () => { ended = true; });
+        const go = () => { if (loop || !ended) { const p = vid.play(); if (p) p.catch(() => {}); } };
+        if ('IntersectionObserver' in window) new IntersectionObserver(es => { if (es[0].isIntersecting) go(); else vid.pause(); }, { threshold: 0.4 }).observe(vid);
+        else go();
+      }
+    }
+  } catch (e) {}
   // The ROI calculator in the pricing section. Two sliders (customers a month, revenue per customer) drive two
   // projections: the first month (the website plus the first Care Plan payment) and every month after (the Care Plan),
   // then break even, payback and year one. The prices are read from the plan boxes, so changing a price there changes

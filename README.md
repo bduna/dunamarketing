@@ -26,7 +26,7 @@ section. (The "Start questionnaire" buttons in the hero and the No risk section 
 
 ## Our founder
 
-`<section id="founder">`, between How it works and the Care Plan: the headshot (`assets/img/barrett-duna-720.webp`, with a
+`<section id="founder">`, between How it works and Animations: the headshot (`assets/img/barrett-duna-720.webp`, with a
 360px copy for phones; the original is `public/headshot.png` in the project folder, 1024px) beside a bio. The bio's
 facts come from barrettduna.com (UCLA Mathematics and Economics 2013, the Stanford algorithms course, the ticket-market
 simulation at UCLA Anderson, the Live Nation analyst work, Jim Stein's testimonial) plus two Barrett gave directly:
@@ -36,9 +36,21 @@ white), so the white-background headshot sits as a card with the sample cards' b
 ## Animations
 
 `<section id="animations">`, a white band between Our founder and The Care Plan, sells animations for a client's website
-at $100 each. The proof is this page: each idea links to where something like it moves here (the logo in No risk, the
-wall at the top, the How it works demo, the Care Plan's text thread). The button emails barrett@dunamarketing.com with a
-prefilled subject and first line, so it fires the page's Contact event like every other email link.
+at $100 each. The button emails barrett@dunamarketing.com with a prefilled subject and first line, so it fires the page's
+Contact event like every other email link.
+
+To the right (under the offer on phones) plays an example: `assets/video/security-animation.mp4`, cut from
+`security_animation.mp4` in the project folder (2400x1800). Only the illustration is kept: the platform whose layers lift
+to show the gears, the server stack, the charts. The crop covers the whole drawing, not just the pixels that move,
+because the server stack is still and a tighter crop would cut its top off. The source's background is pure white like
+the band, and the video's edges fade out so the drawing's grid runs into the page. To recut it:
+
+    ffmpeg -i security_animation.mp4 -vf "crop=1152:1004:1064:470" -an -c:v libx264 -preset slow -crf 26 -pix_fmt yuv420p -movflags +faststart assets/video/security-animation.mp4
+    ffmpeg -i assets/video/security-animation.mp4 -frames:v 1 -c:v libwebp -quality 82 assets/video/security-animation-poster.webp
+
+It is 6 seconds, silent, and about 650 KB; the page asks only for its metadata until it comes into view. With a mouse it
+loops while in view and pauses when scrolled away. On touch screens it plays once and rests on its last frame. With
+reduced motion it never plays: it loads and shows the frame 2 seconds in, with the gears showing.
 
 ## The ROI calculator
 
