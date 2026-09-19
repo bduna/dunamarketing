@@ -43,7 +43,7 @@ the business, and a recap at the end. It is at https://dunamarketing.com/#questi
 - It has been public since 2026-09-17: every visitor sees it. It still sends nothing. The closing message says so ("That's
   the end of this test. Nothing was sent or saved."); it comes out when `onComplete` really sends the answers somewhere.
   The note above the panel said the same until 2026-09-18, when Barrett replaced it with a reminder that nobody pays
-  unless they like the website.
+  unless they approve of the website.
 - The section keeps the `hidden` attribute in the HTML and the script shows it, so with JavaScript off, or if the script
   fails, nobody is left looking at a panel that cannot answer. To hide it from visitors again, put the test back on
   the `const showQuestionnaire = ...` line (look for "THE SWITCH" in the first script):
