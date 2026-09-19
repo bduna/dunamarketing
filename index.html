@@ -555,6 +555,14 @@ fbq('track', 'PageView');
   .q-recap div { display: grid; grid-template-columns: 5.5em minmax(0, 1fr); gap: 10px; padding: 3px 0; }
   .q-recap dt { color: var(--ink-dim); }
   .q-recap dd { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+  /* the clock and the discount, in a strip right above the input, so they stay in view while someone types, on a phone
+     too, where the top of the panel scrolls away as the conversation grows */
+  .q-stats { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; padding: 10px 16px; border-top: 1px solid rgb(255 255 255 / .1); }
+  .q-stat { display: flex; align-items: baseline; gap: 8px; }
+  .q-stat-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-dim); }
+  .q-stat-value { font-size: 17px; font-weight: 700; letter-spacing: -.01em; font-variant-numeric: tabular-nums; color: #fff; }
+  .q-money { color: var(--accent); }
+  .q-stat-value.q-out { color: var(--ink-dim); }   /* time ran out */
   .q-bar { display: flex; align-items: flex-end; gap: 10px; padding: 12px; border-top: 1px solid rgb(255 255 255 / .1); }
   .q-input {
     flex: 1; min-width: 0; display: block; resize: none;
@@ -864,6 +872,10 @@ fbq('track', 'PageView');
     <div class="q-panel">
       <div class="q-head" aria-hidden="true"><span class="q-avatar">D</span><span><strong>Duna Marketing</strong><small>Questionnaire</small></span></div>
       <div class="q-thread" id="q-thread" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation with Duna Marketing" tabindex="0"></div>
+      <div class="q-stats">
+        <div class="q-stat"><span class="q-stat-label">Time left</span><span class="q-stat-value" id="q-time" role="timer">20:00</span></div>
+        <div class="q-stat" aria-live="polite" aria-atomic="true"><span class="q-stat-label">Discount</span><span class="q-stat-value q-money" id="q-discount">$0.00</span></div>
+      </div>
       <form class="q-bar" id="q-form" novalidate>
         <label class="visually-hidden" id="q-label" for="q-name">Your full name</label>
         <input class="q-input" id="q-name" name="name" type="text" autocomplete="name" autocapitalize="words" autocorrect="off" spellcheck="false" enterkeyhint="send" maxlength="80" placeholder="Your full name">
@@ -1181,6 +1193,29 @@ fbq('track', 'PageView');
       const inputs = steps.map(s => ask.querySelector('#' + s.input));
       let at = 0, memo = {}, answers = {}, busy = false, started = false, run = 0;
 
+      // The clock and the discount, in the strip above the input. The clock gives 20 minutes, starts on the first
+      // keystroke (never on its own), stops when the questionnaire is finished, and stays at 00:00 if time runs out;
+      // the chat keeps working either way. It counts from a fixed deadline, so a phone that puts the page to sleep does
+      // not gain time. Start over puts both back.
+      const LIMIT = 20 * 60 * 1000;
+      const clock = ask.querySelector('#q-time'), money = ask.querySelector('#q-discount');
+      let deadline = 0, tick = 0, discount = 0;
+      const showTime = ms => { const s = Math.ceil(ms / 1000); clock.textContent = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); };
+      const stopClock = () => { clearInterval(tick); tick = 0; };
+      const startClock = () => {
+        if (deadline || at >= steps.length) return;
+        deadline = Date.now() + LIMIT;
+        tick = setInterval(() => {
+          const left = Math.max(0, deadline - Date.now());
+          showTime(left);
+          if (!left) { stopClock(); clock.classList.add('q-out'); }
+        }, 250);
+      };
+      const showDiscount = () => { money.textContent = discount.toLocaleString('en-US', { style: 'currency', currency: 'USD' }); };
+      // What an accepted answer takes off the price of the website, in dollars. The amounts are Barrett's to set; until
+      // he does, every answer earns nothing and the discount stays at $0.00. This is the one place to change.
+      const earn = (step, value) => 0;
+
       const field = () => inputs[at];
       const refresh = () => { send.disabled = busy || at >= steps.length || !field().value.trim(); };
       // newest message in view: the thread scrolls itself on a desktop; on a phone it grows, so the page is nudged
@@ -1241,6 +1276,7 @@ fbq('track', 'PageView');
       form.after(again);
       const reset = () => {
         run++; at = 0; memo = {}; answers = {}; busy = false;
+        stopClock(); deadline = 0; clock.classList.remove('q-out'); showTime(LIMIT); discount = 0; showDiscount();
         thread.textContent = '';
         inputs.forEach(el => { el.value = ''; grow(el); });
         again.hidden = true; form.hidden = false;
@@ -1257,18 +1293,19 @@ fbq('track', 'PageView');
         bubble('you', r.show || v);
         el.value = ''; grow(el);
         if (r.say) { memo = r.memo || memo; el.focus(); say([r.say]); return; }
-        answers[step.id] = r.value; memo = {}; at++;
+        answers[step.id] = r.value; memo = {}; discount += earn(step, r.value); showDiscount(); at++;
         if (at < steps.length) {
           // Focus moves inside this tap or key press, the only moment an iPhone allows it, so the keyboard stays up
           // and changes to the right one while we are still "typing" the next question.
           show(at); field().focus(); say(steps[at].say(answers));
         } else {
+          stopClock();                                     // finished: the clock stops where it is
           el.blur(); form.hidden = true;                   // keyboard down, so the recap can be seen
           onComplete(answers).then(() => { if (at >= steps.length) again.hidden = false; });
         }
       });
       inputs.forEach(el => {
-        el.addEventListener('input', () => { grow(el); refresh(); });
+        el.addEventListener('input', () => { grow(el); refresh(); startClock(); });
         // With a mouse and keyboard, Enter sends the long answer and Shift+Enter makes a new line. On a touch keyboard
         // Enter makes a new line and the button sends.
         if (el.tagName === 'TEXTAREA') el.addEventListener('keydown', e => {

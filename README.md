@@ -53,6 +53,11 @@ the business, and a recap at the end. It is at https://dunamarketing.com/#questi
 - The questions are data, the `steps` list in that block. Each step has what we say (it can use earlier answers), which
   input takes the reply, and `take()`, which accepts the reply or asks again in the thread. Adding the real
   questionnaire means adding steps.
+- A strip right above the input shows a 20-minute clock and a discount. The clock starts on the visitor's first
+  keystroke (never on its own), stops when the questionnaire is finished, and stays at 00:00 if time runs out; the chat
+  keeps working either way. It counts from a fixed deadline, so a phone that puts the page to sleep gains no time. The
+  discount starts at $0.00. What each accepted answer takes off is `earn()` in the questionnaire block; it returns 0 for
+  every answer until Barrett sets the amounts. Start over resets both.
 - `onComplete(answers)` is the one place a finished questionnaire is handed over. For now it says the test is over and
   shows the recap. When it is wired to the leads sheet, the existing rules apply: the two honeypots, the start and
   complete stages, the Lead pixel event only when the server answers `lead_ok`, and no Apps Script edits.
