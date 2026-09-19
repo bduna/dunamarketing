@@ -1330,47 +1330,63 @@ fbq('track', 'PageView');
   try {
     const hd = document.querySelector('#how .hd');
     if (hd && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const ACTS = [4400, 4800, 3600];   // ms: answer, build, go live
+      const ACTS = [4400, 4800, 3600];   // ms: answer (at least), build, go live
       const HOLD = 4000;                 // ms the finished website holds before a loop starts again
-      const TYPE = 16;                   // ms a character while the answer types out
-      const PACE = 1.8;                  // stretches every step above evenly: 1 is the first cut, higher is slower (Barrett asked for slower twice)
+      const PACE = 1.8;                  // stretches the paced steps evenly: 1 is the first cut, higher is slower (Barrett asked for slower twice)
+      const READ = 1800;                 // ms to read the finished answer, photos and points before the build starts
+      // The answer types the way a person types, about 85 words a minute: 60-110 ms a key in an uneven but repeatable rhythm, a breath after a comma,
+      // now and then a beat between words, and a moment to think before "cooked". It is a person's speed, so PACE leaves
+      // it alone, and act 1 lasts as long as the typing needs.
+      const keys = text => {
+        const out = []; let t = 0;
+        for (let i = 0; i < text.length; i++) {
+          let d = 60 + (i * 37 % 11) * 5;
+          if (text[i - 1] === ',') d += 300; else if (text[i - 1] === ' ' && i % 5 === 0) d += 150;
+          if (text.startsWith('cooked', i)) d += 500;
+          out.push(t += d);
+        }
+        return out;
+      };
       const PHASES = ['p-chat', 'p-q', 'p-dots', 'p-typing', 'p-typed', 'p-meta', 'p-build', 'p-render', 'p-clock', 'p-mark', 'p-approve', 'p-cursor', 'p-approved', 'p-live', 'p-done', 'p-out'];
       const cards = [...document.querySelectorAll('#how .step')], marks = [...hd.querySelectorAll('.hd-steps li')];
       const typed = hd.querySelector('.hd-typed'), TEXT = typed.dataset.text;
       const loop = matchMedia('(hover: hover) and (pointer: fine)').matches;
-      let timers = [], playing = false, played = false, inView = false;
-      const at = (ms, fn) => timers.push(setTimeout(fn, ms * PACE));
+      let timers = [], playing = false, played = false, inView = false, durs = ACTS.map(a => a * PACE);
+      const at = (ms, fn) => timers.push(setTimeout(fn, ms));
       const on = (...c) => hd.classList.add(...c);
       // k = 1-3 lights card k and its marker, 4 marks all three done, 0 clears
       const mark = k => {
         cards.forEach((c, i) => c.classList.toggle('is-now', i === k - 1));
-        marks.forEach((m, i) => { m.style.setProperty('--dur', ACTS[i] * PACE + 'ms'); m.classList.toggle('is-on', i === k - 1); m.classList.toggle('is-done', k === 4 || i < k - 1); });
+        marks.forEach((m, i) => { m.style.setProperty('--dur', durs[i] + 'ms'); m.classList.toggle('is-on', i === k - 1); m.classList.toggle('is-done', k === 4 || i < k - 1); });
       };
       const quiet = fn => { hd.classList.add('hd-still'); fn(); void hd.offsetWidth; hd.classList.remove('hd-still'); };
       const ready = hidden => quiet(() => { hd.classList.remove(...PHASES); typed.textContent = ''; on('run', 'p-chat', 'p-q'); if (hidden) on('p-out'); mark(0); });
       const stop = () => { timers.forEach(clearTimeout); timers = []; playing = false; };
       const play = () => {
         stop(); playing = true; played = true;
-        const a1 = ACTS[0], a2 = a1 + ACTS[1], end = a2 + ACTS[2];
+        const start = 800 * PACE, keyAt = keys(TEXT), typedAt = start + keyAt[keyAt.length - 1];
+        const a1 = Math.max(ACTS[0] * PACE, typedAt + 400 + READ), a2 = a1 + ACTS[1] * PACE, end = a2 + ACTS[2] * PACE;
+        durs = [a1, ACTS[1] * PACE, ACTS[2] * PACE];
         at(0, () => { mark(1); on('p-dots'); });
-        at(800, () => on('p-typing'));
-        for (let i = 1; i <= TEXT.length; i++) at(800 + i * TYPE, () => { typed.textContent = TEXT.slice(0, i); });
-        at(900 + TEXT.length * TYPE, () => on('p-typed'));
-        at(900 + TEXT.length * TYPE + 300, () => on('p-meta'));
+        at(start, () => on('p-typing'));
+        keyAt.forEach((k, i) => at(start + k, () => { typed.textContent = TEXT.slice(0, i + 1); }));
+        at(typedAt + 100, () => on('p-typed'));
+        at(typedAt + 400, () => on('p-meta'));
         at(a1, () => { mark(2); on('p-build'); });
-        at(a1 + 700, () => on('p-render'));
-        at(a1 + 1000, () => on('p-clock'));
-        at(a1 + 2800, () => on('p-mark'));
+        at(a1 + 700 * PACE, () => on('p-render'));
+        at(a1 + 1000 * PACE, () => on('p-clock'));
+        at(a1 + 2800 * PACE, () => on('p-mark'));
         at(a2, () => { mark(3); on('p-approve'); });
-        at(a2 + 800, () => on('p-cursor'));
-        at(a2 + 1700, () => on('p-approved'));
-        at(a2 + 2200, () => on('p-live'));
+        at(a2 + 800 * PACE, () => on('p-cursor'));
+        at(a2 + 1700 * PACE, () => on('p-approved'));
+        at(a2 + 2200 * PACE, () => on('p-live'));
         at(end, () => { mark(4); on('p-done'); if (!loop) stop(); });
         if (loop) {
-          at(end + HOLD, () => on('p-out'));
-          at(end + HOLD + 550, () => ready(true));
-          at(end + HOLD + 600, () => hd.classList.remove('p-out'));
-          at(end + HOLD + 1200, () => { if (inView && !document.hidden) play(); else playing = false; });
+          const out = end + HOLD * PACE;
+          at(out, () => on('p-out'));
+          at(out + 550, () => ready(true));
+          at(out + 600, () => hd.classList.remove('p-out'));
+          at(out + 1200, () => { if (inView && !document.hidden) play(); else playing = false; });
         }
       };
       new IntersectionObserver(es => {

@@ -139,8 +139,10 @@ shows the section's promise happening, in three acts that light up the matching 
 
 With a mouse it loops while on screen (the finished website holds 4 s, then it fades and starts again) and stops off
 screen. On a touch screen it plays once and rests on the live website. With reduced motion, or without JavaScript, it
-is the still finished picture. The timings are constants in its script block: `ACTS` (4400, 4800, 3600 ms), `HOLD`
-(4000 ms), `TYPE` (16 ms a character), all stretched by `PACE` (1.8, so about 23 s of acts and a 7 s hold). The picture is aria-hidden; a visually hidden sentence describes it.
+is the still finished picture. The timings are constants in its script block: `ACTS` (4400 at least, 4800, 3600 ms) and `HOLD`
+(4000 ms), stretched by `PACE` (1.8). The answer types at a person's speed, which `PACE` leaves alone: `keys()`
+gives an uneven but repeatable rhythm of about 85 words a minute (10 s), with a breath after each comma and a beat
+before "cooked", and act 1 lasts as long as the typing needs plus `READ` (1.8 s). One cycle is about 29 s, then a 7 s hold. The picture is aria-hidden; a visually hidden sentence describes it.
 
 At 1100px and wider the cards stack in the left column, so their own arrival sequence draws its connector vertically
 and plays card by card as they are scrolled to, the way it does on phones.
