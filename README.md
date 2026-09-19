@@ -17,7 +17,7 @@ Keep the `CNAME` file and the `portfolio/` folder: the sample cards on the landi
 
 The contact section at the end (`<section id="start">`, headed "Contact") offers email only, as of 2026-09-18:
 `mailto:barrett@dunamarketing.com` with a prefilled subject and first line, plus a copy-the-email button on computers.
-The text and call tiles that used to sit beside it are gone; the phone number remains only in the footer. The
+The text and call tiles that used to sit beside it are gone, and the footer no longer shows the phone number. The
 questionnaire (see "The questionnaire (test)" below) is the way the page invites people to start; it sends nothing
 yet, and says so.
 
