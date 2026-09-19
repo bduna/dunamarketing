@@ -1232,13 +1232,14 @@ fbq('track', 'PageView');
       };
       // Points, as the copy beside the chat explains them (Barrett's rule, 2026-09-18): a yes/no or choice question earns
       // 15 (raised from 10 on 2026-09-19), an open-ended one 50 plus 5 per word in the answer (1 until 2026-09-19), and each contact detail 10 (Barrett, 2026-09-19, so that
-      // every question earns something). Every full PER_DOLLAR points (125; 100 until 2026-09-19) takes a dollar off the website, so the discount moves in
-      // whole dollars. A step says which it is with kind.
+      // every question earns something). Every PER_DOLLAR points (125; 100 until 2026-09-19) is a dollar off the website,
+      // and the discount shows cents: points divided by PER_DOLLAR, rounded down to the cent (it showed whole dollars
+      // until Barrett asked for cents on 2026-09-19). A step says which it is with kind.
       const earn = (step, value) => step.kind === 'choice' ? 15 : step.kind === 'contact' ? 10 : step.kind === 'open' ? 50 + 5 * value.split(/\s+/).filter(Boolean).length : 0;
       const PER_DOLLAR = 125;   // points for each $1 off
       const showScore = () => {
         tally.textContent = points.toLocaleString('en-US') + ' pts';
-        money.textContent = Math.floor(points / PER_DOLLAR).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+        money.textContent = (Math.floor(points * 100 / PER_DOLLAR) / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
       };
 
       const field = () => inputs[at];
