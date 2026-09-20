@@ -308,11 +308,11 @@ fbq('track', 'PageView');
   .client-url svg { flex: none; width: 12px; height: 12px; color: var(--accent-deep); }
   .client-url b { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 400; }
   .client-live { flex: none; padding: 3px 9px; border-radius: 999px; background: var(--accent-deep); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
-  /* The picture is the whole homepage, 1280x10368 captured top to footer, travelling up behind a window the shape of
+  /* The picture is the whole homepage, 1280x10343 captured top to footer, travelling up behind a window the shape of
      a browser's, so a visitor sees the entire page without leaving this one. --travel is how far it has to go: the
      window is 1/1.6 of its own width tall and the picture is 8.1 of it, so the picture must rise by all but
      (1 / 1.6) / 8.1 of its height. Recapture at a different length and this number changes with it. */
-  .client-view { display: block; position: relative; overflow: hidden; aspect-ratio: 16 / 10; background: #f5f2ec; --travel: -92.28%; }
+  .client-view { display: block; position: relative; overflow: hidden; aspect-ratio: 16 / 10; background: #f5f2ec; --travel: -92.27%; }
   .client-shot { position: absolute; left: 0; top: 0; display: block; width: 100%; height: auto; }
   /* Down the page at a reading pace, a beat at the footer, then a quick eased rewind and away again. The long
      descent is linear so it reads as scrolling; only the rewind is eased, which is what makes it read as a reset
@@ -1024,7 +1024,7 @@ fbq('track', 'PageView');
           <span class="client-live">Live</span>
         </span>
         <span class="client-view">
-          <img class="client-shot" src="assets/img/deep-roots-home-960.webp" srcset="assets/img/deep-roots-home-640.webp 640w, assets/img/deep-roots-home-960.webp 960w" sizes="(max-width: 1000px) 92vw, 46vw" width="960" height="7776" alt="The Deep Roots Hydro homepage in full, from the first screen down to the footer" loading="lazy" decoding="async">
+          <img class="client-shot" src="assets/img/deep-roots-home-960.webp" srcset="assets/img/deep-roots-home-640.webp 640w, assets/img/deep-roots-home-960.webp 960w" sizes="(max-width: 1000px) 92vw, 46vw" width="960" height="7757" alt="The Deep Roots Hydro homepage in full, from the first screen down to the footer" loading="lazy" decoding="async">
         </span>
       </a>
       <p class="client-cap">This is a client&rsquo;s website, live on their own domain. Open it and look around.</p>

@@ -44,8 +44,8 @@ not an option. When he gives one, it goes in the `.client-body` column under `.c
 style (`.founder-quote` is the model). It is the single biggest thing that would strengthen this section. Worth asking
 him for his blessing on being named here at the same time.
 
-The picture is the whole homepage, not its first screen: `assets/img/deep-roots-home-960.webp` (960x7776) and
-`-640.webp` (640x5184), captured 2026-09-19 from a 1280-wide viewport, 1280x10368 in all. It travels up behind a window
+The picture is the whole homepage, not its first screen: `assets/img/deep-roots-home-960.webp` (960x7757) and
+`-640.webp` (640x5172), captured 2026-09-20 from a 1280-wide viewport, 1280x10343 in all. It travels up behind a window
 the shape of a browser's, so a visitor sees the entire page without leaving this one: half a second held at the top,
 forty seconds down at a reading pace, two at the footer, then 1.8s of eased rewind and six tenths held again — 44.9s a
 cycle. The two holds at the top meet across the loop's seam, so what a viewer sees there is one pause of 1.1s (it was
