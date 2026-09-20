@@ -46,8 +46,10 @@ him for his blessing on being named here at the same time.
 
 The picture is the whole homepage, not its first screen: `assets/img/deep-roots-home-960.webp` (960x7776) and
 `-640.webp` (640x5184), captured 2026-09-19 from a 1280-wide viewport, 1280x10368 in all. It travels up behind a window
-the shape of a browser's, so a visitor sees the entire page without leaving this one: a beat at the top, forty seconds
-down at a reading pace, a beat at the footer, then a quick eased rewind and away again — 46s a cycle. The long descent
+the shape of a browser's, so a visitor sees the entire page without leaving this one: half a second held at the top,
+forty seconds down at a reading pace, two at the footer, then 1.8s of eased rewind and six tenths held again — 44.9s a
+cycle. The two holds at the top meet across the loop's seam, so what a viewer sees there is one pause of 1.1s (it was
+2.2s until Barrett halved it on 2026-09-19; halve or double it there, in both keyframes, not in one). The long descent
 is linear so it reads as scrolling; only the rewind is eased, which is what makes it read as a reset rather than as
 part of the tour.
 
