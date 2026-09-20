@@ -24,6 +24,12 @@ yet, and says so.
 The hero has one button, "Learn more": the white pill with the arrow disc, scrolling to the "see it before you pay"
 section. (The "Start questionnaire" buttons in the hero and the No risk section were removed on 2026-09-19.) To change the address, search the page for `barrett@dunamarketing.com`.
 
+That jump lands on a screen of its own. The No risk band is about 600px tall against a 900px screen, so the Client
+work headline below it used to arrive on the same screen and the two headlines competed (Barrett, 2026-09-20).
+`#before-you-pay:target` gives the band `min-height: 100svh`, and `.offer-grid` already centres its content, so it
+sits in the middle of the taller band. It is on `:target`, not on the band itself, so nothing moves for a visitor who
+simply scrolls past; the band is its natural height again once another anchor is the target.
+
 ## Client work: Deep Roots Hydro
 
 `<section id="client">`, a white band between No risk and Samples: the one real, live client website on the page, as

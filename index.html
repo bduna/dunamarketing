@@ -90,6 +90,11 @@ fbq('track', 'PageView');
   .band-dark { background: var(--band); color: var(--ink); }
   .band-light { background: var(--paper); color: var(--navy); }
   .band + .band-dark { border-top: 1px solid rgb(255 255 255 / .06); }
+  /* "Learn more" in the hero jumps to the No risk band, which is shorter than a screen: the Client work headline
+     below it arrived on the same screen, and the two headlines competed. Give it a screen of its own, but only while
+     it is the jump's target, so nothing moves for a visitor who simply scrolls past it. The content is already
+     centred by .offer-grid, so it sits in the middle of the taller band rather than at its top. */
+  #before-you-pay:target { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
   .eyebrow {
     margin: 0 0 14px;
     font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
