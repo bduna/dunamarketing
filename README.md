@@ -28,7 +28,8 @@ section. (The "Start questionnaire" buttons in the hero and the No risk section 
 
 `<section id="client">`, a white band between No risk and Samples: the one real, live client website on the page, as
 against the samples below it, which are demonstrations we built. Deep Roots Hydro is a hydroponics shop in Sebastopol,
-CA, independent since 2006; the client is Dylan Marzullo. The section is built to be checked rather than believed, so
+CA, independent since 2006; the client is Dylan Marzullo, its owner (confirmed by Barrett
+2026-09-19; the live site itself names nobody). The section is built to be checked rather than believed, so
 it links deeproots707.com twice — the screenshot is a link and so is the button — and shows the real address inside
 browser chrome with a Live pill.
 
