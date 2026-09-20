@@ -317,17 +317,17 @@ fbq('track', 'PageView');
   /* Down the page at a reading pace, a beat at the footer, then a quick eased rewind and away again. The long
      descent is linear so it reads as scrolling; only the rewind is eased, which is what makes it read as a reset
      rather than as part of the tour. */
+  /* Of the 46s cycle: 1s held at the top, 40s down, 2s held at the footer, 1.8s of rewind, 1.2s held again. */
   @keyframes client-scroll {
-    0%   { transform: translateY(0); }
-    4%   { transform: translateY(0); animation-timing-function: linear; }
-    81%  { transform: translateY(var(--travel)); }
-    89%  { transform: translateY(var(--travel)); animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
-    96%  { transform: translateY(0); }
-    100% { transform: translateY(0); }
+    0%    { transform: translateY(0); }
+    2.2%  { transform: translateY(0); animation-timing-function: linear; }
+    89.1% { transform: translateY(var(--travel)); }
+    93.5% { transform: translateY(var(--travel)); animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
+    97.4% { transform: translateY(0); }
+    100%  { transform: translateY(0); }
   }
-  .client-media.roll .client-shot { animation: client-scroll 26s linear .9s infinite; }   /* .9s: the frame finishes rising first */
-  .client-media.once .client-shot { animation-iteration-count: 1; }   /* no pointer: one pass, then it rests back at the top */
-  .client-media.rest .client-shot { animation-play-state: paused; }   /* scrolled away */
+  .client-media.roll .client-shot { animation: client-scroll 46s linear .9s infinite; }   /* .9s: the frame finishes rising first */
+  .client-media.rest .client-shot { animation-play-state: paused; }   /* scrolled away, on any screen */
   @media (prefers-reduced-motion: reduce) {
     .client-media .client-shot { animation: none !important; transform: none !important; }
   }
@@ -1516,14 +1516,14 @@ fbq('track', 'PageView');
   if (mark && 'IntersectionObserver' in window) {
     new IntersectionObserver((entries, obs) => { if (entries[0].isIntersecting) { mark.classList.add('in'); obs.disconnect(); } }, { threshold: 0.35 }).observe(mark);
   } else if (mark) mark.classList.add('in');
-  // Client work: the Deep Roots frame rises once when it comes on screen and then holds still, the rule the sample
-  // cards follow on a phone. Without this, or under reduced motion, the frame is simply there.
+  // Client work: the picture is the whole Deep Roots homepage, and it travels up behind the browser window so a
+  // visitor sees the entire page without leaving this one. It loops on every screen, phones included (Barrett's call
+  // on 2026-09-19, against the usual one-entrance-then-still rule for touch), and pauses whenever it is scrolled
+  // away. Without this script, or under reduced motion, it is the first screen of the page, still.
   const client = document.querySelector('.client-media');
   if (client && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const shot = client.querySelector('.client-shot');
-    const once = !matchMedia('(hover: hover) and (pointer: fine)').matches;   // no pointer: one pass, the rule the sample cards follow
     client.classList.add('ready');
-    if (once) client.classList.add('once');
     let started = false;
     const roll = () => { if (!started) { started = true; client.classList.add('roll'); } };
     new IntersectionObserver(entries => {
@@ -1534,7 +1534,7 @@ fbq('track', 'PageView');
         // never start on a picture that has not decoded: the window would travel over nothing
         if (shot.complete && shot.naturalWidth) roll();
         else shot.addEventListener('load', roll, { once: true });
-      } else if (started && !once) client.classList.add('rest');
+      } else if (started) client.classList.add('rest');
     }, { rootMargin: '0px 0px -8% 0px' }).observe(client);
   }
   // The text-exchange demo in the care plan section loops while the phone is on screen: the three exchanges play,
