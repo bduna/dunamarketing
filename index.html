@@ -308,7 +308,29 @@ fbq('track', 'PageView');
   .client-url svg { flex: none; width: 12px; height: 12px; color: var(--accent-deep); }
   .client-url b { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 400; }
   .client-live { flex: none; padding: 3px 9px; border-radius: 999px; background: var(--accent-deep); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
-  .client-shot { display: block; width: 100%; height: auto; background: #f5f2ec; }
+  /* The picture is the whole homepage, 1280x10368 captured top to footer, travelling up behind a window the shape of
+     a browser's, so a visitor sees the entire page without leaving this one. --travel is how far it has to go: the
+     window is 1/1.6 of its own width tall and the picture is 8.1 of it, so the picture must rise by all but
+     (1 / 1.6) / 8.1 of its height. Recapture at a different length and this number changes with it. */
+  .client-view { display: block; position: relative; overflow: hidden; aspect-ratio: 16 / 10; background: #f5f2ec; --travel: -92.28%; }
+  .client-shot { position: absolute; left: 0; top: 0; display: block; width: 100%; height: auto; }
+  /* Down the page at a reading pace, a beat at the footer, then a quick eased rewind and away again. The long
+     descent is linear so it reads as scrolling; only the rewind is eased, which is what makes it read as a reset
+     rather than as part of the tour. */
+  @keyframes client-scroll {
+    0%   { transform: translateY(0); }
+    4%   { transform: translateY(0); animation-timing-function: linear; }
+    81%  { transform: translateY(var(--travel)); }
+    89%  { transform: translateY(var(--travel)); animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
+    96%  { transform: translateY(0); }
+    100% { transform: translateY(0); }
+  }
+  .client-media.roll .client-shot { animation: client-scroll 26s linear .9s infinite; }   /* .9s: the frame finishes rising first */
+  .client-media.once .client-shot { animation-iteration-count: 1; }   /* no pointer: one pass, then it rests back at the top */
+  .client-media.rest .client-shot { animation-play-state: paused; }   /* scrolled away */
+  @media (prefers-reduced-motion: reduce) {
+    .client-media .client-shot { animation: none !important; transform: none !important; }
+  }
   .client-cap { margin: 14px 0 0; max-width: 34em; font-size: 14px; line-height: 1.5; color: var(--navy-dim); }
 
   /* the detail under the heading: what the website had to do, then what was built */
@@ -1000,7 +1022,9 @@ fbq('track', 'PageView');
           <span class="client-url"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7.5" rx="1.5" fill="currentColor"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><b>deeproots707.com</b></span>
           <span class="client-live">Live</span>
         </span>
-        <img class="client-shot" src="assets/img/deep-roots-desktop-1280.webp" srcset="assets/img/deep-roots-desktop-720.webp 720w, assets/img/deep-roots-desktop-1280.webp 1280w" sizes="(max-width: 1000px) 92vw, 46vw" width="1280" height="800" alt="The Deep Roots Hydro website, first screen on a desktop" loading="lazy" decoding="async">
+        <span class="client-view">
+          <img class="client-shot" src="assets/img/deep-roots-home-960.webp" srcset="assets/img/deep-roots-home-640.webp 640w, assets/img/deep-roots-home-960.webp 960w" sizes="(max-width: 1000px) 92vw, 46vw" width="960" height="7776" alt="The Deep Roots Hydro homepage in full, from the first screen down to the footer" loading="lazy" decoding="async">
+        </span>
       </a>
       <p class="client-cap">The samples below are demonstrations we built to show the work. This one is a real shop&rsquo;s website, live on their own domain. Open it and look around.</p>
     </div>
@@ -1496,8 +1520,22 @@ fbq('track', 'PageView');
   // cards follow on a phone. Without this, or under reduced motion, the frame is simply there.
   const client = document.querySelector('.client-media');
   if (client && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const shot = client.querySelector('.client-shot');
+    const once = !matchMedia('(hover: hover) and (pointer: fine)').matches;   // no pointer: one pass, the rule the sample cards follow
     client.classList.add('ready');
-    new IntersectionObserver((entries, obs) => { if (entries[0].isIntersecting) { client.classList.add('in'); obs.disconnect(); } }, { rootMargin: '0px 0px -8% 0px' }).observe(client);
+    if (once) client.classList.add('once');
+    let started = false;
+    const roll = () => { if (!started) { started = true; client.classList.add('roll'); } };
+    new IntersectionObserver(entries => {
+      const e = entries[0];
+      if (e.isIntersecting) {
+        client.classList.add('in');
+        client.classList.remove('rest');
+        // never start on a picture that has not decoded: the window would travel over nothing
+        if (shot.complete && shot.naturalWidth) roll();
+        else shot.addEventListener('load', roll, { once: true });
+      } else if (started && !once) client.classList.add('rest');
+    }, { rootMargin: '0px 0px -8% 0px' }).observe(client);
   }
   // The text-exchange demo in the care plan section loops while the phone is on screen: the three exchanges play,
   // the finished thread holds for a few seconds, fades, and starts again. It stops when the phone scrolls away.

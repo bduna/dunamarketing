@@ -44,12 +44,24 @@ not an option. When he gives one, it goes in the `.client-body` column under `.c
 style (`.founder-quote` is the model). It is the single biggest thing that would strengthen this section. Worth asking
 him for his blessing on being named here at the same time.
 
-The screenshots are `assets/img/deep-roots-desktop-1280.webp` (1280x800) and `-720.webp` (720x450), captured 2026-09-17
-and still matching the live site. To refresh them, recapture the home page at 1280x800 and export both sizes.
+The picture is the whole homepage, not its first screen: `assets/img/deep-roots-home-960.webp` (960x7776) and
+`-640.webp` (640x5184), captured 2026-09-19 from a 1280-wide viewport, 1280x10368 in all. It travels up behind a window
+the shape of a browser's, so a visitor sees the entire page without leaving this one: a beat at the top, about twenty
+seconds down at a reading pace, a beat at the footer, then a quick eased rewind and away again — 26s a cycle. The long
+descent is linear so it reads as scrolling; only the rewind is eased, which is what makes it read as a reset rather
+than as part of the tour.
 
-The picture rises once when it comes on screen and then holds still, the rule the sample cards follow on a phone; with
-a mouse the frame lifts on hover. The script adds `.ready` only when it runs and motion is welcome, so without it, or
-under reduced motion, the frame is simply there.
+With a mouse it runs while it is on screen and pauses when it is not. Without a pointer it makes one pass and rests
+back at the top, the rule the sample cards and the example animation both follow, because a loop on a phone is
+annoying. With reduced motion, or without the script, it is the first screen of the page, still. The frame itself
+still rises once when it comes on screen, and lifts on hover.
+
+To recapture it: take a full-page shot of deeproots707.com at 1280 wide **with reduced motion emulated** — the site
+reveals its sections on scroll, and a full-page shot otherwise catches the ones that were never scrolled to while they
+are still invisible — walking the page first so the lazy images decode, then export 960 and 640 wide. If the page's
+length changes, `--travel` on `.client-view` changes with it: it is -(1 - (1 / 1.6) / R) as a percentage, where R is
+the capture's height over its width (8.1 today). `assets/img/deep-roots-desktop-*.webp`, the old first-screen stills,
+are no longer used by anything.
 
 At 1000px and wider the picture takes the right column across both rows and centres against it, so the detail can run
 longer than the picture without leaving a well of white under it. Narrower, the order is heading, picture, then
