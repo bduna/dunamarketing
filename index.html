@@ -1630,14 +1630,18 @@ fbq('track', 'PageView');
         marks.forEach((m, i) => { m.style.setProperty('--dur', durs[i] + 'ms'); m.classList.toggle('is-on', i === k - 1); m.classList.toggle('is-done', k === 4 || i < k - 1); });
       };
       const quiet = fn => { hd.classList.add('hd-still'); fn(); void hd.offsetWidth; hd.classList.remove('hd-still'); };
-      const ready = hidden => quiet(() => { hd.classList.remove(...PHASES); upTo(0); on('run', 'p-chat', 'p-q'); if (hidden) on('p-out'); mark(0); });
+      // No p-q here: the question is part of the sequence, not of the resting state, so the panel waits empty
+      // until the demo is scrolled to and nobody meets the question already asked (Barrett, 2026-09-20).
+      const ready = hidden => quiet(() => { hd.classList.remove(...PHASES); upTo(0); on('run', 'p-chat'); if (hidden) on('p-out'); mark(0); });
       const stop = () => { timers.forEach(clearTimeout); timers = []; playing = false; };
       const play = () => {
         stop(); playing = true; played = true;
-        const start = 800 * PACE, keyAt = keys(TEXT), typedAt = start + keyAt[keyAt.length - 1];
+        const ASK = 700 * PACE;   // the question lands and is read before the reply bubble arrives
+        const start = ASK + 800 * PACE, keyAt = keys(TEXT), typedAt = start + keyAt[keyAt.length - 1];
         const a1 = Math.max(ACTS[0] * PACE, typedAt + 400 + READ), a2 = a1 + ACTS[1] * PACE, end = a2 + ACTS[2] * PACE;
         durs = [a1, ACTS[1] * PACE, ACTS[2] * PACE];
-        at(0, () => { mark(1); on('p-dots'); });
+        at(0, () => { mark(1); on('p-q'); });
+        at(ASK, () => on('p-dots'));
         at(start, () => on('p-typing'));
         keyAt.forEach((k, i) => at(start + k, () => upTo(i + 1)));
         at(typedAt + 100, () => on('p-typed'));

@@ -213,8 +213,13 @@ The timings are custom properties on `.steps`:
 Beside the three step cards (to their right at 1100px and wider, under them otherwise), a navy card labelled "Example"
 shows the section's promise happening, in three acts that light up the matching card and fill a three-part marker:
 
-1. Answer: our question "What does your business do?", then a caterer's answer types out (15 words), with
-   "3 photos attached" and "+125 pts" (the questionnaire's real rule: 50 + 5 a word).
+1. Answer: our question "What does your business do?" arrives, is left a beat to be read, and then a caterer's answer
+   types out (15 words), with "3 photos attached" and "+125 pts" (the questionnaire's real rule: 50 + 5 a word).
+   The question is part of the sequence, not of the resting state: until the box is scrolled to, the panel waits
+   empty, so nobody meets a question that has already been asked (Barrett, 2026-09-20 — it used to be painted by
+   `ready()`, which runs on load). On a phone this is the visible difference, because there the box sits below the
+   three cards and is still off screen when the section's heading arrives; beside them on a wide screen it is already
+   in view, and the question comes up as you reach the section.
 2. Built within 24 hours: a browser at dunamarketing.com/preview renders the Long Table Catering sample's first screen
    (`assets/img/desktop/long-table-catering.webp`, already loaded by the Samples cards), "Built in under 24 hours", and
    the headline is outlined: "Written from your answers".
