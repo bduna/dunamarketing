@@ -20,7 +20,7 @@ body {
   line-height: 1.62;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-bottom: calc(var(--duna-h) + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
   overflow-x: hidden;
 }
 
