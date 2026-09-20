@@ -24,6 +24,36 @@ yet, and says so.
 The hero has one button, "Learn more": the white pill with the arrow disc, scrolling to the "see it before you pay"
 section. (The "Start questionnaire" buttons in the hero and the No risk section were removed on 2026-09-19.) To change the address, search the page for `barrett@dunamarketing.com`.
 
+## Client work: Deep Roots Hydro
+
+`<section id="client">`, a white band between No risk and Samples: the one real, live client website on the page, as
+against the samples below it, which are demonstrations we built. Deep Roots Hydro is a hydroponics shop in Sebastopol,
+CA, independent since 2006; the client is Dylan Marzullo. The section is built to be checked rather than believed, so
+it links deeproots707.com twice — the screenshot is a link and so is the button — and shows the real address inside
+browser chrome with a Live pill.
+
+The rule the copy follows is: never count. There is no "first client", no "only client", and no plural that isn't true.
+Nothing here says how many clients there are, so nothing has to. What it says instead is specific and checkable on the
+live site: five pages (home, shop, CO2 refills, about, visit), eleven departments, hours and address and phone on every
+page, one tap to call, one tap for directions. Every one of those was verified against deeproots707.com on 2026-09-19.
+If a fact there changes, change it here too.
+
+There is no testimonial, deliberately: a quote has to come from Dylan before it can go in, and writing one for him is
+not an option. When he gives one, it goes in the `.client-body` column under `.client-who`, in the founder quote's
+style (`.founder-quote` is the model). It is the single biggest thing that would strengthen this section. Worth asking
+him for his blessing on being named here at the same time.
+
+The screenshots are `assets/img/deep-roots-desktop-1280.webp` (1280x800) and `-720.webp` (720x450), captured 2026-09-17
+and still matching the live site. To refresh them, recapture the home page at 1280x800 and export both sizes.
+
+The picture rises once when it comes on screen and then holds still, the rule the sample cards follow on a phone; with
+a mouse the frame lifts on hover. The script adds `.ready` only when it runs and motion is welcome, so without it, or
+under reduced motion, the frame is simply there.
+
+At 1000px and wider the picture takes the right column across both rows and centres against it, so the detail can run
+longer than the picture without leaving a well of white under it. Narrower, the order is heading, picture, then
+detail: the proof arrives before the reading does.
+
 ## Our founder
 
 `<section id="founder">`, between How it works and Animations: the headshot (`assets/img/barrett-duna-720.webp`, with a
