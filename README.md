@@ -23,19 +23,22 @@ under its intro, with the email card beside them. Its heading and intro still sp
 questionnaire (see "The questionnaire (test)" below) is the way the page invites people to start; it sends nothing
 yet, and says so.
 
-The hero has three buttons in one row, flush top and bottom (`.actions` stretches every pill to the row's height).
-"Learn more" is the white pill with the arrow disc, scrolling to the "see it before you pay" section. To its right,
-since 2026-09-21, "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My business: ",
-the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the same pill inverted, a dark fill
-with a white edge and a white disc (`.cta-alt`), so Learn more still reads first. The two sit in `.reach` so they
-wrap together: on phones they share a second row under Learn more, never one alone, and below 400px wide the pills
-lose a little padding so the pair still fits at 360. Taps on them fire the pixel's `Contact` event (see Tracking).
+The hero's buttons sit in one row where they fit, flush top and bottom (`.actions` stretches every pill to the row's
+height). First, since 2026-09-21, "Get my free preview" (`.cta-go`, Barrett's words): the white pill with a right
+arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Then "Learn more", scrolling to the "see it
+before you pay" section; it was the white pill until the preview button arrived and took the dark style below, so the
+two don't compete. Then "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
+business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the white pill inverted, a
+dark fill with a white edge and a white disc (`.cta-alt`). Text us and Call us sit in `.reach` so they wrap together:
+on phones they share a second row under Get my free preview, never one alone, and below 400px wide the pills lose a
+little padding so the pair still fits at 360. Taps on them fire the pixel's `Contact` event (see Tracking); the preview
+button fires nothing.
 A computer can't text or call, so with a mouse (`(hover: hover) and (pointer: fine)`, the page's usual split, not a
 width) the two are replaced by one pill in the same style, `.cta-phone`: "Text or call" in small caps above
 "(707) 385-5673" and the phone disc. A click copies the number and the small line reads "Copied" for 1.8 s. Copying
 fires no pixel event. Barrett's call, 2026-09-21: "show the phone number on desktop instead".
 On phones there is no Learn more (Barrett, 2026-09-21, "on mobile only, remove the hero learn more button"): the
-hero's only buttons there are Text us and Call us, on one row. A phone is a touch screen (`pointer: coarse`) that is
+hero's buttons there are Get my free preview, then Text us and Call us on the row under it. A phone is a touch screen (`pointer: coarse`) that is
 760px wide or less, or 500px tall or less so it is caught in landscape too; tablets and computers keep Learn more.
 (The "Start questionnaire" buttons in the hero and the No risk section were removed on 2026-09-19.) To change the
 address, search the page for `barrett@dunamarketing.com`; to change the number, search for `17073855673`.
@@ -45,7 +48,9 @@ classes, so the switch is the same everywhere: Text us and Call us on phones and
 with a mouse, and the same prefilled first line on the text link.
 - Under the pricing (Barrett, 2026-09-21, "add text and call contact buttons under pricing"): at the end of
   `<section id="pricing">`, under "You see the finished website before you pay anything." On the white band they are
-  solid navy (`.band-light .cta-alt`) rather than the hero's dark glass.
+  solid navy (`.band-light .cta-alt`) rather than the hero's dark glass. Get my free preview leads this row too
+  (Barrett, 2026-09-21), in the page's deep blue (`.band-light .cta-go`) so it stands apart from the navy pills; on
+  phones it has the first row to itself and Text us and Call us share the next.
 - In the Contact section (Barrett, 2026-09-21, "add the contact buttons to the contact section"): under the intro in
   the left column, the email card on the right (under the pills on phones). On that dark band they look as in the hero.
 
