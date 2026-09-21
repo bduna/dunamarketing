@@ -202,8 +202,11 @@ fbq('track', 'PageView');
     text-shadow: 0 .04em .5em rgb(var(--veil) / .95), 0 0 1.2em rgb(var(--veil) / .9);
     animation: rise 1.2s var(--ease-out) .3s both;
   }
-  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 26px; animation: rise 1.2s var(--ease-out) .38s both; }
+  /* stretch: every pill in a row takes the row's height, so Text us and Call us stay flush with Learn more top and bottom */
+  .actions { display: flex; flex-wrap: wrap; align-items: stretch; gap: 14px; animation: rise 1.2s var(--ease-out) .38s both; }
   .actions > * { pointer-events: auto; }
+  /* Text us and Call us travel as a pair: where the row runs out of room they wrap together under Learn more, never one alone */
+  .reach { display: flex; flex-wrap: wrap; gap: 14px; }
   /* A dark edge so the control keeps a boundary when a near-white card drifts under it */
   .cta { min-height: 62px; padding: 0 10px 0 32px; gap: 18px; font-size: clamp(18px, .3vw + 17px, 21px); border-radius: 999px; border: 1.5px solid rgb(5 10 24 / .9); box-shadow: 0 14px 34px rgb(var(--veil) / .55); }
   .cta .badge { width: 42px; height: 42px; }
@@ -218,6 +221,14 @@ fbq('track', 'PageView');
   }
   .cta .badge svg { width: 22px; height: 22px; }
   .cta:hover .badge, .cta:focus-visible .badge { transform: scale(1.08); background: #1a2340; }
+  /* Text us and Call us: the Learn more pill inverted, a dark fill with a white edge and a white disc, so the white Learn
+     more still reads first. The fill is what holds the white text's contrast over the moving wall, whatever drifts under it. */
+  .cta-alt { background: rgb(var(--veil) / .78); color: #fff; border-color: rgb(255 255 255 / .8); }
+  .cta-alt:hover { background: rgb(var(--veil) / .92); }
+  .cta-alt .badge { background: #fff; color: var(--ground); }
+  .cta-alt:hover .badge, .cta-alt:focus-visible .badge { background: #e9edf5; }
+  .cta-alt .badge svg { width: 20px; height: 20px; }
+  @media (max-width: 400px) { .cta { padding-left: 22px; gap: 12px; } }   /* narrow phones (360-400): Text us and Call us still share one row */
   @keyframes rise { from { opacity: .15; transform: translateY(.45em); } }
 
   /* Static tilted grid for browsers without WebGL2 */
@@ -967,6 +978,10 @@ fbq('track', 'PageView');
     </div>
     <div class="actions">
       <a class="btn btn-white cta" id="hero-cta" href="#before-you-pay">Learn more<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a>
+      <div class="reach">
+        <a class="btn cta cta-alt" href="sms:+17073855673?&amp;body=Hi%20Barrett%2C%20I%27d%20like%20to%20start%20a%20website.%20My%20business%3A%20" aria-label="Text us at (707) 385-5673">Text us<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span></a>
+        <a class="btn cta cta-alt" href="tel:+17073855673" aria-label="Call us at (707) 385-5673">Call us<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span></a>
+      </div>
     </div>
     <p class="visually-hidden" id="sites"></p>
   </div>

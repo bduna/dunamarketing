@@ -17,12 +17,20 @@ Keep the `CNAME` file and the `portfolio/` folder: the sample cards on the landi
 
 The contact section at the end (`<section id="start">`, headed "Contact") offers email only, as of 2026-09-18:
 `mailto:barrett@dunamarketing.com` with a prefilled subject and first line, plus a copy-the-email button on computers.
-The text and call tiles that used to sit beside it are gone, and the footer no longer shows the phone number. The
+The text and call tiles that used to sit beside it are gone, and the footer no longer shows the phone number (texting
+and calling came back on 2026-09-21 as two buttons in the hero, below). The
 questionnaire (see "The questionnaire (test)" below) is the way the page invites people to start; it sends nothing
 yet, and says so.
 
-The hero has one button, "Learn more": the white pill with the arrow disc, scrolling to the "see it before you pay"
-section. (The "Start questionnaire" buttons in the hero and the No risk section were removed on 2026-09-19.) To change the address, search the page for `barrett@dunamarketing.com`.
+The hero has three buttons in one row, flush top and bottom (`.actions` stretches every pill to the row's height).
+"Learn more" is the white pill with the arrow disc, scrolling to the "see it before you pay" section. To its right,
+since 2026-09-21, "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My business: ",
+the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the same pill inverted, a dark fill
+with a white edge and a white disc (`.cta-alt`), so Learn more still reads first. The two sit in `.reach` so they
+wrap together: on phones they share a second row under Learn more, never one alone, and below 400px wide the pills
+lose a little padding so the pair still fits at 360. Taps on them fire the pixel's `Contact` event (see Tracking).
+(The "Start questionnaire" buttons in the hero and the No risk section were removed on 2026-09-19.) To change the
+address, search the page for `barrett@dunamarketing.com`; to change the number, search for `17073855673`.
 
 That jump lands on a screen of its own. The No risk band is about 600px tall against a 900px screen, so the Client
 work headline below it used to arrive on the same screen and the two headlines competed (Barrett, 2026-09-20).
