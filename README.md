@@ -27,8 +27,8 @@ The hero's buttons sit in one row where they fit, flush top and bottom (`.action
 height). First, since 2026-09-21, "Get my free preview" (`.cta-go`, Barrett's words): the white pill with a down
 arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Every button into the questionnaire points down
 (Barrett, 2026-09-21: "make all the questionnaire button arrows point downward"; they pointed right at first), because
-each one scrolls down the page to the questionnaire. There are three: Get my free preview here and under the pricing,
-and "Start the questionnaire" at the foot of How it works' step 1. Then "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
+each one scrolls down the page to the questionnaire. There are three: Get my free preview here, and "Start the
+questionnaire" at the foot of How it works' step 1 and under the pricing. Then "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
 business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the white pill inverted, a
 dark fill with a white edge and a white disc (`.cta-alt`). Text us and Call us sit in `.reach` so they wrap together:
 on phones they share a second row under Get my free preview, never one alone, and below 400px wide the pills lose a
@@ -49,9 +49,11 @@ classes, so the switch is the same everywhere: Text us and Call us on phones and
 with a mouse, and the same prefilled first line on the text link.
 - Under the pricing (Barrett, 2026-09-21, "add text and call contact buttons under pricing"): at the end of
   `<section id="pricing">`, under "You see the finished website before you pay anything." On the white band they are
-  solid navy (`.band-light .cta-alt`) rather than the hero's dark glass. Get my free preview leads this row too
-  (Barrett, 2026-09-21), in the page's deep blue (`.band-light .cta-go`) so it stands apart from the navy pills; on
-  phones it has the first row to itself and Text us and Call us share the next.
+  solid navy (`.band-light .cta-alt`) rather than the hero's dark glass. The questionnaire button leads this row too
+  (Barrett, 2026-09-21), in the page's deep blue (`.band-light .cta-go`) so it stands apart from the navy pills,
+  worded "Start the questionnaire" (Barrett's words the same day; it said "Get my free preview" at first). On phones it
+  has the first row to itself and Text us and Call us share the next. At 340px wide or less its words drop to 16px so
+  they stay on one line.
 - In the Contact section (Barrett, 2026-09-21, "add the contact buttons to the contact section"): under the intro in
   the left column, the email card on the right (under the pills on phones). On that dark band they look as in the hero.
 
