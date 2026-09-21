@@ -36,6 +36,12 @@ fires no pixel event. Barrett's call, 2026-09-21: "show the phone number on desk
 On phones there is no Learn more (Barrett, 2026-09-21, "on mobile only, remove the hero learn more button"): the
 hero's only buttons there are Text us and Call us, on one row. A phone is a touch screen (`pointer: coarse`) that is
 760px wide or less, or 500px tall or less so it is caught in landscape too; tablets and computers keep Learn more.
+
+The same contact pills sit under the pricing too (Barrett, 2026-09-21, "add text and call contact buttons under
+pricing"): `.pricing-contact`, at the end of `<section id="pricing">`, under "You see the finished website before you
+pay anything." It reuses the hero's markup and classes, so the switch is the same: Text us and Call us on phones and
+tablets, the copy-the-number pill with a mouse. On the white band they are solid navy (`.band-light .cta-alt`) rather
+than the hero's dark glass. The text link carries the same prefilled first line as the hero's.
 (The "Start questionnaire" buttons in the hero and the No risk section were removed on 2026-09-19.) To change the
 address, search the page for `barrett@dunamarketing.com`; to change the number, search for `17073855673`.
 
