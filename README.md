@@ -238,7 +238,8 @@ Beside the three step cards (to their right at 1100px and wider, under them othe
 shows the section's promise happening, in three acts that light up the matching card and fill a three-part marker:
 
 1. Answer: our question "What does your business do?" arrives, is left a beat to be read, and then a caterer's answer
-   types out (15 words), with "3 photos attached" and "+125 pts" (the questionnaire's real rule: 50 + 5 a word).
+   types out (15 words), with "3 photos attached" under it. (A "+125 pts" chip sat beside that until Barrett had it
+   removed on 2026-09-21.)
    The question is part of the sequence, not of the resting state: until the box is scrolled to, the panel waits
    empty, so nobody meets a question that has already been asked (Barrett, 2026-09-20 — it used to be painted by
    `ready()`, which runs on load). On a phone this is the visible difference, because there the box sits below the

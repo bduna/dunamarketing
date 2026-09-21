@@ -602,7 +602,6 @@ fbq('track', 'PageView');
   .hd-caret { display: inline-block; width: 2px; height: 1.1em; margin-right: -2px; vertical-align: -.15em; background: #fff; }   /* no width of its own, so it never moves a word to the next line */
   .hd-meta { align-self: flex-end; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; transition: opacity .4s var(--ease-out), transform .4s var(--ease-out); }
   .hd-photos { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: rgb(255 255 255 / .08); border: 1px solid rgb(255 255 255 / .16); font-size: .85em; color: var(--ink-dim); }
-  .hd-pts { padding: 5px 10px; border-radius: 999px; background: var(--accent); color: var(--ground); font-size: .85em; font-weight: 800; }
   .hd-steps { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
   .hd-steps li { position: relative; display: flex; align-items: center; gap: 7px; padding-top: 10px; font-size: 13px; font-weight: 600; color: var(--ink-dim); transition: color .3s var(--ease-out); }
   .hd-steps b { display: inline-grid; place-items: center; flex: none; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; background: rgb(255 255 255 / .12); color: var(--ink); transition: background-color .3s var(--ease-out), color .3s var(--ease-out); }
@@ -1177,7 +1176,7 @@ fbq('track', 'PageView');
           <div class="hd-chat">
             <p class="hd-msg hd-duna">What does your business do?</p>
             <p class="hd-msg hd-you"><span class="hd-typed" data-text="We cater weddings, corporate lunches and family-style dinners around Sonoma, cooked like a restaurant would."></span><span class="hd-caret"></span><span class="hd-rest"></span></p>
-            <div class="hd-meta"><span class="hd-photos"><svg viewBox="0 0 16 16"><rect x="1.5" y="3" width="13" height="10" rx="1.6"/><path d="M3.5 11l3-3 2.4 2.4 1.6-1.6 2 2.2"/></svg>3 photos attached</span><span class="hd-pts">+125 pts</span></div>
+            <div class="hd-meta"><span class="hd-photos"><svg viewBox="0 0 16 16"><rect x="1.5" y="3" width="13" height="10" rx="1.6"/><path d="M3.5 11l3-3 2.4 2.4 1.6-1.6 2 2.2"/></svg>3 photos attached</span></div>
           </div>
         </div>
         <ol class="hd-steps"><li class="is-done"><b>1</b>Answer</li><li class="is-done"><b>2</b>Build</li><li class="is-done"><b>3</b>Go live</li></ol>
@@ -1641,7 +1640,7 @@ fbq('track', 'PageView');
       const ACTS = [4400, 4800, 3600];   // ms: answer (at least), build, go live
       const HOLD = 4000;                 // ms the finished website holds before a loop starts again
       const PACE = 1.8;                  // stretches the paced steps evenly: 1 is the first cut, higher is slower (Barrett asked for slower twice)
-      const READ = 1800;                 // ms to read the finished answer, photos and points before the build starts
+      const READ = 1800;                 // ms to read the finished answer and the photos line before the build starts
       const TYPE = 0.78;                 // typing speed: 1 is about 86 words a minute, lower is faster (Barrett asked for a little faster, 2026-09-21)
       // The answer types the way a person types, about 110 words a minute: a steady 61-80 ms a key (barely uneven, so it
       // reads as smooth, not stuttering), a breath after each comma and before "cooked". It is a person's speed, so PACE
