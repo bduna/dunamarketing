@@ -412,9 +412,9 @@ fbq('track', 'PageView');
     margin-top: 36px;
   }
   @media (max-width: 760px) { .samples-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } }
-  /* Get my free preview under the ten samples, the hero's button exactly (Barrett, 2026-09-21), the same space above it
-     as the grid has above it */
-  .samples-go { margin-top: 36px; }
+  /* Get my free preview under the ten samples, the hero's button exactly (Barrett, 2026-09-21), centred under the grid
+     (his call the same day), with the same space above it as the grid has above it */
+  .samples-go { margin-top: 36px; display: flex; justify-content: center; }
   .card {
     display: block; text-decoration: none; color: inherit;
     border-radius: 12px; overflow: hidden;
