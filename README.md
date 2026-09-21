@@ -150,12 +150,14 @@ reduced motion it never plays: it loads and shows the frame 2 seconds in, with t
 
 ## The Care Plan price box
 
-In `<section id="care-plan">`, under "You could make these changes yourself…" and above "Month to month. Cancel
-anytime…", the plan's price: "Care Plan" in the accent over "$149 a month" (`.care-price`, added 2026-09-21 at
-Barrett's request, "a price box that displays the Care Plan for $149/mo"). It was a dark card with an accent edge at
-first; the same day he asked for it "more inline with the text", so it is part of the text column now: no card, the
-label and the price starting at the text's own left edge, 22px above and below like the notes around it, and the price
-a size smaller than the plan boxes' (`clamp(2rem, 1.5vw + 1.3rem, 2.5rem)`). It says "a month" the way the Pricing box
+In `<section id="care-plan">`, just below the headline ("The Care Plan keeps your website up to date, secure and
+healthy.") and above the lede ("Hours change…"), the plan's price: "Care Plan" in the accent over "$149 a month"
+(`.care-price`, added 2026-09-21 at Barrett's request, "a price box that displays the Care Plan for $149/mo"). It was
+a dark card with an accent edge under "You could make these changes yourself…" at first; the same day he asked for it
+"more inline with the text", then said "it's perfect, it just needs moved, move it just below the headline". It is
+part of the text column: no card, the label and the price starting at the text's own left edge, 22px above and below
+(the headline's 18px bottom margin folds into the 22px), and the price a size smaller than the plan boxes'
+(`clamp(2rem, 1.5vw + 1.3rem, 2.5rem)`). It says "a month" the way the Pricing box
 does. The price is typed in twice, here and in the Pricing box, so a price change means both; the ROI calculator reads
 only the Pricing box's.
 

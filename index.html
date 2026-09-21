@@ -457,12 +457,12 @@ fbq('track', 'PageView');
   .care-list li { position: relative; padding-left: 26px; color: var(--ink); }
   .care-list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
   .care-note { margin: 22px 0 0; max-width: 40em; color: var(--ink-dim); }
-  /* The plan's price, under "You could make these changes yourself" (Barrett, 2026-09-21). It sat in a card at first;
-     Barrett asked for it "more inline with the text", so it is part of the text column now: no card, the label and the
-     price start at the text's own left edge, with the same space above and below as the notes around it, and the
-     price a size smaller than the plan boxes'. It says "a month" as the Pricing box does. The ROI calculator reads its
-     price from the Pricing box, not from here. */
-  .care-price { margin: 22px 0 0; }
+  /* The plan's price, just below the section's headline, above the lede (Barrett, 2026-09-21). It sat in a card under
+     "You could make these changes yourself" at first; Barrett asked for it "more inline with the text", then moved it
+     here. It is part of the text column: no card, the label and the price start at the text's own left edge, 22px above
+     and below, and the price a size smaller than the plan boxes'. (The headline's own 18px bottom margin folds into the
+     22px above.) It says "a month" as the Pricing box does. The ROI calculator reads its price from the Pricing box. */
+  .care-price { margin: 22px 0; }
   .care-price-label { margin: 0 0 4px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
   .care-price .price { margin: 0; }
   .care-price .price strong { font-size: clamp(2rem, 1.5vw + 1.3rem, 2.5rem); color: #fff; }
@@ -1250,6 +1250,10 @@ fbq('track', 'PageView');
     <div class="care-head">
       <p class="eyebrow">The Care Plan</p>
       <h2>The Care Plan keeps your website up to date, secure and healthy.</h2>
+      <div class="care-price">
+        <p class="care-price-label">Care Plan</p>
+        <p class="price"><strong>$149</strong><span>a month</span></p>
+      </div>
       <p class="lede">Hours change. Prices go up. You add a service, hire someone, retire a photo, or move to a new number. Every owner has a website that says something that stopped being true months ago, and knows they are never going to sit down and fix it.</p>
     </div>
     <div class="demo" aria-hidden="true">
@@ -1280,10 +1284,6 @@ fbq('track', 'PageView');
         <li>Text or email. No login, nothing to learn.</li>
       </ul>
       <p class="care-note">You could make these changes yourself. The plan exists because nobody does, and their website quietly falls behind. We've made it as simple as a quick text or email.</p>
-      <div class="care-price">
-        <p class="care-price-label">Care Plan</p>
-        <p class="price"><strong>$149</strong><span>a month</span></p>
-      </div>
       <p class="care-note">Month to month. Cancel anytime, and the website is yours either way.</p>
     </div>
   </div>
