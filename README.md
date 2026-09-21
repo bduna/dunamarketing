@@ -148,6 +148,15 @@ It is 6 seconds, silent, and about 650 KB; the page asks only for its metadata u
 loops while in view and pauses when scrolled away. On touch screens it plays once and rests on its last frame. With
 reduced motion it never plays: it loads and shows the frame 2 seconds in, with the gears showing.
 
+## The Care Plan price box
+
+In `<section id="care-plan">`, under "You could make these changes yourself…" and above "Month to month. Cancel
+anytime…", a small box shows the plan's price: "Care Plan" in the accent over "$149 a month" (`.care-price`, added
+2026-09-21 at Barrett's request, "a price box that displays the Care Plan for $149/mo"). It is the page's dark card
+with the accent edge of the questionnaire's offer card, and it says "a month" the way the Pricing box does. The price is
+typed in twice, here and in the Pricing box, so a price change means both; the ROI calculator reads only the Pricing
+box's.
+
 ## The ROI calculator
 
 In the Pricing section, to the right of the first two plan boxes at 1200px and wider, under them otherwise

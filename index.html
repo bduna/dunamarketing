@@ -457,6 +457,14 @@ fbq('track', 'PageView');
   .care-list li { position: relative; padding-left: 26px; color: var(--ink); }
   .care-list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
   .care-note { margin: 22px 0 0; max-width: 40em; color: var(--ink-dim); }
+  /* The plan's price in its own box, under "You could make these changes yourself" (Barrett, 2026-09-21): the page's
+     dark card with the accent edge the questionnaire's offer card uses, and the plan boxes' price type. It says
+     "a month" as the Pricing box does. The ROI calculator reads its price from the Pricing box, not from here. */
+  .care-price { width: fit-content; min-width: 15em; margin: 26px 0 0; padding: 20px 28px 22px; border-radius: 14px; background: #111a33; border: 1.5px solid rgb(143 188 255 / .45); box-shadow: 0 18px 40px rgb(0 0 0 / .35); }
+  .care-price-label { margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+  .care-price .price { margin: 0; }
+  .care-price .price strong { color: #fff; }
+  .care-price .price span { color: var(--ink-dim); }
 
   .stage { display: flex; gap: 22px; align-items: flex-start; }
   .phone {
@@ -1270,6 +1278,10 @@ fbq('track', 'PageView');
         <li>Text or email. No login, nothing to learn.</li>
       </ul>
       <p class="care-note">You could make these changes yourself. The plan exists because nobody does, and their website quietly falls behind. We've made it as simple as a quick text or email.</p>
+      <div class="care-price">
+        <p class="care-price-label">Care Plan</p>
+        <p class="price"><strong>$149</strong><span>a month</span></p>
+      </div>
       <p class="care-note">Month to month. Cancel anytime, and the website is yours either way.</p>
     </div>
   </div>
