@@ -96,9 +96,11 @@ fbq('track', 'PageView');
      .offer-grid, so it sits in the middle of the taller band rather than at its top. The hero's "Learn more" was that
      link until it was removed on 2026-09-21; this stays for any old link to the band. */
   #before-you-pay:target { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+  /* the section labels ("No risk", "Client work", "Samples"…): 16px on phones to 18px on a wide screen, up from 13px
+     (Barrett, 2026-09-21: "make the section labels … larger"), with a little more room under them to match */
   .eyebrow {
-    margin: 0 0 14px;
-    font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    margin: 0 0 16px;
+    font-size: clamp(16px, .25vw + 14.5px, 18px); font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
     color: var(--accent);
   }
   .band-light .eyebrow { color: var(--accent-deep); }
@@ -471,7 +473,7 @@ fbq('track', 'PageView');
   .price-line { margin: 22px 0; }
   /* the label over each price must not be a replica of the sections' eyebrows (Barrett, 2026-09-21), and the page is
      sans-serif only: a serif tried here was "ugly and doesn't match the website". So it is the page's Archivo, set apart
-     by style: plain case, larger and semibold, where the eyebrows are small spaced capitals. Colour, Barrett's call the
+     by style: plain case and semibold, where the eyebrows are spaced capitals. Colour, Barrett's call the
      same day: the whole dollar amount, sign included, in the eyebrow's accent blue, and everything else in the block
      white (the label and the terms), so the block no longer reads as a white wall of text. */
   .price-line-label { margin: 0 0 4px; font-size: clamp(16px, .25vw + 15px, 18px); font-weight: 650; line-height: 1.3; letter-spacing: -.005em; color: var(--ink); }

@@ -163,7 +163,7 @@ Two sections show their price just below the headline and above the lede, in one
 the price and its terms, the terms worded as the Pricing box words them. The label must not look like the sections'
 eyebrows (Barrett, 2026-09-21), and the page is sans-serif only: an Instrument Serif italic tried for it the same day was
 "ugly and doesn't match the website". So it is the page's Archivo, set apart by style: plain case, 16-18px, semibold
-(650), where the eyebrows ("No risk", "The Care Plan") are 13px spaced capitals. (The labels read "Care Plan" and "Your
+(650), where the eyebrows ("No risk", "The Care Plan") are spaced capitals in the accent (16-18px since 2026-09-21, 13px before). (The labels read "Care Plan" and "Your
 website" in Archivo capitals, like an eyebrow, before that.) Colour, also Barrett's: the whole dollar amount, sign
 included, is the eyebrow's accent blue, and the label and the terms are white. With the label and the price both white
 under the white headline, the block had read as "a white wall of text".
