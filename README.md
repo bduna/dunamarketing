@@ -132,15 +132,16 @@ underneath.
 
 - Prices are read from the plan boxes (the website's `.price strong` and the featured Care Plan's — `querySelector`
   takes the first of each, so the Animations and Micro-apps boxes added later don't disturb it), falling back to
-  $1,200 and $149, so changing a price there changes the calculator. First month = website + first Care Plan payment
-  ($1,349); every month after = the Care Plan ($149).
+  $1,500 and $149, so changing a price there changes the calculator. First month = website + first Care Plan payment
+  ($1,649); every month after = the Care Plan ($149).
 - Sliders step through fixed lists (`CUSTOMERS` and `REVENUE` in the script): customers 1-20, then 25, 30, 35, 40, 50,
-  60, 75, 100 (default 6, chosen so the first month opens on a gain at the $1,200 price); revenue per customer $10 to
+  60, 75, 100 (default 7, chosen so the first month opens on a gain at the $1,500 price: +$101; it was 6 at $1,200,
+  which at $1,500 would open on a $149 loss); revenue per customer $10 to
   $5,000 in 29 steps (default $250).
 - With R = customers x revenue per customer, each projection shows revenue (R), net gain or loss (R - fees), ROI
   (net / fees) and cost per customer (fees / customers). Below them: break even (customers needed, fees / revenue per
   customer, rounded up), payback (the first month in which total revenue covers the website plus the Care Plan so far;
-  "doesn't cover the Care Plan yet" when R is $149 or less), and year one (12R against $1,200 + 12 x $149 = $2,988).
+  "doesn't cover the Care Plan yet" when R is $149 or less), and year one (12R against $1,500 + 12 x $149 = $3,288).
 - It says "net", not "profit": revenue from those customers minus our fees, before the owner's own costs, as the fine
   print says. Losses show as losses, in a soft red.
 
