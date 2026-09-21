@@ -25,9 +25,7 @@ yet, and says so.
 
 The hero's buttons sit in one row where they fit, flush top and bottom (`.actions` stretches every pill to the row's
 height). First, since 2026-09-21, "Get my free preview" (`.cta-go`, Barrett's words): the white pill with a right
-arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Then "Learn more", scrolling to the "see it
-before you pay" section; it was the white pill until the preview button arrived and took the dark style below, so the
-two don't compete. Then "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
+arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Then "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
 business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the white pill inverted, a
 dark fill with a white edge and a white disc (`.cta-alt`). Text us and Call us sit in `.reach` so they wrap together:
 on phones they share a second row under Get my free preview, never one alone, and below 400px wide the pills lose a
@@ -37,10 +35,10 @@ A computer can't text or call, so with a mouse (`(hover: hover) and (pointer: fi
 width) the two are replaced by one pill in the same style, `.cta-phone`: "Text or call" in small caps above
 "(707) 385-5673" and the phone disc. A click copies the number and the small line reads "Copied" for 1.8 s. Copying
 fires no pixel event. Barrett's call, 2026-09-21: "show the phone number on desktop instead".
-On phones there is no Learn more (Barrett, 2026-09-21, "on mobile only, remove the hero learn more button"): the
-hero's buttons there are Get my free preview, then Text us and Call us on the row under it. A phone is a touch screen (`pointer: coarse`) that is
-760px wide or less, or 500px tall or less so it is caught in landscape too; tablets and computers keep Learn more.
-(The "Start questionnaire" buttons in the hero and the No risk section were removed on 2026-09-19.) To change the
+There is no "Learn more" any more. It was the hero's one button (the white pill with a down arrow, jumping to the No
+risk band) until the preview button arrived; it went from phones first ("on mobile only, remove the hero learn more
+button") and then from every screen ("remove learn more from the hero section"), both on 2026-09-21. (The "Start
+questionnaire" buttons in the hero and the No risk section were removed on 2026-09-19.) To change the
 address, search the page for `barrett@dunamarketing.com`; to change the number, search for `17073855673`.
 
 The same contact pills sit in two more places, each in a `.contact-pills` row that reuses the hero's markup and
@@ -54,7 +52,8 @@ with a mouse, and the same prefilled first line on the text link.
 - In the Contact section (Barrett, 2026-09-21, "add the contact buttons to the contact section"): under the intro in
   the left column, the email card on the right (under the pills on phones). On that dark band they look as in the hero.
 
-That jump lands on a screen of its own. The No risk band is about 600px tall against a 900px screen, so the Client
+A link to `#before-you-pay` (Learn more was the only one on the page) lands on a screen of its own. The rule stays
+for any old link to the band. The No risk band is about 600px tall against a 900px screen, so the Client
 work headline below it used to arrive on the same screen and the two headlines competed (Barrett, 2026-09-20).
 `#before-you-pay:target` gives the band `min-height: 100svh`, and `.offer-grid` already centres its content, so it
 sits in the middle of the taller band. It is on `:target`, not on the band itself, so nothing moves for a visitor who
