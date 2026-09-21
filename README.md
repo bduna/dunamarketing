@@ -110,6 +110,10 @@ At 1000px and wider the picture takes the right column across both rows and cent
 longer than the picture without leaving a well of white under it. Narrower, the order is heading, picture, then
 detail: the proof arrives before the reading does.
 
+The detail's first paragraph ("It's a walk-in shop…") sits centred between what is above it and the checklist below it
+(Barrett, 2026-09-21): the space under it is the grid's row gap, `--rg` on `.client .wrap` (30px beside the picture,
+34px stacked), the same space as above it, so the two stay equal if the gap changes.
+
 ## Our founder
 
 `<section id="founder">`, between How it works and Animations: the headshot (`assets/img/barrett-duna-720.webp`, with a

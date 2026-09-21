@@ -299,14 +299,18 @@ fbq('track', 'PageView');
      believed: the shop's real screenshot inside browser chrome showing the real address, and two ways to open it.
      A white band, Barrett's call. The frame rises once when it comes on screen and then holds still, the rule the
      sample cards follow on a phone; with a mouse it lifts on hover. ---------- */
-  .client .wrap { display: grid; gap: 34px; grid-template-areas: "head" "media" "body"; }
+  /* --rg is the space between the grid's rows. .client-copy, the first paragraph of the detail, has the same space under
+     it, so it sits centred between what is above it (the caption, or beside the picture the lede) and the checklist
+     below it (Barrett, 2026-09-21). */
+  .client .wrap { --rg: 34px; display: grid; gap: var(--rg); grid-template-areas: "head" "media" "body"; }
   @media (min-width: 1000px) {
     /* The picture takes the right column for both rows, so the heading sits beside it and the detail runs under the
        heading. Narrower, the order is heading, picture, detail: the proof arrives before the reading does. */
     .client .wrap {
+      --rg: 30px;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr);
       grid-template-areas: "head media" "body media";
-      column-gap: 64px; row-gap: 30px; align-items: start;
+      column-gap: 64px; row-gap: var(--rg); align-items: start;
     }
     /* The detail runs longer than the picture, so the picture centres against the whole column instead of
        hanging from the top and leaving a well of white under it. */
@@ -362,7 +366,7 @@ fbq('track', 'PageView');
 
   /* the detail under the heading: what the website had to do, then what was built */
   .client-body p:first-child { margin-top: 0; }
-  .client-copy { margin: 0 0 22px; max-width: 40em; color: var(--navy-dim); }
+  .client-copy { margin: 0 0 var(--rg); max-width: 40em; color: var(--navy-dim); }
   .client-points { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; max-width: 40em; }
   .client-points li { position: relative; padding-left: 28px; }
   .client-points li::before {
