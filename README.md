@@ -251,7 +251,9 @@ The timings are custom properties on `.steps`:
 Beside the three step cards (to their right at 1100px and wider, under them otherwise), a navy card labelled "Example"
 shows the section's promise happening, in three acts that light up the matching card and fill a three-part marker:
 
-1. Answer: our question "What does your business do?" arrives, is left a beat to be read, and then a caterer's answer
+1. Answer: the empty panel waits a second (`WAIT`, 1000 ms, Barrett 2026-09-21: "pause 1 second before 'What does
+   your business do?' appears"; on a loop that second follows the panel's half-second fade back in). Then our question
+   "What does your business do?" arrives, is left a beat to be read, and then a caterer's answer
    types out (15 words), with "3 photos attached" under it. (A "+125 pts" chip sat beside that until Barrett had it
    removed on 2026-09-21.)
    The question is part of the sequence, not of the resting state: until the box is scrolled to, the panel waits
@@ -276,7 +278,7 @@ before "cooked", and act 1 lasts as long as the typing needs plus `READ` (1.8 s)
 scales every key and every breath alike, 1 being the earlier 86 words a minute (10.3 s), lower is faster. Barrett asked
 for "a little faster" on 2026-09-21, which took it from 1 to 0.78. The reply bubble holds its final size
 from the start (the untyped words are there, transparent, in `.hd-rest`), so nothing grows, wraps or moves while it
-types; the caret takes no width of its own. One cycle is about 28 s, then a 7 s hold. The picture is aria-hidden; a visually hidden sentence describes it.
+types; the caret takes no width of its own. One cycle is about 29 s, then a 7 s hold. The picture is aria-hidden; a visually hidden sentence describes it.
 
 At 1100px and wider the cards stack in the left column, so their own arrival sequence draws its connector vertically
 and plays card by card as they are scrolled to, the way it does on phones.

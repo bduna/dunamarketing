@@ -1662,6 +1662,7 @@ fbq('track', 'PageView');
       const HOLD = 4000;                 // ms the finished website holds before a loop starts again
       const PACE = 1.8;                  // stretches the paced steps evenly: 1 is the first cut, higher is slower (Barrett asked for slower twice)
       const READ = 1800;                 // ms to read the finished answer and the photos line before the build starts
+      const WAIT = 1000;                 // ms the empty panel waits before "What does your business do?" appears, every time it plays (Barrett, 2026-09-21)
       const TYPE = 0.78;                 // typing speed: 1 is about 86 words a minute, lower is faster (Barrett asked for a little faster, 2026-09-21)
       // The answer types the way a person types, about 110 words a minute: a steady 61-80 ms a key (barely uneven, so it
       // reads as smooth, not stuttering), a breath after each comma and before "cooked". It is a person's speed, so PACE
@@ -1698,11 +1699,11 @@ fbq('track', 'PageView');
       const stop = () => { timers.forEach(clearTimeout); timers = []; playing = false; };
       const play = () => {
         stop(); playing = true; played = true;
-        const ASK = 700 * PACE;   // the question lands and is read before the reply bubble arrives
+        const ASK = WAIT + 700 * PACE;   // after the wait, the question lands and is read before the reply bubble arrives
         const start = ASK + 800 * PACE, keyAt = keys(TEXT), typedAt = start + keyAt[keyAt.length - 1];
-        const a1 = Math.max(ACTS[0] * PACE, typedAt + 400 + READ), a2 = a1 + ACTS[1] * PACE, end = a2 + ACTS[2] * PACE;
-        durs = [a1, ACTS[1] * PACE, ACTS[2] * PACE];
-        at(0, () => { mark(1); on('p-q'); });
+        const a1 = Math.max(WAIT + ACTS[0] * PACE, typedAt + 400 + READ), a2 = a1 + ACTS[1] * PACE, end = a2 + ACTS[2] * PACE;
+        durs = [a1 - WAIT, ACTS[1] * PACE, ACTS[2] * PACE];   // act 1's marker starts with the question, not with the wait
+        at(WAIT, () => { mark(1); on('p-q'); });
         at(ASK, () => on('p-dots'));
         at(start, () => on('p-typing'));
         keyAt.forEach((k, i) => at(start + k, () => upTo(i + 1)));
