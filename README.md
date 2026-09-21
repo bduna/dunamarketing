@@ -33,6 +33,9 @@ A computer can't text or call, so with a mouse (`(hover: hover) and (pointer: fi
 width) the two are replaced by one pill in the same style, `.cta-phone`: "Text or call" in small caps above
 "(707) 385-5673" and the phone disc. A click copies the number and the small line reads "Copied" for 1.8 s. Copying
 fires no pixel event. Barrett's call, 2026-09-21: "show the phone number on desktop instead".
+On phones there is no Learn more (Barrett, 2026-09-21, "on mobile only, remove the hero learn more button"): the
+hero's only buttons there are Text us and Call us, on one row. A phone is a touch screen (`pointer: coarse`) that is
+760px wide or less, or 500px tall or less so it is caught in landscape too; tablets and computers keep Learn more.
 (The "Start questionnaire" buttons in the hero and the No risk section were removed on 2026-09-19.) To change the
 address, search the page for `barrett@dunamarketing.com`; to change the number, search for `17073855673`.
 

@@ -238,6 +238,11 @@ fbq('track', 'PageView');
     .reach { display: none; }
     .cta-phone { display: inline-flex; }
   }
+  /* Phones, held either way up (a touch screen that is narrow, or short in landscape): no Learn more, only Text us and
+     Call us (Barrett, 2026-09-21). Tablets and computers keep it. */
+  @media (pointer: coarse) and (max-width: 760px), (pointer: coarse) and (max-height: 500px) {
+    #hero-cta { display: none; }
+  }
   @keyframes rise { from { opacity: .15; transform: translateY(.45em); } }
 
   /* Static tilted grid for browsers without WebGL2 */
