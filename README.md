@@ -215,6 +215,23 @@ A message-and-reply questionnaire sits between pricing and the questions (`<sect
 We send a message, the visitor types a reply, and it moves to the next one: full name, phone, email, then a line about
 the business, and a recap at the end. It is at https://dunamarketing.com/#questionnaire
 
+Under its headline, "Listen to this section" plays the section read aloud (Barrett, 2026-09-21: a TTS reading he made,
+`sample_questionnaire_section_tts.wav` in the project folder, 31 s, cut to `assets/audio/questionnaire-section.mp3`,
+64 kbps mono, 249 KB, `preload="none"`). The button is the hero's white pill with a play disc; while it plays the pill
+fills with a pale accent from the left, the words read Pause and the time counts down; then Resume, and Listen again
+at the end. On phones of 340px or less the time is left off so the words stay on one line. If the section text changes,
+re-record it: the recording doesn't follow the page.
+
+Barrett asked for it to play by itself. Browsers allow sound only after the visitor has tapped, clicked or typed
+somewhere on the page, so the script tries once, when the button is fully on screen, and only if
+`navigator.userActivation.hasBeenActive` says the visitor has already done so. A visitor who arrives by pressing Get my
+free preview or Start the questionnaire hears it start; one who only scrolled does not, and has the button. (iPhones may
+still want the button.) Started by itself, it pauses when the section is scrolled away; started by a press, it plays on.
+To re-cut the file: `ffmpeg -i sample_questionnaire_section_tts.wav -codec:a libmp3lame -b:a 64k -ac 1
+dunamarketing/assets/audio/questionnaire-section.mp3` from the project folder, and update `TOTAL` (seconds) and the
+`0:31` in the markup if the length changes. Test: `~/.cache/duna-site-tests/listen_check2.js` (runs page code without a
+user gesture over CDP, because Playwright's own evaluate counts as one; serve with `serve_range.js`, which can seek).
+
 - It has been public since 2026-09-17: every visitor sees it. It still sends nothing. The closing message says so ("That's
   the end of this test. Nothing was sent or saved."); it comes out when `onComplete` really sends the answers somewhere.
   The note above the panel said the same until 2026-09-18, when Barrett replaced it with a reminder that nobody pays
