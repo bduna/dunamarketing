@@ -15,10 +15,11 @@ Keep the `CNAME` file and the `portfolio/` folder: the sample cards on the landi
 
 ## Getting in touch
 
-The contact section at the end (`<section id="start">`, headed "Contact") offers email only, as of 2026-09-18:
+The contact section at the end (`<section id="start">`, headed "Contact") offered email only from 2026-09-18:
 `mailto:barrett@dunamarketing.com` with a prefilled subject and first line, plus a copy-the-email button on computers.
-The text and call tiles that used to sit beside it are gone, and the footer no longer shows the phone number (texting
-and calling came back on 2026-09-21 as two buttons in the hero, below). The
+The text and call tiles that used to sit beside it went then, and the footer no longer shows the phone number. Texting
+and calling came back on 2026-09-21 as the contact pills (below): in the hero, under the pricing, and in this section
+under its intro, with the email card beside them. Its heading and intro still speak of email only. The
 questionnaire (see "The questionnaire (test)" below) is the way the page invites people to start; it sends nothing
 yet, and says so.
 
@@ -36,14 +37,17 @@ fires no pixel event. Barrett's call, 2026-09-21: "show the phone number on desk
 On phones there is no Learn more (Barrett, 2026-09-21, "on mobile only, remove the hero learn more button"): the
 hero's only buttons there are Text us and Call us, on one row. A phone is a touch screen (`pointer: coarse`) that is
 760px wide or less, or 500px tall or less so it is caught in landscape too; tablets and computers keep Learn more.
-
-The same contact pills sit under the pricing too (Barrett, 2026-09-21, "add text and call contact buttons under
-pricing"): `.pricing-contact`, at the end of `<section id="pricing">`, under "You see the finished website before you
-pay anything." It reuses the hero's markup and classes, so the switch is the same: Text us and Call us on phones and
-tablets, the copy-the-number pill with a mouse. On the white band they are solid navy (`.band-light .cta-alt`) rather
-than the hero's dark glass. The text link carries the same prefilled first line as the hero's.
 (The "Start questionnaire" buttons in the hero and the No risk section were removed on 2026-09-19.) To change the
 address, search the page for `barrett@dunamarketing.com`; to change the number, search for `17073855673`.
+
+The same contact pills sit in two more places, each in a `.contact-pills` row that reuses the hero's markup and
+classes, so the switch is the same everywhere: Text us and Call us on phones and tablets, the copy-the-number pill
+with a mouse, and the same prefilled first line on the text link.
+- Under the pricing (Barrett, 2026-09-21, "add text and call contact buttons under pricing"): at the end of
+  `<section id="pricing">`, under "You see the finished website before you pay anything." On the white band they are
+  solid navy (`.band-light .cta-alt`) rather than the hero's dark glass.
+- In the Contact section (Barrett, 2026-09-21, "add the contact buttons to the contact section"): under the intro in
+  the left column, the email card on the right (under the pills on phones). On that dark band they look as in the hero.
 
 That jump lands on a screen of its own. The No risk band is about 600px tall against a 900px screen, so the Client
 work headline below it used to arrive on the same screen and the two headlines competed (Barrett, 2026-09-20).
