@@ -229,6 +229,15 @@ fbq('track', 'PageView');
   .cta-alt:hover .badge, .cta-alt:focus-visible .badge { background: #e9edf5; }
   .cta-alt .badge svg { width: 20px; height: 20px; }
   @media (max-width: 400px) { .cta { padding-left: 22px; gap: 12px; } }   /* narrow phones (360-400): Text us and Call us still share one row */
+  /* A computer can't text or call, so with a mouse the two are replaced by one pill in the same style that shows the
+     number, "Text or call" above it; a click copies it. Phones and tablets keep Text us and Call us. */
+  .cta-phone { display: none; }
+  .cta-phone-text { display: grid; text-align: left; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .cta-phone-text small { margin-bottom: 3px; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-dim); }
+  @media (hover: hover) and (pointer: fine) {
+    .reach { display: none; }
+    .cta-phone { display: inline-flex; }
+  }
   @keyframes rise { from { opacity: .15; transform: translateY(.45em); } }
 
   /* Static tilted grid for browsers without WebGL2 */
@@ -982,6 +991,7 @@ fbq('track', 'PageView');
         <a class="btn cta cta-alt" href="sms:+17073855673?&amp;body=Hi%20Barrett%2C%20I%27d%20like%20to%20start%20a%20website.%20My%20business%3A%20" aria-label="Text us at (707) 385-5673">Text us<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span></a>
         <a class="btn cta cta-alt" href="tel:+17073855673" aria-label="Call us at (707) 385-5673">Call us<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span></a>
       </div>
+      <button type="button" class="btn cta cta-alt cta-phone" data-number="(707) 385-5673" title="Copy the number"><span class="cta-phone-text"><small>Text or call</small>(707) 385-5673</span><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span></button>
     </div>
     <p class="visually-hidden" id="sites"></p>
   </div>
@@ -1796,6 +1806,14 @@ fbq('track', 'PageView');
     const method = a.href.startsWith('sms:') ? 'text' : a.href.startsWith('tel:') ? 'call' : 'email';
     fbq('track', 'Contact', { content_name: method });
   });
+  // The phone number pill in the hero (computers only; phones get Text us and Call us): a click copies the number, and
+  // the line above it says so for a moment.
+  document.querySelectorAll('.cta-phone').forEach(b => b.addEventListener('click', async () => {
+    const line = b.querySelector('small');
+    try { await navigator.clipboard.writeText(b.dataset.number); } catch (e) { return; }
+    line.textContent = 'Copied'; clearTimeout(b.copied);
+    b.copied = setTimeout(() => { line.textContent = 'Text or call'; }, 1800);
+  }));
   document.querySelectorAll('.copy-btn').forEach(b => b.addEventListener('click', async () => {
     try { await navigator.clipboard.writeText(b.dataset.copy); b.classList.add('done'); const t = b.textContent; b.textContent = 'Copied'; setTimeout(() => { b.textContent = t; b.classList.remove('done'); }, 1800); } catch (e) {}
   }));
