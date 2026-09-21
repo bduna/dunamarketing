@@ -457,16 +457,18 @@ fbq('track', 'PageView');
   .care-list li { position: relative; padding-left: 26px; color: var(--ink); }
   .care-list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
   .care-note { margin: 22px 0 0; max-width: 40em; color: var(--ink-dim); }
-  /* The plan's price, just below the section's headline, above the lede (Barrett, 2026-09-21). It sat in a card under
-     "You could make these changes yourself" at first; Barrett asked for it "more inline with the text", then moved it
-     here. It is part of the text column: no card, the label and the price start at the text's own left edge, 22px above
-     and below, and the price a size smaller than the plan boxes'. (The headline's own 18px bottom margin folds into the
-     22px above.) It says "a month" as the Pricing box does. The ROI calculator reads its price from the Pricing box. */
-  .care-price { margin: 22px 0; }
-  .care-price-label { margin: 0 0 4px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
-  .care-price .price { margin: 0; }
-  .care-price .price strong { font-size: clamp(2rem, 1.5vw + 1.3rem, 2.5rem); color: #fff; }
-  .care-price .price span { color: var(--ink-dim); }
+  /* A price just below a section's headline, above its lede: the Care Plan's ("Care Plan / $149 a month") and, in the
+     same format, the website's in No risk ("Your website / $1,500 one time"), both Barrett's, 2026-09-21. The Care Plan's
+     sat in a card at first; Barrett asked for it "more inline with the text", then moved it under the headline, then had
+     the website's made the same. Part of the text column: no card, the label and the price start at the text's own left
+     edge, 22px above and below (the headline's own 18px bottom margin folds into the 22px above), and the price a size
+     smaller than the plan boxes'. The words after the price match the Pricing box's. The ROI calculator reads its prices
+     from the Pricing box only (#pricing), never from these. */
+  .price-line { margin: 22px 0; }
+  .price-line-label { margin: 0 0 4px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+  .price-line .price { margin: 0; }
+  .price-line .price strong { font-size: clamp(2rem, 1.5vw + 1.3rem, 2.5rem); color: #fff; }
+  .price-line .price span { color: var(--ink-dim); }
 
   .stage { display: flex; gap: 22px; align-items: flex-start; }
   .phone {
@@ -1024,6 +1026,10 @@ fbq('track', 'PageView');
     <div>
       <p class="eyebrow">No risk</p>
       <h2>See your finished website before you pay a dime.</h2>
+      <div class="price-line">
+        <p class="price-line-label">Your website</p>
+        <p class="price"><strong>$1,500</strong><span>one time</span></p>
+      </div>
       <p class="lede">You fill in the questionnaire below. We build your full website and send you a preview link within 24 hours. You pay only if you want to keep it. No deposit, no sales pitch.</p>
     </div>
     <div class="mark-wrap" aria-hidden="true">
@@ -1250,8 +1256,8 @@ fbq('track', 'PageView');
     <div class="care-head">
       <p class="eyebrow">The Care Plan</p>
       <h2>The Care Plan keeps your website up to date, secure and healthy.</h2>
-      <div class="care-price">
-        <p class="care-price-label">Care Plan</p>
+      <div class="price-line">
+        <p class="price-line-label">Care Plan</p>
         <p class="price"><strong>$149</strong><span>a month</span></p>
       </div>
       <p class="lede">Hours change. Prices go up. You add a service, hire someone, retire a photo, or move to a new number. Every owner has a website that says something that stopped being true months ago, and knows they are never going to sit down and fix it.</p>

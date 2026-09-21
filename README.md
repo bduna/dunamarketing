@@ -148,18 +148,23 @@ It is 6 seconds, silent, and about 650 KB; the page asks only for its metadata u
 loops while in view and pauses when scrolled away. On touch screens it plays once and rests on its last frame. With
 reduced motion it never plays: it loads and shows the frame 2 seconds in, with the gears showing.
 
-## The Care Plan price box
+## The price lines under two headlines
 
-In `<section id="care-plan">`, just below the headline ("The Care Plan keeps your website up to date, secure and
-healthy.") and above the lede ("Hours change…"), the plan's price: "Care Plan" in the accent over "$149 a month"
-(`.care-price`, added 2026-09-21 at Barrett's request, "a price box that displays the Care Plan for $149/mo"). It was
-a dark card with an accent edge under "You could make these changes yourself…" at first; the same day he asked for it
-"more inline with the text", then said "it's perfect, it just needs moved, move it just below the headline". It is
-part of the text column: no card, the label and the price starting at the text's own left edge, 22px above and below
-(the headline's 18px bottom margin folds into the 22px), and the price a size smaller than the plan boxes'
-(`clamp(2rem, 1.5vw + 1.3rem, 2.5rem)`). It says "a month" the way the Pricing box
-does. The price is typed in twice, here and in the Pricing box, so a price change means both; the ROI calculator reads
-only the Pricing box's.
+Two sections show their price just below the headline and above the lede, in one format (`.price-line`): a small label
+in the accent over the price and its terms, the terms worded as the Pricing box words them.
+
+- The Care Plan (`<section id="care-plan">`): "Care Plan" over "$149 a month". Added 2026-09-21 at Barrett's request,
+  "a price box that displays the Care Plan for $149/mo". It was a dark card with an accent edge under "You could make
+  these changes yourself…" at first; the same day he asked for it "more inline with the text", then said "it's
+  perfect, it just needs moved, move it just below the headline".
+- No risk (`<section id="before-you-pay">`): "Your website" over "$1,500 one time", under "See your finished website
+  before you pay a dime." Barrett, the same day: "use the exact same format as the price for the Care Plan".
+
+Both are part of the text column: no card, the label and the price starting at the text's own left edge, 22px above and
+below (the headline's 18px bottom margin folds into the 22px), and the price a size smaller than the plan boxes'
+(`clamp(2rem, 1.5vw + 1.3rem, 2.5rem)`). The prices are typed in by hand, so a price change touches them too: the
+website's $1,500 is in the Pricing box, the FAQ, the meta description, the JSON-LD and No risk; the Care Plan's $149 in
+the Pricing box, the FAQ and the Care Plan section. The ROI calculator reads only the Pricing box's (`#pricing`).
 
 ## The ROI calculator
 
