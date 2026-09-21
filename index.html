@@ -96,11 +96,12 @@ fbq('track', 'PageView');
      .offer-grid, so it sits in the middle of the taller band rather than at its top. The hero's "Learn more" was that
      link until it was removed on 2026-09-21; this stays for any old link to the band. */
   #before-you-pay:target { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
-  /* the section labels ("No risk", "Client work", "Samples"…): 16px on phones to 18px on a wide screen, up from 13px
-     (Barrett, 2026-09-21: "make the section labels … larger"), with a little more room under them to match */
+  /* the section labels ("No risk", "Client work", "Samples"…): 18px on phones to 20px on a wide screen, in Archivo's
+     heaviest loaded weight (800). They were 13px and 700 until Barrett asked for them "larger", then "a little bigger and
+     bold" (2026-09-21); the room under them grew with them. */
   .eyebrow {
-    margin: 0 0 16px;
-    font-size: clamp(16px, .25vw + 14.5px, 18px); font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    margin: 0 0 18px;
+    font-size: clamp(18px, .25vw + 16.5px, 20px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
     color: var(--accent);
   }
   .band-light .eyebrow { color: var(--accent-deep); }
