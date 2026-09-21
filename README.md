@@ -25,10 +25,10 @@ yet, and says so.
 
 The hero's buttons sit in one row where they fit, flush top and bottom (`.actions` stretches every pill to the row's
 height). First, since 2026-09-21, "Get my free preview" (`.cta-go`, Barrett's words): the white pill with a down
-arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Every Get my free preview button points down
+arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Every button into the questionnaire points down
 (Barrett, 2026-09-21: "make all the questionnaire button arrows point downward"; they pointed right at first), because
-each one scrolls down the page to the questionnaire. There are three: here, at the foot of How it works' step 1, and
-under the pricing. Then "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
+each one scrolls down the page to the questionnaire. There are three: Get my free preview here and under the pricing,
+and "Start the questionnaire" at the foot of How it works' step 1. Then "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
 business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the white pill inverted, a
 dark fill with a white edge and a white disc (`.cta-alt`). Text us and Call us sit in `.reach` so they wrap together:
 on phones they share a second row under Get my free preview, never one alone, and below 400px wide the pills lose a
@@ -265,13 +265,15 @@ The script only marks the row ready and says go (per row, or per card); the sequ
 cards are simply there, solid discs and no line, and under reduced motion the finished state shows at once.
 
 Card 1 ends with a way into the questionnaire (Barrett, 2026-09-21: "add a link to the questionnaire in box #1 at the
-bottom styled like the one in pricing"): the same Get my free preview pill as under the pricing, deep blue, in
-`.step-go`. The cards are flex columns, so the pill sits at the card's foot even when a row of three stretches the cards
+bottom styled like the one in pricing"): the pill from under the pricing, deep blue, in `.step-go`, worded "Start the
+questionnaire" (Barrett's words the same day; it said "Get my free preview" at first). The cards are flex columns, so the pill sits at the card's foot even when a row of three stretches the cards
 to one height. It fits itself to the card, which `.step-go` measures as a container query (the wrapper, not the card:
 a card that is a container becomes its own stacking context, and card 1's connector line, which runs into card 2 and
-is lifted over its white by z-index, would vanish under it). The pill keeps its own size where it fits (phones from about
-380px wide, and the cards beside the demo at 1100px and wider). Below 270px of card it is full width at 16px. Below
-216px, the three-in-a-row cards on a tablet, it loses the arrow disc and its words centre, on two lines where they must.
+is lifted over its white by z-index, would vanish under it). The two widths are where "Start the questionnaire" stops
+fitting on one line in the size before, so new words mean measuring again. The pill keeps its own size where it fits
+(phones from about 390px wide, and the cards beside the demo at 1100px and wider). At 285px of card or less it is full
+width at 16px, with the arrow disc. At 260px or less it loses the disc and its words centre: one line down to about
+220px, and on the three-in-a-row cards on a tablet (about 160px) two lines, the one place the words wrap.
 
 The timings are custom properties on `.steps`:
 

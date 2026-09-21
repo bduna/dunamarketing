@@ -553,18 +553,19 @@ fbq('track', 'PageView');
   }
   .step h3 { margin: 0 0 8px; font-size: 1.25rem; font-weight: 700; letter-spacing: -.015em; line-height: 1.2; }
   .step p { margin: 0; color: var(--navy-dim); }
-  /* Step 1 ends with the way into the questionnaire, the same Get my free preview pill as under the pricing (Barrett,
-     2026-09-21). The card is a column so the pill sits at its foot even when a row of three stretches the cards to one
-     height. The pill fits itself to the card, which the wrapper measures (a container, so the card itself is not one:
-     that would trap the connector line that runs from card 1 into card 2): its own size where it fits, a full-width and
-     smaller pill in a narrower card, and without the arrow disc in the narrowest, the three-in-a-row cards on a tablet. */
+  /* Step 1 ends with the way into the questionnaire, the pill from under the pricing, worded "Start the questionnaire"
+     (Barrett, 2026-09-21). The card is a column so the pill sits at its foot even when a row of three stretches the cards
+     to one height. The pill fits itself to the card, which the wrapper measures (a container, so the card itself is not
+     one: that would trap the connector line that runs from card 1 into card 2): its own size where it fits, a full-width
+     and smaller pill in a narrower card, and without the arrow disc in the narrowest. The two widths below are where the
+     words "Start the questionnaire" stop fitting on one line in the size before; change the words, measure again. */
   .step { display: flex; flex-direction: column; }
   .step-go { container-type: inline-size; margin-top: auto; padding-top: 22px; }
-  @container (max-width: 269px) {
+  @container (max-width: 285px) {
     .step-go .cta-go { width: 100%; padding-left: 16px; gap: 8px; font-size: 16px; }
     .step-go .cta-go .badge { width: 32px; height: 32px; }
   }
-  @container (max-width: 215px) {
+  @container (max-width: 260px) {
     .step-go .cta-go { padding: 8px 12px; justify-content: center; text-align: center; }
     .step-go .cta-go .badge { display: none; }
   }
@@ -1185,7 +1186,7 @@ fbq('track', 'PageView');
         <span class="num" aria-hidden="true">1</span>
         <h3>Answer the questionnaire below.</h3>
         <p>You fill out the questionnaire. We offer discounts for more helpful answers that make your website better. Tell us about you and your business in your own words and send any photos you have.</p>
-        <div class="step-go"><a class="btn cta cta-go" href="#questionnaire">Get my free preview<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a></div>
+        <div class="step-go"><a class="btn cta cta-go" href="#questionnaire">Start the questionnaire<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a></div>
       </div>
       <div class="step">
         <span class="num" aria-hidden="true">2</span>
