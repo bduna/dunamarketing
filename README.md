@@ -151,11 +151,11 @@ reduced motion it never plays: it loads and shows the frame 2 seconds in, with t
 ## The price lines under two headlines
 
 Two sections show their price just below the headline and above the lede, in one format (`.price-line`): a label over
-the price and its terms, the terms worded as the Pricing box words them. The label is set in a different face from the
-sections' eyebrows, at Barrett's request (2026-09-21): Instrument Serif italic, in plain case and the light ink, where the
-eyebrows ("No risk", "The Care Plan") are small spaced capitals in the accent. It is the page's only serif, loaded in the
-same Google Fonts link as Archivo, italic only; Georgia stands in if it doesn't load. (The labels read "Care Plan" and
-"Your website" in Archivo capitals, like an eyebrow, until then.)
+the price and its terms, the terms worded as the Pricing box words them. The label must not look like the sections'
+eyebrows (Barrett, 2026-09-21), and the page is sans-serif only: an Instrument Serif italic tried for it the same day was
+"ugly and doesn't match the website". So it is the page's Archivo, set apart by style: plain case, 16-18px, semibold
+(650), in the light ink, where the eyebrows ("No risk", "The Care Plan") are 13px spaced capitals in the accent. (The
+labels read "Care Plan" and "Your website" in Archivo capitals, like an eyebrow, before that.)
 
 - The Care Plan (`<section id="care-plan">`): "Care Plan Pricing" over "$149 a month". Added 2026-09-21 at Barrett's request,
   "a price box that displays the Care Plan for $149/mo". It was a dark card with an accent edge under "You could make

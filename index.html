@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" href="assets/img/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Instrument+Serif:ital@1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap">
 <title>A Beautiful Website in 24 Hours | Duna Marketing</title>
 <meta name="description" content="Answer one questionnaire and see your finished multipage website within 24 hours. $1,500 for the website, $149 a month to keep it updated. Pay only if you love it.">
 <link rel="canonical" href="https://dunamarketing.com/">
@@ -465,10 +465,10 @@ fbq('track', 'PageView');
      smaller than the plan boxes'. The words after the price match the Pricing box's. The ROI calculator reads its prices
      from the Pricing box only (#pricing), never from these. */
   .price-line { margin: 22px 0; }
-  /* the label over each price is set in a different face from the sections' eyebrows (Barrett, 2026-09-21): Instrument
-     Serif italic, the page's only serif, in plain case and the light ink, where the eyebrows are small spaced capitals
-     in the accent. It is loaded with Archivo, italic only. */
-  .price-line-label { margin: 0 0 2px; font-family: "Instrument Serif", Georgia, "Times New Roman", serif; font-style: italic; font-weight: 400; font-size: clamp(19px, .5vw + 16px, 23px); line-height: 1.2; letter-spacing: .005em; color: var(--ink); }
+  /* the label over each price must not look like the sections' eyebrows (Barrett, 2026-09-21), and the page is sans-serif
+     only: a serif tried here was "ugly and doesn't match the website". So it is the page's Archivo, set apart by style:
+     plain case, larger, semibold, in the light ink, where the eyebrows are small spaced capitals in the accent. */
+  .price-line-label { margin: 0 0 4px; font-size: clamp(16px, .25vw + 15px, 18px); font-weight: 650; line-height: 1.3; letter-spacing: -.005em; color: var(--ink); }
   .price-line .price { margin: 0; }
   .price-line .price strong { font-size: clamp(2rem, 1.5vw + 1.3rem, 2.5rem); color: #fff; }
   .price-line .price span { color: var(--ink-dim); }
