@@ -251,8 +251,10 @@ shows the section's promise happening, in three acts that light up the matching 
 3. Approve, and it goes live: "Your preview is ready", a pointer taps Approve, and the address becomes
    yourbusiness.com with a lock and a Live pill.
 
-With a mouse it loops while on screen (the finished website holds 4 s, then it fades and starts again) and stops off
-screen. On a touch screen it plays once and rests on the live website. With reduced motion, or without JavaScript, it
+It loops while on screen (the finished website holds 4 s, then it fades and starts again) and stops off screen, on
+every screen. Phones and tablets loop too since 2026-09-21, when Barrett asked for it ("make mobile loop"), against the
+page's usual rule of one entrance then stillness on touch; before that a touch screen played it once and rested on the
+live website. To go back, `const loop` in its script block is the switch. With reduced motion, or without JavaScript, it
 is the still finished picture. The timings are constants in its script block: `ACTS` (4400 at least, 4800, 3600 ms) and `HOLD`
 (4000 ms), stretched by `PACE` (1.8). The answer types at a person's speed, which `PACE` leaves alone: `keys()`
 gives a steady rhythm of about 110 words a minute (61-80 ms a key, 8.1 s in all), with a breath after each comma and

@@ -1632,8 +1632,9 @@ fbq('track', 'PageView');
     }
   } catch (e) { const s = document.querySelector('#how .steps'); if (s) s.classList.remove('ready'); }
   // How it works, the demo beside the steps: one owner's answer becomes their website and goes live, in three acts that
-  // light up the matching card. With a mouse it loops while it is on screen; on a touch screen it plays once and rests on
-  // the live website; with reduced motion, or without this script, it stays the finished picture. Its own guard.
+  // light up the matching card. It loops while it is on screen, on every screen, phones included (Barrett, 2026-09-21,
+  // against the page's usual one-pass rule for touch), and stops and waits at the start when scrolled away; with reduced
+  // motion, or without this script, it stays the finished picture. Its own guard.
   try {
     const hd = document.querySelector('#how .hd');
     if (hd && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -1659,7 +1660,9 @@ fbq('track', 'PageView');
       const cards = [...document.querySelectorAll('#how .step')], marks = [...hd.querySelectorAll('.hd-steps li')];
       const typed = hd.querySelector('.hd-typed'), rest = hd.querySelector('.hd-rest'), TEXT = typed.dataset.text;
       const upTo = n => { typed.textContent = TEXT.slice(0, n); rest.textContent = TEXT.slice(n); };
-      const loop = matchMedia('(hover: hover) and (pointer: fine)').matches;
+      // Loops on every screen since 2026-09-21 (it played once on touch screens before). To go back to one pass on a
+      // phone, make this matchMedia('(hover: hover) and (pointer: fine)').matches again.
+      const loop = true;
       let timers = [], playing = false, played = false, inView = false, durs = ACTS.map(a => a * PACE);
       const at = (ms, fn) => timers.push(setTimeout(fn, ms));
       const on = (...c) => hd.classList.add(...c);
