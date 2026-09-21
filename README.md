@@ -27,7 +27,8 @@ The hero's buttons sit in one row where they fit, flush top and bottom (`.action
 height). First, since 2026-09-21, "Get my free preview" (`.cta-go`, Barrett's words): the white pill with a down
 arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Every button into the questionnaire points down
 (Barrett, 2026-09-21: "make all the questionnaire button arrows point downward"; they pointed right at first), because
-each one scrolls down the page to the questionnaire. There are three: Get my free preview here, and "Start the
+each one scrolls down the page to the questionnaire. There are four: Get my free preview here and under the ten
+samples (`.samples-go`, the hero's button exactly, added 2026-09-21 at Barrett's request), and "Start the
 questionnaire" at the foot of How it works' step 1 and under the pricing. Then "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
 business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the white pill inverted, a
 dark fill with a white edge and a white disc (`.cta-alt`). Text us and Call us sit in `.reach` so they wrap together:
