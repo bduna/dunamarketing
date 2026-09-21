@@ -251,8 +251,8 @@ The timings are custom properties on `.steps`:
 Beside the three step cards (to their right at 1100px and wider, under them otherwise), a navy card labelled "Example"
 shows the section's promise happening, in three acts that light up the matching card and fill a three-part marker:
 
-1. Answer: the empty panel waits a second (`WAIT`, 1000 ms, Barrett 2026-09-21: "pause 1 second before 'What does
-   your business do?' appears"; on a loop that second follows the panel's half-second fade back in). Then our question
+1. Answer: the empty panel waits three quarters of a second (`WAIT`, 750 ms; Barrett asked for 1 second on
+   2026-09-21, then 0.75 s the same day; on a loop the wait follows the panel's half-second fade back in). Then our question
    "What does your business do?" arrives, is left a beat to be read, and then a caterer's answer
    types out (15 words), with "3 photos attached" under it. (A "+125 pts" chip sat beside that until Barrett had it
    removed on 2026-09-21.)

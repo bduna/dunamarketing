@@ -1662,7 +1662,7 @@ fbq('track', 'PageView');
       const HOLD = 4000;                 // ms the finished website holds before a loop starts again
       const PACE = 1.8;                  // stretches the paced steps evenly: 1 is the first cut, higher is slower (Barrett asked for slower twice)
       const READ = 1800;                 // ms to read the finished answer and the photos line before the build starts
-      const WAIT = 1000;                 // ms the empty panel waits before "What does your business do?" appears, every time it plays (Barrett, 2026-09-21)
+      const WAIT = 750;                  // ms the empty panel waits before "What does your business do?" appears, every time it plays (Barrett, 2026-09-21: 1 s, then 0.75 s)
       const TYPE = 0.78;                 // typing speed: 1 is about 86 words a minute, lower is faster (Barrett asked for a little faster, 2026-09-21)
       // The answer types the way a person types, about 110 words a minute: a steady 61-80 ms a key (barely uneven, so it
       // reads as smooth, not stuttering), a breath after each comma and before "cooked". It is a person's speed, so PACE
