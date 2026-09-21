@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" href="assets/img/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Instrument+Serif:ital@1&display=swap">
 <title>A Beautiful Website in 24 Hours | Duna Marketing</title>
 <meta name="description" content="Answer one questionnaire and see your finished multipage website within 24 hours. $1,500 for the website, $149 a month to keep it updated. Pay only if you love it.">
 <link rel="canonical" href="https://dunamarketing.com/">
@@ -465,7 +465,10 @@ fbq('track', 'PageView');
      smaller than the plan boxes'. The words after the price match the Pricing box's. The ROI calculator reads its prices
      from the Pricing box only (#pricing), never from these. */
   .price-line { margin: 22px 0; }
-  .price-line-label { margin: 0 0 4px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+  /* the label over each price is set in a different face from the sections' eyebrows (Barrett, 2026-09-21): Instrument
+     Serif italic, the page's only serif, in plain case and the light ink, where the eyebrows are small spaced capitals
+     in the accent. It is loaded with Archivo, italic only. */
+  .price-line-label { margin: 0 0 2px; font-family: "Instrument Serif", Georgia, "Times New Roman", serif; font-style: italic; font-weight: 400; font-size: clamp(19px, .5vw + 16px, 23px); line-height: 1.2; letter-spacing: .005em; color: var(--ink); }
   .price-line .price { margin: 0; }
   .price-line .price strong { font-size: clamp(2rem, 1.5vw + 1.3rem, 2.5rem); color: #fff; }
   .price-line .price span { color: var(--ink-dim); }
@@ -1027,7 +1030,7 @@ fbq('track', 'PageView');
       <p class="eyebrow">No risk</p>
       <h2>See your finished website before you pay a dime.</h2>
       <div class="price-line">
-        <p class="price-line-label">Your website</p>
+        <p class="price-line-label">Website Pricing</p>
         <p class="price"><strong>$1,500</strong><span>one time</span></p>
       </div>
       <p class="lede">You fill in the questionnaire below. We build your full website and send you a preview link within 24 hours. You pay only if you want to keep it. No deposit, no sales pitch.</p>
@@ -1257,7 +1260,7 @@ fbq('track', 'PageView');
       <p class="eyebrow">The Care Plan</p>
       <h2>The Care Plan keeps your website up to date, secure and healthy.</h2>
       <div class="price-line">
-        <p class="price-line-label">Care Plan</p>
+        <p class="price-line-label">Care Plan Pricing</p>
         <p class="price"><strong>$149</strong><span>a month</span></p>
       </div>
       <p class="lede">Hours change. Prices go up. You add a service, hire someone, retire a photo, or move to a new number. Every owner has a website that says something that stopped being true months ago, and knows they are never going to sit down and fix it.</p>

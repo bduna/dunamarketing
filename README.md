@@ -150,14 +150,18 @@ reduced motion it never plays: it loads and shows the frame 2 seconds in, with t
 
 ## The price lines under two headlines
 
-Two sections show their price just below the headline and above the lede, in one format (`.price-line`): a small label
-in the accent over the price and its terms, the terms worded as the Pricing box words them.
+Two sections show their price just below the headline and above the lede, in one format (`.price-line`): a label over
+the price and its terms, the terms worded as the Pricing box words them. The label is set in a different face from the
+sections' eyebrows, at Barrett's request (2026-09-21): Instrument Serif italic, in plain case and the light ink, where the
+eyebrows ("No risk", "The Care Plan") are small spaced capitals in the accent. It is the page's only serif, loaded in the
+same Google Fonts link as Archivo, italic only; Georgia stands in if it doesn't load. (The labels read "Care Plan" and
+"Your website" in Archivo capitals, like an eyebrow, until then.)
 
-- The Care Plan (`<section id="care-plan">`): "Care Plan" over "$149 a month". Added 2026-09-21 at Barrett's request,
+- The Care Plan (`<section id="care-plan">`): "Care Plan Pricing" over "$149 a month". Added 2026-09-21 at Barrett's request,
   "a price box that displays the Care Plan for $149/mo". It was a dark card with an accent edge under "You could make
   these changes yourself…" at first; the same day he asked for it "more inline with the text", then said "it's
   perfect, it just needs moved, move it just below the headline".
-- No risk (`<section id="before-you-pay">`): "Your website" over "$1,500 one time", under "See your finished website
+- No risk (`<section id="before-you-pay">`): "Website Pricing" over "$1,500 one time", under "See your finished website
   before you pay a dime." Barrett, the same day: "use the exact same format as the price for the Care Plan".
 
 Both are part of the text column: no card, the label and the price starting at the text's own left edge, 22px above and
