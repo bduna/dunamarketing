@@ -1642,16 +1642,17 @@ fbq('track', 'PageView');
       const HOLD = 4000;                 // ms the finished website holds before a loop starts again
       const PACE = 1.8;                  // stretches the paced steps evenly: 1 is the first cut, higher is slower (Barrett asked for slower twice)
       const READ = 1800;                 // ms to read the finished answer, photos and points before the build starts
-      // The answer types the way a person types, about 90 words a minute: a steady 78-102 ms a key (barely uneven, so it
+      const TYPE = 0.78;                 // typing speed: 1 is about 86 words a minute, lower is faster (Barrett asked for a little faster, 2026-09-21)
+      // The answer types the way a person types, about 110 words a minute: a steady 61-80 ms a key (barely uneven, so it
       // reads as smooth, not stuttering), a breath after each comma and before "cooked". It is a person's speed, so PACE
-      // leaves it alone, and act 1 lasts as long as the typing needs.
+      // leaves it alone, and act 1 lasts as long as the typing needs. TYPE scales every key and every breath alike.
       const keys = text => {
         const out = []; let t = 0;
         for (let i = 0; i < text.length; i++) {
           let d = 78 + (i * 37 % 7) * 4;
           if (text[i - 1] === ',') d += 220;
           if (text.startsWith('cooked', i)) d += 260;
-          out.push(t += d);
+          out.push(t += Math.round(d * TYPE));
         }
         return out;
       };
