@@ -156,7 +156,7 @@ reduced motion it never plays: it loads and shows the frame 2 seconds in, with t
 ## The price lines under two headlines
 
 Two sections show their price just below the headline and above the lede, in one format (`.price-line`): a label over
-the price and its terms, the terms worded as the Pricing box words them. The label must not look like the sections'
+the price and its terms (worded as the Pricing box words them, but for No risk's, below). The label must not look like the sections'
 eyebrows (Barrett, 2026-09-21), and the page is sans-serif only: an Instrument Serif italic tried for it the same day was
 "ugly and doesn't match the website". So it is the page's Archivo, set apart by style: plain case, 16-18px, semibold
 (650), where the eyebrows ("No risk", "The Care Plan") are 13px spaced capitals. (The labels read "Care Plan" and "Your
@@ -168,8 +168,10 @@ under the white headline, the block had read as "a white wall of text".
   "a price box that displays the Care Plan for $149/mo". It was a dark card with an accent edge under "You could make
   these changes yourself…" at first; the same day he asked for it "more inline with the text", then said "it's
   perfect, it just needs moved, move it just below the headline".
-- No risk (`<section id="before-you-pay">`): "Website Pricing" over "$1,500 one time", under "See your finished website
-  before you pay a dime." Barrett, the same day: "use the exact same format as the price for the Care Plan".
+- No risk (`<section id="before-you-pay">`): "Website Pricing" over "$1,500 one time upon approval", under "See your
+  finished website before you pay a dime." Barrett, the same day: "use the exact same format as the price for the Care
+  Plan", and then "one time upon approval" in place of the Pricing box's "one time" (the box keeps "one time"). The
+  terms stay on the price's line from 360px wide; on a 320px phone they wrap under it.
 
 Both are part of the text column: no card, the label and the price starting at the text's own left edge, 22px above and
 below (the headline's 18px bottom margin folds into the 22px), and the price a size smaller than the plan boxes'
