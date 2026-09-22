@@ -120,14 +120,15 @@ length (a streamed file); the data is 72.1 s, and ffmpeg and the caption script 
   loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the same"), and the
   wall's script is again exactly what it was before the voice.
 - At "start the questionnaire below" (54.92 s), the hero's Start the questionnaire glows once (`.nudge`). When the
-  summary ends, that button starts turning its words over: "Start the questionnaire", "Let’s get started", and back,
+  summary ends, that button starts changing its words: "Start the questionnaire", "Ready to get started?", and back,
   every 3 s for as long as the page is open (Barrett's idea, 2026-09-22; a heartbeat pulse tried there first was
-  taken out, "remove the pulsation and glow"). The turn is a vertical rotation of about 0.4 s, the old words tipping
-  away upward as the new arrive from below (`.cta-flip`, `.cta-face-a` / `-b`, the class `.turned` toggled by
-  `turnWords()` in the voice script). Both faces share one grid cell, so the pill stays as wide as the longer of
+  taken out, "remove the pulsation and glow"). They scroll rather than turn, the new words coming down from above as
+  the old leave below, one strip moving down in 0.28 s (`.cta-flip` clips the cell; `.cta-face-a` / `-b`; the class
+  `.turned`, toggled by `turnWords()` in the voice script). It was a 0.5 s rotation about the middle for its first
+  hour, and said "Let’s get started". Both faces share one grid cell, so the pill stays as wide as the longer of
   them and nothing around it moves; the link carries its own `aria-label`, so a screen reader always hears "Start
-  the questionnaire" whichever face is up. Playing the summary again puts the first words back and stops the
-  turning; with reduced motion the words never turn at all.
+  the questionnaire" whichever words show. Playing the summary again puts the first words back and stops it; with
+  reduced motion the words never move at all.
 - Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
   `#voice-dock`, with the phrase, the pause and a close; it goes when the card is back in view or the voice ends.
 - At the end the card rewinds and reads "Listen to the Summary" again. With reduced motion the captions and the ring still work; the
