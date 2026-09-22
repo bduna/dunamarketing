@@ -23,19 +23,21 @@ under its intro, with the email card beside them. Its heading and intro still sp
 questionnaire (see "The questionnaire (test)" below) is the way the page invites people to start; it sends nothing
 yet, and says so.
 
-The hero's buttons sit in one row where they fit, flush top and bottom (`.actions` stretches every pill to the row's
-height). First, since 2026-09-21, "Start the questionnaire" (`.cta-go`; it said "Get my free preview", Barrett's first
+The hero's buttons come in rows (`.actions` is a column): the contact pills first, then "Start the questionnaire" on its
+own row below them (Barrett, 2026-09-22: "make "Start the questionnaire" below the contact buttons"; until then it led
+a single row, the contact pills beside it where they fit). Each row is as wide as its pills. "Start the questionnaire"
+(`.cta-go`, since 2026-09-21; it said "Get my free preview", Barrett's first
 words for it, until he had every one of these buttons say "Start the questionnaire" the same day): the white pill with a
 down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Every button into the questionnaire points down
 (Barrett, 2026-09-21: "make all the questionnaire button arrows point downward"; they pointed right at first), because
 each one scrolls down the page to the questionnaire. There are four, all "Start the questionnaire": here, under the ten
 samples (`.samples-go`, the hero's button exactly, centred under the grid with 44-64px above it, added 2026-09-21 at
 Barrett's request), at the foot of How it works' step 1, and under the pricing. At 340px wide or less their words drop
-to 16px so they stay on one line. Then "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
+to 16px so they stay on one line. The contact pills are "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
 business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the white pill inverted, a
-dark fill with a white edge and a white disc (`.cta-alt`). Text us and Call us sit in `.reach` so they wrap together:
-on phones they share a second row under Start the questionnaire, never one alone, and below 400px wide the pills lose a
-little padding so the pair still fits at 360. Taps on them fire the pixel's `Contact` event (see Tracking); the preview
+dark fill with a white edge and a white disc (`.cta-alt`). Text us and Call us sit in `.reach` so they travel as a pair:
+in the hero they share the first row (on a 320px phone Call us drops under Text us), and below 400px wide the pills
+lose a little padding so the pair still fits at 360. Taps on them fire the pixel's `Contact` event (see Tracking); the preview
 button fires nothing.
 A computer can't text or call, so with a mouse (`(hover: hover) and (pointer: fine)`, the page's usual split, not a
 width) the two are replaced by one pill in the same style, `.cta-phone`: "Text or call" in small caps above
@@ -52,8 +54,8 @@ classes, so the switch is the same everywhere: Text us and Call us on phones and
 with a mouse, and the same prefilled first line on the text link.
 - Under the pricing (Barrett, 2026-09-21, "add text and call contact buttons under pricing"): at the end of
   `<section id="pricing">`, under "You see the finished website before you pay anything." On the white band they are
-  solid navy (`.band-light .cta-alt`) rather than the hero's dark glass. The questionnaire button leads this row too
-  (Barrett, 2026-09-21), in the page's deep blue (`.band-light .cta-go`) so it stands apart from the navy pills,
+  solid navy (`.band-light .cta-alt`) rather than the hero's dark glass. The questionnaire button leads this row
+  (Barrett, 2026-09-21; in the hero it has sat below the contact pills since 2026-09-22), in the page's deep blue (`.band-light .cta-go`) so it stands apart from the navy pills,
   worded "Start the questionnaire" (Barrett's words the same day; it said "Get my free preview" at first). On phones it
   has the first row to itself and Text us and Call us share the next.
 - In the Contact section (Barrett, 2026-09-21, "add the contact buttons to the contact section"): under the intro in
