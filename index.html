@@ -326,13 +326,15 @@ fbq('track', 'PageView');
     18% { transform: scale(1.045); }
     100% { box-shadow: 0 0 0 26px rgb(143 188 255 / 0), 0 14px 34px rgb(var(--veil) / .55); transform: scale(1); }
   }
-  /* The summary over, the way in keeps a slow pulse going until it is pressed (Barrett, 2026-09-22), the nudge's ring
-     at half its strength with a rest between beats, so it breathes rather than flashes. */
-  .cta-go.pulse { animation: cta-pulse 2.4s var(--ease-out) infinite; }
+  /* The summary over, the way in beats until it is pressed (Barrett, 2026-09-22). A heartbeat, not a ping: it swells and
+     falls back in one smooth motion, in and out with no rest between, at 1.6s a beat (he asked for half again the old
+     pace, not twice it), the blue a soft halo that
+     breathes with it rather than a ring fired outward. (It was a 2.4s ring with a pause: "way too slow ... like a heart
+     beat, smooth pulsating arterie".) */
+  .cta-go.pulse { animation: cta-pulse 1.6s ease-in-out infinite; }
   @keyframes cta-pulse {
-    0% { box-shadow: 0 0 0 0 rgb(143 188 255 / .7), 0 14px 34px rgb(var(--veil) / .55); transform: scale(1); }
-    12% { transform: scale(1.035); }
-    45%, 100% { box-shadow: 0 0 0 22px rgb(143 188 255 / 0), 0 14px 34px rgb(var(--veil) / .55); transform: scale(1); }
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgb(143 188 255 / 0), 0 14px 34px rgb(var(--veil) / .55); }
+    50% { transform: scale(1.035); box-shadow: 0 0 22px 5px rgb(143 188 255 / .42), 0 14px 34px rgb(var(--veil) / .55); }
   }
   /* the dock: the voice at the foot of the screen, while it plays and the hero is out of sight */
   .voice-dock {

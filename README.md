@@ -120,9 +120,12 @@ length (a streamed file); the data is 72.1 s, and ffmpeg and the caption script 
   loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the same"), and the
   wall's script is again exactly what it was before the voice.
 - At "start the questionnaire below" (54.92 s), the hero's Start the questionnaire glows once (`.nudge`), and when
-  the summary reaches its end that button keeps a slow pulse going, about one beat every 2.4 s (`.pulse`,
-  `cta-pulse`, the nudge's ring at half strength with a rest between beats; Barrett, 2026-09-22: "after the audio
-  summary is finished, make the 'Start the questionnaire' button pulsate"). It beats until the button is pressed or
+  the summary reaches its end that button beats until it is taken (`.pulse`, `cta-pulse`; Barrett, 2026-09-22: "after
+  the audio summary is finished, make the 'Start the questionnaire' button pulsate"). A heartbeat, not a ping: it swells
+  3.5% and falls back in one smooth `ease-in-out` motion, in and out with no rest between, 1.6 s a beat, the blue a soft
+  halo breathing with it. It first shipped as a 2.4 s ring that fired outward and then waited, which he sent back: "way
+  too slow and it needs to be way smoother, like in and out, in and out, make it like a heart beat, smooth pulsating
+  arterie", and half again the old pace, he said, not twice it. It beats until the button is pressed or
   the summary is played again, and with reduced motion it never moves.
 - Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
   `#voice-dock`, with the phrase, the pause and a close; it goes when the card is back in view or the voice ends.
