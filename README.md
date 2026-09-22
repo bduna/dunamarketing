@@ -121,7 +121,7 @@ length (a streamed file); the data is 72.1 s, and ffmpeg and the caption script 
   wall's script is again exactly what it was before the voice.
 - At "start the questionnaire below" (54.92 s), the hero's Start the questionnaire glows once (`.nudge`). When the
   summary ends, that button starts changing its words: "Start the questionnaire", "Ready to get started?", and back,
-  every 3 s for as long as the page is open (Barrett's idea, 2026-09-22; a heartbeat pulse tried there first was
+  every 2 s for as long as the page is open (Barrett's idea, 2026-09-22, 3 s at first; a heartbeat pulse tried there first was
   taken out, "remove the pulsation and glow"). They scroll rather than turn, the new words coming down from above as
   the old leave below, one strip moving down in 0.28 s (`.cta-flip` clips the cell; `.cta-face-a` / `-b`; the class
   `.turned`, toggled by `turnWords()` in the voice script). It was a 0.5 s rotation about the middle for its first

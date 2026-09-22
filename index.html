@@ -322,7 +322,7 @@ fbq('track', 'PageView');
   /* the hand-off: when the voice reaches "start the questionnaire below", the button to it glows once */
   .cta-go.nudge { animation: nudge 1.9s var(--ease-out) 1; }
   /* Once the summary has finished, the hero's way in changes its words every 3 s: "Start the questionnaire" and
-     "Ready to get started?" (Barrett's idea, 2026-09-22). They scroll rather than turn, quickly: the new words come
+     "Ready to get started?" every 2s (Barrett's idea, 2026-09-22). They scroll rather than turn, quickly: the new words come
      down from above as the old leave below, one strip moving down, the cell clipping whatever is outside it. Both
      faces share that one cell, so the pill is as wide as the longer of them and nothing around it moves. A screen
      reader hears the link's own label, not the moving words. */
@@ -2925,7 +2925,7 @@ fbq('track', 'PageView');
     const kick = () => { if (!raf) raf = requestAnimationFrame(frame); };
     if (go) go.addEventListener('animationend', e => { if (e.animationName === 'nudge') go.classList.remove('nudge'); });
 
-    // The words turn over every 3 seconds once the summary has ended, and keep turning; playing it again puts them back
+    // The words change every 2 seconds once the summary has ended, and keep changing; playing it again puts them back
     // and stops. Nothing turns for a visitor who asked for less motion. (Barrett's idea, 2026-09-22.)
     let turning = 0;
     const turnWords = on => {
@@ -2933,7 +2933,7 @@ fbq('track', 'PageView');
       clearInterval(turning); turning = 0;
       if (!on) { go.classList.remove('turned'); return; }
       go.classList.add('turned');                                  // the first turn lands with the last word spoken
-      turning = setInterval(() => go.classList.toggle('turned'), 3000);
+      turning = setInterval(() => go.classList.toggle('turned'), 2000);   // Barrett, 2026-09-22: 2s, it was 3s
     };
 
     const say = playing => {
