@@ -66,10 +66,13 @@ A button added to the page joins in by carrying the same two faces; the script t
 each one scrolls down the page to the questionnaire. There are four, all "Start the questionnaire": here, under the ten
 samples (`.samples-go`, the hero's button exactly, centred under the grid with 44-64px above it, added 2026-09-21 at
 Barrett's request, and since 2026-09-22 as much below it, the Samples band's bottom padding cut from the band's usual
-56-120px at his asking: "reduce the marge under"), at the foot of How it works' step 1, and under the founder's quote
+56-120px at his asking: "reduce the marge under"), at the foot of How it works' step 1, and under the founder's headshot
 (`.founder-go`, 2026-09-22: "add a blue questionnaire button in the Our Founder page just like the one in the How It
-Works #1 button"; step 1's deep blue, which the dark founder band has to name again, since that colour comes from
-`.band-light .cta-go`). (A fourth, under the pricing, was removed on 2026-09-22:
+Works #1 button", then "can you put it under my headshot??"; step 1's deep blue, which the dark founder band has to
+name again, since that colour comes from `.band-light .cta-go`). That button sits in the photo column, which is why
+`.founder-left` wraps the photo and it: `.founder-photo` narrows to 260px on phones and would squeeze the pill.
+Stacked, under 860px, the whole photo column comes before the words, so on a phone the button is read before the
+section's own heading. (A fourth, under the pricing, was removed on 2026-09-22:
 "remove start the questionnaire in the pricing section".) At 340px wide or less their words drop
 to 16px so they stay on one line. The contact pills are "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
 business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the white pill inverted, a
