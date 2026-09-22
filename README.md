@@ -13,6 +13,19 @@ Every push to `main` is live in about three minutes. There is no separate previe
 Keep the `CNAME` file and the `portfolio/` folder: the sample cards on the landing page link to
 `dunamarketing.com/portfolio/<name>/`, so those pages must stay online.
 
+The favicon is the Duna mark, no background (Barrett's choice, 2026-09-15). Since 2026-09-22 ("I don't see a
+favicon, use my logo"; the icon files had 404'd during that morning's outage, see "The repo stays public" below):
+`assets/img/favicon.svg` draws the mark exactly as the No risk section's `<svg class="mark-anim">` does (the same
+clip polygons and 16 stripes), black stripes, white in a dark browser theme; `/favicon.ico` (16, 32 and 48px, the
+mark with its white gaps, from `icon-180.png`) is for browsers without SVG icons and for anything that asks for
+`/favicon.ico`; `icon-180.png` is the apple-touch icon. All six Duna pages (index, privacy, 404, thanks, form, full)
+carry the same three links. At 16 px on a standard-resolution screen the eleven stripes blend into a grey hexagon;
+high-resolution screens show them.
+
+The repo stays public: on GitHub's free plan a private repo can't serve Pages. On 2026-09-22 it was switched to
+private (not from this repo's working sessions), GitHub turned Pages off and every URL answered "Site not found";
+it was made public again and Pages re-enabled from `main`, the `CNAME` file restoring the domain.
+
 ## Getting in touch
 
 The contact section at the end (`<section id="start">`, headed "Contact") offered email only from 2026-09-18:
