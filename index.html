@@ -1109,7 +1109,7 @@ fbq('track', 'PageView');
   .q-send:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
   .q-send:disabled { opacity: .35; cursor: default; }
   /* Speak the answer: the send button's twin, outlined rather than white so the send button still leads. It is shown
-     only where the browser can hear (Barrett, 2026-09-22); listening, it turns red and breathes. */
+     on phones and tablets, where the browser can hear (Barrett, 2026-09-22); listening, it turns red and breathes. */
   .q-mic {
     flex: none; width: 46px; height: 46px; padding: 0; border-radius: 50%;
     display: grid; place-items: center; cursor: pointer;
@@ -2375,12 +2375,14 @@ fbq('track', 'PageView');
 
       // Speak the answer instead of typing it (Barrett, 2026-09-22: the boxes "don't support the microphone"). The
       // browser's own speech recognition, which Chrome, Edge and Safari have and Firefox does not; where it is missing
-      // the button stays hidden rather than sitting there dead. The words land in the live input as if typed, so the
-      // send button, the growing box and the clock all behave the same. Its own guard.
+      // the button stays hidden rather than sitting there dead. It is for phones and tablets only, the page's usual
+      // split: with a mouse and a keyboard, typing is quicker, and Barrett asked for it there only ("only have the chat
+      // button available on mobile, not on desktop"). The words land in the live input as if typed, so the send button,
+      // the growing box and the clock all behave the same. Its own guard.
       try {
         const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
         const mic = ask.querySelector('#q-mic'), note = ask.querySelector('#q-note');
-        if (SR && mic) {
+        if (SR && mic && !mouse) {
           let rec = null, base = '', heard = '', noteTimer = 0;
           const tell = words => {
             note.textContent = words; note.hidden = false;

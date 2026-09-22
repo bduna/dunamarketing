@@ -311,7 +311,9 @@ the business, and a recap at the end. It is at https://dunamarketing.com/#questi
 - A microphone in the bar, `#q-mic` (Barrett, 2026-09-22: the boxes "don't support the microphone" — a computer's text
   box has no dictation of its own, and a phone's keyboard hides its mic key on the number pad). It is the browser's
   speech recognition (`SpeechRecognition` / `webkitSpeechRecognition`), so the button stays `hidden` where that is
-  missing, Firefox above all, rather than sitting there dead. Tap it and it turns red and breathes; the words arrive in
+  missing, Firefox above all, rather than sitting there dead. It is for phones and tablets only, the page's usual
+  `(hover: hover) and (pointer: fine)` split, at Barrett's asking the same day ("only have the chat button available on
+  mobile, not on desktop"): with a keyboard under the hands, typing is quicker. Tap it and it turns red and breathes; the words arrive in
   the live box as they are spoken, interim words replaced as the engine settles, and an `input` event is dispatched so
   the box grows, the send button wakes and the clock starts exactly as typing would. Tapping again, sending, or
   starting over stops it; so does the engine itself after a silence. Speaking while Duna is still typing its question
