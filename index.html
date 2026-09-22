@@ -307,7 +307,10 @@ fbq('track', 'PageView');
     .voice { gap: 14px; min-height: 92px; padding: 8px 16px 8px 10px; border-radius: 22px; }
     .voice-orb { width: 66px; height: 66px; }
   }
-  @media (max-width: 340px) { .voice-cap { font-size: 15px; } .voice-idle small { font-size: 13.5px; } }
+  /* phones: the label's "· 1:17" gives way (the progress line under the card shows the length), so "Listen to the
+     Summary" keeps to one line; the smallest phones take it a size down as well */
+  @media (max-width: 480px) { .voice-len { display: none; } }
+  @media (max-width: 340px) { .voice-cap { font-size: 15px; } .voice-idle b { font-size: 16.5px; } .voice-idle small { font-size: 13.5px; } }
   /* the hand-off: when the voice reaches "start the questionnaire below", the button to it glows once */
   .cta-go.nudge { animation: nudge 1.9s var(--ease-out) 1; }
   @keyframes nudge {
@@ -1145,7 +1148,7 @@ fbq('track', 'PageView');
           <span class="voice-disc"><svg class="i-play" viewBox="0 0 24 24"><path d="M8.5 5.5v13l10-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z"/></svg></span>
         </span>
         <span class="voice-text" aria-hidden="true">
-          <span class="voice-idle"><b><span class="voice-word">Listen</span> <span class="voice-len">&middot; 1:17</span></b><small>Everything on this page, in 77 seconds</small></span>
+          <span class="voice-idle"><b><span class="voice-word">Listen to the Summary</span> <span class="voice-len">&middot; 1:17</span></b><small>Everything on this page, in 77 seconds</small></span>
           <span class="voice-cap"></span>
         </span>
       </button>
@@ -2719,7 +2722,7 @@ fbq('track', 'PageView');
     const NUDGE = 57.74;   // seconds: "start the questionnaire below"
     const LENGTH = 77, FPS = 25;
     const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const cap = btn.querySelector('.voice-cap'), word = btn.querySelector('.voice-word'), bars = btn.querySelector('.voice-bars');
+    const cap = btn.querySelector('.voice-cap'), bars = btn.querySelector('.voice-bars');
     const rings = [btn.querySelector('.voice-prog'), dock.querySelector('.voice-prog')];
     const dockBtn = document.getElementById('voice-dock-btn'), dockX = document.getElementById('voice-dock-x'), dockCap = dock.querySelector('.voice-dock-cap');
     const go = document.querySelector('.hero .cta-go');
@@ -2817,7 +2820,7 @@ fbq('track', 'PageView');
     audio.addEventListener('pause', () => { btn.classList.remove('is-playing'); dock.classList.remove('is-playing'); say(false); kick(); });
     audio.addEventListener('ended', () => {
       btn.classList.remove('is-on', 'is-playing'); dock.classList.remove('is-playing'); say(false);
-      word.textContent = 'Listen again'; nudged = false;
+      nudged = false;
       audio.currentTime = 0;   // back to the start, so the ring and the line empty and a press plays it again from the top
       paint(0);
       dockState();
