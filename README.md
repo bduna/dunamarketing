@@ -23,14 +23,16 @@ under its intro, with the email card beside them. Its heading and intro still sp
 questionnaire (see "The questionnaire (test)" below) is the way the page invites people to start; it sends nothing
 yet, and says so.
 
-The hero's buttons come in rows (`.actions` is a column): the contact pills first, then "Start the questionnaire" on its
-own row below them (Barrett, 2026-09-22: "make "Start the questionnaire" below the contact buttons"; until then it led
-a single row, the contact pills beside it where they fit). The rows line up at both ends (Barrett, the same day: "on
-mobile could you stretch out "questionnaire" button to line up with the contact buttons and on desktop do the
-opposite"): the column is as wide as its widest row and stretches the rest to it, so on phones and tablets Start the
-questionnaire widens to span Text us + Call us, and with a mouse the number pill widens to Start the questionnaire's
-width. A widened pill keeps its words where they were and takes its disc to the end (`justify-content:
-space-between`); on a 320px phone, where Call us drops under Text us, all three are one width. "Start the questionnaire"
+The hero's buttons differ by device (all on 2026-09-22, at Barrett's asking). On phones and tablets they come in rows
+(`.actions` is a column): Text us + Call us first, then "Start the questionnaire" on its own row below them ("make
+"Start the questionnaire" below the contact buttons"; `order: 1`, since it is first in the page), the rows lined up at
+both ends ("on mobile could you stretch out "questionnaire" button to line up with the contact buttons"): the column is
+as wide as its widest row and stretches the rest to it, so Start the questionnaire widens to span the pair, keeping its
+words where they were and taking its disc to the end (`justify-content: space-between`); on a 320px phone, where Call
+us drops under Text us, all three are one width. With a mouse it is one row, as it was before that day: Start the
+questionnaire on the left and the number pill beside it at its own size, flush top and bottom ("make the contact
+button regular size and bring the start the questionnaire button up to left only on desktop"; for an hour the number
+had stretched to the questionnaire's width in a column). "Start the questionnaire"
 (`.cta-go`, since 2026-09-21; it said "Get my free preview", Barrett's first
 words for it, until he had every one of these buttons say "Start the questionnaire" the same day): the white pill with a
 down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Every button into the questionnaire points down
@@ -60,7 +62,7 @@ with a mouse, and the same prefilled first line on the text link.
 - Under the pricing (Barrett, 2026-09-21, "add text and call contact buttons under pricing"): at the end of
   `<section id="pricing">`, under "You see the finished website before you pay anything." On the white band they are
   solid navy (`.band-light .cta-alt`) rather than the hero's dark glass. The questionnaire button leads this row
-  (Barrett, 2026-09-21; in the hero it has sat below the contact pills since 2026-09-22), in the page's deep blue (`.band-light .cta-go`) so it stands apart from the navy pills,
+  (Barrett, 2026-09-21; in the hero it has sat below the contact pills on phones and tablets since 2026-09-22), in the page's deep blue (`.band-light .cta-go`) so it stands apart from the navy pills,
   worded "Start the questionnaire" (Barrett's words the same day; it said "Get my free preview" at first). On phones it
   has the first row to itself and Text us and Call us share the next.
 - In the Contact section (Barrett, 2026-09-21, "add the contact buttons to the contact section"): under the intro in
