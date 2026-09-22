@@ -1535,11 +1535,11 @@ fbq('track', 'PageView');
         <div class="roi-inputs">
           <div class="roi-field">
             <div class="roi-label-row"><label for="roi-customers">Number of customers</label><span class="roi-value" data-out="customers"></span></div>
-            <input type="range" id="roi-customers" min="0" max="27" step="1" value="6">
+            <input type="range" id="roi-customers" min="0" max="27" step="1" value="4">
           </div>
           <div class="roi-field">
             <div class="roi-label-row"><label for="roi-revenue">Revenue per customer</label><span class="roi-value" data-out="revenue"></span></div>
-            <input type="range" id="roi-revenue" min="0" max="28" step="1" value="15">
+            <input type="range" id="roi-revenue" min="0" max="28" step="1" value="18">
           </div>
         </div>
         <div class="roi-results">
@@ -1988,7 +1988,7 @@ fbq('track', 'PageView');
       // a sentence of text, with the figures in <strong>; built from nodes, never markup
       const say = (el, parts) => { el.textContent = ''; parts.forEach((s, i) => { if (i % 2) { const b = document.createElement('strong'); b.textContent = s; el.append(b); } else el.append(s); }); };
       const setup = (el, list, start) => { el.min = 0; el.max = list.length - 1; el.step = 1; el.value = Math.max(0, list.indexOf(start)); };
-      setup(customers, CUSTOMERS, 7); setup(revenue, REVENUE, 300);   // the sliders' defaults (Barrett, 2026-09-22: $300 a customer); the markup's value= matches, for the moment before this runs
+      setup(customers, CUSTOMERS, 5); setup(revenue, REVENUE, 500);   // the sliders' defaults (Barrett, 2026-09-22: 5 customers at $500); the markup's value= matches, for the moment before this runs
       const render = () => {
         const n = CUSTOMERS[+customers.value], v = REVENUE[+revenue.value], R = n * v;
         [customers, revenue].forEach(el => el.style.setProperty('--fill', (el.value / el.max * 100) + '%'));

@@ -272,9 +272,9 @@ underneath.
   $1,500 and $149, so changing a price there changes the calculator. First month = website + first Care Plan payment
   ($1,649); every month after = the Care Plan ($149).
 - Sliders step through fixed lists (`CUSTOMERS` and `REVENUE` in the script): customers 1-20, then 25, 30, 35, 40, 50,
-  60, 75, 100 (default 7, chosen so the first month opens on a gain at the $1,500 price: +$101; it was 6 at $1,200,
-  which at $1,500 would open on a $149 loss); revenue per customer $10 to
-  $5,000 in 29 steps (default $300, Barrett's call on 2026-09-22; $250 before).
+  60, 75, 100; revenue per customer $10 to $5,000 in 29 steps. The pair opens on 5 customers at $500 (Barrett's call,
+  2026-09-22, after $300 the same day; 7 at $250 before that, a default raised with each price rise so the first month
+  opens on a gain, +$101 then, +$851 now).
 - With R = customers x revenue per customer, each projection shows revenue (R), net gain or loss (R - fees), ROI
   (net / fees) and cost per customer (fees / customers). Below them: break even (customers needed, fees / revenue per
   customer, rounded up), payback (the first month in which total revenue covers the website plus the Care Plan so far;
