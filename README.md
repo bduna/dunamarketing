@@ -67,21 +67,24 @@ simply scrolls past; the band is its natural height again once another anchor is
 
 ## The voice (the hero's spoken summary)
 
-Barrett's recording, a 76-second spoken summary of the whole page meant as the first sales pitch
-(`chatgpt-duna-marketing-site-summary-tts.wav` in the project folder, cut to `assets/audio/duna-summary.mp3`, 64 kbps
-mono, 609 KB, `preload="none"`), plays from the hero (2026-09-21, "get very creative ... something way cooler"):
+Barrett's recording, a 77-second spoken summary of the whole page meant as the first sales pitch
+(`gpt-corrected-tts.wav` in the project folder, his revised take of 2026-09-21, which replaced the first,
+`chatgpt-duna-marketing-site-summary-tts.wav`; cut to `assets/audio/duna-summary.mp3`, 64 kbps mono, 616 KB,
+`preload="none"`, loaded as `?v=2` so a browser holding the first take fetches the new one), plays from the hero
+(2026-09-21, "get very creative ... something way cooler"):
 
 - A card between the subline and the buttons, `#voice-row` / `.voice`: a white play disc inside a ring of 28 bars and a
-  progress ring, and "Listen · 1:16" over "Everything on this page, in 76 seconds". Once, as the hero settles, a wave
+  progress ring, and "Listen · 1:17" over "Everything on this page, in 77 seconds". Once, as the hero settles, a wave
   runs round the bars to say there is something to press; then it holds still.
 - Pressed: the bars move with the voice, the ring fills, and the card shows the words as they are spoken, a phrase at a
   time, each word lighting up on its second, the promises (24 hours, $1,500, No deposit, see it first, 16 years, own
-  outright, $149 a month, start the questionnaire below, 20 minutes) in the accent. The card keeps one height for every
+  outright, $149 per month, start the questionnaire below, 20 minutes, only pay after you've seen and approved) in the
+  accent. The card keeps one height for every
   phrase (checked at 320-1440px), so nothing around it moves.
 - The wall takes no part. For a few minutes on 2026-09-21 it rippled outward from the play disc with the voice's
   loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the same"), and the
   wall's script is again exactly what it was before the voice.
-- At "start the questionnaire below" (59.26 s), Get my free preview glows once (`.nudge`).
+- At "start the questionnaire below" (57.74 s), Get my free preview glows once (`.nudge`).
 - Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
   `#voice-dock`, with the phrase, the pause and a close; it goes when the card is back in view or the voice ends.
 - At the end the card says "Listen again" and rewinds. With reduced motion the captions and the ring still work; the
@@ -90,8 +93,10 @@ mono, 609 KB, `preload="none"`), plays from the hero (2026-09-21, "get very crea
 
 The captions and the loudness are three lines of data in the voice script (`CUES`, `ENV`, `NUDGE`), made from the
 recording by `hero_voice_captions.py` in the project folder (a local speech-to-text pass with word timings; the
-transcript it used is `chatgpt-duna-marketing-site-summary-tts.words.json` beside the WAV). A new recording means
-running it again, as its header says, and updating `LENGTH`, "1:16" and "76 seconds" if the length changes. Tests:
+transcript it used is `gpt-corrected-tts.words.json` beside the WAV). The words shown are the script's own
+`PHRASES`, written as they should read; the recording gives only their timing, so a misheard word ("fix" for "fits"
+in this take, put right by `CORRECTIONS`) never reaches the page. A new recording means running it again, as its header
+says, updating `LENGTH`, "1:17", "77 seconds" and "77-second" if the length changes, and bumping the `?v=` on the audio. Tests:
 `~/.cache/duna-site-tests/voice_layout_check.js` and `voice_play_check.js` (serve with `serve_range.js`, which can seek).
 
 ## Client work: Deep Roots Hydro
