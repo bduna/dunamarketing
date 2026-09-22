@@ -48,7 +48,7 @@ button regular size and bring the start the questionnaire button up to left only
 had stretched to the questionnaire's width in a column). "Start the questionnaire"
 (`.cta-go`, since 2026-09-21; it said "Get my free preview", Barrett's first
 words for it, until he had every one of these buttons say "Start the questionnaire" the same day): the white pill with a
-down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). In the hero its words change every 2.5 s,
+down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). All three change their words every 2.5 s,
 "Start the questionnaire" and "Ready to get started?", the new words scrolling down from above as the old leave below in
 0.28 s (Barrett's idea, 2026-09-22, after a heartbeat pulse there was tried and taken out; it turned over rather than
 scrolled, held 3 s and read "Let's get started" for its first hour, and waited on the end of the spoken summary until he
@@ -56,8 +56,10 @@ said "make it start irrelevant of the audio player, disregard the audio"). The t
 (`.cta-flip`, `.cta-face-a` / `-b`, the class `.turned`), so the pill is always as wide as the longer of them and
 nothing around it moves; the cell clips whatever is outside it; the link carries its own `aria-label`, so a screen
 reader always hears "Start the questionnaire"; and with reduced motion the words never move. A script of its own, after
-the voice's, keeps the time, starting 1.6 s in so the hero's entrance finishes first. Only the hero's button does this;
-the other two are plain. Every button into the questionnaire points down
+the voice's, keeps the time, starting 1.6 s in so the hero's entrance finishes first and moving all three together, so
+two on screen at once never disagree. The hero's was the only one until Barrett said "edit all 'Start the
+questionnaire' buttons to have this animation"; the words centre in the two pills that centre their contents
+(`.samples-go`, `.step-go`), and in step 1's narrow card both lines wrap to the same two-line height, so nothing moves. Every button into the questionnaire points down
 (Barrett, 2026-09-21: "make all the questionnaire button arrows point downward"; they pointed right at first), because
 each one scrolls down the page to the questionnaire. There are three, all "Start the questionnaire": here, under the ten
 samples (`.samples-go`, the hero's button exactly, centred under the grid with 44-64px above it, added 2026-09-21 at
