@@ -24,15 +24,17 @@ questionnaire (see "The questionnaire (test)" below) is the way the page invites
 yet, and says so.
 
 The hero's buttons sit in one row where they fit, flush top and bottom (`.actions` stretches every pill to the row's
-height). First, since 2026-09-21, "Get my free preview" (`.cta-go`, Barrett's words): the white pill with a down
-arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Every button into the questionnaire points down
+height). First, since 2026-09-21, "Start the questionnaire" (`.cta-go`; it said "Get my free preview", Barrett's first
+words for it, until he had every one of these buttons say "Start the questionnaire" the same day): the white pill with a
+down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Every button into the questionnaire points down
 (Barrett, 2026-09-21: "make all the questionnaire button arrows point downward"; they pointed right at first), because
-each one scrolls down the page to the questionnaire. There are four: Get my free preview here and under the ten
-samples (`.samples-go`, the hero's button exactly, centred under the grid, added 2026-09-21 at Barrett's request), and "Start the
-questionnaire" at the foot of How it works' step 1 and under the pricing. Then "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
+each one scrolls down the page to the questionnaire. There are four, all "Start the questionnaire": here, under the ten
+samples (`.samples-go`, the hero's button exactly, centred under the grid with 44-64px above it, added 2026-09-21 at
+Barrett's request), at the foot of How it works' step 1, and under the pricing. At 340px wide or less their words drop
+to 16px so they stay on one line. Then "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
 business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the white pill inverted, a
 dark fill with a white edge and a white disc (`.cta-alt`). Text us and Call us sit in `.reach` so they wrap together:
-on phones they share a second row under Get my free preview, never one alone, and below 400px wide the pills lose a
+on phones they share a second row under Start the questionnaire, never one alone, and below 400px wide the pills lose a
 little padding so the pair still fits at 360. Taps on them fire the pixel's `Contact` event (see Tracking); the preview
 button fires nothing.
 A computer can't text or call, so with a mouse (`(hover: hover) and (pointer: fine)`, the page's usual split, not a
@@ -53,8 +55,7 @@ with a mouse, and the same prefilled first line on the text link.
   solid navy (`.band-light .cta-alt`) rather than the hero's dark glass. The questionnaire button leads this row too
   (Barrett, 2026-09-21), in the page's deep blue (`.band-light .cta-go`) so it stands apart from the navy pills,
   worded "Start the questionnaire" (Barrett's words the same day; it said "Get my free preview" at first). On phones it
-  has the first row to itself and Text us and Call us share the next. At 340px wide or less its words drop to 16px so
-  they stay on one line.
+  has the first row to itself and Text us and Call us share the next.
 - In the Contact section (Barrett, 2026-09-21, "add the contact buttons to the contact section"): under the intro in
   the left column, the email card on the right (under the pills on phones). On that dark band they look as in the hero.
 
@@ -84,7 +85,7 @@ Barrett's recording, a 77-second spoken summary of the whole page meant as the f
 - The wall takes no part. For a few minutes on 2026-09-21 it rippled outward from the play disc with the voice's
   loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the same"), and the
   wall's script is again exactly what it was before the voice.
-- At "start the questionnaire below" (57.74 s), Get my free preview glows once (`.nudge`).
+- At "start the questionnaire below" (57.74 s), the hero's Start the questionnaire glows once (`.nudge`).
 - Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
   `#voice-dock`, with the phrase, the pause and a close; it goes when the card is back in view or the voice ends.
 - At the end the card says "Listen again" and rewinds. With reduced motion the captions and the ring still work; the
