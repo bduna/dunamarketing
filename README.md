@@ -114,7 +114,21 @@ work headline below it used to arrive on the same screen and the two headlines c
 sits in the middle of the taller band. It is on `:target`, not on the band itself, so nothing moves for a visitor who
 simply scrolls past; the band is its natural height again once another anchor is the target.
 
-## The voice (the hero's spoken summary)
+## The voice (two cards: the hero's summary, the founder's reading)
+
+Two cards on the page play a recording and show its words as they are spoken. One maker in the voice script builds
+both, each given its own words, loudness, length and labels; a card's dock and the glow it gives Start the
+questionnaire are the hero's alone.
+
+- The founder's, `#founder-voice-row`, added 2026-09-22: "I have a word for word audio reading of the Our Founder
+  section ... copy the exact audio player as is in the hero section and put it above the questionnaire button in the
+  headshot column ... I want the text to say: 'Listen Instead of Read'". His recording is `founder-bio-tts.wav` in the
+  project folder, 62 seconds, cut to `assets/audio/founder-bio.mp3` (64 kbps mono, 496 KB); its words are
+  `founder-bio.phrases.json` beside it and its captions are made the same way as the hero's. It sits between his name
+  and the way into the questionnaire, so its captions are cut shorter than the hero's: the column is 380px on a
+  computer, where the hero's card has 544px. It has no dock and gives no glow, and its ring of bars waves once as the
+  card comes into view rather than as the page loads.
+
 
 Barrett's recording, a 72-second spoken summary of the whole page meant as the first sales pitch
 (`echo-page-summary-tts.wav` in the project folder, his third take, 2026-09-22, "replace the old one with it"; before

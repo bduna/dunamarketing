@@ -888,6 +888,7 @@ fbq('track', 'PageView');
      carries the same colour onto the dark ones, under the founder's headshot, at the foot of the Care Plan and under the
      contact pills (Barrett, 2026-09-22). (It also led the contact pills under the pricing until he had it removed.) */
   .founder-left { min-width: 0; }   /* the photo column: the headshot, his name, then the way in under them */
+  .founder-voice { margin-top: 28px; }   /* the founder's reading, between his name and the way in */
   .care-go { margin-top: 30px; }      /* the foot of the Care Plan */
   .start-go { margin-top: 26px; }     /* under the Contact section's pills */
   .founder-go { margin-top: 36px; }   /* under the headshot (Barrett, 2026-09-22; 26px felt tight under his name), the deep blue of How it works' step 1;
@@ -1420,6 +1421,25 @@ fbq('track', 'PageView');
         <img src="assets/img/barrett-duna-720.webp" srcset="assets/img/barrett-duna-360.webp 360w, assets/img/barrett-duna-720.webp 720w" sizes="(max-width: 860px) 260px, 380px" width="720" height="720" alt="Barrett Duna, founder and CEO of Duna Marketing" loading="lazy" decoding="async">
         <p class="founder-name"><strong>Barrett Duna</strong><span>Founder &amp; CEO</span></p>
       </div>
+      <!-- The founder reading his own section, 62 seconds: the hero's card again, without its dock. -->
+      <div class="voice-row founder-voice" id="founder-voice-row" hidden>
+      <button type="button" class="voice" aria-label="Play a 62-second reading of this section">
+        <span class="voice-orb" aria-hidden="true">
+          <svg class="voice-ring" viewBox="0 0 100 100"><g class="voice-bars"></g><circle class="voice-track" cx="50" cy="50" r="31"/><circle class="voice-prog" cx="50" cy="50" r="31" pathLength="100"/></svg>
+          <span class="voice-disc"><svg class="i-play" viewBox="0 0 24 24"><path d="M8.5 5.5v13l10-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z"/></svg></span>
+        </span>
+        <span class="voice-text" aria-hidden="true">
+          <span class="voice-idle"><b><span class="voice-word">Listen Instead of Read</span> <span class="voice-len">&middot; 1:02</span></b><small>This section, in 62 seconds</small></span>
+          <span class="voice-cap"></span>
+        </span>
+      </button>
+      <div class="voice-seek">
+        <span class="voice-seek-time" aria-hidden="true">0:00</span>
+        <input type="range" min="0" max="62" step="0.1" value="0" aria-label="Position in the reading" aria-valuetext="0:00 of 1:02">
+        <span class="voice-seek-time" aria-hidden="true">1:02</span>
+      </div>
+    <audio src="assets/audio/founder-bio.mp3" preload="none"></audio>
+    </div>
       <div class="founder-go"><a class="btn cta cta-go cta-deep" href="#questionnaire" aria-label="Start the questionnaire"><span class="cta-flip" aria-hidden="true"><span class="cta-face cta-face-a">Start the questionnaire</span><span class="cta-face cta-face-b">Ready to get started?</span></span><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a></div>
     </div>
     <div>
@@ -2847,146 +2867,174 @@ fbq('track', 'PageView');
 })();
 </script>
 <script>
-// The voice: the whole page spoken in 72 seconds, played from the hero (the CSS block "The voice" says what it does).
-// Its own script, so a failure here leaves the rest of the page, and the wall, exactly as they were.
+// The voice: a recording read aloud from a card that shows the words as they are spoken (the CSS block "The voice"
+// says what a card does). One maker, two cards: the hero's summary of the whole page, and the founder's reading of his
+// own section, each with its own words and loudness, at the foot of this script. Its own script, so a failure here
+// leaves the rest of the page, and the wall, exactly as they were.
 (() => {
-  const row = document.getElementById('voice-row'), btn = document.getElementById('voice'), audio = document.getElementById('voice-audio');
-  const dock = document.getElementById('voice-dock');
-  if (!row || !btn || !audio || !dock) return;
-  try {
-    // The captions: every word as it is spoken, [word, second it starts, 1 if it lights up in the accent], one cue a
-    // screenful. Made from the recording with a speech-to-text pass (word timings) and checked against it. ENV is how
-    // loud the voice is every 40 ms, 0 to z; NUDGE is when it says "start the questionnaire below". Re-record the
-    // voice and all three must be made again (the README says how).
-    const CUES = [[["Your",0.0,0],["business",0.24,0],["deserves",0.64,0],["a",1.1,0],["website",1.42,0],["that",1.78,0],["looks",2.06,0],["good",2.34,0]],[["and",2.68,0],["makes",3.1,0],["it",3.32,0],["easy",3.5,0],["for",3.84,0],["customers",4.1,0],["to",4.46,0],["take",4.72,0],["the",4.9,0],["next",5.08,0],["step.",5.28,0]],[["Tell",6.38,0],["Duna",6.56,0],["Marketing",6.98,0],["about",7.26,0],["your",7.58,0],["business",7.78,0],["in",8.16,0],["your",8.4,0],["own",8.6,0],["words.",8.84,0]],[["Share",9.76,0],["your",9.92,0],["photos",10.18,0],["and",10.48,0],["see",10.82,0],["your",11.02,0],["finished,",11.18,0],["custom,",11.94,0]],[["multi-page",12.42,0],["website",12.98,0],["within",13.46,0],["24",13.78,1],["hours.",14.34,1]],[["The",15.4,0],["price",15.56,0],["is",15.8,0],["$1,500,",16.08,1],["paid",17.58,0],["only",17.76,0],["if",18.12,0],["you",18.28,0],["want",18.4,0],["to",18.54,0],["keep",18.66,0],["it.",18.78,0]],[["No",19.36,1],["deposit,",19.58,1],["no",20.36,1],["sales",20.52,1],["pitch.",20.8,1]],[["See",21.4,1],["it",21.62,1],["first,",21.78,1],["then",22.34,0],["decide.",22.54,0]],[["Explore",23.48,0],["the",23.9,0],["work",24.14,0],["below.",24.28,0]],[["Warm,",25.28,0],["photo-led",25.96,0],["designs,",26.34,0],["bold",27.26,0],["storefronts,",27.44,0]],[["and",28.16,0],["a",28.44,0],["live",28.58,0],["website",28.86,0],["for",29.26,0],["Deep",29.56,0],["Roots",29.8,0],["Hydro",29.98,0]],[["that",30.36,0],["puts",30.84,0],["products,",31.08,0],["hours,",31.72,0],["and",32.2,0],["directions",32.28,0],["within",32.7,0],["easy",32.96,0],["reach.",33.4,0]],[["Backed",34.28,0],["by",34.52,0],["16",34.62,1],["years",35.06,1],["of",35.34,0],["web",35.6,0],["design",35.74,0],["experience,",36.0,0]],[["we",37.0,0],["turn",37.06,0],["your",37.3,0],["answers",37.48,0],["into",37.8,0],["clear",38.08,0],["copy",38.4,0]],[["and",38.74,0],["a",39.16,0],["mobile-friendly",39.36,0],["website",39.88,0],["you",40.32,0],["own",40.66,1],["outright.",41.0,1]],[["Custom",42.2,0],["animations",42.44,0],["and",42.96,0],["interactive",43.5,0],["tools",43.98,0]],[["can",44.42,0],["help",44.62,0],["show",44.78,0],["what",45.04,0],["you",45.2,0],["do.",45.32,0]],[["The",46.3,0],["optional",46.3,0],["$149",46.66,1],["per",47.7,1],["month",48.32,1],["Care",48.52,0],["Plan",48.8,0]],[["keeps",49.08,0],["hosting",49.64,0],["and",50.06,0],["updates",50.32,0],["simple",50.68,0]],[["with",51.06,0],["changes",51.54,0],["requested",51.94,0],["by",52.44,0],["text",52.68,0],["or",52.98,0],["email.",53.18,0]],[["When",53.96,0],["you're",54.08,0],["ready,",54.3,0],["start",54.92,1],["the",55.2,1],["questionnaire",55.42,1],["below.",55.76,1]],[["Your",56.68,0],["answers",56.94,0],["help",57.28,0],["us",57.56,0],["build",57.74,0],["a",57.96,0],["website",58.12,0]],[["that",58.46,0],["fits",58.72,0],["your",58.94,0],["business.",59.12,0]],[["The",60.12,0],["more",60.2,0],["detail",60.38,0],["you",60.74,0],["provide,",60.94,0],["the",61.74,0],["better.",61.86,0]],[["You",62.56,0],["don't",62.64,0],["need",62.82,0],["to",62.92,0],["write",63.06,0],["polished",63.2,0],["website",63.62,0],["copy.",64.0,0]],[["Just",64.7,0],["tell",64.84,0],["us",65.08,0],["what",65.24,0],["you",65.36,0],["do.",65.5,0]],[["We'll",66.12,0],["handle",66.38,0],["the",66.56,0],["design,",66.74,0],["writing,",67.5,0],["and",68.06,0],["photo",68.18,0],["placement.",68.42,0]],[["You",69.22,0],["only",69.34,1],["pay",69.62,1],["after",69.9,1],["you've",70.22,1],["seen",70.54,1],["and",70.72,1],["approved",70.96,1],["the",71.32,0],["result.",71.5,0]]];
-    const ENV = 'cszzzzgayzmgmmieee1etqlmxxxrkiqqmfftvqempmkhge59lg8gjqzs4jqh2oyunkfe5333224qvxxzvckjm432esvxzqnok97kd5ctxnj7lmmmgcbjc5houh44jlmori7iki5mjc5275332332322221111chrvzxvib9xzzxzutuwxq3hmihfkgissjcjqiabzzsiihhhmi5coomlf32oyzzywtnrqmiid7gg9333333237ejkyzzzxzyma9uzysqpnnmia3enmnpouwsuri8767yzwwuii4a41113ffzson6uxusrrwzzkdrufeoxzzjfkjyxtnpqkokh39lj6nqne3fbcuwwui78svvuqpkjhdb9de82222222222222ml4cizzzwlkljih87ozqa6afrvvvsvsmqogftsqnkihgef63333332itwvoj49tywuvutsdapuostpoe78lk5de922222222222houzzkwefnzzxmmto52222ajovzvnuqqtpnka3hgc5ee6222111ckqovzw799mxxvkpbb42221gjzwvprprtqpjfcc832100100111mrauwl59vzzzzoywpxzl96jrnnkhec742222322224eisxyzzyrqn933222578zzzzzyszzmgjvpktutsrrrkf43322bfazzzzxjpqjkzytbakhhhemc3333224qppkikqvxwwtkovzvggmmtpb5engb6lzzk3eyzuakbbpssjajkmj94443329oe3hpbj62dfxyxuvl5jl8211ntwxwwxqh9dmofporwq6efkkidjnbinmd3ftvvpmrroinlf94dc62222222268uvvi3a3mleklmjo6jhbgtsssutwxuhomfixzoebpljnkihdcg89kgdcba8jf23333322hwwiejswsqqqicmqrlgmikhfhjce5287guxye3bmsra7opnd33322blmnlmptzziqti98srpprokuwkekmmnjd4bhiqyxqa3nssrrnb2gtvn96kmjhc374100000000001aexokcortvtsurttqhggjjjfc232233jl5bsvjhqutre2fje6iboqqqljhc7kkgovnafihqvvuvkcptkdpoic7743211100010001ovwxxycdjiuwuskhozzwylsyrrwk98jxwqutttstvmstsrssj83csqrrpl8667mssn5cipllkld33321047sk8hdatzynmapwuobamlahra49vumbqpmvpdcjhd32333328nn867ilwvwvmyvlhpl68ryqk5kmfnrn84ilvl6iclrjfospllie973223233323duwsrqpmszztytj422221118kpm4zzyk3oi69zyok9orsturctspsqlhd95222222232224kyzzygoxxphkpriefwvactkj73tzzuoztpyxnhnrqqli47nd899tq6lhvvjdwqkhgecfnkf422222222221eruwzzzncnzziinxzxqwparwkvzwuqnmb631100000orexvrkje7222132222duyzzzmqwqdqqxzzl7agqzzzzjcdnzzdgljqlb2bosl5flia222232aqmj3fepzzzyqhnwklxwkpuqlh9322223222guzzwwzyttzkqocspnqxxwwvusn72111ixzzynwttpb2222mrjccwzzwtf8irmimdhhf8d42222129knddvzwuwu9ijtwwtnamtl87llnlgquvpvvvvsnacoon79dhyxwofewpwxjislea29422221';   // loudness every 40 ms, 0-z
-    const NUDGE = 54.92;   // seconds: "start the questionnaire below"
-    const LENGTH = 72.2, FPS = 25;
-    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const cap = btn.querySelector('.voice-cap'), bars = btn.querySelector('.voice-bars');
-    const rings = [btn.querySelector('.voice-prog'), dock.querySelector('.voice-prog')];
-    const dockBtn = document.getElementById('voice-dock-btn'), dockX = document.getElementById('voice-dock-x'), dockCap = dock.querySelector('.voice-dock-cap');
-    const go = document.querySelector('.hero .cta-go');
+  const make = o => {
+    const row = o.row, btn = row && row.querySelector('.voice'), audio = row && row.querySelector('audio');
+    const dock = o.dock ? document.getElementById(o.dock) : null;   // the hero's card alone has one
+    if (!row || !btn || !audio) return;
+    try {
+      // The captions and the loudness come in with the card: CUES is every word as it is spoken, [word, second it
+      // starts, 1 if it lights up in the accent], one cue a screenful; ENV is how loud the voice is every 40 ms, 0 to z;
+      // NUDGE, the hero's alone, is when it says "start the questionnaire below". Re-record a voice and its three must
+      // be made again (the README says how).
+      const CUES = o.cues, ENV = o.env, NUDGE = o.nudge, LENGTH = o.length, FPS = 25;
+      const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const cap = btn.querySelector('.voice-cap'), bars = btn.querySelector('.voice-bars');
+      const rings = [btn.querySelector('.voice-prog')].concat(dock ? [dock.querySelector('.voice-prog')] : []);
+      const dockBtn = dock && document.getElementById('voice-dock-btn'), dockX = dock && document.getElementById('voice-dock-x');
+      const dockCap = dock ? dock.querySelector('.voice-dock-cap') : null;
+      const go = o.nudge ? document.querySelector('.hero .cta-go') : null;
 
-    // the ring of bars round the disc: short and still until the voice moves them
-    const N = 28, R0 = 36, lines = [];
-    for (let i = 0; i < N; i++) {
-      const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      l.setAttribute('x1', 50); l.setAttribute('x2', 50); l.setAttribute('y1', 50 - R0);
-      l.setAttribute('transform', 'rotate(' + (i * 360 / N) + ' 50 50)');
-      bars.append(l); lines.push(l);
-    }
-    const setBars = f => lines.forEach((l, i) => l.setAttribute('y2', (50 - R0 - f(i)).toFixed(2)));
-    setBars(() => 2.5);
+      // the ring of bars round the disc: short and still until the voice moves them
+      const N = 28, R0 = 36, lines = [];
+      for (let i = 0; i < N; i++) {
+        const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        l.setAttribute('x1', 50); l.setAttribute('x2', 50); l.setAttribute('y1', 50 - R0);
+        l.setAttribute('transform', 'rotate(' + (i * 360 / N) + ' 50 50)');
+        bars.append(l); lines.push(l);
+      }
+      const setBars = f => lines.forEach((l, i) => l.setAttribute('y2', (50 - R0 - f(i)).toFixed(2)));
+      setBars(() => 2.5);
 
-    // how loud the voice is now, eased: up fast, down slowly. It moves the bars round the disc, nothing else.
-    let level = 0;
-    const loud = () => {
-      if (audio.paused) return 0;
-      const i = Math.floor(audio.currentTime * FPS);
-      return i < ENV.length ? parseInt(ENV[i], 36) / 35 : 0;
-    };
-
-    // captions: one cue at a time, in the card and in the dock, each word lit as it is spoken
-    let cue = -1, lit = [];
-    const findCue = t => { let i = -1; for (let k = 0; k < CUES.length && CUES[k][0][1] - 0.12 <= t; k++) i = k; return i; };
-    const fill = (box, i) => {
-      box.textContent = '';
-      const spans = [];
-      if (i >= 0) CUES[i].forEach(([w, s, h]) => {
-        const e = document.createElement('span');
-        e.textContent = w; if (h) e.className = 'hl';
-        box.append(e, ' '); spans.push([e, s]);
-      });
-      if (!calm) { box.classList.remove('fresh'); void box.offsetWidth; box.classList.add('fresh'); }
-      return spans;
-    };
-    const showCue = i => { cue = i; lit = fill(cap, i).concat(fill(dockCap, i)); };
-
-    // the dock: shown while the voice is on (playing or paused part way) and its card is out of sight
-    let cardSeen = true, dismissed = false;
-    const dockState = () => {
-      const on = btn.classList.contains('is-on') && !cardSeen && !dismissed;
-      dock.classList.toggle('show', on);
-      dock.setAttribute('aria-hidden', on ? 'false' : 'true');
-      dockBtn.tabIndex = dockX.tabIndex = on ? 0 : -1;
-    };
-
-    // the progress line under the card: it follows the voice, and dragging it, tapping it or its arrow keys move the
-    // voice, back to rewind or on, playing or paused (before the first play too: it then starts from there)
-    const seek = document.getElementById('voice-seek'), timeNow = document.getElementById('voice-time'), timeAll = document.getElementById('voice-total');
-    const fmt = s => { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
-    let held = false;   // the handle is being dragged: it leads and the voice follows, so don't move it from here
-    // everything that shows where the voice is: the ring, the line, the time, the caption and its lit words
-    const paint = t => {
-      const d = audio.duration || LENGTH, pct = Math.min(100, t / d * 100);
-      rings.forEach(r => { r.style.strokeDasharray = pct.toFixed(2) + ' 100'; });
-      if (!held) seek.value = t;
-      seek.style.setProperty('--p', pct.toFixed(2) + '%');
-      const at = fmt(t);
-      if (timeNow.textContent !== at) { timeNow.textContent = at; seek.setAttribute('aria-valuetext', at + ' of ' + fmt(d)); }
-      const i = findCue(t);
-      if (i !== cue) showCue(i);
-      lit.forEach(([e, s]) => e.classList.toggle('on', s <= t + 0.05));
-    };
-    const to = t => { t = Math.max(0, Math.min((audio.duration || LENGTH) - 0.05, t)); audio.currentTime = t; paint(t); };
-    seek.addEventListener('input', () => { held = true; to(+seek.value); });
-    seek.addEventListener('change', () => { held = false; });
-    seek.addEventListener('pointerup', () => { held = false; });
-    seek.addEventListener('keydown', e => {
-      const by = { ArrowLeft: -5, ArrowDown: -5, ArrowRight: 5, ArrowUp: 5, PageDown: -15, PageUp: 15 }[e.key];
-      if (by) { e.preventDefault(); to(audio.currentTime + by); }
-      else if (e.key === 'Home') { e.preventDefault(); to(0); }
-    });
-    audio.addEventListener('loadedmetadata', () => { seek.max = audio.duration; timeAll.textContent = fmt(audio.duration); paint(audio.currentTime); });
-
-    let raf = 0, nudged = false;
-    const frame = now => {
-      const t = audio.currentTime, target = loud();
-      level += (target - level) * (target > level ? 0.45 : 0.12);
-      if (!calm) setBars(i => 2.5 + 11 * level * (0.55 + 0.45 * Math.sin(now / 105 + i * 1.7)));
-      paint(t);
-      if (!nudged && go && !audio.paused && t >= NUDGE) { nudged = true; go.classList.remove('nudge'); void go.offsetWidth; go.classList.add('nudge'); }
-      raf = (!audio.paused || level > 0.01) ? requestAnimationFrame(frame) : 0;
-      if (!raf && !calm) setBars(() => 2.5);
-    };
-    const kick = () => { if (!raf) raf = requestAnimationFrame(frame); };
-    if (go) go.addEventListener('animationend', e => { if (e.animationName === 'nudge') go.classList.remove('nudge'); });
-
-    const say = playing => {
-      btn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the 72-second spoken summary of this page');
-      dockBtn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the spoken summary');
-    };
-    audio.addEventListener('play', () => { btn.classList.add('is-on', 'is-playing'); dock.classList.add('is-playing'); dismissed = false; say(true); dockState(); kick(); });
-    audio.addEventListener('pause', () => { btn.classList.remove('is-playing'); dock.classList.remove('is-playing'); say(false); kick(); });
-    audio.addEventListener('ended', () => {
-      btn.classList.remove('is-on', 'is-playing'); dock.classList.remove('is-playing'); say(false);
-      nudged = false;
-      audio.currentTime = 0;   // back to the start, so the ring and the line empty and a press plays it again from the top
-      paint(0);
-      dockState();
-    });
-    const toggle = () => { if (audio.paused) { const p = audio.play(); if (p) p.catch(() => {}); } else audio.pause(); };
-    btn.addEventListener('click', toggle);
-    dockBtn.addEventListener('click', toggle);
-    dockX.addEventListener('click', () => { audio.pause(); dismissed = true; dockState(); });
-    if ('IntersectionObserver' in window) new IntersectionObserver(es => { cardSeen = es[0].isIntersecting; dockState(); }).observe(btn);
-
-    // one entrance: a wave runs once round the ring of bars as the hero settles, to say there is something to press.
-    // Then it holds still until pressed.
-    if (!calm) setTimeout(() => {
-      const t0 = performance.now();
-      const step = now => {
-        if (!audio.paused) return;
-        const k = (now - t0) / 1500;
-        setBars(i => { const x = (k * (N + 10) - i) / 10; return 2.5 + 9 * (x > 0 && x < 1 ? Math.sin(x * Math.PI) : 0); });
-        if (k < 1) requestAnimationFrame(step); else setBars(() => 2.5);
+      // how loud the voice is now, eased: up fast, down slowly. It moves the bars round the disc, nothing else.
+      let level = 0;
+      const loud = () => {
+        if (audio.paused) return 0;
+        const i = Math.floor(audio.currentTime * FPS);
+        return i < ENV.length ? parseInt(ENV[i], 36) / 35 : 0;
       };
-      requestAnimationFrame(step);
-    }, 1100);
 
-    row.hidden = false;
-  } catch (e) { row.hidden = true; }
+      // captions: one cue at a time, in the card and in the dock, each word lit as it is spoken
+      let cue = -1, lit = [];
+      const findCue = t => { let i = -1; for (let k = 0; k < CUES.length && CUES[k][0][1] - 0.12 <= t; k++) i = k; return i; };
+      const fill = (box, i) => {
+        box.textContent = '';
+        const spans = [];
+        if (i >= 0) CUES[i].forEach(([w, s, h]) => {
+          const e = document.createElement('span');
+          e.textContent = w; if (h) e.className = 'hl';
+          box.append(e, ' '); spans.push([e, s]);
+        });
+        if (!calm) { box.classList.remove('fresh'); void box.offsetWidth; box.classList.add('fresh'); }
+        return spans;
+      };
+      const showCue = i => { cue = i; lit = fill(cap, i).concat(dockCap ? fill(dockCap, i) : []); };
+
+      // the dock: shown while the voice is on (playing or paused part way) and its card is out of sight
+      let cardSeen = true, dismissed = false;
+      const dockState = () => {
+        if (!dock) return;
+        const on = btn.classList.contains('is-on') && !cardSeen && !dismissed;
+        dock.classList.toggle('show', on);
+        dock.setAttribute('aria-hidden', on ? 'false' : 'true');
+        dockBtn.tabIndex = dockX.tabIndex = on ? 0 : -1;
+      };
+
+      // the progress line under the card: it follows the voice, and dragging it, tapping it or its arrow keys move the
+      // voice, back to rewind or on, playing or paused (before the first play too: it then starts from there)
+      const seek = row.querySelector('.voice-seek input'), times = row.querySelectorAll('.voice-seek-time');
+      const timeNow = times[0], timeAll = times[1];
+      const fmt = s => { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+      let held = false;   // the handle is being dragged: it leads and the voice follows, so don't move it from here
+      // everything that shows where the voice is: the ring, the line, the time, the caption and its lit words
+      const paint = t => {
+        const d = audio.duration || LENGTH, pct = Math.min(100, t / d * 100);
+        rings.forEach(r => { r.style.strokeDasharray = pct.toFixed(2) + ' 100'; });
+        if (!held) seek.value = t;
+        seek.style.setProperty('--p', pct.toFixed(2) + '%');
+        const at = fmt(t);
+        if (timeNow.textContent !== at) { timeNow.textContent = at; seek.setAttribute('aria-valuetext', at + ' of ' + fmt(d)); }
+        const i = findCue(t);
+        if (i !== cue) showCue(i);
+        lit.forEach(([e, s]) => e.classList.toggle('on', s <= t + 0.05));
+      };
+      const to = t => { t = Math.max(0, Math.min((audio.duration || LENGTH) - 0.05, t)); audio.currentTime = t; paint(t); };
+      seek.addEventListener('input', () => { held = true; to(+seek.value); });
+      seek.addEventListener('change', () => { held = false; });
+      seek.addEventListener('pointerup', () => { held = false; });
+      seek.addEventListener('keydown', e => {
+        const by = { ArrowLeft: -5, ArrowDown: -5, ArrowRight: 5, ArrowUp: 5, PageDown: -15, PageUp: 15 }[e.key];
+        if (by) { e.preventDefault(); to(audio.currentTime + by); }
+        else if (e.key === 'Home') { e.preventDefault(); to(0); }
+      });
+      audio.addEventListener('loadedmetadata', () => { seek.max = audio.duration; timeAll.textContent = fmt(audio.duration); paint(audio.currentTime); });
+
+      let raf = 0, nudged = false;
+      const frame = now => {
+        const t = audio.currentTime, target = loud();
+        level += (target - level) * (target > level ? 0.45 : 0.12);
+        if (!calm) setBars(i => 2.5 + 11 * level * (0.55 + 0.45 * Math.sin(now / 105 + i * 1.7)));
+        paint(t);
+        if (!nudged && go && !audio.paused && t >= NUDGE) { nudged = true; go.classList.remove('nudge'); void go.offsetWidth; go.classList.add('nudge'); }
+        raf = (!audio.paused || level > 0.01) ? requestAnimationFrame(frame) : 0;
+        if (!raf && !calm) setBars(() => 2.5);
+      };
+      const kick = () => { if (!raf) raf = requestAnimationFrame(frame); };
+      if (go) go.addEventListener('animationend', e => { if (e.animationName === 'nudge') go.classList.remove('nudge'); });
+
+      const say = playing => {
+        btn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' ' + o.label);
+        if (dockBtn) dockBtn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the spoken summary');
+      };
+      audio.addEventListener('play', () => { btn.classList.add('is-on', 'is-playing'); if (dock) dock.classList.add('is-playing'); dismissed = false; say(true); dockState(); kick(); });
+      audio.addEventListener('pause', () => { btn.classList.remove('is-playing'); if (dock) dock.classList.remove('is-playing'); say(false); kick(); });
+      audio.addEventListener('ended', () => {
+        btn.classList.remove('is-on', 'is-playing'); if (dock) dock.classList.remove('is-playing'); say(false);
+        nudged = false;
+        audio.currentTime = 0;   // back to the start, so the ring and the line empty and a press plays it again from the top
+        paint(0);
+        dockState();
+      });
+      const toggle = () => { if (audio.paused) { const p = audio.play(); if (p) p.catch(() => {}); } else audio.pause(); };
+      btn.addEventListener('click', toggle);
+      if (dock) {
+        dockBtn.addEventListener('click', toggle);
+        dockX.addEventListener('click', () => { audio.pause(); dismissed = true; dockState(); });
+        if ('IntersectionObserver' in window) new IntersectionObserver(es => { cardSeen = es[0].isIntersecting; dockState(); }).observe(btn);
+      }
+
+      // one entrance: a wave runs once round the ring of bars, as the hero settles or as the card comes into view, to
+      // say there is something to press. Then it holds still until pressed.
+      const wave = () => {
+        const t0 = performance.now();
+        const step = now => {
+          if (!audio.paused) return;
+          const k = (now - t0) / 1500;
+          setBars(i => { const x = (k * (N + 10) - i) / 10; return 2.5 + 9 * (x > 0 && x < 1 ? Math.sin(x * Math.PI) : 0); });
+          if (k < 1) requestAnimationFrame(step); else setBars(() => 2.5);
+        };
+        requestAnimationFrame(step);
+      };
+      if (!calm) {
+        if (o.waveOn === 'load' || !('IntersectionObserver' in window)) setTimeout(wave, o.waveWait);
+        else new IntersectionObserver((es, ob) => { if (es[0].isIntersecting) { ob.disconnect(); setTimeout(wave, o.waveWait); } }, { threshold: 0.4 }).observe(btn);
+      }
+
+      row.hidden = false;
+    } catch (e) { row.hidden = true; }
+  };
+
+  // The hero: the whole page, spoken in 72 seconds, with the dock that carries it when the card scrolls away and the
+  // glow it gives Start the questionnaire at "start the questionnaire below".
+  make({
+    row: document.getElementById('voice-row'), dock: 'voice-dock', label: 'the 72-second spoken summary of this page',
+    length: 72.2, nudge: 54.92, waveOn: 'load', waveWait: 1100,
+    cues: [[["Your",0.0,0],["business",0.24,0],["deserves",0.64,0],["a",1.1,0],["website",1.42,0],["that",1.78,0],["looks",2.06,0],["good",2.34,0]],[["and",2.68,0],["makes",3.1,0],["it",3.32,0],["easy",3.5,0],["for",3.84,0],["customers",4.1,0],["to",4.46,0],["take",4.72,0],["the",4.9,0],["next",5.08,0],["step.",5.28,0]],[["Tell",6.38,0],["Duna",6.56,0],["Marketing",6.98,0],["about",7.26,0],["your",7.58,0],["business",7.78,0],["in",8.16,0],["your",8.4,0],["own",8.6,0],["words.",8.84,0]],[["Share",9.76,0],["your",9.92,0],["photos",10.18,0],["and",10.48,0],["see",10.82,0],["your",11.02,0],["finished,",11.18,0],["custom,",11.94,0]],[["multi-page",12.42,0],["website",12.98,0],["within",13.46,0],["24",13.78,1],["hours.",14.34,1]],[["The",15.4,0],["price",15.56,0],["is",15.8,0],["$1,500,",16.08,1],["paid",17.58,0],["only",17.76,0],["if",18.12,0],["you",18.28,0],["want",18.4,0],["to",18.54,0],["keep",18.66,0],["it.",18.78,0]],[["No",19.36,1],["deposit,",19.58,1],["no",20.36,1],["sales",20.52,1],["pitch.",20.8,1]],[["See",21.4,1],["it",21.62,1],["first,",21.78,1],["then",22.34,0],["decide.",22.54,0]],[["Explore",23.48,0],["the",23.9,0],["work",24.14,0],["below.",24.28,0]],[["Warm,",25.28,0],["photo-led",25.96,0],["designs,",26.34,0],["bold",27.26,0],["storefronts,",27.44,0]],[["and",28.16,0],["a",28.44,0],["live",28.58,0],["website",28.86,0],["for",29.26,0],["Deep",29.56,0],["Roots",29.8,0],["Hydro",29.98,0]],[["that",30.36,0],["puts",30.84,0],["products,",31.08,0],["hours,",31.72,0],["and",32.2,0],["directions",32.28,0],["within",32.7,0],["easy",32.96,0],["reach.",33.4,0]],[["Backed",34.28,0],["by",34.52,0],["16",34.62,1],["years",35.06,1],["of",35.34,0],["web",35.6,0],["design",35.74,0],["experience,",36.0,0]],[["we",37.0,0],["turn",37.06,0],["your",37.3,0],["answers",37.48,0],["into",37.8,0],["clear",38.08,0],["copy",38.4,0]],[["and",38.74,0],["a",39.16,0],["mobile-friendly",39.36,0],["website",39.88,0],["you",40.32,0],["own",40.66,1],["outright.",41.0,1]],[["Custom",42.2,0],["animations",42.44,0],["and",42.96,0],["interactive",43.5,0],["tools",43.98,0]],[["can",44.42,0],["help",44.62,0],["show",44.78,0],["what",45.04,0],["you",45.2,0],["do.",45.32,0]],[["The",46.3,0],["optional",46.3,0],["$149",46.66,1],["per",47.7,1],["month",48.32,1],["Care",48.52,0],["Plan",48.8,0]],[["keeps",49.08,0],["hosting",49.64,0],["and",50.06,0],["updates",50.32,0],["simple",50.68,0]],[["with",51.06,0],["changes",51.54,0],["requested",51.94,0],["by",52.44,0],["text",52.68,0],["or",52.98,0],["email.",53.18,0]],[["When",53.96,0],["you're",54.08,0],["ready,",54.3,0],["start",54.92,1],["the",55.2,1],["questionnaire",55.42,1],["below.",55.76,1]],[["Your",56.68,0],["answers",56.94,0],["help",57.28,0],["us",57.56,0],["build",57.74,0],["a",57.96,0],["website",58.12,0]],[["that",58.46,0],["fits",58.72,0],["your",58.94,0],["business.",59.12,0]],[["The",60.12,0],["more",60.2,0],["detail",60.38,0],["you",60.74,0],["provide,",60.94,0],["the",61.74,0],["better.",61.86,0]],[["You",62.56,0],["don't",62.64,0],["need",62.82,0],["to",62.92,0],["write",63.06,0],["polished",63.2,0],["website",63.62,0],["copy.",64.0,0]],[["Just",64.7,0],["tell",64.84,0],["us",65.08,0],["what",65.24,0],["you",65.36,0],["do.",65.5,0]],[["We'll",66.12,0],["handle",66.38,0],["the",66.56,0],["design,",66.74,0],["writing,",67.5,0],["and",68.06,0],["photo",68.18,0],["placement.",68.42,0]],[["You",69.22,0],["only",69.34,1],["pay",69.62,1],["after",69.9,1],["you've",70.22,1],["seen",70.54,1],["and",70.72,1],["approved",70.96,1],["the",71.32,0],["result.",71.5,0]]],
+    env: 'cszzzzgayzmgmmieee1etqlmxxxrkiqqmfftvqempmkhge59lg8gjqzs4jqh2oyunkfe5333224qvxxzvckjm432esvxzqnok97kd5ctxnj7lmmmgcbjc5houh44jlmori7iki5mjc5275332332322221111chrvzxvib9xzzxzutuwxq3hmihfkgissjcjqiabzzsiihhhmi5coomlf32oyzzywtnrqmiid7gg9333333237ejkyzzzxzyma9uzysqpnnmia3enmnpouwsuri8767yzwwuii4a41113ffzson6uxusrrwzzkdrufeoxzzjfkjyxtnpqkokh39lj6nqne3fbcuwwui78svvuqpkjhdb9de82222222222222ml4cizzzwlkljih87ozqa6afrvvvsvsmqogftsqnkihgef63333332itwvoj49tywuvutsdapuostpoe78lk5de922222222222houzzkwefnzzxmmto52222ajovzvnuqqtpnka3hgc5ee6222111ckqovzw799mxxvkpbb42221gjzwvprprtqpjfcc832100100111mrauwl59vzzzzoywpxzl96jrnnkhec742222322224eisxyzzyrqn933222578zzzzzyszzmgjvpktutsrrrkf43322bfazzzzxjpqjkzytbakhhhemc3333224qppkikqvxwwtkovzvggmmtpb5engb6lzzk3eyzuakbbpssjajkmj94443329oe3hpbj62dfxyxuvl5jl8211ntwxwwxqh9dmofporwq6efkkidjnbinmd3ftvvpmrroinlf94dc62222222268uvvi3a3mleklmjo6jhbgtsssutwxuhomfixzoebpljnkihdcg89kgdcba8jf23333322hwwiejswsqqqicmqrlgmikhfhjce5287guxye3bmsra7opnd33322blmnlmptzziqti98srpprokuwkekmmnjd4bhiqyxqa3nssrrnb2gtvn96kmjhc374100000000001aexokcortvtsurttqhggjjjfc232233jl5bsvjhqutre2fje6iboqqqljhc7kkgovnafihqvvuvkcptkdpoic7743211100010001ovwxxycdjiuwuskhozzwylsyrrwk98jxwqutttstvmstsrssj83csqrrpl8667mssn5cipllkld33321047sk8hdatzynmapwuobamlahra49vumbqpmvpdcjhd32333328nn867ilwvwvmyvlhpl68ryqk5kmfnrn84ilvl6iclrjfospllie973223233323duwsrqpmszztytj422221118kpm4zzyk3oi69zyok9orsturctspsqlhd95222222232224kyzzygoxxphkpriefwvactkj73tzzuoztpyxnhnrqqli47nd899tq6lhvvjdwqkhgecfnkf422222222221eruwzzzncnzziinxzxqwparwkvzwuqnmb631100000orexvrkje7222132222duyzzzmqwqdqqxzzl7agqzzzzjcdnzzdgljqlb2bosl5flia222232aqmj3fepzzzyqhnwklxwkpuqlh9322223222guzzwwzyttzkqocspnqxxwwvusn72111ixzzynwttpb2222mrjccwzzwtf8irmimdhhf8d42222129knddvzwuwu9ijtwwtnamtl87llnlgquvpvvvvsnacoon79dhyxwofewpwxjislea29422221',
+  });
+
+  // Our founder: his own section read word for word, 62 seconds, in the headshot column. No dock, no glow; its ring of
+  // bars waves as the card comes into view.
+  make({
+    row: document.getElementById('founder-voice-row'), label: 'the 62-second reading of this section',
+    length: 62, waveOn: 'view', waveWait: 300,
+    cues: [[["Our",0.0,0],["founder,",0.28,0],["Barrett",1.38,0],["Duna,",1.5,0]],[["has",1.88,0],["16",2.08,1],["years",2.54,1],["of",2.86,1],["building",3.14,1],["websites",3.44,1]],[["and",3.86,0],["a",4.4,0],["decade",4.66,0],["of",4.88,0],["studying",5.18,0]],[["what",5.54,0],["makes",5.76,0],["them",6.0,0],["work.",6.2,0]],[["Barrett",7.14,0],["Duna",7.36,0],["has",7.7,0],["designed",7.86,0]],[["and",8.32,0],["developed",8.5,0],["websites",8.86,0],["for",9.36,0],["16",9.66,0],["years,",10.06,0]],[["and",10.52,0],["has",11.06,0],["studied",11.24,0],["marketing",11.48,0],["extensively",11.96,0]],[["over",12.7,0],["the",12.92,0],["last",13.08,0],["decade.",13.3,0]],[["Duna",14.64,0],["Marketing",14.96,0],["is",15.24,0],["where",15.56,0],["the",15.76,0],["two",15.88,0],["meet:",16.1,0]],[["websites",16.92,0],["built",17.22,0],["to",17.6,0],["bring",17.84,0],["in",18.04,0],["calls,",18.3,0]],[["not",18.9,0],["just",19.18,0],["to",19.46,0],["look",19.62,0],["good.",19.74,0]],[["He",20.7,0],["graduated",20.86,0],["from",21.36,0],["UCLA",21.72,0],["in",22.28,0],["2013",22.68,0]],[["with",23.34,0],["a",23.96,0],["degree",24.1,0],["in",24.34,0],["Mathematics",24.62,1],["and",25.02,1],["Economics,",25.32,1]],[["with",26.16,0],["coursework",26.44,0],["focused",26.9,0],["on",27.28,0]],[["data",27.56,0],["analytics",27.8,0],["and",28.26,0],["AI,",28.48,0]],[["and",28.82,0],["went",29.4,0],["on",29.58,0],["to",29.78,0],["a",29.92,0],["Stanford",30.12,0],["course",30.42,0]],[["in",30.76,0],["computer",30.98,0],["science",31.3,0],["algorithms.",31.68,0]],[["At",33.04,0],["UCLA’s",33.1,1],["Anderson",33.88,1],["School",34.2,1],["of",34.5,1],["Management,",34.72,1]],[["he",35.64,0],["spent",35.66,0],["two",35.9,0],["years",36.18,0],["turning",36.5,0]],[["a",36.84,0],["dense",37.1,0],["academic",37.32,0],["paper",37.8,0],["on",38.18,0],["ticket",38.42,0],["markets",38.66,0]],[["into",39.04,0],["a",39.52,0],["working",39.76,0],["simulation.",40.02,0]],[["At",41.34,0],["Live",41.58,1],["Nation",41.86,1],["Entertainment,",42.14,1]],[["he",43.24,0],["analyzed",43.28,0],["millions",43.76,0],["of",44.2,0],["ticket",44.5,0],["transactions",44.7,0]],[["to",45.34,0],["forecast",45.88,0],["sales",46.32,0],["and",46.7,0],["understand",46.94,0],["pricing.",47.4,0]],[["“Barrett",48.6,0],["is",48.76,0],["a",48.98,0],["very",49.18,0],["bright,",49.42,0]],[["competent",50.04,0],["entrepreneur",50.36,0]],[["with",50.98,0],["a",51.18,0],["big",51.38,0],["vision",51.52,0],["for",51.82,0],["his",52.02,0],["future.",52.14,0]],[["He’s",52.94,0],["easy",53.16,0],["to",53.4,0],["get",53.54,0],["along",53.66,0],["with",53.88,0]],[["and",54.18,0],["knows",54.58,0],["his",54.8,0],["stuff",55.02,0]],[["when",55.32,0],["it",55.5,0],["comes",55.6,0],["to",55.8,0],["anything",56.02,0],["technology.”",56.28,0]],[["Jim",57.68,0],["Stein,",57.78,0],["Founder",58.38,0],["and",58.62,0],["Chief",58.92,0],["of",59.06,0],["Strategy,",59.34,0]],[["Diamond",60.2,1],["Certified.",60.32,1]]],
+    env: '3nzzzmdddxvvvtqhligc432223211lzzzzyo679zzxtomjgaborosvwtyebs9isxwvuvvwwrnukea7yzzxozvuqvxtbjsmojhe3mf3433335iosnd83hzwm3jvvrqngqun4vvrppooljinoijosq9kjanmighheb326232332333332221szzzubcftvuqolimrnbjvqlqyxyywsovupqogrxwvs88kjuyvjgnknlidec7iolrqoydgm7iuyvvutsokgddja3332222213qprtqwvhuzwxymnsvzzr4jqtsprl5mqo8ozyrlrqgclqpsphsmqnmssqmmaausl4fgecb74222222111111000002dbtzzzzzzzzzyk8qppnljg5mvqrwzzuur4domzzzzyyqi585322222229irzzrioqwzxmhkmjrzzr6bisjckuyusstrom9eixxwrlljje43323eqvzwqdbftwpk8lqjlqk439oolje832233222222222224rsfdtzzzzmqvwvsmqda9oppnszzrwxtzyzwtttqonja6iomhffuxvuq88wvk3cipsomjhd2323223ns9tmkqecqyzyxvrqrtvo8oqrtuvqufflmoppi6oprrqmib54fib33333232fpc73adzzzlljvvg7aa9zzo7sqn9ttpj7ryxtvnfntrtrsumtk6klrqsrrrsqmiecb5111000000amqopzzzzzzzselspmsvnlxwuocpwj9actxtlmmlf9mlb9ezsvqmpouursmjorsshlomldfgfdfg5222233233332221lpjnxzzttpzzywuywwwli8kvyvvtmnvworj8rxwvrfmtttssqdcnkic8333333235nztt8pzuj43mjwxvrpwyywqjm3fkwvttrsmb95vzzxmrhbovl7riuvtse52mvuo6ptrrqq9epwdapajooj59jejj4333228orgirrqkhmyyj3lstmsspvtstqrppghdiiia222221000000001mncipwzzzwltxxwiiqqssqrjaeorqpnnmg84333323335nd3owyvwvwvvuk7lqrvzzzxwwrjomb3fgvalp7ecorqoiqrqk7einnjg43443333hmc99uzzd9rwvtmppmyzzxwvljtqjgvtoumnarssqm59lqljjihc9a5110001000001eb4zxwuus9atrnumggnzwutrnhcepvzztl732cffvxian8ltl9musjdi5cqqqqpnnmoffmhf8xztjmhvxpirpialqpkja7rumaejf942333333333nmha3nyzsrzswklzuuttuutpopqi641332232jqstvyzzumhvsonn4pyunc97lmlg48gqpjdbl4cosvuf8vspbmuf3osrrpokadfd8322222211221bckszyxrslfzxwvvtsd99xxvvtnwwoemqejhtwghqgmo8rvvttqiimlka3222327uwwwuvsoqntsqra7nkffb4232322322222222122222222',
+  });
 })();
 </script>
 </body>
