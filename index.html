@@ -328,13 +328,14 @@ fbq('track', 'PageView');
   }
   /* The summary over, the way in beats until it is pressed (Barrett, 2026-09-22). A heartbeat, not a ping: it swells and
      falls back in one smooth motion, in and out with no rest between, at 1.6s a beat (he asked for half again the old
-     pace, not twice it), the blue a soft halo that
-     breathes with it rather than a ring fired outward. (It was a 2.4s ring with a pause: "way too slow ... like a heart
+     pace, not twice it), the blue a strong halo that swells with it rather than a ring fired outward ("make the glow way
+     stronger as it pulsates"). (It was a 2.4s ring with a pause: "way too slow ... like a heart
      beat, smooth pulsating arterie".) */
   .cta-go.pulse { animation: cta-pulse 1.6s ease-in-out infinite; }
   @keyframes cta-pulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgb(143 188 255 / 0), 0 14px 34px rgb(var(--veil) / .55); }
-    50% { transform: scale(1.035); box-shadow: 0 0 22px 5px rgb(143 188 255 / .42), 0 14px 34px rgb(var(--veil) / .55); }
+    /* both ends carry the same three shadows, or the browser would jump between them instead of fading */
+    0%, 100% { transform: scale(1); box-shadow: 0 0 10px 1px rgb(143 188 255 / .18), 0 0 24px 6px rgb(143 188 255 / 0), 0 14px 34px rgb(var(--veil) / .55); }
+    50% { transform: scale(1.035); box-shadow: 0 0 26px 6px rgb(143 188 255 / .95), 0 0 58px 20px rgb(143 188 255 / .5), 0 14px 34px rgb(var(--veil) / .55); }
   }
   /* the dock: the voice at the foot of the screen, while it plays and the hero is out of sight */
   .voice-dock {

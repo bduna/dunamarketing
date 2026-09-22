@@ -122,8 +122,9 @@ length (a streamed file); the data is 72.1 s, and ffmpeg and the caption script 
 - At "start the questionnaire below" (54.92 s), the hero's Start the questionnaire glows once (`.nudge`), and when
   the summary reaches its end that button beats until it is taken (`.pulse`, `cta-pulse`; Barrett, 2026-09-22: "after
   the audio summary is finished, make the 'Start the questionnaire' button pulsate"). A heartbeat, not a ping: it swells
-  3.5% and falls back in one smooth `ease-in-out` motion, in and out with no rest between, 1.6 s a beat, the blue a soft
-  halo breathing with it. It first shipped as a 2.4 s ring that fired outward and then waited, which he sent back: "way
+  3.5% and falls back in one smooth `ease-in-out` motion, in and out with no rest between, 1.6 s a beat, and the blue
+  blooms with the swell: a bright halo inside a wide soft one, near enough gone at rest ("make the glow way stronger as
+  it pulsates"). Both keyframes carry the same three shadows, or a browser jumps between them instead of fading. It first shipped as a 2.4 s ring that fired outward and then waited, which he sent back: "way
   too slow and it needs to be way smoother, like in and out, in and out, make it like a heart beat, smooth pulsating
   arterie", and half again the old pace, he said, not twice it. It beats until the button is pressed or
   the summary is played again, and with reduced motion it never moves.
