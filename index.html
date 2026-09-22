@@ -321,8 +321,8 @@ fbq('track', 'PageView');
   @media (max-width: 340px) { .voice-cap { font-size: 15px; } .voice-idle small { font-size: 13.5px; } }
   /* the hand-off: when the voice reaches "start the questionnaire below", the button to it glows once */
   .cta-go.nudge { animation: nudge 1.9s var(--ease-out) 1; }
-  /* Once the summary has finished, the hero's way in changes its words every 3 s: "Start the questionnaire" and
-     "Ready to get started?" every 2s (Barrett's idea, 2026-09-22). They scroll rather than turn, quickly: the new words come
+  /* The hero's way in changes its words every 2.5 s: "Start the questionnaire" and "Ready to get started?" (Barrett's
+     idea, 2026-09-22; a script of its own keeps that time). They scroll rather than turn, quickly: the new words come
      down from above as the old leave below, one strip moving down, the cell clipping whatever is outside it. Both
      faces share that one cell, so the pill is as wide as the longer of them and nothing around it moves. A screen
      reader hears the link's own label, not the moving words. */
@@ -2819,6 +2819,21 @@ fbq('track', 'PageView');
 })();
 </script>
 <script>
+// The hero's way in changes its words every 2.5 seconds, "Start the questionnaire" and "Ready to get started?", from
+// the moment the page has settled and whatever the summary is doing (Barrett, 2026-09-22: "make it start irrelevant of
+// the audio player, disregard the audio"; it waited on the end of the summary for its first hours). Its own script, so
+// it lives whether or not the voice does. The words never move for a visitor who asked for less motion, and the link
+// carries its own label, so what a screen reader hears never changes.
+(() => {
+  try {
+    const go = document.querySelector('.hero .cta-go');
+    if (!go || !go.querySelector('.cta-flip') || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // the hero's own entrance runs for about 1.6s; the words wait for it, then keep their own time
+    setTimeout(() => setInterval(() => go.classList.toggle('turned'), 2500), 1600);
+  } catch (e) {}
+})();
+</script>
+<script>
 // The voice: the whole page spoken in 72 seconds, played from the hero (the CSS block "The voice" says what it does).
 // Its own script, so a failure here leaves the rest of the page, and the wall, exactly as they were.
 (() => {
@@ -2925,22 +2940,11 @@ fbq('track', 'PageView');
     const kick = () => { if (!raf) raf = requestAnimationFrame(frame); };
     if (go) go.addEventListener('animationend', e => { if (e.animationName === 'nudge') go.classList.remove('nudge'); });
 
-    // The words change every 2 seconds once the summary has ended, and keep changing; playing it again puts them back
-    // and stops. Nothing turns for a visitor who asked for less motion. (Barrett's idea, 2026-09-22.)
-    let turning = 0;
-    const turnWords = on => {
-      if (!go || !go.querySelector('.cta-flip') || calm) return;
-      clearInterval(turning); turning = 0;
-      if (!on) { go.classList.remove('turned'); return; }
-      go.classList.add('turned');                                  // the first turn lands with the last word spoken
-      turning = setInterval(() => go.classList.toggle('turned'), 2000);   // Barrett, 2026-09-22: 2s, it was 3s
-    };
-
     const say = playing => {
       btn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the 72-second spoken summary of this page');
       dockBtn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the spoken summary');
     };
-    audio.addEventListener('play', () => { btn.classList.add('is-on', 'is-playing'); dock.classList.add('is-playing'); dismissed = false; say(true); dockState(); kick(); turnWords(false); });
+    audio.addEventListener('play', () => { btn.classList.add('is-on', 'is-playing'); dock.classList.add('is-playing'); dismissed = false; say(true); dockState(); kick(); });
     audio.addEventListener('pause', () => { btn.classList.remove('is-playing'); dock.classList.remove('is-playing'); say(false); kick(); });
     audio.addEventListener('ended', () => {
       btn.classList.remove('is-on', 'is-playing'); dock.classList.remove('is-playing'); say(false);
@@ -2948,7 +2952,6 @@ fbq('track', 'PageView');
       audio.currentTime = 0;   // back to the start, so the ring and the line empty and a press plays it again from the top
       paint(0);
       dockState();
-      turnWords(true);   // the summary has said its piece: the way in starts turning its words over
     });
     const toggle = () => { if (audio.paused) { const p = audio.play(); if (p) p.catch(() => {}); } else audio.pause(); };
     btn.addEventListener('click', toggle);

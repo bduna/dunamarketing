@@ -48,7 +48,16 @@ button regular size and bring the start the questionnaire button up to left only
 had stretched to the questionnaire's width in a column). "Start the questionnaire"
 (`.cta-go`, since 2026-09-21; it said "Get my free preview", Barrett's first
 words for it, until he had every one of these buttons say "Start the questionnaire" the same day): the white pill with a
-down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Every button into the questionnaire points down
+down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). In the hero its words change every 2.5 s,
+"Start the questionnaire" and "Ready to get started?", the new words scrolling down from above as the old leave below in
+0.28 s (Barrett's idea, 2026-09-22, after a heartbeat pulse there was tried and taken out; it turned over rather than
+scrolled, held 3 s and read "Let's get started" for its first hour, and waited on the end of the spoken summary until he
+said "make it start irrelevant of the audio player, disregard the audio"). The two lines sit stacked in one grid cell
+(`.cta-flip`, `.cta-face-a` / `-b`, the class `.turned`), so the pill is always as wide as the longer of them and
+nothing around it moves; the cell clips whatever is outside it; the link carries its own `aria-label`, so a screen
+reader always hears "Start the questionnaire"; and with reduced motion the words never move. A script of its own, after
+the voice's, keeps the time, starting 1.6 s in so the hero's entrance finishes first. Only the hero's button does this;
+the other two are plain. Every button into the questionnaire points down
 (Barrett, 2026-09-21: "make all the questionnaire button arrows point downward"; they pointed right at first), because
 each one scrolls down the page to the questionnaire. There are three, all "Start the questionnaire": here, under the ten
 samples (`.samples-go`, the hero's button exactly, centred under the grid with 44-64px above it, added 2026-09-21 at
@@ -119,16 +128,8 @@ length (a streamed file); the data is 72.1 s, and ffmpeg and the caption script 
 - The wall takes no part. For a few minutes on 2026-09-21 it rippled outward from the play disc with the voice's
   loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the same"), and the
   wall's script is again exactly what it was before the voice.
-- At "start the questionnaire below" (54.92 s), the hero's Start the questionnaire glows once (`.nudge`). When the
-  summary ends, that button starts changing its words: "Start the questionnaire", "Ready to get started?", and back,
-  every 2 s for as long as the page is open (Barrett's idea, 2026-09-22, 3 s at first; a heartbeat pulse tried there first was
-  taken out, "remove the pulsation and glow"). They scroll rather than turn, the new words coming down from above as
-  the old leave below, one strip moving down in 0.28 s (`.cta-flip` clips the cell; `.cta-face-a` / `-b`; the class
-  `.turned`, toggled by `turnWords()` in the voice script). It was a 0.5 s rotation about the middle for its first
-  hour, and said "Let’s get started". Both faces share one grid cell, so the pill stays as wide as the longer of
-  them and nothing around it moves; the link carries its own `aria-label`, so a screen reader always hears "Start
-  the questionnaire" whichever words show. Playing the summary again puts the first words back and stops it; with
-  reduced motion the words never move at all.
+- At "start the questionnaire below" (54.92 s), the hero's Start the questionnaire glows once (`.nudge`). The words
+  on that button change on their own clock, nothing to do with the summary any more (see "Getting in touch").
 - Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
   `#voice-dock`, with the phrase, the pause and a close; it goes when the card is back in view or the voice ends.
 - At the end the card rewinds and reads "Listen to the Summary" again. With reduced motion the captions and the ring still work; the
