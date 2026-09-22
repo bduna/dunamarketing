@@ -1108,11 +1108,28 @@ fbq('track', 'PageView');
   .q-send:active { transform: translateY(1px); }
   .q-send:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
   .q-send:disabled { opacity: .35; cursor: default; }
+  /* Speak the answer: the send button's twin, outlined rather than white so the send button still leads. It is shown
+     only where the browser can hear (Barrett, 2026-09-22); listening, it turns red and breathes. */
+  .q-mic {
+    flex: none; width: 46px; height: 46px; padding: 0; border-radius: 50%;
+    display: grid; place-items: center; cursor: pointer;
+    background: transparent; color: #fff; border: 1.5px solid rgb(255 255 255 / .38);
+    transition: background-color .2s var(--ease-out), border-color .2s var(--ease-out), transform .15s var(--ease-out);
+  }
+  .q-mic svg { width: 20px; height: 20px; }
+  .q-mic:hover { background: rgb(255 255 255 / .1); border-color: rgb(255 255 255 / .6); }
+  .q-mic:active { transform: translateY(1px); }
+  .q-mic:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .q-mic.on { background: #e5484d; border-color: #e5484d; color: #fff; animation: q-listen 1.6s var(--ease-out) infinite; }
+  @keyframes q-listen { 0% { box-shadow: 0 0 0 0 rgb(229 72 77 / .55); } 70%, 100% { box-shadow: 0 0 0 12px rgb(229 72 77 / 0); } }
+  .q-note { margin: 0; padding: 0 14px 12px; font-size: 13px; color: var(--ink-dim); }
+  .q-note[hidden] { display: none; }
   .q-again { margin: 12px; align-self: flex-start; min-height: 46px; }
   @media (prefers-reduced-motion: reduce) {
     .q-msg, .q-recap { animation: none; }
     .q-typing span { animation: none; }
-    .q-send { transition: none; }
+    .q-send, .q-mic { transition: none; }
+    .q-mic.on { animation: none; }
   }
 
   .start .wrap { display: grid; gap: 40px; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: start; }
@@ -1627,8 +1644,10 @@ fbq('track', 'PageView');
         <input class="q-input" id="q-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="send" maxlength="20" placeholder="(555) 555-0123" hidden>
         <input class="q-input" id="q-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="send" maxlength="120" placeholder="you@example.com" hidden>
         <textarea class="q-input" id="q-business" name="business" rows="1" autocapitalize="sentences" maxlength="600" placeholder="What your business does" hidden></textarea>
+        <button class="q-mic" id="q-mic" type="button" aria-label="Speak your answer" aria-pressed="false" title="Speak your answer" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0"/><path d="M12 18v3"/></svg></button>
         <button class="q-send" id="q-send" type="submit" aria-label="Send" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
       </form>
+      <p class="q-note" id="q-note" role="status" hidden></p>
     </div>
   </div>
 </section>
@@ -2353,6 +2372,71 @@ fbq('track', 'PageView');
       });
       // Tapping send must not take focus from the input, or the phone's keyboard drops between questions.
       ['pointerdown', 'mousedown'].forEach(t => send.addEventListener(t, e => e.preventDefault()));
+
+      // Speak the answer instead of typing it (Barrett, 2026-09-22: the boxes "don't support the microphone"). The
+      // browser's own speech recognition, which Chrome, Edge and Safari have and Firefox does not; where it is missing
+      // the button stays hidden rather than sitting there dead. The words land in the live input as if typed, so the
+      // send button, the growing box and the clock all behave the same. Its own guard.
+      try {
+        const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const mic = ask.querySelector('#q-mic'), note = ask.querySelector('#q-note');
+        if (SR && mic) {
+          let rec = null, base = '', heard = '', noteTimer = 0;
+          const tell = words => {
+            note.textContent = words; note.hidden = false;
+            clearTimeout(noteTimer); noteTimer = setTimeout(() => { note.hidden = true; }, 7000);
+          };
+          const off = () => {
+            mic.classList.remove('on');
+            mic.setAttribute('aria-pressed', 'false');
+            mic.setAttribute('aria-label', 'Speak your answer');
+          };
+          const stop = () => { const r = rec; rec = null; off(); if (r) { try { r.stop(); } catch (e) {} } };
+          const put = text => {
+            const el = field(), cap = +el.getAttribute('maxlength') || 600;
+            const sep = base && !/\s$/.test(base) && text ? ' ' : '';
+            el.value = (base + sep + text).slice(0, cap);
+            el.dispatchEvent(new Event('input', { bubbles: true }));   // the box grows, send wakes, the clock starts
+          };
+          mic.addEventListener('click', () => {
+            if (rec) { stop(); return; }
+            if (at >= steps.length) return;   // not while Duna is still typing the question: a visitor may answer over it
+            const el = field();
+            base = el.value; heard = '';
+            const r = new SR();
+            r.lang = document.documentElement.lang || 'en-US';
+            r.interimResults = true;
+            r.continuous = true;
+            r.onresult = e => {
+              let live = '';
+              for (let i = e.resultIndex; i < e.results.length; i++) {
+                const said = e.results[i][0].transcript;
+                if (e.results[i].isFinal) heard += (heard ? ' ' : '') + said.trim();
+                else live += said;
+              }
+              put((heard + ' ' + live).trim());
+            };
+            r.onerror = e => {
+              stop();
+              if (e.error === 'not-allowed' || e.error === 'service-not-allowed') tell('Your browser is blocking the microphone. You can allow it in the address bar, or just type your answer.');
+              else if (e.error === 'audio-capture') tell('No microphone found. You can type your answer instead.');
+              else if (e.error !== 'aborted' && e.error !== 'no-speech') tell("The microphone didn't work just then. You can type your answer instead.");
+            };
+            r.onend = () => { rec = null; off(); };
+            rec = r;
+            mic.classList.add('on');
+            mic.setAttribute('aria-pressed', 'true');
+            mic.setAttribute('aria-label', 'Stop speaking');
+            note.hidden = true;
+            try { r.start(); } catch (err) { stop(); }
+          });
+          // as with send: the tap must not take focus from the input, or a phone's keyboard drops
+          ['pointerdown', 'mousedown'].forEach(t => mic.addEventListener(t, e => e.preventDefault()));
+          form.addEventListener('submit', stop);     // an answer sent ends the listening
+          again.addEventListener('click', stop);     // so does starting over
+          mic.hidden = false;
+        }
+      } catch (e) {}
 
       // With the phone's keyboard open, keep the input, and so the newest message just above it, on screen. The page
       // scrolls smoothly by default, so this adjustment is made instant.

@@ -305,7 +305,20 @@ the business, and a recap at the end. It is at https://dunamarketing.com/#questi
   the `const showQuestionnaire = ...` line (look for "THE SWITCH" in the first script):
   `/[?&]questionnaire=test\b/.test(location.search)`. Then it shows only at `?questionnaire=test`.
 - It sends nothing and stores nothing: no request, no localStorage, sessionStorage or cookie, no pixel event. The
-  answers live in memory and are gone on reload.
+  answers live in memory and are gone on reload. The one thing that does leave the visitor's device is speech, if they
+  use the microphone (below): the browser's own speech service transcribes it, Google's on Chrome and Edge, Apple's on
+  Safari, after the browser asks their permission and while it shows its recording mark. The page never sees the audio.
+- A microphone in the bar, `#q-mic` (Barrett, 2026-09-22: the boxes "don't support the microphone" — a computer's text
+  box has no dictation of its own, and a phone's keyboard hides its mic key on the number pad). It is the browser's
+  speech recognition (`SpeechRecognition` / `webkitSpeechRecognition`), so the button stays `hidden` where that is
+  missing, Firefox above all, rather than sitting there dead. Tap it and it turns red and breathes; the words arrive in
+  the live box as they are spoken, interim words replaced as the engine settles, and an `input` event is dispatched so
+  the box grows, the send button wakes and the clock starts exactly as typing would. Tapping again, sending, or
+  starting over stops it; so does the engine itself after a silence. Speaking while Duna is still typing its question
+  is allowed, as typing has always been. A blocked or missing microphone says so in `#q-note` under the bar for seven
+  seconds, and the visitor types instead. Like send, the button prevents the default on pointerdown so a phone keeps
+  its keyboard and the field keeps focus. Test: `~/.cache/duna-site-tests/ask_mic_check.js`, which stands a fake engine
+  in the browser's place; the real engines can only be tried by hand.
 - The questions are data, the `steps` list in that block. Each step has what we say (it can use earlier answers), which
   input takes the reply, and `take()`, which accepts the reply or asks again in the thread. Adding the real
   questionnaire means adding steps.
