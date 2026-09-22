@@ -1937,12 +1937,12 @@ fbq('track', 'PageView');
       ready();
     }
   } catch (e) { const h = document.querySelector('#how .hd'); if (h) h.className = 'hd'; }
-  // Animations: the example video plays only while it is on screen. With a mouse it loops; on a touch screen it plays
-  // once and rests on its last frame; with reduced motion it stays still, on the frame where the gears show. Its own guard.
+  // Animations: the example video plays only while it is on screen, and loops there, on a phone as on a computer (Barrett,
+  // 2026-09-22, as with the other demos); with reduced motion it stays still, on the frame where the gears show. Its own guard.
   try {
     const vid = document.querySelector('#animations .anim-video');
     if (vid) {
-      const loop = matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const loop = true;   // it looped only with a mouse until 2026-09-22
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
         // go to the gears frame, and keep trying as the file arrives: a server without partial downloads cannot seek
         // until it has all of it, and the browser may have loaded the start before this script ran

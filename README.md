@@ -228,9 +228,11 @@ scipy and Pillow; the chart's shapes are the `BARS` and `AXES` lists at its top,
 
 Then bump the `?v=` on the video's `src` and `poster` so browsers drop their cached copy.
 
-It is 6 seconds, silent, and about 650 KB; the page asks only for its metadata until it comes into view. With a mouse it
-loops while in view and pauses when scrolled away. On touch screens it plays once and rests on its last frame. With
-reduced motion it never plays: it loads and shows the frame 2 seconds in, with the gears showing.
+It is 6 seconds, silent, and about 650 KB; the page asks only for its metadata until it comes into view. It loops while
+in view and pauses when scrolled away, on a phone as on a computer (Barrett, 2026-09-22: "the animation in the animation
+section isn't looping, but it is on desktop"; a touch screen played it once and rested on its last frame until then,
+and `loop` was a hover-and-fine-pointer test). With reduced motion it never plays: it loads and shows the frame
+2 seconds in, with the gears showing.
 
 ## The price lines under two headlines
 
