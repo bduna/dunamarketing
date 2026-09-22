@@ -206,9 +206,14 @@ fbq('track', 'PageView');
     text-shadow: 0 .04em .5em rgb(var(--veil) / .95), 0 0 1.2em rgb(var(--veil) / .9);
     animation: rise 1.2s var(--ease-out) .3s both;
   }
-  /* The contact pills first, and Start the questionnaire on its own row below them (Barrett, 2026-09-22); each row as wide as its pills */
-  .actions { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; animation: rise 1.2s var(--ease-out) .38s both; }
+  /* The contact pills first, and Start the questionnaire on its own row below them (Barrett, 2026-09-22). The rows line up
+     at both ends: the column is as wide as its widest row and stretches the rest to it, so on phones and tablets Start the
+     questionnaire widens to Text us + Call us, and with a mouse the number widens to Start the questionnaire. A widened
+     pill keeps its words where they were and takes its disc to the end. */
+  .actions { display: flex; flex-direction: column; align-self: flex-start; align-items: stretch; gap: 14px; animation: rise 1.2s var(--ease-out) .38s both; }
   .actions > * { pointer-events: auto; }
+  .actions .cta { justify-content: space-between; }
+  .actions .reach > * { flex-grow: 1; }   /* a 320px phone, where Call us drops under Text us: each as wide as the rest */
   /* Text us and Call us travel as a pair: where a row runs out of room they wrap together, never one alone */
   .reach { display: flex; flex-wrap: wrap; gap: 14px; }
   /* A dark edge so the control keeps a boundary when a near-white card drifts under it */

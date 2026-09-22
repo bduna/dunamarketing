@@ -25,7 +25,12 @@ yet, and says so.
 
 The hero's buttons come in rows (`.actions` is a column): the contact pills first, then "Start the questionnaire" on its
 own row below them (Barrett, 2026-09-22: "make "Start the questionnaire" below the contact buttons"; until then it led
-a single row, the contact pills beside it where they fit). Each row is as wide as its pills. "Start the questionnaire"
+a single row, the contact pills beside it where they fit). The rows line up at both ends (Barrett, the same day: "on
+mobile could you stretch out "questionnaire" button to line up with the contact buttons and on desktop do the
+opposite"): the column is as wide as its widest row and stretches the rest to it, so on phones and tablets Start the
+questionnaire widens to span Text us + Call us, and with a mouse the number pill widens to Start the questionnaire's
+width. A widened pill keeps its words where they were and takes its disc to the end (`justify-content:
+space-between`); on a 320px phone, where Call us drops under Text us, all three are one width. "Start the questionnaire"
 (`.cta-go`, since 2026-09-21; it said "Get my free preview", Barrett's first
 words for it, until he had every one of these buttons say "Start the questionnaire" the same day): the white pill with a
 down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Every button into the questionnaire points down
