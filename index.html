@@ -522,6 +522,7 @@ fbq('track', 'PageView');
      (his call the same day), with more room above it than the grid has above it: 44px on phones to 64px on a wide screen
      (it was 36px until Barrett asked for more) */
   .samples-go { margin-top: clamp(44px, 4vw + 20px, 64px); display: flex; justify-content: center; }
+  #samples { padding-bottom: clamp(44px, 4vw + 20px, 64px); }   /* as much under the button as above it (Barrett, 2026-09-22: less under it; the band's own 56-120px was more) */
   .card {
     display: block; text-decoration: none; color: inherit;
     border-radius: 12px; overflow: hidden;

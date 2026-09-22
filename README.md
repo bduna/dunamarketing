@@ -39,7 +39,8 @@ down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Ever
 (Barrett, 2026-09-21: "make all the questionnaire button arrows point downward"; they pointed right at first), because
 each one scrolls down the page to the questionnaire. There are three, all "Start the questionnaire": here, under the ten
 samples (`.samples-go`, the hero's button exactly, centred under the grid with 44-64px above it, added 2026-09-21 at
-Barrett's request), and at the foot of How it works' step 1. (A fourth, under the pricing, was removed on 2026-09-22:
+Barrett's request, and since 2026-09-22 as much below it, the Samples band's bottom padding cut from the band's usual
+56-120px at his asking: "reduce the marge under"), and at the foot of How it works' step 1. (A fourth, under the pricing, was removed on 2026-09-22:
 "remove start the questionnaire in the pricing section".) At 340px wide or less their words drop
 to 16px so they stay on one line. The contact pills are "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
 business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the white pill inverted, a
