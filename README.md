@@ -76,8 +76,9 @@ Barrett's recording, a 77-second spoken summary of the whole page meant as the f
 
 - A card between the subline and the buttons, `#voice-row` / `.voice`: a white play disc inside a ring of 28 bars and a
   progress ring, and "Listen to the Summary · 1:17" over "Everything on this page, in 77 seconds" (the label was
-  "Listen" until Barrett renamed it, 2026-09-22; on phones, 480px or less, the "· 1:17" gives way so the label keeps to
-  one line, the progress line under the card showing the length). Once, as the hero settles, a wave
+  "Listen" until Barrett renamed it, 2026-09-22). The label keeps to one line with the "· 1:17" at every width from 360px:
+  `.voice-text` is a container and the label's size is its usual one or, on a narrower phone, 7.2% of the text column
+  (`7.2cqi`), down to 14.5px; on a 320px phone the "· 1:17" wraps whole to a second line. Once, as the hero settles, a wave
   runs round the bars to say there is something to press; then it holds still.
 - Pressed: the bars move with the voice, the ring fills, and the card shows the words as they are spoken, a phrase at a
   time, each word lighting up on its second, the promises (24 hours, $1,500, No deposit, see it first, 16 years, own

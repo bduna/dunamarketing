@@ -277,10 +277,12 @@ fbq('track', 'PageView');
   .voice .i-pause, .voice-dock .i-pause { display: none; }
   .voice.is-playing .i-play, .voice-dock.is-playing .i-play { display: none; }
   .voice.is-playing .i-pause, .voice-dock.is-playing .i-pause { display: block; }
-  .voice-text { flex: 1; min-width: 0; display: grid; }
+  .voice-text { flex: 1; min-width: 0; display: grid; container-type: inline-size; }   /* measured by the label, below */
   .voice-idle, .voice-cap { grid-area: 1 / 1; align-self: center; }
-  .voice-idle b { display: block; font-size: clamp(18px, .3vw + 17px, 21px); font-weight: 750; letter-spacing: -.01em; line-height: 1.2; color: #fff; }
-  .voice-len { font-weight: 500; color: var(--ink-dim); }
+  /* "Listen to the Summary · 1:17" on one line: its usual size where it fits, and on a narrower phone a little smaller,
+     as the text column allows (7.2% of its width), down to 14.5px; the time wraps whole if it must (a 320px phone) */
+  .voice-idle b { display: block; font-size: max(14.5px, min(clamp(18px, .3vw + 17px, 21px), 7.2cqi)); font-weight: 750; letter-spacing: -.01em; line-height: 1.2; color: #fff; }
+  .voice-len { font-weight: 500; color: var(--ink-dim); white-space: nowrap; }
   .voice-idle small { display: block; margin-top: 3px; font-size: 14.5px; line-height: 1.3; color: var(--ink-dim); }
   .voice-cap { visibility: hidden; font-size: clamp(16px, .35vw + 14.8px, 19.5px); font-weight: 650; line-height: 1.32; letter-spacing: -.005em; color: rgb(255 255 255 / .32); }
   .voice-cap span, .voice-dock-cap span { transition: color .18s linear; }
@@ -307,10 +309,7 @@ fbq('track', 'PageView');
     .voice { gap: 14px; min-height: 92px; padding: 8px 16px 8px 10px; border-radius: 22px; }
     .voice-orb { width: 66px; height: 66px; }
   }
-  /* phones: the label's "· 1:17" gives way (the progress line under the card shows the length), so "Listen to the
-     Summary" keeps to one line; the smallest phones take it a size down as well */
-  @media (max-width: 480px) { .voice-len { display: none; } }
-  @media (max-width: 340px) { .voice-cap { font-size: 15px; } .voice-idle b { font-size: 16.5px; } .voice-idle small { font-size: 13.5px; } }
+  @media (max-width: 340px) { .voice-cap { font-size: 15px; } .voice-idle small { font-size: 13.5px; } }
   /* the hand-off: when the voice reaches "start the questionnaire below", the button to it glows once */
   .cta-go.nudge { animation: nudge 1.9s var(--ease-out) 1; }
   @keyframes nudge {
