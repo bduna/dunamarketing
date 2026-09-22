@@ -308,6 +308,22 @@ below (the headline's 18px bottom margin folds into the 22px), and the price wel
 website's $1,500 is in the Pricing box, the FAQ, the meta description, the JSON-LD and No risk; the Care Plan's $149 in
 the Pricing box, the FAQ and the Care Plan section. The ROI calculator reads only the Pricing box's (`#pricing`).
 
+## The pricing boxes
+
+`<section id="pricing">`, headed "Five numbers. Nothing hidden." — the headline counts the boxes, so it changes when one
+is added. Five `.plan` boxes on the white band, each a name, a price, a line of terms and a list of check items: Your
+website ($1,500 one time), Care plan ($149 a month, `.featured`, the only one with a border and a Recommended tag),
+Animations ($350 per animation), Micro-Apps ($500 per micro-app) and, since 2026-09-22, Audio players ($500 for the
+first, $200 for each after; Barrett: "a new price box in Pricing for Audio Players ... and I support TTS"). Its items
+say what the players on this page do: his voice or a text-to-speech read, the words appearing as they are spoken, play,
+pause and a line to rewind, placed anywhere and styled to the website, never playing by itself, right on phones, and
+re-recorded whenever he likes.
+
+The order matters: the ROI calculator reads the website price from the first box that is not `.featured` and the plan
+price from the featured one, so a new box goes after Your website, never before it. Under 1200px the boxes are a
+two-column grid with the calculator below them; from 1200px `.plans` is `display: contents` and they share the page
+grid, the calculator in the third column with the last box under it.
+
 ## The ROI calculator
 
 In the Pricing section, to the right of the first two plan boxes at 1200px and wider, under them otherwise
