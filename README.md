@@ -91,22 +91,25 @@ simply scrolls past; the band is its natural height again once another anchor is
 
 ## The voice (the hero's spoken summary)
 
-Barrett's recording, a 77-second spoken summary of the whole page meant as the first sales pitch
-(`gpt-corrected-tts.wav` in the project folder, his revised take of 2026-09-21, which replaced the first,
-`chatgpt-duna-marketing-site-summary-tts.wav`; cut to `assets/audio/duna-summary.mp3`, 64 kbps mono, 616 KB,
-`preload="none"`, loaded as `?v=2` so a browser holding the first take fetches the new one), plays from the hero
-(2026-09-21, "get very creative ... something way cooler"):
+Barrett's recording, a 72-second spoken summary of the whole page meant as the first sales pitch
+(`echo-page-summary-tts.wav` in the project folder, his third take, 2026-09-22, "replace the old one with it"; before
+it `gpt-corrected-tts.wav`, 77 s, and first `chatgpt-duna-marketing-site-summary-tts.wav`; cut to
+`assets/audio/duna-summary.mp3`, 64 kbps mono, 578 KB, 72.17 s, `preload="none"`, loaded as `?v=3` so a browser holding
+an earlier take fetches this one), plays from the hero (2026-09-21, "get very creative ... something way cooler"). The
+third take drops "It takes about 20 minutes"; otherwise it says what the second said. Its WAV header gives a bogus
+length (a streamed file); the data is 72.1 s, and ffmpeg and the caption script read it right:
 
 - A card between the subline and the buttons, `#voice-row` / `.voice`: a white play disc inside a ring of 28 bars and a
-  progress ring, and "Listen to the Summary · 1:17" over "Everything on this page, in 77 seconds" (the label was
-  "Listen" until Barrett renamed it, 2026-09-22). The label keeps to one line with the "· 1:17" at every width from 360px:
+  progress ring, and "Listen to the Summary · 1:12" over "Everything on this page, in 72 seconds" (the label was
+  "Listen" until Barrett renamed it, 2026-09-22). The label keeps to one line with the "· 1:12" at every width from 360px:
   `.voice-text` is a container and the label's size is its usual one or, on a narrower phone, 7.2% of the text column
-  (`7.2cqi`), down to 14.5px; on a 320px phone the "· 1:17" wraps whole to a second line. Once, as the hero settles, a wave
+  (`7.2cqi`), down to 14.5px; on a 320px phone the "· 1:12" wraps whole to a second line. Once, as the hero settles, a wave
   runs round the bars to say there is something to press; then it holds still.
 - Pressed: the bars move with the voice, the ring fills, and the card shows the words as they are spoken, a phrase at a
-  time, each word lighting up on its second, the promises (24 hours, $1,500, No deposit, see it first, 16 years, own
-  outright, $149 per month, start the questionnaire below, 20 minutes, only pay after you've seen and approved) in the
-  accent. The card keeps one height for every
+  time, each word lighting up on its second, the promises (24 hours, $1,500, No deposit, See it first, 16 years, own
+  outright, $149 per month, start the questionnaire below, only pay after you've seen and approved) in the
+  accent. The voice says "fifteen hundred dollars"; the caption reads "$1,500", lit from "fifteen" until "paid"
+  (Barrett, 2026-09-22: "replace that with "$1,500""). The card keeps one height for every
   phrase (checked at 320-1440px), so nothing around it moves.
 - Under the card, a progress line (`.voice-seek`, an `<input type="range">`; Barrett, 2026-09-22: "so it can be rewound,
   make it blue"): blue as far as the voice has got, a white handle ringed in blue, the time so far on its left and the
@@ -116,7 +119,7 @@ Barrett's recording, a 77-second spoken summary of the whole page meant as the f
 - The wall takes no part. For a few minutes on 2026-09-21 it rippled outward from the play disc with the voice's
   loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the same"), and the
   wall's script is again exactly what it was before the voice.
-- At "start the questionnaire below" (57.74 s), the hero's Start the questionnaire glows once (`.nudge`).
+- At "start the questionnaire below" (54.92 s), the hero's Start the questionnaire glows once (`.nudge`).
 - Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
   `#voice-dock`, with the phrase, the pause and a close; it goes when the card is back in view or the voice ends.
 - At the end the card rewinds and reads "Listen to the Summary" again. With reduced motion the captions and the ring still work; the
@@ -125,10 +128,11 @@ Barrett's recording, a 77-second spoken summary of the whole page meant as the f
 
 The captions and the loudness are three lines of data in the voice script (`CUES`, `ENV`, `NUDGE`), made from the
 recording by `hero_voice_captions.py` in the project folder (a local speech-to-text pass with word timings; the
-transcript it used is `gpt-corrected-tts.words.json` beside the WAV). The words shown are the script's own
-`PHRASES`, written as they should read; the recording gives only their timing, so a misheard word ("fix" for "fits"
-in this take, put right by `CORRECTIONS`) never reaches the page. A new recording means running it again, as its header
-says, updating `LENGTH`, "1:17", "77 seconds" and "77-second" if the length changes, and bumping the `?v=` on the audio. Tests:
+transcript it used is `echo-page-summary-tts.words.json` beside the WAV). The words shown are the script's own
+`PHRASES`, written as they should read; the recording gives only their timing, so a misheard word (the second take's
+"fix" for "fits", put right by `CORRECTIONS`; this take needs none) never reaches the page. A new recording means
+running it again, as its header says, updating `LENGTH`, the "1:12", "72 seconds" and "72-second" (label, seek line,
+aria labels) if the length changes, and bumping the `?v=` on the audio. Tests:
 `~/.cache/duna-site-tests/voice_layout_check.js` and `voice_play_check.js` (serve with `serve_range.js`, which can seek).
 
 ## Client work: Deep Roots Hydro
