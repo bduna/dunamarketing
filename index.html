@@ -289,6 +289,19 @@ fbq('track', 'PageView');
   .voice.is-on .voice-idle { visibility: hidden; }
   .voice.is-on .voice-cap { visibility: visible; }
   .voice-cap.fresh, .voice-dock-cap.fresh { animation: cap-in .35s var(--ease-out); }
+  /* the progress line under the card (Barrett, 2026-09-22: "so it can be rewound, make it blue"): blue as far as the voice
+     has got, a white handle ringed in blue to drag it back or on, the time so far on its left and the whole on its right,
+     on a dark pill so it reads over the wall. Tap it, drag it, or use its arrow keys (5 s a press). */
+  .voice-seek { display: flex; align-items: center; gap: 12px; width: min(100%, 34rem); margin-top: 10px; padding: 3px 16px; border-radius: 999px; background: rgb(var(--veil) / .66); }
+  .voice-seek-time { flex: none; min-width: 2.4em; font-size: 13px; font-weight: 650; line-height: 1; color: var(--ink-dim); font-variant-numeric: tabular-nums; }
+  .voice-seek-time:last-child { text-align: right; }
+  .voice-seek input { --p: 0%; flex: 1; min-width: 0; height: 30px; margin: 0; background: transparent; cursor: pointer; -webkit-appearance: none; appearance: none; }
+  .voice-seek input::-webkit-slider-runnable-track { height: 5px; border-radius: 999px; background: linear-gradient(to right, var(--accent) 0 var(--p), rgb(255 255 255 / .2) var(--p) 100%); }
+  .voice-seek input::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; margin-top: -6.5px; border-radius: 50%; background: #fff; border: 4px solid var(--accent); box-shadow: 0 2px 8px rgb(0 0 0 / .45); }
+  .voice-seek input::-moz-range-track { height: 5px; border-radius: 999px; background: rgb(255 255 255 / .2); }
+  .voice-seek input::-moz-range-progress { height: 5px; border-radius: 999px; background: var(--accent); }
+  .voice-seek input::-moz-range-thumb { width: 10px; height: 10px; border-radius: 50%; background: #fff; border: 4px solid var(--accent); box-shadow: 0 2px 8px rgb(0 0 0 / .45); }
+  .voice-seek input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
   @keyframes cap-in { from { opacity: 0; transform: translateY(6px); } }
   @media (max-width: 760px) {
     .voice { gap: 14px; min-height: 92px; padding: 8px 16px 8px 10px; border-radius: 22px; }
@@ -1136,6 +1149,11 @@ fbq('track', 'PageView');
           <span class="voice-cap"></span>
         </span>
       </button>
+      <div class="voice-seek">
+        <span class="voice-seek-time" id="voice-time" aria-hidden="true">0:00</span>
+        <input type="range" id="voice-seek" min="0" max="77" step="0.1" value="0" aria-label="Position in the spoken summary" aria-valuetext="0:00 of 1:17">
+        <span class="voice-seek-time" id="voice-total" aria-hidden="true">1:17</span>
+      </div>
       <audio id="voice-audio" src="assets/audio/duna-summary.mp3?v=2" preload="none"></audio>
     </div>
     <div class="actions">
@@ -2750,16 +2768,40 @@ fbq('track', 'PageView');
       dockBtn.tabIndex = dockX.tabIndex = on ? 0 : -1;
     };
 
+    // the progress line under the card: it follows the voice, and dragging it, tapping it or its arrow keys move the
+    // voice, back to rewind or on, playing or paused (before the first play too: it then starts from there)
+    const seek = document.getElementById('voice-seek'), timeNow = document.getElementById('voice-time'), timeAll = document.getElementById('voice-total');
+    const fmt = s => { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+    let held = false;   // the handle is being dragged: it leads and the voice follows, so don't move it from here
+    // everything that shows where the voice is: the ring, the line, the time, the caption and its lit words
+    const paint = t => {
+      const d = audio.duration || LENGTH, pct = Math.min(100, t / d * 100);
+      rings.forEach(r => { r.style.strokeDasharray = pct.toFixed(2) + ' 100'; });
+      if (!held) seek.value = t;
+      seek.style.setProperty('--p', pct.toFixed(2) + '%');
+      const at = fmt(t);
+      if (timeNow.textContent !== at) { timeNow.textContent = at; seek.setAttribute('aria-valuetext', at + ' of ' + fmt(d)); }
+      const i = findCue(t);
+      if (i !== cue) showCue(i);
+      lit.forEach(([e, s]) => e.classList.toggle('on', s <= t + 0.05));
+    };
+    const to = t => { t = Math.max(0, Math.min((audio.duration || LENGTH) - 0.05, t)); audio.currentTime = t; paint(t); };
+    seek.addEventListener('input', () => { held = true; to(+seek.value); });
+    seek.addEventListener('change', () => { held = false; });
+    seek.addEventListener('pointerup', () => { held = false; });
+    seek.addEventListener('keydown', e => {
+      const by = { ArrowLeft: -5, ArrowDown: -5, ArrowRight: 5, ArrowUp: 5, PageDown: -15, PageUp: 15 }[e.key];
+      if (by) { e.preventDefault(); to(audio.currentTime + by); }
+      else if (e.key === 'Home') { e.preventDefault(); to(0); }
+    });
+    audio.addEventListener('loadedmetadata', () => { seek.max = audio.duration; timeAll.textContent = fmt(audio.duration); paint(audio.currentTime); });
+
     let raf = 0, nudged = false;
     const frame = now => {
       const t = audio.currentTime, target = loud();
       level += (target - level) * (target > level ? 0.45 : 0.12);
       if (!calm) setBars(i => 2.5 + 11 * level * (0.55 + 0.45 * Math.sin(now / 105 + i * 1.7)));
-      const dash = Math.min(100, t / (audio.duration || LENGTH) * 100).toFixed(2) + ' 100';
-      rings.forEach(r => { r.style.strokeDasharray = dash; });
-      const i = findCue(t);
-      if (i !== cue) showCue(i);
-      lit.forEach(([e, s]) => e.classList.toggle('on', s <= t + 0.05));
+      paint(t);
       if (!nudged && go && !audio.paused && t >= NUDGE) { nudged = true; go.classList.remove('nudge'); void go.offsetWidth; go.classList.add('nudge'); }
       raf = (!audio.paused || level > 0.01) ? requestAnimationFrame(frame) : 0;
       if (!raf && !calm) setBars(() => 2.5);
@@ -2776,7 +2818,8 @@ fbq('track', 'PageView');
     audio.addEventListener('ended', () => {
       btn.classList.remove('is-on', 'is-playing'); dock.classList.remove('is-playing'); say(false);
       word.textContent = 'Listen again'; nudged = false;
-      audio.currentTime = 0;   // back to the start, so the ring empties and a press plays it again from the top
+      audio.currentTime = 0;   // back to the start, so the ring and the line empty and a press plays it again from the top
+      paint(0);
       dockState();
     });
     const toggle = () => { if (audio.paused) { const p = audio.play(); if (p) p.catch(() => {}); } else audio.pause(); };

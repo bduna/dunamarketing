@@ -82,6 +82,11 @@ Barrett's recording, a 77-second spoken summary of the whole page meant as the f
   outright, $149 per month, start the questionnaire below, 20 minutes, only pay after you've seen and approved) in the
   accent. The card keeps one height for every
   phrase (checked at 320-1440px), so nothing around it moves.
+- Under the card, a progress line (`.voice-seek`, an `<input type="range">`; Barrett, 2026-09-22: "so it can be rewound,
+  make it blue"): blue as far as the voice has got, a white handle ringed in blue, the time so far on its left and the
+  whole on its right, on a dark pill. Drag it, tap it, or use its arrow keys (5 s a press, Page Up/Down 15 s, Home to
+  the start), playing or paused; the ring, the caption and its lit words follow at once (one `paint(t)` draws them all).
+  Moved before the first play, the voice starts from there. It resets to 0:00 at the end.
 - The wall takes no part. For a few minutes on 2026-09-21 it rippled outward from the play disc with the voice's
   loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the same"), and the
   wall's script is again exactly what it was before the voice.
