@@ -48,7 +48,7 @@ button regular size and bring the start the questionnaire button up to left only
 had stretched to the questionnaire's width in a column). "Start the questionnaire"
 (`.cta-go`, since 2026-09-21; it said "Get my free preview", Barrett's first
 words for it, until he had every one of these buttons say "Start the questionnaire" the same day): the white pill with a
-down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). All four change their words every 2.5 s,
+down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). All six change their words every 2.5 s,
 "Start the questionnaire" and "Ready to get started?", the new words scrolling down from above as the old leave below in
 0.28 s (Barrett's idea, 2026-09-22, after a heartbeat pulse there was tried and taken out; it turned over rather than
 scrolled, held 3 s and read "Let's get started" for its first hour, and waited on the end of the spoken summary until he
@@ -63,13 +63,17 @@ the questionnaire' buttons to have this animation"; the words centre in the two 
 (`.samples-go`, `.step-go`), and in step 1's narrow card both lines wrap to the same two-line height, so nothing moves.
 A button added to the page joins in by carrying the same two faces; the script takes every `.cta-go` that has them. Every button into the questionnaire points down
 (Barrett, 2026-09-21: "make all the questionnaire button arrows point downward"; they pointed right at first), because
-each one scrolls down the page to the questionnaire. There are four, all "Start the questionnaire": here, under the ten
+each one scrolls down the page to the questionnaire, the Contact one excepted: from there it scrolls up, and it keeps
+the down arrow all the same. There are six, all "Start the questionnaire": here, under the ten
 samples (`.samples-go`, the hero's button exactly, centred under the grid with 44-64px above it, added 2026-09-21 at
 Barrett's request, and since 2026-09-22 as much below it, the Samples band's bottom padding cut from the band's usual
 56-120px at his asking: "reduce the marge under"), at the foot of How it works' step 1, and under the founder's headshot
 (`.founder-go`, 2026-09-22: "add a blue questionnaire button in the Our Founder page just like the one in the How It
 Works #1 button", then "can you put it under my headshot??"; step 1's deep blue, which the dark founder band has to
-name again, since that colour comes from `.band-light .cta-go`). That button sits in the photo column, which is why
+name again: since 2026-09-22 that is `.cta-deep`, a class any band can carry, rather than a rule per section). Two
+more came the same day, "add the same type of button to the bottom of the care plan and contact buttons": at the foot
+of the Care Plan's text (`.care-go`, 30px above it) and under the Contact section's pills (`.start-go`, 26px), both in
+that same deep blue. The founder button sits in the photo column, which is why
 `.founder-left` wraps the photo and it: `.founder-photo` narrows to 260px on phones and would squeeze the pill.
 Stacked, under 860px, the whole photo column comes before the words, so on a phone the button is read before the
 section's own heading. (A fourth, under the pricing, was removed on 2026-09-22:
