@@ -168,7 +168,7 @@ length (a streamed file); the data is 72.1 s, and ffmpeg and the caption script 
   on that button change on their own clock, nothing to do with the summary any more (see "Getting in touch").
 - Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
   `#voice-dock`, with the phrase, the pause and a close; it goes when the card is back in view or the voice ends.
-- At the end the card rewinds and reads "Listen to the Summary" again. With reduced motion the captions and the ring still work; the
+- At the end the card rewinds and reads "Duna Marketing Offer" again. With reduced motion the captions and the ring still work; the
   bars and the wave round them don't move. Without JavaScript the card isn't there.
 - Browsers refuse sound until the visitor presses something, so it never starts by itself.
 
