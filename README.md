@@ -119,7 +119,11 @@ length (a streamed file); the data is 72.1 s, and ffmpeg and the caption script 
 - The wall takes no part. For a few minutes on 2026-09-21 it rippled outward from the play disc with the voice's
   loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the same"), and the
   wall's script is again exactly what it was before the voice.
-- At "start the questionnaire below" (54.92 s), the hero's Start the questionnaire glows once (`.nudge`).
+- At "start the questionnaire below" (54.92 s), the hero's Start the questionnaire glows once (`.nudge`), and when
+  the summary reaches its end that button keeps a slow pulse going, about one beat every 2.4 s (`.pulse`,
+  `cta-pulse`, the nudge's ring at half strength with a rest between beats; Barrett, 2026-09-22: "after the audio
+  summary is finished, make the 'Start the questionnaire' button pulsate"). It beats until the button is pressed or
+  the summary is played again, and with reduced motion it never moves.
 - Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
   `#voice-dock`, with the phrase, the pause and a close; it goes when the card is back in view or the voice ends.
 - At the end the card rewinds and reads "Listen to the Summary" again. With reduced motion the captions and the ring still work; the
