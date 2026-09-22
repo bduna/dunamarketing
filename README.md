@@ -56,7 +56,8 @@ said "make it start irrelevant of the audio player, disregard the audio"). The t
 (`.cta-flip`, `.cta-face-a` / `-b`, the class `.turned`), so the pill is always as wide as the longer of them and
 nothing around it moves; the cell clips whatever is outside it; the link carries its own `aria-label`, so a screen
 reader always hears "Start the questionnaire"; and with reduced motion the words never move. A script of its own, after
-the voice's, keeps the time, starting 1.6 s in so the hero's entrance finishes first and moving all three together, so
+the voice's, keeps the time, starting 0.8 s in, while the hero is still settling (Barrett, 2026-09-22: "the animation
+takes too long to start, have it just start"; it waited 1.6 s, and then 2.5 s more, at first), and moving all three together, so
 two on screen at once never disagree. The hero's was the only one until Barrett said "edit all 'Start the
 questionnaire' buttons to have this animation"; the words centre in the two pills that centre their contents
 (`.samples-go`, `.step-go`), and in step 1's narrow card both lines wrap to the same two-line height, so nothing moves. Every button into the questionnaire points down

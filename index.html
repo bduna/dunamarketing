@@ -2829,8 +2829,10 @@ fbq('track', 'PageView');
   try {
     const go = [...document.querySelectorAll('.cta-go')].filter(el => el.querySelector('.cta-flip'));
     if (!go.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    // the hero's own entrance runs for about 1.6s; the words wait for it, then keep their own time, all three in step
-    setTimeout(() => setInterval(() => go.forEach(el => el.classList.toggle('turned')), 2500), 1600);
+    // straight away, all three in step: the first change lands while the hero is still settling (Barrett, 2026-09-22:
+    // "the animation takes too long to start, have it just start"), then they keep 2.5s time
+    const turn = () => go.forEach(el => el.classList.toggle('turned'));
+    setTimeout(() => { turn(); setInterval(turn, 2500); }, 800);
   } catch (e) {}
 })();
 </script>
