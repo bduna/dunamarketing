@@ -228,11 +228,14 @@ under the white headline, the block had read as "a white wall of text".
   perfect, it just needs moved, move it just below the headline".
 - No risk (`<section id="before-you-pay">`): "Website Pricing" over "$1,500 one time", under "See your finished website
   before you pay a dime." Barrett, the same day: "use the exact same format as the price for the Care Plan". (He tried
-  "one time upon approval" and took "upon approval" back out the same day.)
+  "one time upon approval" and took "upon approval" back out the same day.) On 2026-09-22 he found it "still seems too
+  prominent, it dominates the section": at 32-40px the amount matched or outsized the headline (28px on a phone), so
+  this one's amount is quieter, `clamp(1.4rem, .5vw + 1.2rem, 1.7rem)` (22-27px) at weight 700, a step above the lede
+  and still blue. The Care Plan's keeps the size below.
 
 Both are part of the text column: no card, the label and the price starting at the text's own left edge, 22px above and
 below (the headline's 18px bottom margin folds into the 22px), and the price a size smaller than the plan boxes'
-(`clamp(2rem, 1.5vw + 1.3rem, 2.5rem)`). The prices are typed in by hand, so a price change touches them too: the
+(`clamp(2rem, 1.5vw + 1.3rem, 2.5rem)`; No risk's smaller still, above). The prices are typed in by hand, so a price change touches them too: the
 website's $1,500 is in the Pricing box, the FAQ, the meta description, the JSON-LD and No risk; the Care Plan's $149 in
 the Pricing box, the FAQ and the Care Plan section. The ROI calculator reads only the Pricing box's (`#pricing`).
 

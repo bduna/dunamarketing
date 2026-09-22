@@ -592,6 +592,9 @@ fbq('track', 'PageView');
   .price-line .price { margin: 0; }
   .price-line .price strong { font-size: clamp(2rem, 1.5vw + 1.3rem, 2.5rem); color: var(--accent); }
   .price-line .price > span { color: var(--ink); }
+  /* No risk: a quieter price, "it dominates the section" (Barrett, 2026-09-22); at 32-40px it matched or outsized the
+     headline (28px on a phone). Here it is a step above the lede, still in the accent blue. The Care Plan's keeps 32-40px. */
+  #before-you-pay .price-line .price strong { font-size: clamp(1.4rem, .5vw + 1.2rem, 1.7rem); font-weight: 700; letter-spacing: -.02em; }
 
   .stage { display: flex; gap: 22px; align-items: flex-start; }
   .phone {
