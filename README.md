@@ -65,6 +65,36 @@ work headline below it used to arrive on the same screen and the two headlines c
 sits in the middle of the taller band. It is on `:target`, not on the band itself, so nothing moves for a visitor who
 simply scrolls past; the band is its natural height again once another anchor is the target.
 
+## The voice (the hero's spoken summary)
+
+Barrett's recording, a 76-second spoken summary of the whole page meant as the first sales pitch
+(`chatgpt-duna-marketing-site-summary-tts.wav` in the project folder, cut to `assets/audio/duna-summary.mp3`, 64 kbps
+mono, 609 KB, `preload="none"`), plays from the hero (2026-09-21, "get very creative ... something way cooler"):
+
+- A card between the subline and the buttons, `#voice-row` / `.voice`: a white play disc inside a ring of 28 bars and a
+  progress ring, and "Listen · 1:16" over "Everything on this page, in 76 seconds". Once, as the hero settles, a wave
+  runs round the bars to say there is something to press; then it holds still.
+- Pressed: the bars move with the voice, the ring fills, and the card shows the words as they are spoken, a phrase at a
+  time, each word lighting up on its second, the promises (24 hours, $1,500, No deposit, see it first, 16 years, own
+  outright, $149 a month, start the questionnaire below, 20 minutes) in the accent. The card keeps one height for every
+  phrase (checked at 320-1440px), so nothing around it moves.
+- The wall hears it: while the voice plays, rings travel outward across the wall from the play disc and each card rises
+  and brightens as a ring passes, as far as the voice is loud at that moment (the wall's shader: `uVoice`, `uSrc`,
+  `uWaveK`; the voice script hands the wall its level and position through `window.DunaVoice`). Silent, the wall is
+  exactly as before.
+- At "start the questionnaire below" (59.26 s), Get my free preview glows once (`.nudge`).
+- Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
+  `#voice-dock`, with the phrase, the pause and a close; it goes when the card is back in view or the voice ends.
+- At the end the card says "Listen again" and rewinds. With reduced motion the captions and the ring still work; the
+  bars, the wave and the ripple don't move. Without JavaScript the card isn't there.
+- Browsers refuse sound until the visitor presses something, so it never starts by itself.
+
+The captions and the loudness are three lines of data in the voice script (`CUES`, `ENV`, `NUDGE`), made from the
+recording by `hero_voice_captions.py` in the project folder (a local speech-to-text pass with word timings; the
+transcript it used is `chatgpt-duna-marketing-site-summary-tts.words.json` beside the WAV). A new recording means
+running it again, as its header says, and updating `LENGTH`, "1:16" and "76 seconds" if the length changes. Tests:
+`~/.cache/duna-site-tests/voice_layout_check.js` and `voice_play_check.js` (serve with `serve_range.js`, which can seek).
+
 ## Client work: Deep Roots Hydro
 
 `<section id="client">`, a white band between No risk and Samples: the one real, live client website on the page, as

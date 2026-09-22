@@ -244,6 +244,88 @@ fbq('track', 'PageView');
   }
   @keyframes rise { from { opacity: .15; transform: translateY(.45em); } }
 
+  /* ---------- The voice: the whole page spoken in 76 seconds (Barrett's recording, assets/audio/duna-summary.mp3), played
+     from the hero. A card under the subline: a white play disc inside a ring of bars and a progress ring, and beside it
+     "Listen · 1:16". Pressed, the bars move with the voice, the ring fills, the card speaks its captions word by word
+     (the promises in the accent), and the wall behind ripples outward from the disc as the voice rises and falls (see
+     the wall's shader). When the voice says "start the questionnaire below", Get my free preview glows once. Scrolled
+     away while it plays, a dock at the foot of the screen carries the captions and the pause. The card keeps one height
+     from idle to the longest caption, so nothing around it moves. The script shows it; without it there is nothing. */
+  .voice-row { animation: rise 1.2s var(--ease-out) .32s both; }
+  .voice-row[hidden] { display: none; }
+  .voice-row > * { pointer-events: auto; }
+  .voice {
+    display: flex; align-items: center; gap: 16px;
+    width: min(100%, 34rem); min-height: 104px; margin: 0; padding: 10px 22px 10px 12px;
+    border-radius: 26px; border: 1.5px solid rgb(255 255 255 / .22);
+    background: rgb(var(--veil) / .74); color: var(--ink);
+    box-shadow: 0 14px 34px rgb(var(--veil) / .55);
+    font: inherit; text-align: left; cursor: pointer;
+    transition: border-color .3s var(--ease-out), background-color .3s var(--ease-out);
+  }
+  .voice:hover, .voice.is-on { border-color: rgb(143 188 255 / .6); }
+  .voice.is-on { background: rgb(var(--veil) / .84); }
+  .voice:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+  .voice-orb { position: relative; flex: none; width: 76px; height: 76px; }
+  .voice-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .voice-bars line { stroke: var(--accent); stroke-width: 2.6; stroke-linecap: round; }
+  .voice-track { fill: none; stroke: rgb(255 255 255 / .16); stroke-width: 2.6; }
+  .voice-prog { fill: none; stroke: var(--accent); stroke-width: 2.6; stroke-linecap: round; stroke-dasharray: 0 100; transform: rotate(-90deg); transform-origin: 50% 50%; }
+  .voice-disc { position: absolute; inset: 25%; display: grid; place-items: center; border-radius: 50%; background: #fff; color: var(--ground); transition: transform .25s var(--ease-out); }
+  .voice:hover .voice-disc { transform: scale(1.07); }
+  .voice-disc svg, .voice-dock-btn > svg:not(.voice-dock-ring) { grid-area: 1 / 1; width: 46%; height: 46%; fill: currentColor; }
+  .voice .i-pause, .voice-dock .i-pause { display: none; }
+  .voice.is-playing .i-play, .voice-dock.is-playing .i-play { display: none; }
+  .voice.is-playing .i-pause, .voice-dock.is-playing .i-pause { display: block; }
+  .voice-text { flex: 1; min-width: 0; display: grid; }
+  .voice-idle, .voice-cap { grid-area: 1 / 1; align-self: center; }
+  .voice-idle b { display: block; font-size: clamp(18px, .3vw + 17px, 21px); font-weight: 750; letter-spacing: -.01em; line-height: 1.2; color: #fff; }
+  .voice-len { font-weight: 500; color: var(--ink-dim); }
+  .voice-idle small { display: block; margin-top: 3px; font-size: 14.5px; line-height: 1.3; color: var(--ink-dim); }
+  .voice-cap { visibility: hidden; font-size: clamp(16px, .35vw + 14.8px, 19.5px); font-weight: 650; line-height: 1.32; letter-spacing: -.005em; color: rgb(255 255 255 / .32); }
+  .voice-cap span, .voice-dock-cap span { transition: color .18s linear; }
+  .voice-cap .on, .voice-dock-cap .on { color: #fff; }
+  .voice-cap .hl.on, .voice-dock-cap .hl.on { color: var(--accent); }
+  .voice.is-on .voice-idle { visibility: hidden; }
+  .voice.is-on .voice-cap { visibility: visible; }
+  .voice-cap.fresh, .voice-dock-cap.fresh { animation: cap-in .35s var(--ease-out); }
+  @keyframes cap-in { from { opacity: 0; transform: translateY(6px); } }
+  @media (max-width: 760px) {
+    .voice { gap: 14px; min-height: 92px; padding: 8px 16px 8px 10px; border-radius: 22px; }
+    .voice-orb { width: 66px; height: 66px; }
+  }
+  @media (max-width: 340px) { .voice-cap { font-size: 15px; } .voice-idle small { font-size: 13.5px; } }
+  /* the hand-off: when the voice reaches "start the questionnaire below", the button to it glows once */
+  .cta-go.nudge { animation: nudge 1.9s var(--ease-out) 1; }
+  @keyframes nudge {
+    0% { box-shadow: 0 0 0 0 rgb(143 188 255 / .85), 0 14px 34px rgb(var(--veil) / .55); transform: scale(1); }
+    18% { transform: scale(1.045); }
+    100% { box-shadow: 0 0 0 26px rgb(143 188 255 / 0), 0 14px 34px rgb(var(--veil) / .55); transform: scale(1); }
+  }
+  /* the dock: the voice at the foot of the screen, while it plays and the hero is out of sight */
+  .voice-dock {
+    position: fixed; z-index: 40; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    width: min(calc(100% - 32px), 42rem); display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 8px;
+    border-radius: 20px; background: rgb(11 19 41 / .96); border: 1px solid rgb(143 188 255 / .4); color: var(--ink);
+    box-shadow: 0 18px 44px rgb(0 0 0 / .5);
+    opacity: 0; visibility: hidden; transform: translate(-50%, 20px);
+    transition: opacity .3s var(--ease-out), transform .35s var(--ease-out), visibility 0s linear .35s;
+  }
+  .voice-dock.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition: opacity .3s var(--ease-out), transform .35s var(--ease-out), visibility 0s; }
+  .voice-dock-btn { position: relative; flex: none; display: grid; place-items: center; width: 50px; height: 50px; margin: 0; padding: 0; border: 0; border-radius: 50%; background: #fff; color: var(--ground); cursor: pointer; }
+  .voice-dock-ring { position: absolute; inset: -4px; width: calc(100% + 8px); height: calc(100% + 8px); overflow: visible; }
+  .voice-dock-ring .voice-track { stroke: rgb(255 255 255 / .12); }
+  .voice-dock-cap { flex: 1; min-width: 0; margin: 0; font-size: 15px; font-weight: 650; line-height: 1.3; color: rgb(255 255 255 / .32); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .voice-dock-x { flex: none; display: grid; place-items: center; width: 40px; height: 40px; margin: 0; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--ink-dim); cursor: pointer; }
+  .voice-dock-x:hover { color: #fff; background: rgb(255 255 255 / .08); }
+  .voice-dock-x svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+  .voice-dock-btn:focus-visible, .voice-dock-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) {
+    .voice-row { animation: none; }
+    .voice-cap.fresh, .voice-dock-cap.fresh, .cta-go.nudge { animation: none; }
+    .voice-dock, .voice-dock.show { transition: none; transform: translate(-50%, 0); }
+  }
+
   /* Static tilted grid for browsers without WebGL2 */
   .fallback { display: none; overflow: hidden; perspective: 2400px; }
   .no-gl .fallback { display: block; }
@@ -1041,6 +1123,20 @@ fbq('track', 'PageView');
       <h1 class="headline"><span>A beautiful website</span> <span>in 24&nbsp;hours.</span></h1>
       <p class="sub">Answer one questionnaire. See your finished website tomorrow. Pay only if you love it.</p>
     </div>
+    <!-- The voice: the whole page, spoken in 76 seconds. Shown by its script; without it there is nothing to press. -->
+    <div class="voice-row" id="voice-row" hidden>
+      <button type="button" class="voice" id="voice" aria-label="Play a 76-second spoken summary of this page">
+        <span class="voice-orb" aria-hidden="true">
+          <svg class="voice-ring" viewBox="0 0 100 100"><g class="voice-bars"></g><circle class="voice-track" cx="50" cy="50" r="31"/><circle class="voice-prog" cx="50" cy="50" r="31" pathLength="100"/></svg>
+          <span class="voice-disc"><svg class="i-play" viewBox="0 0 24 24"><path d="M8.5 5.5v13l10-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z"/></svg></span>
+        </span>
+        <span class="voice-text" aria-hidden="true">
+          <span class="voice-idle"><b><span class="voice-word">Listen</span> <span class="voice-len">&middot; 1:16</span></b><small>Everything on this page, in 76 seconds</small></span>
+          <span class="voice-cap"></span>
+        </span>
+      </button>
+      <audio id="voice-audio" src="assets/audio/duna-summary.mp3" preload="none"></audio>
+    </div>
     <div class="actions">
       <a class="btn btn-white cta cta-go" href="#questionnaire">Get my free preview<span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a>
       <div class="reach">
@@ -1613,6 +1709,16 @@ fbq('track', 'PageView');
   </div>
 </section>
 </main>
+
+<!-- The voice, following the visitor down the page while it plays (its script shows it) -->
+<div class="voice-dock" id="voice-dock" aria-hidden="true">
+  <button type="button" class="voice-dock-btn" id="voice-dock-btn" tabindex="-1" aria-label="Pause the spoken summary">
+    <svg class="voice-dock-ring" viewBox="0 0 56 56"><circle class="voice-track" cx="28" cy="28" r="26"/><circle class="voice-prog" cx="28" cy="28" r="26" pathLength="100"/></svg>
+    <svg class="i-play" viewBox="0 0 24 24"><path d="M8.5 5.5v13l10-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z"/></svg>
+  </button>
+  <p class="voice-dock-cap"></p>
+  <button type="button" class="voice-dock-x" id="voice-dock-x" tabindex="-1" aria-label="Stop the spoken summary"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+</div>
 
 <footer>
   <div class="wrap">
@@ -2260,9 +2366,11 @@ fbq('track', 'PageView');
   uniform vec2 uView, uOrigin, uAnchor, uAng, uCard;
   uniform vec4 uGrid;                                // pitch, rowPitch, span, uStart
   uniform float uP, uDrift, uTime, uLift, uFrac, uPass, uCycle, uHold;
+  uniform vec2 uSrc;                                 // the voice: where its play disc sits on the plane
+  uniform float uVoice, uWaveK;                      // how loud the voice is now (0-1), and the ripple's wavenumber
   out vec2 vUv, vSize;
   out vec3 vTex;
-  out float vBob;
+  out float vBob, vVoice;
   float hash(float n) { return fract(sin(n * 12.9898 + 7.13) * 43758.5453); }
   void main() {
     float row = aInst.x, slot = aInst.y, seed = aInst.w;
@@ -2270,7 +2378,11 @@ fbq('track', 'PageView');
     float u = uGrid.w + mod(slot * uGrid.x + dir * uDrift + hash(row) * uGrid.x, uGrid.z);
     float v = row * uGrid.y;
     float bob = 0.5 + 0.5 * sin(uTime * 0.95 + seed * 6.2832);
-    float lift = uLift * (0.7 + 0.6 * bob);
+    // While the spoken summary plays, rings travel outward across the wall from its play disc, and each card rises
+    // and brightens as a ring passes it, as far as the voice is loud at that moment.
+    float wave = 0.0;
+    if (uVoice > 0.001) wave = uVoice * (0.5 + 0.5 * sin(length(vec2(u, v) - uSrc) * uWaveK - uTime * 6.5));
+    float lift = uLift * (0.7 + 0.6 * bob) + uLift * 5.0 * wave;
     vec2 size = uCard, offs = vec2(0.0);
     float z = lift;
     if (uPass < 0.5) { size *= vec2(1.16, 1.2); offs = vec2(0.0, 0.05 * uCard.y + lift * 0.6); z = 0.0; }
@@ -2285,6 +2397,7 @@ fbq('track', 'PageView');
     vUv = aCorner + 0.5;
     vSize = size;
     vBob = bob;
+    vVoice = wave;
     // A beat on the hero, then near-continuous travel down and back. uHold is where the beat
     // ends; the rest of the window is measured as fractions of it so the return always lands on
     // the end of the cycle — a flat tail there would just be more time spent at the top.
@@ -2305,7 +2418,7 @@ fbq('track', 'PageView');
   uniform float uPass, uAlpha, uRadius;
   in vec2 vUv, vSize;
   in vec3 vTex;
-  in float vBob;
+  in float vBob, vVoice;
   out vec4 outColor;
   float roundRect(vec2 p, vec2 halfSize, float r) {
     vec2 q = abs(p) - halfSize + r;
@@ -2326,6 +2439,7 @@ fbq('track', 'PageView');
     vec3 col = texture(uTex, vTex).rgb;
     col *= 1.04 - 0.16 * vUv.y - 0.05 * vUv.x;
     col += smoothstep(-1.5 * aa, 0.0, d) * 0.08;
+    col = col * (1.0 + 0.22 * vVoice) + 0.035 * vVoice;   // a card lit by the passing ring of the voice
     outColor = vec4(col * a, a);
   }`;
 
@@ -2350,7 +2464,7 @@ fbq('track', 'PageView');
     gl.linkProgram(prog);
     if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
     for (const name of ['uView', 'uOrigin', 'uAnchor', 'uAng', 'uCard', 'uGrid', 'uP', 'uDrift', 'uTime',
-      'uLift', 'uFrac', 'uPass', 'uTex', 'uAlpha', 'uRadius', 'uCycle', 'uHold']) U[name] = gl.getUniformLocation(prog, name);
+      'uLift', 'uFrac', 'uPass', 'uTex', 'uAlpha', 'uRadius', 'uCycle', 'uHold', 'uSrc', 'uVoice', 'uWaveK']) U[name] = gl.getUniformLocation(prog, name);
 
     vao = gl.createVertexArray();
     gl.bindVertexArray(vao);
@@ -2487,6 +2601,14 @@ fbq('track', 'PageView');
     gl.uniform1f(U.uFrac, (L.H / L.W) * 0.4);   // card aspect x screenshot aspect (1440 / 3600)
     gl.uniform1f(U.uRadius, L.radius);
     gl.uniform1f(U.uAlpha, alpha);
+    // The voice (the spoken summary's script sets window.DunaVoice): how loud it is now, and where its play disc sits on
+    // the plane, so the ripples start behind it. Silent, the level is 0 and the wall is exactly as it always was.
+    const V = window.DunaVoice, lvl = V ? V.level() : 0;
+    let src = [0, 0];
+    if (lvl > 0.001) { const [sx, sy] = V.source(), c = canvas.getBoundingClientRect(); src = toPlane(sx - c.left, sy - c.top, theta, phi); }
+    gl.uniform1f(U.uVoice, lvl);
+    gl.uniform2f(U.uSrc, src[0], src[1]);
+    gl.uniform1f(U.uWaveK, 2 * Math.PI / (2.4 * L.pitch));   // a ring every 2.4 cards
     gl.uniform1f(U.uPass, 0);
     gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, count);
     gl.uniform1f(U.uPass, 1);
@@ -2575,6 +2697,128 @@ fbq('track', 'PageView');
   }
   // Two frames in: the headline and button have painted before the wall starts loading.
   requestAnimationFrame(() => requestAnimationFrame(boot));
+})();
+</script>
+<script>
+// The voice: the whole page spoken in 76 seconds, played from the hero (the CSS block "The voice" says what it does).
+// Its own script, so a failure here leaves the rest of the page, and the wall, exactly as they were.
+(() => {
+  const row = document.getElementById('voice-row'), btn = document.getElementById('voice'), audio = document.getElementById('voice-audio');
+  const dock = document.getElementById('voice-dock');
+  if (!row || !btn || !audio || !dock) return;
+  try {
+    // The captions: every word as it is spoken, [word, second it starts, 1 if it lights up in the accent], one cue a
+    // screenful. Made from the recording with a speech-to-text pass (word timings) and checked against it. ENV is how
+    // loud the voice is every 40 ms, 0 to z; NUDGE is when it says "start the questionnaire below". Re-record the
+    // voice and all three must be made again (the README says how).
+    const CUES = [[["Your",0.0,0],["business",0.34,0],["deserves",0.84,0],["a",1.5,0],["website",1.82,0],["that",2.16,0],["looks",2.5,0],["good",2.74,0]],[["and",3.14,0],["makes",3.64,0],["it",3.9,0],["easy",4.06,0],["for",4.48,0],["customers",4.76,0],["to",5.14,0],["take",5.4,0],["the",5.56,0],["next",5.74,0],["step.",5.94,0]],[["Tell",7.0,0],["Duna",7.18,0],["Marketing",7.62,0],["about",7.9,0],["your",8.22,0],["business",8.52,0],["in",8.9,0],["your",9.14,0],["own",9.34,0],["words.",9.58,0]],[["Share",10.56,0],["your",10.7,0],["photos",10.94,0],["and",11.28,0],["see",11.76,0],["your",12.04,0],["finished,",12.22,0],["custom,",13.18,0]],[["multi-page",13.6,0],["website",14.18,0],["within",14.7,0],["24",15.16,1],["hours.",15.72,1]],[["The",16.8,0],["price",16.98,0],["is",17.18,0],["$1,500,",17.44,1],["paid",18.86,0],["only",19.06,0],["if",19.48,0],["you",19.68,0],["want",19.8,0],["to",19.96,0],["keep",20.1,0],["it.",20.24,0]],[["No",20.96,1],["deposit,",21.16,1],["no",21.9,1],["sales",22.08,1],["pitch,",22.32,1]],[["see",22.9,1],["it",23.16,1],["first,",23.32,1],["then",23.92,0],["decide.",24.08,0]],[["Explore",25.24,0],["the",25.68,0],["work",25.94,0],["below.",26.1,0]],[["Warm,",26.56,0],["photo-led",27.44,0],["designs,",27.96,0],["bold",28.9,0],["storefronts,",29.1,0]],[["and",30.04,0],["a",30.18,0],["live",30.44,0],["website",30.62,0],["for",31.0,0],["Deep",31.3,0],["Roots",31.56,0],["Hydro",31.78,0]],[["that",32.16,0],["puts",32.66,0],["products,",32.92,0],["hours,",33.76,0],["and",34.26,0],["directions",34.38,0],["within",34.84,0],["easy",35.12,0],["reach.",35.58,0]],[["Backed",36.72,0],["by",36.98,0],["16",37.16,1],["years",37.56,1],["of",37.92,0],["web",38.14,0],["design",38.28,0],["experience,",38.56,0]],[["we",39.62,0],["turn",39.76,0],["your",40.08,0],["answers",40.38,0],["into",40.84,0],["clear",41.34,0],["copy",41.7,0]],[["and",42.04,0],["a",42.5,0],["mobile-friendly",42.7,0],["website",43.26,0],["you",43.74,0],["own",44.24,1],["outright.",44.6,1]],[["Optional",46.06,0],["custom",46.32,0],["animations",46.74,0],["and",47.2,0],["interactive",47.54,0],["tools",47.98,0]],[["can",48.36,0],["help",48.56,0],["show",48.74,0],["what",48.98,0],["you",49.16,0],["do.",49.3,0]],[["The",50.02,0],["optional",50.18,0],["$149",50.6,1],["a",51.58,1],["month",52.12,1],["Care",52.3,0],["Plan",52.58,0]],[["keeps",52.88,0],["hosting",53.46,0],["and",53.86,0],["updates",54.06,0],["simple,",54.46,0]],[["with",54.92,0],["changes",55.36,0],["requested",55.78,0],["by",56.3,0],["text",56.54,0],["or",56.94,0],["email.",57.28,0]],[["When",58.4,0],["you're",58.5,0],["ready,",58.72,0],["start",59.26,1],["the",59.56,1],["questionnaire",59.78,1],["below.",60.12,1]],[["It",60.9,0],["takes",61.1,0],["about",61.3,0],["20",61.54,1],["minutes,",61.84,1]],[["and",62.5,0],["your",62.74,0],["answers",62.94,0],["help",63.3,0],["us",63.56,0],["build",63.74,0],["a",63.94,0],["website",64.12,0]],[["that",64.42,0],["fits",64.66,0],["your",64.92,0],["business.",65.12,0]],[["The",66.08,0],["more",66.2,0],["detail",66.44,0],["you",66.8,0],["provide,",67.0,0],["the",67.74,0],["better.",67.84,0]],[["You",68.68,0],["don't",68.84,0],["need",69.12,0],["to",69.24,0],["write",69.42,0],["polished",69.58,0],["website",70.04,0],["copy,",70.48,0]],[["just",70.86,0],["tell",71.44,0],["us",71.7,0],["what",71.9,0],["you",72.04,0],["do.",72.16,0]],[["We'll",72.86,0],["handle",73.2,0],["the",73.4,0],["design,",73.58,0],["writing,",74.38,0],["and",75.04,0],["photo",75.1,0],["placement.",75.38,0]]];
+    const ENV = '3kozzzzztljzvqjfmkhfjkc332332rzvuqzzytlnpwrjovxrclnkmjif43jj4dlszp3jrg7ctzyrnkef33223221nuuvxyu7rpp62224xzzzwqnolgbhj4bdunnfapsvvl6dn75hrvb5anooom6fml7lnia2ah333233333333333lfwzzwsfakwyuutqrvuo4aqqurtoettrjfhowzzugawvkgmnnkoe5nqppoe3lwzyywuostpmie7kka333333325gkolxxywrswlaawxtionmih53333322qvqpvwtuwtstqj87667zzxzwih4a33332222fdzzppcazxxwuuzzs5gykdqyyyihhonldimiigg7433333bon8romefc9twuurb9tvusqnljieccfa522223232332222mo5ggzzzrkhqlh96azq84gpvttwwxowuglusnljifdf53333332hoyxqh32hzzzxurpolk98fomnqpdbh78nl7dc9532222222222223mtzymsbhqxwncrl534233dluzzrlpwxwujd3isqdbc5333236fmrqzzzm878wxwoje7522228gwvsqpkmipnlhge642222222232222222is8nrn72luzzzwhxqnzzw7a3rwpttokihd833322327gjnxzzzzyuue977zzzvzwstxviesrlputrrqqrlj42221112zzzzzngtq9uzzzkbawwwrgl93333322kuusomozzzzzsfjvzthlnnoni78ine9ctvm59nuvr8jaetttjaknljf7333226pl4aprag62cbmzzyrvd37he4222228tzzzzzyqhb2krsjrrszw8afkomkgepm8qrql52jvwyppwumokf93agb31100000000011222vzytd3ccvsqowvtzbhragmyvvutvwxvomtjilxznjlvnltqnmhei8bqnnlmllejg333222222cozzue3ibtuusrpjtzxwmckpqoelgpnlh8233221ppelb2aa7uywtbbnuwt6msrm4332222qrtqqqtyzyluwlabpxuqstomutfajiigfd533211alrzzu83oxywwwsi534quuj4cnnjfb553100000011122221fvzr4egpuwvk2dqvkj8rrsuststtsifoqsh93jj81hstsvyue2nma2elpkhkig8khedmpd8dgfuwtmnncdijbgigda5232223332337li45rzu7iknrttqlgkuwqnlspouf97iyyqtpsssrpptssrsiiolmopoga388qrrb78lkhhge533323338modghactwrji4qstsob2lo553osseemolsnecjhe43333322dpm736ijuxxuqrvmjso6coytjedrgcnpo96gjwr6eld633322eslclpqnkeb8522222222221322224rzxxvvsmxzwrqlh833222fpqk2qzwm3fl3bsvql5fqrttsinrppnlif93221100006q9foxmcgmiuqh69f8vxvwtvrlg7bkd4223332223nrqpuzzzmdqwupnjvskchyx9gwmk87wywkwqjtzxbholrnk5jqf665nubalgqnbkvpjeihcloh7121233323222lttuyzzzzlevwligyyxtrugbswkrywvtsgc4222226tibnuqghd852231322332222hqjclzzvcisvsfiumryvn629fduyvvukcahsvmbkjomg4acond6hd84233332221aqkpg2jgszzzxnk8trdirpdmkfc72221110132333dtzzvlqxxsrtispgoomnxxyyxxwul332226itzzztwwurb33222ktp99yzvwwh9conkmbihc74210';   // loudness every 40 ms, 0-z
+    const NUDGE = 59.26;   // seconds: "start the questionnaire below"
+    const LENGTH = 76, FPS = 25;
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cap = btn.querySelector('.voice-cap'), word = btn.querySelector('.voice-word'), bars = btn.querySelector('.voice-bars');
+    const rings = [btn.querySelector('.voice-prog'), dock.querySelector('.voice-prog')];
+    const dockBtn = document.getElementById('voice-dock-btn'), dockX = document.getElementById('voice-dock-x'), dockCap = dock.querySelector('.voice-dock-cap');
+    const go = document.querySelector('.hero .cta-go');
+
+    // the ring of bars round the disc: short and still until the voice moves them
+    const N = 28, R0 = 36, lines = [];
+    for (let i = 0; i < N; i++) {
+      const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      l.setAttribute('x1', 50); l.setAttribute('x2', 50); l.setAttribute('y1', 50 - R0);
+      l.setAttribute('transform', 'rotate(' + (i * 360 / N) + ' 50 50)');
+      bars.append(l); lines.push(l);
+    }
+    const setBars = f => lines.forEach((l, i) => l.setAttribute('y2', (50 - R0 - f(i)).toFixed(2)));
+    setBars(() => 2.5);
+
+    // how loud the voice is now, eased: up fast, down slowly. The wall reads it too, through window.DunaVoice.
+    let level = 0;
+    const loud = () => {
+      if (audio.paused) return 0;
+      const i = Math.floor(audio.currentTime * FPS);
+      return i < ENV.length ? parseInt(ENV[i], 36) / 35 : 0;
+    };
+    window.DunaVoice = {
+      level: () => (calm ? 0 : level),
+      source: () => { const r = btn.querySelector('.voice-orb').getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; },
+    };
+
+    // captions: one cue at a time, in the card and in the dock, each word lit as it is spoken
+    let cue = -1, lit = [];
+    const findCue = t => { let i = -1; for (let k = 0; k < CUES.length && CUES[k][0][1] - 0.12 <= t; k++) i = k; return i; };
+    const fill = (box, i) => {
+      box.textContent = '';
+      const spans = [];
+      if (i >= 0) CUES[i].forEach(([w, s, h]) => {
+        const e = document.createElement('span');
+        e.textContent = w; if (h) e.className = 'hl';
+        box.append(e, ' '); spans.push([e, s]);
+      });
+      if (!calm) { box.classList.remove('fresh'); void box.offsetWidth; box.classList.add('fresh'); }
+      return spans;
+    };
+    const showCue = i => { cue = i; lit = fill(cap, i).concat(fill(dockCap, i)); };
+
+    // the dock: shown while the voice is on (playing or paused part way) and its card is out of sight
+    let cardSeen = true, dismissed = false;
+    const dockState = () => {
+      const on = btn.classList.contains('is-on') && !cardSeen && !dismissed;
+      dock.classList.toggle('show', on);
+      dock.setAttribute('aria-hidden', on ? 'false' : 'true');
+      dockBtn.tabIndex = dockX.tabIndex = on ? 0 : -1;
+    };
+
+    let raf = 0, nudged = false;
+    const frame = now => {
+      const t = audio.currentTime, target = loud();
+      level += (target - level) * (target > level ? 0.45 : 0.12);
+      if (!calm) setBars(i => 2.5 + 11 * level * (0.55 + 0.45 * Math.sin(now / 105 + i * 1.7)));
+      const dash = Math.min(100, t / (audio.duration || LENGTH) * 100).toFixed(2) + ' 100';
+      rings.forEach(r => { r.style.strokeDasharray = dash; });
+      const i = findCue(t);
+      if (i !== cue) showCue(i);
+      lit.forEach(([e, s]) => e.classList.toggle('on', s <= t + 0.05));
+      if (!nudged && go && !audio.paused && t >= NUDGE) { nudged = true; go.classList.remove('nudge'); void go.offsetWidth; go.classList.add('nudge'); }
+      raf = (!audio.paused || level > 0.01) ? requestAnimationFrame(frame) : 0;
+      if (!raf && !calm) setBars(() => 2.5);
+    };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(frame); };
+    if (go) go.addEventListener('animationend', e => { if (e.animationName === 'nudge') go.classList.remove('nudge'); });
+
+    const say = playing => {
+      btn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the 76-second spoken summary of this page');
+      dockBtn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the spoken summary');
+    };
+    audio.addEventListener('play', () => { btn.classList.add('is-on', 'is-playing'); dock.classList.add('is-playing'); dismissed = false; say(true); dockState(); kick(); });
+    audio.addEventListener('pause', () => { btn.classList.remove('is-playing'); dock.classList.remove('is-playing'); say(false); kick(); });
+    audio.addEventListener('ended', () => {
+      btn.classList.remove('is-on', 'is-playing'); dock.classList.remove('is-playing'); say(false);
+      word.textContent = 'Listen again'; nudged = false;
+      audio.currentTime = 0;   // back to the start, so the ring empties and a press plays it again from the top
+      dockState();
+    });
+    const toggle = () => { if (audio.paused) { const p = audio.play(); if (p) p.catch(() => {}); } else audio.pause(); };
+    btn.addEventListener('click', toggle);
+    dockBtn.addEventListener('click', toggle);
+    dockX.addEventListener('click', () => { audio.pause(); dismissed = true; dockState(); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => { cardSeen = es[0].isIntersecting; dockState(); }).observe(btn);
+
+    // one entrance: a wave runs once round the ring of bars as the hero settles, to say there is something to press.
+    // Then it holds still until pressed.
+    if (!calm) setTimeout(() => {
+      const t0 = performance.now();
+      const step = now => {
+        if (!audio.paused) return;
+        const k = (now - t0) / 1500;
+        setBars(i => { const x = (k * (N + 10) - i) / 10; return 2.5 + 9 * (x > 0 && x < 1 ? Math.sin(x * Math.PI) : 0); });
+        if (k < 1) requestAnimationFrame(step); else setBars(() => 2.5);
+      };
+      requestAnimationFrame(step);
+    }, 1100);
+
+    row.hidden = false;
+  } catch (e) { row.hidden = true; }
 })();
 </script>
 </body>
