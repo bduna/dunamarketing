@@ -574,12 +574,11 @@ fbq('track', 'PageView');
   }
   .care-head { grid-area: head; }
   .care-body { grid-area: body; }
-  .care-right { grid-area: demo; align-self: center; }   /* the phone, and under it the section read aloud */
-  .care-voice { margin-top: 24px; }
-  .care-voice .voice-len { display: none; }   /* 312px is too narrow for the length beside the words; the line below carries it */
+  .demo { grid-area: demo; align-self: center; }
+  .care-voice { margin-top: 22px; }   /* the section read aloud, under the headline and over the price (Barrett, 2026-09-22) */
   @media (max-width: 900px) {
     .care-grid { grid-template-columns: 1fr; grid-template-areas: "head" "demo" "body"; gap: 28px; }
-    .care-right { justify-self: center; }
+    .demo { justify-self: center; }
   }
   .care-intro { margin: 28px 0 0; max-width: 40em; font-weight: 700; color: var(--ink); }   /* leads into the list, so it sits close above it */
   .care-list { margin: 28px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 40em; }
@@ -1484,31 +1483,7 @@ fbq('track', 'PageView');
     <div class="care-head">
       <p class="eyebrow">The Care Plan</p>
       <h2>The Care Plan keeps your website up to date, secure and healthy.</h2>
-      <div class="price-line">
-        <p class="price-line-label">Care Plan Pricing</p>
-        <p class="price"><strong>$149</strong><span>a month</span></p>
-      </div>
-      <p class="lede">Hours change. Prices go up. You add a service, hire someone, retire a photo, or move to a new number. Every owner has a website that says something that stopped being true months ago, and knows they are never going to sit down and fix it.</p>
-    </div>
-    <div class="care-right">
-      <div class="demo" aria-hidden="true">
-        <div class="stage">
-          <div class="phone">
-            <div class="status"><span class="clock">9:14</span><span class="sig"><i></i><i></i><i></i><i></i></span><span class="batt"><i></i></span></div>
-            <div class="contact"><span class="avatar">D</span><span><strong>Duna Marketing</strong><small>Example text thread</small></span></div>
-            <div class="thread">
-              <p class="bubble from m1">Can you change our Saturday hours to 9 to 2?</p>
-              <div class="slot s1"><p class="bubble typing t1"><span></span><span></span><span></span></p><p class="bubble reply r1">Done. It&rsquo;s live now.<time>9:21 AM</time></p></div>
-              <p class="bubble from m2">Add Jenna to the team page, photo attached.<span class="attach"><span class="thumb">J</span>jenna.jpg</span></p>
-              <div class="slot s2"><p class="bubble typing t2"><span></span><span></span><span></span></p><p class="bubble reply r2">Added.<time>9:34 AM</time></p></div>
-              <p class="bubble from m3">Can we get a page for the new snow removal service?</p>
-              <div class="slot s3"><p class="bubble typing t3"><span></span><span></span><span></span></p><p class="bubble reply r3">Drafted. Check your email for the preview link.<time>9:48 AM</time></p></div>
-            </div>
-          </div>
-        </div>
-        <p class="phone-caption">What changes look like on the plan.</p>
-      </div>
-      <!-- The Care Plan section read aloud, 77 seconds, under the phone. -->
+      <!-- The Care Plan section read aloud, 77 seconds, under its headline. -->
       <div class="voice-row care-voice" id="care-voice-row" hidden>
       <button type="button" class="voice" aria-label="Play a 77-second reading of this section">
         <span class="voice-orb" aria-hidden="true">
@@ -1525,8 +1500,30 @@ fbq('track', 'PageView');
         <input type="range" min="0" max="77.4" step="0.1" value="0" aria-label="Position in the reading" aria-valuetext="0:00 of 1:17">
         <span class="voice-seek-time" aria-hidden="true">1:17</span>
       </div>
-      <audio src="assets/audio/care-plan.mp3" preload="none"></audio>
+        <audio src="assets/audio/care-plan.mp3" preload="none"></audio>
       </div>
+      <div class="price-line">
+        <p class="price-line-label">Care Plan Pricing</p>
+        <p class="price"><strong>$149</strong><span>a month</span></p>
+      </div>
+      <p class="lede">Hours change. Prices go up. You add a service, hire someone, retire a photo, or move to a new number. Every owner has a website that says something that stopped being true months ago, and knows they are never going to sit down and fix it.</p>
+    </div>
+    <div class="demo" aria-hidden="true">
+      <div class="stage">
+        <div class="phone">
+          <div class="status"><span class="clock">9:14</span><span class="sig"><i></i><i></i><i></i><i></i></span><span class="batt"><i></i></span></div>
+          <div class="contact"><span class="avatar">D</span><span><strong>Duna Marketing</strong><small>Example text thread</small></span></div>
+          <div class="thread">
+            <p class="bubble from m1">Can you change our Saturday hours to 9 to 2?</p>
+            <div class="slot s1"><p class="bubble typing t1"><span></span><span></span><span></span></p><p class="bubble reply r1">Done. It&rsquo;s live now.<time>9:21 AM</time></p></div>
+            <p class="bubble from m2">Add Jenna to the team page, photo attached.<span class="attach"><span class="thumb">J</span>jenna.jpg</span></p>
+            <div class="slot s2"><p class="bubble typing t2"><span></span><span></span><span></span></p><p class="bubble reply r2">Added.<time>9:34 AM</time></p></div>
+            <p class="bubble from m3">Can we get a page for the new snow removal service?</p>
+            <div class="slot s3"><p class="bubble typing t3"><span></span><span></span><span></span></p><p class="bubble reply r3">Drafted. Check your email for the preview link.<time>9:48 AM</time></p></div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-caption">What changes look like on the plan.</p>
     </div>
     <div class="care-body">
       <p class="care-intro">Here's what our Care Plan offers:</p>

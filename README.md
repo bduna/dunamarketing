@@ -130,11 +130,10 @@ questionnaire are the hero's alone.
   card comes into view rather than as the page loads.
 - The Care Plan's, `#care-voice-row`, the same day ("I want the same thing as the bio reading but with
   care-plan-tts.wav in the CARE PLAN section on the right column under the phone"): 77 seconds, `care-plan-tts.wav` in
-  the project folder, cut to `assets/audio/care-plan.mp3`, its words in `care-plan.phrases.json`. It sits under the
-  phone and its line of caption, inside `.care-right`, which now holds the demo and the card: the demo itself is
-  `aria-hidden`, so a card inside it would be hidden from a screen reader too. That column is the phone's own 312px, so
-  its captions are shorter again and the "· 1:17" is dropped from the label (the progress line under it carries the
-  length anyway). This reading is a retelling of the section rather than a word-for-word reading of it.
+  the project folder, cut to `assets/audio/care-plan.mp3`, its words in `care-plan.phrases.json`. It sat under the
+  phone in the right column for an hour, then moved under the headline, over the price ("move it under the headline"),
+  where the text column gives it the hero's full 544px. Its captions were cut for that 312px column and are shorter
+  than they need to be now. This reading retells the section rather than reading it word for word.
 
 
 Barrett's recording, a 72-second spoken summary of the whole page meant as the first sales pitch
