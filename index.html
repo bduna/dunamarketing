@@ -886,12 +886,15 @@ fbq('track', 'PageView');
   .start .contact-pills { margin-top: 30px; }   /* the Contact section: under its intro, the email card beside it */
   .band-light .cta-alt { background: var(--navy); border-color: var(--navy); box-shadow: 0 14px 34px rgb(11 19 41 / .22); }
   .band-light .cta-alt:hover { background: #16204a; }
-  /* Start the questionnaire on a white band (How it works' step 1): the page's deep blue, so it stands apart from the navy
-     pills. (It also led the contact pills under the pricing until Barrett had it removed there, 2026-09-22.) */
-  .band-light .cta-go { background: var(--accent-deep); color: #fff; border-color: var(--accent-deep); box-shadow: 0 14px 34px rgb(30 64 175 / .28); }
-  .band-light .cta-go:hover { background: #1b3a9c; }
-  .band-light .cta-go .badge { background: #fff; color: var(--accent-deep); }
-  .band-light .cta-go:hover .badge, .band-light .cta-go:focus-visible .badge { background: #e9edf5; }
+  /* Start the questionnaire in the page's deep blue: How it works' step 1 on its white band, and, since 2026-09-22 at
+     Barrett's asking, one under the founder's quote on the dark band, which needs the colour said again here. (It also
+     led the contact pills under the pricing until he had it removed there, the same day.) */
+  .founder-go { margin-top: 30px; }   /* the way in under the founder's quote, the deep blue of How it works' step 1 */
+  .band-light .cta-go, .founder .cta-go { background: var(--accent-deep); color: #fff; border-color: var(--accent-deep); box-shadow: 0 14px 34px rgb(30 64 175 / .28); }
+  .band-light .cta-go:hover, .founder .cta-go:hover { background: #1b3a9c; }
+  .band-light .cta-go .badge, .founder .cta-go .badge { background: #fff; color: var(--accent-deep); }
+  .band-light .cta-go:hover .badge, .band-light .cta-go:focus-visible .badge,
+  .founder .cta-go:hover .badge, .founder .cta-go:focus-visible .badge { background: #e9edf5; }
   @media (max-width: 340px) { .cta-go { font-size: 16px; } }   /* "Start the questionnaire" on one line on the smallest phones */
 
   /* ---------- ROI calculator: beside the plans on wide screens, under them otherwise. A navy card, so it reads as a tool
@@ -1423,6 +1426,7 @@ fbq('track', 'PageView');
         <p>&ldquo;Barrett is a very bright, competent entrepreneur with a big vision for his future. He&rsquo;s easy to get along with and knows his stuff when it comes to anything technology.&rdquo;</p>
         <p class="founder-cite">Jim Stein, Founder and Chief of Strategy, Diamond Certified</p>
       </blockquote>
+      <div class="founder-go"><a class="btn cta cta-go" href="#questionnaire" aria-label="Start the questionnaire"><span class="cta-flip" aria-hidden="true"><span class="cta-face cta-face-a">Start the questionnaire</span><span class="cta-face cta-face-b">Ready to get started?</span></span><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a></div>
     </div>
   </div>
 </section>
