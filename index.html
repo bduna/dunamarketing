@@ -326,17 +326,6 @@ fbq('track', 'PageView');
     18% { transform: scale(1.045); }
     100% { box-shadow: 0 0 0 26px rgb(143 188 255 / 0), 0 14px 34px rgb(var(--veil) / .55); transform: scale(1); }
   }
-  /* The summary over, the way in beats until it is pressed (Barrett, 2026-09-22). A heartbeat, not a ping: it swells and
-     falls back in one smooth motion, in and out with no rest between, at 1.6s a beat (he asked for half again the old
-     pace, not twice it), the blue a strong halo that swells with it rather than a ring fired outward ("make the glow way
-     stronger as it pulsates"). (It was a 2.4s ring with a pause: "way too slow ... like a heart
-     beat, smooth pulsating arterie".) */
-  .cta-go.pulse { animation: cta-pulse 1.6s ease-in-out infinite; }
-  @keyframes cta-pulse {
-    /* both ends carry the same three shadows, or the browser would jump between them instead of fading */
-    0%, 100% { transform: scale(1); box-shadow: 0 0 10px 1px rgb(143 188 255 / .18), 0 0 24px 6px rgb(143 188 255 / 0), 0 14px 34px rgb(var(--veil) / .55); }
-    50% { transform: scale(1.035); box-shadow: 0 0 26px 6px rgb(143 188 255 / .95), 0 0 58px 20px rgb(143 188 255 / .5), 0 14px 34px rgb(var(--veil) / .55); }
-  }
   /* the dock: the voice at the foot of the screen, while it plays and the hero is out of sight */
   .voice-dock {
     position: fixed; z-index: 40; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px));
@@ -357,7 +346,7 @@ fbq('track', 'PageView');
   .voice-dock-btn:focus-visible, .voice-dock-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   @media (prefers-reduced-motion: reduce) {
     .voice-row { animation: none; }
-    .voice-cap.fresh, .voice-dock-cap.fresh, .cta-go.nudge, .cta-go.pulse { animation: none; }
+    .voice-cap.fresh, .voice-dock-cap.fresh, .cta-go.nudge { animation: none; }
     .voice-dock, .voice-dock.show { transition: none; transform: translate(-50%, 0); }
   }
 
@@ -2924,13 +2913,12 @@ fbq('track', 'PageView');
     };
     const kick = () => { if (!raf) raf = requestAnimationFrame(frame); };
     if (go) go.addEventListener('animationend', e => { if (e.animationName === 'nudge') go.classList.remove('nudge'); });
-    if (go) go.addEventListener('click', () => go.classList.remove('pulse'));   // taken: it can stop asking
 
     const say = playing => {
       btn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the 72-second spoken summary of this page');
       dockBtn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' the spoken summary');
     };
-    audio.addEventListener('play', () => { btn.classList.add('is-on', 'is-playing'); dock.classList.add('is-playing'); dismissed = false; say(true); dockState(); kick(); if (go) go.classList.remove('pulse'); });
+    audio.addEventListener('play', () => { btn.classList.add('is-on', 'is-playing'); dock.classList.add('is-playing'); dismissed = false; say(true); dockState(); kick(); });
     audio.addEventListener('pause', () => { btn.classList.remove('is-playing'); dock.classList.remove('is-playing'); say(false); kick(); });
     audio.addEventListener('ended', () => {
       btn.classList.remove('is-on', 'is-playing'); dock.classList.remove('is-playing'); say(false);
@@ -2938,7 +2926,6 @@ fbq('track', 'PageView');
       audio.currentTime = 0;   // back to the start, so the ring and the line empty and a press plays it again from the top
       paint(0);
       dockState();
-      if (go) go.classList.add('pulse');   // the summary has said its piece: the way in beats until it is taken
     });
     const toggle = () => { if (audio.paused) { const p = audio.play(); if (p) p.catch(() => {}); } else audio.pause(); };
     btn.addEventListener('click', toggle);
