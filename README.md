@@ -197,7 +197,11 @@ white), so the white-background headshot sits as a card with the sample cards' b
 ## Animations
 
 `<section id="animations">`, a white band between Our founder and The Care Plan, sells animations for a client's website
-at $350 each ($100 until 2026-09-19, then $250 until 2026-09-21). It has no button (Barrett took it out). The offer is a navy card: the price, then
+at $350 each ($100 until 2026-09-19, then $250 until 2026-09-21). It has no button (Barrett took it out). Its three
+parts are the words (`.anim-copy`), the example animation (`.anim-media`) and the offer (`.anim-offer`): stacked, they
+read in that order (Barrett, 2026-09-22: "the heading and text, the animation, the pricing"; the offer sat under the
+words until then), and from 1000px they return to two columns, the words over the offer on the left and the example
+beside them, laid out by grid rows rather than by nesting. The offer is a navy card: the price, then
 four check items in the plan boxes' style ("Completely custom animation", "Designed by Duna Marketing for you",
 "No animation too complex", "All animations mobile-friendly"), over a faint
 isometric grid that echoes the example video's drawing. The card sells motion, so it moves once: when it comes on

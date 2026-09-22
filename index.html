@@ -955,12 +955,19 @@ fbq('track', 'PageView');
      and a faint isometric grid that echoes the example's drawing. It sells motion, so it moves: when it comes on screen it
      rises, the price rises, and each check disc fills the way the How it works numbers do, then it holds still. Slower on
      touch screens. The script adds .ready only when it runs and motion is welcome; otherwise the card is simply there. */
+  /* Stacked (phones and tablets) the three read in the order Barrett asked for, 2026-09-22: the words, then the example
+     animation, then the offer. Side by side from 1000px they sit as before, the words over the offer beside the example. */
   .anim .wrap { display: grid; gap: 40px; }
-  @media (min-width: 1000px) { .anim .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; } }
+  @media (min-width: 1000px) {
+    .anim .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 56px; align-items: start; }
+    .anim-copy { grid-column: 1; grid-row: 1; }
+    .anim-offer { grid-column: 1; grid-row: 2; }
+    .anim-media { grid-column: 2; grid-row: 1 / span 2; }
+  }
   .anim-offer {
     --pace: 1;
     position: relative; isolation: isolate; overflow: hidden;
-    margin-top: 32px; max-width: 30em; padding: 30px 28px 32px;
+    max-width: 30em; padding: 30px 28px 32px;
     border-radius: 14px; background: var(--band); color: var(--ink);
     box-shadow: 0 18px 40px rgb(11 19 41 / .18);
   }
@@ -1393,22 +1400,22 @@ fbq('track', 'PageView');
 
 <section class="band band-light anim" id="animations">
   <div class="wrap">
-    <div>
+    <div class="anim-copy">
       <p class="eyebrow">Animations</p>
       <h2>People stop for things that move.</h2>
       <p class="lede">Words tell people what you do. Motion shows them. One animation can explain your service, show off your product or walk the visitor through your process faster than a wall of text that nobody wants to read ever can.</p>
-      <div class="anim-offer">
-        <p class="price"><strong>$350</strong><span>per animation</span></p>
-        <ul class="anim-points">
-          <li>Completely custom animation</li>
-          <li>Designed by Duna Marketing for you</li>
-          <li>No animation too complex</li>
-          <li>All animations mobile-friendly</li>
-        </ul>
-      </div>
     </div>
     <div class="anim-media">
       <video class="anim-video" src="assets/video/security-animation.mp4?v=3" poster="assets/video/security-animation-poster.webp?v=3" width="1152" height="1004" muted playsinline preload="metadata" aria-label="An example animation: a platform's layers lift apart to show the gears inside, beside a stack of servers and a dashboard of charts."></video>
+    </div>
+    <div class="anim-offer">
+      <p class="price"><strong>$350</strong><span>per animation</span></p>
+      <ul class="anim-points">
+        <li>Completely custom animation</li>
+        <li>Designed by Duna Marketing for you</li>
+        <li>No animation too complex</li>
+        <li>All animations mobile-friendly</li>
+      </ul>
     </div>
   </div>
 </section>
