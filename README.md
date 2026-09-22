@@ -47,8 +47,10 @@ questionnaire on the left and the number pill beside it at its own size, flush t
 button regular size and bring the start the questionnaire button up to left only on desktop"; for an hour the number
 had stretched to the questionnaire's width in a column). "Start the questionnaire"
 (`.cta-go`, since 2026-09-21; it said "Get my free preview", Barrett's first
-words for it, until he had every one of these buttons say "Start the questionnaire" the same day): the white pill with a
-down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). All six change their words every 2.5 s,
+words for it, until he had every one of these buttons say "Start the questionnaire" the same day): the page's deep blue
+pill (`.cta-deep`) with a down arrow in a white disc, linking to the questionnaire (`#questionnaire`). Every one of them
+is that blue since 2026-09-22, "replace any non-blue style questionnaire buttons with the blue style questionnaire
+buttons"; the hero's and the samples one were white pills until then (`.btn-white`, a rule now gone with them). All six change their words every 2.5 s,
 "Start the questionnaire" and "Ready to get started?", the new words scrolling down from above as the old leave below in
 0.28 s (Barrett's idea, 2026-09-22, after a heartbeat pulse there was tried and taken out; it turned over rather than
 scrolled, held 3 s and read "Let's get started" for its first hour, and waited on the end of the spoken summary until he
@@ -65,7 +67,7 @@ A button added to the page joins in by carrying the same two faces; the script t
 (Barrett, 2026-09-21: "make all the questionnaire button arrows point downward"; they pointed right at first), because
 each one scrolls down the page to the questionnaire, the Contact one excepted: from there it scrolls up, and it keeps
 the down arrow all the same. There are six, all "Start the questionnaire": here, under the ten
-samples (`.samples-go`, the hero's button exactly, centred under the grid with 44-64px above it, added 2026-09-21 at
+samples (`.samples-go`, the hero's button exactly, blue as well, centred under the grid with 44-64px above it, added 2026-09-21 at
 Barrett's request, and since 2026-09-22 as much below it, the Samples band's bottom padding cut from the band's usual
 56-120px at his asking: "reduce the marge under"), at the foot of How it works' step 1, and under the founder's headshot
 (`.founder-go`, 2026-09-22: "add a blue questionnaire button in the Our Founder page just like the one in the How It
@@ -79,8 +81,8 @@ Stacked, under 860px, the whole photo column comes before the words, so on a pho
 section's own heading. (A fourth, under the pricing, was removed on 2026-09-22:
 "remove start the questionnaire in the pricing section".) At 340px wide or less their words drop
 to 16px so they stay on one line. The contact pills are "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
-business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the white pill inverted, a
-dark fill with a white edge and a white disc (`.cta-alt`). Text us and Call us sit in `.reach` so they travel as a pair:
+business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): a dark fill with a white
+edge and a white disc (`.cta-alt`), so the blue way in still reads first. Text us and Call us sit in `.reach` so they travel as a pair:
 in the hero they share the first row (on a 320px phone Call us drops under Text us), and below 400px wide the pills
 lose a little padding so the pair still fits at 360. Taps on them fire the pixel's `Contact` event (see Tracking); the preview
 button fires nothing.
@@ -88,7 +90,7 @@ A computer can't text or call, so with a mouse (`(hover: hover) and (pointer: fi
 width) the two are replaced by one pill in the same style, `.cta-phone`: "Text or call" in small caps above
 "(707) 385-5673" and the phone disc. A click copies the number and the small line reads "Copied" for 1.8 s. Copying
 fires no pixel event. Barrett's call, 2026-09-21: "show the phone number on desktop instead".
-There is no "Learn more" any more. It was the hero's one button (the white pill with a down arrow, jumping to the No
+There is no "Learn more" any more. It was the hero's one button (a white pill with a down arrow, jumping to the No
 risk band) until the preview button arrived; it went from phones first ("on mobile only, remove the hero learn more
 button") and then from every screen ("remove learn more from the hero section"), both on 2026-09-21. (The "Start
 questionnaire" buttons in the hero and the No risk section were removed on 2026-09-19.) To change the
