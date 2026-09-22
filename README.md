@@ -37,9 +37,10 @@ had stretched to the questionnaire's width in a column). "Start the questionnair
 words for it, until he had every one of these buttons say "Start the questionnaire" the same day): the white pill with a
 down arrow in a dark disc, linking to the questionnaire (`#questionnaire`). Every button into the questionnaire points down
 (Barrett, 2026-09-21: "make all the questionnaire button arrows point downward"; they pointed right at first), because
-each one scrolls down the page to the questionnaire. There are four, all "Start the questionnaire": here, under the ten
+each one scrolls down the page to the questionnaire. There are three, all "Start the questionnaire": here, under the ten
 samples (`.samples-go`, the hero's button exactly, centred under the grid with 44-64px above it, added 2026-09-21 at
-Barrett's request), at the foot of How it works' step 1, and under the pricing. At 340px wide or less their words drop
+Barrett's request), and at the foot of How it works' step 1. (A fourth, under the pricing, was removed on 2026-09-22:
+"remove start the questionnaire in the pricing section".) At 340px wide or less their words drop
 to 16px so they stay on one line. The contact pills are "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
 business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): the white pill inverted, a
 dark fill with a white edge and a white disc (`.cta-alt`). Text us and Call us sit in `.reach` so they travel as a pair:
@@ -61,10 +62,9 @@ classes, so the switch is the same everywhere: Text us and Call us on phones and
 with a mouse, and the same prefilled first line on the text link.
 - Under the pricing (Barrett, 2026-09-21, "add text and call contact buttons under pricing"): at the end of
   `<section id="pricing">`, under "You see the finished website before you pay anything." On the white band they are
-  solid navy (`.band-light .cta-alt`) rather than the hero's dark glass. The questionnaire button leads this row
-  (Barrett, 2026-09-21; in the hero it has sat below the contact pills on phones and tablets since 2026-09-22), in the page's deep blue (`.band-light .cta-go`) so it stands apart from the navy pills,
-  worded "Start the questionnaire" (Barrett's words the same day; it said "Get my free preview" at first). On phones it
-  has the first row to itself and Text us and Call us share the next.
+  solid navy (`.band-light .cta-alt`) rather than the hero's dark glass. The row is the contact pills alone since
+  2026-09-22: a deep blue "Start the questionnaire" (`.band-light .cta-go`) led it from 2026-09-21 until Barrett had it
+  removed ("remove start the questionnaire in the pricing section").
 - In the Contact section (Barrett, 2026-09-21, "add the contact buttons to the contact section"): under the intro in
   the left column, the email card on the right (under the pills on phones). On that dark band they look as in the hero.
 
@@ -325,7 +325,7 @@ The script only marks the row ready and says go (per row, or per card); the sequ
 cards are simply there, solid discs and no line, and under reduced motion the finished state shows at once.
 
 Card 1 ends with a way into the questionnaire (Barrett, 2026-09-21: "add a link to the questionnaire in box #1 at the
-bottom styled like the one in pricing"): the pill from under the pricing, deep blue, in `.step-go`, worded "Start the
+bottom styled like the one in pricing"): the pill that was under the pricing (removed there 2026-09-22), deep blue, in `.step-go`, worded "Start the
 questionnaire" (Barrett's words the same day; it said "Get my free preview" at first). The cards are flex columns, so the pill sits at the card's foot even when a row of three stretches the cards
 to one height. It fits itself to the card, which `.step-go` measures as a container query (the wrapper, not the card:
 a card that is a container becomes its own stacking context, and card 1's connector line, which runs into card 2 and
