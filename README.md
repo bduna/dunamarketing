@@ -78,15 +78,14 @@ mono, 609 KB, `preload="none"`), plays from the hero (2026-09-21, "get very crea
   time, each word lighting up on its second, the promises (24 hours, $1,500, No deposit, see it first, 16 years, own
   outright, $149 a month, start the questionnaire below, 20 minutes) in the accent. The card keeps one height for every
   phrase (checked at 320-1440px), so nothing around it moves.
-- The wall hears it: while the voice plays, rings travel outward across the wall from the play disc and each card rises
-  and brightens as a ring passes, as far as the voice is loud at that moment (the wall's shader: `uVoice`, `uSrc`,
-  `uWaveK`; the voice script hands the wall its level and position through `window.DunaVoice`). Silent, the wall is
-  exactly as before.
+- The wall takes no part. For a few minutes on 2026-09-21 it rippled outward from the play disc with the voice's
+  loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the same"), and the
+  wall's script is again exactly what it was before the voice.
 - At "start the questionnaire below" (59.26 s), Get my free preview glows once (`.nudge`).
 - Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
   `#voice-dock`, with the phrase, the pause and a close; it goes when the card is back in view or the voice ends.
 - At the end the card says "Listen again" and rewinds. With reduced motion the captions and the ring still work; the
-  bars, the wave and the ripple don't move. Without JavaScript the card isn't there.
+  bars and the wave round them don't move. Without JavaScript the card isn't there.
 - Browsers refuse sound until the visitor presses something, so it never starts by itself.
 
 The captions and the loudness are three lines of data in the voice script (`CUES`, `ENV`, `NUDGE`), made from the
