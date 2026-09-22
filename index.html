@@ -253,7 +253,7 @@ fbq('track', 'PageView');
 
   /* ---------- The voice: the whole page spoken in 72 seconds (Barrett's recording, assets/audio/duna-summary.mp3), played
      from the hero. A card under the subline: a white play disc inside a ring of bars and a progress ring, and beside it
-     "Listen to the Summary · 1:12". Pressed, the bars move with the voice, the ring fills, and the card speaks its captions word by word
+     "Duna Marketing Offer · 1:12". Pressed, the bars move with the voice, the ring fills, and the card speaks its captions word by word
      (the promises in the accent). The wall behind takes no part (Barrett had its ripple removed, 2026-09-21). When the
      voice says "start the questionnaire below", the hero's Start the questionnaire glows once. Scrolled
      away while it plays, a dock at the foot of the screen carries the captions and the pause. The card keeps one height
@@ -286,7 +286,7 @@ fbq('track', 'PageView');
   .voice.is-playing .i-pause, .voice-dock.is-playing .i-pause { display: block; }
   .voice-text { flex: 1; min-width: 0; display: grid; container-type: inline-size; }   /* measured by the label, below */
   .voice-idle, .voice-cap { grid-area: 1 / 1; align-self: center; }
-  /* "Listen to the Summary · 1:12" on one line: its usual size where it fits, and on a narrower phone a little smaller,
+  /* "Duna Marketing Offer · 1:12" on one line: its usual size where it fits, and on a narrower phone a little smaller,
      as the text column allows (7.2% of its width), down to 14.5px; the time wraps whole if it must (a 320px phone) */
   .voice-idle b { display: block; font-size: max(14.5px, min(clamp(18px, .3vw + 17px, 21px), 7.2cqi)); font-weight: 750; letter-spacing: -.01em; line-height: 1.2; color: #fff; }
   .voice-len { font-weight: 500; color: var(--ink-dim); white-space: nowrap; }
@@ -1201,7 +1201,7 @@ fbq('track', 'PageView');
           <span class="voice-disc"><svg class="i-play" viewBox="0 0 24 24"><path d="M8.5 5.5v13l10-6.5z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z"/></svg></span>
         </span>
         <span class="voice-text" aria-hidden="true">
-          <span class="voice-idle"><b><span class="voice-word">Listen to the Summary</span> <span class="voice-len">&middot; 1:12</span></b><small>Everything on this page, in 72 seconds</small></span>
+          <span class="voice-idle"><b><span class="voice-word">Duna Marketing Offer</span> <span class="voice-len">&middot; 1:12</span></b><small>Everything on this page, in 72 seconds</small></span>
           <span class="voice-cap"></span>
         </span>
       </button>

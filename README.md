@@ -145,8 +145,8 @@ third take drops "It takes about 20 minutes"; otherwise it says what the second 
 length (a streamed file); the data is 72.1 s, and ffmpeg and the caption script read it right:
 
 - A card between the subline and the buttons, `#voice-row` / `.voice`: a white play disc inside a ring of 28 bars and a
-  progress ring, and "Listen to the Summary · 1:12" over "Everything on this page, in 72 seconds" (the label was
-  "Listen" until Barrett renamed it, 2026-09-22). The label keeps to one line with the "· 1:12" at every width from 360px:
+  progress ring, and "Duna Marketing Offer · 1:12" over "Everything on this page, in 72 seconds" (it read "Listen",
+  then "Listen to the Summary", before Barrett settled on these words, all on 2026-09-22). The label keeps to one line with the "· 1:12" at every width from 360px:
   `.voice-text` is a container and the label's size is its usual one or, on a narrower phone, 7.2% of the text column
   (`7.2cqi`), down to 14.5px; on a 320px phone the "· 1:12" wraps whole to a second line. Once, as the hero settles, a wave
   runs round the bars to say there is something to press; then it holds still.
