@@ -158,6 +158,20 @@ fbq('track', 'PageView');
       linear-gradient(100deg, rgb(var(--veil) / .76) 0%, rgb(var(--veil) / .56) 40%, rgb(var(--veil) / 0) 62%),
       linear-gradient(0deg, rgb(var(--veil) / .55) 0%, rgb(var(--veil) / 0) 22%);
   }
+  /* On a wide screen the words sit in the left half, so the right half can carry much less veil and let the websites
+     float in plain sight (Barrett, 2026-09-23: "the overlay on the wall of screenshots floating is too dark"). The
+     top-down layer, which darkened the full width, is softened; the corner and the left-to-right layers, which are what
+     hold the copy's contrast, are strengthened to make up for it. Phones keep the veil above, where the words cross the
+     whole screen. */
+  @media (min-width: 1000px) {
+    .veil {
+      background:
+        linear-gradient(180deg, rgb(var(--veil) / .62) 0%, rgb(var(--veil) / .45) 22%, rgb(var(--veil) / .24) 42%, rgb(var(--veil) / .08) 58%, rgb(var(--veil) / 0) 70%),
+        radial-gradient(105% 95% at 0% 0%, rgb(var(--veil) / .92) 0%, rgb(var(--veil) / .62) 40%, rgb(var(--veil) / 0) 76%),
+        linear-gradient(100deg, rgb(var(--veil) / .82) 0%, rgb(var(--veil) / .62) 38%, rgb(var(--veil) / 0) 60%),
+        linear-gradient(0deg, rgb(var(--veil) / .55) 0%, rgb(var(--veil) / 0) 22%);
+    }
+  }
   .copy {
     position: relative;
     z-index: 2;

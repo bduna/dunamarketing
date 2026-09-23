@@ -530,6 +530,20 @@ The numbers to tune are named constants at the top of the "sample cards" block i
   top, and how long the glide takes. To drop the glide and keep only the landing, delete the `glide = ...` assignment
   in the `else` branch that starts "No pointer to follow".
 
+## The hero's veil
+
+`.veil` is the dark wash between the wall of sample websites and the words over it, four gradients: one from the top
+down, one from the top-left corner, one from the left across, and one from the bottom up. Together they hold white text
+over whatever drifts under it.
+
+From 1000px wide it is a softer set (a `@media (min-width: 1000px)` block right above `.copy`): the top-down layer,
+which darkened the full width and left the top-right corner nearly black, drops from .95/.88/.67 to .62/.45/.24, while
+the corner and left-to-right layers are strengthened to hold the copy. Barrett, 2026-09-23: "the overlay on the wall of
+screenshots floating is too dark and you can't see the screenshots floating." Measured on a 1440px screen, the top
+right went from 20 to 74 out of 255, the middle right from 57 to 88, while the strips behind the words moved by less
+than 10 (subline 38 to 45, the voice card 29 to 27). Under 1000px the older, heavier veil stays, because there the
+words cross the whole screen.
+
 ## Tracking
 
 The Meta pixel is on both pages. `PageView` fires on load. A tap on any text, call, or email link fires the standard
