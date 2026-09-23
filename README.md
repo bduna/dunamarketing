@@ -534,11 +534,19 @@ The numbers to tune are named constants at the top of the "sample cards" block i
 
 ## The hero's art
 
-Behind the hero's words, `.hero-art`: six fields of saturated colour drifting across the black, blended with
+Behind the hero's words, `.hero-art`: eight fields of saturated colour drifting across the black, blended with
 `mix-blend-mode: screen` so where they cross they brighten rather than muddy, with the isometric grid of the Animations
-card faint over the top. Blue, violet, magenta, cyan, sky and a warm orange, each a radial gradient in a circle 34-58
-vmax across, each floating on its own clock between 36 and 50 s and starting part way in, so they never repeat
-together. Colour only: no images, no canvas, nothing to download, and the compositor does the moving.
+card faint over the top. Blue, violet, magenta, cyan, sky, pink and a warm orange, each a radial gradient in a circle
+32-52 vmax across, each floating on its own clock between 36 and 50 s and starting part way in, so they never repeat
+together, and spread over the whole frame rather than gathered to one side. Colour only: no images, no canvas, nothing
+to download, and the compositor does the moving.
+
+Where the words, the audio card and the buttons sit, the colour is soft and out of focus; everywhere else it is crisp
+("distribute it across the full screen more blurred where design elements are", 2026-09-23). Two layers with opposite
+masks do that: `.hero-sharp` holds the drifting fields and is masked away from the content, `.hero-soft` is the same
+palette spread wide and thin and masked to it. A `backdrop-filter: blur(46px)` did the job first and was taken out: over
+colour that never stops moving the browser redraws that blur every frame, and it cost a third of the frame rate on a
+phone (33 frames a second against 44 without it, measured in software rendering) for no visible gain.
 
 Barrett, 2026-09-23: "I need something that will provide lots of color, the text is white with a black background, and
 one blue button, I need vibrant colors." Two hero backgrounds came before it that day. First a WebGL2 wall of the ten
