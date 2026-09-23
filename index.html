@@ -231,12 +231,6 @@ fbq('track', 'PageView');
   .actions .reach > * { flex-grow: 1; }   /* a 320px phone, where Call us drops under Text us: each as wide as the rest */
   /* Text us and Call us travel as a pair: where a row runs out of room they wrap together, never one alone */
   .reach { display: flex; flex-wrap: wrap; gap: 14px; }
-  /* On a phone the hero carries the way into the questionnaire alone (Barrett, 2026-09-23); Text us and Call us are
-     still under the pricing and in Contact, and tablets keep them here. The page's phone test: a coarse pointer on a
-     screen 760px or narrower, or 500px or shorter, so a phone held sideways counts too. */
-  @media (pointer: coarse) and (max-width: 760px), (pointer: coarse) and (max-height: 500px) {
-    .actions .reach { display: none; }
-  }
   /* A dark edge so the control keeps a boundary when a near-white card drifts under it */
   .cta { min-height: 62px; padding: 0 10px 0 32px; gap: 18px; font-size: clamp(18px, .3vw + 17px, 21px); border-radius: 999px; border: 1.5px solid rgb(5 10 24 / .9); box-shadow: 0 14px 34px rgb(var(--veil) / .55); }
   .cta .badge { width: 42px; height: 42px; }
