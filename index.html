@@ -575,7 +575,7 @@ fbq('track', 'PageView');
   .care-head { grid-area: head; }
   .care-body { grid-area: body; }
   .demo { grid-area: demo; align-self: center; }
-  .care-voice { margin-top: 22px; }   /* the section read aloud, under the headline and over the price (Barrett, 2026-09-22) */
+  .care-voice { margin: 4px 0 24px; }   /* the section read aloud, over the headline (Barrett, 2026-09-23), as the founder's is */
   @media (max-width: 900px) {
     .care-grid { grid-template-columns: 1fr; grid-template-areas: "head" "demo" "body"; gap: 28px; }
     .demo { justify-self: center; }
@@ -1482,8 +1482,7 @@ fbq('track', 'PageView');
   <div class="wrap care-grid">
     <div class="care-head">
       <p class="eyebrow">The Care Plan</p>
-      <h2>The Care Plan keeps your website up to date, secure and healthy.</h2>
-      <!-- The Care Plan section read aloud, 77 seconds, under its headline. -->
+      <!-- The Care Plan section read aloud, 77 seconds, over its headline. -->
       <div class="voice-row care-voice" id="care-voice-row" hidden>
       <button type="button" class="voice" aria-label="Play a 77-second reading of this section">
         <span class="voice-orb" aria-hidden="true">
@@ -1502,6 +1501,7 @@ fbq('track', 'PageView');
       </div>
         <audio src="assets/audio/care-plan.mp3" preload="none"></audio>
       </div>
+      <h2>The Care Plan keeps your website up to date, secure and healthy.</h2>
       <div class="price-line">
         <p class="price-line-label">Care Plan Pricing</p>
         <p class="price"><strong>$149</strong><span>a month</span></p>

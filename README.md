@@ -126,15 +126,15 @@ questionnaire are the hero's alone.
   project folder, 62 seconds, cut to `assets/audio/founder-bio.mp3` (64 kbps mono, 496 KB); its words are
   `founder-bio.phrases.json` beside it and its captions are made the same way as the hero's. It sat between his name and the way into the
   questionnaire until 2026-09-23, then moved under the headline and, minutes later, above it ("move the audio player
-  above the headline"): it now sits between the section's eyebrow and its headline, where the Care Plan's sits under
-  its headline. Its captions were cut for the 380px photo column and are
+  above the headline"): it now sits between the section's eyebrow and its headline, as the Care Plan's does. Its captions were cut for the 380px photo column and are
   shorter than the text column needs. It has no dock and gives no glow, and its ring of bars waves once as the
   card comes into view rather than as the page loads.
 - The Care Plan's, `#care-voice-row`, the same day ("I want the same thing as the bio reading but with
   care-plan-tts.wav in the CARE PLAN section on the right column under the phone"): 77 seconds, `care-plan-tts.wav` in
   the project folder, cut to `assets/audio/care-plan.mp3`, its words in `care-plan.phrases.json`. It sat under the
-  phone in the right column for an hour, then moved under the headline, over the price ("move it under the headline"),
-  where the text column gives it the hero's full 544px. Its captions were cut for that 312px column and are shorter
+  phone in the right column for an hour, then under the headline, and on 2026-09-23 above it, between the section's
+  eyebrow and its headline, where the founder's sits ("yes, move the care plan one above its headline too"). The text
+  column gives it the hero's full 544px. Its captions were cut for that 312px column and are shorter
   than they need to be now. This reading retells the section rather than reading it word for word.
 
 
