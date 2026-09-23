@@ -224,10 +224,10 @@ fbq('track', 'PageView');
   .board-note { margin: 10px 0 0; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); opacity: 0; transition: opacity .5s; }
   .board-note.on { opacity: 1; }
   /* the line under the board (Barrett, 2026-09-23): the checkmate note keeps its own line above it, so nothing jumps */
-  .board-caption { margin: 6px 0 0; text-align: center; font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; line-height: 1.5; color: var(--ink); text-wrap: balance; text-shadow: 0 2px 12px rgb(0 0 0 / .6); }
+  .board-caption { margin: 8px 0 0; text-align: center; font-size: 16px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; line-height: 1.45; color: var(--ink); text-wrap: balance; text-shadow: 0 2px 12px rgb(0 0 0 / .6); }   /* the name never splits: a no-break space holds Duna Marketing together (Barrett, 2026-09-23) */
   @media (max-width: 999px) {
-    .hero .copy { padding-bottom: calc(min(70vw, 38vh) * .95 + 110px); }   /* the board (as tall on screen as .95 of its width, tilted) and its two lines live in this room, below the buttons; .hero .copy outranks the later .copy rule */
-    .board-caption { font-size: 11px; letter-spacing: .12em; }
+    .hero .copy { padding-bottom: calc(min(70vw, 38vh) * .95 + 136px); }   /* the board (as tall on screen as .95 of its width, tilted) and its two lines live in this room, below the buttons; .hero .copy outranks the later .copy rule */
+    .board-caption { font-size: 13.5px; letter-spacing: .11em; }
   }
   @media (min-width: 1000px) {   /* beside the words on a wide screen, and bigger */
     .hero-board { left: auto; right: 5vw; top: 50%; bottom: auto; width: min(40vw, 66vh); transform: translateY(-50%); }
@@ -1302,7 +1302,7 @@ fbq('track', 'PageView');
         <div class="board-pieces"></div>
       </div>
       <p class="board-note" aria-hidden="true"></p>
-      <p class="board-caption">Strategic web design by Duna Marketing that brings in clients</p>
+      <p class="board-caption">Strategic web design by Duna&nbsp;Marketing that brings in clients</p>
     </div>
   </div>
   <div class="veil" aria-hidden="true"></div>
