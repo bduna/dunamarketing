@@ -83,8 +83,11 @@ section's own heading. (A fourth, under the pricing, was removed on 2026-09-22:
 to 16px so they stay on one line. The contact pills are "Text us" (`sms:+17073855673`, prefilled "Hi Barrett, I'd like to start a website. My
 business: ", the same first line the old text tile used) and "Call us" (`tel:+17073855673`): a dark fill with a white
 edge and a white disc (`.cta-alt`), so the blue way in still reads first. Text us and Call us sit in `.reach` so they travel as a pair:
-in the hero they share the first row (on a 320px phone Call us drops under Text us), and below 400px wide the pills
-lose a little padding so the pair still fits at 360. Taps on them fire the pixel's `Contact` event (see Tracking); the preview
+where a row runs out of room they wrap together, and below 400px wide the pills lose a little padding so the pair
+still fits at 360. They are not in the hero on a phone at all since 2026-09-23 ("remove the call us and text us buttons
+on mobile from the hero section"): `.actions .reach` is hidden under the page's phone test, a coarse pointer on a
+screen 760px or narrower or 500px or shorter, so the hero there carries the way into the questionnaire alone. Tablets
+keep them, and they stay under the pricing and in Contact on every screen. Taps on them fire the pixel's `Contact` event (see Tracking); the preview
 button fires nothing.
 A computer can't text or call, so with a mouse (`(hover: hover) and (pointer: fine)`, the page's usual split, not a
 width) the two are replaced by one pill in the same style, `.cta-phone`: "Text or call" in small caps above
