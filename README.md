@@ -548,7 +548,9 @@ the hero no longer downloads a single image.
 - The grid is two `repeating-linear-gradient`s at 150 and 210 degrees, as on the Animations offer card but at 46px and
   fainter, masked to fade at the edges, creeping across 120 s.
 - Where it sits: on a phone, under the buttons in the room below them, `min(66vw, 38vh)` wide; from 1000px, beside the
-  words at the right, `min(46vw, 62vh)`. The glow follows it.
+  words at the right, `min(44vw, 62vh)`; from 1280px, half the screen, `min(52vw, 74vh)` ("make the mark bigger on
+  desktop", 2026-09-23). The step at 1280px is deliberate: at the big size on a 1000px screen the mark slides behind the
+  audio card. The glow follows it.
 - With reduced motion nothing moves at all: the stripes are already drawn, the grid and the glow hold still.
 - `.veil` is the wash between the art and the words. Line work on a dark ground needs far less of it than a wall of
   photographs did: a top-down and corner wash on a phone, and from 1000px a left-to-right one with light shading top and
