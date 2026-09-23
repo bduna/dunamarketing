@@ -165,9 +165,9 @@ length (a streamed file); the data is 72.1 s, and ffmpeg and the caption script 
   whole on its right, on a dark pill. Drag it, tap it, or use its arrow keys (5 s a press, Page Up/Down 15 s, Home to
   the start), playing or paused; the ring, the caption and its lit words follow at once (one `paint(t)` draws them all).
   Moved before the first play, the voice starts from there. It resets to 0:00 at the end.
-- The wall takes no part. For a few minutes on 2026-09-21 it rippled outward from the play disc with the voice's
-  loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the same"), and the
-  wall's script is again exactly what it was before the voice.
+- The art behind takes no part in the voice. For a few minutes on 2026-09-21 the wall that stood there rippled with
+  the voice's loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the
+  same"), and the wall itself is gone since 2026-09-23 (see "The hero's art").
 - At "start the questionnaire below" (54.92 s), the hero's Start the questionnaire glows once (`.nudge`). The words
   on that button change on their own clock, nothing to do with the summary any more (see "Getting in touch").
 - Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
@@ -494,21 +494,21 @@ and plays card by card as they are scrolled to, the way it does on phones.
 
 ## The sample cards
 
-The ten cards in the Samples section move the way the hero wall does, and what they do depends on whether there is
+The ten cards in the Samples section lie back on a tilted, turned plane, the pose the hero's old wall used, and what they do depends on whether there is
 a pointer.
 
 With a mouse, each card rises into place once, the moment its top edge comes on screen. After that the card you point
 at, or reach with the Tab key, travels slowly down its own page and back, one card at a time.
 
 On a touch screen there is nothing to point with, and cards that kept moving proved too much on a phone, so each card
-gets one entrance and then stays still. It starts in the wall's own pose, lying back on that tilted, turned plane, and
+gets one entrance and then stays still. It starts lying back on that tilted, turned plane, and
 settles upright into its place, the left card of a row and then the right. As it lands, its page glides from part-way
 down up to its first screen, the way a flicked page comes to rest at the top. It plays once per card; scrolling back
 replays nothing. The entrance waits until a card is a little way up the screen (8% of its height) so it is not wasted
 under the thumb, and a card whose capture is not decoded in time simply lands without the glide.
 
-The tall captures are the ones the wall already downloaded (`assets/img/samples/<name>-640.webp` or `-960.webp`, the
-same size the wall picked), so none of this costs a new download, and the top of each one matches the card's
+The tall captures are `assets/img/samples/<name>-640.webp` or `-960.webp`, the bigger one only where the screen earns
+it (the hero's old wall downloaded these for its own use; now the cards are the only ones who ask), and the top of each one matches the card's
 first-screen image, so the swap cannot be seen. A tap or click still opens the sample straight away.
 
 The cards are hidden for their arrival only after the script has set everything up, so with JavaScript off, with
@@ -532,20 +532,30 @@ The numbers to tune are named constants at the top of the "sample cards" block i
   top, and how long the glide takes. To drop the glide and keep only the landing, delete the `glide = ...` assignment
   in the `else` branch that starts "No pointer to follow".
 
-## The hero's veil
+## The hero's art
 
-`.veil` is the dark wash between the wall of sample websites and the words over it, four gradients: one from the top
-down, one from the top-left corner, one from the left across, and one from the bottom up. Together they hold white text
-over whatever drifts under it.
+Behind the hero's words, `.hero-art`: the Duna mark drawn in accent-blue lines over the isometric grid the Animations
+card uses, on the dark ground. Barrett, 2026-09-23: "redo the animation in the hero section that is on-brand with the
+rest of the website and works better ... with the content on the desktop and mobile pages above the animation"; of four
+directions offered he chose "your mark, drawn in light". What was there before, from the first build until that day,
+was a WebGL2 wall of the ten sample websites drifting on a tilted, turned plane (a canvas, a shader, ten textures and
+about 340 lines of script, with a no-WebGL fallback plane behind it). All of that is gone; the page lost 318 lines and
+the hero no longer downloads a single image.
 
-From 1000px wide it is a softer set (a `@media (min-width: 1000px)` block right above `.copy`): the top-down layer,
-which darkened the full width and left the top-right corner nearly black, drops from .95/.88/.67 to .62/.45/.24, while
-the corner and left-to-right layers are strengthened to hold the copy. Barrett, 2026-09-23: "the overlay on the wall of
-screenshots floating is too dark and you can't see the screenshots floating." Measured on a 1440px screen, the top
-right went from 20 to 74 out of 255, the middle right from 57 to 88, while the strips behind the words moved by less
-than 10 (subline 38 to 45, the voice card 29 to 27). Under 1000px the older, heavier veil stays, because there the
-words cross the whole screen.
+- The mark is the page's own mark geometry (the same clip polygons and 16 stripes as the No risk section's
+  `.mark-anim`), `stroke-dasharray` and `stroke-dashoffset` drawing each stripe in turn, 85 ms apart, over about 1.7 s.
+  Then it holds and breathes, a slow opacity swell of 14 s, with a soft accent glow behind it.
+- The grid is two `repeating-linear-gradient`s at 150 and 210 degrees, as on the Animations offer card but at 46px and
+  fainter, masked to fade at the edges, creeping across 120 s.
+- Where it sits: on a phone, under the buttons in the room below them, `min(66vw, 38vh)` wide; from 1000px, beside the
+  words at the right, `min(46vw, 62vh)`. The glow follows it.
+- With reduced motion nothing moves at all: the stripes are already drawn, the grid and the glow hold still.
+- `.veil` is the wash between the art and the words. Line work on a dark ground needs far less of it than a wall of
+  photographs did: a top-down and corner wash on a phone, and from 1000px a left-to-right one with light shading top and
+  bottom, so the mark on the right stands clear. Measured on a 1440px screen, the strips behind the headline, subline
+  and audio card come out at 61, 35 and 26 of 255, as dark as or darker than they were under the wall.
 
+## Tracking
 ## Tracking
 
 The Meta pixel is on both pages. `PageView` fires on load. A tap on any text, call, or email link fires the standard
@@ -555,13 +565,12 @@ Add `?metrics=off` to the address once on a browser you use for testing and that
 ## Checks that were run
 
 - Screenshots at 390, 768 and 1440 wide for every page, plus the phone hero in segments.
-- The rendered contrast gate from the generator (`render_check.py`) passes with motion frozen. With the wall moving,
-  that tool compares two frames taken at different moments, so its numbers for the hero are not meaningful.
-- A frame-by-frame check of the hero text over 12 seconds of wall motion, sampling the pixels behind the headline,
-  subline and button with the glyphs hidden.
+- The rendered contrast gate from the generator (`render_check.py`) passes with motion frozen. The hero's art moves,
+  so that tool's numbers for the hero are not meaningful; the strips behind its words are measured instead (see "The
+  hero's art").
 
 ## Changing a sample
 
-Each sample has three images: the two tall wall textures in `assets/img/samples/` (`<name>-960.webp` at 960x2400 and
+Each sample has three images: the two tall captures in `assets/img/samples/` (`<name>-960.webp` at 960x2400 and
 `<name>-640.webp` at 640x1600) and the first-screen card in `assets/img/desktop/` (`<name>.webp` at 960x600, a 1440x900 desktop capture, then scaled
 down; the ten samples no longer carry the sticky bottom bar, so there is nothing to hide). The Keyway Locksmith screenshot still says "colour" and should be regenerated.
