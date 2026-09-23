@@ -209,12 +209,14 @@ fbq('track', 'PageView');
     transition: left .6s cubic-bezier(.4, .1, .2, 1), top .6s cubic-bezier(.4, .1, .2, 1), opacity .45s linear;
     transform-style: preserve-3d;
   }
-  .piece svg { position: absolute; left: 8%; bottom: 6%; width: 84%; height: 168%; transform-origin: 50% 100%; transform: rotateX(-54deg); overflow: visible; }
-  .piece.w svg { fill: #fff; stroke: rgb(11 19 41 / .55); stroke-width: 1.2; filter: drop-shadow(0 6px 8px rgb(0 0 0 / .45)); }
-  .piece.b svg { fill: #8fbcff; stroke: rgb(11 19 41 / .7); stroke-width: 1.2; filter: drop-shadow(0 6px 8px rgb(0 0 0 / .45)); }   /* the other side in the brand blue: a dark piece would vanish on a dark board */
+  /* Each piece is a photograph-like sprite, lit and shaded, rendered by hero_chess_pieces.js in the project folder (a ray
+     marcher over a lathe profile): ivory for white, lacquered deep blue for the other side, on a transparent ground. It
+     stands upright on the tilted board, with a soft pool of shadow flat on the board under its foot. */
+  .piece img { position: absolute; left: 4%; bottom: 4%; width: 92%; height: 184%; object-fit: contain; object-position: bottom; transform-origin: 50% 100%; transform: rotateX(-54deg); filter: drop-shadow(0 5px 6px rgb(0 0 0 / .5)); }
+  .piece::before { content: ""; position: absolute; left: 14%; right: 14%; top: 30%; bottom: 8%; border-radius: 50%; background: radial-gradient(closest-side, rgb(0 0 0 / .55), rgb(0 0 0 / 0)); }
   .piece.taken { opacity: 0; }
-  .piece.moving svg { transition: transform .6s; transform: rotateX(-54deg) translateY(-14%); }
-  .piece.mated svg { transition: transform .8s cubic-bezier(.4, .1, .3, 1), opacity .8s; transform: rotateX(-54deg) rotateZ(78deg) translateX(36%); opacity: .55; }
+  .piece.moving img { transition: transform .6s; transform: rotateX(-54deg) translateY(-14%); }
+  .piece.mated img { transition: transform .8s cubic-bezier(.4, .1, .3, 1), opacity .8s; transform: rotateX(-54deg) rotateZ(78deg) translateX(36%); opacity: .55; }
   .board-trail { position: absolute; width: 12.5%; height: 12.5%; left: calc(var(--f) * 12.5%); top: calc((7 - var(--r)) * 12.5%); background: rgb(143 188 255 / .28); box-shadow: 0 0 14px rgb(143 188 255 / .5); opacity: 0; transition: opacity .5s; }
   .board-trail.on { opacity: 1; }
   .board-note { margin: 10px 0 0; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); opacity: 0; transition: opacity .5s; }
@@ -2663,18 +2665,13 @@ fbq('track', 'PageView');
     let cells = '';
     for (let r = 0; r < 8; r++) for (let f = 0; f < 8; f++) if ((f + r) % 2 === 0) cells += `<rect x="${f}" y="${7 - r}" width="1" height="1"/>`;
     dark.innerHTML = cells;
-    // the pieces, drawn simply: a pawn, a queen with her crown, a king with his cross
-    const SHAPES = {
-      p: '<path d="M10 3.4a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM7.4 10.6h5.2l1.5 5.6H5.9zM4.4 17.2h11.2v2.2H4.4z"/>',
-      q: '<path d="M3.6 6.6l2.9 5 1.5-6.4 2 4.8 2-4.8 1.5 6.4 2.9-5-1.3 9.4H4.9zM4.4 17.2h11.2v2.2H4.4z"/><circle cx="3.4" cy="5.6" r="1.1"/><circle cx="7.8" cy="3.7" r="1.1"/><circle cx="10" cy="3.1" r="1.1"/><circle cx="12.2" cy="3.7" r="1.1"/><circle cx="16.6" cy="5.6" r="1.1"/>',
-      k: '<path d="M9 1h2v2.4h2.4v2H11v2c2.7.1 4.9 1.9 4.9 4.6 0 1.8-1 3.3-2.5 4.1H6.6c-1.5-.8-2.5-2.3-2.5-4.1 0-2.7 2.2-4.5 4.9-4.6v-2H6.6v-2H9z"/><path d="M4.4 17.2h11.2v2.2H4.4z"/>',
-    };
+    // the pieces are pictures (assets/img/chess/, six of them, made by hero_chess_pieces.js in the project folder)
     const START = [['wk', 'w', 'k', 'e1'], ['wq', 'w', 'q', 'd1'], ['wp1', 'w', 'p', 'd2'], ['wp2', 'w', 'p', 'e2'],
                    ['bk', 'b', 'k', 'e8'], ['bq', 'b', 'q', 'd8'], ['bp1', 'b', 'p', 'd7'], ['bp2', 'b', 'p', 'e7']];
     const file = sq => sq.charCodeAt(0) - 97, rank = sq => +sq[1] - 1;
     const pieces = {};
     const place = (el, sq) => { el.style.setProperty('--f', file(sq)); el.style.setProperty('--r', rank(sq)); };
-    const shape = (el, kind) => { el.innerHTML = '<svg viewBox="0 0 20 20">' + SHAPES[kind] + '</svg>'; };
+    const shape = (el, kind) => { el.innerHTML = '<img src="assets/img/chess/' + (el.classList.contains('w') ? 'w' : 'b') + '-' + kind + '.png" alt="" width="176" height="352" decoding="async">'; };
     const trail = [0, 1].map(() => { const t = document.createElement('div'); t.className = 'board-trail'; stage.append(t); return t; });
     for (const [id, side, kind, sq] of START) {
       const el = document.createElement('div'); el.className = 'piece ' + side; shape(el, kind); place(el, sq);
