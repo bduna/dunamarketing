@@ -594,8 +594,14 @@ two behind." It replaced a galaxy overture that was to burst into the colour, bu
   `rotateZ(16deg) rotateX(-54deg)`, undoes the board's turn and tip exactly ("make the pieces look more upright"), with
   a pool of shadow flat under its foot and the board's perspective still shrinking the far ones. Change a profile or a
   material in the script and re-run it.
-- Where it sits: on a phone, in the room under the buttons, `min(72vw, 40vh)` wide; from 1000px, beside the words on
-  the right, `min(40vw, 66vh)`.
+- Under the board, `.board-caption`: "Strategic web design by Duna Marketing that brings in clients", Barrett's words
+  (2026-09-23), in the eyebrows' spaced capitals; the checkmate note keeps its own line above it, so nothing jumps when
+  it appears.
+- Where it sits: from 1000px, beside the words on the right, `min(40vw, 66vh)` wide. Below that it hangs from the foot
+  of the hero (`bottom: 2vh`), `min(70vw, 38vh)` wide, and `.hero .copy` reserves the room for it under the buttons
+  (`padding-bottom: calc(min(70vw, 38vh) * .95 + 110px)`, the board's height on screen plus its two lines), so a short
+  screen makes the hero taller rather than letting the board climb onto the buttons. Measured: the board sits 20-88px
+  under the button and the caption 7-20px above the hero's foot on every phone and tablet tried, 320px to 768px.
 - With reduced motion the pieces stand at their start squares and nothing plays.
 
 ## Tracking
