@@ -125,8 +125,9 @@ questionnaire are the hero's alone.
   headshot column ... I want the text to say: 'Listen Instead of Read'". His recording is `founder-bio-tts.wav` in the
   project folder, 62 seconds, cut to `assets/audio/founder-bio.mp3` (64 kbps mono, 496 KB); its words are
   `founder-bio.phrases.json` beside it and its captions are made the same way as the hero's. It sat between his name and the way into the
-  questionnaire until 2026-09-23 ("move the audio player in the OUR FOUNDER section to under the headline"), and is now
-  under the headline, over the bio, as the Care Plan's is. Its captions were cut for the 380px photo column and are
+  questionnaire until 2026-09-23, then moved under the headline and, minutes later, above it ("move the audio player
+  above the headline"): it now sits between the section's eyebrow and its headline, where the Care Plan's sits under
+  its headline. Its captions were cut for the 380px photo column and are
   shorter than the text column needs. It has no dock and gives no glow, and its ring of bars waves once as the
   card comes into view rather than as the page loads.
 - The Care Plan's, `#care-voice-row`, the same day ("I want the same thing as the bio reading but with
