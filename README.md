@@ -559,6 +559,32 @@ in blue line work over the same grid, which he turned down as too monochrome. Bo
   and bottom.
 - With reduced motion the colours hold still, and the grid with them.
 
+### The chessboard
+
+Over the colour, `#hero-board`: a board of light lines tilted back in perspective (`rotateX(54deg) rotateZ(-16deg)`),
+king, queen and two pawns a side standing upright on it, playing a game in which white always mates. Barrett,
+2026-09-23: "a light grid structure with a maximum (whatever chess legally requires move-wise) of 4 chess pieces per
+side and they play each other where white always wins but the gameplay changes each time. It's a mini-game, 2 pawns and
+two behind." It replaced a galaxy overture that was to burst into the colour, built that afternoon and never shipped.
+
+- The games are real chess. `hero_chess_games.py` in the project folder plays them out with the `chess` library from a
+  fixed start (white Ke1 Qd1 d2 e2, black Ke8 Qd8 d7 e7, a full board so every move is legal): white searches three
+  plies ahead and prefers mates, black looks one ply ahead with enough noise to blunder now and then. Only games that
+  end in checkmate for white within twelve moves are kept, and only one per opening (the first two moves each side), so
+  no two games on the page start alike. `hero_chess_check.py` replays the embedded games and proves each one legal,
+  each capture and promotion as recorded, and each ending in mate for white; run it after regenerating.
+- `GAMES` in the board's script is what the generator printed: each game a list of plies `[from, to, square a capture
+  empties or "", promotion or ""]`. En passant empties a square other than the one moved to, which is why the emptied
+  square is spelled out.
+- The player picks a game at random, never the one just played, moves about once a second (a 0.6 s glide, a 0.5 s
+  breath), fades a captured piece as its taker sets off, turns a promoted pawn into a queen on arrival, lights the from
+  and to squares, and at the mate lays the blue king over and says "Checkmate. White wins." under the board. After
+  2.8 s the pieces walk back to their squares and another game begins. It rests while the hero is off screen.
+- The "black" pieces are the brand blue (`#8fbcff`): a dark piece vanishes on a dark board. White is white.
+- Where it sits: on a phone, in the room under the buttons, `min(72vw, 40vh)` wide; from 1000px, beside the words on
+  the right, `min(40vw, 66vh)`.
+- With reduced motion the pieces stand at their start squares and nothing plays.
+
 ## Tracking
 ## Tracking
 ## Tracking

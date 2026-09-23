@@ -193,6 +193,35 @@ fbq('track', 'PageView');
     animation: hero-wash 48s ease-in-out infinite alternate;
   }
   @keyframes hero-wash { to { transform: translate3d(-3vmax, 2vmax, 0) scale(1.08); } }
+  /* The chessboard (Barrett, 2026-09-23: "a light grid structure ... 4 chess pieces per side and they play each other
+     where white always wins but the gameplay changes each time ... 2 pawns and two behind"). A board of light lines
+     tilted back in perspective, king, queen and two pawns a side standing up on it, playing one of the games at the
+     foot of the page: every one a legal game generated with a chess library (hero_chess_games.py in the project folder),
+     every one ending in checkmate for white, each opening differently. The script picks a different game each time.
+     With reduced motion the pieces stand at their start and nothing plays. */
+  .hero-board { position: absolute; left: 50%; top: 79%; width: min(72vw, 40vh); transform: translate(-50%, -50%); perspective: 900px; }
+  .board-tilt { position: relative; aspect-ratio: 1; transform: rotateX(54deg) rotateZ(-16deg); transform-style: preserve-3d; }
+  .board-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 6px rgb(143 188 255 / .35)); }
+  .board-glow { position: absolute; inset: -6%; background: radial-gradient(closest-side, rgb(143 188 255 / .16), transparent 70%); }
+  .board-pieces { position: absolute; inset: 0; transform-style: preserve-3d; }
+  .piece {
+    position: absolute; width: 12.5%; height: 12.5%; left: calc(var(--f) * 12.5%); top: calc((7 - var(--r)) * 12.5%);
+    transition: left .6s cubic-bezier(.4, .1, .2, 1), top .6s cubic-bezier(.4, .1, .2, 1), opacity .45s linear;
+    transform-style: preserve-3d;
+  }
+  .piece svg { position: absolute; left: 8%; bottom: 6%; width: 84%; height: 168%; transform-origin: 50% 100%; transform: rotateX(-54deg); overflow: visible; }
+  .piece.w svg { fill: #fff; stroke: rgb(11 19 41 / .55); stroke-width: 1.2; filter: drop-shadow(0 6px 8px rgb(0 0 0 / .45)); }
+  .piece.b svg { fill: #8fbcff; stroke: rgb(11 19 41 / .7); stroke-width: 1.2; filter: drop-shadow(0 6px 8px rgb(0 0 0 / .45)); }   /* the other side in the brand blue: a dark piece would vanish on a dark board */
+  .piece.taken { opacity: 0; }
+  .piece.moving svg { transition: transform .6s; transform: rotateX(-54deg) translateY(-14%); }
+  .piece.mated svg { transition: transform .8s cubic-bezier(.4, .1, .3, 1), opacity .8s; transform: rotateX(-54deg) rotateZ(78deg) translateX(36%); opacity: .55; }
+  .board-trail { position: absolute; width: 12.5%; height: 12.5%; left: calc(var(--f) * 12.5%); top: calc((7 - var(--r)) * 12.5%); background: rgb(143 188 255 / .28); box-shadow: 0 0 14px rgb(143 188 255 / .5); opacity: 0; transition: opacity .5s; }
+  .board-trail.on { opacity: 1; }
+  .board-note { margin: 10px 0 0; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); opacity: 0; transition: opacity .5s; }
+  .board-note.on { opacity: 1; }
+  @media (min-width: 1000px) {   /* beside the words on a wide screen, and bigger */
+    .hero-board { left: auto; right: 5vw; top: 50%; width: min(40vw, 66vh); transform: translateY(-50%); }
+  }
   .hero-grid {
     position: absolute; inset: -10%;
     background:
@@ -1244,6 +1273,20 @@ fbq('track', 'PageView');
     </div>
     <div class="hero-soft"></div>
     <div class="hero-grid"></div>
+    <div class="hero-board" id="hero-board">
+      <div class="board-tilt">
+        <svg class="board-lines" viewBox="0 0 8 8" preserveAspectRatio="none">
+          <g stroke="rgb(255 255 255 / .55)" stroke-width=".035" fill="none">
+            <path d="M0 0H8V8H0Z"/>
+            <path d="M1 0V8M2 0V8M3 0V8M4 0V8M5 0V8M6 0V8M7 0V8M0 1H8M0 2H8M0 3H8M0 4H8M0 5H8M0 6H8M0 7H8"/>
+          </g>
+          <g class="board-dark" fill="rgb(255 255 255 / .06)"></g>
+        </svg>
+        <div class="board-glow"></div>
+        <div class="board-pieces"></div>
+      </div>
+      <p class="board-note" aria-hidden="true"></p>
+    </div>
   </div>
   <div class="veil" aria-hidden="true"></div>
   <div class="copy">
@@ -2595,6 +2638,89 @@ fbq('track', 'PageView');
       else begin();
     } catch (e) { ask.hidden = true; }
   }
+})();
+</script>
+<script>
+// The chessboard's player (the CSS block "The chessboard" says what it is). GAMES is what hero_chess_games.py printed:
+// each game a list of plies [from, to, the square a capture empties or "", promotion or ""], every one a legal game
+// that ends in checkmate for white. About a move a second; at the mate the black king goes over and a word says so,
+// and after a breath the pieces walk back to their squares and a different game begins. It rests while the hero is
+// off screen. Its own script and guard.
+(() => {
+  const root = document.getElementById('hero-board');
+  if (!root) return;
+  try {
+    const GAMES = [[["d2","d3","",""],["e8","f7","",""],["d3","d4","",""],["f7","f8","",""],["d1","a4","",""],["d8","a8","",""],["a4","a8","a8",""],["f8","g7","",""],["a8","b7","",""],["d7","d5","",""],["b7","c6","",""],["e7","e5","",""],["c6","d7","",""],["g7","f6","",""],["d4","e5","e5",""],["f6","e5","e5",""],["e2","e3","",""],["e5","e4","",""],["e1","e2","",""],["d5","d4","",""],["d7","e6","",""]],[["d2","d3","",""],["e8","f8","",""],["d1","a1","",""],["d7","d5","",""],["a1","h8","",""],["f8","f7","",""],["h8","d8","d8",""],["f7","g6","",""],["e2","e3","",""],["g6","f5","",""],["d8","g8","",""],["f5","e5","",""],["g8","g6","",""],["e7","e6","",""],["e1","d1","",""],["e5","d6","",""],["g6","h6","",""],["d6","e5","",""],["h6","f4","",""]],[["e2","e4","",""],["d8","b6","",""],["e4","e5","",""],["d7","d5","",""],["d1","a1","",""],["b6","e3","",""],["d2","e3","e3",""],["e8","d7","",""],["a1","a7","",""],["d7","e8","",""],["e5","e6","",""],["e8","d8","",""],["a7","d7","",""]],[["e2","e4","",""],["e8","f7","",""],["e1","e2","",""],["d8","a5","",""],["d1","c2","",""],["a5","g5","",""],["c2","b2","",""],["g5","e3","",""],["d2","e3","e3",""],["d7","d6","",""],["b2","b7","",""],["f7","e6","",""],["e2","e1","",""],["e6","e5","",""],["b7","e7","e7",""]],[["d1","c2","",""],["d8","a8","",""],["e1","f1","",""],["e8","d8","",""],["e2","e4","",""],["d8","e8","",""],["c2","b3","",""],["a8","e4","e4",""],["b3","g8","",""]],[["d1","b1","",""],["d8","c7","",""],["e2","e4","",""],["c7","f4","",""],["b1","b4","",""],["f4","f8","",""],["b4","b8","",""],["e8","f7","",""],["b8","f4","",""],["f7","e8","",""],["f4","b8","",""],["e8","f7","",""],["b8","f4","",""],["f7","e8","",""],["f4","b8","",""],["e8","f7","",""],["b8","f4","",""],["f7","e6","",""],["f4","f8","f8",""],["d7","d6","",""],["f8","f5","",""]],[["d1","a1","",""],["d7","d5","",""],["a1","h8","",""],["e8","f7","",""],["h8","d8","d8",""],["f7","f6","",""],["d2","d4","",""],["f6","e6","",""],["e1","f2","",""],["e6","f5","",""],["d8","e7","e7",""],["f5","f4","",""],["e7","d7","",""],["f4","e4","",""],["d7","g4","",""]],[["d2","d3","",""],["d8","c8","",""],["d1","b1","",""],["c8","c7","",""],["d3","d4","",""],["c7","h2","",""],["b1","b3","",""],["h2","f2","",""],["e1","f2","f2",""],["e8","d8","",""],["b3","b8","",""]],[["d1","b1","",""],["d8","c7","",""],["e1","f1","",""],["e8","f8","",""],["b1","f5","",""],["f8","e8","",""],["f5","h3","",""],["c7","c2","",""],["h3","g4","",""],["c2","d3","",""],["g4","g8","",""]],[["d1","c2","",""],["d8","c8","",""],["c2","c8","c8",""],["e8","f7","",""],["c8","d7","d7",""],["f7","f6","",""],["d7","d8","",""],["f6","g6","",""],["d8","e8","",""],["g6","f5","",""],["e8","f8","",""],["f5","e4","",""],["f8","e8","",""],["e7","e5","",""],["e8","b5","",""],["e4","d4","",""],["e1","f1","",""],["e5","e4","",""],["e2","e3","",""]],[["d2","d4","",""],["d8","c7","",""],["d1","b1","",""],["c7","d8","",""],["b1","b5","",""],["e8","f7","",""],["b5","f5","",""],["f7","g8","",""],["f5","g4","",""],["g8","f8","",""],["g4","f5","",""],["f8","e8","",""],["f5","d5","",""],["d8","c8","",""],["d5","g8","",""]],[["d1","a1","",""],["e8","f7","",""],["d2","d4","",""],["e7","e5","",""],["a1","a2","",""],["f7","e8","",""],["a2","g8","",""],["e8","e7","",""],["g8","g5","",""],["e7","f7","",""],["g5","d8","d8",""],["f7","e6","",""],["d8","b6","",""],["e6","d5","",""],["b6","c5","",""],["d5","e4","",""],["c5","e5","e5",""]],[["e1","f1","",""],["d8","c8","",""],["d1","a4","",""],["c8","b8","",""],["a4","e4","",""],["b8","b7","",""],["e4","b7","b7",""],["e8","d8","",""],["b7","b8","",""]],[["e1","f2","",""],["d8","b8","",""],["f2","f3","",""],["b8","f4","",""],["f3","f4","f4",""],["e7","e5","",""],["f4","e5","e5",""],["e8","f7","",""],["d1","a4","",""],["f7","g6","",""],["e5","d6","",""],["g6","f5","",""],["a4","a5","",""],["f5","f4","",""],["a5","a3","",""],["f4","e4","",""],["a3","f3","",""],["e4","d4","",""],["f3","d5","",""]]];
+    const stage = root.querySelector('.board-pieces'), note = root.querySelector('.board-note'), dark = root.querySelector('.board-dark');
+    const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // the dark squares, a shade lighter than the board, so the grid reads as a chessboard
+    let cells = '';
+    for (let r = 0; r < 8; r++) for (let f = 0; f < 8; f++) if ((f + r) % 2 === 0) cells += `<rect x="${f}" y="${7 - r}" width="1" height="1"/>`;
+    dark.innerHTML = cells;
+    // the pieces, drawn simply: a pawn, a queen with her crown, a king with his cross
+    const SHAPES = {
+      p: '<path d="M10 3.4a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM7.4 10.6h5.2l1.5 5.6H5.9zM4.4 17.2h11.2v2.2H4.4z"/>',
+      q: '<path d="M3.6 6.6l2.9 5 1.5-6.4 2 4.8 2-4.8 1.5 6.4 2.9-5-1.3 9.4H4.9zM4.4 17.2h11.2v2.2H4.4z"/><circle cx="3.4" cy="5.6" r="1.1"/><circle cx="7.8" cy="3.7" r="1.1"/><circle cx="10" cy="3.1" r="1.1"/><circle cx="12.2" cy="3.7" r="1.1"/><circle cx="16.6" cy="5.6" r="1.1"/>',
+      k: '<path d="M9 1h2v2.4h2.4v2H11v2c2.7.1 4.9 1.9 4.9 4.6 0 1.8-1 3.3-2.5 4.1H6.6c-1.5-.8-2.5-2.3-2.5-4.1 0-2.7 2.2-4.5 4.9-4.6v-2H6.6v-2H9z"/><path d="M4.4 17.2h11.2v2.2H4.4z"/>',
+    };
+    const START = [['wk', 'w', 'k', 'e1'], ['wq', 'w', 'q', 'd1'], ['wp1', 'w', 'p', 'd2'], ['wp2', 'w', 'p', 'e2'],
+                   ['bk', 'b', 'k', 'e8'], ['bq', 'b', 'q', 'd8'], ['bp1', 'b', 'p', 'd7'], ['bp2', 'b', 'p', 'e7']];
+    const file = sq => sq.charCodeAt(0) - 97, rank = sq => +sq[1] - 1;
+    const pieces = {};
+    const place = (el, sq) => { el.style.setProperty('--f', file(sq)); el.style.setProperty('--r', rank(sq)); };
+    const shape = (el, kind) => { el.innerHTML = '<svg viewBox="0 0 20 20">' + SHAPES[kind] + '</svg>'; };
+    const trail = [0, 1].map(() => { const t = document.createElement('div'); t.className = 'board-trail'; stage.append(t); return t; });
+    for (const [id, side, kind, sq] of START) {
+      const el = document.createElement('div'); el.className = 'piece ' + side; shape(el, kind); place(el, sq);
+      stage.append(el); pieces[id] = { el, kind, sq };
+    }
+    const at = sq => Object.values(pieces).find(p => p.sq === sq && !p.el.classList.contains('taken'));
+    const reset = () => {
+      for (const [id, , kind, sq] of START) {
+        const p = pieces[id]; p.sq = sq; place(p.el, sq); p.el.classList.remove('taken', 'mated', 'moving');
+        if (p.kind !== kind) { p.kind = kind; shape(p.el, kind); }
+      }
+      trail.forEach(t => t.classList.remove('on')); note.classList.remove('on');
+    };
+    if (calm || !GAMES.length) return;                       // the pieces stand at their start; nothing plays
+    let last = -1, timer = 0, running = false, visible = true, run = 0;
+    const wait = ms => new Promise(r => { timer = setTimeout(r, ms); });
+    const play = async () => {
+      const mine = ++run; running = true;
+      let g; do { g = Math.floor(Math.random() * GAMES.length); } while (GAMES.length > 1 && g === last);
+      last = g;
+      const game = GAMES[g];
+      await wait(900);
+      for (let i = 0; i < game.length; i++) {
+        if (!visible || mine !== run) { running = false; return; }
+        const [from, to, cap, promo] = game[i];
+        const p = at(from); if (!p) break;
+        if (cap) { const c = at(cap); if (c && c !== p) { c.sq = ''; c.el.classList.add('taken'); } }
+        trail[0].style.setProperty('--f', file(from)); trail[0].style.setProperty('--r', rank(from));
+        trail[1].style.setProperty('--f', file(to)); trail[1].style.setProperty('--r', rank(to));
+        trail.forEach(t => t.classList.add('on'));
+        p.el.classList.add('moving');
+        p.sq = to; place(p.el, to);
+        await wait(620);
+        p.el.classList.remove('moving');
+        if (promo) { p.kind = 'q'; shape(p.el, 'q'); }
+        await wait(i === game.length - 1 ? 250 : 500);
+      }
+      if (!visible || mine !== run) { running = false; return; }
+      pieces.bk.el.classList.add('mated'); note.textContent = 'Checkmate. White wins.'; note.classList.add('on');
+      await wait(2800);
+      reset();
+      await wait(1200);
+      running = false;
+      if (visible && mine === run) play();
+    };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(es => {
+        visible = es[0].isIntersecting;
+        if (visible && !running) { clearTimeout(timer); reset(); play(); }
+      }, { threshold: .15 }).observe(root);
+    } else play();
+  } catch (e) {}
 })();
 </script>
 <script>
