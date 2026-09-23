@@ -534,29 +534,24 @@ The numbers to tune are named constants at the top of the "sample cards" block i
 
 ## The hero's art
 
-Behind the hero's words, `.hero-art`: the Duna mark drawn in accent-blue lines over the isometric grid the Animations
-card uses, on the dark ground. Barrett, 2026-09-23: "redo the animation in the hero section that is on-brand with the
-rest of the website and works better ... with the content on the desktop and mobile pages above the animation"; of four
-directions offered he chose "your mark, drawn in light". What was there before, from the first build until that day,
-was a WebGL2 wall of the ten sample websites drifting on a tilted, turned plane (a canvas, a shader, ten textures and
-about 340 lines of script, with a no-WebGL fallback plane behind it). All of that is gone; the page lost 318 lines and
-the hero no longer downloads a single image.
+Behind the hero's words, `.hero-art`: six fields of saturated colour drifting across the black, blended with
+`mix-blend-mode: screen` so where they cross they brighten rather than muddy, with the isometric grid of the Animations
+card faint over the top. Blue, violet, magenta, cyan, sky and a warm orange, each a radial gradient in a circle 34-58
+vmax across, each floating on its own clock between 36 and 50 s and starting part way in, so they never repeat
+together. Colour only: no images, no canvas, nothing to download, and the compositor does the moving.
 
-- The mark is the page's own mark geometry (the same clip polygons and 16 stripes as the No risk section's
-  `.mark-anim`), `stroke-dasharray` and `stroke-dashoffset` drawing each stripe in turn, 85 ms apart, over about 1.7 s.
-  Then it holds and breathes, a slow opacity swell of 14 s, with a soft accent glow behind it.
-- The grid is two `repeating-linear-gradient`s at 150 and 210 degrees, as on the Animations offer card but at 46px and
-  fainter, masked to fade at the edges, creeping across 120 s.
-- Where it sits: on a phone, under the buttons in the room below them, `min(66vw, 38vh)` wide; from 1000px, beside the
-  words at the right, `min(44vw, 62vh)`; from 1280px, half the screen, `min(52vw, 74vh)` ("make the mark bigger on
-  desktop", 2026-09-23). The step at 1280px is deliberate: at the big size on a 1000px screen the mark slides behind the
-  audio card. The glow follows it.
-- With reduced motion nothing moves at all: the stripes are already drawn, the grid and the glow hold still.
-- `.veil` is the wash between the art and the words. Line work on a dark ground needs far less of it than a wall of
-  photographs did: a top-down and corner wash on a phone, and from 1000px a left-to-right one with light shading top and
-  bottom, so the mark on the right stands clear. Measured on a 1440px screen, the strips behind the headline, subline
-  and audio card come out at 61, 35 and 26 of 255, as dark as or darker than they were under the wall.
+Barrett, 2026-09-23: "I need something that will provide lots of color, the text is white with a black background, and
+one blue button, I need vibrant colors." Two hero backgrounds came before it that day. First a WebGL2 wall of the ten
+sample websites drifting on a tilted plane (a canvas, a shader, ten textures, about 340 lines of script and a no-WebGL
+fallback); then, when he asked for something on-brand that worked better with the words, the Duna mark drawing itself
+in blue line work over the same grid, which he turned down as too monochrome. Both are in git, the mark at 6e9c1c9.
 
+- `.veil` is the wash that keeps the words easy over all that colour: on a phone a top-down and corner wash, and from
+  1000px a left-to-right one that holds the left half and lets the colour run free on the right, with light shading top
+  and bottom.
+- With reduced motion the colours hold still, and the grid with them.
+
+## Tracking
 ## Tracking
 ## Tracking
 
