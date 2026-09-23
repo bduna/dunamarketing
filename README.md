@@ -583,12 +583,17 @@ two behind." It replaced a galaxy overture that was to burst into the colour, bu
   2.8 s the pieces walk back to their squares and another game begins. It rests while the hero is off screen.
 - The pieces are pictures, `assets/img/chess/{w,b}-{k,q,p}.png` (six sprites, 176x352, 18-40 KB each, transparent),
   made by `hero_chess_pieces.js` in the project folder: `node hero_chess_pieces.js`, plain Node, no packages. Each
-  piece is a solid turned on a lathe (its radius at every height, plus the king's cross and the queen's eight-pointed
-  crown), and a small ray marcher lights it with a key light, a fill, a rim and some sky, ivory for white and deep
-  lacquered blue for the other side (Barrett, 2026-09-23: "make the chess pieces photo-realistic"; flat white and blue
-  silhouettes came first, that afternoon). The other side is blue rather than black because a dark piece vanishes on a
-  dark board. Each sprite stands upright on the tilted board with a pool of shadow flat under its foot, and the sprite
-  leans 16 degrees toward the camera so its top shows. Change a profile or a material in the script and re-run it.
+  piece is a solid turned on a lathe, a smooth curve through control points for its radius at every height (Staunton
+  proportions: the king 1, the queen .93, the pawn .66), plus the king's cross and the queen's eight-pointed crown. A
+  small ray marcher lights it with a key light, a fill and a rim, takes occlusion and self-shadow from the shape itself,
+  and reflects a studio in it (a soft sky, a dark floor and one big softbox, the rectangle of light real photographs of
+  glossy things carry). White is satin ivory with a faint grain; the other side is deep blue under a clear coat, and is
+  blue rather than black because a dark piece vanishes on a dark board (Barrett, 2026-09-23: "make the chess pieces
+  photo-realistic", then "and more photo-realist"; flat silhouettes came first, that afternoon). The sprite leans 9
+  degrees toward the camera so its top shows. On the board each piece stands straight to the eye: its transform,
+  `rotateZ(16deg) rotateX(-54deg)`, undoes the board's turn and tip exactly ("make the pieces look more upright"), with
+  a pool of shadow flat under its foot and the board's perspective still shrinking the far ones. Change a profile or a
+  material in the script and re-run it.
 - Where it sits: on a phone, in the room under the buttons, `min(72vw, 40vh)` wide; from 1000px, beside the words on
   the right, `min(40vw, 66vh)`.
 - With reduced motion the pieces stand at their start squares and nothing plays.

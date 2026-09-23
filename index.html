@@ -212,11 +212,13 @@ fbq('track', 'PageView');
   /* Each piece is a photograph-like sprite, lit and shaded, rendered by hero_chess_pieces.js in the project folder (a ray
      marcher over a lathe profile): ivory for white, lacquered deep blue for the other side, on a transparent ground. It
      stands upright on the tilted board, with a soft pool of shadow flat on the board under its foot. */
-  .piece img { position: absolute; left: 4%; bottom: 4%; width: 92%; height: 184%; object-fit: contain; object-position: bottom; transform-origin: 50% 100%; transform: rotateX(-54deg); filter: drop-shadow(0 5px 6px rgb(0 0 0 / .5)); }
+  /* rotateZ(16deg) rotateX(-54deg) undoes the board's tip and turn exactly, so a piece stands straight to the eye (Barrett,
+     2026-09-23: "make the pieces look more upright"); the board's perspective still shrinks the far ones */
+  .piece img { position: absolute; left: 4%; bottom: 4%; width: 92%; height: 184%; object-fit: contain; object-position: bottom; transform-origin: 50% 100%; transform: rotateZ(16deg) rotateX(-54deg); filter: drop-shadow(0 5px 6px rgb(0 0 0 / .5)); }
   .piece::before { content: ""; position: absolute; left: 14%; right: 14%; top: 30%; bottom: 8%; border-radius: 50%; background: radial-gradient(closest-side, rgb(0 0 0 / .55), rgb(0 0 0 / 0)); }
   .piece.taken { opacity: 0; }
-  .piece.moving img { transition: transform .6s; transform: rotateX(-54deg) translateY(-14%); }
-  .piece.mated img { transition: transform .8s cubic-bezier(.4, .1, .3, 1), opacity .8s; transform: rotateX(-54deg) rotateZ(78deg) translateX(36%); opacity: .55; }
+  .piece.moving img { transition: transform .6s; transform: rotateZ(16deg) rotateX(-54deg) translateY(-14%); }
+  .piece.mated img { transition: transform .8s cubic-bezier(.4, .1, .3, 1), opacity .8s; transform: rotateZ(16deg) rotateX(-54deg) rotateZ(78deg) translateX(36%); opacity: .55; }
   .board-trail { position: absolute; width: 12.5%; height: 12.5%; left: calc(var(--f) * 12.5%); top: calc((7 - var(--r)) * 12.5%); background: rgb(143 188 255 / .28); box-shadow: 0 0 14px rgb(143 188 255 / .5); opacity: 0; transition: opacity .5s; }
   .board-trail.on { opacity: 1; }
   .board-note { margin: 10px 0 0; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); opacity: 0; transition: opacity .5s; }
