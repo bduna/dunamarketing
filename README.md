@@ -479,10 +479,11 @@ page's usual rule of one entrance then stillness on touch; before that a touch s
 live website. To go back, `const loop` in its script block is the switch. With reduced motion, or without JavaScript, it
 is the still finished picture. The timings are constants in its script block: `ACTS` (4400 at least, 4800, 3600 ms) and `HOLD`
 (4000 ms), stretched by `PACE` (1.8). The answer types at a person's speed, which `PACE` leaves alone: `keys()`
-gives a steady rhythm of about 110 words a minute (61-80 ms a key, 8.1 s in all), with a breath after each comma and
-before "cooked", and act 1 lasts as long as the typing needs plus `READ` (1.8 s). `TYPE` (0.78) sets that speed: it
-scales every key and every breath alike, 1 being the earlier 86 words a minute (10.3 s), lower is faster. Barrett asked
-for "a little faster" on 2026-09-21, which took it from 1 to 0.78. The reply bubble holds its final size
+gives a steady rhythm (61-80 ms a key), with a breath after each comma and
+before "cooked", and act 1 lasts as long as the typing needs plus `READ` (1.8 s). `TYPE` (0.62) sets that speed: it
+scales every key and every breath alike, 1 being 86 words a minute (10.3 s of typing), lower is faster. Barrett has
+asked for "a little faster" twice: 1 to 0.78 on 2026-09-21 (8.2 s), 0.78 to 0.62 on 2026-09-23 (6.5 s, about 140 words
+a minute). The reply bubble holds its final size
 from the start (the untyped words are there, transparent, in `.hd-rest`), so nothing grows, wraps or moves while it
 types; the caret takes no width of its own. One cycle is about 29 s, then a 7 s hold. The picture is aria-hidden; a visually hidden sentence describes it.
 
