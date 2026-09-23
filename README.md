@@ -124,9 +124,10 @@ questionnaire are the hero's alone.
   section ... copy the exact audio player as is in the hero section and put it above the questionnaire button in the
   headshot column ... I want the text to say: 'Listen Instead of Read'". His recording is `founder-bio-tts.wav` in the
   project folder, 62 seconds, cut to `assets/audio/founder-bio.mp3` (64 kbps mono, 496 KB); its words are
-  `founder-bio.phrases.json` beside it and its captions are made the same way as the hero's. It sits between his name
-  and the way into the questionnaire, so its captions are cut shorter than the hero's: the column is 380px on a
-  computer, where the hero's card has 544px. It has no dock and gives no glow, and its ring of bars waves once as the
+  `founder-bio.phrases.json` beside it and its captions are made the same way as the hero's. It sat between his name and the way into the
+  questionnaire until 2026-09-23 ("move the audio player in the OUR FOUNDER section to under the headline"), and is now
+  under the headline, over the bio, as the Care Plan's is. Its captions were cut for the 380px photo column and are
+  shorter than the text column needs. It has no dock and gives no glow, and its ring of bars waves once as the
   card comes into view rather than as the page loads.
 - The Care Plan's, `#care-voice-row`, the same day ("I want the same thing as the bio reading but with
   care-plan-tts.wav in the CARE PLAN section on the right column under the phone"): 77 seconds, `care-plan-tts.wav` in
