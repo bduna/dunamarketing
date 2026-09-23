@@ -599,14 +599,22 @@ two behind." It replaced a galaxy overture that was to burst into the colour, bu
   began at 12.5 and 11). A no-break space holds "Duna Marketing" together, so the name never splits across lines. The
   checkmate note keeps its own line above it, so nothing jumps when it appears.
 - Where it sits: from 1000px, beside the words on the right, `min(40vw, 66vh)` wide. Below that it hangs from the foot
-  of the hero (`bottom: 2vh`), `min(70vw, 38vh)` wide, and `.hero .copy` reserves the room for it under the buttons
-  (`padding-bottom: calc(min(70vw, 38vh) * .95 + 136px)`, the board's height on screen plus its two lines), so a short
-  screen makes the hero taller rather than letting the board climb onto the buttons. Measured: the board sits 20-88px
-  under the button and the caption 7-20px above the hero's foot on every phone and tablet tried, 320px to 768px.
+  of the hero (`bottom: 1svh`), and its script sizes it to the room under the buttons so the board and its line are on
+  the first screen (Barrett, 2026-09-23: "the caption runs below the fold on mobile"). `fit()` in the board's script
+  sets `--board-w`: it starts at 70vw, measures where the board's highest point lands (the tilted board or the far
+  pieces' heads, whichever is higher) against the buttons' layout position, and corrects the width until that point is
+  8px under the buttons, down to a floor of 30vw. Only a screen too short even for that gets a taller hero, by way of
+  `--board-room` on `.hero .copy` (its padding-bottom on phones): the first pass adds the shortfall plus the slack under
+  the copy, the second lands it within a pixel. It re-runs at load, when the fonts land, when the width changes (not
+  the height: a phone's browser bars come and go, and the hero is `100svh` regardless) and, through a ResizeObserver
+  on the copy's children, when the voice card's script shows its row further down the page. The checkmate note pulls
+  itself 13% of the width up into the square box's dead space under the tilted board and holds a line of height when
+  empty. Measured in headless Chromium: the board is the full 70vw from 390x844 up, 53-55vw at 360x740 and 430x745,
+  30-32vw on a 664px-tall screen (an iPhone in Safari with its bars showing), and the caption ends 4-14px above the
+  screen's foot on all of those; 320x568, 360x640 and 375x667 cannot hold the copy and a board on one screen, so the
+  hero grows by 20-90px there and the board sits under the buttons.
 - With reduced motion the pieces stand at their start squares and nothing plays.
 
-## Tracking
-## Tracking
 ## Tracking
 
 The Meta pixel is on both pages. `PageView` fires on load. A tap on any text, call, or email link fires the standard
