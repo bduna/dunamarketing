@@ -76,7 +76,10 @@ name again: since 2026-09-22 that is `.cta-deep`, a class any band can carry, ra
 more came the same day, "add the same type of button to the bottom of the care plan and contact buttons": at the foot
 of the Care Plan's text (`.care-go`, 30px above it) and under the Contact section's pills (`.start-go`, 26px), both in
 that same deep blue. Another on 2026-09-24, "add a questionnaire CTA to the NO RISK Section on the left side": under No
-risk's paragraph in its left column, beside the mark (`.norisk-go`, 30px above it), the same button in the same blue. The founder button sits in the photo column, which is why
+risk's paragraph in its left column, beside the mark (`.norisk-go`, 30px above it), the same button in the same blue.
+On a phone it goes under the mark and its name, centred as they are, 40px below ("the questionnaire must go below
+the logo and company name in no risk on mobile"): it comes after `.mark-wrap` in the page, and from 861px
+`.offer-grid`'s areas ("words mark" / "go mark") put it back under the words. The founder button sits in the photo column, which is why
 `.founder-left` wraps the photo and it: `.founder-photo` narrows to 260px on phones and would squeeze the pill.
 Stacked, under 860px, the whole photo column comes before the words, so on a phone the button is read before the
 section's own heading. (A fourth, under the pricing, was removed on 2026-09-22:

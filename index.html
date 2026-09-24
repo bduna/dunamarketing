@@ -932,7 +932,16 @@ fbq('track', 'PageView');
   .founder-left { min-width: 0; }   /* the photo column: the headshot, his name, then the way in under them */
   .founder-voice { margin: 4px 0 24px; }   /* the founder's reading, over his headline (Barrett, 2026-09-23) */
   .care-go { margin-top: 30px; }      /* the foot of the Care Plan */
-  .norisk-go { margin-top: 30px; }    /* under No risk's words, in its left column (Barrett, 2026-09-24) */
+  /* No risk's way in (Barrett, 2026-09-24): it comes after the mark in the page, so on a phone, where the grid is one
+     column, it sits under the logo and the name, centred as they are ("the questionnaire must go below the logo and
+     company name in no risk on mobile"); from 861px the grid puts it back in the left column, 30px under the words */
+  .norisk-go { justify-self: center; }
+  @media (min-width: 861px) {
+    .offer-grid { grid-template-areas: "words mark" "go mark"; row-gap: 30px; }
+    .offer-grid > div:first-child { grid-area: words; }
+    .offer-grid > .mark-wrap { grid-area: mark; }
+    .norisk-go { grid-area: go; justify-self: start; }
+  }
   .start-go { margin-top: 26px; }     /* under the Contact section's pills */
   .founder-go { margin-top: 36px; }   /* under the headshot (Barrett, 2026-09-22; 26px felt tight under his name), the deep blue of How it works' step 1;
      it is outside .founder-photo, so the pill keeps its own width where the photo narrows to 260px */
@@ -1277,7 +1286,6 @@ fbq('track', 'PageView');
         <p class="price"><strong>$1,500</strong><span>one time</span></p>
       </div>
       <p class="lede">You fill in the questionnaire below. We build your full website and send you a preview link within 24 hours. You pay only if you want to keep it. No deposit, no sales pitch.</p>
-      <div class="norisk-go"><a class="btn cta cta-go cta-deep" href="#questionnaire" aria-label="Start the questionnaire"><span class="cta-flip" aria-hidden="true"><span class="cta-face cta-face-a">Start the questionnaire</span><span class="cta-face cta-face-b">Ready to get started?</span></span><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a></div>
     </div>
     <div class="mark-wrap" aria-hidden="true">
     <svg class="mark-anim" viewBox="18 9 157 183" role="img" aria-label="Duna Marketing mark">
@@ -1310,6 +1318,7 @@ fbq('track', 'PageView');
     </svg>
       <div class="wordmark">DUNA MARKETING</div>
     </div>
+    <div class="norisk-go"><a class="btn cta cta-go cta-deep" href="#questionnaire" aria-label="Start the questionnaire"><span class="cta-flip" aria-hidden="true"><span class="cta-face cta-face-a">Start the questionnaire</span><span class="cta-face cta-face-b">Ready to get started?</span></span><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a></div>
   </div>
 </section>
 
