@@ -298,7 +298,32 @@ template; Written from your answers; Your photos, edited and placed; Made for ph
 Nothing to pay until you've seen it; Yours, outright. Every claim in it is one the page already makes elsewhere ($1,500
 one time, no deposit, pay only if you keep it, multi-page and custom, copy from the answers, photos edited and placed,
 right on phones, a working contact form, a preview within 24 hours, one more design direction, a discount for detailed
-answers, launched on the owner's domain and owned outright, the optional $149 Care Plan, 16 years). The Animations section it replaced is described
+answers, launched on the owner's domain and owned outright, the optional $149 Care Plan, 16 years).
+
+Beside the words, the receipt (2026-09-24: "build the receipt", chosen from five ideas for the section's empty right
+side): what the $1,500 buys, itemized, as a paper slip in a navy printer (`.receipt-wrap` > `.printer` >
+`.printer-slot` + `.receipt-clip` > `.receipt`). Ten lines, each ticked and marked "Included" (custom design, not a
+template; multi-page website; copy written from your answers; photos edited and placed; made for phones; working
+contact form; preview within 24 hours; one more design direction; launched on your domain; yours, outright), then
+Total $1,500, Due today $0.00, "Pay only if you keep it.", a decorative barcode and a "See it first" stamp. No line
+carries a price of its own: every one is "Included", so nothing claims what a part would cost. Archivo with tabular
+figures, not a typewriter face ([[sans-serif only]]). The torn foot is a CSS mask (a conic-gradient row of teeth,
+`--t`).
+
+- It prints once, when 30% of it is on screen: the slip is uncovered from the slot down (`clip-path` over 2.4 s), each
+  line's check pops in 0.14 s after the one above, and the stamp lands at 2.6 s. On a touch screen all of it runs 1.3x
+  slower (`.touch`, `--pace`), and then it holds still, the phones' rule. With reduced motion or without the script it
+  is simply there.
+- From 1000px it takes the right column (`clamp(330px, 30vw, 420px)`), and the questionnaire button (`.deal-go`)
+  stays under the words; below that it comes after the words and the button after it, so on a phone the receipt is
+  read before the way in. It stays in view while the words are read (`.stick`, sticky, centred top to bottom) only
+  where it fits the screen whole: 663px tall at 1366 and 1440 wide, so it pins on a 1366x768 or 1440x900 screen; on
+  1280x720 (702px) and 1024x768 (780px, its lines wrap) it scrolls with the page, or its total would be out of sight.
+- With a mouse from 1000px, the lines for the point crossing the middle tenth of the screen light up
+  (`data-point` on each line: 1 custom design and multi-page, 2 copy, 3 photos, 4 phones and contact form, 5 preview and
+  the second direction, 6 Due today, 7 domain and ownership).
+- Test: `~/.cache/duna-site-tests/receipt_check.js <url> [outdir]` (the print at 390, 1024, 1280, 1366 and 1440, the
+  lines lit per point, pinned or scrolling). The Animations section it replaced is described
 below as it was; its CSS (`.anim…`) and its two scripts (the video's player and the offer card's entrance, both
 guarded on their elements) are still in the page, doing nothing, and the video is still in `assets/video/`. The
 Animations price in Pricing is unchanged.

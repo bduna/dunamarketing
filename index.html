@@ -121,6 +121,64 @@ fbq('track', 'PageView');
   .deal-points { display: grid; gap: 26px; margin: 36px 0; }
   .deal-point h3 { margin: 0 0 6px; font-size: clamp(1.15rem, .3vw + 1.05rem, 1.35rem); font-weight: 700; letter-spacing: -.015em; line-height: 1.2; color: var(--navy); }
   .deal-point p { margin: 0; font-size: clamp(1rem, .2vw + .95rem, 1.1rem); line-height: 1.6; color: var(--navy-dim); }
+  /* ---------- The Website's receipt (Barrett, 2026-09-24: "build the receipt"): what the $1,500 buys, itemized, every
+     line "Included", the total, and "Due today $0.00". A navy printer, a slot, and a paper slip with a torn foot. It
+     prints once as it comes on screen, top to bottom, each line ticking as it appears, then a "See it first" stamp;
+     with reduced motion or without the script it is simply there. From 1000px it stands beside the words and stays in
+     view while they are read, and the lines for the point in the middle of the screen light up. Sans-serif like the
+     rest: tabular figures, not a typewriter face. ---------- */
+  .website-grid { display: grid; gap: 40px; }
+  .receipt-wrap { width: 100%; max-width: 420px; justify-self: center; --pace: 1; }
+  .receipt-wrap.touch { --pace: 1.3; }   /* a phone's one entrance, a little slower */
+  @media (min-width: 1000px) {
+    .website-grid { grid-template-columns: minmax(0, 1fr) clamp(330px, 30vw, 420px); grid-template-areas: "copy receipt" "go receipt"; column-gap: clamp(48px, 6vw, 112px); row-gap: 30px; align-items: start; }
+    .website-copy { grid-area: copy; }
+    .website-grid > .deal-go { grid-area: go; }
+    .receipt-wrap { grid-area: receipt; }
+    .receipt-wrap.stick { position: sticky; top: var(--stick-top, 48px); }   /* only where it fits the screen whole, centred in it (the script decides) */
+  }
+  .printer { padding: 18px 16px 24px; border-radius: 22px; background: var(--navy); box-shadow: 0 24px 60px rgb(11 19 41 / .28); }
+  .printer-slot { position: relative; z-index: 1; height: 10px; border-radius: 999px; background: #02050d; box-shadow: inset 0 2px 3px rgb(0 0 0 / .9), 0 1px 0 rgb(255 255 255 / .08); }
+  .receipt-clip { margin: -5px 10px 0; }
+  .receipt {
+    --t: 8px;   /* the torn foot's teeth */
+    position: relative; padding: 24px 20px calc(18px + var(--t));
+    background: #fffdf7; color: var(--navy); font-size: 14.5px; line-height: 1.35; font-variant-numeric: tabular-nums;
+    filter: drop-shadow(0 10px 14px rgb(0 0 0 / .35));
+    -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - var(--t) + 1px) no-repeat, conic-gradient(from 135deg at top, #0000 90deg, #000 0) bottom / calc(2 * var(--t)) var(--t) repeat-x;
+    mask: linear-gradient(#000 0 0) top / 100% calc(100% - var(--t) + 1px) no-repeat, conic-gradient(from 135deg at top, #0000 90deg, #000 0) bottom / calc(2 * var(--t)) var(--t) repeat-x;
+  }
+  .rc-head { text-align: center; padding-bottom: 14px; border-bottom: 1.5px dashed rgb(11 19 41 / .28); }
+  .rc-head img { display: block; width: 30px; height: auto; margin: 0 auto 8px; }
+  .rc-brand { margin: 0; font-size: 13px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+  .rc-sub { margin: 3px 0 0; font-size: 13px; color: var(--navy-dim); }
+  .rc-lines { list-style: none; margin: 10px 0; padding: 0; display: grid; gap: 1px; }
+  .rc-lines li, .rc-due { display: flex; align-items: center; gap: 10px; margin: 0 -8px; padding: 5px 8px; border-radius: 6px; transition: background-color .35s var(--ease-out); }
+  .rc-item { flex: 1; min-width: 0; }
+  .rc-lines li > b { flex: none; font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--navy-dim); }
+  .rc-check { flex: none; display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--accent-deep); }
+  .rc-check svg { width: 10px; height: 10px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .rc-sum { position: relative; display: grid; gap: 4px; padding-top: 12px; border-top: 1.5px dashed rgb(11 19 41 / .28); }
+  .rc-total, .rc-due { display: flex; justify-content: space-between; align-items: baseline; margin: 0; }
+  .rc-total { font-size: 20px; font-weight: 800; letter-spacing: -.01em; }
+  .rc-due { font-size: 16px; font-weight: 750; color: var(--accent-deep); }
+  .rc-lines li.lit, .rc-due.lit { background: rgb(30 64 175 / .09); }   /* the point being read, on a wide screen */
+  .rc-note { margin: 16px 0 10px; text-align: center; font-size: 13px; color: var(--navy-dim); }
+  .rc-code { display: block; width: 72%; height: 30px; margin: 0 auto; fill: var(--navy); }
+  .rc-stamp {
+    position: absolute; right: 12px; bottom: 22px; padding: 6px 12px 5px;   /* over the barcode's end, clear of the words */
+    border: 3px solid currentColor; border-radius: 8px; color: var(--accent-deep);
+    font-size: 15px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; line-height: 1;
+    background: #fffdf7;   /* the paper's own colour, so the bars under it never cross the words */
+    transform: rotate(-11deg); opacity: .92; pointer-events: none;
+  }
+  /* the print: the slip is uncovered from the slot down, each line ticks as it appears, then the stamp lands */
+  .receipt-wrap.ready .receipt { clip-path: inset(0 -40px 100% -40px); }
+  .receipt-wrap.ready .rc-check { transform: scale(0); }
+  .receipt-wrap.ready .rc-stamp { opacity: 0; transform: rotate(-11deg) scale(1.9); }
+  .receipt-wrap.go .receipt { clip-path: inset(0 -40px -40px -40px); transition: clip-path calc(2.4s * var(--pace)) cubic-bezier(.45, .1, .35, 1); }
+  .receipt-wrap.go .rc-check { transform: none; transition: transform calc(.35s * var(--pace)) cubic-bezier(.3, 1.5, .5, 1) calc((.55s + var(--n, 0) * .14s) * var(--pace)); }
+  .receipt-wrap.go .rc-stamp { opacity: .92; transform: rotate(-11deg); transition: opacity .15s linear calc(2.6s * var(--pace)), transform calc(.4s * var(--pace)) cubic-bezier(.3, 1.4, .5, 1) calc(2.6s * var(--pace)); }
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 10px;
     min-height: 54px; padding: 0 26px;
@@ -942,7 +1000,7 @@ fbq('track', 'PageView');
      column, it sits under the logo and the name, centred as they are ("the questionnaire must go below the logo and
      company name in no risk on mobile"); from 861px the grid puts it back in the left column, 30px under the words */
   .norisk-go { justify-self: center; }
-  .deal-go { margin-top: 30px; }      /* at the foot of The Website's text (Barrett, 2026-09-24) */
+  .deal-go { justify-self: start; }   /* after The Website's receipt (Barrett, 2026-09-24: "on the bottom of the text"), under the words on a wide screen */
   @media (min-width: 861px) {
     .offer-grid { grid-template-areas: "words mark" "go mark"; row-gap: 30px; }
     .offer-grid > div:first-child { grid-area: words; }
@@ -1539,7 +1597,8 @@ fbq('track', 'PageView');
      and the case for the $1,500 website: an introduction, seven short points under their own subheadings, and a close.
      Every claim in it is one the page already makes elsewhere. -->
 <section class="band band-light" id="the-website">
-  <div class="wrap">
+  <div class="wrap website-grid">
+    <div class="website-copy">
     <p class="eyebrow">The Website</p>
     <!-- The section read aloud, 58 seconds, over its headline: the Care Plan's card. -->
     <div class="voice-row website-voice" id="website-voice-row" hidden>
@@ -1594,8 +1653,44 @@ fbq('track', 'PageView');
         </div>
       </div>
       <p class="lede deal-close">That&rsquo;s $1,500, one time, for a custom website written from your own words, made for phones and ready within 24 hours. We bring 16 years of building websites to every one. Start the questionnaire below and see your finished website before you pay a dime.</p>
-      <div class="deal-go"><a class="btn cta cta-go cta-deep" href="#questionnaire" aria-label="Start the questionnaire"><span class="cta-flip" aria-hidden="true"><span class="cta-face cta-face-a">Start the questionnaire</span><span class="cta-face cta-face-b">Ready to get started?</span></span><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a></div>
     </div>
+    </div>
+    <!-- The receipt: what the $1,500 buys, itemized, printed once as it comes on screen. Beside the words on a wide
+         screen, where the lines for the point being read light up; under them on a phone, then still. -->
+    <div class="receipt-wrap">
+      <div class="printer">
+        <div class="printer-slot" aria-hidden="true"></div>
+        <div class="receipt-clip">
+          <div class="receipt" role="group" aria-label="What the $1,500 website includes">
+            <div class="rc-head">
+              <img src="assets/img/mark.png" alt="" width="30" height="31">
+              <p class="rc-brand">Duna Marketing</p>
+              <p class="rc-sub">Your website, itemized</p>
+            </div>
+            <ul class="rc-lines">
+            <li data-point="1" style="--n:0"><span class="rc-check" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5"/></svg></span><span class="rc-item">Custom design, not a template</span><b>Included</b></li>
+            <li data-point="1" style="--n:1"><span class="rc-check" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5"/></svg></span><span class="rc-item">Multi-page website</span><b>Included</b></li>
+            <li data-point="2" style="--n:2"><span class="rc-check" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5"/></svg></span><span class="rc-item">Copy written from your answers</span><b>Included</b></li>
+            <li data-point="3" style="--n:3"><span class="rc-check" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5"/></svg></span><span class="rc-item">Photos edited and placed</span><b>Included</b></li>
+            <li data-point="4" style="--n:4"><span class="rc-check" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5"/></svg></span><span class="rc-item">Made for phones</span><b>Included</b></li>
+            <li data-point="4" style="--n:5"><span class="rc-check" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5"/></svg></span><span class="rc-item">Working contact form</span><b>Included</b></li>
+            <li data-point="5" style="--n:6"><span class="rc-check" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5"/></svg></span><span class="rc-item">Preview within 24 hours</span><b>Included</b></li>
+            <li data-point="5" style="--n:7"><span class="rc-check" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5"/></svg></span><span class="rc-item">One more design direction</span><b>Included</b></li>
+            <li data-point="7" style="--n:8"><span class="rc-check" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5"/></svg></span><span class="rc-item">Launched on your domain</span><b>Included</b></li>
+            <li data-point="7" style="--n:9"><span class="rc-check" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2.5 6.2l2.3 2.3 4.7-5"/></svg></span><span class="rc-item">Yours, outright</span><b>Included</b></li>
+            </ul>
+            <div class="rc-sum">
+              <p class="rc-total"><span>Total</span><b>$1,500</b></p>
+              <p class="rc-due" data-point="6"><span>Due today</span><b>$0.00</b></p>
+            </div>
+            <p class="rc-note">Pay only if you keep it.</p>
+            <svg class="rc-code" viewBox="0 0 200 30" preserveAspectRatio="none" aria-hidden="true"><rect x="0" width="1.5" height="30"/><rect x="2.5" width="2" height="30"/><rect x="6.5" width="1" height="30"/><rect x="9.5" width="1.5" height="30"/><rect x="13" width="3" height="30"/><rect x="17.5" width="1" height="30"/><rect x="19.5" width="1.5" height="30"/><rect x="22.5" width="1" height="30"/><rect x="25.5" width="1" height="30"/><rect x="27.5" width="2" height="30"/><rect x="31.5" width="1" height="30"/><rect x="35" width="3" height="30"/><rect x="39.5" width="1.5" height="30"/><rect x="43" width="2" height="30"/><rect x="47" width="1" height="30"/><rect x="50" width="1.5" height="30"/><rect x="52.5" width="1" height="30"/><rect x="55" width="1" height="30"/><rect x="58.5" width="2" height="30"/><rect x="62.5" width="1.5" height="30"/><rect x="66" width="1" height="30"/><rect x="69" width="1" height="30"/><rect x="71" width="1" height="30"/><rect x="74.5" width="1" height="30"/><rect x="77" width="3" height="30"/><rect x="82" width="1.5" height="30"/><rect x="85.5" width="1" height="30"/><rect x="89" width="1" height="30"/><rect x="91" width="3" height="30"/><rect x="95.5" width="1" height="30"/><rect x="98.5" width="3" height="30"/><rect x="103.5" width="2" height="30"/><rect x="106.5" width="3" height="30"/><rect x="112" width="1" height="30"/><rect x="115.5" width="2.5" height="30"/><rect x="120" width="2" height="30"/><rect x="123.5" width="2.5" height="30"/><rect x="127.5" width="2.5" height="30"/><rect x="132.5" width="1" height="30"/><rect x="135.5" width="1.5" height="30"/><rect x="138.5" width="1" height="30"/><rect x="142" width="1.5" height="30"/><rect x="145" width="2" height="30"/><rect x="149.5" width="1.5" height="30"/><rect x="153" width="1" height="30"/><rect x="156.5" width="2.5" height="30"/><rect x="161.5" width="3" height="30"/><rect x="166.5" width="1" height="30"/><rect x="169.5" width="2" height="30"/><rect x="173" width="2" height="30"/><rect x="177.5" width="1" height="30"/><rect x="180" width="3" height="30"/><rect x="185.5" width="2" height="30"/><rect x="189.5" width="2.5" height="30"/><rect x="193" width="1" height="30"/><rect x="195" width="3" height="30"/><rect x="199" width="1" height="30"/></svg>
+            <span class="rc-stamp" aria-hidden="true">See it first</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="deal-go"><a class="btn cta cta-go cta-deep" href="#questionnaire" aria-label="Start the questionnaire"><span class="cta-flip" aria-hidden="true"><span class="cta-face cta-face-a">Start the questionnaire</span><span class="cta-face cta-face-b">Ready to get started?</span></span><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a></div>
   </div>
 </section>
 
@@ -3031,6 +3126,46 @@ fbq('track', 'PageView');
   }
   // Two frames in: the headline and button have painted before the wall starts loading.
   requestAnimationFrame(() => requestAnimationFrame(boot));
+})();
+</script>
+<script>
+// The Website's receipt (the CSS block "The Website's receipt" says what it is): it prints once, when it comes on screen,
+// a little slower on a touch screen; and from 1000px, with a mouse, the lines for the point being read (the one crossing
+// the middle of the screen) light up. With reduced motion it is simply there. Its own script and guard.
+(() => {
+  const wrap = document.querySelector('#the-website .receipt-wrap');
+  if (!wrap) return;
+  try {
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      if (!matchMedia('(hover: hover) and (pointer: fine)').matches) wrap.classList.add('touch');
+      wrap.classList.add('ready');
+      new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); wrap.classList.add('go'); } }, { threshold: 0.3 }).observe(wrap);
+    }
+    // it stays in view while the words are read only where it fits the screen whole, and then centred top to bottom;
+    // taller than the screen (a 1024x768 screen, say) it scrolls with the page, or its total would be out of sight
+    const beside = matchMedia('(min-width: 1000px)');
+    const fit = () => {
+      const h = wrap.offsetHeight;
+      wrap.classList.toggle('stick', beside.matches && h + 48 <= innerHeight);
+      wrap.style.setProperty('--stick-top', Math.max(24, Math.round((innerHeight - h) / 2)) + 'px');
+    };
+    fit();
+    addEventListener('resize', fit, { passive: true });
+    addEventListener('load', fit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    const wide = matchMedia('(min-width: 1000px) and (hover: hover) and (pointer: fine)');
+    const points = [...document.querySelectorAll('#the-website .deal-point')], lines = [...wrap.querySelectorAll('[data-point]')];
+    let now = 0;
+    const light = n => { if (n === now) return; now = n; lines.forEach(l => l.classList.toggle('lit', +l.dataset.point === n)); };
+    if (points.length && 'IntersectionObserver' in window) {
+      const seen = new Map();
+      const io = new IntersectionObserver(es => {
+        es.forEach(e => seen.set(e.target, e.isIntersecting));
+        light(wide.matches ? points.findIndex(p => seen.get(p)) + 1 : 0);
+      }, { rootMargin: '-45% 0px -45% 0px' });   // a band across the middle tenth of the screen
+      points.forEach(p => io.observe(p));
+    }
+  } catch (e) { wrap.classList.remove('ready'); }
 })();
 </script>
 <script>
