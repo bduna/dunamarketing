@@ -554,19 +554,19 @@ WebGL wall that stood there until 6e9c1c9, its script changed in a few lines (be
 turned plane (18 degrees round, 45 back), rows drifting in opposite directions, each card bobbing, each screenshot
 holding at its top for 2.5 s and then scrolling down its page and back over 10 s. It settles in over 2.2 s, leans a
 little toward the pointer, stops while the hero is off screen, and holds still with reduced motion. The ten tall
-captures in `assets/img/samples/` are its textures (the 960 size wherever the longer side of the screen times its pixel
-ratio, capped at 2, is 1000 or more, so on every computer; else 640. The sample cards make the same pick, so the page
-downloads them once). Without WebGL2 a static tilted grid of the same captures stands in
+captures in `assets/img/samples/` are its textures, in three sizes (`SIZE` in its script): `-1440.webp`, the full
+1440x3600 capture, on a screen 1000px or wider with 1800 or more pixels across (a 1920 screen, or a laptop at 125% and
+up); else `-960.webp` wherever the longer side of the screen times its pixel ratio, capped at 2, is 1000 or more; else
+`-640.webp`. Phones never get the 1440s: ten of them are about 280 MB on the graphics card. The sample cards pick 960 or
+640 by the second rule, so they share the wall's download except where the wall takes the 1440s. Without WebGL2 a static tilted grid of the same captures stands in
 (`.fallback`).
 
-- From 1000px the canvas is the right of the hero, top to bottom, with no wash over it, and meets the black along a
-  crisp diagonal with a 2px line in the accent blue on it (Barrett, 2026-09-23: "remove the blur on the homepage wall.
-  Make a shape, divide"; for its first hour it faded in over its first 9% instead). The diagonal runs from 58% across
-  at the top to 47% at the foot, leaning the way the cards' sides do: the canvas box runs from 47% to the right edge
-  and is clipped (`clip-path`, its top corner at 11/53 of the box, 20.755%), and `.wall-edge` is an SVG line over the
-  same box. Checked from 1000x700 to 2560x1440, no line of the copy comes nearer the diagonal than 30px
-  (`~/.cache/duna-site-tests/wall_cut_check.js`). The words keep to the left half: `.hero .copy` keeps its left
-  edge in line with the sections below and ends `clamp(24px, 2vw, 56px)` short of the half, and the headline shrinks to
+- From 1000px the canvas is the right half of the hero, top to bottom, with no wash over it, and meets the black along
+  a straight up-and-down line, 2px in the accent blue, at the half (`.wall-edge`). Barrett, 2026-09-23: "remove the
+  blur on the homepage wall. Make a shape, divide", then "make the line straight up and down": for its first hour the
+  wall faded in over its first 9%, then for a while it was cut on a diagonal. The words keep to the left half:
+  `.hero .copy` keeps its left edge in line with the sections below and ends `clamp(28px, 2.5vw, 64px)` short of the
+  line, and the headline shrinks to
   fit (`10.2cqi`, the copy being a size container). Checked from 1000 to 2560px: nothing of the copy crosses the half,
   and the two buttons share a row from 1440px up (they stack below that).
 - What changed in its script: the card size (its phone boost included) and the drift speed go by the screen's width,
@@ -574,7 +574,14 @@ downloads them once). Without WebGL2 a static tilted grid of the same captures s
   mistaken for a phone. Barrett, 2026-09-23: "the images are blury". Three things had made them so, all fixed: the
   cards had shrunk a third with the canvas; a 1440x900 screen at 1x was given the 640 captures (the cut-off was 1500,
   now 1000); and the shader samples its texture half a mip level sharper than the default (`texture(uTex, vTex, -0.5)`),
-  which the anisotropic filtering already on keeps from shimmering.
+  which the anisotropic filtering already on keeps from shimmering. Then, "make the screenshots crystal clear, they
+  are still blury": the 960 captures were themselves 1440 captures scaled down, and on a screen at 2x the cards are
+  drawn with more pixels than that, so the graphics card stretched them. The ten were captured again at full size,
+  1440x3600 (`~/.cache/duna-site-tests/sample_caps_1440.js`: the local `portfolio/<name>/` pages at 1440x900 with
+  reduced motion, walked first so lazy images decode; Summit Ridge's page is 3559 tall, so its foot is carried on in
+  its footer's colour), saved as WebP at quality 90 (290-490 KB each, 3.5 MB for the ten), and the wall takes them on
+  the screens above. The shader also runs an unsharp mask: the page plus 0.45 of itself less a copy blurred by one and
+  a half mip levels, so type and picture edges stand out.
 - Under 1000px there is no half to give, so the wall runs behind the words as it did before, with `.veil` (a top-down,
   corner, left-to-right and bottom wash) holding them.
 - The Animations card's line is back to "The moving wall of websites at the top of this page is one."
@@ -596,6 +603,6 @@ Add `?metrics=off` to the address once on a browser you use for testing and that
 
 ## Changing a sample
 
-Each sample has three images: the two tall captures in `assets/img/samples/` (`<name>-960.webp` at 960x2400 and
-`<name>-640.webp` at 640x1600) and the first-screen card in `assets/img/desktop/` (`<name>.webp` at 960x600, a 1440x900 desktop capture, then scaled
+Each sample has four images: the three tall captures in `assets/img/samples/` (`<name>-1440.webp` at 1440x3600, the
+hero wall's on sharp screens, `<name>-960.webp` at 960x2400 and `<name>-640.webp` at 640x1600) and the first-screen card in `assets/img/desktop/` (`<name>.webp` at 960x600, a 1440x900 desktop capture, then scaled
 down; the ten samples no longer carry the sticky bottom bar, so there is nothing to hide). The Keyway Locksmith screenshot still says "colour" and should be regenerated.

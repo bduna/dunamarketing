@@ -151,15 +151,13 @@ fbq('track', 'PageView');
   /* ---------- The wall (back 2026-09-23, Barrett: "create a full half page from the very bottom to the very top
      animation of the floating and scrolling screenshots that I had previously"). Ten sample websites float on a tilted
      plane, each scrolling its own page, drawn by WebGL. On a wide screen it fills the right of the hero from top to
-     bottom, with no wash over it, and meets the black along a crisp diagonal with a thin blue line on it (Barrett, the
-     same day: "remove the blur on the homepage wall. Make a shape, divide"; it had faded in over its first 9%). The
-     diagonal leans the way the cards' sides do: 58% across at the top, 47% at the foot. The words keep to the left
-     half, clear of it. On a phone there is no half to give, so it runs behind the words as it did
+     bottom, with no wash over it, and meets the black along a straight up-and-down line in the accent blue (Barrett, the
+     same day: "remove the blur on the homepage wall. Make a shape, divide", then "make the line straight up and down";
+     it faded in over its first 9%, then was cut on a diagonal). The words keep to the left half, clear of it. On a phone there is no half to give, so it runs behind the words as it did
      before, with the veil holding them. */
   .wall, .veil, .fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
   .wall { display: block; }
   .wall-edge { display: none; }   /* the dividing line, on a wide screen only */
-  .wall-edge line { stroke: var(--accent); stroke-width: 2px; vector-effect: non-scaling-stroke; }
   .veil {
     pointer-events: none;
     background:
@@ -169,16 +167,14 @@ fbq('track', 'PageView');
       linear-gradient(0deg, rgb(var(--veil) / .55) 0%, rgb(var(--veil) / 0) 22%);
   }
   @media (min-width: 1000px) {
-    /* the box runs from 47% to the right edge, and the cut's top corner sits at 58% of the hero: 11/53 of the box */
-    .wall, .fallback, .wall-edge { left: 47%; width: 53%; }
-    .wall, .fallback { clip-path: polygon(20.755% 0, 100% 0, 100% 100%, 0 100%); }
-    .wall-edge { display: block; position: absolute; top: 0; height: 100%; overflow: visible; pointer-events: none; }
+    .wall, .fallback { left: 50%; width: 50%; }
+    .wall-edge { display: block; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; background: var(--accent); pointer-events: none; }
     .veil { display: none; }
     /* the words end short of the half, on the same left edge as the sections below, and the headline shrinks to fit */
     .hero .copy {
       container-type: inline-size; max-width: none; margin: 0;
       padding-left: calc(env(safe-area-inset-left, 0px) + max(var(--gutter), (100% - 1320px) / 2));
-      padding-right: calc(50% + clamp(24px, 2vw, 56px));
+      padding-right: calc(50% + clamp(28px, 2.5vw, 64px));
     }
     .hero .headline { font-size: min(clamp(2.3rem, 3.6vw + 1.4vh, 6rem), 10.2cqi); }
   }
@@ -1220,7 +1216,7 @@ fbq('track', 'PageView');
 <main>
 <section class="hero" id="top">
   <canvas class="wall" id="wall" aria-hidden="true"></canvas>
-  <svg class="wall-edge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="20.755" y1="0" x2="0" y2="100"/></svg>
+  <div class="wall-edge" aria-hidden="true"></div>
   <div class="fallback" aria-hidden="true"><div class="fallback-plane"></div></div>
   <div class="veil" aria-hidden="true"></div>
   <div class="copy">
@@ -2598,10 +2594,14 @@ fbq('track', 'PageView');
 // The wall: ten sample websites floating on a tilted plane, each one scrolling its own page (the CSS block "The wall"
 // says where it sits). Its own script, so a failure here leaves the rest of the page as it was.
 (() => {
-  // Screenshots now live in assets/img/samples/ as two sizes; the pick mirrors uploadTextures().
-  const big = Math.max(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) >= 1000;
+  // The tall captures in assets/img/samples/, in three sizes. On a wide screen with 1800 or more pixels across (a 1920
+  // screen, or a laptop at 125% and up) the cards are drawn with more pixels than the 960s hold, and stretched they went
+  // soft (Barrett, 2026-09-23: "make the screenshots crystal clear"), so those screens get the full 1440x3600 captures.
+  // Phones keep 960 or 640: ten 1440s are a quarter of a gigabyte on the graphics card.
+  const SIZE = innerWidth >= 1000 && innerWidth * Math.min(devicePixelRatio || 1, 2) >= 1800 ? 1440
+    : Math.max(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) >= 1000 ? 960 : 640;
   const SHOTS = [{"name": "Long Table Catering", "slug": "long-table-catering"}, {"name": "Marden Estate Law", "slug": "marden-estate-law"}, {"name": "Velvet Fig", "slug": "velvet-fig"}, {"name": "Keyway Locksmith", "slug": "keyway-locksmith"}, {"name": "Golden Crumb Bakery", "slug": "golden-crumb-bakery"}, {"name": "Mirror Finish Auto Detailing", "slug": "mirror-finish-auto-detailing"}, {"name": "Bright Beginnings Preschool", "slug": "bright-beginnings-preschool"}, {"name": "Waggin’ Tails Grooming", "slug": "waggin-tails-grooming"}, {"name": "Summit Ridge Ski & Board", "slug": "summit-ridge-ski-board"}, {"name": "Maple Street Cleaners", "slug": "maple-street-cleaners"}]
-    .map(s => ({ ...s, src: `assets/img/samples/${s.slug}-${big ? 960 : 640}.webp` }));
+    .map(s => ({ ...s, src: `assets/img/samples/${s.slug}-${SIZE}.webp` }));
   const root = document.documentElement;
   const canvas = document.getElementById('wall');
   document.getElementById('sites').textContent =
@@ -2687,6 +2687,8 @@ fbq('track', 'PageView');
     float aa = max(fwidth(d), 1e-4);
     float a = clamp(0.5 - d / aa, 0.0, 1.0) * uAlpha;
     vec3 col = texture(uTex, vTex, -0.5).rgb;   // half a mip level sharper than the default pick
+    vec3 soft = texture(uTex, vTex, 1.0).rgb;   // and an unsharp mask: the page less a blurred copy of itself, so the
+    col = clamp(col + 0.45 * (col - soft), 0.0, 1.0);   // edges of its type and pictures stand out crisp
     col *= 1.04 - 0.16 * vUv.y - 0.05 * vUv.x;
     col += smoothstep(-1.5 * aa, 0.0, d) * 0.08;
     outColor = vec4(col * a, a);
@@ -2733,8 +2735,7 @@ fbq('track', 'PageView');
   }
 
   function uploadTextures() {
-    const big = Math.max(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) >= 1000;
-    const [tw, th] = big ? [960, 2400] : [640, 1600];
+    const [tw, th] = [SIZE, SIZE * 2.5];
     tex = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D_ARRAY, tex);
     gl.texStorage3D(gl.TEXTURE_2D_ARRAY, Math.floor(Math.log2(th)) + 1, gl.RGBA8, tw, th, images.length);
