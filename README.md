@@ -122,9 +122,9 @@ work headline below it used to arrive on the same screen and the two headlines c
 sits in the middle of the taller band. It is on `:target`, not on the band itself, so nothing moves for a visitor who
 simply scrolls past; the band is its natural height again once another anchor is the target.
 
-## The voice (five cards: the hero's summary, and the Client work, founder's, Care Plan and Pricing readings)
+## The voice (six cards: the hero's summary, and the Client work, founder's, The Website, Care Plan and Pricing readings)
 
-Five cards on the page play a recording and show its words as they are spoken. One maker in the voice script builds
+Six cards on the page play a recording and show its words as they are spoken. One maker in the voice script builds
 them all, each given its own words, loudness, length and labels; a card's dock and the glow it gives Start the
 questionnaire are the hero's alone. The four section cards are named for their sections (Barrett, 2026-09-24): "Deep Roots
 Summary", "Founder Summary" (first "Our Founder Summary", renamed the same day), "Care Plan Summary" and "Pricing Summary";
@@ -171,6 +171,13 @@ line, as the hero's does (`~/.cache/duna-site-tests/voice_labels_fit.js`).
   you pay anything."), and it heard "Micro apps" and "micro app" as two words each (joined, so the captions can say
   Micro-Apps). One height through every caption at 320, 390 and 1440px
   (`~/.cache/duna-site-tests/section_voice_check.js <url> <out> pricing-voice-row pricing`).
+- The Website's, `#website-voice-row`, 2026-09-24 ("create an audio player in the style of the others that sits atop of
+  the heading in the website section and plays "website-tts.wav""): 58 seconds, `website-tts.wav` in the project folder,
+  cut to `assets/audio/website.mp3` (64 kbps mono, 465 KB), its words in `website.phrases.json` (26 captions) and its
+  transcript in `website-tts.words.json`. Between the section's eyebrow and its headline, on the white band; "Website
+  Summary · 0:58" over "This section, in 58 seconds", named like the other section cards. It retells the section's
+  copy; lit in the accent: $1,500, one time, within 24 hours, no deposit, only pay if you want to keep it, own it
+  outright, 16 years, before you pay a dime. The recording says "a multi-page site", and the caption shows what it says.
 
 
 Barrett's recording, a 72-second spoken summary of the whole page meant as the first sales pitch
