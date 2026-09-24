@@ -117,9 +117,9 @@ work headline below it used to arrive on the same screen and the two headlines c
 sits in the middle of the taller band. It is on `:target`, not on the band itself, so nothing moves for a visitor who
 simply scrolls past; the band is its natural height again once another anchor is the target.
 
-## The voice (three cards: the hero's summary, the founder's and the Care Plan's readings)
+## The voice (four cards: the hero's summary, and the Client work, founder's and Care Plan readings)
 
-Three cards on the page play a recording and show its words as they are spoken. One maker in the voice script builds
+Four cards on the page play a recording and show its words as they are spoken. One maker in the voice script builds
 them all, each given its own words, loudness, length and labels; a card's dock and the glow it gives Start the
 questionnaire are the hero's alone.
 
@@ -139,6 +139,19 @@ questionnaire are the hero's alone.
   eyebrow and its headline, where the founder's sits ("yes, move the care plan one above its headline too"). The text
   column gives it the hero's full 544px. Its captions were cut for that 312px column and are shorter
   than they need to be now. This reading retells the section rather than reading it word for word.
+- Client work's, `#client-voice-row`, 2026-09-23 ("duplicate the audio buttons we have on the site and put the new one
+  above the header (with the same style and everything the same) in the section CLIENT WORK with audio
+  deep-roots-tts.wav"): 64 seconds, `deep-roots-tts.wav` in the project folder, cut to `assets/audio/deep-roots.mp3`
+  (64 kbps mono, 512 KB), its words in `deep-roots.phrases.json` and its transcript in `deep-roots-tts.words.json`. It
+  sits between the section's eyebrow and its headline, as the Care Plan's and the founder's do, and reads "Listen
+  Instead of Read · 1:04" over "This section, in 64 seconds". It retells the section: the shop, since 2006, 30 years,
+  the one job the site has, the five pages, the 11 departments, the phone. Lit in the accent: since 2006, 30 years of
+  experience, Five pages, All 11 departments, on every page, tap once, deeproots707.com. Its captions keep the card one
+  height through all 25 of them at 320, 390 and 1440px (`~/.cache/duna-site-tests/client_voice_check.js`). Client work
+  is the one white band a card sits on, and there the card's see-through wash would turn grey, so on `.band-light` the
+  card and its line are solid in the colour they show on the dark bands, with the white band's softer shadow.
+  `hero_voice_captions.py` now also rejoins a piece the transcriber splits off with a full stop ("deeproots707"
+  ".com.").
 
 
 Barrett's recording, a 72-second spoken summary of the whole page meant as the first sales pitch
