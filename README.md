@@ -280,8 +280,9 @@ white), so the white-background headshot sits as a card with the sample cards' b
 
 `<section id="the-website">`, the white band between Our founder and The Care Plan, 2026-09-24: "Change the
 "Animations" section to a new section called "The Website" and add the empty placeholder of a headline "Get your new
-headline and enjoy your new site." Add a paragraph under it with "Lorem ipsum…"". The eyebrow "The Website", that
-headline, and eleven "Lorem ipsum." as the lede; nothing else yet. The Animations section it replaced is described
+headline and enjoy your new site." Add a paragraph under it with "Lorem ipsum…"". The eyebrow "The Website", the
+headline "You answer the questions. We build the website." (chosen the same day from headlines written for it, in place
+of the placeholder), and eleven "Lorem ipsum." as the lede, still a placeholder. The Animations section it replaced is described
 below as it was; its CSS (`.anim…`) and its two scripts (the video's player and the offer card's entrance, both
 guarded on their elements) are still in the page, doing nothing, and the video is still in `assets/video/`. The
 Animations price in Pricing is unchanged.
