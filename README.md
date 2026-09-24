@@ -75,7 +75,8 @@ Works #1 button", then "can you put it under my headshot??"; step 1's deep blue,
 name again: since 2026-09-22 that is `.cta-deep`, a class any band can carry, rather than a rule per section). Two
 more came the same day, "add the same type of button to the bottom of the care plan and contact buttons": at the foot
 of the Care Plan's text (`.care-go`, 30px above it) and under the Contact section's pills (`.start-go`, 26px), both in
-that same deep blue. The founder button sits in the photo column, which is why
+that same deep blue. Another on 2026-09-24, "add a questionnaire CTA to the NO RISK Section on the left side": under No
+risk's paragraph in its left column, beside the mark (`.norisk-go`, 30px above it), the same button in the same blue. The founder button sits in the photo column, which is why
 `.founder-left` wraps the photo and it: `.founder-photo` narrows to 260px on phones and would squeeze the pill.
 Stacked, under 860px, the whole photo column comes before the words, so on a phone the button is read before the
 section's own heading. (A fourth, under the pricing, was removed on 2026-09-22:
