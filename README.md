@@ -121,7 +121,10 @@ simply scrolls past; the band is its natural height again once another anchor is
 
 Five cards on the page play a recording and show its words as they are spoken. One maker in the voice script builds
 them all, each given its own words, loudness, length and labels; a card's dock and the glow it gives Start the
-questionnaire are the hero's alone.
+questionnaire are the hero's alone. The four section cards are named for their sections (Barrett, 2026-09-24): "Deep Roots
+Summary", "Our Founder Summary", "Care Plan Summary" and "Pricing Summary"; all four read "Listen Instead of Read"
+before that. From 360px each label keeps to one line with its time; on a 320px phone the time wraps whole to a second
+line, as the hero's does (`~/.cache/duna-site-tests/voice_labels_fit.js`).
 
 - The founder's, `#founder-voice-row`, added 2026-09-22: "I have a word for word audio reading of the Our Founder
   section ... copy the exact audio player as is in the hero section and put it above the questionnaire button in the
@@ -143,8 +146,7 @@ questionnaire are the hero's alone.
   above the header (with the same style and everything the same) in the section CLIENT WORK with audio
   deep-roots-tts.wav"): 64 seconds, `deep-roots-tts.wav` in the project folder, cut to `assets/audio/deep-roots.mp3`
   (64 kbps mono, 512 KB), its words in `deep-roots.phrases.json` and its transcript in `deep-roots-tts.words.json`. It
-  sits between the section's eyebrow and its headline, as the Care Plan's and the founder's do, and reads "Listen
-  Instead of Read · 1:04" over "This section, in 64 seconds". It retells the section: the shop, since 2006, 30 years,
+  sits between the section's eyebrow and its headline, as the Care Plan's and the founder's do, and reads "Deep Roots Summary · 1:04" over "This section, in 64 seconds". It retells the section: the shop, since 2006, 30 years,
   the one job the site has, the five pages, the 11 departments, the phone. Lit in the accent: since 2006, 30 years of
   experience, Five pages, All 11 departments, on every page, tap once, deeproots707.com. Its captions keep the card one
   height through all 25 of them at 320, 390 and 1440px (`~/.cache/duna-site-tests/client_voice_check.js`). Client work
@@ -156,7 +158,7 @@ questionnaire are the hero's alone.
   the headline using the "pricing-tts.wav" audio file"): 2 minutes 46 seconds, `pricing-tts.wav` in the project folder,
   cut to `assets/audio/pricing.mp3` (64 kbps mono, 1.3 MB), its words in `pricing.phrases.json` (85 captions) and its
   transcript in `pricing-tts.words.json`. Between the section's eyebrow and its headline, on the white band like Client
-  work's; it reads "Listen Instead of Read · 2:46" over "This section, in under 3 minutes". It walks through the five
+  work's; it reads "Pricing Summary · 2:46" over "This section, in under 3 minutes". It walks through the five
   services and their prices; lit in the accent: 16 years, $1,500 one time, within 24 hours, own the finished website
   outright, You pay only after you've seen it, $149 a month, unlimited small changes, cancel any time, $350 each, $500
   each, $500 for your first, $200 each. Two things were put right in its transcript by hand: the transcriber invented
