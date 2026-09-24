@@ -115,6 +115,12 @@ fbq('track', 'PageView');
   }
   .lede { margin: 0; max-width: 40em; font-size: clamp(1.05rem, .4vw + .95rem, 1.3rem); color: var(--ink-dim); }
   .band-light .lede { color: var(--navy-dim); }
+  /* The Website: the $1,500 website's case, an introduction, seven points under subheadings, and a close, in one
+     readable column (Barrett, 2026-09-24); the introduction and the close are ledes, bookends in the same voice */
+  .deal { max-width: 44em; }
+  .deal-points { display: grid; gap: 26px; margin: 36px 0; }
+  .deal-point h3 { margin: 0 0 6px; font-size: clamp(1.15rem, .3vw + 1.05rem, 1.35rem); font-weight: 700; letter-spacing: -.015em; line-height: 1.2; color: var(--navy); }
+  .deal-point p { margin: 0; font-size: clamp(1rem, .2vw + .95rem, 1.1rem); line-height: 1.6; color: var(--navy-dim); }
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 10px;
     min-height: 54px; padding: 0 26px;
@@ -1528,12 +1534,47 @@ fbq('track', 'PageView');
   </div>
 </section>
 
-<!-- The Website (Barrett, 2026-09-24, in place of the Animations section): its headline, chosen from a list the same day, and a placeholder paragraph for now. -->
+<!-- The Website (Barrett, 2026-09-24, in place of the Animations section): its headline, chosen from a list the same day,
+     and the case for the $1,500 website: an introduction, seven short points under their own subheadings, and a close.
+     Every claim in it is one the page already makes elsewhere. -->
 <section class="band band-light" id="the-website">
   <div class="wrap">
     <p class="eyebrow">The Website</p>
     <h2>You answer the questions. We build the website.</h2>
-    <p class="lede">Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum. Lorem ipsum.</p>
+    <div class="deal">
+      <p class="lede">For $1,500, one time, you get a complete, custom website built around your business. You answer one questionnaire and we do the rest. There&rsquo;s no deposit, no sales pitch, and nothing to pay until you&rsquo;ve seen the finished website.</p>
+      <div class="deal-points">
+        <div class="deal-point">
+          <h3>A real website, not a template</h3>
+          <p>You get a full, multi-page website designed for your business alone. Nothing is a theme with your name dropped in, and no page is left for you to fill in.</p>
+        </div>
+        <div class="deal-point">
+          <h3>Written from your answers</h3>
+          <p>We write every page from your questionnaire answers, so your website sounds like you. You don&rsquo;t need to write polished copy; just tell us what you do. Detailed answers make a better website, and they can earn you a discount.</p>
+        </div>
+        <div class="deal-point">
+          <h3>Your photos, edited and placed</h3>
+          <p>Send us the photos you already have. We edit them and place each one where it helps most, so customers see your real business before they ever call.</p>
+        </div>
+        <div class="deal-point">
+          <h3>Made for phones</h3>
+          <p>Every page is built to look right on a phone, not just on a computer. A working contact form lets a customer reach you the moment they decide.</p>
+        </div>
+        <div class="deal-point">
+          <h3>A preview within 24 hours</h3>
+          <p>Your finished website is ready to review within 24 hours. If the first design isn&rsquo;t right, we&rsquo;ll give you one more design direction.</p>
+        </div>
+        <div class="deal-point">
+          <h3>Nothing to pay until you&rsquo;ve seen it</h3>
+          <p>There&rsquo;s no deposit to get started and no bill until you&rsquo;ve seen the finished website. You pay only if you want to keep it.</p>
+        </div>
+        <div class="deal-point">
+          <h3>Yours, outright</h3>
+          <p>We launch the website on your domain, and you own it outright. The $149 a month Care Plan is optional, for when you&rsquo;d rather we handle the upkeep.</p>
+        </div>
+      </div>
+      <p class="lede deal-close">That&rsquo;s $1,500, one time, for a custom website written from your own words, made for phones and ready within 24 hours. We bring 16 years of building websites to every one. Start the questionnaire below and see your finished website before you pay a dime.</p>
+    </div>
   </div>
 </section>
 

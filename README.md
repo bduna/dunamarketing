@@ -282,7 +282,15 @@ white), so the white-background headshot sits as a card with the sample cards' b
 "Animations" section to a new section called "The Website" and add the empty placeholder of a headline "Get your new
 headline and enjoy your new site." Add a paragraph under it with "Lorem ipsum…"". The eyebrow "The Website", the
 headline "You answer the questions. We build the website." (chosen the same day from headlines written for it, in place
-of the placeholder), and eleven "Lorem ipsum." as the lede, still a placeholder. The Animations section it replaced is described
+of the placeholder), and under it the case for the $1,500 website ("approximately 7 paragraph with subheading and a
+conclusion and introduction on how awesome our $1,500 website deal is. 2 to 3 sentence per paragraph max", the same
+day, in place of the Lorem ipsum): an introduction and a close as ledes, and between them seven points, each an `h3`
+over two or three sentences (`.deal`, `.deal-points`, `.deal-point`, one column 44em wide): A real website, not a
+template; Written from your answers; Your photos, edited and placed; Made for phones; A preview within 24 hours;
+Nothing to pay until you've seen it; Yours, outright. Every claim in it is one the page already makes elsewhere ($1,500
+one time, no deposit, pay only if you keep it, multi-page and custom, copy from the answers, photos edited and placed,
+right on phones, a working contact form, a preview within 24 hours, one more design direction, a discount for detailed
+answers, launched on the owner's domain and owned outright, the optional $149 Care Plan, 16 years). The Animations section it replaced is described
 below as it was; its CSS (`.anim…`) and its two scripts (the video's player and the offer card's entrance, both
 guarded on their elements) are still in the page, doing nothing, and the video is still in `assets/video/`. The
 Animations price in Pricing is unchanged.
