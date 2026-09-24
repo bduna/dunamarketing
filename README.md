@@ -609,6 +609,10 @@ up); else `-960.webp` wherever the longer side of the screen times its pixel rat
   `~/.cache/duna-site-tests/hero_bg_check.js` and `hero_bg_contrast.py`. Phones are unchanged.
 - Under 1000px there is no half to give, so the wall runs behind the words as it did before, with `.veil` (a top-down,
   corner, left-to-right and bottom wash) holding them.
+- A thin white band, 7px, separates the hero from No risk under it (Barrett, 2026-09-24: "put a thin white band
+  seperating the hero section with the section under it make it like 7 px"): `border-bottom: 7px solid var(--paper)`
+  on `.hero`. The hero is `border-box` at one screen tall, so the band sits at the foot of the first screen, inside it,
+  and the wall and its line stop just above it.
 - The Animations card's line is back to "The moving wall of websites at the top of this page is one."
 
 Earlier the same day the hero went through a mark drawn in light (6e9c1c9), drifting colour (d0f6733, 6a0a445), a
