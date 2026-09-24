@@ -117,9 +117,9 @@ work headline below it used to arrive on the same screen and the two headlines c
 sits in the middle of the taller band. It is on `:target`, not on the band itself, so nothing moves for a visitor who
 simply scrolls past; the band is its natural height again once another anchor is the target.
 
-## The voice (four cards: the hero's summary, and the Client work, founder's and Care Plan readings)
+## The voice (five cards: the hero's summary, and the Client work, founder's, Care Plan and Pricing readings)
 
-Four cards on the page play a recording and show its words as they are spoken. One maker in the voice script builds
+Five cards on the page play a recording and show its words as they are spoken. One maker in the voice script builds
 them all, each given its own words, loudness, length and labels; a card's dock and the glow it gives Start the
 questionnaire are the hero's alone.
 
@@ -152,6 +152,18 @@ questionnaire are the hero's alone.
   card and its line are solid in the colour they show on the dark bands, with the white band's softer shadow.
   `hero_voice_captions.py` now also rejoins a piece the transcriber splits off with a full stop ("deeproots707"
   ".com.").
+- Pricing's, `#pricing-voice-row`, 2026-09-24 ("create a audio widget like all the others in the pricing section above
+  the headline using the "pricing-tts.wav" audio file"): 2 minutes 46 seconds, `pricing-tts.wav` in the project folder,
+  cut to `assets/audio/pricing.mp3` (64 kbps mono, 1.3 MB), its words in `pricing.phrases.json` (85 captions) and its
+  transcript in `pricing-tts.words.json`. Between the section's eyebrow and its headline, on the white band like Client
+  work's; it reads "Listen Instead of Read · 2:46" over "This section, in under 3 minutes". It walks through the five
+  services and their prices; lit in the accent: 16 years, $1,500 one time, within 24 hours, own the finished website
+  outright, You pay only after you've seen it, $149 a month, unlimited small changes, cancel any time, $350 each, $500
+  each, $500 for your first, $200 each. Two things were put right in its transcript by hand: the transcriber invented
+  a repeat of the audio players lines in the recording's last, silent second (dropped: the recording ends at "before
+  you pay anything."), and it heard "Micro apps" and "micro app" as two words each (joined, so the captions can say
+  Micro-Apps). One height through every caption at 320, 390 and 1440px
+  (`~/.cache/duna-site-tests/section_voice_check.js <url> <out> pricing-voice-row pricing`).
 
 
 Barrett's recording, a 72-second spoken summary of the whole page meant as the first sales pitch
