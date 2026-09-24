@@ -563,9 +563,9 @@ up); else `-960.webp` wherever the longer side of the screen times its pixel rat
 
 - From 1000px the canvas is the right of the hero, top to bottom, with no wash over it, and meets the black along a
   straight up-and-down line, 2px in the accent blue (`.wall-edge`). Both start at `--wall-x`, a margin past the half,
-  `calc(50% + clamp(56px, 6vw, 144px))` (Barrett, 2026-09-24: "make the wall less wide there isn't enough margin";
-  it had started at the half), so the widest line of the copy is 79px from the line at 1024 wide, about 120px at 1440
-  and 160px at 1920. Barrett, 2026-09-23: "remove the
+  `calc(50% + clamp(44px, 4.5vw, 108px))` (Barrett, 2026-09-24: "make the wall less wide there isn't enough margin",
+  when it started at the half; then, at 6vw, "just a tad bit wider"), so the widest line of the copy is about 70px
+  from the line at 1024 wide, 100px at 1440 and 135px at 1920. Barrett, 2026-09-23: "remove the
   blur on the homepage wall. Make a shape, divide", then "make the line straight up and down": for its first hour the
   wall faded in over its first 9%, then for a while it was cut on a diagonal. The words keep to the left half:
   `.hero .copy` keeps its left edge in line with the sections below and ends `clamp(28px, 2.5vw, 64px)` short of the

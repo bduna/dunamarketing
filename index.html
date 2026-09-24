@@ -168,8 +168,8 @@ fbq('track', 'PageView');
   }
   @media (min-width: 1000px) {
     /* the wall starts a margin past the half, so the words have room before the line (Barrett, 2026-09-24: "make the
-       wall less wide there isn't enough margin"): 86px at 1440 wide on top of the copy's own gap */
-    .hero { --wall-x: calc(50% + clamp(56px, 6vw, 144px)); }
+       wall less wide there isn't enough margin", then "just a tad bit wider"): 65px at 1440 wide on top of the copy's own gap */
+    .hero { --wall-x: calc(50% + clamp(44px, 4.5vw, 108px)); }
     .wall, .fallback { left: var(--wall-x); width: calc(100% - var(--wall-x)); }
     .wall-edge { display: block; position: absolute; top: 0; bottom: 0; left: var(--wall-x); width: 2px; margin-left: -1px; background: var(--accent); pointer-events: none; }
     .veil { display: none; }
