@@ -148,7 +148,10 @@ fbq('track', 'PageView');
 
   /* ---------- Hero: the splash, kept as it was, now the first screen of a page that scrolls ---------- */
   .hero { position: relative; min-height: 100svh; overflow: hidden; background: var(--ground); display: flex; }
-  .hero { border-bottom: 7px solid var(--paper); }   /* a thin white band between the hero and No risk (Barrett, 2026-09-24); inside the hero's one screen, which counts it */
+  /* a thin white band between the hero and No risk (Barrett, 2026-09-24), hung from the top of the section under it, so
+     the hero fills the first screen and the band comes into view only with the first scroll ("make it hanging downward
+     so you don't see it until you scroll"); 7px at first, now 4px */
+  .hero + .band { border-top: 4px solid var(--paper); }
   /* ---------- The wall (back 2026-09-23, Barrett: "create a full half page from the very bottom to the very top
      animation of the floating and scrolling screenshots that I had previously"). Ten sample websites float on a tilted
      plane, each scrolling its own page, drawn by WebGL. On a wide screen it fills the right of the hero from top to
@@ -175,7 +178,7 @@ fbq('track', 'PageView');
        not a flat fill (Barrett, 2026-09-24, choosing "a depth gradient"); white text keeps 13:1 at its lightest */
     .hero { background: radial-gradient(ellipse 72% 105% at 0% 0%, rgb(22 40 88) 0%, rgb(15 28 64) 28%, rgb(10 19 44) 52%, var(--ground) 82%), var(--ground); }
     .wall, .fallback { left: var(--wall-x); width: calc(100% - var(--wall-x)); }
-    .wall-edge { display: block; position: absolute; top: 0; bottom: 0; left: var(--wall-x); width: 2px; margin-left: -1px; background: var(--accent); pointer-events: none; }
+    .wall-edge { display: block; position: absolute; top: 0; bottom: 0; left: var(--wall-x); width: 4px; margin-left: -2px; background: var(--accent); pointer-events: none; }   /* 4px ("make the blue line thicker"; it was 2px) */
     .veil { display: none; }
     /* the words end short of the half, on the same left edge as the sections below, and the headline shrinks to fit */
     .hero .copy {
