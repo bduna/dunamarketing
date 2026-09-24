@@ -2182,7 +2182,7 @@ fbq('track', 'PageView');
       const FAR = 'translateY(-75%)';   // the capture is four windows tall, so three quarters of it is the whole trip
       const EASE = getComputedStyle(grid).getPropertyValue('--ease-out').trim() || 'ease-out';
       // the same two sizes the sample cards ship in; the bigger one only where the screen earns it
-      const size = Math.max(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) >= 1500 ? 960 : 640;
+      const size = Math.max(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) >= 1000 ? 960 : 640;
       const cards = [...grid.querySelectorAll('.card')];
       const trip = 2 * (DOWN + HOLD);
       let active = null;                // the one card that is travelling
@@ -2567,7 +2567,7 @@ fbq('track', 'PageView');
 // says where it sits). Its own script, so a failure here leaves the rest of the page as it was.
 (() => {
   // Screenshots now live in assets/img/samples/ as two sizes; the pick mirrors uploadTextures().
-  const big = Math.max(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) >= 1500;
+  const big = Math.max(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) >= 1000;
   const SHOTS = [{"name": "Long Table Catering", "slug": "long-table-catering"}, {"name": "Marden Estate Law", "slug": "marden-estate-law"}, {"name": "Velvet Fig", "slug": "velvet-fig"}, {"name": "Keyway Locksmith", "slug": "keyway-locksmith"}, {"name": "Golden Crumb Bakery", "slug": "golden-crumb-bakery"}, {"name": "Mirror Finish Auto Detailing", "slug": "mirror-finish-auto-detailing"}, {"name": "Bright Beginnings Preschool", "slug": "bright-beginnings-preschool"}, {"name": "Waggin’ Tails Grooming", "slug": "waggin-tails-grooming"}, {"name": "Summit Ridge Ski & Board", "slug": "summit-ridge-ski-board"}, {"name": "Maple Street Cleaners", "slug": "maple-street-cleaners"}]
     .map(s => ({ ...s, src: `assets/img/samples/${s.slug}-${big ? 960 : 640}.webp` }));
   const root = document.documentElement;
@@ -2654,7 +2654,7 @@ fbq('track', 'PageView');
     float d = roundRect(p, vSize * 0.5, uRadius);
     float aa = max(fwidth(d), 1e-4);
     float a = clamp(0.5 - d / aa, 0.0, 1.0) * uAlpha;
-    vec3 col = texture(uTex, vTex).rgb;
+    vec3 col = texture(uTex, vTex, -0.5).rgb;   // half a mip level sharper than the default pick
     col *= 1.04 - 0.16 * vUv.y - 0.05 * vUv.x;
     col += smoothstep(-1.5 * aa, 0.0, d) * 0.08;
     outColor = vec4(col * a, a);
@@ -2701,7 +2701,7 @@ fbq('track', 'PageView');
   }
 
   function uploadTextures() {
-    const big = Math.max(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) >= 1500;
+    const big = Math.max(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) >= 1000;
     const [tw, th] = big ? [960, 2400] : [640, 1600];
     tex = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D_ARRAY, tex);
@@ -2752,7 +2752,9 @@ fbq('track', 'PageView');
     // A phone sees only a couple of cards at once, so grow them as the viewport narrows (no change at >= 760px). The
     // screen's width, not the canvas's: on a wide screen the canvas is half of it.
     const boost = 1 + 0.5 * Math.min(1, Math.max(0, (760 - innerWidth) / 380));
-    const W = Math.min(640, Math.max(200, (0.21 * vw + 0.16 * vh) * boost));
+    // Card size from the screen too, so the half-width wall keeps the cards the full-width one had: smaller, the pages
+    // on them went soft (Barrett, 2026-09-23: "the images are blury")
+    const W = Math.min(640, Math.max(200, (0.21 * innerWidth + 0.16 * vh) * boost));
     const H = W * 0.75, G = W * 0.075;
     L = {
       vw, vh, W, H, pitch: W + G, rowPitch: H + G,

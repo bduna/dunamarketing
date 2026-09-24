@@ -537,12 +537,13 @@ The numbers to tune are named constants at the top of the "sample cards" block i
 
 The wall of sample websites is back, as the right half of the hero. Barrett, 2026-09-23: "create a full half page from
 the very bottom to the very top animation of the floating and scrolling screenshots that I had previously". It is the
-WebGL wall that stood there until 6e9c1c9, script unchanged but for two lines: the ten sample websites on a tilted,
+WebGL wall that stood there until 6e9c1c9, its script changed in a few lines (below): the ten sample websites on a tilted,
 turned plane (18 degrees round, 45 back), rows drifting in opposite directions, each card bobbing, each screenshot
 holding at its top for 2.5 s and then scrolling down its page and back over 10 s. It settles in over 2.2 s, leans a
 little toward the pointer, stops while the hero is off screen, and holds still with reduced motion. The ten tall
-captures in `assets/img/samples/` are its textures (the 960 size where the screen earns it, else 640, the same pick as
-the sample cards, so the page downloads them once). Without WebGL2 a static tilted grid of the same captures stands in
+captures in `assets/img/samples/` are its textures (the 960 size wherever the longer side of the screen times its pixel
+ratio, capped at 2, is 1000 or more, so on every computer; else 640. The sample cards make the same pick, so the page
+downloads them once). Without WebGL2 a static tilted grid of the same captures stands in
 (`.fallback`).
 
 - From 1000px the canvas is the right half of the hero, top to bottom, with no wash over it; it fades in over its first
@@ -550,8 +551,12 @@ the sample cards, so the page downloads them once). Without WebGL2 a static tilt
   edge in line with the sections below and ends `clamp(24px, 2vw, 56px)` short of the half, and the headline shrinks to
   fit (`10.2cqi`, the copy being a size container). Checked from 1000 to 2560px: nothing of the copy crosses the half,
   and the two buttons share a row from 1440px up (they stack below that).
-- The two lines changed in its script: the card size's phone boost and the drift speed go by the screen's width, not
-  the canvas's, so a half-width canvas on a wide screen is not mistaken for a phone.
+- What changed in its script: the card size (its phone boost included) and the drift speed go by the screen's width,
+  not the canvas's, so the half-width wall keeps the cards the full-width one had (446px wide at 1440x900) and is not
+  mistaken for a phone. Barrett, 2026-09-23: "the images are blury". Three things had made them so, all fixed: the
+  cards had shrunk a third with the canvas; a 1440x900 screen at 1x was given the 640 captures (the cut-off was 1500,
+  now 1000); and the shader samples its texture half a mip level sharper than the default (`texture(uTex, vTex, -0.5)`),
+  which the anisotropic filtering already on keeps from shimmering.
 - Under 1000px there is no half to give, so the wall runs behind the words as it did before, with `.veil` (a top-down,
   corner, left-to-right and bottom wash) holding them.
 - The Animations card's line is back to "The moving wall of websites at the top of this page is one."
