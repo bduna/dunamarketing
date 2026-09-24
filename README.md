@@ -122,8 +122,8 @@ simply scrolls past; the band is its natural height again once another anchor is
 Five cards on the page play a recording and show its words as they are spoken. One maker in the voice script builds
 them all, each given its own words, loudness, length and labels; a card's dock and the glow it gives Start the
 questionnaire are the hero's alone. The four section cards are named for their sections (Barrett, 2026-09-24): "Deep Roots
-Summary", "Our Founder Summary", "Care Plan Summary" and "Pricing Summary"; all four read "Listen Instead of Read"
-before that. From 360px each label keeps to one line with its time; on a 320px phone the time wraps whole to a second
+Summary", "Founder Summary" (first "Our Founder Summary", renamed the same day), "Care Plan Summary" and "Pricing Summary";
+all four read "Listen Instead of Read" before that. From 360px each label keeps to one line with its time; on a 320px phone the time wraps whole to a second
 line, as the hero's does (`~/.cache/duna-site-tests/voice_labels_fit.js`).
 
 - The founder's, `#founder-voice-row`, added 2026-09-22: "I have a word for word audio reading of the Our Founder
