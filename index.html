@@ -167,8 +167,11 @@ fbq('track', 'PageView');
       linear-gradient(0deg, rgb(var(--veil) / .55) 0%, rgb(var(--veil) / 0) 22%);
   }
   @media (min-width: 1000px) {
-    .wall, .fallback { left: 50%; width: 50%; }
-    .wall-edge { display: block; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; background: var(--accent); pointer-events: none; }
+    /* the wall starts a margin past the half, so the words have room before the line (Barrett, 2026-09-24: "make the
+       wall less wide there isn't enough margin"): 86px at 1440 wide on top of the copy's own gap */
+    .hero { --wall-x: calc(50% + clamp(56px, 6vw, 144px)); }
+    .wall, .fallback { left: var(--wall-x); width: calc(100% - var(--wall-x)); }
+    .wall-edge { display: block; position: absolute; top: 0; bottom: 0; left: var(--wall-x); width: 2px; margin-left: -1px; background: var(--accent); pointer-events: none; }
     .veil { display: none; }
     /* the words end short of the half, on the same left edge as the sections below, and the headline shrinks to fit */
     .hero .copy {
