@@ -168,7 +168,7 @@ length (a streamed file); the data is 72.1 s, and ffmpeg and the caption script 
   Moved before the first play, the voice starts from there. It resets to 0:00 at the end.
 - The art behind takes no part in the voice. For a few minutes on 2026-09-21 the wall that stood there rippled with
   the voice's loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the
-  same"), and the wall itself is gone since 2026-09-23 (see "The hero").
+  same"), and the wall, gone for part of 2026-09-23, is back as the right half of the hero on a wide screen (see "The hero").
 - At "start the questionnaire below" (54.92 s), the hero's Start the questionnaire glows once (`.nudge`). The words
   on that button change on their own clock, nothing to do with the summary any more (see "Getting in touch").
 - Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
@@ -535,10 +535,30 @@ The numbers to tune are named constants at the top of the "sample cards" block i
 
 ## The hero
 
-The hero is plain black behind its words. Barrett, 2026-09-23: "remove the chess game and the background and grid".
-That took out the drifting colour fields and their veil, the isometric grid over them, and the chessboard with its
-caption, its script and its six piece sprites. All of it is in git at de4a40b (the generators, `hero_chess_games.py`,
-`hero_chess_check.py` and `hero_chess_pieces.js`, are in the project folder).
+The wall of sample websites is back, as the right half of the hero. Barrett, 2026-09-23: "create a full half page from
+the very bottom to the very top animation of the floating and scrolling screenshots that I had previously". It is the
+WebGL wall that stood there until 6e9c1c9, script unchanged but for two lines: the ten sample websites on a tilted,
+turned plane (18 degrees round, 45 back), rows drifting in opposite directions, each card bobbing, each screenshot
+holding at its top for 2.5 s and then scrolling down its page and back over 10 s. It settles in over 2.2 s, leans a
+little toward the pointer, stops while the hero is off screen, and holds still with reduced motion. The ten tall
+captures in `assets/img/samples/` are its textures (the 960 size where the screen earns it, else 640, the same pick as
+the sample cards, so the page downloads them once). Without WebGL2 a static tilted grid of the same captures stands in
+(`.fallback`).
+
+- From 1000px the canvas is the right half of the hero, top to bottom, with no wash over it; it fades in over its first
+  9% so the plane has no hard edge against the black. The words keep to the left half: `.hero .copy` keeps its left
+  edge in line with the sections below and ends `clamp(24px, 2vw, 56px)` short of the half, and the headline shrinks to
+  fit (`10.2cqi`, the copy being a size container). Checked from 1000 to 2560px: nothing of the copy crosses the half,
+  and the two buttons share a row from 1440px up (they stack below that).
+- The two lines changed in its script: the card size's phone boost and the drift speed go by the screen's width, not
+  the canvas's, so a half-width canvas on a wide screen is not mistaken for a phone.
+- Under 1000px there is no half to give, so the wall runs behind the words as it did before, with `.veil` (a top-down,
+  corner, left-to-right and bottom wash) holding them.
+- The Animations card's line is back to "The moving wall of websites at the top of this page is one."
+
+Earlier the same day the hero went through a mark drawn in light (6e9c1c9), drifting colour (d0f6733, 6a0a445), a
+chessboard (8e99122 to de4a40b) and plain black (2d185ea). All of it is in git; the chess generators,
+`hero_chess_games.py`, `hero_chess_check.py` and `hero_chess_pieces.js`, are in the project folder.
 
 ## Tracking
 

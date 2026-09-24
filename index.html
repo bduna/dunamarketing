@@ -147,7 +147,34 @@ fbq('track', 'PageView');
   footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
   /* ---------- Hero: the splash, kept as it was, now the first screen of a page that scrolls ---------- */
-  .hero { position: relative; min-height: 100svh; overflow: hidden; background: var(--ground); display: flex; }   /* plain black: the colour, the grid and the chessboard came out (Barrett, 2026-09-23) */
+  .hero { position: relative; min-height: 100svh; overflow: hidden; background: var(--ground); display: flex; }
+  /* ---------- The wall (back 2026-09-23, Barrett: "create a full half page from the very bottom to the very top
+     animation of the floating and scrolling screenshots that I had previously"). Ten sample websites float on a tilted
+     plane, each scrolling its own page, drawn by WebGL. On a wide screen it fills the right half of the hero from top to
+     bottom, with no wash over it, and fades in over its first few percent so the plane has no hard edge against the
+     black; the words keep to the left half. On a phone there is no half to give, so it runs behind the words as it did
+     before, with the veil holding them. */
+  .wall, .veil, .fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .wall { display: block; }
+  .veil {
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, rgb(var(--veil) / .95) 0%, rgb(var(--veil) / .88) 30%, rgb(var(--veil) / .67) 50%, rgb(var(--veil) / .28) 65%, rgb(var(--veil) / 0) 78%),
+      radial-gradient(90% 80% at 0% 0%, rgb(var(--veil) / .86) 0%, rgb(var(--veil) / .52) 45%, rgb(var(--veil) / 0) 75%),
+      linear-gradient(100deg, rgb(var(--veil) / .76) 0%, rgb(var(--veil) / .56) 40%, rgb(var(--veil) / 0) 62%),
+      linear-gradient(0deg, rgb(var(--veil) / .55) 0%, rgb(var(--veil) / 0) 22%);
+  }
+  @media (min-width: 1000px) {
+    .wall, .fallback { left: 50%; width: 50%; -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%); mask-image: linear-gradient(90deg, transparent, #000 9%); }
+    .veil { display: none; }
+    /* the words end short of the half, on the same left edge as the sections below, and the headline shrinks to fit */
+    .hero .copy {
+      container-type: inline-size; max-width: none; margin: 0;
+      padding-left: calc(env(safe-area-inset-left, 0px) + max(var(--gutter), (100% - 1320px) / 2));
+      padding-right: calc(50% + clamp(24px, 2vw, 56px));
+    }
+    .hero .headline { font-size: min(clamp(2.3rem, 3.6vw + 1.4vh, 6rem), 10.2cqi); }
+  }
   .copy {
     position: relative;
     z-index: 2;
@@ -354,6 +381,24 @@ fbq('track', 'PageView');
     .voice-cap.fresh, .voice-dock-cap.fresh, .cta-go.nudge { animation: none; }
     .cta-face { transition: none; }   /* the words never turn: the script leaves them alone too */
     .voice-dock, .voice-dock.show { transition: none; transform: translate(-50%, 0); }
+  }
+
+  /* Static tilted grid for browsers without WebGL2 */
+  .fallback { display: none; overflow: hidden; perspective: 2400px; }
+  .no-gl .fallback { display: block; }
+  .no-gl .wall { display: none; }
+  .fallback-plane {
+    position: absolute; left: 58%; top: 62%;
+    display: grid;
+    grid-template-columns: repeat(6, 30vmax);
+    gap: 2.2vmax;
+    transform: translate(-50%, -50%) rotateX(45deg) rotateZ(18deg);
+  }
+  .fallback-plane div {
+    aspect-ratio: 4 / 3;
+    border-radius: 1.3vmax;
+    background: center top / 100% auto no-repeat;
+    box-shadow: 0 2vmax 4vmax rgb(0 0 0 / .5);
   }
 
   @media (max-width: 760px) {
@@ -1162,6 +1207,9 @@ fbq('track', 'PageView');
 <body>
 <main>
 <section class="hero" id="top">
+  <canvas class="wall" id="wall" aria-hidden="true"></canvas>
+  <div class="fallback" aria-hidden="true"><div class="fallback-plane"></div></div>
+  <div class="veil" aria-hidden="true"></div>
   <div class="copy">
     <div class="brand"><img src="assets/img/mark.png" alt="" width="36" height="37"><span>Duna Marketing</span></div>
     <div>
@@ -1195,6 +1243,7 @@ fbq('track', 'PageView');
       </div>
       <button type="button" class="btn cta cta-alt cta-phone" data-number="(707) 385-5673" title="Copy the number"><span class="cta-phone-text"><small>Text or call</small>(707) 385-5673</span><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span></button>
     </div>
+    <p class="visually-hidden" id="sites"></p>
   </div>
 </section>
 
@@ -1564,7 +1613,7 @@ fbq('track', 'PageView');
       <div class="plan">
         <h3>Animations</h3>
         <p class="price"><strong>$350</strong><span>per animation</span></p>
-        <p class="terms">A piece of motion made for one spot on your website. The mark drawing itself at the top of this page is one.</p>
+        <p class="terms">A piece of motion made for one spot on your website. The moving wall of websites at the top of this page is one.</p>
         <ul>
           <li>Completely custom animation</li>
           <li>Designed by Duna Marketing for you</li>
@@ -2511,6 +2560,353 @@ fbq('track', 'PageView');
       else begin();
     } catch (e) { ask.hidden = true; }
   }
+})();
+</script>
+<script>
+// The wall: ten sample websites floating on a tilted plane, each one scrolling its own page (the CSS block "The wall"
+// says where it sits). Its own script, so a failure here leaves the rest of the page as it was.
+(() => {
+  // Screenshots now live in assets/img/samples/ as two sizes; the pick mirrors uploadTextures().
+  const big = Math.max(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) >= 1500;
+  const SHOTS = [{"name": "Long Table Catering", "slug": "long-table-catering"}, {"name": "Marden Estate Law", "slug": "marden-estate-law"}, {"name": "Velvet Fig", "slug": "velvet-fig"}, {"name": "Keyway Locksmith", "slug": "keyway-locksmith"}, {"name": "Golden Crumb Bakery", "slug": "golden-crumb-bakery"}, {"name": "Mirror Finish Auto Detailing", "slug": "mirror-finish-auto-detailing"}, {"name": "Bright Beginnings Preschool", "slug": "bright-beginnings-preschool"}, {"name": "Waggin’ Tails Grooming", "slug": "waggin-tails-grooming"}, {"name": "Summit Ridge Ski & Board", "slug": "summit-ridge-ski-board"}, {"name": "Maple Street Cleaners", "slug": "maple-street-cleaners"}]
+    .map(s => ({ ...s, src: `assets/img/samples/${s.slug}-${big ? 960 : 640}.webp` }));
+  const root = document.documentElement;
+  const canvas = document.getElementById('wall');
+  document.getElementById('sites').textContent =
+    `Ten sample websites drift across the background: ${SHOTS.map(s => s.name).join(', ')}.`;
+
+  const DEG = Math.PI / 180;
+  const BASE_THETA = 18 * DEG;   // turn of the plane
+  const BASE_PHI = 45 * DEG;     // tilt away from the viewer
+  const INTRO_MS = 2200;
+  const reduceMq = matchMedia('(prefers-reduced-motion: reduce)');
+
+  const gl = canvas.getContext('webgl2', { alpha: false, antialias: false, powerPreference: 'high-performance' });
+  if (!gl || !SHOTS.length) { fallback(); return; }
+
+  const VS = `#version 300 es
+  precision highp float;
+  layout(location = 0) in vec2 aCorner;
+  layout(location = 1) in vec4 aInst;              // row, slot, layer, seed
+  uniform vec2 uView, uOrigin, uAnchor, uAng, uCard;
+  uniform vec4 uGrid;                                // pitch, rowPitch, span, uStart
+  uniform float uP, uDrift, uTime, uLift, uFrac, uPass, uCycle, uHold;
+  out vec2 vUv, vSize;
+  out vec3 vTex;
+  out float vBob;
+  float hash(float n) { return fract(sin(n * 12.9898 + 7.13) * 43758.5453); }
+  void main() {
+    float row = aInst.x, slot = aInst.y, seed = aInst.w;
+    float dir = mod(row, 2.0) < 0.5 ? -1.0 : 1.0;
+    float u = uGrid.w + mod(slot * uGrid.x + dir * uDrift + hash(row) * uGrid.x, uGrid.z);
+    float v = row * uGrid.y;
+    float bob = 0.5 + 0.5 * sin(uTime * 0.95 + seed * 6.2832);
+    float lift = uLift * (0.7 + 0.6 * bob);
+    vec2 size = uCard, offs = vec2(0.0);
+    float z = lift;
+    if (uPass < 0.5) { size *= vec2(1.16, 1.2); offs = vec2(0.0, 0.05 * uCard.y + lift * 0.6); z = 0.0; }
+    vec2 p = vec2(u, v) + offs + aCorner * size;
+    float ct = cos(uAng.x), st = sin(uAng.x), cp = cos(uAng.y), sp = sin(uAng.y);
+    float a = p.x * ct - p.y * st, b = p.x * st + p.y * ct;
+    vec3 w = vec3(a, b * cp, b * sp) + vec3(0.0, -sp, cp) * z;
+    w.xy += uAnchor - uOrigin;
+    float k = uP / (uP - w.z);
+    vec2 s = uOrigin + w.xy * k;
+    gl_Position = vec4(vec2(s.x / uView.x * 2.0 - 1.0, 1.0 - s.y / uView.y * 2.0) / k, 0.0, 1.0 / k);
+    vUv = aCorner + 0.5;
+    vSize = size;
+    vBob = bob;
+    // A beat on the hero, then near-continuous travel down and back. uHold is where the beat
+    // ends; the rest of the window is measured as fractions of it so the return always lands on
+    // the end of the cycle — a flat tail there would just be more time spent at the top.
+    float c = fract(uTime / uCycle + seed);
+    float m = 1.0 - uHold;
+    float scroll = (1.0 - uFrac) * 0.97 *
+      (0.45 * smoothstep(uHold, uHold + 0.26 * m, c)
+     + 0.55 * smoothstep(uHold + 0.34 * m, uHold + 0.60 * m, c)
+     -        smoothstep(uHold + 0.68 * m, uHold + m, c));
+    vTex = vec3(vUv.x, scroll + vUv.y * uFrac, aInst.z);
+  }`;
+
+  const FS = `#version 300 es
+  precision highp float;
+  precision highp sampler2DArray;
+  uniform sampler2DArray uTex;
+  uniform vec2 uCard;
+  uniform float uPass, uAlpha, uRadius;
+  in vec2 vUv, vSize;
+  in vec3 vTex;
+  in float vBob;
+  out vec4 outColor;
+  float roundRect(vec2 p, vec2 halfSize, float r) {
+    vec2 q = abs(p) - halfSize + r;
+    return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
+  }
+  void main() {
+    vec2 p = (vUv - 0.5) * vSize;
+    if (uPass < 0.5) {
+      float blur = uCard.x * (0.045 + 0.03 * vBob);
+      float d = roundRect(p, uCard * 0.5, uRadius);
+      float a = (1.0 - smoothstep(-blur, blur, d)) * (0.62 - 0.2 * vBob) * uAlpha;
+      outColor = vec4(0.0, 0.0, 0.0, a);
+      return;
+    }
+    float d = roundRect(p, vSize * 0.5, uRadius);
+    float aa = max(fwidth(d), 1e-4);
+    float a = clamp(0.5 - d / aa, 0.0, 1.0) * uAlpha;
+    vec3 col = texture(uTex, vTex).rgb;
+    col *= 1.04 - 0.16 * vUv.y - 0.05 * vUv.x;
+    col += smoothstep(-1.5 * aa, 0.0, d) * 0.08;
+    outColor = vec4(col * a, a);
+  }`;
+
+  let prog, vao, instBuf, tex, U = {}, count = 0, ready = false, raf = 0;
+  let L = null, images = [];
+  let pointer = { tx: 0, ty: 0, x: 0, y: 0 };
+  let clock = 3.2, last = performance.now(), introStart = 0;
+  let visible = true;   // the hero is on screen; the loop stops when it scrolls away
+
+  function compile(type, src) {
+    const sh = gl.createShader(type);
+    gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(sh));
+    return sh;
+  }
+
+  function initGL() {
+    prog = gl.createProgram();
+    gl.attachShader(prog, compile(gl.VERTEX_SHADER, VS));
+    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FS));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+    for (const name of ['uView', 'uOrigin', 'uAnchor', 'uAng', 'uCard', 'uGrid', 'uP', 'uDrift', 'uTime',
+      'uLift', 'uFrac', 'uPass', 'uTex', 'uAlpha', 'uRadius', 'uCycle', 'uHold']) U[name] = gl.getUniformLocation(prog, name);
+
+    vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    const quad = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-.5, -.5, .5, -.5, -.5, .5, .5, .5]), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(0);
+    gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+    instBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, instBuf);
+    gl.enableVertexAttribArray(1);
+    gl.vertexAttribPointer(1, 4, gl.FLOAT, false, 0, 0);
+    gl.vertexAttribDivisor(1, 1);
+
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+  }
+
+  function uploadTextures() {
+    const big = Math.max(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) >= 1500;
+    const [tw, th] = big ? [960, 2400] : [640, 1600];
+    tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D_ARRAY, tex);
+    gl.texStorage3D(gl.TEXTURE_2D_ARRAY, Math.floor(Math.log2(th)) + 1, gl.RGBA8, tw, th, images.length);
+    images.forEach((img, i) => {
+      let src = img;
+      if (img.naturalWidth !== tw || img.naturalHeight !== th) {
+        src = document.createElement('canvas');
+        src.width = tw; src.height = th;
+        src.getContext('2d').drawImage(img, 0, 0, tw, th);
+      }
+      gl.texSubImage3D(gl.TEXTURE_2D_ARRAY, 0, 0, 0, i, tw, th, 1, gl.RGBA, gl.UNSIGNED_BYTE, src);
+    });
+    gl.generateMipmap(gl.TEXTURE_2D_ARRAY);
+    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    const aniso = gl.getExtension('EXT_texture_filter_anisotropic');
+    if (aniso) gl.texParameterf(gl.TEXTURE_2D_ARRAY, aniso.TEXTURE_MAX_ANISOTROPY_EXT,
+      Math.min(8, gl.getParameter(aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
+  }
+
+  // Where a screen point lands on the tilted plane (inverse of the vertex shader projection)
+  function toPlane(sx, sy, theta, phi) {
+    const cp = Math.cos(phi), sp = Math.sin(phi), ct = Math.cos(theta), st = Math.sin(theta);
+    const dx = sx - L.origin[0], dy = sy - L.origin[1];
+    const ax = L.anchor[0] - L.origin[0], ay = L.anchor[1] - L.origin[1];
+    const b = L.P * (dy - ay) / Math.max(L.P * cp + dy * sp, 1e-3);
+    const a = dx * (L.P - b * sp) / L.P - ax;
+    return [a * ct + b * st, -a * st + b * ct];
+  }
+
+  function layout() {
+    const vw = canvas.clientWidth || innerWidth, vh = canvas.clientHeight || innerHeight;
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = Math.round(vw * dpr);
+    canvas.height = Math.round(vh * dpr);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+
+    const portrait = vh > vw;
+    // One screenshot's scroll, the same on every screen: it holds at the top, then travels down
+    // and back. These are the two numbers to tune. uTime has to wrap on a whole number of cycles
+    // or the scroll jumps, so the wrap is derived from the cycle rather than fixed — 12.5 did not
+    // divide the 1080 that was once hardcoded there, and neither does this.
+    const PAUSE = 2.5, TRAVEL = 10;   // seconds
+    const cycle = PAUSE + TRAVEL;
+    // A phone sees only a couple of cards at once, so grow them as the viewport narrows (no change at >= 760px). The
+    // screen's width, not the canvas's: on a wide screen the canvas is half of it.
+    const boost = 1 + 0.5 * Math.min(1, Math.max(0, (760 - innerWidth) / 380));
+    const W = Math.min(640, Math.max(200, (0.21 * vw + 0.16 * vh) * boost));
+    const H = W * 0.75, G = W * 0.075;
+    L = {
+      vw, vh, W, H, pitch: W + G, rowPitch: H + G,
+      radius: W * 0.045, lift: W * 0.05,
+      // Lateral drift of the cards. A desktop shows far more of the plane at once, so the same
+      // travel reads slower there than on a phone; it gets a faster rate above 760px, the same
+      // line the phone media query uses. Cards only — the page-scroll runs off uTime, untouched.
+      speed: W * (innerWidth > 760 ? 0.17 : 0.13),
+      cycle, hold: PAUSE / cycle, wrap: cycle * Math.round(1080 / cycle),
+      P: 2.1 * vh + 0.7 * vw,
+      origin: [vw * 0.5, vh * (portrait ? 0.42 : 0.38)],
+      anchor: [vw * (portrait ? 0.56 : 0.6), vh * (portrait ? 0.64 : 0.6)],
+    };
+
+    // Cover the viewport for every angle the intro and pointer tilt can reach
+    let uMin = Infinity, uMax = -Infinity, vMin = Infinity, vMax = -Infinity;
+    for (const [dt, dp] of [[0, 0], [2.5, 3], [-2.5, -3], [2.5, -3], [-2.5, 3], [-6, 14]]) {
+      for (const [sx, sy] of [[0, 0], [vw, 0], [0, vh], [vw, vh]]) {
+        const [u, v] = toPlane(sx, sy, BASE_THETA + dt * DEG, BASE_PHI + dp * DEG);
+        uMin = Math.min(uMin, u); uMax = Math.max(uMax, u);
+        vMin = Math.min(vMin, v); vMax = Math.max(vMax, v);
+      }
+    }
+    uMin -= L.pitch * 1.5; uMax += L.pitch * 1.5;
+    const rMin = Math.floor((vMin - L.rowPitch) / L.rowPitch), rMax = Math.ceil((vMax + L.rowPitch) / L.rowPitch);
+    let perRow = Math.ceil((uMax - uMin) / L.pitch) + 1;
+    if (perRow % SHOTS.length === 1) perRow++;
+    L.span = perRow * L.pitch;
+    L.uStart = uMin;
+
+    const data = [];
+    for (let r = rMin; r <= rMax; r++) {
+      for (let s = 0; s < perRow; s++) {
+        const layer = (((s * 3 + r * 7) % SHOTS.length) + SHOTS.length) % SHOTS.length;
+        data.push(r, s, layer, Math.random());
+      }
+    }
+    count = data.length / 4;
+    gl.bindBuffer(gl.ARRAY_BUFFER, instBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
+  }
+
+  function draw(theta, phi, alpha) {
+    gl.clearColor(5 / 255, 10 / 255, 24 / 255, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    if (!ready || !L) return;
+    gl.useProgram(prog);
+    gl.bindVertexArray(vao);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D_ARRAY, tex);
+    gl.uniform1i(U.uTex, 0);
+    gl.uniform2f(U.uView, L.vw, L.vh);
+    gl.uniform2f(U.uOrigin, L.origin[0], L.origin[1]);
+    gl.uniform2f(U.uAnchor, L.anchor[0], L.anchor[1]);
+    gl.uniform2f(U.uAng, theta, phi);
+    gl.uniform2f(U.uCard, L.W, L.H);
+    gl.uniform4f(U.uGrid, L.pitch, L.rowPitch, L.span, L.uStart);
+    gl.uniform1f(U.uP, L.P);
+    gl.uniform1f(U.uDrift, (L.speed * clock) % L.span);
+    gl.uniform1f(U.uTime, clock % L.wrap);   // a whole number of scroll cycles, so the loop never jumps
+    gl.uniform1f(U.uCycle, L.cycle);
+    gl.uniform1f(U.uHold, L.hold);
+    gl.uniform1f(U.uLift, L.lift);
+    gl.uniform1f(U.uFrac, (L.H / L.W) * 0.4);   // card aspect x screenshot aspect (1440 / 3600)
+    gl.uniform1f(U.uRadius, L.radius);
+    gl.uniform1f(U.uAlpha, alpha);
+    gl.uniform1f(U.uPass, 0);
+    gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, count);
+    gl.uniform1f(U.uPass, 1);
+    gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, count);
+  }
+
+  function frame(now) {
+    const still = reduceMq.matches;
+    const dt = Math.min(64, now - last);
+    last = now;
+    if (!still) clock += dt / 1000;
+    const t = still ? 1 : Math.min(1, (now - introStart) / INTRO_MS);
+    const e = 1 - Math.pow(1 - t, 3);
+    if (!still) {
+      pointer.x += (pointer.tx - pointer.x) * 0.045;
+      pointer.y += (pointer.ty - pointer.y) * 0.045;
+    }
+    const theta = BASE_THETA + (pointer.x * 2.2 - (1 - e) * 6) * DEG;
+    const phi = BASE_PHI + (-pointer.y * 2.6 + (1 - e) * 14) * DEG;
+    draw(theta, phi, e);
+    raf = (still || !visible) ? 0 : requestAnimationFrame(frame);
+  }
+
+  function start() {
+    cancelAnimationFrame(raf);
+    last = performance.now();
+    raf = requestAnimationFrame(frame);
+  }
+
+  function fallback() {
+    root.classList.add('no-gl');
+    const plane = document.querySelector('.fallback-plane');
+    for (let i = 0; i < 36 && SHOTS.length; i++) {
+      const tile = document.createElement('div');
+      tile.style.backgroundImage = `url("${SHOTS[(i * 3) % SHOTS.length].src}")`;
+      plane.appendChild(tile);
+    }
+  }
+
+  async function boot() {
+    try {
+      initGL();
+      layout();
+      start();
+      images = await Promise.all(SHOTS.map(s => {
+        const img = new Image();
+        img.src = s.src;
+        return img.decode().then(() => img);
+      }));
+      uploadTextures();
+      ready = true;
+      introStart = performance.now();
+      start();
+    } catch (err) {
+      console.error(err);
+      cancelAnimationFrame(raf);
+      fallback();
+    }
+  }
+
+  addEventListener('pointermove', e => {
+    pointer.tx = (e.clientX / innerWidth) * 2 - 1;
+    pointer.ty = (e.clientY / innerHeight) * 2 - 1;
+  }, { passive: true });
+  root.addEventListener('pointerleave', () => { pointer.tx = 0; pointer.ty = 0; });
+
+  let resizeTimer = 0;
+  addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (prog) { layout(); start(); } }, 120);
+  });
+  reduceMq.addEventListener('change', start);
+
+  canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); cancelAnimationFrame(raf); ready = false; });
+  canvas.addEventListener('webglcontextrestored', () => {
+    initGL(); layout(); uploadTextures(); ready = true; start();
+  });
+
+  const hero = document.querySelector('.hero');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+      if (!visible) { cancelAnimationFrame(raf); raf = 0; }
+      else if (prog && !raf) start();
+    }, { threshold: 0.01 }).observe(hero);
+  }
+  // Two frames in: the headline and button have painted before the wall starts loading.
+  requestAnimationFrame(() => requestAnimationFrame(boot));
 })();
 </script>
 <script>
