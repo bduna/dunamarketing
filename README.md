@@ -599,6 +599,13 @@ up); else `-960.webp` wherever the longer side of the screen times its pixel rat
   its footer's colour), saved as WebP at quality 90 (290-490 KB each, 3.5 MB for the ten), and the wall takes them on
   the screens above. The shader also runs an unsharp mask: the page plus 0.45 of itself less a copy blurred by one and
   a half mip levels, so type and picture edges stand out.
+- The words' side is not a flat black from 1000px (Barrett, 2026-09-24: "the background on the left of the hero
+  section is just flat black, any ideas how to spice it up without affecting the white text", then, of four ideas, the
+  depth gradient): a radial gradient from the top-left corner, deep navy `rgb(22 40 88)` easing through `rgb(15 28 64)`
+  and `rgb(10 19 44)` to the ground by 82% of an ellipse 72% wide and 105% tall, so it is black by the foot and
+  toward the wall. Still, no motion. The lightest pixel behind the brand, headline and subline is `rgb(20 36 79)` at
+  1024 and 1440 wide, where white keeps 13.8:1 (19.3:1 on the flat black); measured with
+  `~/.cache/duna-site-tests/hero_bg_check.js` and `hero_bg_contrast.py`. Phones are unchanged.
 - Under 1000px there is no half to give, so the wall runs behind the words as it did before, with `.veil` (a top-down,
   corner, left-to-right and bottom wash) holding them.
 - The Animations card's line is back to "The moving wall of websites at the top of this page is one."

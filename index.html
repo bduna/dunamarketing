@@ -170,6 +170,9 @@ fbq('track', 'PageView');
     /* the wall starts a margin past the half, so the words have room before the line (Barrett, 2026-09-24: "make the
        wall less wide there isn't enough margin", then "just a tad bit wider"): 65px at 1440 wide on top of the copy's own gap */
     .hero { --wall-x: calc(50% + clamp(44px, 4.5vw, 108px)); }
+    /* the words' side: deep navy in the top corner, easing to the ground by the foot and toward the wall, so the black is
+       not a flat fill (Barrett, 2026-09-24, choosing "a depth gradient"); white text keeps 13:1 at its lightest */
+    .hero { background: radial-gradient(ellipse 72% 105% at 0% 0%, rgb(22 40 88) 0%, rgb(15 28 64) 28%, rgb(10 19 44) 52%, var(--ground) 82%), var(--ground); }
     .wall, .fallback { left: var(--wall-x); width: calc(100% - var(--wall-x)); }
     .wall-edge { display: block; position: absolute; top: 0; bottom: 0; left: var(--wall-x); width: 2px; margin-left: -1px; background: var(--accent); pointer-events: none; }
     .veil { display: none; }
