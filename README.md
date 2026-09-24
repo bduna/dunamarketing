@@ -310,6 +310,13 @@ one time, no deposit, pay only if you keep it, multi-page and custom, copy from 
 right on phones, a working contact form, a preview within 24 hours, one more design direction, a discount for detailed
 answers, launched on the owner's domain and owned outright, the optional $149 Care Plan, 16 years).
 
+The seven points are drop-downs (2026-09-24: "can the bolded website section headings be drop down menu like with a
+litte caret down on the left"): each `.deal-point` is a `<details>` whose `<summary>` holds a blue caret and the `h3`,
+all shut at first, between thin rules. A click, a tap or Enter opens one and its paragraph slides in; the caret turns
+over (pointing up) while it is open, and the heading turns blue under the pointer. Native, so it needs no script and
+works from the keyboard. With reduced motion nothing slides or turns. The receipt's lit lines still follow the point
+crossing the middle of the screen. Test: `~/.cache/duna-site-tests/deal_accordion_check.js <url> [outdir]`.
+
 Beside the words, the receipt (2026-09-24: "build the receipt", chosen from five ideas for the section's empty right
 side): what the $1,500 buys, itemized, as a paper slip in a navy printer (`.receipt-wrap` > `.printer` >
 `.printer-slot` + `.receipt-clip` > `.receipt`). Ten lines, each ticked and marked "Included" (custom design, not a

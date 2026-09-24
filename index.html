@@ -118,9 +118,22 @@ fbq('track', 'PageView');
   /* The Website: the $1,500 website's case, an introduction, seven points under subheadings, and a close, in one
      readable column (Barrett, 2026-09-24); the introduction and the close are ledes, bookends in the same voice */
   .deal { max-width: 44em; }
-  .deal-points { display: grid; gap: 26px; margin: 36px 0; }
-  .deal-point h3 { margin: 0 0 6px; font-size: clamp(1.15rem, .3vw + 1.05rem, 1.35rem); font-weight: 700; letter-spacing: -.015em; line-height: 1.2; color: var(--navy); }
-  .deal-point p { margin: 0; font-size: clamp(1rem, .2vw + .95rem, 1.1rem); line-height: 1.6; color: var(--navy-dim); }
+  /* the seven points open and shut (Barrett, 2026-09-24: "can the bolded website section headings be drop down menu
+     like with a litte caret down on the left"): each a <details>, its heading the summary behind a caret that turns
+     over when it opens; all shut at first. Native, so it works with the keyboard and without the script. */
+  .deal-points { margin: 32px 0; border-top: 1px solid rgb(11 19 41 / .12); }
+  .deal-point { border-bottom: 1px solid rgb(11 19 41 / .12); }
+  .deal-point summary { display: flex; align-items: center; gap: 10px; padding: 15px 0; cursor: pointer; list-style: none; border-radius: 6px; }
+  .deal-point summary::-webkit-details-marker { display: none; }
+  .deal-point summary:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 2px; }
+  .deal-caret { flex: none; width: 18px; height: 18px; fill: none; stroke: var(--accent-deep); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s var(--ease-out); }
+  .deal-point[open] .deal-caret { transform: rotate(180deg); }
+  .deal-point h3 { margin: 0; font-size: clamp(1.15rem, .3vw + 1.05rem, 1.35rem); font-weight: 700; letter-spacing: -.015em; line-height: 1.2; color: var(--navy); transition: color .2s var(--ease-out); }
+  .deal-point summary:hover h3 { color: var(--accent-deep); }
+  .deal-point p { margin: 0; padding: 0 0 18px 28px; font-size: clamp(1rem, .2vw + .95rem, 1.1rem); line-height: 1.6; color: var(--navy-dim); }
+  .deal-point[open] p { animation: deal-open .3s var(--ease-out); }
+  @keyframes deal-open { from { opacity: 0; transform: translateY(-6px); } }
+  @media (prefers-reduced-motion: reduce) { .deal-caret { transition: none; } .deal-point[open] p { animation: none; } }
   /* ---------- The Website's receipt (Barrett, 2026-09-24: "build the receipt"): what the $1,500 buys, itemized, every
      line "Included", the total, and "Due today $0.00". A navy printer, a slot, and a paper slip with a torn foot. It
      prints once as it comes on screen, top to bottom, each line ticking as it appears, then a "See it first" stamp;
@@ -1623,34 +1636,34 @@ fbq('track', 'PageView');
     <div class="deal">
       <p class="lede">For $1,500, one time, you get a complete, custom website built around your business. You answer one questionnaire and we do the rest. There&rsquo;s no deposit, no sales pitch, and nothing to pay until you&rsquo;ve seen the finished website.</p>
       <div class="deal-points">
-        <div class="deal-point">
-          <h3>A real website, not a template</h3>
+        <details class="deal-point">
+          <summary><svg class="deal-caret" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg><h3>A real website, not a template</h3></summary>
           <p>You get a full, multi-page website designed for your business alone. Nothing is a theme with your name dropped in, and no page is left for you to fill in.</p>
-        </div>
-        <div class="deal-point">
-          <h3>Written from your answers</h3>
+        </details>
+        <details class="deal-point">
+          <summary><svg class="deal-caret" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg><h3>Written from your answers</h3></summary>
           <p>We write every page from your questionnaire answers, so your website sounds like you. You don&rsquo;t need to write polished copy; just tell us what you do. Detailed answers make a better website, and they can earn you a discount.</p>
-        </div>
-        <div class="deal-point">
-          <h3>Your photos, edited and placed</h3>
+        </details>
+        <details class="deal-point">
+          <summary><svg class="deal-caret" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg><h3>Your photos, edited and placed</h3></summary>
           <p>Send us the photos you already have. We edit them and place each one where it helps most, so customers see your real business before they ever call.</p>
-        </div>
-        <div class="deal-point">
-          <h3>Made for phones</h3>
+        </details>
+        <details class="deal-point">
+          <summary><svg class="deal-caret" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg><h3>Made for phones</h3></summary>
           <p>Every page is built to look right on a phone, not just on a computer. A working contact form lets a customer reach you the moment they decide.</p>
-        </div>
-        <div class="deal-point">
-          <h3>A preview within 24 hours</h3>
+        </details>
+        <details class="deal-point">
+          <summary><svg class="deal-caret" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg><h3>A preview within 24 hours</h3></summary>
           <p>Your finished website is ready to review within 24 hours. If the first design isn&rsquo;t right, we&rsquo;ll give you one more design direction.</p>
-        </div>
-        <div class="deal-point">
-          <h3>Nothing to pay until you&rsquo;ve seen it</h3>
+        </details>
+        <details class="deal-point">
+          <summary><svg class="deal-caret" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg><h3>Nothing to pay until you&rsquo;ve seen it</h3></summary>
           <p>There&rsquo;s no deposit to get started and no bill until you&rsquo;ve seen the finished website. You pay only if you want to keep it.</p>
-        </div>
-        <div class="deal-point">
-          <h3>Yours, outright</h3>
+        </details>
+        <details class="deal-point">
+          <summary><svg class="deal-caret" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6l4.5 4.5L12.5 6"/></svg><h3>Yours, outright</h3></summary>
           <p>We launch the website on your domain, and you own it outright. The $149 a month Care Plan is optional, for when you&rsquo;d rather we handle the upkeep.</p>
-        </div>
+        </details>
       </div>
       <p class="lede deal-close">That&rsquo;s $1,500, one time, for a custom website written from your own words, made for phones and ready within 24 hours. We bring 16 years of building websites to every one. Start the questionnaire below and see your finished website before you pay a dime.</p>
     </div>
