@@ -577,7 +577,8 @@ up); else `-960.webp` wherever the longer side of the screen times its pixel rat
 (`.fallback`).
 
 - From 1000px the canvas is the right of the hero, top to bottom, with no wash over it, and meets the black along a
-  straight up-and-down line, 2px in the accent blue (`.wall-edge`). Both start at `--wall-x`, a margin past the half,
+  straight up-and-down line, 4px in the accent blue (`.wall-edge`; 2px until Barrett's "make the blue line thicker",
+  2026-09-24). Both start at `--wall-x`, a margin past the half,
   `calc(50% + clamp(44px, 4.5vw, 108px))` (Barrett, 2026-09-24: "make the wall less wide there isn't enough margin",
   when it started at the half; then, at 6vw, "just a tad bit wider"), so the widest line of the copy is about 70px
   from the line at 1024 wide, 100px at 1440 and 135px at 1920. Barrett, 2026-09-23: "remove the
@@ -609,10 +610,11 @@ up); else `-960.webp` wherever the longer side of the screen times its pixel rat
   `~/.cache/duna-site-tests/hero_bg_check.js` and `hero_bg_contrast.py`. Phones are unchanged.
 - Under 1000px there is no half to give, so the wall runs behind the words as it did before, with `.veil` (a top-down,
   corner, left-to-right and bottom wash) holding them.
-- A thin white band, 7px, separates the hero from No risk under it (Barrett, 2026-09-24: "put a thin white band
-  seperating the hero section with the section under it make it like 7 px"): `border-bottom: 7px solid var(--paper)`
-  on `.hero`. The hero is `border-box` at one screen tall, so the band sits at the foot of the first screen, inside it,
-  and the wall and its line stop just above it.
+- A thin white band, 4px, separates the hero from No risk under it (Barrett, 2026-09-24: "put a thin white band
+  seperating the hero section with the section under it make it like 7 px", then "make the white band 4px but make it
+  hanging downward so you don't see it until you scroll"): `border-top: 4px solid var(--paper)` on the band after the
+  hero (`.hero + .band`), so the hero fills the first screen, wall to its foot, and the band comes into view with the
+  first scroll. For its first hour it was a 7px `border-bottom` inside the hero, at the foot of the first screen.
 - The Animations card's line is back to "The moving wall of websites at the top of this page is one."
 
 Earlier the same day the hero went through a mark drawn in light (6e9c1c9), drifting colour (d0f6733, 6a0a445), a
