@@ -168,7 +168,7 @@ length (a streamed file); the data is 72.1 s, and ffmpeg and the caption script 
   Moved before the first play, the voice starts from there. It resets to 0:00 at the end.
 - The art behind takes no part in the voice. For a few minutes on 2026-09-21 the wall that stood there rippled with
   the voice's loudness; Barrett had that removed ("remove any interaction with the wall, keep everything else the
-  same"), and the wall itself is gone since 2026-09-23 (see "The hero's art").
+  same"), and the wall itself is gone since 2026-09-23 (see "The hero").
 - At "start the questionnaire below" (54.92 s), the hero's Start the questionnaire glows once (`.nudge`). The words
   on that button change on their own clock, nothing to do with the summary any more (see "Getting in touch").
 - Scrolled away while it plays ("Explore the work below", it says), a dock rises at the foot of the screen,
@@ -533,87 +533,12 @@ The numbers to tune are named constants at the top of the "sample cards" block i
   top, and how long the glide takes. To drop the glide and keep only the landing, delete the `glide = ...` assignment
   in the `else` branch that starts "No pointer to follow".
 
-## The hero's art
+## The hero
 
-Behind the hero's words, `.hero-art`: eight fields of saturated colour drifting across the black, blended with
-`mix-blend-mode: screen` so where they cross they brighten rather than muddy, with the isometric grid of the Animations
-card faint over the top. Blue, violet, magenta, cyan, sky, pink and a warm orange, each a radial gradient in a circle
-32-52 vmax across, each floating on its own clock between 36 and 50 s and starting part way in, so they never repeat
-together, and spread over the whole frame rather than gathered to one side. Colour only: no images, no canvas, nothing
-to download, and the compositor does the moving.
-
-Where the words, the audio card and the buttons sit, the colour is soft and out of focus; everywhere else it is crisp
-("distribute it across the full screen more blurred where design elements are", 2026-09-23). Two layers with opposite
-masks do that: `.hero-sharp` holds the drifting fields and is masked away from the content, `.hero-soft` is the same
-palette spread wide and thin and masked to it. A `backdrop-filter: blur(46px)` did the job first and was taken out: over
-colour that never stops moving the browser redraws that blur every frame, and it cost a third of the frame rate on a
-phone (33 frames a second against 44 without it, measured in software rendering) for no visible gain.
-
-Barrett, 2026-09-23: "I need something that will provide lots of color, the text is white with a black background, and
-one blue button, I need vibrant colors." Two hero backgrounds came before it that day. First a WebGL2 wall of the ten
-sample websites drifting on a tilted plane (a canvas, a shader, ten textures, about 340 lines of script and a no-WebGL
-fallback); then, when he asked for something on-brand that worked better with the words, the Duna mark drawing itself
-in blue line work over the same grid, which he turned down as too monochrome. Both are in git, the mark at 6e9c1c9.
-
-- `.veil` is the wash that keeps the words easy over all that colour: on a phone a top-down and corner wash, and from
-  1000px a left-to-right one that holds the left half and lets the colour run free on the right, with light shading top
-  and bottom.
-- With reduced motion the colours hold still, and the grid with them.
-
-### The chessboard
-
-Over the colour, `#hero-board`: a board of light lines tilted back in perspective (`rotateX(54deg) rotateZ(-16deg)`),
-king, queen and two pawns a side standing upright on it, playing a game in which white always mates. Barrett,
-2026-09-23: "a light grid structure with a maximum (whatever chess legally requires move-wise) of 4 chess pieces per
-side and they play each other where white always wins but the gameplay changes each time. It's a mini-game, 2 pawns and
-two behind." It replaced a galaxy overture that was to burst into the colour, built that afternoon and never shipped.
-
-- The games are real chess. `hero_chess_games.py` in the project folder plays them out with the `chess` library from a
-  fixed start (white Ke1 Qd1 d2 e2, black Ke8 Qd8 d7 e7, a full board so every move is legal): white searches three
-  plies ahead and prefers mates, black looks one ply ahead with enough noise to blunder now and then. Only games that
-  end in checkmate for white within twelve moves are kept, and only one per opening (the first two moves each side), so
-  no two games on the page start alike. `hero_chess_check.py` replays the embedded games and proves each one legal,
-  each capture and promotion as recorded, and each ending in mate for white; run it after regenerating.
-- `GAMES` in the board's script is what the generator printed: each game a list of plies `[from, to, square a capture
-  empties or "", promotion or ""]`. En passant empties a square other than the one moved to, which is why the emptied
-  square is spelled out.
-- The player picks a game at random, never the one just played, moves about once a second (a 0.6 s glide, a 0.5 s
-  breath), fades a captured piece as its taker sets off, turns a promoted pawn into a queen on arrival, lights the from
-  and to squares, and at the mate lays the blue king over and says "Checkmate. White wins." under the board. After
-  2.8 s the pieces walk back to their squares and another game begins. It rests while the hero is off screen.
-- The pieces are pictures, `assets/img/chess/{w,b}-{k,q,p}.png` (six sprites, 176x352, 18-40 KB each, transparent),
-  made by `hero_chess_pieces.js` in the project folder: `node hero_chess_pieces.js`, plain Node, no packages. Each
-  piece is a solid turned on a lathe, a smooth curve through control points for its radius at every height (Staunton
-  proportions: the king 1, the queen .93, the pawn .66), plus the king's cross and the queen's eight-pointed crown. A
-  small ray marcher lights it with a key light, a fill and a rim, takes occlusion and self-shadow from the shape itself,
-  and reflects a studio in it (a soft sky, a dark floor and one big softbox, the rectangle of light real photographs of
-  glossy things carry). White is satin ivory with a faint grain; the other side is deep blue under a clear coat, and is
-  blue rather than black because a dark piece vanishes on a dark board (Barrett, 2026-09-23: "make the chess pieces
-  photo-realistic", then "and more photo-realist"; flat silhouettes came first, that afternoon). The sprite leans 9
-  degrees toward the camera so its top shows. On the board each piece stands straight to the eye: its transform,
-  `rotateZ(16deg) rotateX(-54deg)`, undoes the board's turn and tip exactly ("make the pieces look more upright"), with
-  a pool of shadow flat under its foot and the board's perspective still shrinking the far ones. Change a profile or a
-  material in the script and re-run it.
-- Under the board, `.board-caption`: "Strategic web design by Duna Marketing that brings in clients", Barrett's words
-  (2026-09-23), in the eyebrows' spaced capitals, 16px on a computer and 13.5px on a phone ("make the text bigger"; it
-  began at 12.5 and 11). A no-break space holds "Duna Marketing" together, so the name never splits across lines. The
-  checkmate note keeps its own line above it, so nothing jumps when it appears.
-- Where it sits: from 1000px, beside the words on the right, `min(40vw, 66vh)` wide. Below that it hangs from the foot
-  of the hero (`bottom: 1svh`), and its script sizes it to the room under the buttons so the board and its line are on
-  the first screen (Barrett, 2026-09-23: "the caption runs below the fold on mobile"). `fit()` in the board's script
-  sets `--board-w`: it starts at 70vw, measures where the board's highest point lands (the tilted board or the far
-  pieces' heads, whichever is higher) against the buttons' layout position, and corrects the width until that point is
-  8px under the buttons, down to a floor of 30vw. Only a screen too short even for that gets a taller hero, by way of
-  `--board-room` on `.hero .copy` (its padding-bottom on phones): the first pass adds the shortfall plus the slack under
-  the copy, the second lands it within a pixel. It re-runs at load, when the fonts land, when the width changes (not
-  the height: a phone's browser bars come and go, and the hero is `100svh` regardless) and, through a ResizeObserver
-  on the copy's children, when the voice card's script shows its row further down the page. The checkmate note pulls
-  itself 13% of the width up into the square box's dead space under the tilted board and holds a line of height when
-  empty. Measured in headless Chromium: the board is the full 70vw from 390x844 up, 53-55vw at 360x740 and 430x745,
-  30-32vw on a 664px-tall screen (an iPhone in Safari with its bars showing), and the caption ends 4-14px above the
-  screen's foot on all of those; 320x568, 360x640 and 375x667 cannot hold the copy and a board on one screen, so the
-  hero grows by 20-90px there and the board sits under the buttons.
-- With reduced motion the pieces stand at their start squares and nothing plays.
+The hero is plain black behind its words. Barrett, 2026-09-23: "remove the chess game and the background and grid".
+That took out the drifting colour fields and their veil, the isometric grid over them, and the chessboard with its
+caption, its script and its six piece sprites. All of it is in git at de4a40b (the generators, `hero_chess_games.py`,
+`hero_chess_check.py` and `hero_chess_pieces.js`, are in the project folder).
 
 ## Tracking
 
@@ -624,9 +549,7 @@ Add `?metrics=off` to the address once on a browser you use for testing and that
 ## Checks that were run
 
 - Screenshots at 390, 768 and 1440 wide for every page, plus the phone hero in segments.
-- The rendered contrast gate from the generator (`render_check.py`) passes with motion frozen. The hero's art moves,
-  so that tool's numbers for the hero are not meaningful; the strips behind its words are measured instead (see "The
-  hero's art").
+- The rendered contrast gate from the generator (`render_check.py`) passes with motion frozen.
 
 ## Changing a sample
 
