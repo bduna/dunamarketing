@@ -307,7 +307,7 @@ template; multi-page website; copy written from your answers; photos edited and 
 contact form; preview within 24 hours; one more design direction; launched on your domain; yours, outright), then
 Total $1,500, Due today $0.00, "Pay only if you keep it.", a decorative barcode and a "See it first" stamp. No line
 carries a price of its own: every one is "Included", so nothing claims what a part would cost. Archivo with tabular
-figures, not a typewriter face ([[sans-serif only]]). The torn foot is a CSS mask (a conic-gradient row of teeth,
+figures, not a typewriter face: the page keeps to its one sans-serif family. The torn foot is a CSS mask (a conic-gradient row of teeth,
 `--t`).
 
 - It prints once, when 30% of it is on screen: the slip is uncovered from the slot down (`clip-path` over 2.4 s), each
