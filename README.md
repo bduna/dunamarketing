@@ -79,7 +79,8 @@ that same deep blue. Another on 2026-09-24, "add a questionnaire CTA to the NO R
 risk's paragraph in its left column, beside the mark (`.norisk-go`, 30px above it), the same button in the same blue.
 On a phone it goes under the mark and its name, centred as they are, 40px below ("the questionnaire must go below
 the logo and company name in no risk on mobile"): it comes after `.mark-wrap` in the page, and from 861px
-`.offer-grid`'s areas ("words mark" / "go mark") put it back under the words. The founder button sits in the photo column, which is why
+`.offer-grid`'s areas ("words mark" / "go mark") put it back under the words. And one at the foot of The Website's text, 2026-09-24 ("put
+the questionaire button on the bottom of the text"): `.deal-go`, 30px under the closing paragraph, left-aligned with it. The founder button sits in the photo column, which is why
 `.founder-left` wraps the photo and it: `.founder-photo` narrows to 260px on phones and would squeeze the pill.
 Stacked, under 860px, the whole photo column comes before the words, so on a phone the button is read before the
 section's own heading. (A fourth, under the pricing, was removed on 2026-09-22:

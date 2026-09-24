@@ -942,6 +942,7 @@ fbq('track', 'PageView');
      column, it sits under the logo and the name, centred as they are ("the questionnaire must go below the logo and
      company name in no risk on mobile"); from 861px the grid puts it back in the left column, 30px under the words */
   .norisk-go { justify-self: center; }
+  .deal-go { margin-top: 30px; }      /* at the foot of The Website's text (Barrett, 2026-09-24) */
   @media (min-width: 861px) {
     .offer-grid { grid-template-areas: "words mark" "go mark"; row-gap: 30px; }
     .offer-grid > div:first-child { grid-area: words; }
@@ -1574,6 +1575,7 @@ fbq('track', 'PageView');
         </div>
       </div>
       <p class="lede deal-close">That&rsquo;s $1,500, one time, for a custom website written from your own words, made for phones and ready within 24 hours. We bring 16 years of building websites to every one. Start the questionnaire below and see your finished website before you pay a dime.</p>
+      <div class="deal-go"><a class="btn cta cta-go cta-deep" href="#questionnaire" aria-label="Start the questionnaire"><span class="cta-flip" aria-hidden="true"><span class="cta-face cta-face-a">Start the questionnaire</span><span class="cta-face cta-face-b">Ready to get started?</span></span><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 12l7 7 7-7"/></svg></span></a></div>
     </div>
   </div>
 </section>
