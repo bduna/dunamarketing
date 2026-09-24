@@ -171,6 +171,12 @@ line, as the hero's does (`~/.cache/duna-site-tests/voice_labels_fit.js`).
   you pay anything."), and it heard "Micro apps" and "micro app" as two words each (joined, so the captions can say
   Micro-Apps). One height through every caption at 320, 390 and 1440px
   (`~/.cache/duna-site-tests/section_voice_check.js <url> <out> pricing-voice-row pricing`).
+  Replaced the same day ("update the pricing section audio player to use "pricing-tts-90-seconds.wav""): despite its
+  name that take runs 71 seconds, so the card reads "Pricing Summary · 1:11" over "This section, in 71 seconds". It
+  is cut over the same `assets/audio/pricing.mp3` (567 KB), loaded as `?v=2`; its words are `pricing-90.phrases.json`
+  (36 captions) and its transcript `pricing-tts-90-seconds.words.json`. It pitches the $1,500 website alone rather than
+  walking the five prices; lit: $1,500, one time, don't pay anything until you've seen it, No deposit. No sales pitch.,
+  Within 24 hours, own it outright, 16 years, before you pay a dime. The first take's files stay in the project folder.
 - The Website's, `#website-voice-row`, 2026-09-24 ("create an audio player in the style of the others that sits atop of
   the heading in the website section and plays "website-tts.wav""): 58 seconds, `website-tts.wav` in the project folder,
   cut to `assets/audio/website.mp3` (64 kbps mono, 465 KB), its words in `website.phrases.json` (26 captions) and its
