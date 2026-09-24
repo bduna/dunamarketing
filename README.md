@@ -171,12 +171,9 @@ line, as the hero's does (`~/.cache/duna-site-tests/voice_labels_fit.js`).
   you pay anything."), and it heard "Micro apps" and "micro app" as two words each (joined, so the captions can say
   Micro-Apps). One height through every caption at 320, 390 and 1440px
   (`~/.cache/duna-site-tests/section_voice_check.js <url> <out> pricing-voice-row pricing`).
-  Replaced the same day ("update the pricing section audio player to use "pricing-tts-90-seconds.wav""): despite its
-  name that take runs 71 seconds, so the card reads "Pricing Summary · 1:11" over "This section, in 71 seconds". It
-  is cut over the same `assets/audio/pricing.mp3` (567 KB), loaded as `?v=2`; its words are `pricing-90.phrases.json`
-  (36 captions) and its transcript `pricing-tts-90-seconds.words.json`. It pitches the $1,500 website alone rather than
-  walking the five prices; lit: $1,500, one time, don't pay anything until you've seen it, No deposit. No sales pitch.,
-  Within 24 hours, own it outright, 16 years, before you pay a dime. The first take's files stay in the project folder.
+  For an hour the same day it played `pricing-tts-90-seconds.wav` instead; Barrett then asked for this original back
+  ("restore the original pricing audio and use my new audio for my "The website" section over the headline"), so
+  `assets/audio/pricing.mp3` is this 2:46 take again, loaded as `?v=3` so no browser keeps the short one.
 - The Website's, `#website-voice-row`, 2026-09-24 ("create an audio player in the style of the others that sits atop of
   the heading in the website section and plays "website-tts.wav""): 58 seconds, `website-tts.wav` in the project folder,
   cut to `assets/audio/website.mp3` (64 kbps mono, 465 KB), its words in `website.phrases.json` (26 captions) and its
@@ -184,6 +181,13 @@ line, as the hero's does (`~/.cache/duna-site-tests/voice_labels_fit.js`).
   Summary · 0:58" over "This section, in 58 seconds", named like the other section cards. It retells the section's
   copy; lit in the accent: $1,500, one time, within 24 hours, no deposit, only pay if you want to keep it, own it
   outright, 16 years, before you pay a dime. The recording says "a multi-page site", and the caption shows what it says.
+  Replaced the same day by `pricing-tts-90-seconds.wav` ("use my new audio for my "The website" section over the
+  headline"; he first asked for it on the Pricing card): despite its name it runs 71 seconds, so the card reads
+  "Website Summary · 1:11" over "This section, in 71 seconds". Cut to `assets/audio/website.mp3` (567 KB), loaded as
+  `?v=2`; its words are `pricing-90.phrases.json` (36 captions), its transcript `pricing-tts-90-seconds.words.json`. It
+  pitches the $1,500 website; lit: $1,500, one time, don't pay anything until you've seen it, No deposit. No sales
+  pitch., Within 24 hours, own it outright, 16 years, before you pay a dime. The first take, `website-tts.wav`, and its
+  files stay in the project folder.
 
 
 Barrett's recording, a 72-second spoken summary of the whole page meant as the first sales pitch
