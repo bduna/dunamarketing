@@ -276,7 +276,17 @@ simulation at UCLA Anderson, the Live Nation analyst work, Jim Stein's testimoni
 16 years of web design and development, and a decade of studying marketing. It is a navy band (Barrett's call over
 white), so the white-background headshot sits as a card with the sample cards' border and shadow.
 
-## Animations
+## The Website (in place of Animations)
+
+`<section id="the-website">`, the white band between Our founder and The Care Plan, 2026-09-24: "Change the
+"Animations" section to a new section called "The Website" and add the empty placeholder of a headline "Get your new
+headline and enjoy your new site." Add a paragraph under it with "Lorem ipsum…"". The eyebrow "The Website", that
+headline, and eleven "Lorem ipsum." as the lede; nothing else yet. The Animations section it replaced is described
+below as it was; its CSS (`.anim…`) and its two scripts (the video's player and the offer card's entrance, both
+guarded on their elements) are still in the page, doing nothing, and the video is still in `assets/video/`. The
+Animations price in Pricing is unchanged.
+
+## Animations (removed 2026-09-24)
 
 `<section id="animations">`, a white band between Our founder and The Care Plan, sells animations for a client's website
 at $350 each ($100 until 2026-09-19, then $250 until 2026-09-21). It has no button (Barrett took it out). Its three
