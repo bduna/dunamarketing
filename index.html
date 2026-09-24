@@ -150,12 +150,16 @@ fbq('track', 'PageView');
   .hero { position: relative; min-height: 100svh; overflow: hidden; background: var(--ground); display: flex; }
   /* ---------- The wall (back 2026-09-23, Barrett: "create a full half page from the very bottom to the very top
      animation of the floating and scrolling screenshots that I had previously"). Ten sample websites float on a tilted
-     plane, each scrolling its own page, drawn by WebGL. On a wide screen it fills the right half of the hero from top to
-     bottom, with no wash over it, and fades in over its first few percent so the plane has no hard edge against the
-     black; the words keep to the left half. On a phone there is no half to give, so it runs behind the words as it did
+     plane, each scrolling its own page, drawn by WebGL. On a wide screen it fills the right of the hero from top to
+     bottom, with no wash over it, and meets the black along a crisp diagonal with a thin blue line on it (Barrett, the
+     same day: "remove the blur on the homepage wall. Make a shape, divide"; it had faded in over its first 9%). The
+     diagonal leans the way the cards' sides do: 58% across at the top, 47% at the foot. The words keep to the left
+     half, clear of it. On a phone there is no half to give, so it runs behind the words as it did
      before, with the veil holding them. */
   .wall, .veil, .fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
   .wall { display: block; }
+  .wall-edge { display: none; }   /* the dividing line, on a wide screen only */
+  .wall-edge line { stroke: var(--accent); stroke-width: 2px; vector-effect: non-scaling-stroke; }
   .veil {
     pointer-events: none;
     background:
@@ -165,7 +169,10 @@ fbq('track', 'PageView');
       linear-gradient(0deg, rgb(var(--veil) / .55) 0%, rgb(var(--veil) / 0) 22%);
   }
   @media (min-width: 1000px) {
-    .wall, .fallback { left: 50%; width: 50%; -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%); mask-image: linear-gradient(90deg, transparent, #000 9%); }
+    /* the box runs from 47% to the right edge, and the cut's top corner sits at 58% of the hero: 11/53 of the box */
+    .wall, .fallback, .wall-edge { left: 47%; width: 53%; }
+    .wall, .fallback { clip-path: polygon(20.755% 0, 100% 0, 100% 100%, 0 100%); }
+    .wall-edge { display: block; position: absolute; top: 0; height: 100%; overflow: visible; pointer-events: none; }
     .veil { display: none; }
     /* the words end short of the half, on the same left edge as the sections below, and the headline shrinks to fit */
     .hero .copy {
@@ -1213,6 +1220,7 @@ fbq('track', 'PageView');
 <main>
 <section class="hero" id="top">
   <canvas class="wall" id="wall" aria-hidden="true"></canvas>
+  <svg class="wall-edge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="20.755" y1="0" x2="0" y2="100"/></svg>
   <div class="fallback" aria-hidden="true"><div class="fallback-plane"></div></div>
   <div class="veil" aria-hidden="true"></div>
   <div class="copy">

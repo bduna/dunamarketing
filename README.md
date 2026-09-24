@@ -559,8 +559,13 @@ ratio, capped at 2, is 1000 or more, so on every computer; else 640. The sample 
 downloads them once). Without WebGL2 a static tilted grid of the same captures stands in
 (`.fallback`).
 
-- From 1000px the canvas is the right half of the hero, top to bottom, with no wash over it; it fades in over its first
-  9% so the plane has no hard edge against the black. The words keep to the left half: `.hero .copy` keeps its left
+- From 1000px the canvas is the right of the hero, top to bottom, with no wash over it, and meets the black along a
+  crisp diagonal with a 2px line in the accent blue on it (Barrett, 2026-09-23: "remove the blur on the homepage wall.
+  Make a shape, divide"; for its first hour it faded in over its first 9% instead). The diagonal runs from 58% across
+  at the top to 47% at the foot, leaning the way the cards' sides do: the canvas box runs from 47% to the right edge
+  and is clipped (`clip-path`, its top corner at 11/53 of the box, 20.755%), and `.wall-edge` is an SVG line over the
+  same box. Checked from 1000x700 to 2560x1440, no line of the copy comes nearer the diagonal than 30px
+  (`~/.cache/duna-site-tests/wall_cut_check.js`). The words keep to the left half: `.hero .copy` keeps its left
   edge in line with the sections below and ends `clamp(24px, 2vw, 56px)` short of the half, and the headline shrinks to
   fit (`10.2cqi`, the copy being a size container). Checked from 1000 to 2560px: nothing of the copy crosses the half,
   and the two buttons share a row from 1440px up (they stack below that).
