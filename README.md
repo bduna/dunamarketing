@@ -510,8 +510,8 @@ the business, and a recap at the end. It is at https://dunamarketing.com/#questi
   detail 10, and every 125 points is a dollar off (`PER_DOLLAR`); the discount shows cents (points ÷ 125, rounded
   down to the cent), so 130 points reads $1.04. `earn()` in the questionnaire block holds the rule; each step
   says which kind it is (`kind: 'choice'`, `'open'` or `'contact'`; name, phone and email are `contact`, the business
-  question is `open`). The panel's header shows the total points so far in its top right corner, from 0 pts. Start
-  over resets all three.
+  question is `open`). The panel's header no longer shows a points total (Barrett removed it on 2026-09-25); the
+  points only drive the discount. Start over resets both.
 - `onComplete(answers)` is the one place a finished questionnaire is handed over. For now it says the test is over and
   shows the recap. When it is wired to the leads sheet, the existing rules apply: the two honeypots, the start and
   complete stages, the Lead pixel event only when the server answers `lead_ok`, and no Apps Script edits.
