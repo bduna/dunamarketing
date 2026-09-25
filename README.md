@@ -140,6 +140,13 @@ line, as the hero's does (`~/.cache/duna-site-tests/voice_labels_fit.js`).
   above the headline"): it now sits between the section's eyebrow and its headline, as the Care Plan's does. Its captions were cut for the 380px photo column and are
   shorter than the text column needs. It has no dock and gives no glow, and its ring of bars waves once as the
   card comes into view rather than as the page loads.
+  Re-recorded 2026-09-25 under the same name, `founder-bio-tts.wav` (61.7 s, still "1:02"): the new take says "At
+  UCLA's MBA program at the Anderson School of Management" as the bio now does, opens straight on "Our founder,
+  Barrett Duna, has designed and developed websites for 16 years", and adds "Here's what a mentor had to say about
+  Barrett." before the quote. Its transcript and captions were made again (30 captions; the first take's are
+  `founder-bio-tts-old.words.json` and `founder-bio-old.phrases.json` in the project folder), and the MP3 loads as
+  `?v=2`. To swap a recording again: save the new WAV over the old name, then transcribe, rewrite the phrases, run
+  `hero_voice_captions.py`, recut the MP3 and bump its `?v=`.
 - The Care Plan's, `#care-voice-row`, the same day ("I want the same thing as the bio reading but with
   care-plan-tts.wav in the CARE PLAN section on the right column under the phone"): 77 seconds, `care-plan-tts.wav` in
   the project folder, cut to `assets/audio/care-plan.mp3`, its words in `care-plan.phrases.json`. It sat under the
