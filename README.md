@@ -144,9 +144,13 @@ line, as the hero's does (`~/.cache/duna-site-tests/voice_labels_fit.js`).
   UCLA's MBA program at the Anderson School of Management" as the bio now does, opens straight on "Our founder,
   Barrett Duna, has designed and developed websites for 16 years", and adds "Here's what a mentor had to say about
   Barrett." before the quote. Its transcript and captions were made again (30 captions; the first take's are
-  `founder-bio-tts-old.words.json` and `founder-bio-old.phrases.json` in the project folder), and the MP3 loads as
-  `?v=2`. To swap a recording again: save the new WAV over the old name, then transcribe, rewrite the phrases, run
-  `hero_voice_captions.py`, recut the MP3 and bump its `?v=`.
+  `founder-bio-tts-old.words.json` and `founder-bio-old.phrases.json` in the project folder). The new take is
+  `assets/audio/founder-bio-2.mp3`; `founder-bio.mp3` is the first take again. It was first cut over the old file with a
+  `?v=2`, and a browser still holding the page from before (it keeps it up to 10 minutes) then played the new take
+  under the old captions, because the old page's plain `founder-bio.mp3` now held the new audio; Barrett saw exactly
+  that ("the transcript that is showing while you read isn't correct"). So: a new recording always gets a NEW MP3 file
+  name, and the old file is left as it was, so an old page plays old audio with old words and a new page new with new.
+  The WAV in the project folder can keep its name; transcribe it, rewrite the phrases, run `hero_voice_captions.py`.
 - The Care Plan's, `#care-voice-row`, the same day ("I want the same thing as the bio reading but with
   care-plan-tts.wav in the CARE PLAN section on the right column under the phone"): 77 seconds, `care-plan-tts.wav` in
   the project folder, cut to `assets/audio/care-plan.mp3`, its words in `care-plan.phrases.json`. It sat under the
