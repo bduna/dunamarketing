@@ -1195,10 +1195,11 @@ fbq('track', 'PageView');
   .q-offer-rules li { position: relative; padding-left: 22px; }
   .q-offer-rules li::before { content: ""; position: absolute; left: 0; top: .5em; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
   .q-offer-rules strong { color: var(--accent); font-weight: 700; }
-  /* "Remember, you don't pay a dime ...": the size of the paragraphs above and flush left with them, and centred between
-     them and the offer, as much space above it as below (Barrett, 2026-09-25). It had shared .q-note with the note
-     under the chat's input, whose later rule made it 13px, indented 14px and tight to the paragraph above. */
-  .q-remember { margin: 26px 0 0; max-width: 40em; color: var(--ink-dim); }
+  /* "Remember, you don't pay a dime ...": the size of the paragraphs above and flush left with them, and as far below
+     them as they are from each other (Barrett, 2026-09-25: first "vertically centered", 26px above it, then "a little
+     less margin on top, make it the same between the first and second paragraph"). It had shared .q-note with the
+     note under the chat's input, whose later rule made it 13px, indented 14px and tight to the paragraph above. */
+  .q-remember { margin: .9em 0 0; max-width: 40em; color: var(--ink-dim); }
   .q-panel {
     display: flex; flex-direction: column; overflow: hidden;
     border-radius: 16px; background: #111a33;
