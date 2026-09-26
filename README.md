@@ -659,6 +659,36 @@ up); else `-960.webp` wherever the longer side of the screen times its pixel rat
 640 by the second rule, so they share the wall's download except where the wall takes the 1440s. Without WebGL2 a static tilted grid of the same captures stands in
 (`.fallback`).
 
+- How it loads (Barrett, 2026-09-25: "speed up drastically the speed of the wall loading", then "the desktop wall
+  still takes 2 seconds to load, fix it, don't change anything on mobile"). The wall used to draw nothing until all
+  ten full captures had downloaded and decoded: 3.5 MB on a 1920 screen, 2.3-2.8 s on fast Wi-Fi and 4.7 s on 4G before
+  the first card showed. Now, on a screen 1000px or wider, it comes up in steps, each set fading in over the last in
+  400 ms (`FADE_MS`; with reduced motion, or with the hero off screen, it simply takes its place). Phones are untouched:
+  they load all their captures, then show the wall, as before.
+  1. `assets/img/wall/preview.webp`: the ten pages at 240x600 stacked top to bottom in the wall's order, one 133 KB
+     file, asked for as soon as the script runs and uploaded as the texture's ten layers in one call. The wall is up in
+     0.3-0.4 s on Wi-Fi, 0.7 s on 4G.
+  2. The 960 captures, 1.2 MB. A card on a desktop is about 575 pixels across (1920 at 1x, a laptop at 125%), so these
+     are as sharp there as the 1440s (checked side by side at 1920), and the sample cards use the same files, so they
+     are not fetched twice. Sharp at 0.8-1.2 s on Wi-Fi, 2.2 s on 4G.
+  3. The 1440 captures, only where `SIZE` asks for them, for screens with more pixels to a card. They start only once
+     the 960s are in, so they never slow them.
+  The captures download at low priority, decoded off the main thread, and go to the graphics card as many as fit in
+  8 ms of a frame, so no one frame carries a whole set; each set's texture is made only when its first capture
+  arrives, since making it holds up the frame. If a step fails, the wall keeps what it has and tries the next; with
+  nothing at all, the static grid stands in. A lost graphics context loads it all again, from the cache.
+  `~/.cache/duna-site-tests/wall_preview.py` builds the preview from the 1440 captures: run it whenever a sample's
+  capture changes. `~/.cache/duna-site-tests/wall_timing.js` times the wall (network throttled, fonts blocked; the
+  times above are from it, drawing without a graphics card, so a real desktop is quicker).
+- The wall's plate (Barrett, 2026-09-25: "put on the wall my logo in the upper middle height and centered. Under it,
+  put 3 headlines stack on top of each other with 20px margin between them, that say "Craftsmanship", "Ethics",
+  "Latest Technology""): from 1000px, `.wall-values` centres a navy plate (`rgb(var(--veil) / .88)`, 20px corners, a
+  faint white hairline) across the wall with its middle at 40% of the hero's height. On it the mark, drawn as lines
+  from the favicon's geometry so it stays sharp (64-104px wide), and under it the three words as a list, in the
+  headline's face, white, 1.6-3rem, 20px apart. The plate is there because the pages drifting behind are mostly white;
+  the white words keep about 14:1 on it even over a white page. It sits over the wall and takes no pointer events.
+  Phones do not show it: there the wall runs behind the hero's words.
+
 - From 1000px the canvas is the right of the hero, top to bottom, with no wash over it, and meets the black along a
   straight up-and-down line, 4px in the accent blue (`.wall-edge`; 2px until Barrett's "make the blue line thicker",
   2026-09-24). Both start at `--wall-x`, a margin past the half,

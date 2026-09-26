@@ -239,6 +239,7 @@ fbq('track', 'PageView');
   .wall, .veil, .fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
   .wall { display: block; }
   .wall-edge { display: none; }   /* the dividing line, on a wide screen only */
+  .wall-values { display: none; }   /* the wall's plate, on a wide screen only */
   .veil {
     pointer-events: none;
     background:
@@ -256,6 +257,27 @@ fbq('track', 'PageView');
     .hero { background: radial-gradient(ellipse 72% 105% at 0% 0%, rgb(22 40 88) 0%, rgb(15 28 64) 28%, rgb(10 19 44) 52%, var(--ground) 82%), var(--ground); }
     .wall, .fallback { left: var(--wall-x); width: calc(100% - var(--wall-x)); }
     .wall-edge { display: block; position: absolute; top: 0; bottom: 0; left: var(--wall-x); width: 4px; margin-left: -2px; background: var(--accent); pointer-events: none; }   /* 4px ("make the blue line thicker"; it was 2px) */
+    /* The wall's plate (Barrett, 2026-09-25: "put on the wall my logo in the upper middle height and centered. Under
+       it, put 3 headlines stack on top of each other with 20px margin between them"). Centred across the wall, with
+       its middle at 40% of the hero's height, and on a navy plate: the pages drifting behind are mostly white, and
+       white words straight on them would not read. The logo is the mark drawn as lines, so it stays sharp at any size. */
+    .wall-values {
+      position: absolute; z-index: 1; top: 0; bottom: 20%; left: var(--wall-x); right: 0;
+      display: flex; align-items: center; justify-content: center; pointer-events: none;
+    }
+    .wall-plate {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      padding: clamp(28px, 3vw, 48px) clamp(32px, 3.6vw, 60px);
+      border-radius: 20px; border: 1px solid rgb(255 255 255 / .12);
+      background: rgb(var(--veil) / .88); box-shadow: 0 24px 60px rgb(0 0 0 / .5);
+    }
+    .wall-mark { width: clamp(64px, 5.2vw, 104px); height: auto; margin-bottom: clamp(22px, 2.2vw, 34px); }
+    .wall-mark g { stroke: var(--paper); }
+    .wall-heads { margin: 0; padding: 0; list-style: none; display: grid; gap: 20px; }   /* the 20px between them */
+    .wall-heads li {
+      font-size: clamp(1.6rem, 2.1vw + .4rem, 3rem); font-weight: 640; font-stretch: 108%;
+      line-height: 1; letter-spacing: -.03em; color: var(--paper);
+    }
     .veil { display: none; }
     /* the words end short of the half, on the same left edge as the sections below, and the headline shrinks to fit */
     .hero .copy {
@@ -1349,6 +1371,17 @@ fbq('track', 'PageView');
       <button type="button" class="btn cta cta-alt cta-phone" data-number="(707) 385-5673" title="Copy the number"><span class="cta-phone-text"><small>Text or call</small>(707) 385-5673</span><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span></button>
     </div>
     <p class="visually-hidden" id="sites"></p>
+  </div>
+  <!-- On the wall, from 1000px: the logo, and three headlines under it (the CSS block "The wall's plate") -->
+  <div class="wall-values">
+    <div class="wall-plate">
+      <svg class="wall-mark" viewBox="8.5 13 175 175" aria-hidden="true"><clipPath id="wv-l"><polygon points="96.5,17 96.5,88.7 166,136 96.5,184 26,136 26,65"/></clipPath><clipPath id="wv-r"><polygon points="96.5,17 166,65 166,136 96.5,88.7"/></clipPath><g fill="none" stroke-width="5.79"><g clip-path="url(#wv-l)"><line x1="-20" y1="99.2" x2="220" y2="-64.0"/><line x1="-20" y1="115.4" x2="220" y2="-47.8"/><line x1="-20" y1="131.5" x2="220" y2="-31.7"/><line x1="-20" y1="147.7" x2="220" y2="-15.5"/><line x1="-20" y1="163.8" x2="220" y2="0.6"/><line x1="-20" y1="180.0" x2="220" y2="16.8"/><line x1="-20" y1="196.1" x2="220" y2="32.9"/><line x1="-20" y1="212.3" x2="220" y2="49.1"/><line x1="-20" y1="228.4" x2="220" y2="65.2"/><line x1="-20" y1="244.6" x2="220" y2="81.4"/><line x1="-20" y1="260.7" x2="220" y2="97.5"/></g><g clip-path="url(#wv-r)"><line x1="-20" y1="-59.2" x2="220" y2="104.0"/><line x1="-20" y1="-43.1" x2="220" y2="120.1"/><line x1="-20" y1="-26.9" x2="220" y2="136.3"/><line x1="-20" y1="-10.8" x2="220" y2="152.4"/><line x1="-20" y1="5.4" x2="220" y2="168.6"/></g></g></svg>
+      <ul class="wall-heads">
+        <li>Craftsmanship</li>
+        <li>Ethics</li>
+        <li>Latest Technology</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -2796,6 +2829,20 @@ fbq('track', 'PageView');
     : Math.max(innerWidth, innerHeight) * Math.min(devicePixelRatio || 1, 2) >= 1000 ? 960 : 640;
   const SHOTS = [{"name": "Long Table Catering", "slug": "long-table-catering"}, {"name": "Marden Estate Law", "slug": "marden-estate-law"}, {"name": "Velvet Fig", "slug": "velvet-fig"}, {"name": "Keyway Locksmith", "slug": "keyway-locksmith"}, {"name": "Golden Crumb Bakery", "slug": "golden-crumb-bakery"}, {"name": "Mirror Finish Auto Detailing", "slug": "mirror-finish-auto-detailing"}, {"name": "Bright Beginnings Preschool", "slug": "bright-beginnings-preschool"}, {"name": "Waggin’ Tails Grooming", "slug": "waggin-tails-grooming"}, {"name": "Summit Ridge Ski & Board", "slug": "summit-ridge-ski-board"}, {"name": "Maple Street Cleaners", "slug": "maple-street-cleaners"}]
     .map(s => ({ ...s, src: `assets/img/samples/${s.slug}-${SIZE}.webp` }));
+  // On a desktop (1000px and up) the wall comes up in steps, each sharper set fading in over the last in FADE_MS
+  // (Barrett, 2026-09-25: "speed up drastically the speed of the wall loading", then "the desktop wall still takes 2
+  // seconds to load, fix it"). Until then nothing showed before every full capture had arrived, 3.5 MB on a big screen.
+  // - The preview: the ten pages at 240x600, stacked top to bottom in SHOTS' order in one 133 KB file, so the wall is up
+  //   and settling in a moment after the page. `~/.cache/duna-site-tests/wall_preview.py` rebuilds it; run it whenever
+  //   a sample's capture changes.
+  // - The 960 captures, 1.2 MB: a card on a desktop is about 575 pixels across (1920 at 1x, or a laptop at 125%), so
+  //   these are already sharp there, and the sample cards below use the same files, so nothing is fetched twice.
+  // - The 1440 captures, where SIZE asks for them, for screens with more pixels to a card.
+  // Phones load as they always have: all their captures, then the wall (Barrett: "don't change anything on mobile").
+  const DESKTOP = innerWidth >= 1000;
+  const PREVIEW = { src: 'assets/img/wall/preview.webp?v=1', w: 240, h: 600 };
+  const STEPS = SIZE > 960 ? [960, SIZE] : [SIZE];
+  const FADE_MS = 400;
   const root = document.documentElement;
   const canvas = document.getElementById('wall');
   document.getElementById('sites').textContent =
@@ -2809,6 +2856,19 @@ fbq('track', 'PageView');
 
   const gl = canvas.getContext('webgl2', { alpha: false, antialias: false, powerPreference: 'high-performance' });
   if (!gl || !SHOTS.length) { fallback(); return; }
+
+  // An image, decoded off the main thread where the browser can. The captures ask at low priority, so they take no
+  // bandwidth from the rest of the page.
+  function load(src, priority) {
+    const viaImg = () => { const img = new Image(); img.src = src; return img.decode().then(() => img); };
+    if (!window.createImageBitmap) return viaImg();
+    return fetch(src, { priority })
+      .then(r => { if (!r.ok) throw new Error(`${src}: ${r.status}`); return r.blob(); })
+      .then(b => createImageBitmap(b))
+      .catch(viaImg);
+  }
+  // Asked for at once, before the wall's first frame: it is small, and the wall waits on it
+  let previewLoad = DESKTOP && load(PREVIEW.src, 'high');
 
   const VS = `#version 300 es
   precision highp float;
@@ -2857,9 +2917,9 @@ fbq('track', 'PageView');
   const FS = `#version 300 es
   precision highp float;
   precision highp sampler2DArray;
-  uniform sampler2DArray uTex;
+  uniform sampler2DArray uTex, uNext;               // the pages, and the full captures fading in over the preview
   uniform vec2 uCard;
-  uniform float uPass, uAlpha, uRadius;
+  uniform float uPass, uAlpha, uRadius, uMix;
   in vec2 vUv, vSize;
   in vec3 vTex;
   in float vBob;
@@ -2881,15 +2941,21 @@ fbq('track', 'PageView');
     float aa = max(fwidth(d), 1e-4);
     float a = clamp(0.5 - d / aa, 0.0, 1.0) * uAlpha;
     vec3 col = texture(uTex, vTex, -0.5).rgb;   // half a mip level sharper than the default pick
-    vec3 soft = texture(uTex, vTex, 1.0).rgb;   // and an unsharp mask: the page less a blurred copy of itself, so the
-    col = clamp(col + 0.45 * (col - soft), 0.0, 1.0);   // edges of its type and pictures stand out crisp
+    vec3 soft = texture(uTex, vTex, 1.0).rgb;
+    if (uMix > 0.0) {   // the full captures fading in over the preview
+      col = mix(col, texture(uNext, vTex, -0.5).rgb, uMix);
+      soft = mix(soft, texture(uNext, vTex, 1.0).rgb, uMix);
+    }
+    // an unsharp mask: the page less a blurred copy of itself, so the edges of its type and pictures stand out crisp
+    col = clamp(col + 0.45 * (col - soft), 0.0, 1.0);
     col *= 1.04 - 0.16 * vUv.y - 0.05 * vUv.x;
     col += smoothstep(-1.5 * aa, 0.0, d) * 0.08;
     outColor = vec4(col * a, a);
   }`;
 
   let prog, vao, instBuf, tex, U = {}, count = 0, ready = false, raf = 0;
-  let L = null, images = [];
+  let next = null, fadeStart = 0, run = 0;   // a sharper set while it fades in; which boot a load belongs to
+  let L = null;
   let pointer = { tx: 0, ty: 0, x: 0, y: 0 };
   let clock = 3.2, last = performance.now(), introStart = 0;
   let visible = true;   // the hero is on screen; the loop stops when it scrolls away
@@ -2909,7 +2975,7 @@ fbq('track', 'PageView');
     gl.linkProgram(prog);
     if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
     for (const name of ['uView', 'uOrigin', 'uAnchor', 'uAng', 'uCard', 'uGrid', 'uP', 'uDrift', 'uTime',
-      'uLift', 'uFrac', 'uPass', 'uTex', 'uAlpha', 'uRadius', 'uCycle', 'uHold']) U[name] = gl.getUniformLocation(prog, name);
+      'uLift', 'uFrac', 'uPass', 'uTex', 'uNext', 'uMix', 'uAlpha', 'uRadius', 'uCycle', 'uHold']) U[name] = gl.getUniformLocation(prog, name);
 
     vao = gl.createVertexArray();
     gl.bindVertexArray(vao);
@@ -2928,20 +2994,28 @@ fbq('track', 'PageView');
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
   }
 
-  function uploadTextures() {
-    const [tw, th] = [SIZE, SIZE * 2.5];
-    tex = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D_ARRAY, tex);
-    gl.texStorage3D(gl.TEXTURE_2D_ARRAY, Math.floor(Math.log2(th)) + 1, gl.RGBA8, tw, th, images.length);
-    images.forEach((img, i) => {
-      let src = img;
-      if (img.naturalWidth !== tw || img.naturalHeight !== th) {
-        src = document.createElement('canvas');
-        src.width = tw; src.height = th;
-        src.getContext('2d').drawImage(img, 0, 0, tw, th);
-      }
-      gl.texSubImage3D(gl.TEXTURE_2D_ARRAY, 0, 0, 0, i, tw, th, 1, gl.RGBA, gl.UNSIGNED_BYTE, src);
-    });
+  // A texture array for the ten pages at w x h. The pages go in one at a time (putPage), then finish() makes the mip
+  // levels and sets the filtering.
+  function pages(w, h) {
+    const t = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D_ARRAY, t);
+    gl.texStorage3D(gl.TEXTURE_2D_ARRAY, Math.floor(Math.log2(h)) + 1, gl.RGBA8, w, h, SHOTS.length);
+    return t;
+  }
+
+  function putPage(t, i, img, w, h) {
+    let src = img;
+    if ((img.naturalWidth || img.width) !== w || (img.naturalHeight || img.height) !== h) {
+      src = document.createElement('canvas');
+      src.width = w; src.height = h;
+      src.getContext('2d').drawImage(img, 0, 0, w, h);
+    }
+    gl.bindTexture(gl.TEXTURE_2D_ARRAY, t);
+    gl.texSubImage3D(gl.TEXTURE_2D_ARRAY, 0, 0, 0, i, w, h, 1, gl.RGBA, gl.UNSIGNED_BYTE, src);
+  }
+
+  function finish(t) {
+    gl.bindTexture(gl.TEXTURE_2D_ARRAY, t);
     gl.generateMipmap(gl.TEXTURE_2D_ARRAY);
     gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
     gl.texParameteri(gl.TEXTURE_2D_ARRAY, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
@@ -3024,7 +3098,7 @@ fbq('track', 'PageView');
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
   }
 
-  function draw(theta, phi, alpha) {
+  function draw(theta, phi, alpha, mix) {
     gl.clearColor(5 / 255, 10 / 255, 24 / 255, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
     if (!ready || !L) return;
@@ -3033,6 +3107,10 @@ fbq('track', 'PageView');
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D_ARRAY, tex);
     gl.uniform1i(U.uTex, 0);
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_2D_ARRAY, next || tex);
+    gl.uniform1i(U.uNext, 1);
+    gl.uniform1f(U.uMix, mix);
     gl.uniform2f(U.uView, L.vw, L.vh);
     gl.uniform2f(U.uOrigin, L.origin[0], L.origin[1]);
     gl.uniform2f(U.uAnchor, L.anchor[0], L.anchor[1]);
@@ -3067,7 +3145,12 @@ fbq('track', 'PageView');
     }
     const theta = BASE_THETA + (pointer.x * 2.2 - (1 - e) * 6) * DEG;
     const phi = BASE_PHI + (-pointer.y * 2.6 + (1 - e) * 14) * DEG;
-    draw(theta, phi, e);
+    let mix = 0;
+    if (next) {
+      mix = Math.min(1, (now - fadeStart) / FADE_MS);
+      if (mix >= 1) { swap(next); mix = 0; }
+    }
+    draw(theta, phi, e, mix);
     raf = (still || !visible) ? 0 : requestAnimationFrame(frame);
   }
 
@@ -3087,25 +3170,133 @@ fbq('track', 'PageView');
     }
   }
 
+  // The wall is up: its first pages are on the card, and it settles in
+  function show(t) {
+    tex = t;
+    ready = true;
+    introStart = performance.now();
+    start();
+  }
+
+  // A sharper set takes over, and the texture it replaces goes
+  function swap(t) {
+    if (tex && tex !== t) gl.deleteTexture(tex);
+    tex = t;
+    next = null;
+  }
+
+  // A sharper set has arrived: it fades in over what is showing, or simply takes its place when no one would see a fade
+  function takeOver(t) {
+    if (!ready) { show(t); return; }
+    if (next) swap(next);   // a fade still under way ends at once
+    if (reduceMq.matches || !visible) { swap(t); start(); }
+    else { next = t; fadeStart = performance.now(); }
+  }
+
+  // Pages go to the graphics card in the frames that have room: as many as fit in 8 ms of a frame, and at least one, so
+  // no one frame carries a whole set
+  const uploads = [];
+  let pumping = false;
+  function onCard(job) {
+    return new Promise((done, fail) => {
+      uploads.push(() => { try { job(); done(); } catch (err) { fail(err); } });
+      if (!pumping) { pumping = true; requestAnimationFrame(pump); }
+    });
+  }
+  function pump() {
+    const t0 = performance.now();
+    while (uploads.length) {
+      uploads.shift()();
+      if (performance.now() - t0 >= 8) break;
+    }
+    if (uploads.length) requestAnimationFrame(pump);
+    else pumping = false;
+  }
+
+  // One set of the ten captures, `width` wide, as a texture; null if the context was lost on the way. The texture is made
+  // only when the first capture arrives: making it takes a while, and what is showing must not wait for it.
+  async function loadSet(width, mine) {
+    const h = width * 2.5;
+    let t = null;
+    try {
+      await Promise.all(SHOTS.map((s, i) => load(`assets/img/samples/${s.slug}-${width}.webp`, 'low').then(img => onCard(() => {
+        try { if (mine === run) { t = t || pages(width, h); putPage(t, i, img, width, h); } }
+        finally { if (img.close) img.close(); }
+      }))));
+    } catch (err) {
+      if (t && mine === run) gl.deleteTexture(t);
+      throw err;
+    }
+    if (mine !== run) return null;
+    finish(t);
+    return t;
+  }
+
   async function boot() {
+    const mine = ++run;
     try {
       initGL();
       layout();
-      start();
-      images = await Promise.all(SHOTS.map(s => {
-        const img = new Image();
-        img.src = s.src;
-        return img.decode().then(() => img);
-      }));
-      uploadTextures();
-      ready = true;
-      introStart = performance.now();
       start();
     } catch (err) {
       console.error(err);
       cancelAnimationFrame(raf);
       fallback();
+      return;
     }
+
+    if (!DESKTOP) {
+      // Phones, as they always were: all ten captures, then the wall
+      try {
+        const images = await Promise.all(SHOTS.map(s => {
+          const img = new Image();
+          img.src = s.src;
+          return img.decode().then(() => img);
+        }));
+        if (mine !== run) return;
+        const [tw, th] = [SIZE, SIZE * 2.5], t = pages(tw, th);
+        images.forEach((img, i) => putPage(t, i, img, tw, th));
+        finish(t);
+        show(t);
+      } catch (err) {
+        console.error(err);
+        if (mine !== run) return;
+        cancelAnimationFrame(raf);
+        fallback();
+      }
+      return;
+    }
+
+    // The preview, its ten pages in one upload: WebGL takes a picture of pages stacked top to bottom as the layers of the
+    // texture. If it fails to come, the wall waits for the first set of captures.
+    const sheet = await (previewLoad || load(PREVIEW.src, 'high')).catch(() => null);
+    previewLoad = null;
+    if (mine !== run) return;
+    if (sheet) {
+      try {
+        const { w, h } = PREVIEW, pv = pages(w, h);
+        gl.texSubImage3D(gl.TEXTURE_2D_ARRAY, 0, 0, 0, 0, w, h, SHOTS.length, gl.RGBA, gl.UNSIGNED_BYTE, sheet);
+        finish(pv);
+        show(pv);
+      } catch (err) {
+        console.error(err);
+      }
+      if (sheet.close) sheet.close();
+    }
+
+    // Then each sharper set in turn, one after the other so the first is not slowed by the next. If one fails the next
+    // may still come; if nothing comes at all, the static grid stands in.
+    for (const width of STEPS) {
+      try {
+        const t = await loadSet(width, mine);
+        if (!t) return;
+        takeOver(t);
+      } catch (err) {
+        console.error(err);
+        if (mine !== run) return;
+      }
+    }
+    if (!ready && mine === run) { cancelAnimationFrame(raf); fallback(); }
   }
 
   addEventListener('pointermove', e => {
@@ -3121,10 +3312,11 @@ fbq('track', 'PageView');
   });
   reduceMq.addEventListener('change', start);
 
-  canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); cancelAnimationFrame(raf); ready = false; });
-  canvas.addEventListener('webglcontextrestored', () => {
-    initGL(); layout(); uploadTextures(); ready = true; start();
+  canvas.addEventListener('webglcontextlost', e => {
+    e.preventDefault(); cancelAnimationFrame(raf);
+    run++; ready = false; next = null;   // a load still under way belongs to the lost context
   });
+  canvas.addEventListener('webglcontextrestored', boot);   // loads again, from the browser's cache
 
   const hero = document.querySelector('.hero');
   if ('IntersectionObserver' in window) {
