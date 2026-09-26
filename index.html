@@ -239,7 +239,6 @@ fbq('track', 'PageView');
   .wall, .veil, .fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
   .wall { display: block; }
   .wall-edge { display: none; }   /* the dividing line, on a wide screen only */
-  .wall-values { display: none; }   /* the wall's plate, on a wide screen only */
   .veil {
     pointer-events: none;
     background:
@@ -257,27 +256,6 @@ fbq('track', 'PageView');
     .hero { background: radial-gradient(ellipse 72% 105% at 0% 0%, rgb(22 40 88) 0%, rgb(15 28 64) 28%, rgb(10 19 44) 52%, var(--ground) 82%), var(--ground); }
     .wall, .fallback { left: var(--wall-x); width: calc(100% - var(--wall-x)); }
     .wall-edge { display: block; position: absolute; top: 0; bottom: 0; left: var(--wall-x); width: 4px; margin-left: -2px; background: var(--accent); pointer-events: none; }   /* 4px ("make the blue line thicker"; it was 2px) */
-    /* The wall's plate (Barrett, 2026-09-25: "put on the wall my logo in the upper middle height and centered. Under
-       it, put 3 headlines stack on top of each other with 20px margin between them"). Centred across the wall, with
-       its middle at 40% of the hero's height, and on a navy plate: the pages drifting behind are mostly white, and
-       white words straight on them would not read. The logo is the mark drawn as lines, so it stays sharp at any size. */
-    .wall-values {
-      position: absolute; z-index: 1; top: 0; bottom: 20%; left: var(--wall-x); right: 0;
-      display: flex; align-items: center; justify-content: center; pointer-events: none;
-    }
-    .wall-plate {
-      display: flex; flex-direction: column; align-items: center; text-align: center;
-      padding: clamp(28px, 3vw, 48px) clamp(32px, 3.6vw, 60px);
-      border-radius: 20px; border: 1px solid rgb(255 255 255 / .12);
-      background: rgb(var(--veil) / .88); box-shadow: 0 24px 60px rgb(0 0 0 / .5);
-    }
-    .wall-mark { width: clamp(64px, 5.2vw, 104px); height: auto; margin-bottom: clamp(22px, 2.2vw, 34px); }
-    .wall-mark g { stroke: var(--paper); }
-    .wall-heads { margin: 0; padding: 0; list-style: none; display: grid; gap: 20px; }   /* the 20px between them */
-    .wall-heads li {
-      font-size: clamp(1.6rem, 2.1vw + .4rem, 3rem); font-weight: 640; font-stretch: 108%;
-      line-height: 1; letter-spacing: -.03em; color: var(--paper);
-    }
     .veil { display: none; }
     /* the words end short of the half, on the same left edge as the sections below, and the headline shrinks to fit */
     .hero .copy {
@@ -1371,17 +1349,6 @@ fbq('track', 'PageView');
       <button type="button" class="btn cta cta-alt cta-phone" data-number="(707) 385-5673" title="Copy the number"><span class="cta-phone-text"><small>Text or call</small>(707) 385-5673</span><span class="badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span></button>
     </div>
     <p class="visually-hidden" id="sites"></p>
-  </div>
-  <!-- On the wall, from 1000px: the logo, and three headlines under it (the CSS block "The wall's plate") -->
-  <div class="wall-values">
-    <div class="wall-plate">
-      <svg class="wall-mark" viewBox="8.5 13 175 175" aria-hidden="true"><clipPath id="wv-l"><polygon points="96.5,17 96.5,88.7 166,136 96.5,184 26,136 26,65"/></clipPath><clipPath id="wv-r"><polygon points="96.5,17 166,65 166,136 96.5,88.7"/></clipPath><g fill="none" stroke-width="5.79"><g clip-path="url(#wv-l)"><line x1="-20" y1="99.2" x2="220" y2="-64.0"/><line x1="-20" y1="115.4" x2="220" y2="-47.8"/><line x1="-20" y1="131.5" x2="220" y2="-31.7"/><line x1="-20" y1="147.7" x2="220" y2="-15.5"/><line x1="-20" y1="163.8" x2="220" y2="0.6"/><line x1="-20" y1="180.0" x2="220" y2="16.8"/><line x1="-20" y1="196.1" x2="220" y2="32.9"/><line x1="-20" y1="212.3" x2="220" y2="49.1"/><line x1="-20" y1="228.4" x2="220" y2="65.2"/><line x1="-20" y1="244.6" x2="220" y2="81.4"/><line x1="-20" y1="260.7" x2="220" y2="97.5"/></g><g clip-path="url(#wv-r)"><line x1="-20" y1="-59.2" x2="220" y2="104.0"/><line x1="-20" y1="-43.1" x2="220" y2="120.1"/><line x1="-20" y1="-26.9" x2="220" y2="136.3"/><line x1="-20" y1="-10.8" x2="220" y2="152.4"/><line x1="-20" y1="5.4" x2="220" y2="168.6"/></g></g></svg>
-      <ul class="wall-heads">
-        <li>Craftsmanship</li>
-        <li>Ethics</li>
-        <li>Latest Technology</li>
-      </ul>
-    </div>
   </div>
 </section>
 

@@ -680,14 +680,6 @@ up); else `-960.webp` wherever the longer side of the screen times its pixel rat
   `~/.cache/duna-site-tests/wall_preview.py` builds the preview from the 1440 captures: run it whenever a sample's
   capture changes. `~/.cache/duna-site-tests/wall_timing.js` times the wall (network throttled, fonts blocked; the
   times above are from it, drawing without a graphics card, so a real desktop is quicker).
-- The wall's plate (Barrett, 2026-09-25: "put on the wall my logo in the upper middle height and centered. Under it,
-  put 3 headlines stack on top of each other with 20px margin between them, that say "Craftsmanship", "Ethics",
-  "Latest Technology""): from 1000px, `.wall-values` centres a navy plate (`rgb(var(--veil) / .88)`, 20px corners, a
-  faint white hairline) across the wall with its middle at 40% of the hero's height. On it the mark, drawn as lines
-  from the favicon's geometry so it stays sharp (64-104px wide), and under it the three words as a list, in the
-  headline's face, white, 1.6-3rem, 20px apart. The plate is there because the pages drifting behind are mostly white;
-  the white words keep about 14:1 on it even over a white page. It sits over the wall and takes no pointer events.
-  Phones do not show it: there the wall runs behind the hero's words.
 
 - From 1000px the canvas is the right of the hero, top to bottom, with no wash over it, and meets the black along a
   straight up-and-down line, 4px in the accent blue (`.wall-edge`; 2px until Barrett's "make the blue line thicker",
