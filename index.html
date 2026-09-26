@@ -1195,7 +1195,10 @@ fbq('track', 'PageView');
   .q-offer-rules li { position: relative; padding-left: 22px; }
   .q-offer-rules li::before { content: ""; position: absolute; left: 0; top: .5em; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
   .q-offer-rules strong { color: var(--accent); font-weight: 700; }
-  .q-note { margin: 18px 0 0; font-size: 14px; color: var(--ink-dim); }
+  /* "Remember, you don't pay a dime ...": the size of the paragraphs above and flush left with them, and centred between
+     them and the offer, as much space above it as below (Barrett, 2026-09-25). It had shared .q-note with the note
+     under the chat's input, whose later rule made it 13px, indented 14px and tight to the paragraph above. */
+  .q-remember { margin: 26px 0 0; max-width: 40em; color: var(--ink-dim); }
   .q-panel {
     display: flex; flex-direction: column; overflow: hidden;
     border-radius: 16px; background: #111a33;
@@ -1942,7 +1945,7 @@ fbq('track', 'PageView');
       <h2>Start your questionnaire right here.</h2>
       <p class="q-intro">We know you're busy as a small business owner. Our questionnaire takes 20 minutes which seems long, but we have a perk.</p>
       <p class="q-intro">With every question you submit, you earn points which discount your website. There's no discount limit and they add up fast. At the end of the 20 minutes, you'll be begging for 20 more.</p>
-      <p class="q-note">Remember, you don't pay a dime unless you approve of the website we create for you which is based on your answers to this questionnaire.</p>
+      <p class="q-remember">Remember, you don't pay a dime unless you approve of the website we create for you which is based on your answers to this questionnaire.</p>
       <h3 class="q-offer">Earn big discounts on your website</h3>
       <ul class="q-offer-rules">
         <li>Contact details are <strong>10 pts</strong> each.</li>
